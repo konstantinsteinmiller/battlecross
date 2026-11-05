@@ -99,6 +99,15 @@ export const statsWith = (slot: EquipSlot, id: string | null): UnitStats => {
   return heroStats({ ...heroBuild(), equipped })
 }
 
+/** What a held weapon does for THIS hero (#207): the hit his basic attack lands with it in hand, and the damage a second. */
+export interface WeaponNumbers { hit: number; dps: number }
+export const weaponNumbers = (id: string): WeaponNumbers | null => {
+  if (!ITEM_BY_ID[id]?.weapon) return null
+  const s = statsWith('main', id)
+  const hit = s.baseDmg * s.damageMul
+  return { hit: Math.round(hit), dps: Math.round((hit * s.attackSpeed) / Math.max(0.1, s.atkInterval)) }
+}
+
 /** The hero's stats with these attribute points instead of his own. */
 export const statsWithAttrs = (attrs: AttrBlock): UnitStats => heroStats(heroBuild(attrs))
 

@@ -429,6 +429,49 @@ export default {
       }
     }
   },
+  celebrate: {
+    title: 'As Covas son libres!'
+  },
+  rebels: {
+    toast: {
+      guarded: 'Primeiro vence aos capataces!',
+      freed: 'Os escavadores son libres!'
+    }
+  },
+  assault: {
+    title: 'Cerco á porta das Covas',
+    skipCut: 'Saltar escena',
+    skip: 'Saltar cerco',
+    goal: 'Rompe a porta: derruba as dúas torres',
+    breach: 'A porta está aberta!',
+    towers: '{n} de {total} torres caeron',
+    hint: {
+      levers: 'Tira da panca dunha catapulta, ou métete baixo o ariete e empurra.',
+      idle: 'Achégate a unha panca de catapulta brillante, ou ponte baixo o ariete para empurralo.',
+      push: 'Segue! Preme as teclas de movemento para empurrar o ariete máis rápido.',
+      pushTouch: 'Segue! Move o joystick para empurrar o ariete máis rápido.'
+    },
+    toast: {
+      tower: 'Cae unha torre!',
+      breach: 'A empalizada caeu. Ás Covas!'
+    }
+  },
+  hoard: {
+    title: 'O tesouro do rei',
+    lead: 'Escolle unha peza de equipo para quedar con ela.',
+    best: 'A mellor opción',
+    pick: 'Escolle unha peza',
+    take: 'Coller {item}',
+    open: 'Oco baleiro',
+    over: 'Supera o teu {item}'
+  },
+  arenaUnlock: {
+    title: 'Coliseo desbloqueado!',
+    body: 'Pon a proba a túa habilidade derrotando hordas de monstros.',
+    go: 'Ao Coliseo',
+    woods: 'Ao Bosque dos Murmurios'
+  },
+
   goal: {
     dummy: 'Derruba o boneco de adestramento',
     clear: 'Limpa {place}',
@@ -444,6 +487,7 @@ export default {
     travel: 'Viaxa a {place}',
     decide: 'Toma a túa decisión',
     explore: 'Explora o reino',
+    mara: '{who} coñece o camiño que segue',
     fight: 'Gaña o combate',
     show: 'Móstrame o camiño: {goal}',
     escort: 'Protexe a caravana'
@@ -1662,7 +1706,9 @@ export default {
   weapon: {
     melee: 'Corpo a corpo · escala con {attr}',
     ranged: 'A distancia · escala con {attr}',
-    magic: 'Maxia · escala con {attr}'
+    magic: 'Maxia · escala con {attr}',
+    hit: 'dano por golpe',
+    dps: '{n} por segundo'
   },
   source: {
     'siege': "Gañado no Asedio do Vao do Bastión.",
@@ -4535,7 +4581,8 @@ export default {
       },
       learnSmith: {
         '1': 'Ferraría? Comeza aquí mesmo: un pico e unha rocha que brilla.',
-        '2': 'Extrae o mineral e despois malla o no teu equipamento nunha forxa. Tres boas pancadas. Veña, proba.'
+        '2': 'Extrae o mineral e despois malla o no teu equipamento nunha forxa. Tres boas pancadas. Veña, proba.',
+        '3': 'Toma, tres pepitas de ferro, convida a casa. Xusto para unha espada.'
       },
       forge: {
         '1': 'Usa a miña engra. Coidado cos dedos.'
@@ -4787,6 +4834,7 @@ export default {
       topics: 'Que dis?',
       gotGold: 'Recibiches {n} de ouro',
       gotItem: 'Recibiches: {item}',
+      gotOre: 'Recibiches: {n} × {ore}',
       hint: 'Marcado no mapa: {zone}',
       needs: {
         attr: 'Fai falta {n} de {attr}',
@@ -6118,17 +6166,20 @@ export default {
         slay: {
           '1': 'O Rei Trasno cae, e as Covas quedan baleiras.',
           '2': 'Sunford dorme máis tranquila, e a Orde de Ferro oe o teu nome.',
-          say: 'Ningún trato. Os vosos ataques acaban aquí.'
+          say: 'Ningún trato. Os vosos ataques acaban aquí.',
+          3: 'Dicídelle a Tusker... que sempre foi o mellor rei.'
         },
         pact: {
           '1': 'Comercio. Si. Xúroo, pola miña coroa.',
           '2': 'Mercadores trasnos instálanse na praza de Sunford e venden cousas que ningún ferreiro de alí sabería facer.',
-          say: 'Parade os ataques e comerciade con Sunford. Xúrao.'
+          say: 'Parade os ataques e comerciade con Sunford. Xúrao.',
+          3: 'E Tusker mantén a súa propia cadeira na mesa. Non é negociable.'
         },
         ransom: {
           '1': 'Todo? ...Está ben. Colle o que queiras, e vaite.',
           '2': 'Vas con ouro trasno. Os ataques volverán, pero o Sindicato aprobao.',
-          say: 'Dáme o teu tesouro e poderás quedar coa coroa.'
+          say: 'Dáme o teu tesouro e poderás quedar coa coroa.',
+          3: 'Leva o ouro. Pero a sela queda. A Tusker gústalle a sela.'
         }
       },
       siege: {
@@ -6349,7 +6400,23 @@ export default {
           '1': 'Benditas sexan as túas botas! Son Odo Marrow, quincalleiro. Búscame en Sunford, terei mercadoría para ti.'
         }
       },
+      rebelGoblin: {
+        down: { '1': 'Abaixo o rei!' },
+        nomore: { '1': 'Sen rei!' },
+        free: { '1': 'Pola liberdade!' }
+      },
+      rebelGnome: {
+        down: { '1': 'Abaixo o rei!' },
+        nomore: { '1': 'Sen rei!' },
+        free: { '1': 'Pola liberdade!' }
+      },
       goblinKing: {
+        intro: {
+          '1': 'Ninguén lle toca un pelo a Tusker! Acaba de bañarse!'
+        },
+        dazed: {
+          '1': 'Tusker? Pestanexa dúas veces se me escoitas!'
+        },
         charge: {
           '1': 'Arrasádeos, Tusker!'
         },

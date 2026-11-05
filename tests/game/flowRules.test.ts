@@ -103,6 +103,7 @@ describe('the end of a visit', () => {
   it('the finale of a quest zone brings its decision — once', async () => {
     await f.bankVisit('victory', 'hollows', tally())
     expect(f.flow.quest).toBe('goblinKing')
+    p.markTip('hollowsParty')
     p.decideQuest('goblinKing', 'slay')
     f.flow.quest = ''
     await f.bankVisit('victory', 'hollows', tally())
@@ -168,6 +169,7 @@ describe('Continue on the result screen', () => {
     await f.leaveResults()
     expect(f.flow.talk).toBe('decision')
     expect(ads.shown).toBe(0)
+    p.markTip('hollowsParty')
     p.decideQuest('goblinKing', 'slay')
     f.afterVisit()
 
@@ -183,8 +185,10 @@ describe('Continue on the result screen', () => {
     // The decision is a conversation over the scene (D37), not a window.
     expect(f.flow.modal).toBe('')
     expect(f.flow.talk).toBe('decision')
+    p.markTip('hollowsParty')
     p.decideQuest('goblinKing', 'slay')
     f.afterVisit()
+    if (f.flow.modal === 'arenaUnlock') f.closeArenaUnlock('map')
     expect(f.flow.screen).toBe('map')
 
     p.decideQuest('throne', 'shatter')

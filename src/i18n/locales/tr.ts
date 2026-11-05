@@ -428,6 +428,49 @@ export default {
       }
     }
   },
+  celebrate: {
+    title: 'Mağaralar özgür!'
+  },
+  rebels: {
+    toast: {
+      guarded: 'Önce gözetmenleri yen!',
+      freed: 'Kazıcılar özgür!'
+    }
+  },
+  assault: {
+    title: 'Mağaraların kapısının kuşatması',
+    skipCut: 'Sahneyi atla',
+    skip: 'Kuşatmayı atla',
+    goal: 'Kapıyı kır: iki kuleyi de yık',
+    breach: 'Kapı açık!',
+    towers: '{total} kuleden {n} tanesi yıkıldı',
+    hint: {
+      levers: 'Bir mancınığın koluna asıl ya da koçbaşının altına girip it.',
+      idle: 'Parlayan bir mancınık koluna yaklaş ya da itmek için koçbaşının altında dur.',
+      push: 'Devam et! Koçbaşını daha hızlı itmek için hareket tuşlarına bas.',
+      pushTouch: 'Devam et! Koçbaşını daha hızlı itmek için çubuğu oynat.'
+    },
+    toast: {
+      tower: 'Bir kule yıkılıyor!',
+      breach: 'Çit yıkıldı. Mağaralara!'
+    }
+  },
+  hoard: {
+    title: 'Kralın hazinesi',
+    lead: 'Saklamak için tek bir ekipman seç.',
+    best: 'En uygunu',
+    pick: 'Bir parça seç',
+    take: '{item} al',
+    open: 'Boş yuva',
+    over: '{item} parçasından üstün'
+  },
+  arenaUnlock: {
+    title: 'Kolezyum açıldı!',
+    body: 'Canavar sürülerini yenerek becerini sına.',
+    go: 'Kolezyum\'a',
+    woods: 'Fısıldayan Orman\'a'
+  },
+
   goal: {
     dummy: 'Talim mankenini devir',
     clear: 'Temizle: {place}',
@@ -443,6 +486,7 @@ export default {
     travel: 'Seyahat et: {place}',
     decide: 'Seçimini yap',
     explore: 'Diyarı keşfet',
+    mara: '{who} ileriki yolu biliyor',
     fight: 'Dövüşü kazan',
     show: 'Yolu göster: {goal}',
     escort: 'Kervanı koru'
@@ -1661,7 +1705,9 @@ export default {
   weapon: {
     melee: 'Yakın dövüş · {attr} ile artar',
     ranged: 'Menzilli · {attr} ile artar',
-    magic: 'Büyü · {attr} ile artar'
+    magic: 'Büyü · {attr} ile artar',
+    hit: 'vuruş başına hasar',
+    dps: 'saniyede {n}'
   },
   source: {
     'siege': "Burç Geçidi Kuşatması'nda kazanıldı.",
@@ -4525,7 +4571,8 @@ export default {
       },
       learnSmith: {
         '1': 'Demircilik mi? Tam burada başlar: bir kazma ve parıldayan bir kaya.',
-        '2': 'Cevheri çıkar, sonra bir demirhanede ekipmanına döv. Üç sağlam darbe. Hadi, dene.'
+        '2': 'Cevheri çıkar, sonra bir demirhanede ekipmanına döv. Üç sağlam darbe. Hadi, dene.',
+        '3': 'Al, üç parça demir, benden. Bir kılıca yeter.'
       },
       forge: {
         '1': 'Örsümü ödünç al. Parmaklarına dikkat.'
@@ -4773,6 +4820,7 @@ export default {
       topics: 'Ne söylersin',
       gotGold: '{n} altın aldın',
       gotItem: 'Aldın: {item}',
+      gotOre: 'Aldın: {n} × {ore}',
       hint: 'Haritanda işaretlendi: {zone}',
       needs: {
         attr: '{n} {attr} gerekir',
@@ -6071,17 +6119,20 @@ export default {
         slay: {
           '1': 'Goblin Kralı düşer, Oyuklar boşalır.',
           '2': 'Sunford daha rahat uyur, Demir Tarikatı adını duyar.',
-          say: 'Anlaşma yok. Baskınlarınız burada biter.'
+          say: 'Anlaşma yok. Baskınlarınız burada biter.',
+          3: 'Tusker\'a söyleyin... her zaman daha iyi kral oydu.'
         },
         pact: {
           '1': 'Ticaret. Evet. Tacıma yemin ederim.',
           '2': 'Goblin tüccarlar Sunford meydanına yerleşir, oradaki hiçbir demircinin yapamayacağı şeyler satar.',
-          say: 'Baskınları durdur, onun yerine Sunford\'la ticaret yap. Yemin et.'
+          say: 'Baskınları durdur, onun yerine Sunford\'la ticaret yap. Yemin et.',
+          3: 'Ve Tusker masada kendi sandalyesini tutar. Pazarlığa açık değil.'
         },
         ransom: {
           '1': 'Hepsini mi? ...Peki. Al, ve git.',
           '2': 'Goblin altınıyla ayrılırsın. Baskınlar yine başlar, ama Sendika onaylar.',
-          say: 'Hazineni ver, tacını elinde tutabilirsin.'
+          say: 'Hazineni ver, tacını elinde tutabilirsin.',
+          3: 'Altını al. Ama eyer kalır. Tusker eyeri sever.'
         }
       },
       siege: {
@@ -6299,7 +6350,23 @@ export default {
           '1': 'Çizmelerin kutlu olsun! Ben Odo Marrow, çerçi. Beni Sunford’da bul, sana mallarım olacak.'
         }
       },
+      rebelGoblin: {
+        down: { '1': 'Kahrolsun kral!' },
+        nomore: { '1': 'Kral istemiyoruz!' },
+        free: { '1': 'Özgürlük için!' }
+      },
+      rebelGnome: {
+        down: { '1': 'Kahrolsun kral!' },
+        nomore: { '1': 'Kral istemiyoruz!' },
+        free: { '1': 'Özgürlük için!' }
+      },
       goblinKing: {
+        intro: {
+          '1': 'Kimse Tusker\'ı tırmalayamaz! Daha yeni banyo yaptı!'
+        },
+        dazed: {
+          '1': 'Tusker? Beni duyuyorsan iki kez göz kırp!'
+        },
         charge: {
           '1': 'Ez geç onları, Tusker!'
         },

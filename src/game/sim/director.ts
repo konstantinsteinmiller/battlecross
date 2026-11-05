@@ -14,6 +14,7 @@ import { SIDE_GROUP, type Sim } from './world'
 import { populateHerbs } from './herbs'
 import { populateOres } from './ores'
 import { populateCage } from './cages'
+import { populateRebels } from './rebels'
 import { populateCamp } from './camp'
 import { spawnCaravan, stepCaravan } from './caravan'
 import { populateInvasion, stepInvasion } from './invasion'
@@ -96,6 +97,8 @@ export const populateZone = (sim: Sim, plan: ZonePlan, zone: ZoneId, owned: Iter
   // The first visit's camp holds the teachers (#156); elsewhere a cage holds its captive.
   if (plan.camp) populateCamp(sim, plan.camp, plan.cageKey)
   else populateCage(sim, plan.cageKey, plan.start)
+  // The Hollows' chain gang (#205), while the King lives.
+  populateRebels(sim, plan.rebels)
   // The first visit's palisade gate and its key (`gate.ts`).
   sim.gate = armGate(plan.gate, plan.gate ? plan.packs[plan.gate.pack] : undefined, sim.grid)
   // An invaded zone (the afterplay): its pylons and rift scars.

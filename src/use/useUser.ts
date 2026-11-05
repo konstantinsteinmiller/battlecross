@@ -84,7 +84,7 @@ export const DEFAULT_SOUND_VOLUME = 0.7
 /** Music starts BELOW the effects for a first-time player: at 0.6 the score sat
  *  on top of the game, and loud music is the first thing a new player mutes.
  *  Only a fresh install sees this — a saved slider value wins. */
-export const DEFAULT_MUSIC_VOLUME = 0.4
+export const DEFAULT_MUSIC_VOLUME = 0.24
 
 const userSoundVolume: Ref<number> = ref(readNumber(SOUND_KEY, DEFAULT_SOUND_VOLUME))
 const userMusicVolume: Ref<number> = ref(readNumber(MUSIC_KEY, DEFAULT_MUSIC_VOLUME))

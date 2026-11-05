@@ -21,6 +21,8 @@
   EndingModal(v-else-if="flow.modal === 'ending'")
   UnlockModal(v-else-if="flow.modal === 'unlock'")
   CampPick(v-else-if="flow.modal === 'campPick'")
+  ArenaUnlockModal(v-else-if="flow.modal === 'arenaUnlock'")
+  KingHoardModal(v-else-if="flow.modal === 'kingHoard'")
 </template>
 
 <script setup lang="ts">
@@ -56,6 +58,8 @@ import HelpModal from './HelpModal.vue'
 import EndingModal from './EndingModal.vue'
 import UnlockModal from './UnlockModal.vue'
 import CampPick from './CampPick.vue'
+import ArenaUnlockModal from './ArenaUnlockModal.vue'
+import KingHoardModal from './KingHoardModal.vue'
 
 const emit = defineEmits<{ (e: 'options'): void }>()
 </script>

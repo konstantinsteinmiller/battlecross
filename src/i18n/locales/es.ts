@@ -429,6 +429,49 @@ export default {
       }
     }
   },
+  celebrate: {
+    title: '¡Las Cuevas son libres!'
+  },
+  rebels: {
+    toast: {
+      guarded: '¡Derrota primero a los capataces!',
+      freed: '¡Los excavadores son libres!'
+    }
+  },
+  assault: {
+    title: 'Asedio a la puerta de las Cuevas',
+    skipCut: 'Saltar escena',
+    skip: 'Saltar asedio',
+    goal: 'Rompe la puerta: derriba las dos torres',
+    breach: '¡La puerta está abierta!',
+    towers: '{n} de {total} torres caídas',
+    hint: {
+      levers: 'Tira de la palanca de una catapulta, o métete bajo el ariete y empuja.',
+      idle: 'Acércate a una palanca de catapulta brillante, o ponte bajo el ariete para empujarlo.',
+      push: '¡Sigue! Pulsa las teclas de movimiento para empujar el ariete más rápido.',
+      pushTouch: '¡Sigue! Mueve el joystick para empujar el ariete más rápido.'
+    },
+    toast: {
+      tower: '¡Cae una torre!',
+      breach: 'La empalizada ha caído. ¡A las Cuevas!'
+    }
+  },
+  hoard: {
+    title: 'El tesoro del rey',
+    lead: 'Elige una pieza de equipo para quedártela.',
+    best: 'La mejor opción',
+    pick: 'Elige una pieza',
+    take: 'Coger {item}',
+    open: 'Hueco vacío',
+    over: 'Supera a tu {item}'
+  },
+  arenaUnlock: {
+    title: '¡Coliseo desbloqueado!',
+    body: 'Pon a prueba tu habilidad derrotando hordas de monstruos.',
+    go: 'Al Coliseo',
+    woods: 'Al Bosque Susurrante'
+  },
+
   goal: {
     dummy: 'Derriba el muñeco de entrenamiento',
     clear: 'Despeja {place}',
@@ -444,6 +487,7 @@ export default {
     travel: 'Viaja a {place}',
     decide: 'Toma tu decisión',
     explore: 'Explora el reino',
+    mara: '{who} conoce el camino que sigue',
     fight: 'Gana el combate',
     show: 'Muéstrame el camino: {goal}',
     escort: 'Protege la caravana'
@@ -1662,7 +1706,9 @@ export default {
   weapon: {
     melee: 'Cuerpo a cuerpo · escala con {attr}',
     ranged: 'A distancia · escala con {attr}',
-    magic: 'Magia · escala con {attr}'
+    magic: 'Magia · escala con {attr}',
+    hit: 'daño por golpe',
+    dps: '{n} por segundo'
   },
   source: {
     'siege': "Ganado en el Asedio del Paso del Bastión.",
@@ -4541,7 +4587,8 @@ export default {
       },
       learnSmith: {
         '1': '¿Herrería? Empieza aquí mismo: un pico y una roca que brilla.',
-        '2': 'Extrae el mineral y luego fórjalo en tu equipo en una fragua. Tres buenos golpes. Venga, pruébalo.'
+        '2': 'Extrae el mineral y luego fórjalo en tu equipo en una fragua. Tres buenos golpes. Venga, pruébalo.',
+        '3': 'Toma, tres pepitas de hierro, invita la casa. Las justas para una espada.'
       },
       forge: {
         '1': 'Usa mi yunque. Cuidado con los dedos.'
@@ -4792,6 +4839,7 @@ export default {
       topics: '¿Qué decir?',
       gotGold: 'Recibido: {n} de oro',
       gotItem: 'Recibido: {item}',
+      gotOre: 'Recibido: {n} × {ore}',
       hint: 'Marcado en tu mapa: {zone}',
       needs: {
         attr: 'Requiere {n} de {attr}',
@@ -6120,17 +6168,20 @@ export default {
         slay: {
           '1': 'El Rey Goblin cae, y las Hondonadas se vacían.',
           '2': 'Sunford duerme más tranquilo, y la Orden de Hierro oye tu nombre.',
-          say: 'Nada de tratos. Tus incursiones acaban aquí.'
+          say: 'Nada de tratos. Tus incursiones acaban aquí.',
+          3: 'Decidle a Tusker... que siempre fue el mejor rey.'
         },
         pact: {
           '1': 'Comercio. Sí. Lo juro, por mi corona.',
           '2': 'Comerciantes goblin se instalan en la plaza de Sunford y venden lo que ningún herrero de allí sabría hacer.',
-          say: 'Detén las incursiones y comercia con Sunford. Júralo.'
+          say: 'Detén las incursiones y comercia con Sunford. Júralo.',
+          3: 'Y Tusker conserva su propia silla en la mesa. No es negociable.'
         },
         ransom: {
           '1': '¿Todo? ...Está bien. Tómalo y vete.',
           '2': 'Te vas con oro goblin. Las incursiones volverán a empezar, pero el Sindicato lo aprueba.',
-          say: 'Dame tu tesoro y puedes quedarte con la corona.'
+          say: 'Dame tu tesoro y puedes quedarte con la corona.',
+          3: 'Llévate el oro. Pero la silla de montar se queda. A Tusker le gusta.'
         }
       },
       siege: {
@@ -6349,7 +6400,23 @@ export default {
           '1': '¡Benditas sean tus botas! Odo Marrow, buhonero. Búscame en Sunford, tendré mercancía para ti.'
         }
       },
+      rebelGoblin: {
+        down: { '1': '¡Abajo el rey!' },
+        nomore: { '1': '¡Ningún rey más, nunca más!' },
+        free: { '1': '¡Por la libertad!' }
+      },
+      rebelGnome: {
+        down: { '1': '¡Abajo el rey!' },
+        nomore: { '1': '¡Ningún rey más, nunca más!' },
+        free: { '1': '¡Por la libertad!' }
+      },
       goblinKing: {
+        intro: {
+          '1': '¡Nadie le toca un pelo a Tusker! ¡Acaba de bañarse!'
+        },
+        dazed: {
+          '1': '¿Tusker? ¡Parpadea dos veces si me oyes!'
+        },
         charge: {
           '1': '¡Arrolla, Tusker!'
         },

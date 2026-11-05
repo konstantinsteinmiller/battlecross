@@ -199,7 +199,7 @@ const nudgeCands = (): Array<NudgeCand & { sel: string; place: string }> => {
     if (g?.id === 'points') add('bounce:hero', 'bounce', '[data-coach="menu-character"]')
     if (g?.id === 'leave') add('bounce:map', 'bounce', '[data-coach="menu-map"]')
   } else if (flow.screen === 'map') {
-    if (g?.id === 'travel' && g.place) add(`mapWay:${g.place}`, 'mapWay', `.node[data-node="${g.place}"] .node__art`, g.place)
+    if ((g?.id === 'travel' || g?.id === 'mara') && g.place) add(`mapWay:${g.place}`, 'mapWay', `.node[data-node="${g.place}"] .node__art`, g.place)
   }
   // An upgrade in the bag is worth a hop, but only once the goal's own cues
   // have had their say (or there are none): the goal comes first.

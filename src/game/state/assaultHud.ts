@@ -1,0 +1,25 @@
+import { reactive } from 'vue'
+
+/**
+ * ─── The besieged gate's HUD mirror (roadmap #204) ───────────────────────────
+ *
+ * What `AssaultHud.vue` shows, written by the live scene at the HUD's rate and only where it
+ * changed. `active` is false outside the siege of the Hollows' gate.
+ */
+export const assaultHud = reactive({
+  active: false,
+  /** 'panorama' (the cutscene), 'play', 'breach'. */
+  phase: 'play' as 'panorama' | 'play' | 'breach',
+  /** Towers still standing, of two. */
+  towers: 2,
+  /** What the player needs to hear: the two ways, the ram being pushed, or the idle reminder. */
+  hint: '' as '' | 'levers' | 'pushing' | 'idle',
+  /** The cutscene's progress, 0..1. */
+  cut01: 0
+})
+
+/** The scene's hands for the HUD's buttons (set while the siege is the live scene). */
+export const assaultActions = {
+  skipCut: (): void => {},
+  skipSiege: (): void => {}
+}

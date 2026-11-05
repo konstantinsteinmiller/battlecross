@@ -9,10 +9,13 @@ import { stepDirector } from './director'
 import { stepHero } from './hero'
 import { finishOpen } from './interact'
 import { finishMine } from './ores'
-import { stepPickups } from './herbs'
+import { stepPickups, stepPieceDrop } from './herbs'
 import { holdCaged, stepCaptives } from './cages'
 import { stepCamp, stepHelp } from './camp'
 import { stepGate } from './gate'
+import { stepAssault } from './assault'
+import { stepRebels } from './rebels'
+import { stepCelebration } from './celebrate'
 import { HERO_SKILLS } from './heroSkills'
 import { townSimReady } from './townHooks'
 import type { ZonePlan } from './zoneGen'
@@ -65,10 +68,22 @@ export const stepSim = (sim: Sim, plan: ZonePlan, dt: number): void => {
   }
   sim.runTimers()
   sim.stepDangers()
+  // The panorama of the besieged gate (#204): the hero stands still while the camera has the scene.
+  if (sim.assault?.phase === 'panorama' || sim.celebrate) {
+    sim.hero.stickX = sim.hero.stickZ = 0
+    sim.hero.order = { kind: 'none', targetId: 0, x: sim.hero.unit.x, z: sim.hero.unit.z }
+  }
   if (!sim.ended || sim.ended === 'victory') stepHero(sim, dt)
   // What the hero walks over is his: herbs (#88), map pieces (#89).
+  stepPieceDrop(sim, dt)
   stepPickups(sim)
   if (sim.gate) stepGate(sim, dt)
+  // The besieged gate before the Hollows (#204): the catapults, the ram, the storming rebels.
+  if (sim.assault) stepAssault(sim, dt)
+  // The Hollows' chain gang (#205): the chains, the freed gnomes that ran, the King's stampedes.
+  if (sim.rebels) stepRebels(sim, dt)
+  // The celebration after the King (#206): the crowd round the fire.
+  if (sim.celebrate) stepCelebration(sim, dt)
   // A cage's freed people (#100): out, a word, and off home.
   if (sim.captives.length) stepCaptives(sim, dt)
   // The first visit's camp (#156): the road teacher walks over once the boss is down.

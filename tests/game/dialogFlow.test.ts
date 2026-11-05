@@ -187,6 +187,7 @@ describe('talking to a townsperson', () => {
     k.talkLeave()
     hear()
 
+    p.markTip('hollowsParty')
     expect(p.decideQuest('goblinKing', 'slay')).toBe(true)
     expect(k.npcPin(f.npcById('elderMara')!).kind).toBe('talk')
     f.talkTo('elderMara')
@@ -297,6 +298,7 @@ describe('a quest decision', () => {
     // The Charisma option stays shut.
     expect(k.talkPick('pact')).toBe(false)
     expect(p.profile.quests.done.goblinKing).toBeUndefined()
+    p.markTip('hollowsParty')
 
     expect(k.talkPick('slay')).toBe(true)
     expect(p.profile.quests.done.goblinKing).toBe('slay')
@@ -311,17 +313,21 @@ describe('a quest decision', () => {
     expect(p.decideQuest('goblinKing', 'ransom')).toBe(false)
 
     expect(f.flow.screen).not.toBe('map')
-    expect(hear()).toEqual(['dlg.quest.goblinKing.slay.say', 'dlg.quest.goblinKing.slay.1', 'dlg.quest.goblinKing.slay.2'])
+    expect(hear()).toEqual(['dlg.quest.goblinKing.slay.say', 'dlg.quest.goblinKing.slay.1', 'dlg.quest.goblinKing.slay.2', 'dlg.quest.goblinKing.slay.3'])
     expect(f.flow.talk).toBe('')
     expect(f.flow.quest).toBe('')
+    if (f.flow.modal === 'arenaUnlock') f.closeArenaUnlock('map')
     expect(f.flow.screen).toBe('map')
   })
 
   it('a decided quest brings no second decision; the throne leads to the ending', async () => {
+    p.markTip('hollowsParty')
     p.decideQuest('goblinKing', 'slay')
     f.flow.quest = 'goblinKing'
     f.flow.modal = 'results'
     await f.leaveResults()
+    if (f.flow.modal === 'arenaUnlock') f.closeArenaUnlock('map')
+    expect(f.flow.screen).toBe('map')
     expect(f.flow.talk).toBe('')
     expect(f.flow.screen).toBe('map')
 

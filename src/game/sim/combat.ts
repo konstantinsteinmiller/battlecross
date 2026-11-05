@@ -13,6 +13,7 @@ import { HARD_CC, isPhysical, type DamageType, type Status, type StatusId, type 
 import { atPeace, findStatus, hasStatus, outOfReach, statusV, type Sim } from './world'
 import { bossHurt } from './bosses/hooks'
 import { noteBossHit } from './pressure'
+import { REBEL_KIND, rebelHurt } from './rebelHurt'
 import { afterBossSpoils, demonGlass, dropsInfernal, relicDefence, relicOffence, relicSteal } from './relics'
 import { BOSS_VS_MINION_MUL, ELITE_VS_MINION_MUL, INVADED_DROP_MUL, MINION_DAMAGE_MUL, SPIRIT_DAMAGE_TAKEN_MUL } from '../data/relics'
 
@@ -410,6 +411,8 @@ export const dealDamage = (sim: Sim, src: Unit | null, tgt: Unit, base: number, 
   }
   // A scripted boss may share the blow out first (the Hydra's heads).
   if (tgt.boss) left = bossHurt(sim, tgt, left, o.type)
+  // A freed gnome (#205) cannot be killed: it keeps nine tenths of a tenth and runs.
+  if (tgt.kind === REBEL_KIND && tgt.team === 0) left = rebelHurt(sim, tgt, left)
   const before = tgt.hp
   tgt.hp -= left
   if (toHero) {

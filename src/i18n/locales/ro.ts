@@ -428,6 +428,49 @@ export default {
       }
     }
   },
+  celebrate: {
+    title: 'Peșterile sunt libere!'
+  },
+  rebels: {
+    toast: {
+      guarded: 'Învinge mai întâi supraveghetorii!',
+      freed: 'Săpătorii sunt liberi!'
+    }
+  },
+  assault: {
+    title: 'Asediul porții Peșterilor',
+    skipCut: 'Sari peste scenă',
+    skip: 'Sari peste asediu',
+    goal: 'Sparge poarta: dărâmă ambele turnuri',
+    breach: 'Poarta e deschisă!',
+    towers: '{n} din {total} turnuri au căzut',
+    hint: {
+      levers: 'Trage de maneta unei catapulte sau intră sub berbec și împinge.',
+      idle: 'Apropie-te de o manetă de catapultă strălucitoare sau stai sub berbec ca să-l împingi.',
+      push: 'Continuă! Apasă tastele de mișcare ca să împingi berbecul mai repede.',
+      pushTouch: 'Continuă! Mișcă stickul ca să împingi berbecul mai repede.'
+    },
+    toast: {
+      tower: 'Un turn cade!',
+      breach: 'Palisada a căzut. În Peșteri!'
+    }
+  },
+  hoard: {
+    title: 'Comoara regelui',
+    lead: 'Alege o piesă de echipament pe care s-o păstrezi.',
+    best: 'Cea mai potrivită',
+    pick: 'Alege o piesă',
+    take: 'Ia {item}',
+    open: 'Slot gol',
+    over: 'Mai bun decât {item}'
+  },
+  arenaUnlock: {
+    title: 'Colosseum deblocat!',
+    body: 'Pune-ți abilitatea la încercare învingând hoarde de monștri.',
+    go: 'Către Colosseum',
+    woods: 'În Pădurea Șoaptelor'
+  },
+
   goal: {
     dummy: 'Doboară manechinul de antrenament',
     clear: 'Curăță {place}',
@@ -443,6 +486,7 @@ export default {
     travel: 'Călătorește la {place}',
     decide: 'Ia-ți decizia',
     explore: 'Explorează regatul',
+    mara: '{who} cunoaște drumul mai departe',
     fight: 'Câștigă lupta',
     show: 'Arată-mi drumul: {goal}',
     escort: 'Păzește caravana'
@@ -1661,7 +1705,9 @@ export default {
   weapon: {
     melee: 'Corp la corp · crește cu {attr}',
     ranged: 'La distanță · crește cu {attr}',
-    magic: 'Magie · crește cu {attr}'
+    magic: 'Magie · crește cu {attr}',
+    hit: 'daune pe lovitură',
+    dps: '{n} pe secundă'
   },
   source: {
     'siege': "Câștigat în Asediul Vadului Bastionului.",
@@ -4531,7 +4577,8 @@ export default {
       },
       learnSmith: {
         '1': 'Fierărie? Începe chiar aici: un târnăcop și o stâncă ce sclipește.',
-        '2': 'Scoate minereul, apoi bate-l în echipamentul tău la o forjă. Trei lovituri bune. Hai, încearcă.'
+        '2': 'Scoate minereul, apoi bate-l în echipamentul tău la o forjă. Trei lovituri bune. Hai, încearcă.',
+        '3': 'Ia trei bucăți de fier, din partea casei. Taman cât să iasă o sabie.'
       },
       forge: {
         '1': 'Împrumută-mi nicovala. Ai grijă la degete.'
@@ -4779,6 +4826,7 @@ export default {
       topics: 'Ce spui?',
       gotGold: 'Ai primit {n} aur',
       gotItem: 'Ai primit: {item}',
+      gotOre: 'Ai primit: {n} × {ore}',
       hint: 'Marcat pe hartă: {zone}',
       needs: {
         attr: 'Necesită {n} {attr}',
@@ -6109,17 +6157,20 @@ export default {
         slay: {
           '1': 'Regele Goblin cade, și Văgăunile se golesc.',
           '2': 'Sunford doarme mai liniștit, iar Ordinul de Fier îți aude numele.',
-          say: 'Fără înțelegeri. Raidurile tale se termină aici.'
+          say: 'Fără înțelegeri. Raidurile tale se termină aici.',
+          3: 'Spuneți-i lui Tusker... că a fost mereu regele mai bun.'
         },
         pact: {
           '1': 'Comerț. Da. Jur, pe coroana mea.',
           '2': 'Negustori goblini își deschid tarabe în piața din Sunford, vânzând lucruri pe care niciun fierar de acolo nu le-ar putea face.',
-          say: 'Oprește raidurile și fă negoț cu Sunford. Jură.'
+          say: 'Oprește raidurile și fă negoț cu Sunford. Jură.',
+          3: 'Iar Tusker își păstrează propriul scaun la masă. Nu se negociază.'
         },
         ransom: {
           '1': 'Tot? ...Bine. Ia-l și pleacă.',
           '2': 'Pleci cu aurul goblinilor. Raidurile vor începe iar, dar Sindicatul aprobă.',
-          say: 'Dă-mi comoara și îți poți păstra coroana.'
+          say: 'Dă-mi comoara și îți poți păstra coroana.',
+          3: 'Ia aurul. Dar șaua rămâne. Lui Tusker îi place șaua.'
         }
       },
       siege: {
@@ -6341,7 +6392,23 @@ export default {
           '1': 'Binecuvântate să-ți fie cizmele! Odo Marrow, negustor ambulant. Caută-mă în Sunford, voi avea marfă pentru tine.'
         }
       },
+      rebelGoblin: {
+        down: { '1': 'Jos regele!' },
+        nomore: { '1': 'Fără rege!' },
+        free: { '1': 'Pentru libertate!' }
+      },
+      rebelGnome: {
+        down: { '1': 'Jos regele!' },
+        nomore: { '1': 'Fără rege!' },
+        free: { '1': 'Pentru libertate!' }
+      },
       goblinKing: {
+        intro: {
+          '1': 'Nimeni nu-l zgârie pe Tusker! Tocmai a făcut baie!'
+        },
+        dazed: {
+          '1': 'Tusker? Clipește de două ori dacă mă auzi!'
+        },
         charge: {
           '1': 'Strivește-i, Tusker!'
         },

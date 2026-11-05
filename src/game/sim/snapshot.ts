@@ -7,6 +7,7 @@ import type {
 import type { HerbState, PieceState } from './herbs'
 import type { OreState } from './ores'
 import type { CageKeyState, CaptiveState } from './cages'
+import type { RebelState } from './rebels'
 import type { CaravanState } from './caravan'
 import type { GateState } from './gate'
 import type { CampState } from './camp'
@@ -82,6 +83,8 @@ export interface SimSnapshot {
   /** The first visit's palisade gate (#194). */
   gate?: GateState | null
   captives?: CaptiveState[]
+  /** The Hollows' chain gang (#205). */
+  rebels?: RebelState | null
   /** The first visit's camp (#156). */
   camp?: CampState | null
   pieces: PieceState[]
@@ -158,6 +161,7 @@ export const snapshotSim = (sim: Sim, base: SimBaseline): SimSnapshot => {
     cageKey: plain(sim.cageKey),
     gate: plain(sim.gate),
     captives: plain(sim.captives),
+    rebels: plain(sim.rebels),
     camp: plain(sim.camp),
     pieces: plain(sim.pieces),
     caravan: plain(sim.caravan),
@@ -212,6 +216,7 @@ export const restoreSim = (sim: Sim, base: SimBaseline, s: SimSnapshot): boolean
   if (s.cageKey !== undefined) sim.cageKey = plain(s.cageKey)
   if (s.gate !== undefined) sim.gate = plain(s.gate)
   if (s.captives) sim.captives = plain(s.captives)
+  if (s.rebels !== undefined) sim.rebels = plain(s.rebels)
   if (s.camp !== undefined) sim.camp = plain(s.camp)
   sim.pieces = plain(s.pieces)
   sim.caravan = plain(s.caravan)

@@ -231,6 +231,8 @@ export const makeRigView = (u: Unit, heroLook?: Look): RigView => {
     color = heroLook.glow ?? '#7ff4ff'
   } else if (u.rank === 'npc') {
     spec = humanoid(LOOKS[u.kind] ?? LOOKS.peddler!)
+    // A digger of the chain gang (#205) is a small one, chained or running.
+    scale = NPC_SCALE[u.kind] ?? MINIONS[u.kind]?.scale ?? 1
   } else if (u.kind === 'caravan') {
     // The escort's cart (#85).
     spec = { key: 'cart', family: 'cart', build: buildCart, float: 0, held: 'none', ghost: false }
@@ -350,6 +352,9 @@ export const makeRigView = (u: Unit, heroLook?: Look): RigView => {
     lastZ: NaN
   }
 }
+
+/** Small folk that are scene pieces (npc rank, drawn at their own size): the celebration's goblins (#206); the chain gang's gnomes (#205) take the minion table's. */
+const NPC_SCALE: Readonly<Record<string, number>> = { celebGoblin: 0.85 }
 
 /** Build the templates a zone will need, one per call (the loader slices it). */
 export const prewarmKinds = (kinds: Iterable<string>): Array<() => void> => {

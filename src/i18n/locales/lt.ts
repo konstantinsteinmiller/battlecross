@@ -428,6 +428,49 @@ export default {
       }
     }
   },
+  celebrate: {
+    title: 'Urvai laisvi!'
+  },
+  rebels: {
+    toast: {
+      guarded: 'Pirmiausia nugalėk prižiūrėtojus!',
+      freed: 'Kasėjai laisvi!'
+    }
+  },
+  assault: {
+    title: 'Urvų vartų apgultis',
+    skipCut: 'Praleisti sceną',
+    skip: 'Praleisti apgultį',
+    goal: 'Išlaužk vartus: sugriauk abu bokštus',
+    breach: 'Vartai atviri!',
+    towers: 'Nugriauta {n} iš {total} bokštų',
+    hint: {
+      levers: 'Patrauk katapultos svirtį arba lįsk po tarano ir stumk.',
+      idle: 'Prieik prie švytinčios katapultos svirties arba atsistok po taranu jį stumti.',
+      push: 'Tęsk! Spaudyk judėjimo klavišus, kad taraną stumtum greičiau.',
+      pushTouch: 'Tęsk! Judink nykščio lazdelę, kad taraną stumtum greičiau.'
+    },
+    toast: {
+      tower: 'Bokštas griūva!',
+      breach: 'Palisadas nugriautas. Į Urvus!'
+    }
+  },
+  hoard: {
+    title: 'Karaliaus lobis',
+    lead: 'Pasirink vieną daiktą, kurį pasiliksi.',
+    best: 'Tinkamiausia',
+    pick: 'Pasirink daiktą',
+    take: 'Imti: {item}',
+    open: 'Tuščia vieta',
+    over: 'Geriau nei {item}'
+  },
+  arenaUnlock: {
+    title: 'Koliziejus atrakintas!',
+    body: 'Išbandyk savo įgūdžius įveikdamas pabaisų ordas.',
+    go: 'Į Koliziejų',
+    woods: 'Į Šnabždantį mišką'
+  },
+
   goal: {
     dummy: 'Nuversk treniruočių manekeną',
     clear: 'Išvalyk: {place}',
@@ -443,6 +486,7 @@ export default {
     travel: 'Keliauk: {place}',
     decide: 'Apsispręsk',
     explore: 'Tyrinėk karalystę',
+    mara: '{who} žino kelią toliau',
     fight: 'Laimėk kovą',
     show: 'Parodyk kelią: {goal}',
     escort: 'Saugok karavaną'
@@ -1661,7 +1705,9 @@ export default {
   weapon: {
     melee: 'Artima kova · savybė: {attr}',
     ranged: 'Tolima kova · savybė: {attr}',
-    magic: 'Magija · savybė: {attr}'
+    magic: 'Magija · savybė: {attr}',
+    hit: 'žala per smūgį',
+    dps: '{n} per sekundę'
   },
   source: {
     'siege': "Laimėta Bastiono brastos apgultyje.",
@@ -4535,7 +4581,8 @@ export default {
       },
       learnSmith: {
         '1': 'Kalvystė? Ji prasideda čia: kirtiklis ir blizgantis akmuo.',
-        '2': 'Iškask rūdą ir sukalk ją į savo įrangą kalvėje. Trys geri smūgiai. Eik, pabandyk.'
+        '2': 'Iškask rūdą ir sukalk ją į savo įrangą kalvėje. Trys geri smūgiai. Eik, pabandyk.',
+        '3': 'Imk, trys geležies gabalai, už mano sąskaitą. Tiek vienam kardui.'
       },
       forge: {
         '1': 'Pasiskolink mano priekalą. Saugok pirštus.'
@@ -4783,6 +4830,7 @@ export default {
       topics: 'Ką sakysi?',
       gotGold: 'Gauta aukso: {n}',
       gotItem: 'Gauta: {item}',
+      gotOre: 'Gauta: {n} × {ore}',
       hint: 'Pažymėta žemėlapyje: {zone}',
       needs: {
         attr: 'Reikia: {n} {attr}',
@@ -6127,17 +6175,20 @@ export default {
         slay: {
           '1': 'Goblinų karalius krinta, ir Urvai ištuštėja.',
           '2': 'Sunfordas miega ramiau, o Geležinis ordinas išgirsta tavo vardą.',
-          say: 'Jokių susitarimų. Tavo antpuoliai baigiasi čia.'
+          say: 'Jokių susitarimų. Tavo antpuoliai baigiasi čia.',
+          3: 'Pasakykite Taskeriui... kad jis visada buvo geresnis karalius.'
         },
         pact: {
           '1': 'Prekyba. Taip. Prisiekiu savo karūna.',
           '2': 'Goblinų pirkliai įsikuria Sunfordo aikštėje ir parduoda daiktus, kurių ten joks kalvis negalėtų pagaminti.',
-          say: 'Nutrauk antpuolius ir prekiauk su Sunfordu. Prisiek.'
+          say: 'Nutrauk antpuolius ir prekiauk su Sunfordu. Prisiek.',
+          3: 'O Taskeris pasilieka savo kėdę prie stalo. Nederinama.'
         },
         ransom: {
           '1': 'Viską? ...Gerai. Imk ir eik.',
           '2': 'Išeini su goblinų auksu. Antpuoliai vėl prasidės, bet Sindikatas pritaria.',
-          say: 'Atiduok man savo lobį ir pasilik karūną.'
+          say: 'Atiduok man savo lobį ir pasilik karūną.',
+          3: 'Imk auksą. Bet balnas lieka. Taskeris myli balną.'
         }
       },
       siege: {
@@ -6358,7 +6409,23 @@ export default {
           '1': 'Tebūna palaiminti tavo batai! Odo Marrow, prekeivis. Surask mane Sunford mieste, turėsiu tau prekių.'
         }
       },
+      rebelGoblin: {
+        down: { '1': 'Šalin karalių!' },
+        nomore: { '1': 'Nėra karaliaus!' },
+        free: { '1': 'Dėl laisvės!' }
+      },
+      rebelGnome: {
+        down: { '1': 'Šalin karalių!' },
+        nomore: { '1': 'Nėra karaliaus!' },
+        free: { '1': 'Dėl laisvės!' }
+      },
       goblinKing: {
+        intro: {
+          '1': 'Niekas nekrapšto Taskerio! Jis ką tik išsimaudė!'
+        },
+        dazed: {
+          '1': 'Taskeri? Mirktelk du kartus, jei mane girdi!'
+        },
         charge: {
           '1': 'Sutrypk juos, Tusker!'
         },

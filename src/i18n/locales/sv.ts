@@ -428,6 +428,49 @@ export default {
       }
     }
   },
+  celebrate: {
+    title: 'Grottorna är fria!'
+  },
+  rebels: {
+    toast: {
+      guarded: 'Besegra tillsyningsmännen först!',
+      freed: 'Grävarna är fria!'
+    }
+  },
+  assault: {
+    title: 'Belägringen av Grottornas port',
+    skipCut: 'Hoppa över scenen',
+    skip: 'Hoppa över belägringen',
+    goal: 'Bryt porten: fäll båda tornen',
+    breach: 'Porten är öppen!',
+    towers: '{n} av {total} torn har fallit',
+    hint: {
+      levers: 'Dra i en katapults spak, eller gå under stormbocken och knuffa.',
+      idle: 'Gå fram till en glödande katapultspak, eller ställ dig under stormbocken för att knuffa den.',
+      push: 'Fortsätt! Tryck på rörelsetangenterna för att knuffa stormbocken snabbare.',
+      pushTouch: 'Fortsätt! Använd styrspaken för att knuffa stormbocken snabbare.'
+    },
+    toast: {
+      tower: 'Ett torn faller!',
+      breach: 'Palissaden har fallit. In i Grottorna!'
+    }
+  },
+  hoard: {
+    title: 'Kungens skatt',
+    lead: 'Välj en utrustningsdel att behålla.',
+    best: 'Bäst match',
+    pick: 'Välj en pjäs',
+    take: 'Ta {item}',
+    open: 'Tom plats',
+    over: 'Slår din {item}'
+  },
+  arenaUnlock: {
+    title: 'Kolosseum upplåst!',
+    body: 'Testa din skicklighet genom att besegra horder av monster.',
+    go: 'Till Kolosseum',
+    woods: 'In i Viskande skogen'
+  },
+
   goal: {
     dummy: 'Slå ner övningsdockan',
     clear: 'Rensa {place}',
@@ -443,6 +486,7 @@ export default {
     travel: 'Res till {place}',
     decide: 'Gör ditt val',
     explore: 'Utforska riket',
+    mara: '{who} känner vägen framåt',
     fight: 'Vinn striden',
     show: 'Visa mig vägen: {goal}',
     escort: 'Vakta karavanen'
@@ -1661,7 +1705,9 @@ export default {
   weapon: {
     melee: 'Närstrid · skalar med {attr}',
     ranged: 'Avstånd · skalar med {attr}',
-    magic: 'Magi · skalar med {attr}'
+    magic: 'Magi · skalar med {attr}',
+    hit: 'skada per slag',
+    dps: '{n} per sekund'
   },
   source: {
     'siege': "Vunnen i belägringen av Bastionsvadet.",
@@ -4525,7 +4571,8 @@ export default {
       },
       learnSmith: {
         '1': 'Smide? Det börjar här: en hacka och en sten som glittrar.',
-        '2': 'Bryt malmen och hamra in den i din utrustning vid en smedja. Tre bra slag. Kom igen, försök.'
+        '2': 'Bryt malmen och hamra in den i din utrustning vid en smedja. Tre bra slag. Kom igen, försök.',
+        '3': 'Här, tre järnklumpar, på huset. Det räcker till ett svärd.'
       },
       forge: {
         '1': 'Låna mitt städ. Akta fingrarna.'
@@ -4773,6 +4820,7 @@ export default {
       topics: 'Vad vill du säga?',
       gotGold: 'Fick {n} guld',
       gotItem: 'Fick: {item}',
+      gotOre: 'Fick: {n} × {ore}',
       hint: 'Markerat på kartan: {zone}',
       needs: {
         attr: 'Kräver {n} {attr}',
@@ -6071,17 +6119,20 @@ export default {
         slay: {
           '1': 'Goblinkungen faller, och Hålorna töms.',
           '2': 'Sunford sover lugnare, och Järnorden hör ditt namn.',
-          say: 'Inga avtal. Dina räder slutar här.'
+          say: 'Inga avtal. Dina räder slutar här.',
+          3: 'Säg till Tusker... att han alltid var den bättre kungen.'
         },
         pact: {
           '1': 'Handel. Ja. Jag svär det, på min krona.',
           '2': 'Goblinhandlare slår upp stånd på Sunfords torg och säljer saker ingen smed där kunde göra.',
-          say: 'Sluta med räderna och handla med Sunford i stället. Svär på det.'
+          say: 'Sluta med räderna och handla med Sunford i stället. Svär på det.',
+          3: 'Och Tusker behåller sin egen stol vid bordet. Inte förhandlingsbart.'
         },
         ransom: {
           '1': 'Allt? ...Bra. Ta det, och gå.',
           '2': 'Du lämnar med goblinguld. Räderna börjar igen, men Syndikatet godkänner.',
-          say: 'Ge mig din skatt så får du behålla kronan.'
+          say: 'Ge mig din skatt så får du behålla kronan.',
+          3: 'Ta guldet. Men sadeln stannar. Tusker gillar sadeln.'
         }
       },
       siege: {
@@ -6299,7 +6350,23 @@ export default {
           '1': 'Välsignade vare dina stövlar! Odo Marrow, gårdfarihandlare. Sök upp mig i Sunford, så har jag varor åt dig.'
         }
       },
+      rebelGoblin: {
+        down: { '1': 'Ner med kungen!' },
+        nomore: { '1': 'Ingen kung!' },
+        free: { '1': 'För friheten!' }
+      },
+      rebelGnome: {
+        down: { '1': 'Ner med kungen!' },
+        nomore: { '1': 'Ingen kung!' },
+        free: { '1': 'För friheten!' }
+      },
       goblinKing: {
+        intro: {
+          '1': 'Ingen rör Tusker! Han har just badat!'
+        },
+        dazed: {
+          '1': 'Tusker? Blinka två gånger om du hör mig!'
+        },
         charge: {
           '1': 'Kör över dem, Tusker!'
         },

@@ -428,6 +428,49 @@ export default {
       }
     }
   },
+  celebrate: {
+    title: 'Alas ir brīvas!'
+  },
+  rebels: {
+    toast: {
+      guarded: 'Vispirms uzvari uzraugus!',
+      freed: 'Racēji ir brīvi!'
+    }
+  },
+  assault: {
+    title: 'Alu vārtu aplenkums',
+    skipCut: 'Izlaist ainu',
+    skip: 'Izlaist aplenkumu',
+    goal: 'Salauz vārtus: nogāz abus torņus',
+    breach: 'Vārti ir vaļā!',
+    towers: 'Nogāzti {n} no {total} torņiem',
+    hint: {
+      levers: 'Pavelc katapultas sviru vai ieej zem tarana un stūmi.',
+      idle: 'Pieej pie mirdzošas katapultas sviras vai nostājies zem tarana, lai to stumtu.',
+      push: 'Turpini! Spied kustības taustiņus, lai stumtu taranu ātrāk.',
+      pushTouch: 'Turpini! Kustini īkšķa nūjiņu, lai stumtu taranu ātrāk.'
+    },
+    toast: {
+      tower: 'Tornis krīt!',
+      breach: 'Palisāde ir kritusi. Alās iekšā!'
+    }
+  },
+  hoard: {
+    title: 'Karaļa dārgumi',
+    lead: 'Izvēlies vienu ekipējuma gabalu, ko paturēt.',
+    best: 'Piemērotākais',
+    pick: 'Izvēlies gabalu',
+    take: 'Ņemt: {item}',
+    open: 'Tukša vieta',
+    over: 'Labāks par {item}'
+  },
+  arenaUnlock: {
+    title: 'Kolizejs atbloķēts!',
+    body: 'Pārbaudi savas prasmes, uzvarot briesmoņu bariem.',
+    go: 'Uz Kolizeju',
+    woods: 'Čukstošajā mežā'
+  },
+
   goal: {
     dummy: 'Nogāz treniņa lelli',
     clear: 'Iztīri: {place}',
@@ -443,6 +486,7 @@ export default {
     travel: 'Ceļojums: {place}',
     decide: 'Izdari savu izvēli',
     explore: 'Izpēti valstību',
+    mara: '{who} zina ceļu tālāk',
     fight: 'Uzvari cīņu',
     show: 'Parādi ceļu: {goal}',
     escort: 'Sargā karavānu'
@@ -1661,7 +1705,9 @@ export default {
   weapon: {
     melee: 'Tuvcīņa · aug no: {attr}',
     ranged: 'Tālcīņa · aug no: {attr}',
-    magic: 'Maģija · aug no: {attr}'
+    magic: 'Maģija · aug no: {attr}',
+    hit: 'kaitējums vienā sitienā',
+    dps: '{n} sekundē'
   },
   source: {
     'siege': "Izcīnīts Bastiona brasla aplenkumā.",
@@ -4536,7 +4582,8 @@ export default {
       },
       learnSmith: {
         '1': 'Kalšana? Tā sākas tieši šeit: kaplis un mirdzošs akmens.',
-        '2': 'Izrac rūdu un nokal to savā ekipējumā smēdē. Trīs labi sitieni. Nu, pamēģini.'
+        '2': 'Izrac rūdu un nokal to savā ekipējumā smēdē. Trīs labi sitieni. Nu, pamēģini.',
+        '3': 'Lūk, trīs dzelzs gabali, uz mana rēķina. Tieši vienam zobenam.'
       },
       forge: {
         '1': 'Aizņemies manu lakstu. Uzmanies ar pirkstiem.'
@@ -4784,6 +4831,7 @@ export default {
       topics: 'Ko teiksi?',
       gotGold: 'Saņemts zelts: {n}',
       gotItem: 'Saņemts: {item}',
+      gotOre: 'Saņemts: {n} × {ore}',
       hint: 'Atzīmēts kartē: {zone}',
       needs: {
         attr: 'Vajag: {n} {attr}',
@@ -6140,17 +6188,20 @@ export default {
         slay: {
           '1': 'Goblinu karalis krīt, un Alas iztukšojas.',
           '2': 'Sanforda guļ mierīgāk, un Dzelzs ordenis dzird tavu vārdu.',
-          say: 'Nekādu vienošanos. Tavi reidi beidzas šeit.'
+          say: 'Nekādu vienošanos. Tavi reidi beidzas šeit.',
+          3: 'Pasakiet Taskeram... ka viņš vienmēr bijis labāks karalis.'
         },
         pact: {
           '1': 'Tirdzniecība. Jā. Es zvēru, uz savu kroni.',
           '2': 'Goblinu tirgotāji ierīko letes Sanfordas laukumā, pārdodot lietas, ko tur neviens kalējs nevarētu izgatavot.',
-          say: 'Beidz reidus un tā vietā tirgojies ar Sanfordu. Apzvērē to.'
+          say: 'Beidz reidus un tā vietā tirgojies ar Sanfordu. Apzvērē to.',
+          3: 'Un Taskers saglabā savu krēslu pie galda. Par to nerunā.'
         },
         ransom: {
           '1': 'Visu? ...Labi. Ņem un ej.',
           '2': 'Tu aizej ar goblinu zeltu. Reidi sāksies atkal, bet Sindikāts apstiprina.',
-          say: 'Atdod man savu dārgumu, un vari paturēt kroni.'
+          say: 'Atdod man savu dārgumu, un vari paturēt kroni.',
+          3: 'Ņem zeltu. Bet segli paliek. Taskeram patīk segli.'
         }
       },
       siege: {
@@ -6371,7 +6422,23 @@ export default {
           '1': 'Lai svētīti tavi zābaki! Odo Marovs, tirgotājs. Atrodi mani Sanfordā, man būs tev preces.'
         }
       },
+      rebelGoblin: {
+        down: { '1': 'Nost ar karali!' },
+        nomore: { '1': 'Nav karaļa!' },
+        free: { '1': 'Par brīvību!' }
+      },
+      rebelGnome: {
+        down: { '1': 'Nost ar karali!' },
+        nomore: { '1': 'Nav karaļa!' },
+        free: { '1': 'Par brīvību!' }
+      },
       goblinKing: {
+        intro: {
+          '1': 'Neviens nedrīkst skrāpēt Taskeru! Viņš tikko mazgājās!'
+        },
+        dazed: {
+          '1': 'Taskeri? Pamirkšķini divreiz, ja mani dzirdi!'
+        },
         charge: {
           '1': 'Samini tos, Tasker!'
         },

@@ -212,6 +212,8 @@ interface HerbView {
   /** A herb, or a piece of the treasure map (#89, `piece` its id). */
   kind: PlantId | 'piece'
   piece?: string
+  /** A boss's scrap falling (#203): seconds since it was let go (-1: not falling). */
+  dropT?: number
   root: Group
   x: number
   z: number
@@ -1472,7 +1474,8 @@ export class LevelProps {
       line.renderOrder = -1
       root.add(body, line)
       if (g.glow) root.add(new Mesh(g.glow, glowVC()))
-      root.visible = !p.taken
+      // A boss's scrap is nowhere until he lets it fall (#203).
+      root.visible = !p.taken && !(p.drop !== undefined && p.drop < 0)
       this.root.add(root)
       this.herbs.push({ id: -1 - i, kind: 'piece', piece: p.id, root, x: p.x, z: p.z, popT: -1, glint: 0.3 + i * 0.5, phase: i * 2.1 })
     })
@@ -1674,6 +1677,14 @@ export class LevelProps {
         break
       }
       case 'piece': this.onPiece(e); break
+      case 'pieceDrop': {
+        // The boss lets the scrap fall: it arcs down from above, glints, and lands with a ring.
+        const v = this.herbs.find(x => x.piece === e.id)
+        if (v) { v.x = e.x; v.z = e.z; v.dropT = 0; v.root.visible = true }
+        this.vfx.ring(e.x, e.z, 0.2, 1.2, '#ffd24a', 0.4)
+        sfx('uiEquip', this.pan(e.x))
+        break
+      }
       case 'pickup': {
         const what = e.what
         const color = what === 'mana' ? '#6ab8ff' : what === 'potion' ? '#ff6a7a' : '#7dff8a'
@@ -1818,6 +1829,18 @@ export class LevelProps {
         if (k >= 1) { v.root.visible = false; continue }
         v.root.position.y = groundAt(v.x, v.z) + Math.sin(k * Math.PI) * 0.5
         v.root.scale.setScalar(HERB_SCALE * (1 + k * 0.5) * (1 - k * k))
+        continue
+      }
+      // Falling (#203): high above, easing down in under a second, a ring where it lands.
+      if (v.dropT !== undefined && v.dropT >= 0) {
+        v.dropT += dt
+        const u = Math.min(1, v.dropT / 0.75)
+        v.root.position.set(v.x, groundAt(v.x, v.z) + (1 - u) * (1 - u) * 3, v.z)
+        v.root.rotation.y += dt * 6 * (1 - u)
+        if (u >= 1) {
+          v.dropT = -1
+          this.vfx.ring(v.x, v.z, 0.2, 1.6, '#fff2a0', 0.4)
+        }
         continue
       }
       v.root.rotation.z = Math.sin(this.time * 1.6 + v.phase) * 0.06

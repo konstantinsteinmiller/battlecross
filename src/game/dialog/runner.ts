@@ -185,6 +185,7 @@ export class DialogRunner {
       if (e.t === 'remember') this.host.remember(memoryKey(this.conv.id, e.key))
       else if (e.t === 'gold') this.host.give(e.n, '')
       else if (e.t === 'item') this.host.give(0, e.id)
+      else if (e.t === 'ore') this.host.giveOre(e.id, e.n)
       else if (e.t === 'hint') this.host.hint(e.quest)
       else if (e.t === 'errand') this.host.errand(e.id, e.act)
       else if (e.t === 'learnSmith') this.host.learnSmith()

@@ -14,7 +14,7 @@ import type { ConversationDef } from './dialog/types'
 import { abortTalk, beginTalk, conversationOf, decisionOf, talkCodeReady, talkResume, talkWaiting, type TalkStage } from './talk'
 import { loadTalk } from './talkLoader'
 import {
-  claimAfterplayDues, clearNode, flagSet, gainItem, grantXp, hasFlag, isFreshProfile, isNodeOpen, isNodeReachable, lifetimeXp, profile, saveProfile,
+  claimAfterplayDues, clearNode, flagSet, gainItem, grantXp, hasFlag, isFreshProfile, isNodeOpen, isNodeReachable, lifetimeXp, profile, saveProfile, totalAttrs,
   beginMapBeat, rescuesIn, storyArrive, storyMapBeat, storyZoneWon
 } from './state/profile'
 import { overrunFlag, rebuiltFlag, rebuiltTiers } from './data/breaking'
@@ -51,6 +51,10 @@ import { dayKey } from './rareShelf'
 import { carefulMult } from './careful'
 import { BOARD } from './townTasks'
 import { lesson, mapSpot, markMet, markTip, setMapPos } from './state/profile'
+import { kingHoardPicks, type HoardPick } from './data/hoard'
+import { ASSAULT_FLAG, assaultDue } from './data/assault'
+import { rebellionDue } from './data/rebellion'
+import { PARTY_TIP, partyDue } from './data/celebrate'
 import { SIEGE_LORD, siegeEnemyLevel, type SiegeTier } from './data/siege'
 import { countSiegeClear, marksBanked, recordSiege, siegeTierOpen, storySiegeDue } from './state/siege'
 import { countFairClear } from './state/fair'
@@ -69,7 +73,7 @@ import { countFairClear } from './state/fair'
 
 export type Screen = 'boot' | 'zone' | 'town' | 'map'
 export type Modal =
-  | '' | 'results' | 'secondWind' | 'contracts' | 'siege' | 'pause' | 'character' | 'skills' | 'inventory' | 'journal' | 'shop' | 'trainer' | 'healer' | 'alchemy' | 'smithing' | 'sellOre' | 'memory' | 'itemBattle' | 'cups' | 'whack' | 'ring' | 'arm' | 'ending' | 'help' | 'unlock' | 'campPick'
+  | '' | 'results' | 'secondWind' | 'contracts' | 'siege' | 'pause' | 'character' | 'skills' | 'inventory' | 'journal' | 'shop' | 'trainer' | 'healer' | 'alchemy' | 'smithing' | 'sellOre' | 'memory' | 'itemBattle' | 'cups' | 'whack' | 'ring' | 'arm' | 'ending' | 'help' | 'unlock' | 'campPick' | 'arenaUnlock' | 'kingHoard'
 /** A conversation in progress (`talk.ts`, drawn by `DialogLayer`): with a
  *  townsperson in the scene, with a trainer met on the map, or a quest's
  *  decision. It is not a window — the world keeps running under it — and it
@@ -195,6 +199,46 @@ export const hostileFaction = (): FactionId | null => {
 export const townTheme = (town: TownId): ThemeId =>
   ((town === 'oakhaven' && hasFlag('oakhavenFallen')) || flagSet().has(overrunFlag(town)) ? 'ruin' : TOWNS[town].theme)
 
+/**
+ * The besieged gate before the Hollows (roadmap #204): due at the first entry (and again at the next while it was
+ * only skipped and the King lives). `assaultNext` is set by the journey that builds it; `assaultSkipped` lets the
+ * entry right after a skip go straight in.
+ */
+let assaultNext = false
+let assaultSkipped = false
+export const assaultOnEntry = (node: string): boolean => node === 'hollows' && !assaultSkipped && !PREVIEW_ON && assaultDue(hasFlag)
+
+/** Build the besieged gate without showing it (the recorder and the browser probes cut to it). */
+export const buildAssaultPlace = (onProgress: (p01: number) => void): ReturnType<typeof buildNode> => {
+  assaultNext = true
+  return buildNode('hollows', onProgress)
+}
+
+/**
+ * The celebration in the Hollows after the Goblin King's answer (roadmap #206): once per save, right after the
+ * decision and before the map (or the colosseum's window). `partyNext` is set by the journey that builds it;
+ * `rebelsFreed` is how many gnomes the hero let out of their chains in the visit (the crowd's gnomes).
+ */
+let partyNext = false
+let partyThen: (() => void) | null = null
+let rebelsFreed = 0
+const partySetup = (): ZoneSetup => ({
+  kind: 'zone', zone: 'hollows', theme: ZONES.woods.theme, seed: hashSeed('party', profile.stats.runs), level: visitLevel(ZONES.hollows, profile.level),
+  difficulty: 1, celebrate: { freed: rebelsFreed }, flags: flagSet()
+})
+
+/** Build the celebration without showing it (the recorder and the browser probes cut to it). */
+export const buildPartyPlace = (onProgress: (p01: number) => void, freed = 4): ReturnType<typeof buildNode> => {
+  partyNext = true
+  rebelsFreed = freed
+  return buildNode('hollows', onProgress)
+}
+
+const assaultSetup = (): ZoneSetup => ({
+  kind: 'zone', zone: 'hollows', theme: ZONES.woods.theme, seed: hashSeed('assault', profile.world.visits.hollows ?? 0), level: visitLevel(ZONES.hollows, profile.level),
+  difficulty: 1, assault: true, flags: flagSet()
+})
+
 const setupFor = (node: NodeId): ZoneSetup => {
   const def = NODE_BY_ID[node]!
   const visits = profile.world.visits[node] ?? 0
@@ -230,6 +274,8 @@ const setupFor = (node: NodeId): ZoneSetup => {
     // A cage (#100), until it has been opened.
     // In the afterplay, Sunford's teachers held on its road (#164), until freed or the zone purged.
     cage: !!cageOf(node, invaded) && !hasFlag(cageOf(node, invaded)!.flag),
+    // The gnome rebellion (#205): the Hollows' chain gang, until the Goblin King has fallen.
+    rebels: node === 'hollows' && !invaded && rebellionDue(hasFlag),
     flags
   }
 }
@@ -399,14 +445,19 @@ const buildZone = async (node: NodeId, onProgress: (p01: number) => void, encoun
   // A saved visit is rebuilt from the setup it was built with, not today's.
   const setup: ZoneSetup = saved
     ? { ...saved.setup, flags: new Set(saved.setup.flags) }
-    : encounter ? encounterSetup(encounter) : setupFor(node)
+    : encounter ? encounterSetup(encounter) : partyNext ? partySetup() : assaultNext ? assaultSetup() : setupFor(node)
+  assaultNext = false
+  partyNext = false
   const mode = await ZoneMode.create(setup, gameInput(), {
+    onAssaultEnd: (how) => { void finishAssault(how) },
+    onCelebrateEnd: () => { finishCelebration() },
     onEnd: (outcome) => { void finishVisit(outcome) },
     askSecondWind: offerSecondWind,
     onInteract: (npcId) => talkTo(npcId),
     onPause: () => { if (!flow.modal && !flow.talk && !flow.loading && flow.screen !== 'map') flow.modal = 'pause' },
     onPanel: openPanel,
-    menuOpen: () => !!flow.talk || !!flow.modal
+    menuOpen: () => !!flow.talk || !!flow.modal,
+    onFinaleWon: () => { noteRebels(); return offerKingHoard() }
   }, p => onProgress(p * 0.82), saved?.resume)
   performance.mark('zone:compile-start')
   await precompile(mode, f => onProgress(0.82 + f * 0.12))
@@ -550,15 +601,33 @@ export const travel = async (node: NodeId): Promise<void> => {
     // drawing behind it: the build gets the whole CPU.
     await afterPaint()
     app.setWanted(false)
-    if (NODE_BY_ID[node]!.kind !== 'town') profile.world.visits[node] = (profile.world.visits[node] ?? 0) + 1
+    // The Hollows' first entry opens on the besieged gate (#204); the entry proper follows it.
+    assaultNext = assaultOnEntry(node)
+    assaultSkipped = false
+    if (NODE_BY_ID[node]!.kind !== 'town' && !assaultNext) profile.world.visits[node] = (profile.world.visits[node] ?? 0) + 1
     const mode = await buildNode(node, (p) => { flow.loadProgress = p })
     enter(node, mode)
   } catch (e) {
     console.error('[flow] travel failed', e)
     app.setWanted(true)
   } finally {
+    assaultNext = false
     flow.loading = false
   }
+}
+
+/**
+ * The besieged gate is over (roadmap #204): won, it is never played again; skipped, it is offered again on the next
+ * entry while the King lives. The Hollows proper follow at once.
+ */
+export const finishAssault = async (how: 'won' | 'skipped'): Promise<void> => {
+  if (flow.loading) return
+  if (how === 'won') {
+    if (!hasFlag(ASSAULT_FLAG)) profile.world.flags.push(ASSAULT_FLAG)
+    saveProfile()
+  } else assaultSkipped = true
+  measureEnd('hollows', how === 'won')
+  await travel('hollows')
 }
 
 /**
@@ -990,13 +1059,67 @@ export const acceptUnlock = (): void => {
   if (from === 'victory') { afterVisit(); return }
 }
 
-/** Past the results (and the decision): the ending once, else the map. */
+/** The gnomes the hero freed in the visit that just ended, for the celebration's crowd (#206). */
+const noteRebels = (): void => {
+  const m = app.mode instanceof ZoneMode ? app.mode : null
+  const n = m?.sim.rebels?.freed
+  if (n !== undefined) rebelsFreed = n
+}
+
+/**
+ * The celebration (roadmap #206): built behind the veil like any journey, played, and then the story goes on
+ * exactly where it would have (`then`). A build that fails is no reason to keep the hero from his way.
+ */
+const startCelebration = async (then: () => void): Promise<void> => {
+  if (flow.loading) { then(); return }
+  flow.loading = true
+  flow.loadProgress = 0
+  flow.loadingNode = 'hollows'
+  partyThen = then
+  try {
+    await afterPaint()
+    app.setWanted(false)
+    partyNext = true
+    const mode = await buildNode('hollows', (p) => { flow.loadProgress = p })
+    enter('hollows', mode)
+  } catch (e) {
+    console.error('[flow] celebration failed', e)
+    app.setWanted(true)
+    partyThen = null
+    markTip(PARTY_TIP)
+    then()
+  } finally {
+    partyNext = false
+    flow.loading = false
+  }
+}
+
+/** The film is over (watched or skipped): never again, and on with the story. */
+export const finishCelebration = (): void => {
+  const then = partyThen
+  partyThen = null
+  markTip(PARTY_TIP)
+  measureEnd('hollows', true)
+  if (then) then()
+  else { flow.modal = ''; openMap(); startGameMusic() }
+}
+
+/** Past the results (and the decision): the celebration once, the ending once, else the map. */
 export const afterVisit = (): void => {
+  // The Goblin King's answer opens the colosseum (#201): said once, right here.
+  const kingAnswered = flow.quest === 'goblinKing'
   flow.quest = ''
   // Back from an encounter: on the map, where he was walking.
   flow.encounter = null
+  // The Hollows celebrate (#206), once, before anything else follows.
+  if (partyDue(kingAnswered, !!profile.tips[PARTY_TIP]) && !PREVIEW_ON) { void startCelebration(() => afterKing(kingAnswered)); return }
+  afterKing(kingAnswered)
+}
+
+const afterKing = (kingAnswered: boolean): void => {
   // The iOS demo's end: the Goblin King is answered, the unlock is offered once.
   if (unlockDue()) { openUnlock('victory'); return }
+  if (kingAnswered && hasFlag(DEMO_END_FLAG) && !isNodeLockedByDemo('arena')) { flow.modal = 'arenaUnlock'; return }
   if (hasFlag('throneDone') && !flow.endingShown && !profile.tips.endingSeen) {
     flow.endingShown = true
     flow.modal = 'ending'
@@ -1007,11 +1130,68 @@ export const afterVisit = (): void => {
   startGameMusic()
 }
 
+// ─── The Goblin King's hoard ─────────────────────────────────────────────────
+
+/** The one-time flag (in `profile.tips`) that the hoard has been taken. */
+export const KING_HOARD_TIP = 'kingHoard'
+
+/** The three cards on offer (set while the window is up). */
+export const hoard = reactive({ picks: [] as HoardPick[] })
+
+/** Is the first-clear hoard due? The Goblin King's own finale, the first time, in the old world. */
+const hoardDue = (mode: ZoneMode): boolean =>
+  flow.node === 'hollows' && !flow.encounter && !mode.setup.invaded && !profile.tips[KING_HOARD_TIP] && !profile.world.cleared.includes('hollows')
+
+/** The finale is won (two seconds ago): lay the hoard out, if it is due and nothing else is up. */
+export const offerKingHoard = (): boolean => {
+  const mode = app.mode instanceof ZoneMode ? app.mode : null
+  if (!mode || !hoardDue(mode)) return true
+  if (flow.modal || flow.talk || flow.loading) return false
+  const h = mode.sim.hero
+  const picks = kingHoardPicks({
+    level: profile.level, attrs: totalAttrs(), equipped: profile.inv.equipped,
+    owned: [...profile.inv.items, ...h.items], ups: profile.inv.upgrades
+  })
+  // Nothing left to offer (a hero who owns the whole early game): the chest pays as it always did.
+  if (!picks.length) return true
+  hoard.picks = picks
+  flow.modal = 'kingHoard'
+  return true
+}
+
+/** The hero keeps one of the three. */
+export const claimKingHoard = (id: string): void => {
+  const mode = app.mode instanceof ZoneMode ? app.mode : null
+  if (!hoard.picks.some(p => p.id === id)) return
+  mode?.claimHoard(id)
+  markTip(KING_HOARD_TIP)
+  hoard.picks = []
+  flow.modal = ''
+}
+
+/** The colosseum-unlocked window (#201): to the colosseum, into the Woods, or (not offered) the map. */
+export const closeArenaUnlock = (to: 'arena' | 'woods' | 'map'): void => {
+  flow.modal = ''
+  if (to === 'arena' && hasFlag(DEMO_END_FLAG)) { void travel('arena'); return }
+  if (to === 'woods') {
+    // Straight on: the road is known without asking Mara.
+    if (!hasFlag('maraWoods')) { profile.world.flags.push('maraWoods'); saveProfile() }
+    void travel('woods')
+    return
+  }
+  openMap()
+  startGameMusic()
+}
+
 /** Leave a zone through the pause menu: what the run earned is kept, the
  *  clear is given up. */
 export const retreatVisit = async (): Promise<void> => {
   if (flow.screen !== 'zone' || flow.results) return
   flow.modal = ''
+  // The besieged gate is no visit to bank: back to the map, and the next entry plays it again (#204).
+  if (liveZone()?.sim.assault) { measureEnd('hollows', false); openMap(); return }
+  // The celebration is a film, not a visit: leaving it is skipping it.
+  if (liveZone()?.sim.celebrate) { finishCelebration(); return }
   await finishVisit('retreat')
 }
 

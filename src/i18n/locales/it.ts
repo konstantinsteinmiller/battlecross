@@ -429,6 +429,49 @@ export default {
       }
     }
   },
+  celebrate: {
+    title: 'Le Grotte sono libere!'
+  },
+  rebels: {
+    toast: {
+      guarded: 'Sconfiggi prima i sorveglianti!',
+      freed: 'Gli scavatori sono liberi!'
+    }
+  },
+  assault: {
+    title: 'Assedio alla porta delle Grotte',
+    skipCut: 'Salta la scena',
+    skip: 'Salta l\'assedio',
+    goal: 'Sfonda la porta: abbatti entrambe le torri',
+    breach: 'La porta è aperta!',
+    towers: '{n} torri su {total} abbattute',
+    hint: {
+      levers: 'Tira la leva di una catapulta, oppure mettiti sotto l\'ariete e spingi.',
+      idle: 'Avvicinati a una leva di catapulta luminosa, oppure mettiti sotto l\'ariete per spingerlo.',
+      push: 'Continua! Premi i tasti di movimento per spingere l\'ariete più veloce.',
+      pushTouch: 'Continua! Muovi lo stick per spingere l\'ariete più veloce.'
+    },
+    toast: {
+      tower: 'Una torre crolla!',
+      breach: 'La palizzata è caduta. Nelle Grotte!'
+    }
+  },
+  hoard: {
+    title: 'Il tesoro del re',
+    lead: 'Scegli un pezzo di equipaggiamento da tenere.',
+    best: 'Il più adatto',
+    pick: 'Scegli un pezzo',
+    take: 'Prendi {item}',
+    open: 'Slot vuoto',
+    over: 'Meglio di {item}'
+  },
+  arenaUnlock: {
+    title: 'Colosseo sbloccato!',
+    body: 'Metti alla prova la tua abilità sconfiggendo orde di mostri.',
+    go: 'Al Colosseo',
+    woods: 'Nel Bosco Sussurrante'
+  },
+
   goal: {
     dummy: 'Abbatti il manichino da allenamento',
     clear: 'Libera {place}',
@@ -444,6 +487,7 @@ export default {
     travel: 'Viaggia verso {place}',
     decide: 'Fai la tua scelta',
     explore: 'Esplora il regno',
+    mara: '{who} conosce la strada da seguire',
     fight: 'Vinci lo scontro',
     show: 'Mostrami la strada: {goal}',
     escort: 'Proteggi la carovana'
@@ -1662,7 +1706,9 @@ export default {
   weapon: {
     melee: 'Mischia · scala con {attr}',
     ranged: 'A distanza · scala con {attr}',
-    magic: 'Magia · scala con {attr}'
+    magic: 'Magia · scala con {attr}',
+    hit: 'danni per colpo',
+    dps: '{n} al secondo'
   },
   source: {
     'siege': "Vinto nell'Assedio del Guado del Bastione.",
@@ -4542,7 +4588,8 @@ export default {
       },
       learnSmith: {
         '1': 'Fabbro? Comincia proprio qui: un piccone e una roccia che luccica.',
-        '2': 'Estrai il minerale, poi battilo nel tuo equipaggiamento in una forgia. Tre bei colpi. Dai, prova.'
+        '2': 'Estrai il minerale, poi battilo nel tuo equipaggiamento in una forgia. Tre bei colpi. Dai, prova.',
+        '3': 'Tieni, tre pepite di ferro, offre la casa. Quanto basta per una spada.'
       },
       forge: {
         '1': 'Usa la mia incudine. Attento alle dita.'
@@ -4798,6 +4845,7 @@ export default {
       topics: 'Cosa dire?',
       gotGold: 'Ricevuto: {n} oro',
       gotItem: 'Ricevuto: {item}',
+      gotOre: 'Ricevuto: {n} × {ore}',
       hint: 'Segnato sulla mappa: {zone}',
       needs: {
         attr: 'Richiede {n} {attr}',
@@ -6147,17 +6195,20 @@ export default {
         slay: {
           '1': 'Il Re dei Goblin cade, e le Grotte si svuotano.',
           '2': 'Sunford dorme più tranquilla, e l’Ordine di Ferro sente il tuo nome.',
-          say: 'Niente accordi. Le tue razzie finiscono qui.'
+          say: 'Niente accordi. Le tue razzie finiscono qui.',
+          3: 'Dite a Tusker... che è sempre stato il re migliore.'
         },
         pact: {
           '1': 'Commercio. Sì. Lo giuro, sulla mia corona.',
           '2': 'Mercanti goblin si installano nella piazza di Sunford e vendono ciò che nessun fabbro di lì saprebbe fare.',
-          say: 'Ferma i raid e commercia invece con Sunford. Giuralo.'
+          say: 'Ferma i raid e commercia invece con Sunford. Giuralo.',
+          3: 'E Tusker tiene la sua sedia a tavola. Non negoziabile.'
         },
         ransom: {
           '1': 'Tutto? ...Va bene. Prendilo e vattene.',
           '2': 'Te ne vai con l’oro dei goblin. I raid ricominceranno, ma il Sindacato approva.',
-          say: 'Dammi il tuo tesoro e puoi tenerti la corona.'
+          say: 'Dammi il tuo tesoro e puoi tenerti la corona.',
+          3: 'Prendi l\'oro. Ma la sella resta. A Tusker piace la sella.'
         }
       },
       siege: {
@@ -6379,7 +6430,23 @@ export default {
           '1': 'Benedetti i tuoi stivali! Odo Marrow, venditore ambulante. Cercami a Sunford, avrò merce per te.'
         }
       },
+      rebelGoblin: {
+        down: { '1': 'Abbasso il re!' },
+        nomore: { '1': 'Nessun re!' },
+        free: { '1': 'Per la libertà!' }
+      },
+      rebelGnome: {
+        down: { '1': 'Abbasso il re!' },
+        nomore: { '1': 'Nessun re!' },
+        free: { '1': 'Per la libertà!' }
+      },
       goblinKing: {
+        intro: {
+          '1': 'Nessuno graffia Tusker! Ha appena fatto il bagno!'
+        },
+        dazed: {
+          '1': 'Tusker? Sbatti le palpebre due volte se mi senti!'
+        },
         charge: {
           '1': 'Travolgeteli, Tusker!'
         },

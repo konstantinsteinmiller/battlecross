@@ -1,9 +1,11 @@
 import { HERBS_MAX, HERBS_MIN, plantsOf, type PlantId } from '../data/plants'
 import type { ZoneId } from '../data/items'
-import { CELL, cellOf, centerOf } from './grid'
+import { BOSS_PIECE } from '../data/treasure'
+import { CELL, cellOf, centerOf, nearestOpen } from './grid'
 import { mulberry32, type Rng } from './rng'
 import { KEY_DROP_T } from './camp'
 import type { Sim } from './world'
+import type { Unit } from './types'
 import { K_GROUND } from './zoneFeatures'
 
 /**
@@ -34,6 +36,9 @@ export interface PiecePlan {
   z: number
 }
 export interface PieceState extends PiecePlan {
+  /** A boss's scrap (#203): -1 waits for the finale's boss to fall, then 0..KEY_DROP_T while it arcs down;
+   *  it can be picked up once it has landed. Absent: it lies on the ground from the start. */
+  drop?: number
   taken: boolean
 }
 
@@ -184,7 +189,36 @@ export const placeTreasure = (p: SpotPlan & { seed: number; end: { x: number; z:
 /** Lay the visit's herbs in the sim. */
 export const populateHerbs = (sim: Sim, herbs: readonly HerbPlan[], pieces: readonly PiecePlan[] = []): void => {
   sim.herbs = herbs.map((h, id) => ({ ...h, id, taken: false }))
-  sim.pieces = pieces.map(p => ({ ...p, taken: false }))
+  sim.pieces = pieces.map(p => ({ ...p, taken: false, ...(!sim.invaded && BOSS_PIECE[sim.zone as ZoneId] === p.id ? { drop: -1 } : {}) }))
+}
+
+/**
+ * A boss's scrap of the map (#203): once the finale is won it falls where the boss lay (the last of
+ * the finale pack's bosses to go down, else the planned spot), and lands after `KEY_DROP_T`.
+ */
+export const stepPieceDrop = (sim: Sim, dt: number): void => {
+  for (const p of sim.pieces) {
+    if (p.taken || p.drop === undefined) continue
+    if (p.drop < 0) {
+      if (sim.ended !== 'victory') continue
+      const g = sim.groups.find(q => q.boss)
+      let boss: Unit | undefined
+      for (const u of sim.units) {
+        if (!g || u.group !== g.id || u.alive || u.rank !== 'boss') continue
+        if (!boss || u.id > boss.id) boss = u
+      }
+      let x = boss?.x ?? p.x
+      let z = boss?.z ?? p.z
+      const out: [number, number] = [x, z]
+      if (nearestOpen(sim.grid, x, z, out, 4)) { x = out[0]; z = out[1] }
+      p.x = x
+      p.z = z
+      p.drop = 0
+      sim.emit({ t: 'pieceDrop', id: p.id, x, z })
+      continue
+    }
+    if (p.drop < KEY_DROP_T) p.drop = Math.min(KEY_DROP_T, p.drop + dt)
+  }
 }
 
 /** The hero walks over one: it is his (this step's pick-ups). */
@@ -201,6 +235,8 @@ export const stepPickups = (sim: Sim): void => {
   }
   for (const p of sim.pieces) {
     if (p.taken || Math.hypot(p.x - u.x, p.z - u.z) > PICK_REACH) continue
+    // A boss's scrap lies still only once it has landed (#203).
+    if (p.drop !== undefined && p.drop < KEY_DROP_T) continue
     p.taken = true
     h.pieces.push(p.id)
     sim.emit({ t: 'piece', id: p.id, x: p.x, z: p.z })

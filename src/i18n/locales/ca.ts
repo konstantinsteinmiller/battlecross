@@ -429,6 +429,49 @@ export default {
       }
     }
   },
+  celebrate: {
+    title: 'Els Caus són lliures!'
+  },
+  rebels: {
+    toast: {
+      guarded: 'Primer venç els capatassos!',
+      freed: 'Els cavadors són lliures!'
+    }
+  },
+  assault: {
+    title: 'Setge de la porta dels Caus',
+    skipCut: 'Salta l\'escena',
+    skip: 'Salta el setge',
+    goal: 'Trenca la porta: tomba les dues torres',
+    breach: 'La porta és oberta!',
+    towers: '{n} de {total} torres caigudes',
+    hint: {
+      levers: 'Estira la palanca d\'una catapulta, o posa\'t sota l\'ariet i empeny.',
+      idle: 'Apropa\'t a una palanca de catapulta resplendent, o posa\'t sota l\'ariet per empènyer-lo.',
+      push: 'Continua! Prem les tecles de moviment per empènyer l\'ariet més de pressa.',
+      pushTouch: 'Continua! Mou la palanca tàctil per empènyer l\'ariet més de pressa.'
+    },
+    toast: {
+      tower: 'Cau una torre!',
+      breach: 'La palissada ha caigut. Als Caus!'
+    }
+  },
+  hoard: {
+    title: 'El tresor del rei',
+    lead: 'Tria una peça d\'equip per quedar-te-la.',
+    best: 'La millor opció',
+    pick: 'Tria una peça',
+    take: 'Agafa {item}',
+    open: 'Ranura buida',
+    over: 'Supera el teu {item}'
+  },
+  arenaUnlock: {
+    title: 'Coliseu desbloquejat!',
+    body: 'Posa a prova la teva destresa derrotant hordes de monstres.',
+    go: 'Al Coliseu',
+    woods: 'Al Bosc dels Murmuris'
+  },
+
   goal: {
     dummy: 'Tomba el maniquí d’entrenament',
     clear: 'Neteja {place}',
@@ -444,6 +487,7 @@ export default {
     travel: 'Viatja a {place}',
     decide: 'Pren la teva decisió',
     explore: 'Explora el regne',
+    mara: '{who} coneix el camí que ve',
     fight: 'Guanya el combat',
     show: 'Mostra’m el camí: {goal}',
     escort: 'Protegeix la caravana'
@@ -1662,7 +1706,9 @@ export default {
   weapon: {
     melee: 'Cos a cos · escala amb {attr}',
     ranged: 'A distància · escala amb {attr}',
-    magic: 'Màgia · escala amb {attr}'
+    magic: 'Màgia · escala amb {attr}',
+    hit: 'mal per cop',
+    dps: '{n} per segon'
   },
   source: {
     'siege': "Guanyat al Setge del Gual del Bastió.",
@@ -4536,7 +4582,8 @@ export default {
       },
       learnSmith: {
         '1': 'Ferreria? Comença aquí mateix: un pic i una roca que brilla.',
-        '2': 'Extreu el mineral i després forja\'l a l\'equip en una farga. Tres bons cops. Au, prova-ho.'
+        '2': 'Extreu el mineral i després forja\'l a l\'equip en una farga. Tres bons cops. Au, prova-ho.',
+        '3': 'Té, tres pepites de ferro, de part meva. Les justes per a una espasa.'
       },
       forge: {
         '1': 'Fes servir la meva enclusa. Compte amb els dits.'
@@ -4788,6 +4835,7 @@ export default {
       topics: 'Què dius?',
       gotGold: 'Has rebut {n} d’or',
       gotItem: 'Has rebut: {item}',
+      gotOre: 'Has rebut: {n} × {ore}',
       hint: 'Marcat al mapa: {zone}',
       needs: {
         attr: 'Cal {n} de {attr}',
@@ -6114,17 +6162,20 @@ export default {
         slay: {
           '1': 'El Rei Gòblin cau, i les Coves es buiden.',
           '2': 'Sunford dorm més tranquil·la, i l’Orde de Ferro sent el teu nom.',
-          say: 'Cap tracte. Els vostres atacs s’acaben aquí.'
+          say: 'Cap tracte. Els vostres atacs s’acaben aquí.',
+          3: 'Digueu a en Tusker... que sempre va ser el millor rei.'
         },
         pact: {
           '1': 'Comerç. Sí. Ho juro, per la meva corona.',
           '2': 'Mercaders gòblins s’instal·len a la plaça de Sunford i venen coses que cap ferrer d’allà no sabria fer.',
-          say: 'Atureu els atacs i comercieu amb Sunford. Jura-ho.'
+          say: 'Atureu els atacs i comercieu amb Sunford. Jura-ho.',
+          3: 'I en Tusker es queda la seva pròpia cadira a la taula. No és negociable.'
         },
         ransom: {
           '1': 'Tot? ...Molt bé. Agafa-ho, i vés-te’n.',
           '2': 'Te’n vas amb or gòblin. Els atacs tornaran, però el Sindicat ho aprova.',
-          say: 'Dóna’m el teu tresor i et podràs quedar la corona.'
+          say: 'Dóna’m el teu tresor i et podràs quedar la corona.',
+          3: 'Agafa l\'or. Però la sella es queda. A en Tusker li agrada la sella.'
         }
       },
       siege: {
@@ -6346,7 +6397,23 @@ export default {
           '1': 'Beneïdes siguin les teves botes! Soc l’Odo Marrow, quincallaire. Busca’m a Sunford, tindré gènere per a tu.'
         }
       },
+      rebelGoblin: {
+        down: { '1': 'Fora el rei!' },
+        nomore: { '1': 'Cap rei!' },
+        free: { '1': 'Per la llibertat!' }
+      },
+      rebelGnome: {
+        down: { '1': 'Fora el rei!' },
+        nomore: { '1': 'Cap rei!' },
+        free: { '1': 'Per la llibertat!' }
+      },
       goblinKing: {
+        intro: {
+          '1': 'Ningú esgarrapa en Tusker! Acaba de banyar-se!'
+        },
+        dazed: {
+          '1': 'Tusker? Parpelleja dues vegades si m\'escoltes!'
+        },
         charge: {
           '1': 'Atropella’ls, Tusker!'
         },

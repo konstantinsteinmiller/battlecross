@@ -428,6 +428,49 @@ export default {
       }
     }
   },
+  celebrate: {
+    title: 'Luolat ovat vapaat!'
+  },
+  rebels: {
+    toast: {
+      guarded: 'Kukista ensin työnjohtajat!',
+      freed: 'Kaivajat ovat vapaita!'
+    }
+  },
+  assault: {
+    title: 'Luolien portin piiritys',
+    skipCut: 'Ohita kohtaus',
+    skip: 'Ohita piiritys',
+    goal: 'Murra portti: kaada molemmat tornit',
+    breach: 'Portti on auki!',
+    towers: '{n}/{total} tornia kaatunut',
+    hint: {
+      levers: 'Vedä katapultin vipua tai astu muurinmurtajan alle ja työnnä.',
+      idle: 'Mene hohtavan katapultin vivun luo tai seiso muurinmurtajan alla työntääksesi sitä.',
+      push: 'Jatka! Paina liikenäppäimiä työntääksesi muurinmurtajaa nopeammin.',
+      pushTouch: 'Jatka! Liikuta peukalotikkua työntääksesi muurinmurtajaa nopeammin.'
+    },
+    toast: {
+      tower: 'Torni kaatuu!',
+      breach: 'Paalutus on kaatunut. Luoliin!'
+    }
+  },
+  hoard: {
+    title: 'Kuninkaan aarre',
+    lead: 'Valitse yksi varuste, jonka pidät.',
+    best: 'Paras valinta',
+    pick: 'Valitse varuste',
+    take: 'Ota {item}',
+    open: 'Tyhjä paikka',
+    over: 'Voittaa: {item}'
+  },
+  arenaUnlock: {
+    title: 'Kolosseumi avattu!',
+    body: 'Koettele taitosi voittamalla hirviölaumoja.',
+    go: 'Kolosseumiin',
+    woods: 'Kuiskaavaan metsään'
+  },
+
   goal: {
     dummy: 'Kaada harjoitusnukke',
     clear: 'Puhdista {place}',
@@ -443,6 +486,7 @@ export default {
     travel: 'Matkusta kohteeseen {place}',
     decide: 'Tee valintasi',
     explore: 'Tutki valtakuntaa',
+    mara: '{who} tietää tien eteenpäin',
     fight: 'Voita taistelu',
     show: 'Näytä tie: {goal}',
     escort: 'Suojele karavaania'
@@ -1661,7 +1705,9 @@ export default {
   weapon: {
     melee: 'Lähitaistelu · skaalautuu: {attr}',
     ranged: 'Kaukoase · skaalautuu: {attr}',
-    magic: 'Taikuus · skaalautuu: {attr}'
+    magic: 'Taikuus · skaalautuu: {attr}',
+    hit: 'vahinkoa per isku',
+    dps: '{n} sekunnissa'
   },
   source: {
     'siege': "Voitettu Bastionin ylityspaikan piirityksessä.",
@@ -4525,7 +4571,8 @@ export default {
       },
       learnSmith: {
         '1': 'Sepän työ? Se alkaa juuri tästä: hakku ja kimaltava kivi.',
-        '2': 'Louhi malmi ja takoo se varusteisiisi pajalla. Kolme hyvää iskua. No, kokeile.'
+        '2': 'Louhi malmi ja takoo se varusteisiisi pajalla. Kolme hyvää iskua. No, kokeile.',
+        '3': 'Tässä kolme rautamurua talon piikkiin. Se riittää yhteen miekkaan.'
       },
       forge: {
         '1': 'Lainaa alasintani. Varo sormiasi.'
@@ -4773,6 +4820,7 @@ export default {
       topics: 'Mitä sanot?',
       gotGold: 'Sait {n} kultaa',
       gotItem: 'Sait: {item}',
+      gotOre: 'Sait: {n} × {ore}',
       hint: 'Merkitty kartalle: {zone}',
       needs: {
         attr: 'Vaatii {n} {attr}',
@@ -6071,17 +6119,20 @@ export default {
         slay: {
           '1': 'Hiisikuningas kaatuu, ja Onkalot tyhjenevät.',
           '2': 'Sunford nukkuu levollisemmin, ja Rautaritarikunta kuulee nimesi.',
-          say: 'Ei sopimuksia. Hyökkäyksesi loppuvat tähän.'
+          say: 'Ei sopimuksia. Hyökkäyksesi loppuvat tähän.',
+          3: 'Kertokaa Tuskerille... että hän oli aina parempi kuningas.'
         },
         pact: {
           '1': 'Kauppa. Kyllä. Vannon sen kruununi kautta.',
           '2': 'Hiisikauppiaat pystyttävät kojunsa Sunfordin torille ja myyvät tavaroita, joita yksikään seppä siellä ei osaisi tehdä.',
-          say: 'Lopeta hyökkäykset ja käy sen sijaan kauppaa Sunfordin kanssa. Vanno se.'
+          say: 'Lopeta hyökkäykset ja käy sen sijaan kauppaa Sunfordin kanssa. Vanno se.',
+          3: 'Ja Tusker pitää oman tuolinsa pöydässä. Ei neuvoteltavissa.'
         },
         ransom: {
           '1': 'Kaikki? ...Hyvä on. Ota se ja mene.',
           '2': 'Lähdet hiisien kullan kanssa. Hyökkäykset alkavat taas, mutta Syndikaatti hyväksyy.',
-          say: 'Anna minulle aarteesi, niin saat pitää kruununsi.'
+          say: 'Anna minulle aarteesi, niin saat pitää kruununsi.',
+          3: 'Ota kulta. Mutta satula jää. Tusker pitää satulasta.'
         }
       },
       siege: {
@@ -6299,7 +6350,23 @@ export default {
           '1': 'Siunatut olkoot saappaasi! Odo Marrow, kulkukauppias. Etsi minut Sunfordista, minulla on tavaraa sinulle.'
         }
       },
+      rebelGoblin: {
+        down: { '1': 'Alas kuningas!' },
+        nomore: { '1': 'Ei kuningasta!' },
+        free: { '1': 'Vapauden puolesta!' }
+      },
+      rebelGnome: {
+        down: { '1': 'Alas kuningas!' },
+        nomore: { '1': 'Ei kuningasta!' },
+        free: { '1': 'Vapauden puolesta!' }
+      },
       goblinKing: {
+        intro: {
+          '1': 'Kukaan ei raavi Tuskeria! Hän kävi juuri kylvyssä!'
+        },
+        dazed: {
+          '1': 'Tusker? Räpäytä kahdesti, jos kuulet minut!'
+        },
         charge: {
           '1': 'Ajakaa ne yli, Tusker!'
         },

@@ -315,7 +315,10 @@ const plainsMiner = conversation('plainsMiner', {
     { id: 'again' }
   ],
   topics: [
-    ...smithing(),
+    // Teaching it, Brann hands over three nuggets of iron: a sword's worth, so the first strike is not a promise (#207).
+    ...smithing().map(t => (t.id === 'learnSmith'
+      ? { ...t, lines: 'nnn', fx: [{ t: 'ore' as const, id: 'iron', n: 3 }, ...(t.fx ?? [])] }
+      : t)),
     who()
   ],
   back: { smithing: [{ id: 'forgeBack' }], sellOre: [{ id: 'sellBack' }] },

@@ -399,6 +399,49 @@ export default {
       }
     }
   },
+  'celebrate': {
+    'title': 'The Hollows are free!'
+  },
+  'rebels': {
+    'toast': {
+      'guarded': 'Beat the overseers first!',
+      'freed': 'The diggers are free!'
+    }
+  },
+  'assault': {
+    'title': 'Siege of the Hollows\' Gate',
+    'skipCut': 'Skip cutscene',
+    'skip': 'Skip Siege',
+    'goal': 'Break the gate: topple both towers',
+    'breach': 'The gate is open!',
+    'towers': '{n} of {total} towers down',
+    'hint': {
+      'levers': 'Pull a catapult\'s lever, or step under the ram and push.',
+      'idle': 'Walk up to a glowing catapult lever, or stand under the ram to push it.',
+      'push': 'Keep going! Tap the movement keys to push the ram faster.',
+      'pushTouch': 'Keep going! Work the thumb stick to push the ram faster.'
+    },
+    'toast': {
+      'tower': 'A tower falls!',
+      'breach': 'The palisade is down. Into the Hollows!'
+    }
+  },
+  'hoard': {
+    'title': 'The King\'s Hoard',
+    'lead': 'Pick one piece of gear to keep.',
+    'best': 'Best fit',
+    'pick': 'Choose a piece',
+    'take': 'Take {item}',
+    'open': 'Empty slot',
+    'over': 'Beats your {item}'
+  },
+  'arenaUnlock': {
+    'title': 'Colosseum unlocked!',
+    'body': 'Test your skill by defeating hordes of monsters.',
+    'go': 'To Colosseum',
+    'woods': 'Into the Whispering Woods'
+  },
+
   'goal': {
     'dummy': 'Knock down the training dummy',
     'clear': 'Clear {place}',
@@ -414,6 +457,7 @@ export default {
     'travel': 'Travel to {place}',
     'decide': 'Make your choice',
     'explore': 'Explore the realm',
+    'mara': '{who} knows the road ahead',
     'fight': 'Win the fight',
     'escort': 'Guard the caravan',
     'show': 'Show me the way: {goal}'
@@ -966,7 +1010,9 @@ export default {
   'weapon': {
     'melee': 'Melee · scales with {attr}',
     'ranged': 'Ranged · scales with {attr}',
-    'magic': 'Magic · scales with {attr}'
+    'magic': 'Magic · scales with {attr}',
+    'hit': 'damage per hit',
+    'dps': '{n} per second'
   },
   'source': {
     'siege': "Won in the Siege of Bastion.",
@@ -2966,6 +3012,7 @@ export default {
       'topics': 'What to say',
       'gotGold': 'Received {n} gold',
       'gotItem': 'Received: {item}',
+      'gotOre': 'Received: {n} × {ore}',
       'hint': 'Marked on your map: {zone}',
       'needs': {
         'attr': 'Needs {n} {attr}',
@@ -3112,7 +3159,8 @@ export default {
       },
       'learnSmith': {
         '1': 'Smithing? It starts right here: a pick and a rock that glints.',
-        '2': 'Dig the ore, then hammer it into your gear at a forge. Three good strikes. Go on, try it.'
+        '2': 'Dig the ore, then hammer it into your gear at a forge. Three good strikes. Go on, try it.',
+        '3': 'Here, three nuggets of iron, on the house. That\'s one sword\'s worth.'
       },
       'forge': {
         '1': 'Borrow my anvil. Mind your fingers.'
@@ -3665,17 +3713,20 @@ export default {
         'slay': {
           'say': 'No deals. Your raids end here.',
           '1': 'The Goblin King falls, and the Hollows empty.',
-          '2': 'Sunford sleeps easier, and the Iron Order hears your name.'
+          '2': 'Sunford sleeps easier, and the Iron Order hears your name.',
+          '3': 'Tell Tusker... he was always the better king.'
         },
         'pact': {
           'say': 'Stop the raids and trade with Sunford instead. Swear to it.',
           '1': 'Trade. Yes. I swear it, on my crown.',
-          '2': 'Goblin traders set up in Sunford\'s square, selling things no smith there could make.'
+          '2': 'Goblin traders set up in Sunford\'s square, selling things no smith there could make.',
+          '3': 'And Tusker keeps his own chair at the table. Not negotiable.'
         },
         'ransom': {
           'say': 'Give me your treasure and you can keep your crown.',
           '1': 'All of it? ...Fine. Take it, and go.',
-          '2': 'You leave with goblin gold. The raids will start again, but the Syndicate approves.'
+          '2': 'You leave with goblin gold. The raids will start again, but the Syndicate approves.',
+          '3': 'Take the gold. But the saddle stays. Tusker likes the saddle.'
         }
       },
       'siege': {
@@ -3834,7 +3885,23 @@ export default {
           '1': 'Up, lads! Bite them!'
         }
       },
+      'rebelGoblin': {
+        'down': { '1': 'Down with the king!' },
+        'nomore': { '1': 'No king!' },
+        'free': { '1': 'For freedom!' }
+      },
+      'rebelGnome': {
+        'down': { '1': 'Down with the king!' },
+        'nomore': { '1': 'No king!' },
+        'free': { '1': 'For freedom!' }
+      },
       'goblinKing': {
+        'intro': {
+          '1': 'Nobody scratches Tusker! He just had his bath!'
+        },
+        'dazed': {
+          '1': 'Tusker? Blink twice if you can hear me!'
+        },
         'charge': {
           '1': 'Run them down, Tusker!'
         },

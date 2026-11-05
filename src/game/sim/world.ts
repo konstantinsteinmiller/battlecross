@@ -7,6 +7,9 @@ import type { HerbState, PieceState } from './herbs'
 import type { OreState } from './ores'
 import type { CageKeyState, CaptiveState } from './cages'
 import type { CampState } from './camp'
+import type { AssaultState } from './assault'
+import type { RebelState } from './rebels'
+import type { CelebrationState } from './celebrate'
 import type { GateState } from './gate'
 import type { CaravanState } from './caravan'
 import type {
@@ -286,6 +289,12 @@ export class Sim {
   captives: CaptiveState[] = []
   /** The first visit's camp of rescued teachers (`camp.ts`, roadmap #156); null elsewhere. */
   camp: CampState | null = null
+  /** The siege of the Hollows' gate before the first entry (roadmap #204, `assault.ts`); null elsewhere. */
+  assault: AssaultState | null = null
+  /** The Hollows' chain gang of gnome diggers while the King lives (roadmap #205, `rebels.ts`); null elsewhere. */
+  rebels: RebelState | null = null
+  /** The celebration in the Hollows after the Goblin King's answer (roadmap #206, `celebrate.ts`); null elsewhere. */
+  celebrate: CelebrationState | null = null
   /** The treasure map's pieces lying in this zone (roadmap #89). */
   pieces: PieceState[] = []
   /** The caravan of an escort (roadmap #85, `caravan.ts`); null: none. */

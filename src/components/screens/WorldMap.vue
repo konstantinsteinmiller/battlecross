@@ -253,7 +253,7 @@ import { arenaModOf } from '@/game/arenaWeek'
 import { nextMilestone } from '@/game/data/arena'
 
 /** The place the goal chip names ("Travel to Sunford"): a new player gets the same bobbing arrow a sought teacher's place has, so the way on is one thing to look for on a busy map (#178). */
-const goalNode = computed(() => (onboard.goal?.id === 'travel' && !isVeteran() ? onboard.goal.place ?? '' : ''))
+const goalNode = computed(() => ((onboard.goal?.id === 'travel' || onboard.goal?.id === 'mara') && !isVeteran() ? onboard.goal.place ?? '' : ''))
 const emit = defineEmits<{ (e: 'options'): void }>()
 const { t } = useI18n()
 /** The colosseum's modifier this week (#10). */
@@ -661,6 +661,12 @@ const clearPath = (): void => {
 const sendTo = (to: Pt, then: (() => void) | null = null): boolean => {
   const target = nearestWalkable(mask.value, to)
   if (!target) return false
+  // Standing on a blocked cell (a resting spot by the water, a coast the mask moved): no path can start
+  // from there, so every tap would do nothing. Step onto the nearest open ground first (#200).
+  if (!mask.value.ok(hero.x, hero.y)) {
+    const s = nearestWalkable(mask.value, [hero.x, hero.y], 20)
+    if (s) { hero.x = s[0]; hero.y = s[1]; placeHero() }
+  }
   const way = findPath(mask.value, [hero.x, hero.y], target)
   if (!way) return false
   path = way
@@ -895,6 +901,8 @@ const tick = (now: number): void => {
     } else if (path) {
       // Stuck against something the straight line did not see: give up the errand.
       clearPath()
+      // A place he was sent to shows its card where he stands, rather than leaving it picked and dead (#200).
+      if (pending && selected.value === pending) { cardOpen.value = true; pending = '' }
     }
   }
   if (movedNow !== moving.value) {
@@ -926,10 +934,12 @@ const cardless = 0.56
 const pick = (id: NodeId): void => {
   if (rushing.value || alarm.value) return
   sfx('mapMove')
-  // The same place again: its card closes (or, on the way there, nothing).
+  // The same place again: its card closes. On the way there, nothing; but a walk that was cut short
+  // (the keys, the stick, a step that could not be taken) leaves the place picked with no card and no
+  // walk, and then a second tap must send him again (#200), not be swallowed.
   if (selected.value === id) {
-    if (cardOpen.value) { selected.value = ''; cardOpen.value = false }
-    return
+    if (cardOpen.value) { selected.value = ''; cardOpen.value = false; return }
+    if (path && pending === id) return
   }
   selected.value = id
   const p = nodeAt(id)

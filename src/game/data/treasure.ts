@@ -24,6 +24,12 @@ export const MAP_PIECES: ReadonlyArray<{ id: string; zone: ZoneId }> = [
 /** Distinct pieces that make the map whole (of the eight lying about). */
 export const PIECES_NEEDED = 6
 
+/**
+ * The piece a finale's boss carries instead of leaving it on the ground (#203): it falls where he
+ * does, like the first boss's cage key, and can be picked up once it has landed.
+ */
+export const BOSS_PIECE: Readonly<Partial<Record<ZoneId, string>>> = { hollows: 'hollows1' }
+
 /** Where the X is. */
 export const TREASURE_ZONE: ZoneId = 'crags'
 /** The errand that tracks it (`data/errands.ts`). */

@@ -350,11 +350,13 @@ class Coach {
     // A town's first steps: the way to the nearest trainer, when the pacing
     // says this is the moment (`coach/onboarding.ts`).
     // Or the teacher the hero asked to be led to (#166), lesson or not.
-    const seekT = host.setup.kind === 'town' && seek.npc ? sim.units.find(n => n.rank === 'npc' && n.npc === seek.npc) : undefined
+    // Or Elder Mara, while the goal is to hear from her where the road goes on (#201).
+    const seekNpc = seek.npc || (onboard.goal?.id === 'mara' ? 'elderMara' : '')
+    const seekT = host.setup.kind === 'town' && seekNpc ? sim.units.find(n => n.rank === 'npc' && n.npc === seekNpc) : undefined
     if (seekT && Math.hypot(seekT.x - u.x, seekT.z - u.z) < 3) clearSeek()
     const lessonTalk = host.setup.kind === 'town' && onboard.lesson === 'talk' && onboard.shown && !this.learned('talk')
-    if (lessonTalk || (seekT && seek.npc)) {
-      const t = seek.npc && seekT ? seekT : this.nearTrainer(sim, u)
+    if (lessonTalk || (seekT && seekNpc)) {
+      const t = seekNpc && seekT ? seekT : this.nearTrainer(sim, u)
       if (t) {
         host.project(u.x, 0.02, u.z, p0)
         host.project(t.x, t.h * 0.5, t.z, p1)

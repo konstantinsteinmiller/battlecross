@@ -226,7 +226,7 @@ describe('the road teacher: her lesson', () => {
       remember: (k) => { (world.said as Set<string>).add(k) },
       give: () => {}, hint: () => {}, decide: () => true,
       open: (w) => { opened.push(w) },
-      offer: () => null, buy: () => false, errand: () => true, learnSmith: () => {}
+      offer: () => null, buy: () => false, errand: () => true, learnSmith: () => {}, giveOre: () => {}
     }
     const r = new DialogRunner(conv, host)
     const heard: string[] = []

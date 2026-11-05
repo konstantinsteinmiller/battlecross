@@ -117,7 +117,7 @@ export const MINION_CAP = 6
 /** True once the hero's band is at the cap. A member just sent home (`life` 0.01, a companion being replaced) no longer counts. */
 const bandFull = (sim: Sim, owner: Unit): boolean => {
   let n = 0
-  for (const m of sim.units) if (m.alive && m.team === 0 && m.ownerId === owner.id && (m.rank === 'minion' || m.rank === 'turret') && !(m.life > 0 && m.life <= 0.01)) n++
+  for (const m of sim.units) if (m.alive && m.team === 0 && m.ownerId === owner.id && (m.rank === 'minion' || m.rank === 'turret') && m.kind !== 'rebelGnome' && !(m.life > 0 && m.life <= 0.01)) n++
   return n >= MINION_CAP
 }
 

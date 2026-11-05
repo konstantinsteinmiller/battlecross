@@ -429,6 +429,49 @@ export default {
       }
     }
   },
+  celebrate: {
+    title: 'Jaskinie są wolne!'
+  },
+  rebels: {
+    toast: {
+      guarded: 'Najpierw pokonaj nadzorców!',
+      freed: 'Kopacze są wolni!'
+    }
+  },
+  assault: {
+    title: 'Oblężenie bramy Jaskiń',
+    skipCut: 'Pomiń scenę',
+    skip: 'Pomiń oblężenie',
+    goal: 'Wyłam bramę: zwal obie wieże',
+    breach: 'Brama stoi otworem!',
+    towers: 'Upadło {n} z {total} wież',
+    hint: {
+      levers: 'Pociągnij dźwignię katapulty albo wejdź pod taran i pchaj.',
+      idle: 'Podejdź do świecącej dźwigni katapulty albo stań pod taranem, by go pchać.',
+      push: 'Dalej! Naciskaj klawisze ruchu, by pchać taran szybciej.',
+      pushTouch: 'Dalej! Poruszaj gałką, by pchać taran szybciej.'
+    },
+    toast: {
+      tower: 'Wieża pada!',
+      breach: 'Palisada runęła. Do Jaskiń!'
+    }
+  },
+  hoard: {
+    title: 'Skarb króla',
+    lead: 'Wybierz jeden element ekwipunku, który zatrzymasz.',
+    best: 'Najlepszy wybór',
+    pick: 'Wybierz przedmiot',
+    take: 'Weź: {item}',
+    open: 'Puste miejsce',
+    over: 'Lepsze niż {item}'
+  },
+  arenaUnlock: {
+    title: 'Koloseum odblokowane!',
+    body: 'Wystaw swoje umiejętności na próbę, pokonując hordy potworów.',
+    go: 'Do Koloseum',
+    woods: 'Do Szepczącego Lasu'
+  },
+
   goal: {
     dummy: 'Przewróć manekin treningowy',
     clear: 'Oczyść: {place}',
@@ -444,6 +487,7 @@ export default {
     travel: 'Udaj się do: {place}',
     decide: 'Dokonaj wyboru',
     explore: 'Zwiedzaj królestwo',
+    mara: '{who} zna dalszą drogę',
     fight: 'Wygraj walkę',
     show: 'Pokaż mi drogę: {goal}',
     escort: 'Pilnuj karawany'
@@ -1662,7 +1706,9 @@ export default {
   weapon: {
     melee: 'Wręcz · atrybut: {attr}',
     ranged: 'Dystans · atrybut: {attr}',
-    magic: 'Magia · atrybut: {attr}'
+    magic: 'Magia · atrybut: {attr}',
+    hit: 'obrażenia na cios',
+    dps: '{n} na sekundę'
   },
   source: {
     'siege': "Zdobyte w Oblężeniu Przeprawy Bastionu.",
@@ -4544,7 +4590,8 @@ export default {
       },
       learnSmith: {
         '1': 'Kowalstwo? Zaczyna się tutaj: kilof i skała, która błyszczy.',
-        '2': 'Wykop rudę, potem wykuj ją w swój ekwipunek w kuźni. Trzy dobre uderzenia. No dalej, spróbuj.'
+        '2': 'Wykop rudę, potem wykuj ją w swój ekwipunek w kuźni. Trzy dobre uderzenia. No dalej, spróbuj.',
+        '3': 'Masz, trzy bryłki żelaza, na koszt firmy. Akurat na jeden miecz.'
       },
       forge: {
         '1': 'Pożycz moje kowadło. Uważaj na palce.'
@@ -4792,6 +4839,7 @@ export default {
       topics: 'Co powiedzieć',
       gotGold: 'Otrzymano złota: {n}',
       gotItem: 'Otrzymano: {item}',
+      gotOre: 'Otrzymano: {n} × {ore}',
       hint: 'Zaznaczono na mapie: {zone}',
       needs: {
         attr: 'Wymaga: {attr} {n}',
@@ -6168,17 +6216,20 @@ export default {
         slay: {
           '1': 'Król Goblinów upada, a Jamy pustoszeją.',
           '2': 'Sunford śpi spokojniej, a Żelazny Zakon słyszy twoje imię.',
-          say: 'Żadnych umów. Twoim napadom koniec.'
+          say: 'Żadnych umów. Twoim napadom koniec.',
+          3: 'Powiedzcie Tuskerowi... że zawsze był lepszym królem.'
         },
         pact: {
           '1': 'Handel. Tak. Przysięgam na moją koronę.',
           '2': 'Goblińscy kupcy rozstawili się na rynku w Sunford i sprzedają to, czego nie zrobiłby tamtejszy kowal.',
-          say: 'Przestań napadać i handluj z Sunford. Przysięgnij.'
+          say: 'Przestań napadać i handluj z Sunford. Przysięgnij.',
+          3: 'A Tusker zachowuje własne krzesło przy stole. Nie podlega negocjacjom.'
         },
         ransom: {
           '1': 'Wszystko? ...Dobrze. Bierz i odejdź.',
           '2': 'Odchodzisz z goblińskim złotem. Napady zaczną się znowu, ale Syndykat to popiera.',
-          say: 'Oddaj skarby, a koronę możesz zatrzymać.'
+          say: 'Oddaj skarby, a koronę możesz zatrzymać.',
+          3: 'Weź złoto. Ale siodło zostaje. Tusker lubi to siodło.'
         }
       },
       siege: {
@@ -6398,7 +6449,23 @@ export default {
           '1': 'Niech będą błogosławione twoje buty! Odo Marrow, domokrążca. Znajdź mnie w Sunfordzie, będę miał dla ciebie towar.'
         }
       },
+      rebelGoblin: {
+        down: { '1': 'Precz z królem!' },
+        nomore: { '1': 'Żadnego króla!' },
+        free: { '1': 'Za wolność!' }
+      },
+      rebelGnome: {
+        down: { '1': 'Precz z królem!' },
+        nomore: { '1': 'Żadnego króla!' },
+        free: { '1': 'Za wolność!' }
+      },
       goblinKing: {
+        intro: {
+          '1': 'Nikt nie drapie Tuskera! Dopiero co się wykąpał!'
+        },
+        dazed: {
+          '1': 'Tusker? Mrugnij dwa razy, jeśli mnie słyszysz!'
+        },
         charge: {
           '1': 'Stratuj ich, Tusker!'
         },

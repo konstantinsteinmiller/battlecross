@@ -94,7 +94,10 @@ const MODULES: Record<string, string> = {
   'gfx/plants.ts': 'audited: the herbs of the level props',
   'gfx/dummyProp.ts': 'audited: the training dummy',
   'gfx/arenaCrowd.ts': 'audited: the arena\'s stands and banners',
-  'gfx/siegeProps.ts': 'audited: the siege\'s gate, bell, platforms, stands, ballista, ram and fire',
+  'gfx/celebrateProps.ts': 'audited: the celebration crest, mug, barrel, feast table, bench, banner pole and bunting',
+  'gfx/rebelProps.ts': 'audited: the chain gang post, chain, rubble heap and ore cart',
+  'gfx/assaultProps.ts': 'audited: the besieged gate tower, rubble, palisade, cave mouth, catapult, arm, lever, ram, log and banner',
+  'gfx/siegeProps.ts':'audited: the siege\'s gate, bell, platforms, stands, ballista, ram and fire',
   'gfx/townView.ts': 'composes houses and props it does not shape (audited as built)',
   'gfx/archKit.ts': 'the building mesher itself',
   'gfx/townAnimals.ts': 'animated rigs (zfight covers every pose)',
@@ -129,6 +132,15 @@ describe('poke-through: no part of a prop shows through another', () => {
   it('the siege\'s pieces (afterplay §8): gate, bell, platform, stand, ballista, ram, fire', async () => {
     const { siegePieceParts } = await import('@/game/gfx/siegeProps')
     for (const [kind, g] of Object.entries(siegePieceParts())) audit(`siege:${kind}`, 'piece', geoParts([...g.lit, ...g.glow]))
+  })
+
+  it('the besieged gate pieces (#204): tower, rubble, palisade, cave mouth, catapult, arm, lever, ram, log, banner', async () => {
+    const { partyPieceParts } = await import('@/game/gfx/celebrateProps')
+    for (const [kind, g] of Object.entries(partyPieceParts())) audit(`party:${kind}`, 'piece', geoParts([...g.lit, ...g.glow]))
+    const { rebelPieceParts } = await import('@/game/gfx/rebelProps')
+    for (const [kind, g] of Object.entries(rebelPieceParts())) audit(`rebels:${kind}`, 'piece', geoParts(g.lit))
+    const { assaultPieceParts } = await import('@/game/gfx/assaultProps')
+    for (const [kind, g] of Object.entries(assaultPieceParts())) audit(`assault:${kind}`, 'piece', geoParts([...g.lit, ...g.glow]))
   })
 
   it('terrain scenery shapes, the reward chest, and the temporary walls (boss arena props among them)', async () => {

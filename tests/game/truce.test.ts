@@ -114,6 +114,27 @@ describe('in a conversation the hero is untouchable (#153)', () => {
   })
 })
 
+describe('in a conversation the hero stands still and the foes let go', () => {
+  it('no chase, no swing, no auto-engage; the goblin does not follow', async () => {
+    const { stepHero, orderAttack } = await import('@/game/sim/hero')
+    const { stepEnemy } = await import('@/game/sim/ai')
+    const goblin = sim.units.find(u => u.team === 1)!
+    goblin.awake = true
+    orderAttack(sim, goblin.id)
+    f.talkTo('sunfordSmith')
+    // An order given while he listens (a stale tap, a queued cast) is dropped.
+    orderAttack(sim, goblin.id)
+    const hx = sim.hero.unit.x
+    const hz = sim.hero.unit.z
+    for (let i = 0; i < 60; i++) { stepHero(sim, 1 / 30); stepEnemy(sim, goblin, 1 / 30) }
+    expect(sim.hero.order.kind).toBe('none')
+    expect(sim.hero.unit.targetId).toBe(0)
+    expect(sim.hero.unit.action).toBeNull()
+    expect(Math.hypot(sim.hero.unit.x - hx, sim.hero.unit.z - hz)).toBeLessThan(0.05)
+    expect(goblin.targetId).not.toBe(sim.hero.unit.id)
+  })
+})
+
 describe('the truce watchdog (#153)', () => {
   it('every ~3 s: a truce with no conversation or window open is lifted', () => {
     vi.spyOn(console, 'warn').mockImplementation(() => {})

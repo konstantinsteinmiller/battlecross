@@ -23,6 +23,10 @@ export const LOOKS: Readonly<Record<string, Look>> = {
   banditArcher: L({ skin: '#d9a47e', top: '#5f7a4a', bottom: '#4a3b34', head: 'hood', hair: '#4f6a3a', outfit: 'leather', held: 'bow', trim: '#3b2f2a' }),
   // The whistle's gnomes (#136): a red pointed cap, a white beard, a small blade.
   gnome: L({ skin: '#e8b890', top: '#4f8a4a', bottom: '#6b4a2c', head: 'wizard', hair: '#d8483a', outfit: 'tunic', held: 'dagger', beard: '#f0ece4', trim: '#c9a24a', metal: '#b9c4d6' }),
+  // A digger of the Hollows' chain gang (#205): a soot-brown tunic, a miner's pointed cap, a small pick.
+  rebelGnome: L({ skin: '#d9a77c', top: '#7a5a3a', bottom: '#4a3a2a', head: 'wizard', hair: '#b8742e', outfit: 'tunic', held: 'hammer', beard: '#d8d0c0', trim: '#8a6a3a', metal: '#9aa4b8' }),
+  // A goblin at the Hollows' celebration (#206): the same green hide, a feast-day red scarf for a cap.
+  celebGoblin: L({ skin: GOBLIN, top: '#9a5a34', bottom: '#6b4a2c', head: 'bandana', hair: '#d8483a', ears: 'goblin', outfit: 'rags', held: 'none', trim: '#e8b73a' }),
   banditChief: L({ skin: '#d9a47e', top: '#a03a2c', bottom: '#3b2f2a', head: 'horns', hair: '#e8e2cf', outfit: 'leather', held: 'axe', pauldrons: true, trim: '#5a4a44', bulk: 1.12, beard: '#3b2a22', cape: '#5a1f1a' }),
   goblinKing: L({ skin: '#58c23f', top: '#7a2f8a', bottom: '#4a2c5a', head: 'crown', hair: '#58c23f', ears: 'goblin', outfit: 'robe', held: 'club', trim: '#ffd24a', bulk: 1.2, cape: '#c9483a' }),
 

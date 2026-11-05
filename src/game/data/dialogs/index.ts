@@ -10,6 +10,7 @@ import { CAPTIVE_BARKS } from './captives'
 import { INTRO_NARRATION } from './intro'
 import { BREAKING_BEATS, BREAKING_TALK } from './breaking'
 import { SIEGE_BARKS } from './siege'
+import { ASSAULT_BARKS } from './assault'
 import { FAIR_TALK } from './fair'
 import { PRESTIGE_TALK } from './prestige'
 
@@ -30,7 +31,7 @@ export const CONVERSATIONS: readonly ConversationDef[] = [
  *  overhears in the towns, and what the bosses shout mid-fight (neither talked
  *  through, only heard), and the intro's narration (#130). The voice manifest
  *  and the i18n checks read this. */
-export const SPOKEN: readonly ConversationDef[] = [...CONVERSATIONS, ...SMALLTALK, ...BOSS_BARKS, ...SIEGE_BARKS, ...CAPTIVE_BARKS, ...INTRO_NARRATION]
+export const SPOKEN: readonly ConversationDef[] = [...CONVERSATIONS, ...SMALLTALK, ...BOSS_BARKS, ...SIEGE_BARKS, ...ASSAULT_BARKS, ...CAPTIVE_BARKS, ...INTRO_NARRATION]
 
 export const CONVERSATION_BY_ID: Readonly<Record<string, ConversationDef>> =
   Object.fromEntries(CONVERSATIONS.map(c => [c.id, c]))

@@ -427,6 +427,8 @@ export type SimEvent =
    *  ends with `n` nuggets. */
   | { t: 'mine'; id: number; kind: string; x: number; z: number; state: 'start' | 'busy' | 'done'; n: number }
   | { t: 'piece'; id: string; x: number; z: number }
+  /** A boss lets his scrap of the treasure map fall where he lay (#203). */
+  | { t: 'pieceDrop'; id: string; x: number; z: number }
   /** The escort's caravan rolls, waits for the hero, holds, arrives or is lost (#85). */
   | { t: 'caravan'; phase: 'rolling' | 'waiting' | 'held' | 'arrived' | 'lost'; x: number; z: number }
   /** A pressure plate is stepped on: in its turn (`ok`), or out of turn (the
@@ -442,6 +444,10 @@ export type SimEvent =
   | { t: 'bossPhase'; unit: number; phase: number }
   /** A boss shouts a line at a beat of its fight (an i18n key = its recording). */
   | { t: 'bark'; unit: number; key: string }
+  /** The Hollows' besieged gate (#204): an arrow, a lever pulled, a stone thrown or landing, the ram rolling or striking, a tower falling, the breach. */
+  | { t: 'assault'; id: 'arrow' | 'pull' | 'stone' | 'impact' | 'roll' | 'ram' | 'tower' | 'breach'; n: number; x: number; z: number; tx?: number; tz?: number }
+  /** The gnome rebellion (#205): a chain snaps, a gnome runs or stabs, the overseers still guard the gang. */
+  | { t: 'rebel'; id: 'snap' | 'flee' | 'stab' | 'guarded'; n: number; x: number; z: number }
   | { t: 'overheat'; on: boolean }
   | { t: 'denied'; why: 'mana' | 'cooldown' | 'range' | 'target' | 'locked' | 'hp' }
   /** A potion is drunk: the health one, or (`mana`) a mana potion. */

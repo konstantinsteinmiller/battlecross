@@ -20,7 +20,7 @@ rewrites it, and a test fails when it is stale. Do not edit by hand.
 | freedPeddler | 9 | 9 |
 | lightDisciple | 14 | 14 |
 | sfShadow | 18 | 18 |
-| smalltalkIronhold | 20 | 20 |
+| smalltalkIronhold | 21 | 21 |
 | sunfordSmith | 25 | 25 |
 | sunfordPeddler | 15 | 15 |
 | trainerAegis | 20 | 20 |
@@ -79,7 +79,7 @@ rewrites it, and a test fails when it is stale. Do not edit by hand.
 | sbMasterSoulwarden | 14 | 14 |
 | sbMasterIronmonk | 14 | 14 |
 | sbMasterBard | 14 | 14 |
-| goblinKing | 9 | 9 |
+| goblinKing | 14 | 14 |
 | warlord | 5 | 5 |
 | oracle | 7 | 7 |
 | dragon | 6 | 6 |
@@ -106,9 +106,11 @@ rewrites it, and a test fails when it is stale. Do not edit by hand.
 | leviathan | 4 | 4 |
 | hydra | 4 | 4 |
 | elderDragon | 4 | 4 |
+| rebelGoblin | 3 | 3 |
+| rebelGnome | 3 | 3 |
 | pyroCry | 1 | 1 |
 | heroine | 211 | 211 |
-| **All** | **1595** | **1595** |
+| **All** | **1607** | **1607** |
 
 ## Other languages voiced in full
 
@@ -116,22 +118,22 @@ English and German voice every line. A line with no file there is a silent bubbl
 
 | Language | Voiced | Lines |
 | --- | --- | --- |
-| de | 1569 | 1595 |
+| de | 1581 | 1607 |
 
 ## Other languages: the core lines only
 
-English and German are voiced in full. Every other voiced language ships only the **core**: 349 of 1595 lines (70 of them the girl hero's `__f` twins, limit 350), set in data/voice-core.json by id pattern plus an explicit list. Core: the hero's "Will you teach me?" and goodbye lines, the main quest decisions with their boss monologues (Goblin King, Krag, the Colossus core, the oracle, the dragon, the Arch-Demon's throne), the five endings, the story beats of Elder Mara, Captain Hale, Mayor Brenna, Madam Ash and the exiled Sovereign, the intro, the first visit's road teacher (Nettle) and the camp's thanks, every bark (bosses, the siege, freed captives), the afterplay's story (its beats, Scout Wren, the fort's Hale and Mara, the seal decision and its epilogue) and the Wanderer's greeting. Not core: smalltalk, shops, gamblers, the fair's barkers, trainer and master Q&A, trade and heal chatter. A non-core line is a silent bubble; a test fails when a language folder holds a file outside the core.
+English and German are voiced in full. Every other voiced language ships only the **core**: 361 of 1607 lines (70 of them the girl hero's `__f` twins, limit 361), set in data/voice-core.json by id pattern plus an explicit list. Core: the hero's "Will you teach me?" and goodbye lines, the main quest decisions with their boss monologues (Goblin King, Krag, the Colossus core, the oracle, the dragon, the Arch-Demon's throne), the five endings, the story beats of Elder Mara, Captain Hale, Mayor Brenna, Madam Ash and the exiled Sovereign, the intro, the first visit's road teacher (Nettle) and the camp's thanks, every bark (bosses, the siege, freed captives), the afterplay's story (its beats, Scout Wren, the fort's Hale and Mara, the seal decision and its epilogue) and the Wanderer's greeting. Not core: smalltalk, shops, gamblers, the fair's barkers, trainer and master Q&A, trade and heal chatter. A non-core line is a silent bubble; a test fails when a language folder holds a file outside the core.
 Make them with `voice:gen --engine chatterbox --lang <code>` (then `--retry 2`); `voice:collect` builds jobs for the core lines only.
 Indonesian (id) and Vietnamese (vi) are not voiced: Chatterbox cannot speak them. pt-PT keeps English too.
 
 | Language | Core voiced | Core lines |
 | --- | --- | --- |
-| fr | 342 | 349 |
-| es | 347 | 349 |
-| ru | 345 | 349 |
-| ja | 348 | 349 |
-| pt | 345 | 349 |
-| zh | 349 | 349 |
+| fr | 354 | 361 |
+| es | 359 | 361 |
+| ru | 357 | 361 |
+| ja | 360 | 361 |
+| pt | 357 | 361 |
+| zh | 361 | 361 |
 
 ## Parked takes (decision 2026-10-18)
 
@@ -142,7 +144,7 @@ To widen a language beyond the core, change data/voice-core.json and settle the 
 
 Nothing: every line has its recording.
 
-## Every line (1595)
+## Every line (1607)
 
 | File | Who | Scene | English | EN |
 | --- | --- | --- | --- | --- |
@@ -186,6 +188,7 @@ Nothing: every line has its recording.
 | `dlg.hero.learnSmith` | The hero (hero) | hero | Could you teach me to smith? | chatterbox |
 | `dlg.plainsMiner.learnSmith.1` | Brann Pickfast (smalltalkIronhold) | plainsMiner | Smithing? It starts right here: a pick and a rock that glints. | chatterbox |
 | `dlg.plainsMiner.learnSmith.2` | Brann Pickfast (smalltalkIronhold) | plainsMiner | Dig the ore, then hammer it into your gear at a forge. Three good strikes. Go on, try it. | chatterbox |
+| `dlg.plainsMiner.learnSmith.3` | Brann Pickfast (smalltalkIronhold) | plainsMiner | Here, three nuggets of iron, on the house. That's one sword's worth. | chatterbox |
 | `dlg.hero.forge` | The hero (hero) | hero | I'd like to use your forge. | chatterbox |
 | `dlg.plainsMiner.forge.1` | Brann Pickfast (smalltalkIronhold) | plainsMiner | Borrow my anvil. Mind your fingers. | chatterbox |
 | `dlg.plainsMiner.who.1` | Brann Pickfast (smalltalkIronhold) | plainsMiner | Brann. I dig what the smiths hammer. Every good blade starts as a rock like this one. | chatterbox |
@@ -1183,12 +1186,15 @@ Nothing: every line has its recording.
 | `dlg.quest.goblinKing.slay.say` | The hero (hero) | quest.goblinKing | No deals. Your raids end here. | chatterbox |
 | `dlg.quest.goblinKing.slay.1` | The hero, telling the story (hero) | quest.goblinKing | The Goblin King falls, and the Hollows empty. | chatterbox |
 | `dlg.quest.goblinKing.slay.2` | The hero, telling the story (hero) | quest.goblinKing | Sunford sleeps easier, and the Iron Order hears your name. | chatterbox |
+| `dlg.quest.goblinKing.slay.3` | The Goblin King (goblinKing) | quest.goblinKing | Tell Tusker... he was always the better king. | chatterbox |
 | `dlg.quest.goblinKing.pact.say` | The hero (hero) | quest.goblinKing | Stop the raids and trade with Sunford instead. Swear to it. | chatterbox |
 | `dlg.quest.goblinKing.pact.1` | The Goblin King (goblinKing) | quest.goblinKing | Trade. Yes. I swear it, on my crown. | chatterbox |
 | `dlg.quest.goblinKing.pact.2` | The hero, telling the story (hero) | quest.goblinKing | Goblin traders set up in Sunford's square, selling things no smith there could make. | chatterbox |
+| `dlg.quest.goblinKing.pact.3` | The Goblin King (goblinKing) | quest.goblinKing | And Tusker keeps his own chair at the table. Not negotiable. | chatterbox |
 | `dlg.quest.goblinKing.ransom.say` | The hero (hero) | quest.goblinKing | Give me your treasure and you can keep your crown. | chatterbox |
 | `dlg.quest.goblinKing.ransom.1` | The Goblin King (goblinKing) | quest.goblinKing | All of it? ...Fine. Take it, and go. | chatterbox |
 | `dlg.quest.goblinKing.ransom.2` | The hero, telling the story (hero) | quest.goblinKing | You leave with goblin gold. The raids will start again, but the Syndicate approves. | chatterbox |
+| `dlg.quest.goblinKing.ransom.3` | The Goblin King (goblinKing) | quest.goblinKing | Take the gold. But the saddle stays. Tusker likes the saddle. | chatterbox |
 | `dlg.quest.siege.ask.1` | Warlord Krag (warlord) | quest.siege | Enough. You fight well, I'll give you that. | chatterbox |
 | `dlg.quest.siege.ask.2` | Warlord Krag (warlord) | quest.siege | The Syndicate pays far better than that town ever will. | chatterbox |
 | `dlg.quest.siege.ask.3` | Warlord Krag (warlord) | quest.siege | Open the gate for us tonight, and a third of Oakhaven is yours. | chatterbox |
@@ -1446,7 +1452,9 @@ Nothing: every line has its recording.
 | `dlg.smalltalkKids.frog.2` | Townsfolk (kidFriend) | smalltalkKids | Can we keep it? | chatterbox |
 | `dlg.smalltalkKids.frog.3` | Townsfolk (smalltalkKids) | smalltalkKids | Mum said no more frogs. | chatterbox |
 | `dlg.bark.banditChief.whistle.1` | Bandit Chief (banditChief) | bark.banditChief | Up, lads! Bite them! | chatterbox |
+| `dlg.bark.goblinKing.intro.1` | The Goblin King (goblinKing) | bark.goblinKing | Nobody scratches Tusker! He just had his bath! | chatterbox |
 | `dlg.bark.goblinKing.charge.1` | The Goblin King (goblinKing) | bark.goblinKing | Run them down, Tusker! | chatterbox |
+| `dlg.bark.goblinKing.dazed.1` | The Goblin King (goblinKing) | bark.goblinKing | Tusker? Blink twice if you can hear me! | chatterbox |
 | `dlg.bark.goblinKing.horn.1` | The Goblin King (goblinKing) | bark.goblinKing | To me, lads! Goblins, to me! | chatterbox |
 | `dlg.bark.goblinKing.dismount.1` | The Goblin King (goblinKing) | bark.goblinKing | Go on, Tusker, run! I'll finish this myself! | chatterbox |
 | `dlg.bark.goblinKing.return.1` | The Goblin King (goblinKing) | bark.goblinKing | Tusker! One more time! | chatterbox |
@@ -1494,6 +1502,12 @@ Nothing: every line has its recording.
 | `dlg.bark.siegeMara.horn50.1` | Elder Mara (elderMara) | bark.siegeMara | Half the gate is gone. Hold on! | chatterbox |
 | `dlg.bark.siegeMara.horn25.1` | Elder Mara (elderMara) | bark.siegeMara | The gate is failing! Hold them back! | chatterbox |
 | `dlg.bark.siegeMara.won.1` | Elder Mara (elderMara) | bark.siegeMara | They're running! The fort still stands! | chatterbox |
+| `dlg.bark.rebelGoblin.down.1` | Goblin (rebelGoblin) | bark.rebelGoblin | Down with the king! | chatterbox |
+| `dlg.bark.rebelGoblin.nomore.1` | Goblin (rebelGoblin) | bark.rebelGoblin | No king! | chatterbox |
+| `dlg.bark.rebelGoblin.free.1` | Goblin (rebelGoblin) | bark.rebelGoblin | For freedom! | chatterbox |
+| `dlg.bark.rebelGnome.down.1` | Gnome (rebelGnome) | bark.rebelGnome | Down with the king! | chatterbox |
+| `dlg.bark.rebelGnome.nomore.1` | Gnome (rebelGnome) | bark.rebelGnome | No king! | chatterbox |
+| `dlg.bark.rebelGnome.free.1` | Gnome (rebelGnome) | bark.rebelGnome | For freedom! | chatterbox |
 | `dlg.bark.hero.cage.1` | The hero (hero) | bark.hero | Is there somebody screaming for help? | chatterbox |
 | `dlg.bark.trainerPyro.help.1` | Ember Wren (pyroCry) | bark.trainerPyro | Help! Anybody! | chatterbox |
 | `dlg.bark.sbMasterSoulwarden.help.1` | Warden Odalys Lanternlight (sbMasterSoulwarden) | bark.sbMasterSoulwarden | We were kidnapped! | chatterbox |

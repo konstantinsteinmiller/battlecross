@@ -4,6 +4,7 @@ import { spawnEnemy } from '../spawn'
 import type { Sim } from '../world'
 import type { Unit } from '../types'
 import type { BossScript } from './index'
+import { startStampede } from '../rebels'
 import { bark, daze, exitField, move, other, warn, windCharge, type ChargeOpts } from './kit'
 
 /**
@@ -42,9 +43,16 @@ const awayFromHero = (sim: Sim, x: number, z: number, d: number): [number, numbe
 
 const tusker: BossScript = {
   phases: [0.5],
+  // The King's first worry is the boar, not the hero; and when Tusker rams the wall he asks if he is all right.
+  tick(sim, u) {
+    if (u.boss!.mode === 'dazed') bark(sim, u, 'goblinKing', 'dazed')
+  },
   think(sim, u, tgt) {
     const b = u.boss!
     const d = Math.hypot(tgt.x - u.x, tgt.z - u.z)
+    bark(sim, u, 'goblinKing', 'intro')
+    // The freed gnomes (#205) storm him as the fight begins.
+    if (!b.marks.includes('stampede')) { b.marks.push('stampede'); startStampede(sim, 'first', u) }
     // The war horn, once.
     if (!b.marks.includes('horn') && u.hp <= u.s.maxHp * 0.75) {
       b.marks.push('horn')
@@ -85,6 +93,8 @@ const tusker: BossScript = {
       for (const t of sim.inCircle(other(king), x, z, 3, [])) knockback(t, x, z, 6)
       sim.emit({ t: 'bossPhase', unit: king.id, phase: 1 })
       bark(sim, king, 'goblinKing', 'dismount')
+      // And five of them run at him once more as he leaps (#205).
+      startStampede(sim, 'second', king)
     }
     // Tusker turns and runs off.
     exitField(sim, u)

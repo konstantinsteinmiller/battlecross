@@ -25,9 +25,12 @@ import type { FeatureId } from './state'
  * goal is the next place, and the trainer comes back only in a town.
  */
 
+/** The world flag Mara's "Where should I go next?" sets once the Goblin King is answered (#201). */
+export const MARA_TOLD_FLAG = 'maraWoods'
+
 export type GoalId =
   | 'dummy' | 'clear' | 'boss' | 'rescue' | 'campLesson' | 'exit' | 'wave' | 'fight' | 'escort'
-  | 'trainer' | 'learn' | 'points' | 'leave' | 'travel' | 'decide' | 'explore'
+  | 'trainer' | 'learn' | 'points' | 'leave' | 'travel' | 'decide' | 'explore' | 'mara'
 
 export interface Goal {
   id: GoalId
@@ -105,6 +108,12 @@ export const nextNode = (): NodeId | null => {
   return (open.find(n => n.kind === 'town') ?? open[0])?.id ?? null
 }
 
+/** The Goblin King is answered (the colosseum is open) and Elder Mara has not yet said where the road goes on (#201). */
+export const maraPending = (): boolean => {
+  const f = flagSet()
+  return f.has('arenaOpen') && !f.has(MARA_TOLD_FLAG) && !profile.world.cleared.includes('woods')
+}
+
 const travelGoal = (id: 'leave' | 'travel'): Goal => {
   const next = nextNode()
   return next ? { id, place: next } : { id: 'explore' }
@@ -128,10 +137,11 @@ export const nextGoal = (c: GoalCtx): Goal | null => {
   }
   if (c.screen === 'town') {
     if (!learnedFromTrainer() && teachersIn(c.node).length) return { id: c.modal === 'trainer' ? 'learn' : 'trainer' }
+    if (maraPending()) return c.node === 'sunford' ? { id: 'mara' } : { id: 'mara', place: 'sunford' }
     if (profile.hero.points > 0 && !c.pointsKept) return { id: 'points', n: profile.hero.points, of: 0 }
     return travelGoal('leave')
   }
-  if (c.screen === 'map') return travelGoal('travel')
+  if (c.screen === 'map') return maraPending() ? { id: 'mara', place: 'sunford' } : travelGoal('travel')
   return null
 }
 

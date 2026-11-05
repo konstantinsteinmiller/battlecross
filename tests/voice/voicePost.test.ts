@@ -24,7 +24,7 @@ describe('the chains', () => {
     expect(chainFor('goblinTrader', 'k')).toContain('equalizer=f=1100')
     expect(chainFor('dragon', 'k')).toContain('rubberband=pitch=0.5')
     expect(chainFor('archDemon', 'k')).toContain('aecho')
-    expect(FX_SPEAKERS).toEqual(['goblinKing', 'goblinTrader', 'dragon', 'archDemon'])
+    expect(FX_SPEAKERS).toEqual(['goblinKing', 'goblinTrader', 'rebelGoblin', 'rebelGnome', 'dragon', 'archDemon'])
     // Nobody is crushed: a crushed layer reads as "crisping".
     for (const s of FX_SPEAKERS) expect(chainFor(s, 'k')).not.toContain('acrusher')
     expect(chainFor('dragon', 'k', { dry: true })).not.toContain('rubberband')

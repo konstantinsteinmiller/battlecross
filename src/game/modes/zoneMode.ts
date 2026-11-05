@@ -51,6 +51,17 @@ import { generateSiege } from '../sim/siegeMap'
 import { armSiege, buildBlock, buildDefence, skipBuild } from '../sim/siege'
 import { SIEGE_PROP_KINDS, SiegeProps } from '../gfx/siegeProps'
 import { siegeActions, siegeHud } from '../state/siegeHud'
+import { AssaultProps } from '../gfx/assaultProps'
+import { RebelProps } from '../gfx/rebelProps'
+import { CelebrateProps } from '../gfx/celebrateProps'
+import { armCelebration, skipCelebration } from '../sim/celebrate'
+import { PARTY_LAYOUT, generateCelebration } from '../sim/celebrateMap'
+import { PARTY_S, PARTY_TITLE_AT } from '../data/celebrate'
+import { celebrateHud, celebrateActions } from '../state/celebrateHud'
+import { assaultActions, assaultHud } from '../state/assaultHud'
+import { armAssault, assaultHint, skipAssault, skipPanorama } from '../sim/assault'
+import { ASSAULT_LAYOUT, generateAssault } from '../sim/assaultMap'
+import { PANORAMA_S } from '../data/assault'
 
 import { Vfx } from '../gfx/vfx'
 import { NO_STATUSES, StackOrbs } from '../gfx/stackOrbs'
@@ -128,6 +139,10 @@ export interface ZoneSetup {
   treasure?: boolean
   /** Somebody is held here in a cage (#100). */
   cage?: boolean
+  /** The Hollows' chain gang of gnome diggers (#205): laid while the Goblin King lives. */
+  rebels?: boolean
+  /** The Hollows' celebration after the Goblin King's answer (#206): how many gnomes the hero freed. */
+  celebrate?: { freed: number }
   /** The colosseum's weekly modifier (roadmap #10). */
   arenaMod?: ArenaMod
   /** The zone's invaded version (the afterplay, `data/invasion.ts`): its roster,
@@ -137,6 +152,8 @@ export interface ZoneSetup {
    *  (it cannot be lost), whose turn the fifth wave's captain is, and who
    *  commands the fort (Elder Mara when Oakhaven fell). */
   siege?: { tier: SiegeTier; story: boolean; rotation: number; commander: 'hale' | 'mara' }
+  /** The besieged gate before the Hollows' first entry (roadmap #204, `sim/assault.ts`). */
+  assault?: boolean
   flags: ReadonlySet<string>
 }
 
@@ -167,6 +184,13 @@ export interface ZoneCallbacks {
   onPanel(panel: 'map' | 'character' | 'inventory' | 'skills'): void
   /** A conversation or a window is open (the truce watchdog, #153). Absent: only this scene's own conversation counts. */
   menuOpen?(): boolean
+  /** The finale is won and its beat has passed: may the first-clear hoard be laid out now (the Goblin King's pick)?
+   *  True: handled (laid out, or not due); false: something else is on screen, ask again. */
+  onFinaleWon?(): boolean
+  /** The besieged gate is over: won (both towers down) or skipped (#204). */
+  onAssaultEnd?(how: 'won' | 'skipped'): void
+  /** The celebration is over (watched to its end, or skipped). */
+  onCelebrateEnd?(how: 'watched' | 'skipped'): void
 }
 
 /** An enemy's name key: a returning boss of an invaded zone is its Reborn self (§5.8). */
@@ -203,6 +227,8 @@ const swingSound = (style: 'melee' | 'ranged' | 'magic', heavy: boolean, v: RigV
 }
 /** Seconds the world plays on after the outcome, before the result screen. */
 const END_BEAT = { victory: 2.1, defeat: 1.8 }
+/** Seconds after the finale falls that the first-clear hoard is laid out. */
+const HOARD_AT = 2
 /** Seconds after the fall that Second wind is offered: the fall reads first. */
 const WIND_AT = 1
 
@@ -301,6 +327,14 @@ export class ZoneMode implements GameMode {
   private crowdCleared = 0
   /** The siege's gate, bell, platforms, ballistas, fires and rams (`gfx/siegeProps.ts`). */
   private siegeProps: SiegeProps | null = null
+  /** The Hollows' besieged gate (#204): its props, whether the hand-over was made, and the camera's zoom while it frames the scene. */
+  private assaultProps: AssaultProps | null = null
+  private rebelProps: RebelProps | null = null
+  private celebrateProps: CelebrateProps | null = null
+  private celebrateFired = false
+  private celebrateZoom = 1
+  private assaultFired = false
+  private assaultZoom = 1
   private chest: { root: Group; lid: Object3D; dispose(): void } | null = null
   private chestOpen = 0
   private views = new Map<number, View>()
@@ -314,6 +348,8 @@ export class ZoneMode implements GameMode {
   private hudT = 0
   private dragT = 0
   private endFired = false
+  /** The first-clear hoard has been asked about (once the finale has been won for two seconds). */
+  private hoardAsked = false
   /** Second wind was asked for this visit (once, taken or not). */
   private windAsked = false
   /** The defeat waits on the player's answer to Second wind. */
@@ -380,13 +416,17 @@ export class ZoneMode implements GameMode {
       ? townSim().generateTown(TOWNS[setup.town!], setup.flags, setup.seed)
       : setup.siege
         ? generateSiege(setup.seed)
+      : setup.celebrate
+        ? generateCelebration(setup.seed)
+      : setup.assault
+        ? generateAssault(setup.seed)
       : setup.kind === 'arena'
         ? generateArena(setup.seed)
         : setup.encounter
           ? generateEncounter(setup.encounter, setup.seed, { escort: setup.escort })
           : generateZone(setup.invaded ? invadedZone(setup.zone!) : ZONES[setup.zone!], setup.seed, {
             tutorial: setup.tutorial, openingPack: setup.tutorial ? OPENING.pack : undefined, ambush: setup.ambush, extra: setup.extra,
-            pieces: setup.pieces, treasure: setup.treasure, cage: setup.cage,
+            pieces: setup.pieces, treasure: setup.treasure, cage: setup.cage, rebels: setup.rebels,
             // DEV: `?branches=0` plays the zone as one road (the perf A/B arm of roadmap #70).
             ...(import.meta.env.DEV && typeof location !== 'undefined' && new URLSearchParams(location.search).get('branches') === '0' ? { branches: false } : {})
           })
@@ -417,10 +457,12 @@ export class ZoneMode implements GameMode {
     })
     // Adaptive pressure (#124, D144): zones only — never a town, the colosseum
     // (its ladder climbs by itself, and its board stays fair) or the opening fight.
-    if (setup.kind === 'zone' && !setup.tutorial) sim.pressure = newPressure(sessionPressure(), sessionRampPool())
+    if (setup.kind === 'zone' && !setup.tutorial && !setup.assault && !setup.celebrate) sim.pressure = newPressure(sessionPressure(), sessionRampPool())
     // An invaded zone or an encounter in its wilds (the afterplay): kills pay more, pylons and scars stand.
     if (setup.kind === 'zone' && setup.invaded) armInvasion(sim)
-    if (setup.kind === 'zone') populateZone(sim, plan, setup.zone!, profile.inv.items, profile.world.chests)
+    if (setup.kind === 'zone' && setup.celebrate) armCelebration(sim, { freed: setup.celebrate.freed })
+    else if (setup.kind === 'zone' && setup.assault) armAssault(sim, { low: m.low })
+    else if (setup.kind === 'zone') populateZone(sim, plan, setup.zone!, profile.inv.items, profile.world.chests)
     // The colosseum knows what is owned: a milestone's mythic is given once (#117).
     else if (setup.kind === 'arena') for (const id of profile.inv.items) sim.owned.add(id)
     // The siege (afterplay §8): its gate, its commander, its first build phase.
@@ -528,6 +570,19 @@ export class ZoneMode implements GameMode {
       const { TownView } = await loadTownView()
       m.town = await TownView.build(plan, sim, m.scene, slice, m.vfx.particles)
     }
+    // The Hollows' chain gang (#205), while the King lives.
+    if (plan.rebels) {
+      m.rebelProps = new RebelProps(sim, m.vfx)
+      m.rebelProps.build(m.scene, plan.rebels)
+    }
+    if (setup.celebrate) {
+      m.celebrateProps = new CelebrateProps(sim, m.vfx)
+      m.celebrateProps.build(m.scene)
+    }
+    if (setup.assault) {
+      m.assaultProps = new AssaultProps(sim, m.vfx, n => m.cam.addTrauma(n))
+      m.assaultProps.build(m.scene)
+    }
     if (setup.siege) {
       m.siegeProps = new SiegeProps(sim, m.vfx)
       m.siegeProps.build(m.scene)
@@ -571,7 +626,7 @@ export class ZoneMode implements GameMode {
   snapshot(): VisitResume | null {
     const sim = this.sim
     // A siege is fought in one sitting: a save slot keeps the hero, not the siege.
-    if (!this.baseline || !sim.hero.unit.alive || sim.siege) return null
+    if (!this.baseline || !sim.hero.unit.alive || sim.siege || sim.assault || sim.celebrate) return null
     if (this.setup.kind === 'town') {
       const h = sim.hero.unit
       return { hero: { x: h.x, z: h.z, facing: h.facing } }
@@ -803,6 +858,17 @@ export class ZoneMode implements GameMode {
     // The bake waits until the first frames are drawn, then runs in the background.
     window.setTimeout(() => { void this.bakeLater() }, 1200)
     // The siege's buttons reach this scene while it is the live one.
+    celebrateHud.active = !!this.sim.celebrate
+    if (this.sim.celebrate) {
+      celebrateActions.skip = () => skipCelebration(this.sim)
+      this.syncCelebrate()
+    }
+    assaultHud.active = !!this.sim.assault
+    if (this.sim.assault) {
+      assaultActions.skipCut = () => skipPanorama(this.sim)
+      assaultActions.skipSiege = () => skipAssault(this.sim)
+      this.syncAssault()
+    }
     siegeHud.active = !!this.sim.siege
     if (this.sim.siege) {
       siegeActions.build = id => this.siegeBuild(id)
@@ -842,6 +908,8 @@ export class ZoneMode implements GameMode {
     hud.device = i.device
     // A conversation holds the hero still: its own layer takes the taps and keys.
     if (this.talkOn || this.talkHold > 0) { setStick(sim, 0, 0); return }
+    // The besieged gate's panorama: the camera has the scene, nothing the player does counts.
+    if (sim.assault?.phase === 'panorama' || sim.celebrate) { setStick(sim, 0, 0); return }
 
     if (i.pauseQueued) this.cb.onPause()
     if (i.panelQueued) this.cb.onPanel(i.panelQueued)
@@ -855,7 +923,8 @@ export class ZoneMode implements GameMode {
     for (const t of i.taps) {
       this.boardWalk = false
       const u = this.unitAtScreen(t.x, t.y, pad)
-      if (u && (u.team === 1 || u.rank === 'npc')) {
+      // (The rebels and the archers at the besieged gate are scenery: a tap there is a tap on the ground.)
+      if (u && !sim.assault && !sim.celebrate && (u.team === 1 || u.rank === 'npc')) {
         orderAttack(sim, u.id)
         if (u.team === 1) { coach.use('target'); sfx('uiClick') }
       } else if (this.cam.screenToGround(t.x, t.y, ground)) {
@@ -995,7 +1064,19 @@ export class ZoneMode implements GameMode {
       const e = ev[n]!
       this.props?.onEvent(e)
       this.siegeProps?.onEvent(e)
+      this.assaultProps?.onEvent(e)
+      this.rebelProps?.onEvent(e)
       switch (e.t) {
+        case 'rebel':
+          // The overseers still guard the gang: the hero is told once in a while.
+          if (e.id === 'guarded') pushHud({ t: 'toast', key: 'rebels.toast.guarded' })
+          else if (e.id === 'snap' && sim.rebels && sim.rebels.freed === 1) pushHud({ t: 'toast', key: 'rebels.toast.freed' })
+          break
+        case 'assault':
+          // The two news of the siege that get a line of their own.
+          if (e.id === 'tower') pushHud({ t: 'toast', key: 'assault.toast.tower' })
+          else if (e.id === 'breach') pushHud({ t: 'toast', key: 'assault.toast.breach' })
+          break
         case 'hit': {
           const y = e.h * 0.6
           const from = sim.get(e.src)
@@ -1264,6 +1345,16 @@ export class ZoneMode implements GameMode {
       stepMercy(this.sim, simDt)
       if (potionStopDue(this.sim)) { this.potionStop = true; hud.potionStop = true }
     }
+    // The besieged gate is over: the Hollows follow (or the hero chose to skip).
+    if (this.sim.assault?.phase === 'done' && !this.assaultFired) {
+      this.assaultFired = true
+      this.cb.onAssaultEnd?.(this.sim.assault.outcome === 'won' ? 'won' : 'skipped')
+    }
+    // The celebration is over: the story goes on (or the hero skipped it).
+    if (this.sim.celebrate?.phase === 'done' && !this.celebrateFired) {
+      this.celebrateFired = true
+      this.cb.onCelebrateEnd?.(this.sim.celebrate.outcome === 'watched' ? 'watched' : 'skipped')
+    }
     // A truce never outlives its conversation (#153).
     watchTruce(this.sim, this.truceWatch, dt, this.talkOn || !!this.cb.menuOpen?.())
     // The dummy knocked apart (or walked past): the opening beat is done for good.
@@ -1285,6 +1376,10 @@ export class ZoneMode implements GameMode {
     if (sim.ended === 'defeat' && !this.windAsked && sim.endedT >= WIND_AT) {
       this.windAsked = true
       this.windHeld = !!this.cb.askSecondWind?.()
+    }
+    // The Goblin King's hoard: about two seconds after the finale falls, before Leave is pressed.
+    if (sim.ended === 'victory' && !this.hoardAsked && sim.endedT >= HOARD_AT && this.setup.kind === 'zone' && sim.hero.unit.alive) {
+      this.hoardAsked = !this.cb.onFinaleWon || this.cb.onFinaleWon()
     }
     if (sim.ended && !this.endFired && !this.windHeld && sim.endedT >= END_BEAT[sim.ended] && (sim.ended !== 'victory' || sim.endReady)) {
       this.endFired = true
@@ -1337,7 +1432,10 @@ export class ZoneMode implements GameMode {
     setGround(this.field)
     // A nudge may lean the view toward a chest nearby (`coach/nudgeFx.ts`).
     const peek = peekOffset(dt, hx, hz)
-    this.cam.follow(hx + this.talkDx * tk + peek.x, hz + this.talkDz * tk + peek.z, hero.vx, hero.vz, dt, groundAt(hx, hz))
+    const shot = this.celebrateShot(dt) ?? this.assaultShot(hx, hz, dt)
+    if (shot) this.cam.follow(shot.x, shot.z, 0, 0, dt, groundAt(shot.x, shot.z))
+    else this.cam.follow(hx + this.talkDx * tk + peek.x, hz + this.talkDz * tk + peek.z, hero.vx, hero.vz, dt, groundAt(hx, hz))
+    if (shot) this.cam.zoom = this.sim.celebrate ? this.celebrateZoom : this.assaultZoom
     this.cam.update(dt)
     updateCelFrame(this.camera, this.cam.refDepth)
     // Scenery between the camera and the hero opens round them (a tall rock at a field's near edge).
@@ -1450,6 +1548,9 @@ export class ZoneMode implements GameMode {
     this.walls.update(fxDt)
     this.props?.update(fxDt, hx, hz)
     this.siegeProps?.update(fxDt)
+    this.assaultProps?.update(fxDt)
+    this.celebrateProps?.update(fxDt)
+    this.rebelProps?.update(fxDt)
     if (this.crowd) {
       // A wave fought to its end: the crowd is on its feet (#117).
       if (sim.wave.cleared > this.crowdCleared) {
@@ -1524,6 +1625,21 @@ export class ZoneMode implements GameMode {
    * hero's run total (`sim.hero.gold`) stays the visit's tally for the result
    * screen and its "triple the purse" offer, which pays twice that on top.
    */
+  /**
+   * The hero keeps a piece of the Goblin King's hoard: it goes into this
+   * visit's finds (banked with the rest, shown on the result screen with its
+   * Equip button), and the finale chest no longer rolls a piece of gear of
+   * its own, only its purse.
+   */
+  claimHoard(id: string): void {
+    const sim = this.sim
+    const h = sim.hero
+    if (!h.items.includes(id)) h.items.push(id)
+    sim.owned.add(id)
+    for (const c of sim.chests) if (c.role === 'finale') c.loot = c.loot.filter(d => d.kind !== 'item')
+    sim.emit({ t: 'loot', x: h.unit.x, z: h.unit.z, gold: 0, item: id })
+  }
+
   bankRunGold(): void {
     const gold = this.sim.hero.gold
     const d = gold - this.bankedGold
@@ -1610,6 +1726,8 @@ export class ZoneMode implements GameMode {
     hud.zoneKey = this.setup.siege ? 'bastion' : this.setup.zone ?? this.setup.town ?? 'arena'
     hud.zoneLevel = sim.level
     if (sim.siege) this.syncSiege()
+    if (sim.assault) this.syncAssault()
+    if (sim.celebrate) this.syncCelebrate()
     // The townsperson within reach.
     let near = ''
     if (this.setup.kind !== 'arena') {
@@ -1657,6 +1775,92 @@ export class ZoneMode implements GameMode {
     }
     hud.chestsLeft = left
     hud.finaleOpen = finaleOpen
+  }
+
+  // ─── The besieged gate (roadmap #204) ─────────────────────────────────────
+
+  /**
+   * The camera's shot at the besieged gate: the panorama sweeps from the left tower along the wall to the
+   * right one, pulls back over the whole field and comes home to the hero; the breach frames the cave
+   * mouth. Null otherwise (the hero's follow shot, with the zoom eased back to normal).
+   */
+  private assaultShot(hx: number, hz: number, dt: number): { x: number; z: number } | null {
+    const a = this.sim.assault
+    if (!a) return null
+    const L = ASSAULT_LAYOUT
+    let shot: { x: number; z: number; zoom: number } | null = null
+    if (a.phase === 'panorama') {
+      const A = L.towers[0]!
+      const B = L.towers[1]!
+      const T = PANORAMA_S
+      // Time, ground point, zoom: the sweep, then the pull-back, then home.
+      const keys: Array<[number, number, number, number]> = [
+        [0, A.x - 3, A.z + 9, 1.8], [2.4, A.x + 3, A.z + 3, 1.45], [4.6, B.x - 3, B.z + 3, 1.45], [6.2, 27, 24, 2.1], [T - 0.5, hx, hz, 1], [T + 1, hx, hz, 1]
+      ]
+      let q = 0
+      while (q < keys.length - 2 && a.t > keys[q + 1]![0]) q++
+      const k0 = keys[q]!
+      const k1 = keys[q + 1]!
+      const u = Math.min(1, Math.max(0, (a.t - k0[0]) / (k1[0] - k0[0])))
+      const e = u * u * (3 - 2 * u)
+      shot = { x: k0[1] + (k1[1] - k0[1]) * e, z: k0[2] + (k1[2] - k0[2]) * e, zoom: k0[3] + (k1[3] - k0[3]) * e }
+    } else if (a.phase === 'breach') {
+      shot = { x: hx * 0.4 + L.mouth.x * 0.6, z: hz * 0.4 + L.mouth.z * 0.6 + 6, zoom: 1.3 }
+    }
+    if (!shot) {
+      // Back to the hero's own shot: the zoom eases home.
+      if (this.assaultZoom !== 1) {
+        this.assaultZoom += (1 - this.assaultZoom) * (1 - Math.exp(-dt * 4))
+        if (Math.abs(this.assaultZoom - 1) < 0.004) this.assaultZoom = 1
+        this.cam.zoom = this.assaultZoom
+      }
+      return null
+    }
+    this.assaultZoom += (shot.zoom - this.assaultZoom) * (a.phase === 'panorama' ? 1 : 1 - Math.exp(-dt * 3))
+    return shot
+  }
+
+  /**
+   * The camera's shot at the celebration: from behind the feast table over the crowd to the fire, round the dancers,
+   * then a slow pull back to the whole camp (the hero in front of it) for the last seconds.
+   */
+  private celebrateShot(dt: number): { x: number; z: number } | null {
+    const c = this.sim.celebrate
+    if (!c) return null
+    const F = PARTY_LAYOUT.fire
+    const T = PARTY_S
+    // Time, ground point, zoom (a bigger number is farther, but the distance fog swallows the scene past about 1.9: the film starts on the feast table and ends on the camp).
+    const keys: Array<[number, number, number, number]> = [
+      [0, F.x - 8, F.z - 6, 1.5], [4.5, F.x - 2.5, F.z - 2.5, 1.55], [9, F.x + 3, F.z - 1.5, 1.6], [13.5, F.x, F.z - 0.5, 1.65], [T, F.x, F.z + 2.5, 1.65], [T + 2, F.x, F.z + 2.5, 1.65]
+    ]
+    let q = 0
+    while (q < keys.length - 2 && c.t > keys[q + 1]![0]) q++
+    const k0 = keys[q]!
+    const k1 = keys[q + 1]!
+    const u = Math.min(1, Math.max(0, (c.t - k0[0]) / (k1[0] - k0[0])))
+    const e = u * u * (3 - 2 * u)
+    this.celebrateZoom = k0[3] + (k1[3] - k0[3]) * e
+    void dt
+    return { x: k0[1] + (k1[1] - k0[1]) * e, z: k0[2] + (k1[2] - k0[2]) * e }
+  }
+
+  /** The celebration's state into the HUD's mirror. */
+  private syncCelebrate(): void {
+    const c = this.sim.celebrate!
+    celebrateHud.active = true
+    celebrateHud.title = c.t >= PARTY_TITLE_AT && c.t < PARTY_S - 2.5
+    celebrateHud.t01 = Math.min(1, c.t / PARTY_S)
+  }
+
+  /** The siege's state into the HUD's mirror. */
+  private syncAssault(): void {
+    const a = this.sim.assault!
+    const v = assaultHud
+    v.active = true
+    v.phase = a.phase === 'panorama' ? 'panorama' : a.phase === 'play' ? 'play' : 'breach'
+    v.towers = a.towers.filter(t => !t.down).length
+    v.hint = assaultHint(a)
+    v.cut01 = a.phase === 'panorama' ? Math.min(1, a.t / PANORAMA_S) : 1
   }
 
   // ─── The siege (afterplay §8) ─────────────────────────────────────────────
@@ -1836,6 +2040,18 @@ export class ZoneMode implements GameMode {
       siegeActions.ready = () => false
     }
     this.siegeProps?.dispose()
+    if (this.sim.celebrate) {
+      celebrateHud.active = false
+      celebrateActions.skip = () => {}
+    }
+    this.celebrateProps?.dispose()
+    if (this.sim.assault) {
+      assaultHud.active = false
+      assaultActions.skipCut = () => {}
+      assaultActions.skipSiege = () => {}
+    }
+    this.assaultProps?.dispose()
+    this.rebelProps?.dispose()
     for (const id of [...this.views.keys()]) this.dropView(id)
     this.vfx.dispose()
     this.orbs.dispose()

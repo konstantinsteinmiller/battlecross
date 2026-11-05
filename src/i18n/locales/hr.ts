@@ -431,6 +431,49 @@ export default {
       }
     }
   },
+  celebrate: {
+    title: 'Špilje su slobodne!'
+  },
+  rebels: {
+    toast: {
+      guarded: 'Prvo pobijedi nadglednike!',
+      freed: 'Kopači su slobodni!'
+    }
+  },
+  assault: {
+    title: 'Opsada vrata Špilja',
+    skipCut: 'Preskoči scenu',
+    skip: 'Preskoči opsadu',
+    goal: 'Probij vrata: sruši oba tornja',
+    breach: 'Vrata su otvorena!',
+    towers: '{n} od {total} tornjeva palo',
+    hint: {
+      levers: 'Povuci polugu katapulta ili uđi pod ovna i gurni.',
+      idle: 'Priđi sjajnoj poluzi katapulta ili stani pod ovna da ga gurneš.',
+      push: 'Samo naprijed! Pritišći tipke kretanja da ovna gurneš brže.',
+      pushTouch: 'Samo naprijed! Pomiči palac-štapić da ovna gurneš brže.'
+    },
+    toast: {
+      tower: 'Toranj pada!',
+      breach: 'Palisada je pala. U Špilje!'
+    }
+  },
+  hoard: {
+    title: 'Kraljevo blago',
+    lead: 'Odaberi jedan komad opreme koji ćeš zadržati.',
+    best: 'Najbolji izbor',
+    pick: 'Odaberi komad',
+    take: 'Uzmi {item}',
+    open: 'Prazno mjesto',
+    over: 'Bolje od: {item}'
+  },
+  arenaUnlock: {
+    title: 'Koloseum otključan!',
+    body: 'Iskušaj svoju vještinu pobjeđujući horde čudovišta.',
+    go: 'U Koloseum',
+    woods: 'U Šaptavu šumu'
+  },
+
   goal: {
     dummy: 'Obori strašilo za trening',
     clear: 'Očisti: {place}',
@@ -446,6 +489,7 @@ export default {
     travel: 'Putuj u: {place}',
     decide: 'Odaberi',
     explore: 'Istraži kraljevstvo',
+    mara: '{who} zna put dalje',
     fight: 'Pobijedi u borbi',
     show: 'Pokaži mi put: {goal}',
     escort: 'Čuvaj karavanu'
@@ -1664,7 +1708,9 @@ export default {
   weapon: {
     melee: 'Blisko · atribut: {attr}',
     ranged: 'Daljina · atribut: {attr}',
-    magic: 'Magija · atribut: {attr}'
+    magic: 'Magija · atribut: {attr}',
+    hit: 'šteta po udarcu',
+    dps: '{n} u sekundi'
   },
   source: {
     'siege': "Osvojeno u opsadi Bastionskog prijelaza.",
@@ -4552,7 +4598,8 @@ export default {
       },
       learnSmith: {
         '1': 'Kovanje? Počinje ovdje: špic i stijena koja sjaji.',
-        '2': 'Iskopaj rudu pa je iskuj u svoju opremu u kovačnici. Tri dobra udarca. Hajde, probaj.'
+        '2': 'Iskopaj rudu pa je iskuj u svoju opremu u kovačnici. Tri dobra udarca. Hajde, probaj.',
+        '3': 'Evo, tri grumena željeza, na račun kuće. Taman za jedan mač.'
       },
       forge: {
         '1': 'Posudi moj nakovanj. Pazi na prste.'
@@ -4800,6 +4847,7 @@ export default {
       topics: 'Što reći',
       gotGold: 'Primljeno zlata: {n}',
       gotItem: 'Primljeno: {item}',
+      gotOre: 'Primljeno: {n} × {ore}',
       hint: 'Označeno na karti: {zone}',
       needs: {
         attr: 'Treba: {attr} {n}',
@@ -6181,17 +6229,20 @@ export default {
         slay: {
           '1': 'Kralj goblina pada, a Jame se prazne.',
           '2': 'Sunford spava mirnije, a Željezni red čuje tvoje ime.',
-          say: 'Bez dogovora. Tvojim je prepadima kraj.'
+          say: 'Bez dogovora. Tvojim je prepadima kraj.',
+          3: 'Recite Tuskeru... da je oduvijek bio bolji kralj.'
         },
         pact: {
           '1': 'Trgovina. Da. Kunem se svojom krunom.',
           '2': 'Goblinski trgovci postavili su se na trgu u Sunfordu i prodaju stvari koje nijedan tamošnji kovač ne bi napravio.',
-          say: 'Prestani s prepadima i trguj sa Sunfordom. Zakuni se.'
+          say: 'Prestani s prepadima i trguj sa Sunfordom. Zakuni se.',
+          3: 'A Tusker zadržava vlastitu stolicu za stolom. Nije predmet pregovora.'
         },
         ransom: {
           '1': 'Sve? ...Dobro. Uzmi i idi.',
           '2': 'Odlaziš s goblinskim zlatom. Prepadi će početi opet, ali Sindikat odobrava.',
-          say: 'Daj mi svoje blago i krunu možeš zadržati.'
+          say: 'Daj mi svoje blago i krunu možeš zadržati.',
+          3: 'Uzmi zlato. Ali sedlo ostaje. Tusker voli sedlo.'
         }
       },
       siege: {
@@ -6412,7 +6463,23 @@ export default {
           '1': 'Blagoslovljene ti čizme! Odo Marrow, torbar. Nađi me u Sunfordu, imat ću robe za tebe.'
         }
       },
+      rebelGoblin: {
+        down: { '1': 'Dolje kralj!' },
+        nomore: { '1': 'Nema kralja!' },
+        free: { '1': 'Za slobodu!' }
+      },
+      rebelGnome: {
+        down: { '1': 'Dolje kralj!' },
+        nomore: { '1': 'Nema kralja!' },
+        free: { '1': 'Za slobodu!' }
+      },
       goblinKing: {
+        intro: {
+          '1': 'Nitko ne grebe Tuskera! Upravo se okupao!'
+        },
+        dazed: {
+          '1': 'Tuskeru? Trepni dvaput ako me čuješ!'
+        },
         charge: {
           '1': 'Pregazi ih, Tusker!'
         },

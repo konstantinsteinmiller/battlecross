@@ -32,7 +32,7 @@ const pickTarget = (sim: Sim, u: Unit): Unit | null => {
   const taunt = findStatus(u, 'taunt')
   if (taunt) {
     const t = sim.live(taunt.src)
-    if (t) return t
+    if (t && !outOfReach(t)) return t
   }
   if (hasStatus(u, 'confuse')) return sim.nearest(u.team, u.x, u.z, 9, u.id) ?? null
   // The siege (afterplay §8): the horde marches on the gate, fighting only who stands near.

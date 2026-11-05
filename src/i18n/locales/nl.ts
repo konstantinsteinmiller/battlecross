@@ -429,6 +429,49 @@ export default {
       }
     }
   },
+  celebrate: {
+    title: 'De Holen zijn vrij!'
+  },
+  rebels: {
+    toast: {
+      guarded: 'Versla eerst de opzichters!',
+      freed: 'De graafsters zijn vrij!'
+    }
+  },
+  assault: {
+    title: 'Belegering van de poort van de Holen',
+    skipCut: 'Scène overslaan',
+    skip: 'Belegering overslaan',
+    goal: 'Breek de poort: sloop beide torens',
+    breach: 'De poort staat open!',
+    towers: '{n} van {total} torens gevallen',
+    hint: {
+      levers: 'Trek aan de hendel van een katapult, of stap onder de stormram en duw.',
+      idle: 'Loop naar een gloeiende katapulthendel, of ga onder de stormram staan om hem te duwen.',
+      push: 'Doorgaan! Tik op de bewegingstoetsen om de stormram sneller te duwen.',
+      pushTouch: 'Doorgaan! Beweeg de duimstick om de stormram sneller te duwen.'
+    },
+    toast: {
+      tower: 'Een toren valt!',
+      breach: 'De palissade is gevallen. De Holen in!'
+    }
+  },
+  hoard: {
+    title: 'De schat van de koning',
+    lead: 'Kies één uitrustingsstuk om te houden.',
+    best: 'Beste keuze',
+    pick: 'Kies een stuk',
+    take: 'Neem {item}',
+    open: 'Lege plek',
+    over: 'Beter dan {item}'
+  },
+  arenaUnlock: {
+    title: 'Colosseum ontgrendeld!',
+    body: 'Test je kunnen door hordes monsters te verslaan.',
+    go: 'Naar het Colosseum',
+    woods: 'Naar het Fluisterwoud'
+  },
+
   goal: {
     dummy: 'Sla de trainingspop omver',
     clear: 'Zuiver {place}',
@@ -444,6 +487,7 @@ export default {
     travel: 'Reis naar {place}',
     decide: 'Maak je keuze',
     explore: 'Verken het rijk',
+    mara: '{who} kent de weg vooruit',
     fight: 'Win het gevecht',
     show: 'Wijs me de weg: {goal}',
     escort: 'Bewaak de karavaan'
@@ -1662,7 +1706,9 @@ export default {
   weapon: {
     melee: 'Dichtbij · schaalt met {attr}',
     ranged: 'Afstand · schaalt met {attr}',
-    magic: 'Magie · schaalt met {attr}'
+    magic: 'Magie · schaalt met {attr}',
+    hit: 'schade per slag',
+    dps: '{n} per seconde'
   },
   source: {
     'siege': "Gewonnen in het Beleg van Bastionsoversteek.",
@@ -4529,7 +4575,8 @@ export default {
       },
       learnSmith: {
         '1': 'Smeden? Dat begint hier: een houweel en een rots die glinstert.',
-        '2': 'Haal het erts naar boven en hamer het dan in je uitrusting bij een smidse. Drie goede slagen. Kom, probeer het.'
+        '2': 'Haal het erts naar boven en hamer het dan in je uitrusting bij een smidse. Drie goede slagen. Kom, probeer het.',
+        '3': 'Hier, drie brokken ijzer, van het huis. Genoeg voor één zwaard.'
       },
       forge: {
         '1': 'Leen mijn aambeeld maar. Pas op je vingers.'
@@ -4777,6 +4824,7 @@ export default {
       topics: 'Wat zeg je?',
       gotGold: '{n} goud ontvangen',
       gotItem: 'Ontvangen: {item}',
+      gotOre: 'Ontvangen: {n} × {ore}',
       hint: 'Gemarkeerd op je kaart: {zone}',
       needs: {
         attr: 'Vereist {n} {attr}',
@@ -6081,17 +6129,20 @@ export default {
         slay: {
           '1': 'De Goblinkoning valt, en de Holen lopen leeg.',
           '2': 'Sunford slaapt rustiger, en de IJzeren Orde hoort je naam.',
-          say: 'Geen deals. Jouw overvallen eindigen hier.'
+          say: 'Geen deals. Jouw overvallen eindigen hier.',
+          3: 'Zeg tegen Tusker... dat hij altijd de betere koning was.'
         },
         pact: {
           '1': 'Handel. Ja. Ik zweer het, op mijn kroon.',
           '2': 'Goblinhandelaren zetten zich neer op het plein van Sunford en verkopen dingen die geen smid daar kan maken.',
-          say: 'Stop de overvallen en handel in plaats daarvan met Sunford. Zweer het.'
+          say: 'Stop de overvallen en handel in plaats daarvan met Sunford. Zweer het.',
+          3: 'En Tusker houdt zijn eigen stoel aan tafel. Niet onderhandelbaar.'
         },
         ransom: {
           '1': 'Alles? ...Goed. Neem het en ga.',
           '2': 'Je vertrekt met goblingoud. De overvallen beginnen weer, maar het Syndicaat keurt het goed.',
-          say: 'Geef me je schat, dan mag je je kroon houden.'
+          say: 'Geef me je schat, dan mag je je kroon houden.',
+          3: 'Neem het goud. Maar het zadel blijft. Tusker houdt van het zadel.'
         }
       },
       siege: {
@@ -6310,7 +6361,23 @@ export default {
           '1': 'Gezegend zijn je laarzen! Odo Marrow, marskramer. Zoek me op in Sunford, dan heb ik waren voor je.'
         }
       },
+      rebelGoblin: {
+        down: { '1': 'Weg met de koning!' },
+        nomore: { '1': 'Geen koning!' },
+        free: { '1': 'Voor de vrijheid!' }
+      },
+      rebelGnome: {
+        down: { '1': 'Weg met de koning!' },
+        nomore: { '1': 'Geen koning!' },
+        free: { '1': 'Voor de vrijheid!' }
+      },
       goblinKing: {
+        intro: {
+          '1': 'Niemand krabt Tusker! Hij heeft net gebaad!'
+        },
+        dazed: {
+          '1': 'Tusker? Knipper twee keer als je me hoort!'
+        },
         charge: {
           '1': 'Verpletter ze, Tusker!'
         },

@@ -466,6 +466,18 @@ export const stepHero = (sim: Sim, dt: number): void => {
     u.z = rollOut[1]
     return
   }
+  // In a conversation (the truce, `sim/truce.ts`): he stands and listens. No
+  // chase, no swing, no auto-engage, no queued cast; foes cannot reach him
+  // either, so nothing keeps pulling him away from who he is talking to.
+  if (u.truce) {
+    if (u.action?.id === 'attack') cancelSwing(u)
+    h.order.kind = 'none'
+    h.order.targetId = 0
+    h.queued = null
+    u.targetId = 0
+    if (!u.action) { stop(u); u.anim = 'idle' }
+    return
+  }
   const stick = Math.hypot(h.stickX, h.stickZ)
   if (u.action) {
     // A skill's wind-up roots him; a basic swing gives way to the stick. A

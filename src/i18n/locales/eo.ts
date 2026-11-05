@@ -428,6 +428,49 @@ export default {
       }
     }
   },
+  celebrate: {
+    title: 'La Kavernoj estas liberaj!'
+  },
+  rebels: {
+    toast: {
+      guarded: 'Unue venku la kontrolistojn!',
+      freed: 'La fosistoj estas liberaj!'
+    }
+  },
+  assault: {
+    title: 'Sieĝo de la pordego de la Kavernoj',
+    skipCut: 'Preterlasi scenon',
+    skip: 'Preterlasi sieĝon',
+    goal: 'Rompu la pordegon: faligu ambaŭ turojn',
+    breach: 'La pordego estas malfermita!',
+    towers: '{n} el {total} turoj falis',
+    hint: {
+      levers: 'Tiru la levilon de katapulto, aŭ iru sub la ŝafon kaj puŝu.',
+      idle: 'Iru al brilanta katapulta levilo, aŭ stariĝu sub la ŝafo por puŝi ĝin.',
+      push: 'Daŭrigu! Premu la movajn klavojn por pli rapide puŝi la ŝafon.',
+      pushTouch: 'Daŭrigu! Movu la fingrobastonon por pli rapide puŝi la ŝafon.'
+    },
+    toast: {
+      tower: 'Turo falas!',
+      breach: 'La palisaro falis. En la Kavernojn!'
+    }
+  },
+  hoard: {
+    title: 'La trezoro de la reĝo',
+    lead: 'Elektu unu pecon de ekipaĵo por konservi.',
+    best: 'Plej taŭga',
+    pick: 'Elektu pecon',
+    take: 'Preni: {item}',
+    open: 'Malplena fako',
+    over: 'Pli bona ol {item}'
+  },
+  arenaUnlock: {
+    title: 'Koloseo malŝlosita!',
+    body: 'Provu vian lertecon venkante hordojn de monstroj.',
+    go: 'Al la Koloseo',
+    woods: 'En la Flustrantan Arbaron'
+  },
+
   goal: {
     dummy: 'Faligu la ekzercan pupon',
     clear: 'Purigu {place}',
@@ -443,6 +486,7 @@ export default {
     travel: 'Vojaĝu al {place}',
     decide: 'Faru vian elekton',
     explore: 'Esploru la regnon',
+    mara: '{who} konas la vojon antaŭen',
     fight: 'Venku la batalon',
     show: 'Montru al mi la vojon: {goal}',
     escort: 'Gardu la karavanon'
@@ -1661,7 +1705,9 @@ export default {
   weapon: {
     melee: 'Proksimbatalo · kreskas kun {attr}',
     ranged: 'Pafarmilo · kreskas kun {attr}',
-    magic: 'Magio · kreskas kun {attr}'
+    magic: 'Magio · kreskas kun {attr}',
+    hit: 'difekto por bato',
+    dps: '{n} sekunde'
   },
   source: {
     'siege': "Gajnita en la sieĝo de Bastiona Transirejo.",
@@ -4525,7 +4571,8 @@ export default {
       },
       learnSmith: {
         '1': 'Forĝado? Ĝi komenciĝas ĝuste ĉi tie: piko kaj brilanta roko.',
-        '2': 'Elfosu la mineralon kaj poste martelu ĝin en vian ilaron ĉe forĝejo. Tri bonaj batoj. Nu, provu.'
+        '2': 'Elfosu la mineralon kaj poste martelu ĝin en vian ilaron ĉe forĝejo. Tri bonaj batoj. Nu, provu.',
+        '3': 'Jen, tri pecoj da fero, donace. Tio sufiĉas por unu glavo.'
       },
       forge: {
         '1': 'Prunteprenu mian amboson. Atentu viajn fingrojn.'
@@ -4773,6 +4820,7 @@ export default {
       topics: 'Kion diri',
       gotGold: 'Ricevita: {n} da oro',
       gotItem: 'Ricevita: {item}',
+      gotOre: 'Ricevita: {n} × {ore}',
       hint: 'Markita sur via mapo: {zone}',
       needs: {
         attr: 'Bezonas {n} da {attr}',
@@ -6071,17 +6119,20 @@ export default {
         slay: {
           '1': 'La Kobolda Reĝo falas, kaj la Kavernoj malpleniĝas.',
           '2': 'Sunford dormas pli trankvile, kaj la Fera Ordeno aŭdas vian nomon.',
-          say: 'Neniu interkonsento. Viaj atakoj finiĝas ĉi tie.'
+          say: 'Neniu interkonsento. Viaj atakoj finiĝas ĉi tie.',
+          3: 'Diru al Tusker... ke li ĉiam estis la pli bona reĝo.'
         },
         pact: {
           '1': 'Komerco. Jes. Mi ĵuras ĝin, per mia krono.',
           '2': 'Koboldaj komercistoj starigas sin en la placo de Sunford, vendante aĵojn, kiujn neniu forĝisto tie povus fari.',
-          say: 'Ĉesigu la atakojn kaj komercu kun Sunford anstataŭe. Ĵuru ĝin.'
+          say: 'Ĉesigu la atakojn kaj komercu kun Sunford anstataŭe. Ĵuru ĝin.',
+          3: 'Kaj Tusker konservas sian propran seĝon ĉe la tablo. Ne intertraktebla.'
         },
         ransom: {
           '1': 'Ĉion? ...Bone. Prenu ĝin, kaj iru.',
           '2': 'Vi foriras kun kobolda oro. La atakoj rekomenciĝos, sed la Sindikato aprobas.',
-          say: 'Donu al mi vian trezoron kaj vi povas konservi vian kronon.'
+          say: 'Donu al mi vian trezoron kaj vi povas konservi vian kronon.',
+          3: 'Prenu la oron. Sed la selo restas. Tusker ŝatas la selon.'
         }
       },
       siege: {
@@ -6299,7 +6350,23 @@ export default {
           '1': 'Benataj estu viaj botoj! Odo Marrow, kolportisto. Trovu min en Sunford, mi havos varojn por vi.'
         }
       },
+      rebelGoblin: {
+        down: { '1': 'Malsupren la reĝon!' },
+        nomore: { '1': 'Neniu reĝo!' },
+        free: { '1': 'Por libereco!' }
+      },
+      rebelGnome: {
+        down: { '1': 'Malsupren la reĝon!' },
+        nomore: { '1': 'Neniu reĝo!' },
+        free: { '1': 'Por libereco!' }
+      },
       goblinKing: {
+        intro: {
+          '1': 'Neniu gratas Tusker! Li ĵus banis sin!'
+        },
+        dazed: {
+          '1': 'Tusker? Palpebrumu dufoje se vi aŭdas min!'
+        },
         charge: {
           '1': 'Disbatu ilin, Dentegulo!'
         },

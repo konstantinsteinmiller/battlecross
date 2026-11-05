@@ -429,6 +429,49 @@ export default {
       }
     }
   },
+  celebrate: {
+    title: 'Les Cavernes sont libres !'
+  },
+  rebels: {
+    toast: {
+      guarded: 'Bats d\'abord les contremaîtres !',
+      freed: 'Les mineurs sont libres !'
+    }
+  },
+  assault: {
+    title: 'Siège de la porte des Cavernes',
+    skipCut: 'Passer la scène',
+    skip: 'Passer le siège',
+    goal: 'Brise la porte : abats les deux tours',
+    breach: 'La porte est ouverte !',
+    towers: '{n} tour(s) sur {total} abattue(s)',
+    hint: {
+      levers: 'Tire le levier d\'une catapulte, ou glisse-toi sous le bélier et pousse.',
+      idle: 'Approche-toi d\'un levier de catapulte lumineux, ou place-toi sous le bélier pour le pousser.',
+      push: 'Continue ! Tape les touches de déplacement pour pousser le bélier plus vite.',
+      pushTouch: 'Continue ! Actionne le joystick pour pousser le bélier plus vite.'
+    },
+    toast: {
+      tower: 'Une tour s\'effondre !',
+      breach: 'La palissade est tombée. Dans les Cavernes !'
+    }
+  },
+  hoard: {
+    title: 'Le trésor du roi',
+    lead: 'Choisis une pièce d\'équipement à garder.',
+    best: 'Le meilleur choix',
+    pick: 'Choisis une pièce',
+    take: 'Prendre {item}',
+    open: 'Emplacement vide',
+    over: 'Meilleur que {item}'
+  },
+  arenaUnlock: {
+    title: 'Colisée débloqué !',
+    body: 'Mets ton talent à l\'épreuve en vainquant des hordes de monstres.',
+    go: 'Vers le Colisée',
+    woods: 'Dans les Bois Murmurants'
+  },
+
   goal: {
     dummy: 'Renverse le mannequin d’entraînement',
     clear: 'Nettoie {place}',
@@ -444,6 +487,7 @@ export default {
     travel: 'Va à {place}',
     decide: 'Fais ton choix',
     explore: 'Explore le royaume',
+    mara: '{who} connaît la route à suivre',
     fight: 'Gagne le combat',
     show: 'Montre-moi le chemin : {goal}',
     escort: 'Protège la caravane'
@@ -1662,7 +1706,9 @@ export default {
   weapon: {
     melee: 'Mêlée · attribut : {attr}',
     ranged: 'Distance · attribut : {attr}',
-    magic: 'Magie · attribut : {attr}'
+    magic: 'Magie · attribut : {attr}',
+    hit: 'dégâts par coup',
+    dps: '{n} par seconde'
   },
   source: {
     'siege': "Remporté lors du siège du Gué-du-Bastion.",
@@ -4535,7 +4581,8 @@ export default {
       },
       learnSmith: {
         '1': 'La forge ? Ça commence ici : une pioche et un rocher qui brille.',
-        '2': 'Extrayez le minerai, puis martelez-le dans votre équipement à une forge. Trois bons coups. Allez, essayez.'
+        '2': 'Extrayez le minerai, puis martelez-le dans votre équipement à une forge. Trois bons coups. Allez, essayez.',
+        '3': 'Tiens, trois pépites de fer, c\'est cadeau. Juste de quoi forger une épée.'
       },
       forge: {
         '1': 'Empruntez mon enclume. Attention à vos doigts.'
@@ -4787,6 +4834,7 @@ export default {
       topics: 'Que dire ?',
       gotGold: '{n} pièces d’or reçues',
       gotItem: 'Reçu : {item}',
+      gotOre: 'Reçu : {n} × {ore}',
       hint: 'Marqué sur ta carte : {zone}',
       needs: {
         attr: 'Requiert {n} en {attr}',
@@ -6118,17 +6166,20 @@ export default {
         slay: {
           '1': 'Le Roi gobelin tombe, et les Cavernes se vident.',
           '2': 'Sunford dort plus tranquille, et l’Ordre de Fer entend ton nom.',
-          say: 'Pas de marché. Tes raids s’arrêtent ici.'
+          say: 'Pas de marché. Tes raids s’arrêtent ici.',
+          3: 'Dites à Tusker... qu\'il a toujours été le meilleur roi.'
         },
         pact: {
           '1': 'Le commerce. Oui. Je le jure, sur ma couronne.',
           '2': 'Des marchands gobelins s’installent sur la place de Sunford et vendent ce qu’aucun forgeron d’ici ne saurait faire.',
-          say: 'Arrête les raids et commerce plutôt avec Sunford. Jure-le.'
+          say: 'Arrête les raids et commerce plutôt avec Sunford. Jure-le.',
+          3: 'Et pour Tusker, une place à table, la sienne. Ce n\'est pas négociable.'
         },
         ransom: {
           '1': 'Tout ? ...Soit. Prends-le et pars.',
           '2': 'Tu repars avec de l’or gobelin. Les raids reprendront, mais le Syndicat approuve.',
-          say: 'Donne-moi ton trésor et tu peux garder ta couronne.'
+          say: 'Donne-moi ton trésor et tu peux garder ta couronne.',
+          3: 'Prends l\'or. Mais la selle reste. Tusker aime sa selle.'
         }
       },
       siege: {
@@ -6348,7 +6399,23 @@ export default {
           '1': 'Que tes bottes soient bénies ! Odo Marrow, colporteur. Viens me voir à Sunford, j’aurai des marchandises pour toi.'
         }
       },
+      rebelGoblin: {
+        down: { '1': 'À bas le roi !' },
+        nomore: { '1': 'Plus jamais de roi, jamais !' },
+        free: { '1': 'Pour la liberté !' }
+      },
+      rebelGnome: {
+        down: { '1': 'À bas le roi !' },
+        nomore: { '1': 'Plus jamais de roi, jamais !' },
+        free: { '1': 'Pour la liberté !' }
+      },
       goblinKing: {
+        intro: {
+          '1': 'Personne n\'égratigne Tusker ! Il vient de prendre son bain !'
+        },
+        dazed: {
+          '1': 'Tusker ? Cligne deux fois des yeux si tu m\'entends !'
+        },
         charge: {
           '1': 'Écrase-les, Tusker !'
         },

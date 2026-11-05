@@ -428,6 +428,49 @@ export default {
       }
     }
   },
+  celebrate: {
+    title: 'Gua-gua telah bebas!'
+  },
+  rebels: {
+    toast: {
+      guarded: 'Kalahkan para pengawas dulu!',
+      freed: 'Para penggali sudah bebas!'
+    }
+  },
+  assault: {
+    title: 'Pengepungan gerbang Gua',
+    skipCut: 'Lewati adegan',
+    skip: 'Lewati pengepungan',
+    goal: 'Hancurkan gerbang: robohkan kedua menara',
+    breach: 'Gerbang terbuka!',
+    towers: '{n} dari {total} menara runtuh',
+    hint: {
+      levers: 'Tarik tuas ketapel, atau masuk ke bawah alat pendobrak lalu dorong.',
+      idle: 'Dekati tuas ketapel yang bersinar, atau berdiri di bawah alat pendobrak untuk mendorongnya.',
+      push: 'Terus! Tekan tombol gerak agar pendobrak melaju lebih cepat.',
+      pushTouch: 'Terus! Gerakkan tongkat jempol agar pendobrak melaju lebih cepat.'
+    },
+    toast: {
+      tower: 'Sebuah menara runtuh!',
+      breach: 'Pagar kayu roboh. Masuk ke Gua!'
+    }
+  },
+  hoard: {
+    title: 'Harta Raja',
+    lead: 'Pilih satu perlengkapan untuk disimpan.',
+    best: 'Paling cocok',
+    pick: 'Pilih satu',
+    take: 'Ambil {item}',
+    open: 'Slot kosong',
+    over: 'Lebih baik dari {item}'
+  },
+  arenaUnlock: {
+    title: 'Colosseum terbuka!',
+    body: 'Uji kemampuanmu dengan mengalahkan gerombolan monster.',
+    go: 'Ke Colosseum',
+    woods: 'Ke Hutan Berbisik'
+  },
+
   goal: {
     dummy: 'Robohkan boneka latihan',
     clear: 'Bersihkan {place}',
@@ -443,6 +486,7 @@ export default {
     travel: 'Pergi ke {place}',
     decide: 'Buat pilihanmu',
     explore: 'Jelajahi negeri',
+    mara: '{who} tahu jalan selanjutnya',
     fight: 'Menangkan pertarungan',
     show: 'Tunjukkan jalan: {goal}',
     escort: 'Kawal kafilah'
@@ -1661,7 +1705,9 @@ export default {
   weapon: {
     melee: 'Jarak dekat · mengikuti {attr}',
     ranged: 'Jarak jauh · mengikuti {attr}',
-    magic: 'Sihir · mengikuti {attr}'
+    magic: 'Sihir · mengikuti {attr}',
+    hit: 'kerusakan per serangan',
+    dps: '{n} per detik'
   },
   source: {
     'siege': "Dimenangkan dalam Pengepungan Penyeberangan Benteng.",
@@ -4525,7 +4571,8 @@ export default {
       },
       learnSmith: {
         '1': 'Menempa? Itu dimulai di sini: sebuah beliung dan batu yang berkilau.',
-        '2': 'Gali bijihnya, lalu tempa ke perlengkapanmu di tungku tempa. Tiga pukulan bagus. Ayo, coba.'
+        '2': 'Gali bijihnya, lalu tempa ke perlengkapanmu di tungku tempa. Tiga pukulan bagus. Ayo, coba.',
+        '3': 'Ini, tiga bongkah besi, gratis dariku. Cukup untuk satu pedang.'
       },
       forge: {
         '1': 'Pinjam landasanku. Hati-hati jarimu.'
@@ -4773,6 +4820,7 @@ export default {
       topics: 'Mau bilang apa',
       gotGold: 'Menerima {n} emas',
       gotItem: 'Menerima: {item}',
+      gotOre: 'Menerima: {n} × {ore}',
       hint: 'Ditandai di petamu: {zone}',
       needs: {
         attr: 'Butuh {n} {attr}',
@@ -6071,17 +6119,20 @@ export default {
         slay: {
           '1': 'Raja Goblin tumbang, dan Liang mengosong.',
           '2': 'Sunford tidur lebih tenang, dan Ordo Besi mendengar namamu.',
-          say: 'Tak ada kesepakatan. Serbuan kalian berakhir di sini.'
+          say: 'Tak ada kesepakatan. Serbuan kalian berakhir di sini.',
+          3: 'Katakan pada Tusker... dia selalu jadi raja yang lebih baik.'
         },
         pact: {
           '1': 'Dagang. Ya. Aku bersumpah, demi mahkotaku.',
           '2': 'Pedagang goblin membuka lapak di alun-alun Sunford, menjual barang yang tak bisa dibuat pandai besi mana pun di sana.',
-          say: 'Hentikan serbuan dan berdagang dengan Sunford sebagai gantinya. Bersumpahlah.'
+          say: 'Hentikan serbuan dan berdagang dengan Sunford sebagai gantinya. Bersumpahlah.',
+          3: 'Dan Tusker tetap punya kursinya sendiri di meja. Tidak bisa ditawar.'
         },
         ransom: {
           '1': 'Semuanya? ...Baiklah. Ambil, dan pergi.',
           '2': 'Kamu pergi membawa emas goblin. Serbuan akan mulai lagi, tapi Sindikat menyetujuinya.',
-          say: 'Serahkan hartamu dan kamu boleh menyimpan mahkotamu.'
+          say: 'Serahkan hartamu dan kamu boleh menyimpan mahkotamu.',
+          3: 'Ambil emasnya. Tapi pelananya tetap. Tusker suka pelana itu.'
         }
       },
       siege: {
@@ -6299,7 +6350,23 @@ export default {
           '1': 'Diberkatilah sepatumu! Odo Marrow, pedagang keliling. Temui aku di Sunford, aku akan punya barang untukmu.'
         }
       },
+      rebelGoblin: {
+        down: { '1': 'Turunkan sang raja!' },
+        nomore: { '1': 'Tanpa raja!' },
+        free: { '1': 'Demi kebebasan!' }
+      },
+      rebelGnome: {
+        down: { '1': 'Turunkan sang raja!' },
+        nomore: { '1': 'Tanpa raja!' },
+        free: { '1': 'Demi kebebasan!' }
+      },
       goblinKing: {
+        intro: {
+          '1': 'Tak ada yang boleh menggores Tusker! Dia baru saja mandi!'
+        },
+        dazed: {
+          '1': 'Tusker? Kedip dua kali kalau kau dengar aku!'
+        },
         charge: {
           '1': 'Terjang mereka, Tusker!'
         },

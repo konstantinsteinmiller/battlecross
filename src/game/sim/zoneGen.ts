@@ -13,6 +13,7 @@ import type { TownPlan } from './town'
 import { placeHerbs, placePieces, placeTreasure, type HerbPlan, type PiecePlan } from './herbs'
 import { placeOres, type OrePlan } from './ores'
 import { placeCage } from './cages'
+import { placeRebels, type RebelSite } from './rebelSite'
 import { CAMP_ROOM, dressCamp, placeCamp, type CampPlan } from './camp'
 import { placeGate, type GatePlan } from './gate'
 import { LAID_SHAPES, carveDisc, carveLine, carveRect, layOut, layoutHeight, wallFace, type Chamber, type Fixture, type Guide, type Laid } from './layouts'
@@ -139,6 +140,8 @@ export interface ZonePlan {
   ores?: OrePlan[]
   /** A cage's key lying in the place (roadmap #100); the cage is a chest. */
   cageKey?: { x: number; z: number }
+  /** The Hollows' chain gang of gnome diggers while the King lives (#205, `rebelSite.ts`). */
+  rebels?: RebelSite
   /** The first visit's palisade gate before the boss and the pack that keeps its key (`gate.ts`). */
   gate?: GatePlan
   /** The treasure map's pieces lying here (roadmap #89). */
@@ -283,6 +286,8 @@ export interface ZoneGenOpts {
   treasure?: boolean
   /** Somebody is held here in a cage (roadmap #100). */
   cage?: boolean
+  /** The Hollows' chain gang of gnome diggers (#205): laid while the Goblin King lives. */
+  rebels?: boolean
 }
 
 export const generateZone = (def: ZoneDef, seed: number, o: ZoneGenOpts = {}): ZonePlan => {
@@ -559,6 +564,14 @@ export const generateZone = (def: ZoneDef, seed: number, o: ZoneGenOpts = {}): Z
   const finalePack = packs.find(q => q.finale)
   const campCut = o.tutorial && !o.bare && finalePack ? placeCamp({ w: Wd, h, solid, trail, kind, sealed, boss: { x: finalePack.x, z: finalePack.z } }) : null
   if (campCut) features.chests.push({ id: features.chests.length, ...campCut.chest })
+  // The chain gang (#205), on a stream of its own and BEFORE the set pieces (which would crowd the clearing):
+  // a few steps from the second clearing's pack (its overseers). The set pieces and the finds keep clear of it.
+  const gangPack = packs.length >= 3 ? packs[1] : packs[0]
+  const rebels = o.rebels && !o.tutorial && !o.bare && gangPack && !gangPack.finale
+    ? placeRebels({ seed, w: Wd, h, solid, sealed, trail, kind, start: { x: clearings[0]!.x, z: clearings[0]!.z }, chests: features.chests }, gangPack,
+      [...features.plates, ...features.caves.flatMap(c => [c, c.mouth]), ...(features.puzzle ? [features.puzzle.hint] : [])])
+    : null
+  const gangKeep = rebels ? [{ x: rebels.x, z: rebels.z }] : []
   // The place's set pieces (#120), on their own stream, before the relief
   // (each blocking one stands on a level pad) and before the herbs and the
   // ore (which keep off them). Clear of every place one goes to.
@@ -567,6 +580,7 @@ export const generateZone = (def: ZoneDef, seed: number, o: ZoneGenOpts = {}): Z
   for (const p of features.plates) keep.push({ x: p.x, z: p.z, r: 1.6 })
   if (features.puzzle) keep.push({ x: features.puzzle.hint.x, z: features.puzzle.hint.z, r: 2 })
   for (const p of packs) keep.push({ x: p.x, z: p.z, r: p.finale ? 3 : 2.3, pack: true })
+  if (rebels) keep.push({ x: rebels.x, z: rebels.z, r: 4.6 })
   for (const p of features.optionalPacks) keep.push({ x: p.x, z: p.z, r: 2.3, pack: true })
   for (const cv of features.caves) keep.push({ x: cv.mouth.x, z: cv.mouth.z, r: 2 })
   for (const f2 of [...features.forks, ...features.signs]) keep.push({ x: f2.x, z: f2.z, r: 1.4 })
@@ -604,11 +618,11 @@ export const generateZone = (def: ZoneDef, seed: number, o: ZoneGenOpts = {}): Z
     campAvoid.push(campCut.key, campCut.chest)
     for (let dj = -9; dj <= 9; dj += 2) for (let di = -9; di <= 9; di += 2) if (Math.hypot(di, dj) <= 9) campAvoid.push({ x: cx0(campCut.bi + di), z: cx0(campCut.bj + dj) })
   }
-  const herbs = o.bare ? [] : placeHerbs(spots, def.id, o.tutorial ? 2 : undefined, o.tutorial ? campAvoid : [])
+  const herbs = o.bare ? [] : placeHerbs(spots, def.id, o.tutorial ? 2 : undefined, o.tutorial ? campAvoid : gangKeep)
   // The treasure map (#89), after the herbs and on streams of their own too.
-  const pieces = o.bare ? [] : placePieces(spots, o.pieces ?? [], [...herbs, ...campAvoid])
+  const pieces = o.bare ? [] : placePieces(spots, o.pieces ?? [], [...herbs, ...campAvoid, ...gangKeep])
   const end = clearings.find(c => c.role === 'finale') ?? clearings[clearings.length - 1]!
-  const x = o.treasure && !o.tutorial && !o.bare ? placeTreasure({ ...spots, end: { x: end.x, z: end.z } }, [...herbs, ...pieces]) : null
+  const x = o.treasure && !o.tutorial && !o.bare ? placeTreasure({ ...spots, end: { x: end.x, z: end.z } }, [...herbs, ...pieces, ...gangKeep]) : null
   // Ore (#99), last of all and on its own stream: against the stone, off the
   // herbs, the pieces and the treasure, and (a solid rock) clear of every
   // place one goes to: a cave and its mouth, a plate, the hint stone, a pack.
@@ -618,7 +632,7 @@ export const generateZone = (def: ZoneDef, seed: number, o: ZoneGenOpts = {}): Z
     // The top of a ledge is reached by its ramp: no ore stands on either.
     ...features.ledges.flatMap(l => [{ x: l.x, z: l.z }, { x: ((l.probe % Wd) + 0.5) * CELL, z: (Math.floor(l.probe / Wd) + 0.5) * CELL }])
   ]
-  const ores = o.bare ? [] : placeOres({ ...spots, cave }, def.min, [...herbs, ...pieces, ...campAvoid, ...(x ? [x] : []), ...named], o.tutorial ? 1 : undefined, o.tutorial ? features.puzzle?.hint : undefined)
+  const ores = o.bare ? [] : placeOres({ ...spots, cave }, def.min, [...herbs, ...pieces, ...campAvoid, ...gangKeep, ...(x ? [x] : []), ...named], o.tutorial ? 1 : undefined, o.tutorial ? features.puzzle?.hint : undefined)
   if (x) {
     // Its cell is its own, like any chest's (it stood on open ground with
     // nothing to stop a body walking into it).
@@ -626,14 +640,14 @@ export const generateZone = (def: ZoneDef, seed: number, o: ZoneGenOpts = {}): Z
     features.chests.push({ id: features.chests.length, x: x.x, z: x.z, tier: 'gold', role: 'treasure', sx: x.x, sz: x.z + CELL, door: -1, guard: -1 })
   }
   // A cage (#100), last of all and on its own stream.
-  const cage = o.cage && !o.tutorial && !o.bare ? placeCage(spots, [...herbs, ...pieces, ...ores, ...(x ? [x] : [])]) : null
+  const cage = o.cage && !o.tutorial && !o.bare ? placeCage(spots, [...herbs, ...pieces, ...ores, ...gangKeep, ...(x ? [x] : [])]) : null
   if (cage) features.chests.push({ id: features.chests.length, ...cage.chest })
   // A way two cells across from the start to every place one goes to, cut
   // through the rock where the layout left only a gap (`widen.ts`).
   // It runs before the relief is raised: a cliff it turns to ramp is ramp in the ground too.
   const cageKey = cage?.key ?? campCut?.key
   widenWays({ w: Wd, h, solid, kind, sealed, masonry, doors: features.doors, pieces: dresser.pieces, crossings: features.crossings, anchored: ores.map(q => Math.floor(q.z / CELL) * Wd + Math.floor(q.x / CELL)) }, start,
-    [...waysTo({ ...features, packs, herbs, pieces, ores, ...(cageKey ? { cageKey } : {}) }), ...(camp ? camp.spots : [])])
+    [...waysTo({ ...features, packs, herbs, pieces, ores, ...(cageKey ? { cageKey } : {}) }), ...(camp ? camp.spots : []), ...(rebels ? [{ x: rebels.x, z: rebels.z }] : [])])
   // The first visit (#194): a wooden palisade across the road walls the boss's floor off from the pack before it. Cut after the
   // ways are widened (a widening beside it would open a way round).
   let gate: GatePlan | undefined
@@ -699,6 +713,7 @@ export const generateZone = (def: ZoneDef, seed: number, o: ZoneGenOpts = {}): Z
     ores,
     ...(cageKey ? { cageKey } : {}),
     ...(camp ? { camp } : {}),
+    ...(rebels ? { rebels } : {}),
     ...(gate ? { gate } : {}),
     pieces,
     // The first visit opens on a calm beat: a dummy to learn to fight on.

@@ -48,7 +48,7 @@ const { t } = useI18n()
 
 const ICON: Record<GoalId, GameIconName> = {
   dummy: 'sword', clear: 'sword', boss: 'skull', rescue: 'unlock', campLesson: 'book', exit: 'forward', wave: 'trophy', fight: 'sword', escort: 'shield',
-  trainer: 'chat', learn: 'book', points: 'plus', leave: 'map', travel: 'map', decide: 'chat', explore: 'map'
+  trainer: 'chat', learn: 'book', points: 'plus', leave: 'map', travel: 'map', decide: 'chat', explore: 'map', mara: 'chat'
 }
 
 /** Goals that are done on one of the hero's sheets: the tap opens it. */
@@ -67,6 +67,7 @@ const text = computed(() => {
   if (!g) return ''
   return t(`goal.${g.id}`, {
     place: g.place ? t(`node.${g.place}.name`) : '',
+    who: g.id === 'mara' ? t('npc.elderMara.name') : '',
     foe: g.foe ? t(`enemy.${g.foe}`) : ''
   })
 })

@@ -429,6 +429,49 @@ export default {
       }
     }
   },
+  celebrate: {
+    title: 'Die Höhlen sind frei!'
+  },
+  rebels: {
+    toast: {
+      guarded: 'Besiege zuerst die Aufseher!',
+      freed: 'Die Gräber sind frei!'
+    }
+  },
+  assault: {
+    title: 'Belagerung des Höhlentors',
+    skipCut: 'Zwischensequenz überspringen',
+    skip: 'Belagerung überspringen',
+    goal: 'Brich das Tor: stürze beide Türme',
+    breach: 'Das Tor ist offen!',
+    towers: '{n} von {total} Türmen gefallen',
+    hint: {
+      levers: 'Zieh den Hebel eines Katapults oder tritt unter den Rammbock und schieb.',
+      idle: 'Geh zu einem leuchtenden Katapulthebel oder stell dich unter den Rammbock, um ihn zu schieben.',
+      push: 'Weiter so! Tippe die Bewegungstasten, um den Rammbock schneller zu schieben.',
+      pushTouch: 'Weiter so! Bewege den Daumenstick, um den Rammbock schneller zu schieben.'
+    },
+    toast: {
+      tower: 'Ein Turm fällt!',
+      breach: 'Die Palisade ist gefallen. In die Höhlen!'
+    }
+  },
+  hoard: {
+    title: 'Der Hort des Königs',
+    lead: 'Wähle ein Ausrüstungsstück, das du behältst.',
+    best: 'Beste Wahl',
+    pick: 'Wähle ein Stück',
+    take: '{item} nehmen',
+    open: 'Leerer Platz',
+    over: 'Besser als {item}'
+  },
+  arenaUnlock: {
+    title: 'Kolosseum freigeschaltet!',
+    body: 'Stelle dein Können im Kampf gegen Monsterhorden auf die Probe.',
+    go: 'Zum Kolosseum',
+    woods: 'In den Flüsterwald'
+  },
+
   goal: {
     dummy: 'Wirf die Trainingspuppe um',
     clear: '{place} säubern',
@@ -444,6 +487,7 @@ export default {
     travel: 'Reise nach {place}',
     decide: 'Triff deine Wahl',
     explore: 'Erkunde die Welt',
+    mara: '{who} kennt den weiteren Weg',
     fight: 'Gewinne den Kampf',
     show: 'Zeig mir den Weg: {goal}',
     escort: 'Bewache die Karawane'
@@ -1662,7 +1706,9 @@ export default {
   weapon: {
     melee: 'Nahkampf · skaliert mit {attr}',
     ranged: 'Fernkampf · skaliert mit {attr}',
-    magic: 'Magie · skaliert mit {attr}'
+    magic: 'Magie · skaliert mit {attr}',
+    hit: 'Schaden pro Treffer',
+    dps: '{n} pro Sekunde'
   },
   source: {
     'siege': "In der Belagerung von Bastionsfurt errungen.",
@@ -4529,7 +4575,8 @@ export default {
       },
       learnSmith: {
         '1': 'Schmieden? Das fängt genau hier an: mit einer Spitzhacke und einem Fels, der glitzert.',
-        '2': 'Erz abbauen, dann an einer Schmiede in deine Ausrüstung hämmern. Drei gute Schläge. Los, probier es.'
+        '2': 'Erz abbauen, dann an einer Schmiede in deine Ausrüstung hämmern. Drei gute Schläge. Los, probier es.',
+        '3': 'Hier, drei Brocken Eisen, aufs Haus. Das reicht für ein Schwert.'
       },
       forge: {
         '1': 'Leih dir meinen Amboss. Pass auf deine Finger auf.'
@@ -4777,6 +4824,7 @@ export default {
       topics: 'Was sagen?',
       gotGold: '{n} Gold erhalten',
       gotItem: 'Erhalten: {item}',
+      gotOre: 'Erhalten: {n} × {ore}',
       hint: 'Auf deiner Karte markiert: {zone}',
       needs: {
         attr: 'Braucht {n} {attr}',
@@ -6089,17 +6137,20 @@ export default {
         slay: {
           '1': 'Der Goblinkönig fällt, und die Höhlen leeren sich.',
           '2': 'Sunford schläft ruhiger, und der Eiserne Orden hört deinen Namen.',
-          say: 'Kein Handel. Deine Überfälle enden hier.'
+          say: 'Kein Handel. Deine Überfälle enden hier.',
+          3: 'Sagt Tusker... er war immer der bessere König.'
         },
         pact: {
           '1': 'Handel. Ja. Ich schwöre es, bei meiner Krone.',
           '2': 'Goblinhändler bauen auf Sunfords Platz ihre Stände auf und verkaufen, was kein Schmied dort machen könnte.',
-          say: 'Hör auf mit den Überfällen und handle stattdessen mit Sunford. Schwöre es.'
+          say: 'Hör auf mit den Überfällen und handle stattdessen mit Sunford. Schwöre es.',
+          3: 'Und Tusker behält seinen eigenen Stuhl am Tisch. Nicht verhandelbar.'
         },
         ransom: {
           '1': 'Alles? ...Gut. Nimm es und geh.',
           '2': 'Du gehst mit Goblingold. Die Überfälle beginnen wieder, aber das Syndikat ist zufrieden.',
-          say: 'Gib mir deinen Schatz, dann darfst du deine Krone behalten.'
+          say: 'Gib mir deinen Schatz, dann darfst du deine Krone behalten.',
+          3: 'Nimm das Gold. Aber der Sattel bleibt. Tusker mag den Sattel.'
         }
       },
       siege: {
@@ -6319,7 +6370,23 @@ export default {
           '1': 'Gesegnet seien deine Stiefel! Odo Marrow, Hausierer. Such mich in Sunford auf, ich hab Waren für dich.'
         }
       },
+      rebelGoblin: {
+        down: { '1': 'Nieder mit dem König!' },
+        nomore: { '1': 'Kein König!' },
+        free: { '1': 'Für die Freiheit!' }
+      },
+      rebelGnome: {
+        down: { '1': 'Nieder mit dem König!' },
+        nomore: { '1': 'Kein König!' },
+        free: { '1': 'Für die Freiheit!' }
+      },
       goblinKing: {
+        intro: {
+          '1': 'Niemand kratzt Tusker! Er hat gerade gebadet!'
+        },
+        dazed: {
+          '1': 'Tusker? Blinzle zweimal, wenn du mich hörst!'
+        },
         charge: {
           '1': 'Überrenn sie, Tusker!'
         },

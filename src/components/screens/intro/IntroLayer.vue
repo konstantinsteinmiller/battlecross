@@ -4,13 +4,16 @@
     //- "1 month later…" rides on the last fade to black.
     p.intro__later(:style="{ opacity: introView.label }" aria-live="polite") {{ introView.label > 0.05 ? t('intro.later') : '' }}
     div.intro__skip(v-if="!introBoot && introView.canSkip")
-      button.intro__btn(
-        type="button"
+      //- The game's own button (the same design as every other), a glyph and, on a keyboard, the key.
+      FButton(
+        type="secondary"
+        size="md"
+        icon="fast-forward"
+        icon-position="left"
         data-intro-skip
         :aria-label="t('intro.skip')"
         @click="skipIntro"
       )
-        GameIcon.intro__icon(name="fast-forward")
         span.intro__label {{ t('intro.skip') }}
         KeyCap.intro__key(v-if="!touch" code="Space")
 </template>
@@ -27,7 +30,7 @@
 import { onMounted, onUnmounted } from 'vue'
 import { useI18n } from 'vue-i18n'
 import KeyCap from '@/components/glyphs/KeyCap.vue'
-import GameIcon from '@/components/icons/GameIcon.vue'
+import FButton from '@/components/atoms/FButton.vue'
 import { introView, skipIntro } from '@/game/intro/runner'
 import { introBoot } from '@/game/intro/state'
 import { touchFirst } from '@/game/engine/input'
@@ -83,25 +86,8 @@ onUnmounted(() => window.removeEventListener('keydown', onDown, true))
   flex-direction: column
   align-items: flex-end
   gap: 0.35rem
-.intro__btn
-  display: flex
-  align-items: center
-  gap: 0.5rem
-  min-height: 48px
-  padding: 0.3rem 1.1rem
-  border-radius: 999px
-  border: var(--bc-ol-thin, 2px) solid var(--bc-ink, #1b1020)
-  +cel.tone('blue')
-  +cel.fill(46%, 100%)
-  box-shadow: 0 3px 0 var(--bc-ink, #1b1020)
-  +cel.label
-  font-size: clamp(0.9rem, 3vmin, 1.15rem)
-  cursor: pointer
-  +cel.focus-ring
-.intro__icon
-  flex: 0 0 auto
-  width: 1.5em
-  height: 1.5em
+.intro__label
+  margin-inline-end: 0.4rem
 .intro__key
   height: 1.5em
 </style>

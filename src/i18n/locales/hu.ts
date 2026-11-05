@@ -428,6 +428,49 @@ export default {
       }
     }
   },
+  celebrate: {
+    title: 'A Barlangok szabadok!'
+  },
+  rebels: {
+    toast: {
+      guarded: 'Előbb győzd le a felügyelőket!',
+      freed: 'Az ásók szabadok!'
+    }
+  },
+  assault: {
+    title: 'A Barlangok kapujának ostroma',
+    skipCut: 'Jelenet kihagyása',
+    skip: 'Ostrom kihagyása',
+    goal: 'Törd be a kaput: döntsd le mindkét tornyot',
+    breach: 'A kapu nyitva áll!',
+    towers: '{total} toronyból {n} ledőlt',
+    hint: {
+      levers: 'Húzd meg egy katapult karját, vagy állj a faltörő kos alá és told.',
+      idle: 'Menj egy izzó katapultkarhoz, vagy állj a faltörő kos alá, hogy told.',
+      push: 'Folytasd! Nyomd a mozgásgombokat, hogy gyorsabban told a kost.',
+      pushTouch: 'Folytasd! Mozgasd a hüvelykujj-kart, hogy gyorsabban told a kost.'
+    },
+    toast: {
+      tower: 'Ledől egy torony!',
+      breach: 'A cölöpfal ledőlt. A Barlangokba!'
+    }
+  },
+  hoard: {
+    title: 'A király kincse',
+    lead: 'Válassz egy felszerelést, amit megtartasz.',
+    best: 'Legjobb választás',
+    pick: 'Válassz egyet',
+    take: '{item} elvétele',
+    open: 'Üres hely',
+    over: 'Jobb, mint: {item}'
+  },
+  arenaUnlock: {
+    title: 'Kolosszeum feloldva!',
+    body: 'Teszteld a képességeidet szörnyhordák legyőzésével.',
+    go: 'A Kolosszeumba',
+    woods: 'A Suttogó-erdőbe'
+  },
+
   goal: {
     dummy: 'Döntsd le a gyakorlóbábut',
     clear: 'Tisztítsd meg: {place}',
@@ -443,6 +486,7 @@ export default {
     travel: 'Utazz ide: {place}',
     decide: 'Hozd meg a döntésed',
     explore: 'Fedezd fel a birodalmat',
+    mara: '{who} ismeri a továbbvezető utat',
     fight: 'Nyerd meg a harcot',
     show: 'Mutasd az utat: {goal}',
     escort: 'Védd a karavánt'
@@ -1661,7 +1705,9 @@ export default {
   weapon: {
     melee: 'Közelharci · alapja: {attr}',
     ranged: 'Távolsági · alapja: {attr}',
-    magic: 'Mágikus · alapja: {attr}'
+    magic: 'Mágikus · alapja: {attr}',
+    hit: 'sebzés ütésenként',
+    dps: '{n} másodpercenként'
   },
   source: {
     'siege': "A Bástyagázló ostromában nyerve.",
@@ -4525,7 +4571,8 @@ export default {
       },
       learnSmith: {
         '1': 'Kovácsolás? Itt kezdődik: egy csákány és egy csillogó szikla.',
-        '2': 'Bányászd ki az ércet, aztán kovácsold a felszerelésedbe egy kovácsműhelyben. Három jó ütés. Na, próbáld ki.'
+        '2': 'Bányászd ki az ércet, aztán kovácsold a felszerelésedbe egy kovácsműhelyben. Három jó ütés. Na, próbáld ki.',
+        '3': 'Tessék, három vasdarab, a ház ajándéka. Pont elég egy kardhoz.'
       },
       forge: {
         '1': 'Használd az üllőmet. Vigyázz az ujjaidra.'
@@ -4773,6 +4820,7 @@ export default {
       topics: 'Mit mondasz?',
       gotGold: 'Kaptál {n} aranyat',
       gotItem: 'Kaptál: {item}',
+      gotOre: 'Kaptál: {n} × {ore}',
       hint: 'Megjelölve a térképen: {zone}',
       needs: {
         attr: 'Kell hozzá: {n} {attr}',
@@ -6071,17 +6119,20 @@ export default {
         slay: {
           '1': 'A Goblinkirály elesik, és az Üregek kiürülnek.',
           '2': 'Sunford nyugodtabban alszik, és a Vasrend hall a nevedről.',
-          say: 'Nincs egyezség. A rajtaütéseid itt véget érnek.'
+          say: 'Nincs egyezség. A rajtaütéseid itt véget érnek.',
+          3: 'Mondjátok meg Tuskernek... hogy ő mindig is jobb király volt.'
         },
         pact: {
           '1': 'Kereskedelem. Igen. Esküszöm, a koronámra.',
           '2': 'Goblinkereskedők állítanak fel standot Sunford terén, olyasmit árulva, amit ott egy kovács sem tudna elkészíteni.',
-          say: 'Hagyd abba a rajtaütéseket, és inkább kereskedj Sunforddal. Esküdj meg rá.'
+          say: 'Hagyd abba a rajtaütéseket, és inkább kereskedj Sunforddal. Esküdj meg rá.',
+          3: 'És Tusker megtartja a saját székét az asztalnál. Nem alku tárgya.'
         },
         ransom: {
           '1': 'Az egészet? ...Rendben. Vidd, és menj.',
           '2': 'Goblinaranyal távozol. A rajtaütések újra kezdődnek, de a Szindikátus jóváhagyja.',
-          say: 'Add ide a kincsed, és megtarthatod a koronád.'
+          say: 'Add ide a kincsed, és megtarthatod a koronád.',
+          3: 'Vidd az aranyat. De a nyereg marad. Tusker szereti a nyerget.'
         }
       },
       siege: {
@@ -6299,7 +6350,23 @@ export default {
           '1': 'Áldott legyen a csizmád! Odo Marrow, házaló. Keress meg Sunfordban, lesz számodra áru.'
         }
       },
+      rebelGoblin: {
+        down: { '1': 'Le a királlyal!' },
+        nomore: { '1': 'Nincs király!' },
+        free: { '1': 'A szabadságért!' }
+      },
+      rebelGnome: {
+        down: { '1': 'Le a királlyal!' },
+        nomore: { '1': 'Nincs király!' },
+        free: { '1': 'A szabadságért!' }
+      },
       goblinKing: {
+        intro: {
+          '1': 'Tuskert senki sem karcolja meg! Épp most fürdött!'
+        },
+        dazed: {
+          '1': 'Tusker? Pislants kétszer, ha hallasz!'
+        },
         charge: {
           '1': 'Taposd el őket, Agyar!'
         },

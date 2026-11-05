@@ -1,9 +1,11 @@
 import { app } from './engine/app'
 import { ZoneMode } from './modes/zoneMode'
-import { buildPlace, enterPlace, flow, npcById, type Modal } from './flow'
+import { buildAssaultPlace, buildPartyPlace, buildPlace, enterPlace, flow, npcById, type Modal } from './flow'
 import { addHudTicker } from './state/hud'
 import { profile, setSaveSandbox } from './state/profile'
 import { botThink, referenceBuild, setBotDodge } from './sim/bot'
+import { dealDamage } from './sim/combat'
+import { startStampede } from './sim/rebels'
 import { orderMove, usePotion } from './sim/hero'
 import { chestLock, orderOpen } from './sim/interact'
 import { escortPacks } from './data/encounters'
@@ -59,7 +61,7 @@ export interface PreviewApi {
   hero(o: { level: number; cls: ClassId; potions?: number; bare?: boolean }): void
   /** Build a place and keep it, without showing it. Returns its shot index.
    *  `escort`: the caravan's road in that zone's land instead (#85). */
-  build(node: NodeId, o?: { escort?: boolean }): Promise<number>
+  build(node: NodeId, o?: { escort?: boolean; assault?: boolean; rebels?: boolean; party?: boolean }): Promise<number>
   /** Hard cut to a prebuilt shot. */
   cut(shot: number): void
   /** Arrange the fight in the live shot. */
@@ -91,7 +93,9 @@ export interface PreviewApi {
   sfxLog(): Array<{ name: string; pan: number; gain: number; t: number }>
   /** Where things are in the live shot (world metres): the start, the main
    *  packs (the finale last), the set pieces (#120) and the puzzle's plates. */
-  places(): { start: [number, number]; packs: Array<[number, number]>; pieces: Array<{ kind: string; x: number; z: number }> } | null
+  places(): { start: [number, number]; packs: Array<[number, number]>; pieces: Array<{ kind: string; x: number; z: number }>; rebels: [number, number] | null } | null
+  /** The chain gang (#205): let the chains go now, hurt a gnome past its tenth, or send the stampede at the finale's boss. */
+  gang(what: 'free' | 'flee' | 'stampede' | 'leap'): void
   /** Hold the camera out at `k` times its fitted distance (1: back to normal), for a still of a whole place. */
   zoom(k: number): void
   state(): PreviewState
@@ -160,8 +164,19 @@ export const installPreview = (): void => {
 
     async build(node, o = {}) {
       const zoneId = node as ZoneId
-      const mode = o.escort
+      const mode = o.party
+        ? await buildPartyPlace(() => {})
+        : o.assault
+        ? await buildAssaultPlace(() => {})
+        : o.escort
         ? await buildPlace(node, () => {}, { kind: 'fight', zone: zoneId, level: profile.level, seed: 125, packs: escortPacks(zoneId, 125), escort: true })
+        : o.rebels
+        // The Hollows with its chain gang (#205): laid while the King lives, so the clip's "every road open" flag is lifted for the build.
+        ? await (async () => {
+          const k = profile.world.flags.indexOf('arenaOpen')
+          if (k >= 0) profile.world.flags.splice(k, 1)
+          try { return await buildPlace(node, () => {}) } finally { if (k >= 0) profile.world.flags.push('arenaOpen') }
+        })()
         : await buildPlace(node, () => {})
       shots.push({ node, mode })
       return shots.length - 1
@@ -291,6 +306,19 @@ export const installPreview = (): void => {
     },
     sfxLog: () => sounds,
 
+    gang(what) {
+      const z = zone()
+      const r = z?.sim.rebels
+      if (!z || !r) return
+      const sim = z.sim
+      if (what === 'free') r.freeing = Math.max(r.freeing, 0)
+      else if (what === 'flee') { const u = sim.get(r.gnomes.find(g => g.mode === 'follow')?.unit ?? 0); if (u) dealDamage(sim, null, u, u.s.maxHp * 5, { type: 'true', canCrit: false }) }
+      else {
+        const boss = sim.units.find(e => e.team === 1 && e.alive && (e.kind === 'tusker' || e.kind === 'goblinKing'))
+        if (boss) startStampede(sim, what === 'leap' ? 'second' : 'first', boss)
+      }
+    },
+
     zoom(k) {
       const z = zone()
       if (z) z.cam.punchZoom(k, 0.05, k === 1 ? 0 : 1e6)
@@ -303,6 +331,7 @@ export const installPreview = (): void => {
       return {
         start: [p.start.x, p.start.z],
         packs: p.packs.map(q => [q.x, q.z] as [number, number]),
+        rebels: p.rebels ? [p.rebels.x, p.rebels.z] as [number, number] : null,
         pieces: [...(p.dressing ?? []).map(d => ({ kind: d.kind as string, x: d.x, z: d.z })), ...p.plates.map(q => ({ kind: 'plate', x: q.x, z: q.z }))]
       }
     },

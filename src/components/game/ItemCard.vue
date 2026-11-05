@@ -11,7 +11,13 @@
         span.item-card__sub
           | {{ t(`slot.${item.slot}`) }} · {{ t(`tier.${item.tier}`) }}
     ul.item-card__lines
-      li.item-card__weapon(v-if="item.weapon") {{ t(`weapon.${item.weapon.style}`, { attr: t(`attr.${item.weapon.scale}.short`) }) }}
+      li.item-card__weapon.is-attr(v-if="item.weapon" :style="{ '--dot': attrColor(item.weapon.scale) }") {{ t(`weapon.${item.weapon.style}`, { attr: t(`attr.${item.weapon.scale}.short`) }) }}
+      //- What the weapon does for this hero, in the colour of the attribute it scales with (#207).
+      li.item-card__damage(v-if="dmg && item.weapon" :style="{ '--dot': attrColor(item.weapon.scale) }")
+        span.item-card__dmg-num {{ dmg.hit }}
+        span.item-card__dmg-label {{ t('weapon.hit') }}
+        span.delta(v-if="dmgDelta" :class="dmgDelta > 0 ? 'is-up' : 'is-down'") {{ signed(dmgDelta) }}
+        span.item-card__dps {{ t('weapon.dps', { n: dmg.dps }) }}
       li(v-if="item.armor || armorDelta")
         span(:class="{ 'is-gone': !item.armor }") {{ t('mod.armor', { n: armorOf || wornArmor }) }}
         span.delta(v-if="armorDelta" :class="armorDelta > 0 ? 'is-up' : 'is-down'") {{ signed(armorDelta) }}
@@ -52,6 +58,7 @@ import { heroicRank, upgradeLevel } from '@/game/state/profile'
 import { SET_BONUS } from '@/game/data/relics'
 import ItemIcon from '@/components/art/ItemIcon.vue'
 import { compareMods, modLines, signed, type ModCompare } from './modLines'
+import { weaponNumbers } from './heroSheet'
 
 const props = withDefaults(defineProps<{
   id: string
@@ -80,6 +87,14 @@ const lines = computed<ModCompare[]>(() => compareMods(
 ))
 const armorDelta = computed(() => (worn.value ? r1(armorOf.value - wornArmor.value) : 0))
 const attrColor = (id: string): string => ATTR_COLOR[id as Attr]
+// The weapon's number for this hero, and how it differs from the weapon worn (#207).
+const dmg = computed(() => weaponNumbers(props.id))
+const dmgDelta = computed(() => {
+  const w = worn.value
+  const a = dmg.value
+  const b = w ? weaponNumbers(w.id) : null
+  return a && b ? a.hit - b.hit : 0
+})
 </script>
 
 <style scoped lang="sass">
@@ -194,6 +209,28 @@ const attrColor = (id: string): string => ATTR_COLOR[id as Attr]
     background: var(--bc-red-lo)
 .item-card__weapon
   color: var(--bc-paper-ink-soft)
+// The damage: the number in a pill of the scaling attribute's colour (candy on cream is not readable as text, a pill is).
+.item-card__damage
+  display: flex
+  align-items: baseline
+  flex-wrap: wrap
+  gap: 0.35em
+  font-weight: 700
+.item-card__dmg-num
+  padding: 0 0.55em
+  border: var(--bc-ol-thin) solid var(--bc-ink)
+  border-radius: var(--bc-r-pill)
+  background: var(--dot)
+  color: var(--bc-text)
+  text-shadow: var(--bc-text-outline-thin)
+  font-size: 1.15em
+  line-height: 1.25
+  font-variant-numeric: tabular-nums
+.item-card__dps
+  margin-inline-start: auto
+  color: var(--bc-paper-ink-soft)
+  font-size: 0.86em
+  font-weight: 400
 .item-card__versus
   display: flex
   align-items: center

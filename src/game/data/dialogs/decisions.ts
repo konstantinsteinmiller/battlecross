@@ -10,7 +10,8 @@ import { QUEST_BY_ID } from '../quests'
 export const DECISION_TALK: ConversationDef[] = [
   decision(QUEST_BY_ID.goblinKing!, {
     name: 'enemy.goblinKing', mood: 'afraid', ask: 'nnn',
-    results: { slay: 'xx', pact: 'nx', ransom: 'nx' }
+    // The last word in each ending is the King's, and it is about the boar.
+    results: { slay: 'xxn', pact: 'nxn', ransom: 'nxn' }
   }),
   decision(QUEST_BY_ID.siege!, {
     name: 'enemy.warlord', mood: 'cold', ask: 'nnn',

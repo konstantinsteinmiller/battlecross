@@ -428,6 +428,49 @@ export default {
       }
     }
   },
+  celebrate: {
+    title: 'G\'orlar ozod!'
+  },
+  rebels: {
+    toast: {
+      guarded: 'Avval nazoratchilarni yeng!',
+      freed: 'Kovlovchilar ozod!'
+    }
+  },
+  assault: {
+    title: 'G\'orlar darvozasini qamal qilish',
+    skipCut: 'Sahnani o\'tkazib yuborish',
+    skip: 'Qamalni o\'tkazib yuborish',
+    goal: 'Darvozani sindir: ikkala minorani yiqit',
+    breach: 'Darvoza ochiq!',
+    towers: '{total} minoradan {n} tasi qulagan',
+    hint: {
+      levers: 'Katapult dastasini torting yoki taran ostiga kirib itaring.',
+      idle: 'Yaltiroq katapult dastasiga yaqinlashing yoki itarish uchun taran ostida turing.',
+      push: 'Davom eting! Taranni tezroq itarish uchun harakat tugmalarini bosing.',
+      pushTouch: 'Davom eting! Taranni tezroq itarish uchun tayoqchani siljiting.'
+    },
+    toast: {
+      tower: 'Minora qulaydi!',
+      breach: 'Qo\'rg\'on qulagan. G\'orlarga!'
+    }
+  },
+  hoard: {
+    title: 'Qirolning xazinasi',
+    lead: 'Saqlab qolish uchun bitta jihozni tanla.',
+    best: 'Eng mosi',
+    pick: 'Jihozni tanla',
+    take: '{item}ni olish',
+    open: 'Bo\'sh uya',
+    over: '{item}dan yaxshiroq'
+  },
+  arenaUnlock: {
+    title: 'Kolizey ochildi!',
+    body: 'Yirtqichlar to\'dasini yengib, mahoratingni sinab ko\'r.',
+    go: 'Koliseyga',
+    woods: 'Shivirlovchi oʻrmonga'
+  },
+
   goal: {
     dummy: 'Mashq qoʻgʻirchogʻini yiqiting',
     clear: 'Tozalang: {place}',
@@ -443,6 +486,7 @@ export default {
     travel: 'Safar: {place}',
     decide: 'Tanlovingizni qiling',
     explore: 'Oʻlkani kashf eting',
+    mara: '{who} oldinga yo\'lni biladi',
     fight: 'Jangda gʻalaba qozoning',
     show: 'Yoʻlni koʻrsating: {goal}',
     escort: 'Karvonni qoʻriqla'
@@ -1661,7 +1705,9 @@ export default {
   weapon: {
     melee: 'Yaqin jang · {attr} bilan oshadi',
     ranged: 'Uzoqdan · {attr} bilan oshadi',
-    magic: 'Sehr · {attr} bilan oshadi'
+    magic: 'Sehr · {attr} bilan oshadi',
+    hit: 'zarba boshiga zarar',
+    dps: 'soniyasiga {n}'
   },
   source: {
     'siege': "Qalʼa kechuvi qamalida qoʻlga kiritilgan.",
@@ -4525,7 +4571,8 @@ export default {
       },
       learnSmith: {
         '1': 'Temirchilik? U aynan shu yerdan boshlanadi: ketmon va yaltirab turgan tosh.',
-        '2': 'Rudani qazing, keyin temirchilikda jihozingizga bolg‘alang. Uchta yaxshi zarba. Qani, sinab ko‘ring.'
+        '2': 'Rudani qazing, keyin temirchilikda jihozingizga bolg‘alang. Uchta yaxshi zarba. Qani, sinab ko‘ring.',
+        '3': 'Mana, uchta temir bo\'lagi, mendan tekin. Bitta qilichga yetadi.'
       },
       forge: {
         '1': 'Sandonimdan foydalaning. Barmoqlaringizni ehtiyot qiling.'
@@ -4773,6 +4820,7 @@ export default {
       topics: 'Nima deysiz',
       gotGold: '{n} oltin oldingiz',
       gotItem: 'Oldingiz: {item}',
+      gotOre: 'Oldingiz: {n} × {ore}',
       hint: 'Xaritangizda belgilandi: {zone}',
       needs: {
         attr: '{n} {attr} kerak',
@@ -6071,17 +6119,20 @@ export default {
         slay: {
           '1': 'Goblinlar qiroli yiqiladi, Gʻorlar boʻshab qoladi.',
           '2': 'Sunford tinchroq uxlaydi, Temir Orden ismingni eshitadi.',
-          say: 'Kelishuv yoʻq. Bosqinlaringiz shu yerda tugaydi.'
+          say: 'Kelishuv yoʻq. Bosqinlaringiz shu yerda tugaydi.',
+          3: 'Tuskerga ayting... u doim yaxshiroq shoh bo\'lgan.'
         },
         pact: {
           '1': 'Savdo. Ha. Tojimga qasam ichaman.',
           '2': 'Goblin savdogarlari Sunford maydoniga joylashib, u yerdagi hech bir temirchi yasay olmaydigan narsalarni sotadi.',
-          say: 'Bosqinlarni toʻxtat, uning oʻrniga Sunford bilan savdo qil. Qasam ich.'
+          say: 'Bosqinlarni toʻxtat, uning oʻrniga Sunford bilan savdo qil. Qasam ich.',
+          3: 'Tusker esa stol atrofida o\'z stulini saqlab qoladi. Muzokara qilinmaydi.'
         },
         ransom: {
           '1': 'Hammasinimi? ...Mayli. Ol va ket.',
           '2': 'Goblin oltini bilan ketasan. Bosqinlar yana boshlanadi, lekin Sindikat maʼqullaydi.',
-          say: 'Xazinangni ber, tojingni oʻzingda qoldirishing mumkin.'
+          say: 'Xazinangni ber, tojingni oʻzingda qoldirishing mumkin.',
+          3: 'Oltinni ol. Lekin egar qoladi. Tusker egarni yaxshi ko\'radi.'
         }
       },
       siege: {
@@ -6299,7 +6350,23 @@ export default {
           '1': 'Etiklaring muborak boʻlsin! Men Odo Marrow, attorman. Meni Sunford shahridan top, senga mollarim boʻladi.'
         }
       },
+      rebelGoblin: {
+        down: { '1': 'Shoh yo\'qolsin!' },
+        nomore: { '1': 'Shoh kerak emas!' },
+        free: { '1': 'Ozodlik uchun!' }
+      },
+      rebelGnome: {
+        down: { '1': 'Shoh yo\'qolsin!' },
+        nomore: { '1': 'Shoh kerak emas!' },
+        free: { '1': 'Ozodlik uchun!' }
+      },
       goblinKing: {
+        intro: {
+          '1': 'Tuskerni hech kim tirnamasin! U hozirgina cho\'mildi!'
+        },
+        dazed: {
+          '1': 'Tusker? Meni eshitsang, ikki marta ko\'z qisib qo\'y!'
+        },
         charge: {
           '1': 'Ularni ezib tashla, Tusker!'
         },

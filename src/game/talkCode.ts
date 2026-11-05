@@ -7,7 +7,8 @@ import { RIFT_SEALED, STORY_QUESTS } from './data/breaking'
 import {
   buyManaPotion, completeErrand, decideQuest, errandTalk, gainItem, manaPotionCost, manaPotionRoom, profile, saveProfile,
   startErrand,
-  learnSmithing
+  learnSmithing,
+  addOres
 } from './state/profile'
 import { pushHud } from './state/hud'
 import { sfx } from './audio/sfx'
@@ -29,6 +30,11 @@ export { conversationOf, decisionOf, hasNews }
 
 /** Remember a dialogue key in the save (a checkpoint, like any purchase). */
 const remember = (key: string): void => {
+  // Mara has said where the road goes on, now that the Goblin King is answered (#201).
+  if (key === 'elderMara.next' && profile.world.flags.includes('arenaOpen') && !profile.world.flags.includes('maraWoods')) {
+    profile.world.flags.push('maraWoods')
+    saveProfile()
+  }
   if (profile.world.said.includes(key)) return
   profile.world.said.push(key)
   saveProfile()
@@ -100,6 +106,12 @@ const host: DialogHost = {
   },
   learnSmith() {
     learnSmithing()
+  },
+  giveOre(id, n) {
+    addOres({ [id]: n })
+    pushHud({ t: 'toast', key: 'dlg.ui.gotOre', params: { n, ore: `ore.${id}.name` } })
+    sfx('loot')
+    saveProfile()
   },
   offer: id => (id === MANA_OFFER ? manaOffer() : null),
   buy: (id) => {

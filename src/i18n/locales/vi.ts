@@ -428,6 +428,49 @@ export default {
       }
     }
   },
+  celebrate: {
+    title: 'Các hang động đã được tự do!'
+  },
+  rebels: {
+    toast: {
+      guarded: 'Hãy hạ gục giám sát trước!',
+      freed: 'Những người đào đã được tự do!'
+    }
+  },
+  assault: {
+    title: 'Vây hãm cổng Hang động',
+    skipCut: 'Bỏ qua cảnh',
+    skip: 'Bỏ qua cuộc vây hãm',
+    goal: 'Phá cổng: hạ cả hai tháp',
+    breach: 'Cổng đã mở!',
+    towers: 'Đã đổ {n}/{total} tháp',
+    hint: {
+      levers: 'Kéo cần máy bắn đá, hoặc chui xuống dưới xe phá thành rồi đẩy.',
+      idle: 'Lại gần cần máy bắn đá đang sáng, hoặc đứng dưới xe phá thành để đẩy.',
+      push: 'Cố lên! Nhấn các phím di chuyển để đẩy xe phá thành nhanh hơn.',
+      pushTouch: 'Cố lên! Gạt cần điều khiển để đẩy xe phá thành nhanh hơn.'
+    },
+    toast: {
+      tower: 'Một tháp đổ!',
+      breach: 'Hàng rào đã đổ. Vào Hang động!'
+    }
+  },
+  hoard: {
+    title: 'Kho báu của vua',
+    lead: 'Chọn một món trang bị để giữ lại.',
+    best: 'Hợp nhất',
+    pick: 'Chọn một món',
+    take: 'Nhận {item}',
+    open: 'Ô trống',
+    over: 'Tốt hơn {item}'
+  },
+  arenaUnlock: {
+    title: 'Đã mở khóa Đấu trường!',
+    body: 'Thử tài bằng cách đánh bại hàng đàn quái vật.',
+    go: 'Đến Đấu trường',
+    woods: 'Vào Rừng Thì Thầm'
+  },
+
   goal: {
     dummy: 'Hạ hình nhân tập luyện',
     clear: 'Dọn sạch {place}',
@@ -443,6 +486,7 @@ export default {
     travel: 'Đi đến {place}',
     decide: 'Đưa ra lựa chọn',
     explore: 'Khám phá vương quốc',
+    mara: '{who} biết con đường phía trước',
     fight: 'Thắng trận chiến',
     show: 'Chỉ đường: {goal}',
     escort: 'Bảo vệ đoàn buôn'
@@ -1661,7 +1705,9 @@ export default {
   weapon: {
     melee: 'Cận chiến · tăng theo {attr}',
     ranged: 'Tầm xa · tăng theo {attr}',
-    magic: 'Phép thuật · tăng theo {attr}'
+    magic: 'Phép thuật · tăng theo {attr}',
+    hit: 'sát thương mỗi đòn',
+    dps: '{n} mỗi giây'
   },
   source: {
     'siege': "Giành được trong Cuộc vây hãm Ải Thành Lũy.",
@@ -4525,7 +4571,8 @@ export default {
       },
       learnSmith: {
         '1': 'Rèn đúc ư? Nó bắt đầu ngay tại đây: một cái cuốc chim và một tảng đá lấp lánh.',
-        '2': 'Đào quặng, rồi rèn nó vào trang bị ở lò rèn. Ba nhát búa tốt. Nào, thử đi.'
+        '2': 'Đào quặng, rồi rèn nó vào trang bị ở lò rèn. Ba nhát búa tốt. Nào, thử đi.',
+        '3': 'Đây, ba cục sắt, tôi mời. Vừa đủ rèn một thanh kiếm.'
       },
       forge: {
         '1': 'Mượn cái đe của tôi. Coi chừng ngón tay.'
@@ -4773,6 +4820,7 @@ export default {
       topics: 'Nói gì đây',
       gotGold: 'Nhận được {n} vàng',
       gotItem: 'Nhận được: {item}',
+      gotOre: 'Nhận được: {n} × {ore}',
       hint: 'Đã đánh dấu trên bản đồ: {zone}',
       needs: {
         attr: 'Cần {attr} {n}',
@@ -6071,17 +6119,20 @@ export default {
         slay: {
           '1': 'Vua Goblin gục ngã, và Hang Goblin trống rỗng.',
           '2': 'Sunford ngủ yên hơn, và Thiết Hội nghe thấy tên bạn.',
-          say: 'Không thỏa thuận. Các cuộc cướp phá của ngươi kết thúc ở đây.'
+          say: 'Không thỏa thuận. Các cuộc cướp phá của ngươi kết thúc ở đây.',
+          3: 'Nói với Tusker... nó luôn là vị vua tốt hơn.'
         },
         pact: {
           '1': 'Thương mại. Được. Ta thề trên vương miện của ta.',
           '2': 'Thương nhân goblin dựng quầy ở quảng trường Sunford, bán những thứ không thợ rèn nào ở đó làm được.',
-          say: 'Ngừng cướp phá và buôn bán với Sunford thay vào đó. Thề đi.'
+          say: 'Ngừng cướp phá và buôn bán với Sunford thay vào đó. Thề đi.',
+          3: 'Và Tusker giữ chiếc ghế riêng của nó ở bàn. Không thương lượng.'
         },
         ransom: {
           '1': 'Tất cả sao? ...Được. Lấy đi và đi đi.',
           '2': 'Bạn rời đi với vàng của goblin. Các cuộc cướp phá sẽ lại bắt đầu, nhưng Băng Tro Tàn hài lòng.',
-          say: 'Đưa kho báu của ngươi ra và ngươi được giữ vương miện.'
+          say: 'Đưa kho báu của ngươi ra và ngươi được giữ vương miện.',
+          3: 'Lấy vàng đi. Nhưng yên cương ở lại. Tusker thích cái yên đó.'
         }
       },
       siege: {
@@ -6299,7 +6350,23 @@ export default {
           '1': 'Phúc cho đôi ủng của cậu! Tôi là Odo Marrow, người bán rong. Hãy tìm tôi ở Sunford, tôi sẽ có hàng cho cậu.'
         }
       },
+      rebelGoblin: {
+        down: { '1': 'Đả đảo nhà vua!' },
+        nomore: { '1': 'Không vua nữa!' },
+        free: { '1': 'Vì tự do!' }
+      },
+      rebelGnome: {
+        down: { '1': 'Đả đảo nhà vua!' },
+        nomore: { '1': 'Không vua nữa!' },
+        free: { '1': 'Vì tự do!' }
+      },
       goblinKing: {
+        intro: {
+          '1': 'Không ai được cào Tusker! Nó vừa mới tắm xong!'
+        },
+        dazed: {
+          '1': 'Tusker? Chớp mắt hai lần nếu nghe thấy ta!'
+        },
         charge: {
           '1': 'Húc bọn chúng đi, Tusker!'
         },

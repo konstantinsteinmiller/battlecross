@@ -391,6 +391,23 @@ export const CARDS: Readonly<Record<string, VoiceCard>> = {
     reference: 'My people raid because they are hungry. That is the truth. Let us make a deal instead. Your kind and mine. Trade, and no more raids. I swear it, on my crown.',
     notes: 'Light goblin FX (fx.mjs).'
   }),
+  // The storming rebels at the Hollows' gate (#204): three cries each.
+  rebelGoblin: card({
+    name: 'Rebel Goblin', gender: 'male', age: 'young goblin', pitch: 'mid-high', pace: 'fast',
+    timbre: 'hoarse, fierce, screaming',
+    personality: 'A starved goblin who has had enough of the king, screaming for freedom with the whole crowd.',
+    design: 'A young man with a hoarse, fierce and ragged voice, shouting at the top of his lungs in a furious crowd, angry and determined.',
+    reference: 'No more hunger! No more chains! We have carried that crown long enough, and tonight it falls with the gate!',
+    notes: 'Light goblin FX (fx.mjs).'
+  }),
+  rebelGnome: card({
+    name: 'Rebel Gnome', gender: 'male', age: 'old gnome', pitch: 'high', pace: 'fast',
+    timbre: 'shrill, gruff, cracked with effort',
+    personality: 'A gnome digger freed from his chains, small and loud, yelling as hard as his lungs allow.',
+    design: 'An old small man with a high, shrill and gruff voice, cracking with effort, yelling defiantly in a crowd of rebels.',
+    reference: 'Forty years I dug in the dark for that crown! Now I will see it come down, and I will cheer until I have no voice left!',
+    notes: 'Light goblin FX, higher (fx.mjs).'
+  }),
   // Only shouts mid-fight (#136): the whistle that calls the gnomes.
   banditChief: card({
     name: 'The Bandit Chief', gender: 'male', age: 'mid 40s', pitch: 'mid', pace: 'medium',

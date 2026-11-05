@@ -110,6 +110,8 @@ export type Effect =
   | { t: 'open'; window: TalkWindow }
   | { t: 'gold'; n: number }
   | { t: 'item'; id: string }
+  /** Nuggets of a metal into the pouch (Brann's gift, #207). */
+  | { t: 'ore'; id: string; n: number }
   /** The quest's zone is pointed out to the player. */
   | { t: 'hint'; quest: string }
   /** A quest decision: permanent. */
@@ -214,4 +216,6 @@ export interface DialogHost {
   errand(id: string, act: 'start' | 'complete'): boolean
   /** Learn smithing from a smith (#99). */
   learnSmith(): void
+  /** Nuggets of ore into the pouch. */
+  giveOre(id: string, n: number): void
 }

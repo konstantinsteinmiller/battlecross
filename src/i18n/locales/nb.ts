@@ -428,6 +428,49 @@ export default {
       }
     }
   },
+  celebrate: {
+    title: 'Hulene er frie!'
+  },
+  rebels: {
+    toast: {
+      guarded: 'Slå tilsynsmennene først!',
+      freed: 'Graverne er fri!'
+    }
+  },
+  assault: {
+    title: 'Beleiringen av Hulenes port',
+    skipCut: 'Hopp over scenen',
+    skip: 'Hopp over beleiringen',
+    goal: 'Bryt porten: velt begge tårnene',
+    breach: 'Porten er åpen!',
+    towers: '{n} av {total} tårn har falt',
+    hint: {
+      levers: 'Dra i et katapulthåndtak, eller gå under rambukken og skyv.',
+      idle: 'Gå bort til et glødende katapulthåndtak, eller still deg under rambukken for å skyve den.',
+      push: 'Fortsett! Trykk på bevegelsestastene for å skyve rambukken raskere.',
+      pushTouch: 'Fortsett! Bruk tommelpinnen for å skyve rambukken raskere.'
+    },
+    toast: {
+      tower: 'Et tårn faller!',
+      breach: 'Palisaden har falt. Inn i Hulene!'
+    }
+  },
+  hoard: {
+    title: 'Kongens skatt',
+    lead: 'Velg ett stykke utstyr du vil beholde.',
+    best: 'Best match',
+    pick: 'Velg en gjenstand',
+    take: 'Ta {item}',
+    open: 'Tom plass',
+    over: 'Slår {item}'
+  },
+  arenaUnlock: {
+    title: 'Kolosseum låst opp!',
+    body: 'Test ferdighetene dine ved å beseire horder av monstre.',
+    go: 'Til Kolosseum',
+    woods: 'Inn i Den hviskende skogen'
+  },
+
   goal: {
     dummy: 'Slå ned treningsdukken',
     clear: 'Rydd {place}',
@@ -443,6 +486,7 @@ export default {
     travel: 'Reis til {place}',
     decide: 'Ta ditt valg',
     explore: 'Utforsk riket',
+    mara: '{who} kjenner veien videre',
     fight: 'Vinn kampen',
     show: 'Vis meg veien: {goal}',
     escort: 'Vokt karavanen'
@@ -1661,7 +1705,9 @@ export default {
   weapon: {
     melee: 'Nærkamp · skalerer med {attr}',
     ranged: 'Avstand · skalerer med {attr}',
-    magic: 'Magi · skalerer med {attr}'
+    magic: 'Magi · skalerer med {attr}',
+    hit: 'skade per slag',
+    dps: '{n} i sekundet'
   },
   source: {
     'siege': "Vunnet i beleiringen av Bastionsvadet.",
@@ -4525,7 +4571,8 @@ export default {
       },
       learnSmith: {
         '1': 'Smiing? Det starter akkurat her: en hakke og en stein som glitrer.',
-        '2': 'Grav ut malmen og hamre den inn i utstyret ditt ved en esse. Tre gode slag. Kom igjen, prøv.'
+        '2': 'Grav ut malmen og hamre den inn i utstyret ditt ved en esse. Tre gode slag. Kom igjen, prøv.',
+        '3': 'Her, tre klumper jern, på huset. Nok til ett sverd.'
       },
       forge: {
         '1': 'Lån ambolten min. Pass fingrene.'
@@ -4773,6 +4820,7 @@ export default {
       topics: 'Hva vil du si?',
       gotGold: 'Fikk {n} gull',
       gotItem: 'Fikk: {item}',
+      gotOre: 'Fikk: {n} × {ore}',
       hint: 'Markert på kartet: {zone}',
       needs: {
         attr: 'Krever {n} {attr}',
@@ -6071,17 +6119,20 @@ export default {
         slay: {
           '1': 'Goblinkongen faller, og Hulene tømmes.',
           '2': 'Sunford sover roligere, og Jernordenen hører navnet ditt.',
-          say: 'Ingen avtaler. Raidene dine ender her.'
+          say: 'Ingen avtaler. Raidene dine ender her.',
+          3: 'Si til Tusker... at han alltid var den beste kongen.'
         },
         pact: {
           '1': 'Handel. Ja. Det sverger jeg, på kronen min.',
           '2': 'Goblinhandlere slår seg ned på torget i Sunford og selger ting ingen smed der kunne laget.',
-          say: 'Slutt med raidene og handle med Sunford i stedet. Sverg på det.'
+          say: 'Slutt med raidene og handle med Sunford i stedet. Sverg på det.',
+          3: 'Og Tusker beholder sin egen stol ved bordet. Ikke til forhandling.'
         },
         ransom: {
           '1': 'Alt sammen? ...Greit. Ta det, og gå.',
           '2': 'Du drar med goblingull. Raidene begynner igjen, men Syndikatet godkjenner.',
-          say: 'Gi meg skatten din, så får du beholde kronen.'
+          say: 'Gi meg skatten din, så får du beholde kronen.',
+          3: 'Ta gullet. Men salen blir. Tusker liker salen.'
         }
       },
       siege: {
@@ -6299,7 +6350,23 @@ export default {
           '1': 'Velsignet være støvlene dine! Odo Marrow, kremmer. Finn meg i Sunford, så har jeg varer til deg.'
         }
       },
+      rebelGoblin: {
+        down: { '1': 'Ned med kongen!' },
+        nomore: { '1': 'Ingen konge!' },
+        free: { '1': 'For friheten!' }
+      },
+      rebelGnome: {
+        down: { '1': 'Ned med kongen!' },
+        nomore: { '1': 'Ingen konge!' },
+        free: { '1': 'For friheten!' }
+      },
       goblinKing: {
+        intro: {
+          '1': 'Ingen rører Tusker! Han har nettopp badet!'
+        },
+        dazed: {
+          '1': 'Tusker? Blunk to ganger hvis du hører meg!'
+        },
         charge: {
           '1': 'Tråkk dem ned, Tusker!'
         },

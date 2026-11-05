@@ -1,4 +1,5 @@
 import type { DamageType, Rank, StatusId } from '../sim/types'
+import { KING_HP_MUL, REBEL_DMG, REBEL_HP } from './rebellion'
 
 /**
  * ─── The bestiary (GDD §6.2) ─────────────────────────────────────────────────
@@ -214,7 +215,7 @@ const BASE_ENEMIES: readonly EnemyDef[] = [
   // war boar; at half the boar's health he leaps off and fights on foot.
   D({
     id: 'tusker', rank: 'boss', rig: 'beast', look: 'boar', rider: 'goblinKing', scale: 1.55, r: 1.05, h: 2.2,
-    hp: 7.5, dmg: 1, armor: 2.4, speed: 3.3, style: 'melee', type: 'physical', range: 2.6, interval: 1.5, windup: 0.55, heavy: true,
+    hp: 7.5 * KING_HP_MUL, dmg: 1, armor: 2.4, speed: 3.3, style: 'melee', type: 'physical', range: 2.6, interval: 1.5, windup: 0.55, heavy: true,
     aggro: 14, reward: 0.5, color: '#8a5a3a', script: 'tusker',
     abilities: [
       // The King throws his bombs from the saddle.
@@ -223,7 +224,7 @@ const BASE_ENEMIES: readonly EnemyDef[] = [
   }),
   D({
     id: 'goblinKing', rank: 'boss', rig: 'humanoid', look: 'goblinKing', scale: 1.6, r: 0.85, h: 2.2,
-    hp: 6.5, dmg: 1.15, armor: 2.2, speed: 3.6, style: 'melee', type: 'physical', range: 2.7, interval: 1.4, windup: 0.45, heavy: true,
+    hp: 6.5 * KING_HP_MUL, dmg: 1.15, armor: 2.2, speed: 3.6, style: 'melee', type: 'physical', range: 2.7, interval: 1.4, windup: 0.45, heavy: true,
     aggro: 20, reward: 1, color: '#58c23f', script: 'kingAfoot',
     abilities: [
       // The club spin.
@@ -876,6 +877,8 @@ export const MINIONS: Readonly<Record<string, MinionDef>> = {
   packWolf: { id: 'packWolf', rig: 'beast', look: 'spiritWolf', scale: 0.85, r: 0.44, h: 0.9, style: 'melee', type: 'physical', range: 1.7, interval: 0.8, speed: 5.4, hp: 0.35, dmg: 0.45, color: '#7fe08a' },
   packBear: { id: 'packBear', rig: 'beast', look: 'spiritBear', scale: 1.3, r: 0.72, h: 1.6, style: 'melee', type: 'physical', range: 2, interval: 1.4, speed: 4.2, hp: 1.1, dmg: 0.7, taunts: true, color: '#d8a860' },
   packHawk: { id: 'packHawk', rig: 'wyvern', look: 'spiritHawk', scale: 0.45, r: 0.35, h: 1.8, style: 'ranged', type: 'pierce', range: 8, interval: 1, speed: 6.5, hp: 0.25, dmg: 0.55, shotFx: 'arrow', color: '#f0d890' },
+  // A digger freed from the Hollows' chain gang (#205): small, frail (it cannot be killed, `sim/rebelHurt.ts`) and quick to run.
+  rebelGnome: { id: 'rebelGnome', rig: 'humanoid', look: 'rebelGnome', scale: 0.6, r: 0.3, h: 0.85, style: 'melee', type: 'physical', range: 1.3, interval: 1.1, speed: 4.2, hp: REBEL_HP, dmg: REBEL_DMG, color: '#c9a24a' },
   // The Grand Sovereign's champion (#95): a giant of the royal guard.
   knightChampion: { id: 'knightChampion', rig: 'humanoid', look: 'royalGuard', scale: 1.3, r: 0.6, h: 1.85, style: 'melee', type: 'physical', range: 2.2, interval: 1.3, speed: 4.6, hp: 1.5, dmg: 1.4, taunts: true, color: '#ffe27a' },
   // The Blood Alchemist's homunculus (#95): a bubbly drop of essence that draws the blows.

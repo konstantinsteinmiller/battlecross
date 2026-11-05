@@ -1,5 +1,5 @@
 <template lang="pug">
-  div.hud(:class="[`hud--${hud.device}`, `hud--${flow.screen}`, { 'hud--talk': flow.talk }]")
+  div.hud(:class="[`hud--${hud.device}`, `hud--${flow.screen}`, { 'hud--talk': flow.talk, 'hud--film': celebrateHud.active }]")
     FloatLayer
     //- The townspeople's markers, and the "Talk" prompt on the one in reach.
     NpcPins(v-if="flow.screen === 'town' || flow.screen === 'zone'")
@@ -12,6 +12,10 @@
     ArenaBanner(v-if="flow.screen === 'zone' && flow.node === 'arena' && !flow.modal")
     //- The siege (afterplay §8): the gate, the wave, the build phase's defences.
     SiegeHud(v-if="flow.screen === 'zone' && siegeHud.active")
+    //- The besieged gate before the Hollows (roadmap #204): the cutscene's bars and skip, the goal, the hints, Skip Siege.
+    AssaultHud(v-if="flow.screen === 'zone' && assaultHud.active && !flow.modal")
+    //- The celebration after the Goblin King (roadmap #206): the film's bars, title and skip; the game's own HUD steps aside.
+    CelebrateHud(v-if="flow.screen === 'zone' && celebrateHud.active && !flow.modal")
     //- The "Open" prompt on the chest in reach.
     ChestPrompt(v-if="flow.screen === 'zone'")
     //- The "Read" prompt on the town square's notice board (#85).
@@ -72,6 +76,10 @@ const OverheardLayer = defineAsyncComponent(SCREEN_CHUNKS.overheard)
 import ChestPrompt from './ChestPrompt.vue'
 import ArenaBanner from './ArenaBanner.vue'
 import SiegeHud from './SiegeHud.vue'
+import AssaultHud from './AssaultHud.vue'
+import CelebrateHud from './CelebrateHud.vue'
+import { celebrateHud } from '@/game/state/celebrateHud'
+import { assaultHud } from '@/game/state/assaultHud'
 import { siegeHud } from '@/game/state/siegeHud'
 import BoardPrompt from './BoardPrompt.vue'
 import LeaveButton from './LeaveButton.vue'
@@ -140,7 +148,8 @@ const help = (): void => {
 // A conversation: the corners fade out and take no input until it is over.
 .hud__top, .hud__bl, .hud__br
   transition: opacity 220ms ease-out, visibility 0s
-.hud--talk
+// The film after the Goblin King (#206): the corners step aside the same way.
+.hud--talk, .hud--film
   .hud__top, .hud__bl, .hud__br
     opacity: 0
     visibility: hidden

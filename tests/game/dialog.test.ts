@@ -55,7 +55,8 @@ const fake = (over: Partial<Fake['w']> = {}): Fake => {
     offer: id => offers[id] ?? null,
     buy: (id) => { const o = offers[id]; if (!o || o.block) return false; w.gold -= o.price; log.push(`buy:${id}`); return true },
     errand: (id, act) => { (w.errands as Record<string, string>)[id] = act === 'start' ? 'active' : 'done'; log.push(`errand:${id}:${act}`); return true },
-    learnSmith: () => { w.smithing = true; log.push('learnSmith') }
+    learnSmith: () => { w.smithing = true; log.push('learnSmith') },
+    giveOre: (id, n) => { log.push(`ore:${id}:${n}`) }
   }
 }
 

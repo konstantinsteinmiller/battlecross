@@ -107,9 +107,27 @@ describe('the next goal through the first hour', () => {
     p.clearNode('hollows')
     expect(g.nextGoal(at('zone', 'hollows', { quest: 'goblinKing', zone: zone({ ...hollows, done: 3, ended: 'victory' }) }))).toEqual({ id: 'decide' })
     p.decideQuest('goblinKing', 'slay')
-    // The colosseum opened too, but the story's road goes on to the Woods.
+    // The colosseum opened too; the story's road goes on to the Woods, but Elder Mara tells of it first (#201):
+    // the map points to Sunford, and in Sunford to her.
+    expect(g.maraPending()).toBe(true)
+    expect(g.nextGoal(at('map', 'hollows'))).toEqual({ id: 'mara', place: 'sunford' })
+    expect(g.nextGoal(at('town', 'sunford'))).toEqual({ id: 'mara' })
+    // Another town sends him back to Sunford.
+    expect(g.nextGoal(at('town', 'silverbridge'))).toEqual({ id: 'mara', place: 'sunford' })
+    // Told (her "Where should I go next?" sets the flag): on to the Woods.
+    p.profile.world.flags.push(g.MARA_TOLD_FLAG)
+    expect(g.maraPending()).toBe(false)
     expect(g.nextGoal(at('map', 'hollows'))).toEqual({ id: 'travel', place: 'woods' })
     expect(g.nextGoal(at('town', 'sunford'))).toEqual({ id: 'leave', place: 'woods' })
+  })
+
+  it('Mara is not asked for before the King is answered, nor once the Woods are cleared', () => {
+    for (const n of ['plains', 'sunford']) p.clearNode(n as 'plains')
+    expect(g.maraPending()).toBe(false)
+    p.decideQuest('goblinKing', 'slay')
+    expect(g.maraPending()).toBe(true)
+    p.clearNode('woods')
+    expect(g.maraPending()).toBe(false)
   })
 
   it('the colosseum counts its waves; a pending decision outranks everything', () => {

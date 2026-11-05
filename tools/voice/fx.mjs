@@ -39,7 +39,7 @@ export const dynamicsFor = (speaker) => ({ ...(DYNAMICS[speaker] ?? DYNAMICS.def
 export const tailFor = (speaker) => (speaker === 'dragon' || speaker === 'archDemon' ? 0.3 : 0.05)
 
 /** The speakers with a character effect (everyone else is a clean human voice). */
-export const FX_SPEAKERS = ['goblinKing', 'goblinTrader', 'dragon', 'archDemon']
+export const FX_SPEAKERS = ['goblinKing', 'goblinTrader', 'rebelGoblin', 'rebelGnome', 'dragon', 'archDemon']
 
 /**
  * The chain as a `-filter_complex` graph from `[0:a]` to `[fx]`, mono, 48 kHz.
@@ -49,8 +49,12 @@ export const chainFor = (speaker, key, { dry = false } = {}) => {
   const prep = 'aformat=channel_layouts=mono,aresample=48000,highpass=f=60:poles=2'
   if (dry) return `[0:a]${prep}[fx]`
   switch (speaker) {
+    case 'rebelGnome':
+      // A gnome: three semitones up, the same nasal bump, the lows thinned further.
+      return `[0:a]${prep},rubberband=pitch=${semis(3)},${band(160, 11000)},${eq(1200, 3, 1.4)},${eq(300, -3)}[fx]`
     case 'goblinKing':
     case 'goblinTrader':
+    case 'rebelGoblin':
       // A goblin: 1.5 semitones up (a smaller body), a nasal bump at 1.1 kHz, the lows thinned.
       return `[0:a]${prep},rubberband=pitch=${semis(1.5)},${band(140, 11000)},${eq(1100, 3, 1.4)},${eq(300, -2)}[fx]`
     case 'dragon': {

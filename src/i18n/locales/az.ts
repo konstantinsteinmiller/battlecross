@@ -428,6 +428,49 @@ export default {
       }
     }
   },
+  celebrate: {
+    title: 'Mağaralar azaddır!'
+  },
+  rebels: {
+    toast: {
+      guarded: 'Əvvəlcə nəzarətçiləri məğlub et!',
+      freed: 'Qazıcılar azaddır!'
+    }
+  },
+  assault: {
+    title: 'Mağaralar qapısının mühasirəsi',
+    skipCut: 'Kəsmə səhnəni keç',
+    skip: 'Mühasirəni keç',
+    goal: 'Qapını sındır: hər iki qülləni yıx',
+    breach: 'Qapı açıqdır!',
+    towers: '{total} qüllədən {n} dənəsi yıxıldı',
+    hint: {
+      levers: 'Katapultun qolunu çək və ya qoçbaşın altına girib it.',
+      idle: 'Parlayan katapult qoluna yaxınlaş və ya qoçbaşı itələmək üçün altında dur.',
+      push: 'Davam et! Qoçbaşı sürətləndirmək üçün hərəkət düymələrinə bas.',
+      pushTouch: 'Davam et! Qoçbaşı sürətləndirmək üçün çubuğu hərəkət etdir.'
+    },
+    toast: {
+      tower: 'Qüllə yıxıldı!',
+      breach: 'Hasar yıxıldı. Mağaralara!'
+    }
+  },
+  hoard: {
+    title: 'Kralın xəzinəsi',
+    lead: 'Saxlamaq üçün bir avadanlıq seç.',
+    best: 'Ən uyğun',
+    pick: 'Əşya seç',
+    take: '{item} götür',
+    open: 'Boş yuva',
+    over: '{item} əşyasından üstündür'
+  },
+  arenaUnlock: {
+    title: 'Kolizey açıldı!',
+    body: 'Canavar dəstələrini məğlub edərək bacarığını yoxla.',
+    go: 'Koliseyə',
+    woods: 'Pıçıldayan Meşəyə'
+  },
+
   goal: {
     dummy: 'Məşq dummisini yıx',
     clear: 'Təmizlə: {place}',
@@ -443,6 +486,7 @@ export default {
     travel: 'Səyahət et: {place}',
     decide: 'Seçimini et',
     explore: 'Diyarı kəşf et',
+    mara: '{who} irəlidəki yolu bilir',
     fight: 'Döyüşü qazan',
     show: 'Yolu göstər: {goal}',
     escort: 'Karvanı qoru'
@@ -1661,7 +1705,9 @@ export default {
   weapon: {
     melee: 'Yaxın döyüş · {attr} ilə artır',
     ranged: 'Uzaqvuran · {attr} ilə artır',
-    magic: 'Sehr · {attr} ilə artır'
+    magic: 'Sehr · {attr} ilə artır',
+    hit: 'zərbə başına zərər',
+    dps: 'saniyədə {n}'
   },
   source: {
     'siege': "Qala Keçidinin mühasirəsində qazanılıb.",
@@ -4525,7 +4571,8 @@ export default {
       },
       learnSmith: {
         '1': 'Dəmirçilik? Elə burada başlayır: bir külüng və parıldayan bir qaya.',
-        '2': 'Filizi çıxar, sonra dəmirxanada ləvazimatına döy. Üç yaxşı zərbə. Hə, sına.'
+        '2': 'Filizi çıxar, sonra dəmirxanada ləvazimatına döy. Üç yaxşı zərbə. Hə, sına.',
+        '3': 'Al, üç dəmir parçası, mənim hesabıma. Bir qılınca çatır.'
       },
       forge: {
         '1': 'Mənim zindanımı götür. Barmaqlarına diqqət.'
@@ -4773,6 +4820,7 @@ export default {
       topics: 'Nə deyəsən',
       gotGold: '{n} qızıl aldın',
       gotItem: 'Aldın: {item}',
+      gotOre: 'Aldın: {n} × {ore}',
       hint: 'Xəritədə qeyd olundu: {zone}',
       needs: {
         attr: '{n} {attr} lazımdır',
@@ -6071,17 +6119,20 @@ export default {
         slay: {
           '1': 'Qoblin Kralı yıxılır, Oyuqlar boşalır.',
           '2': 'Sunford daha rahat yatır, Dəmir Orden adını eşidir.',
-          say: 'Saziş yoxdur. Basqınlarınız burada bitir.'
+          say: 'Saziş yoxdur. Basqınlarınız burada bitir.',
+          3: 'Tuskerə de... o həmişə daha yaxşı kral olub.'
         },
         pact: {
           '1': 'Ticarət. Bəli. Tacıma and içirəm.',
           '2': 'Qoblin tacirlər Sunford meydanında məskən salır, oradakı heç bir dəmirçinin düzəldə bilməyəcəyi şeylər satır.',
-          say: 'Basqınları dayandır, əvəzində Sunfordla ticarət et. And iç.'
+          say: 'Basqınları dayandır, əvəzində Sunfordla ticarət et. And iç.',
+          3: 'Tuskerin də masada öz kreslosu qalır. Danışıqsız.'
         },
         ransom: {
           '1': 'Hamısını? ...Yaxşı. Götür və get.',
           '2': 'Qoblin qızılı ilə ayrılırsan. Basqınlar yenə başlayacaq, amma Sindikat razıdır.',
-          say: 'Xəzinəni ver, tacını əlində saxlaya bilərsən.'
+          say: 'Xəzinəni ver, tacını əlində saxlaya bilərsən.',
+          3: 'Qızılı götür. Amma yəhər qalır. Tusker yəhəri sevir.'
         }
       },
       siege: {
@@ -6299,7 +6350,23 @@ export default {
           '1': 'Çəkmələrin mübarək olsun! Mən Odo Marrow, çərçiyəm. Məni Sunford qəsəbəsində tap, sənin üçün mallarım olacaq.'
         }
       },
+      rebelGoblin: {
+        down: { '1': 'Kral devrilsin!' },
+        nomore: { '1': 'Kral istəmirik!' },
+        free: { '1': 'Azadlıq uğrunda!' }
+      },
+      rebelGnome: {
+        down: { '1': 'Kral devrilsin!' },
+        nomore: { '1': 'Kral istəmirik!' },
+        free: { '1': 'Azadlıq uğrunda!' }
+      },
       goblinKing: {
+        intro: {
+          '1': 'Tuskerə heç kim cızıq salmasın! O indicə çimdi!'
+        },
+        dazed: {
+          '1': 'Tusker? Məni eşidirsənsə, iki dəfə göz qırp!'
+        },
         charge: {
           '1': 'Onları əz, Tusker!'
         },

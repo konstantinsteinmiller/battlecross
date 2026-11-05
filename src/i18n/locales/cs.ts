@@ -431,6 +431,49 @@ export default {
       }
     }
   },
+  celebrate: {
+    title: 'Jeskyně jsou svobodné!'
+  },
+  rebels: {
+    toast: {
+      guarded: 'Nejdřív poraž dozorce!',
+      freed: 'Kopáči jsou volní!'
+    }
+  },
+  assault: {
+    title: 'Obléhání brány Jeskyní',
+    skipCut: 'Přeskočit scénu',
+    skip: 'Přeskočit obléhání',
+    goal: 'Prorazte bránu: zbořte obě věže',
+    breach: 'Brána je otevřená!',
+    towers: '{n} z {total} věží padlo',
+    hint: {
+      levers: 'Zatáhni za páku katapultu, nebo se postav pod beran a tlač.',
+      idle: 'Přijď ke zářící páce katapultu, nebo se postav pod beran a tlač ho.',
+      push: 'Vydrž! Mačkáním pohybových kláves tlačíš beran rychleji.',
+      pushTouch: 'Vydrž! Pohybem páčky tlačíš beran rychleji.'
+    },
+    toast: {
+      tower: 'Věž padá!',
+      breach: 'Palisáda padla. Do Jeskyní!'
+    }
+  },
+  hoard: {
+    title: 'Králův poklad',
+    lead: 'Vyber si jeden kus výbavy, který si necháš.',
+    best: 'Nejlepší volba',
+    pick: 'Vyber kus',
+    take: 'Vzít {item}',
+    open: 'Prázdný slot',
+    over: 'Lepší než {item}'
+  },
+  arenaUnlock: {
+    title: 'Koloseum odemčeno!',
+    body: 'Vyzkoušej své schopnosti v boji proti hordám příšer.',
+    go: 'Do Kolosea',
+    woods: 'Do Šeptajícího hvozdu'
+  },
+
   goal: {
     dummy: 'Skoť cvičného panáka',
     clear: 'Vyčisti: {place}',
@@ -446,6 +489,7 @@ export default {
     travel: 'Cestuj do: {place}',
     decide: 'Vyber si',
     explore: 'Prozkoumej říši',
+    mara: '{who} zná cestu dál',
     fight: 'Vyhraj souboj',
     show: 'Ukaž mi cestu: {goal}',
     escort: 'Chraň karavanu'
@@ -1664,7 +1708,9 @@ export default {
   weapon: {
     melee: 'Na blízko · atribut: {attr}',
     ranged: 'Na dálku · atribut: {attr}',
-    magic: 'Magie · atribut: {attr}'
+    magic: 'Magie · atribut: {attr}',
+    hit: 'poškození za zásah',
+    dps: '{n} za sekundu'
   },
   source: {
     'siege': "Získáno v obléhání Baštového brodu.",
@@ -4543,7 +4589,8 @@ export default {
       },
       learnSmith: {
         '1': 'Kovářství? Začíná tady: krumpáč a kámen, který se leskne.',
-        '2': 'Vykutej rudu a pak ji v kovárně vykuj do své výbavy. Tři dobré rány. No tak, zkus to.'
+        '2': 'Vykutej rudu a pak ji v kovárně vykuj do své výbavy. Tři dobré rány. No tak, zkus to.',
+        '3': 'Tady, tři hrudky železa, na účet podniku. Akorát na jeden meč.'
       },
       forge: {
         '1': 'Půjč si moji kovadlinu. Pozor na prsty.'
@@ -4791,6 +4838,7 @@ export default {
       topics: 'Co říct',
       gotGold: 'Získáno zlata: {n}',
       gotItem: 'Získáno: {item}',
+      gotOre: 'Získáno: {n} × {ore}',
       hint: 'Označeno na mapě: {zone}',
       needs: {
         attr: 'Vyžaduje: {attr} {n}',
@@ -6167,17 +6215,20 @@ export default {
         slay: {
           '1': 'Goblinský král padá a Sluje se vyprazdňují.',
           '2': 'Sunford spí klidněji a Železný řád slyší tvé jméno.',
-          say: 'Žádné dohody. Tvým nájezdům je konec.'
+          say: 'Žádné dohody. Tvým nájezdům je konec.',
+          3: 'Řekněte Tuskerovi... že byl vždycky lepší král.'
         },
         pact: {
           '1': 'Obchod. Ano. Přísahám, na svou korunu.',
           '2': 'Gobliní obchodníci se usadili na náměstí v Sunfordu a prodávají věci, které by tamní kovář nevyrobil.',
-          say: 'Přestaň přepadat a obchoduj se Sunfordem. Přísahej.'
+          say: 'Přestaň přepadat a obchoduj se Sunfordem. Přísahej.',
+          3: 'A Tusker si nechá vlastní židli u stolu. Nepřipouští se diskuse.'
         },
         ransom: {
           '1': 'Všechno? ...Dobře. Vezmi si to a jdi.',
           '2': 'Odcházíš s goblinským zlatem. Nájezdy začnou znovu, ale Syndikát to schvaluje.',
-          say: 'Dej mi svůj poklad a korunu si můžeš nechat.'
+          say: 'Dej mi svůj poklad a korunu si můžeš nechat.',
+          3: 'Vezmi si zlato. Ale sedlo zůstává. Tusker má sedlo rád.'
         }
       },
       siege: {
@@ -6398,7 +6449,23 @@ export default {
           '1': 'Ať jsou tvé boty požehnané! Odo Marrow, podomní obchodník. Najdi mě v Sunfordu, budu pro tebe mít zboží.'
         }
       },
+      rebelGoblin: {
+        down: { '1': 'Pryč s králem!' },
+        nomore: { '1': 'Žádný král!' },
+        free: { '1': 'Za svobodu!' }
+      },
+      rebelGnome: {
+        down: { '1': 'Pryč s králem!' },
+        nomore: { '1': 'Žádný král!' },
+        free: { '1': 'Za svobodu!' }
+      },
       goblinKing: {
+        intro: {
+          '1': 'Tuskera nikdo neškrábne! Právě se vykoupal!'
+        },
+        dazed: {
+          '1': 'Tuskere? Mrkni dvakrát, jestli mě slyšíš!'
+        },
         charge: {
           '1': 'Rozdupej je, Tuskere!'
         },

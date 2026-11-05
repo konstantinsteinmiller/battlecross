@@ -165,7 +165,8 @@ export const frameSvg = (): string => {
   const m = 24
   const outer = 'M' + TEAR.map(p => `${p[0]} ${p[1]}`).join('L') + 'Z'
   const inner = `M${m + 14} ${m}H${MAP_W - m - 14}Q${MAP_W - m} ${m} ${MAP_W - m} ${m + 14}V${MAP_H - m - 14}Q${MAP_W - m} ${MAP_H - m} ${MAP_W - m - 14} ${MAP_H - m}H${m + 14}Q${m} ${MAP_H - m} ${m} ${MAP_H - m - 14}V${m + 14}Q${m} ${m} ${m + 14} ${m}Z`
-  const corner = `<path d="M0 0v34c0 6 4 10 10 10h34M10 12c0 14 8 22 22 22M10 6a3 3 0 1 0 .01 0M40 34a3 3 0 1 0 .01 0" fill="none" stroke="#7d5f41" stroke-width="2.600"${round}/>`
+  // Drawn as the top-left corner (a rule down the left and along the top, its swoosh and two rivets inside); the four placements below mirror it.
+  const corner = `<path d="M0 44V10c0-6 4-10 10-10h34M10 32c0-14 8-22 22-22M10 38a3 3 0 1 0 .01 0M40 10a3 3 0 1 0 .01 0" fill="none" stroke="#7d5f41" stroke-width="2.600"${round}/>`
   const c = m + 12
   return `<path d="${outer}${inner}" fill-rule="evenodd" fill="#f6e3b4"/>` +
     `<path d="M0 0H${MAP_W}V${MAP_H}H0Z${`M9 9V${MAP_H - 9}H${MAP_W - 9}V9Z`}" fill-rule="evenodd" fill="#e2c68c" opacity="0.7"/>` +
