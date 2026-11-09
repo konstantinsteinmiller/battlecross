@@ -1,6 +1,6 @@
 import {
   BREACH_S, CATAPULT_FLIGHT, CATAPULT_WIND, CRIES, CRY_FIRST_S, HINT_IDLE_S, LEVER_REACH, PANORAMA_S, RAM_BLOW_GAP, RAM_BLOWS, RAM_CREEP,
-  RAM_PUSH, RAM_REACH, RAM_STOP, cryKey, cryPeriod, type Cry
+  RAM_HALF_X, RAM_HALF_Z, RAM_PUSH, RAM_REACH, RAM_RIDE_Z, RAM_STOP, cryKey, cryPeriod, type Cry
 } from '../data/assault'
 import { ASSAULT_LAYOUT, BREACH_I0, BREACH_I1, PAL_J, palisadeCells } from './assaultMap'
 import { face, setGoal, stop, walk } from './actors'
@@ -239,7 +239,7 @@ const stepRam = (sim: Sim, dt: number): void => {
     r.riding = false
     r.speed = 0
     if (a.phase !== 'play' || !h.alive || standing(a) === 0) return
-    const away = Math.hypot(r.x - h.x, r.z + 1.1 - h.z)
+    const away = Math.hypot(r.x - h.x, r.z + RAM_RIDE_Z - h.z)
     // After a ride the hero steps out from under it before it takes him in again.
     if (away > RAM_REACH + 1) r.armed = true
     if (away > RAM_REACH || !r.armed) return
@@ -306,6 +306,32 @@ const stepRam = (sim: Sim, dt: number): void => {
       r.speed = 0
       r.t = 0
     }
+  }
+}
+
+/**
+ * The ram is solid: whoever stands in its box (a goblin running the yard, a gnome, the hero before he takes
+ * the handles) is pushed out through the nearest face, so nobody walks through the timber.
+ */
+const keepOutOfRam = (sim: Sim): void => {
+  const a = sim.assault!
+  const r = a.ram
+  const cz = r.z + 0.05
+  const riderId = r.riding ? sim.hero.unit.id : -1
+  for (const u of sim.units) {
+    if (!u.alive || u.id === riderId) continue
+    const hx = RAM_HALF_X + u.r
+    const hz = RAM_HALF_Z + u.r
+    const dx = u.x - r.x
+    const dz = u.z - cz
+    if (Math.abs(dx) >= hx || Math.abs(dz) >= hz) continue
+    // The face with the least way out.
+    const ox = hx - Math.abs(dx)
+    const oz = hz - Math.abs(dz)
+    if (ox < oz) u.x = r.x + (dx < 0 ? -hx : hx)
+    else u.z = cz + (dz < 0 ? -hz : hz)
+    u.px = u.x
+    u.pz = u.z
   }
 }
 
@@ -450,13 +476,14 @@ export const stepAssault = (sim: Sim, dt: number): void => {
   if (a.ram.riding && h.unit.alive) {
     const u = h.unit
     u.x = a.ram.x
-    u.z = a.ram.z + 1.15
+    u.z = a.ram.z + RAM_RIDE_Z
     u.vx = u.vz = 0
     u.facing = Math.PI
     u.anim = 'walk'
     h.order = { kind: 'none', targetId: 0, x: u.x, z: u.z }
   }
   stepRebels(sim, dt)
+  keepOutOfRam(sim)
   stepArchers(sim, dt)
   stepCries(sim, dt)
   if (a.phase === 'play' && standing(a) === 0 && a.towers.every(t => t.fallT >= 1.4)) breach(sim)

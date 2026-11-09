@@ -40,27 +40,48 @@ const HIDE = '#9a7a52'
 const RED = '#b0302c'
 const GOLD = '#e8b73a'
 
-/** A watchtower: stone footing, four leaning legs with braces, a deck with a railing, a hide roof, a banner. 3 m across. */
-const tower = (): AssaultPieceGeo => {
-  const lit: BufferGeometry[] = [P(rbox(3.2, 0.34, 3.2, 0.2, 8, 4), ROCK2, [0, 0.17, 0])]
+/** One loose timber of a tower: its geometry about its own centre `c` (tower coordinates), and whether it is a long stem (it ends up lying down). */
+export interface TowerPart { geos: BufferGeometry[]; c: [number, number, number]; long: boolean; /** 0 = the first to let go (the top), 1 = the last. */ rank: number }
+
+/**
+ * A watchtower in its loose parts: the stone footing that stays, and every timber that comes apart when
+ * the ram brings it down (four legs with their upper stubs, the cross braces, the deck with its rails,
+ * the roof, the banner). Each part is built about its own centre so it can tumble on its own.
+ */
+const towerParts = (): { base: BufferGeometry[]; parts: TowerPart[] } => {
+  const base: BufferGeometry[] = [P(rbox(3.2, 0.34, 3.2, 0.2, 8, 4), ROCK2, [0, 0.17, 0])]
+  const parts: TowerPart[] = []
+  // A part: geometries built in tower coordinates, then shifted so the origin is the part's centre.
+  const add = (geos: BufferGeometry[], c: [number, number, number], long: boolean, rank: number): void => {
+    for (const g of geos) g.translate(-c[0], -c[1], -c[2])
+    parts.push({ geos, c, long, rank })
+  }
   for (const sx of [-1, 1]) for (const sz of [-1, 1]) {
     // The legs lean in toward the deck.
-    lit.push(P(rcyl(0.14, 4.5, 0.04, 8, 1), OAK2, [sx * 1.28, 2.55, sz * 1.28], [sz * 0.05, 0, -sx * 0.05]))
-    lit.push(P(rcyl(0.09, 1.4, 0.02, 6, 1), OAK2, [sx * 1.2, 5.5, sz * 1.2]))
+    add([P(rcyl(0.14, 4.5, 0.04, 8, 1), OAK2, [sx * 1.28, 2.55, sz * 1.28], [sz * 0.05, 0, -sx * 0.05])], [sx * 1.28, 2.55, sz * 1.28], true, 0.7)
+    add([P(rcyl(0.09, 1.4, 0.02, 6, 1), OAK2, [sx * 1.2, 5.5, sz * 1.2])], [sx * 1.2, 5.5, sz * 1.2], true, 0.35)
   }
   // Cross braces on each face.
   for (const [dz, ry] of [[1.36, 0], [-1.36, 0], [1.36, Math.PI / 2], [-1.36, Math.PI / 2]] as const) {
-    for (const s of [-1, 1]) lit.push(P(rbox(0.1, 3.6, 0.09, 0.3, 4, 4), OAK3, ry ? [dz, 2.5, 0.02 * s] : [0.02 * s, 2.5, dz], [0, ry, s * 0.62]))
+    for (const sg of [-1, 1]) {
+      const at: [number, number, number] = ry ? [dz, 2.5, 0.02 * sg] : [0.02 * sg, 2.5, dz]
+      add([P(rbox(0.1, 3.6, 0.09, 0.3, 4, 4), OAK3, at, [0, ry, sg * 0.62])], at, true, 0.55)
+    }
   }
-  // The deck, its railing, and the roof.
-  lit.push(P(rbox(3.2, 0.28, 3.2, 0.2, 8, 4), OAK, [0, 4.64, 0]))
-  for (const sz of [-1, 1]) lit.push(P(rbox(3.0, 0.75, 0.14, 0.25, 8, 4), OAK3, [0, 5.2, sz * 1.5]))
-  for (const sx of [-1, 1]) lit.push(P(rbox(0.14, 0.75, 3.0, 0.25, 4, 8), OAK3, [sx * 1.5, 5.2, 0]))
-  lit.push(P(rcone(2.5, 0.12, 1.15, 0.05, 4), HIDE, [0, 6.55, 0], [0, Math.PI / 4, 0]))
-  // A banner at the corner, the goblins' green rag.
-  lit.push(P(rcyl(0.04, 2.1, 0.01, 6, 1), OAK2, [1.45, 7.0, 1.45]))
-  lit.push(P(rbox(0.7, 0.45, 0.03, 0.4, 4, 4), '#4a8a3a', [1.8, 7.7, 1.45]))
-  return { lit, glow: [] }
+  // The deck and each of its rails.
+  add([P(rbox(3.2, 0.28, 3.2, 0.2, 8, 4), OAK, [0, 4.64, 0])], [0, 4.64, 0], false, 0.3)
+  for (const sz of [-1, 1]) add([P(rbox(3.0, 0.75, 0.14, 0.25, 8, 4), OAK3, [0, 5.2, sz * 1.5])], [0, 5.2, sz * 1.5], false, 0.2)
+  for (const sx of [-1, 1]) add([P(rbox(0.14, 0.75, 3.0, 0.25, 4, 8), OAK3, [sx * 1.5, 5.2, 0])], [sx * 1.5, 5.2, 0], false, 0.2)
+  // The hide roof, and the goblins' green rag on its pole.
+  add([P(rcone(2.5, 0.12, 1.15, 0.05, 4), HIDE, [0, 6.55, 0], [0, Math.PI / 4, 0])], [0, 6.55, 0], false, 0.05)
+  add([P(rcyl(0.04, 2.1, 0.01, 6, 1), OAK2, [1.45, 7.0, 1.45]), P(rbox(0.7, 0.45, 0.03, 0.4, 4, 4), '#4a8a3a', [1.8, 7.7, 1.45])], [1.5, 7.2, 1.45], true, 0)
+  return { base, parts }
+}
+
+/** A watchtower, standing and whole (the bench's and the key sheet's drawing). */
+const tower = (): AssaultPieceGeo => {
+  const { base, parts } = towerParts()
+  return { lit: [...base, ...parts.flatMap(p => p.geos.map(g => g.translate(p.c[0], p.c[1], p.c[2])))], glow: [] }
 }
 
 /** The rubble of a fallen tower: broken beams and the footing. */
@@ -201,6 +222,21 @@ const _v = new Vector3()
 const _q = new Quaternion()
 const _fwd = new Vector3(0, 0, 1)
 
+/** A tower's loose timber in its fall: where it is, how it moves, and when it lets go. */
+interface Timber {
+  g: Group
+  c: [number, number, number]
+  long: boolean
+  delay: number
+  vx: number; vy: number; vz: number
+  wx: number; wz: number
+  rest: number
+  yaw: number
+  bounces: number
+  state: 'hang' | 'fall' | 'lie'
+  lieT: number
+}
+
 interface Shot { mesh: Mesh; t: number; dur: number; x0: number; y0: number; z0: number; x1: number; y1: number; z1: number; arc: number; spin: number }
 
 export class AssaultProps {
@@ -209,6 +245,9 @@ export class AssaultProps {
   private low = sceneQuality() === 'low'
   private towers: Group[] = []
   private rubbles: Group[] = []
+  /** Each tower's loose timbers while it comes apart (`collapseT` runs from the moment it is down). */
+  private timbers: Timber[][] = [[], []]
+  private collapseT = [-1, -1]
   /** The breach's loose pieces (single stakes, halves of the rails): when each lets go, how far it tips, how it twists. */
   private chunks: Array<{ g: Group; t: number; delay: number; tip: number; twist: number; y0: number }> = []
   private arms: Group[] = []
@@ -276,9 +315,29 @@ export class AssaultProps {
     // The towers, each hinged at its front edge so it falls toward the camera; their rubble waits unseen.
     for (const t of L.towers) {
       const g = new Group()
-      const inner = this.piece(tower(), [0, 0, -1.5])
-      this.root.remove(inner)
-      g.add(inner)
+      const rig = new Group()
+      rig.position.set(0, 0, -1.5)
+      g.add(rig)
+      const { base, parts } = towerParts()
+      const foot = this.piece({ lit: base, glow: [] }, [0, 0, 0])
+      this.root.remove(foot)
+      rig.add(foot)
+      const list: Timber[] = []
+      parts.forEach((p, n) => {
+        const tg = this.piece({ lit: p.geos, glow: [] }, p.c)
+        this.root.remove(tg)
+        rig.add(tg)
+        const rnd = (k: number): number => ((Math.sin((n + 1) * 12.9898 + k * 78.233 + t.x) * 43758.5453) % 1 + 1) % 1
+        list.push({
+          g: tg, c: p.c, long: p.long, delay: p.rank * 0.55 + rnd(1) * 0.25,
+          // Mostly straight down, a little out and away from the yard in front (+Z).
+          vx: (p.c[0] === 0 ? (rnd(2) - 0.5) : Math.sign(p.c[0]) * (0.2 + rnd(2) * 0.7)) * 1.4,
+          vy: rnd(3) * 1.2, vz: (rnd(4) - 0.75) * 1.5,
+          wx: (rnd(5) - 0.5) * 5, wz: (rnd(6) - 0.5) * 5,
+          rest: p.long ? 0.16 : 0.28, yaw: rnd(7) * Math.PI, bounces: 0, state: 'hang', lieT: 0
+        })
+      })
+      this.timbers[this.towers.length] = list
       g.position.set(t.x, groundAt(t.x, t.z), t.z + 1.5)
       this.root.add(g)
       this.towers.push(g)
@@ -438,25 +497,68 @@ export class AssaultProps {
         g.rotation.z = Math.sin(time * 31 + q) * 0.025 * s
         return
       }
-      const k = Math.min(1, t.fallT / 1.5)
-      if (k < 1) {
-        g.rotation.x = ease(k) * ease(k) * (Math.PI / 2 - 0.12) + Math.sin(k * 9) * 0.012
-        g.rotation.z = Math.sin(k * 6 + q) * 0.05 * (1 - k)
-        if (this.low === false && Math.random() < dt * 24) this.dust(tw.x, tw.z + 2 + k * 3, 1, 1.2, '#8a6a4a')
-      } else {
-        // On the ground: it breaks up and sinks into its own dust; the rubble stays.
-        if (!this.landed[q]) {
-          this.landed[q] = true
-          g.rotation.x = Math.PI / 2 - 0.12
-          this.dust(tw.x, tw.z + 4.5, 22, 3)
-          this.vfx.ring(tw.x, tw.z + 4.5, 0.6, 5, '#e8d9b0', 0.6)
-          this.trauma(0.8)
-          sfx('deathBig', 0, 0.8)
-          this.rubbles[q]!.visible = true
+      // Down: the tower does not topple whole. It comes apart into loose timbers that drop, bounce, lie
+      // in the dust and sink into the ground (nothing of it ever lands on the yard as one piece).
+      if (this.collapseT[q]! < 0) {
+        this.collapseT[q] = 0
+        g.rotation.set(0, 0, 0)
+        this.dust(tw.x, tw.z, 14, 2.4)
+        this.vfx.ring(tw.x, tw.z, 0.6, 4.2, '#e8d9b0', 0.5)
+        sfx('quake', 0, 0.7)
+      }
+      const ct = (this.collapseT[q]! += dt)
+      for (const m of this.timbers[q]!) {
+        if (!m.g.visible) continue
+        const gp = m.g.position
+        // Local to the tower's rig: ground is y = 0, the timber's centre starts at `c`.
+        if (m.state === 'hang') {
+          if (ct < m.delay) {
+            // A shudder before it lets go.
+            m.g.rotation.z = Math.sin(ct * 60 + m.c[0]) * 0.02 * Math.min(1, ct / Math.max(0.2, m.delay))
+            continue
+          }
+          m.state = 'fall'
         }
-        const sink = Math.min(1, (t.fallT - 1.5) / 0.8)
-        g.position.y = groundAt(tw.x, tw.z) - sink * 2.2
-        if (sink >= 1) g.visible = false
+        if (m.state === 'fall') {
+          m.vy -= 14 * dt
+          gp.x += m.vx * dt
+          gp.y += m.vy * dt
+          gp.z += m.vz * dt
+          m.g.rotation.x += m.wx * dt
+          m.g.rotation.z += m.wz * dt
+          if (gp.y <= m.rest) {
+            gp.y = m.rest
+            if (m.bounces < 2 && m.vy < -2) {
+              m.vy = -m.vy * 0.32
+              m.vx *= 0.5
+              m.vz *= 0.5
+              m.wx *= 0.5
+              m.wz *= 0.5
+              m.bounces++
+              if (!this.low) this.dust(tw.x + gp.x, tw.z + gp.z - 1.5, 1, 0.8, '#8a6a4a')
+              if (m.bounces === 1 && Math.random() < 0.5) sfx('hitHeavy', 0, 0.35)
+            } else {
+              m.state = 'lie'
+              m.lieT = 0
+              m.vx = m.vz = m.vy = 0
+            }
+          }
+        } else {
+          // Lying: it settles flat (a stem on its side), then sinks into the ground and goes.
+          m.lieT += dt
+          const k = Math.min(1, m.lieT / 0.35)
+          m.g.rotation.x += ((m.long ? Math.PI / 2 : 0) - (m.g.rotation.x % (Math.PI * 2))) * k * 0.2
+          m.g.rotation.z += (0 - m.g.rotation.z) * k * 0.2
+          m.g.rotation.y = m.yaw
+          if (m.lieT > 1.1) gp.y = m.rest - Math.min(1, (m.lieT - 1.1) / 1.4) * 0.8
+          if (m.lieT > 2.5) m.g.visible = false
+        }
+      }
+      if (!this.landed[q] && ct > 0.9) {
+        this.landed[q] = true
+        this.dust(tw.x, tw.z + 1, 20, 3)
+        this.trauma(0.5)
+        sfx('deathBig', 0, 0.7)
       }
     })
     // The palisade's middle tips over once the breach comes, chunk by chunk from the middle out.

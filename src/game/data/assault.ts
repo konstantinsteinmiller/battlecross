@@ -39,6 +39,14 @@ export const RAM_PUSH = 4.2
 /** The ram's blows on a tower, and the seconds between them. */
 export const RAM_BLOWS = 3
 export const RAM_BLOW_GAP = 1.15
+/**
+ * The ram's footprint (half-width and half-length, m, around its centre: the wheels' outer edge and the
+ * push-bar behind) and where the hero stands to push it: just behind the bar, never inside the frame.
+ * Everything else (goblins, gnomes, the hero not riding) is pushed out of this box.
+ */
+export const RAM_HALF_X = 0.98
+export const RAM_HALF_Z = 1.5
+export const RAM_RIDE_Z = 1.95
 /** The ram stops this far (m) in front of a tower's foot. */
 export const RAM_STOP = 0.4
 

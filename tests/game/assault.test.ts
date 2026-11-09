@@ -9,7 +9,7 @@ import { ASSAULT_LAYOUT, generateAssault, PAL_J } from '@/game/sim/assaultMap'
 import { armAssault, assaultHint, skipAssault, skipPanorama } from '@/game/sim/assault'
 import { isSolidCell } from '@/game/sim/grid'
 import {
-  ASSAULT_FLAG, BREACH_S, CATAPULT_FLIGHT, CATAPULT_WIND, CRIES, CRIER, PANORAMA_S, RAM_BLOWS, assaultDue, cryKey, cryPeriod
+  ASSAULT_FLAG, BREACH_S, CATAPULT_FLIGHT, CATAPULT_WIND, CRIES, CRIER, PANORAMA_S, RAM_BLOWS, RAM_HALF_X, RAM_HALF_Z, RAM_RIDE_Z, assaultDue, cryKey, cryPeriod
 } from '@/game/data/assault'
 
 /**
@@ -125,7 +125,9 @@ describe('the besieged gate', () => {
     const creep = z0 - r.z
     expect(creep).toBeGreaterThan(1)
     // The hero is under it.
-    expect(Math.hypot(sim.hero.unit.x - r.x, sim.hero.unit.z - (r.z + 1.15))).toBeLessThan(0.1)
+    expect(Math.hypot(sim.hero.unit.x - r.x, sim.hero.unit.z - (r.z + RAM_RIDE_Z))).toBeLessThan(0.1)
+    // Behind the push-bar, never inside the frame.
+    expect(sim.hero.unit.z - r.z).toBeGreaterThan(RAM_HALF_Z)
     // Pushing speeds it up.
     const z1 = r.z
     setStick(sim, 0, -1)
@@ -145,6 +147,31 @@ describe('the besieged gate', () => {
     // Standing where he is, he is not taken in again until he has stepped away.
     run(sim, plan, 0.5)
     expect(r.mode).toBe('idle')
+  })
+
+  it('the ram is solid: a goblin or the hero standing in it is pushed out, and nobody runs through it', () => {
+    const { sim, plan } = scene()
+    play(sim, plan)
+    const r = sim.assault!.ram
+    const g = sim.assault!.rebels[0]!
+    const u = sim.get(g.unit)!
+    u.x = u.px = r.x - 0.3
+    u.z = u.pz = r.z - 0.2
+    run(sim, plan, STEP)
+    expect(Math.abs(u.x - r.x) >= RAM_HALF_X || Math.abs(u.z - r.z) >= RAM_HALF_Z).toBe(true)
+    // Charging straight across its middle, the goblin ends on a side, not on the far side through it.
+    u.x = u.px = r.x
+    u.z = u.pz = r.z + RAM_HALF_Z + 1
+    for (let i = 0; i < 120; i++) {
+      u.z -= 0.1
+      run(sim, plan, STEP)
+      expect(Math.abs(u.x - r.x) >= RAM_HALF_X || Math.abs(u.z - r.z) >= RAM_HALF_Z).toBe(true)
+    }
+    // The hero, put inside it before he takes the handles, is put out too.
+    goto(sim, r.x, r.z)
+    run(sim, plan, STEP)
+    const h = sim.hero.unit
+    expect(r.riding || Math.abs(h.x - r.x) >= RAM_HALF_X || Math.abs(h.z - r.z) >= RAM_HALF_Z).toBe(true)
   })
 
   it('the ram needs two rides for two towers; both fallen ends the ram', () => {

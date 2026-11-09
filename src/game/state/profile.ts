@@ -1604,6 +1604,12 @@ export const learnSmithing = (): void => {
   saveProfile()
 }
 
+/** The one-time tip: the hero has forged once (Brann's first piece is on the house). */
+export const FIRST_FORGE_TIP = 'firstForge'
+
+/** What a recipe costs in gold now: nothing for the very first piece the hero ever forges. */
+export const smithPrice = (r: { gold: number }): number => (profile.tips[FIRST_FORGE_TIP] ? r.gold : 0)
+
 /** Why a recipe cannot be forged now ('' = it can). */
 export const smithBlock = (id: string): '' | 'learn' | 'metal' | 'ore' | 'gold' | 'max' => {
   const r = RECIPE_BY_ID[id]
@@ -1612,7 +1618,7 @@ export const smithBlock = (id: string): '' | 'learn' | 'metal' | 'ore' | 'gold' 
   // Both twins at the forge's top: nothing more to be had from it.
   if (owns(r.master) && upgradeLevel(r.master) >= FORGE_MAX && owns(r.item) && upgradeLevel(r.item) >= FORGE_MAX) return 'max'
   if (oreCount(r.metal) < r.nuggets) return 'ore'
-  if (profile.gold < r.gold) return 'gold'
+  if (profile.gold < smithPrice(r)) return 'gold'
   return ''
 }
 
@@ -1627,7 +1633,8 @@ export const smithForge = (id: string, grade: Grade): { id: string; levels: numb
   if (!r || smithBlock(id)) return null
   const made = gradeMakes(r, grade)
   spendOres({ [r.metal]: r.nuggets })
-  profile.gold -= r.gold
+  profile.gold -= smithPrice(r)
+  profile.tips[FIRST_FORGE_TIP] = true
   const fresh = !owns(made.id)
   if (fresh) {
     profile.inv.items.push(made.id)

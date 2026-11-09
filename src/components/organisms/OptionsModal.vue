@@ -219,9 +219,10 @@ onUnmounted(stopCapture)
           )
           p.opt-hint {{ t('samsungFix.optionHint') }}
           FButton(:label="t('samsungFix.recheck')" type="secondary" size="md" @click="rerunColourCheck")
-        FButton(v-if="canReplayIntro" :label="t('intro.replay')" type="secondary" size="md" data-intro-replay @click="emit('intro')")
-        FButton(v-if="showPrivacyLinks && privacyPolicyUrl" :label="t('privacy.policy')" type="secondary" size="md" @click="openPrivacyPolicy")
-        FButton(v-if="showPrivacyLinks && privacyOptionsRequired" :label="t('privacy.settings')" type="secondary" size="md" @click="showPrivacyOptions")
+        div(v-if="canReplayIntro || (showPrivacyLinks && (privacyPolicyUrl || privacyOptionsRequired))" class="flex flex-col items-center gap-4 mt-4 pt-1" :class="isMobileLandscape ? 'col-span-2' : ''")
+          FButton(v-if="canReplayIntro" :label="t('intro.replay')" type="secondary" size="md" data-intro-replay @click="emit('intro')")
+          FButton(v-if="showPrivacyLinks && privacyPolicyUrl" :label="t('privacy.policy')" type="secondary" size="md" @click="openPrivacyPolicy")
+          FButton(v-if="showPrivacyLinks && privacyOptionsRequired" :label="t('privacy.settings')" type="secondary" size="md" @click="showPrivacyOptions")
 
     div(v-else-if="currentTab === 'gameplay'").flex.flex-col.gap-2.p-2
       div(class="z-[20] flex flex-col gap-1")

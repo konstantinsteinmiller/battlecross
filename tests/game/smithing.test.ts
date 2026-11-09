@@ -256,16 +256,22 @@ describe('at the smith', () => {
     p.addOres({ iron: 2 })
     expect(p.smithBlock(r.id)).toBe('ore')
     p.addOres({ iron: 10 })
+    // The very first piece forged is on the house: no gold needed, none taken.
     p.profile.gold = 0
-    expect(p.smithBlock(r.id)).toBe('gold')
-    p.profile.gold = 10000
+    expect(p.smithPrice(r)).toBe(0)
     expect(p.smithBlock(r.id)).toBe('')
+    p.profile.gold = 10000
     const made = p.smithForge(r.id, 'great')!
     expect(made).toEqual({ id: r.master, levels: 1, fresh: true })
     expect(p.owns(r.master)).toBe(true)
     expect(p.upgradeLevel(r.master)).toBe(1)
     expect(p.oreCount('iron')).toBe(12 - r.nuggets)
-    expect(p.profile.gold).toBe(10000 - r.gold)
+    expect(p.profile.gold).toBe(10000)
+    // From the second on it costs gold.
+    expect(p.smithPrice(r)).toBe(r.gold)
+    p.profile.gold = 0
+    expect(p.smithBlock(r.id)).toBe('gold')
+    p.profile.gold = 10000
     // The same twin again: worked up, at least a level.
     const again = p.smithForge(r.id, 'great')!
     expect(again).toEqual({ id: r.master, levels: 2, fresh: false })

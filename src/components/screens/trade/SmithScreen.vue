@@ -55,7 +55,9 @@
               span.piece__ore-icon
                 OreIcon(:id="r.metal")
               | {{ oreCount(r.metal) }}/{{ r.nuggets }}
-            span.piece__gold(:class="{ 'is-short': profile.gold < r.gold }") {{ t('smith.gold', { n: fmt(r.gold) }) }}
+            span.piece__gold(:class="{ 'is-short': profile.gold < smithPrice(r) }" :aria-label="t('smith.gold', { n: fmt(smithPrice(r)) })")
+              IconCoin.piece__coin
+              | {{ fmt(smithPrice(r)) }}
           FButton.piece__go(
             :label="t('smith.forge')"
             type="success"
@@ -101,7 +103,7 @@
  */
 import { computed, nextTick, onUnmounted, ref } from 'vue'
 import { useI18n } from 'vue-i18n'
-import { oreCount, profile, smithBlock, smithForge, totalAttrs } from '@/game/state/profile'
+import { oreCount, profile, smithBlock, smithForge, smithPrice, totalAttrs } from '@/game/state/profile'
 import { ORE_IDS, ORE_LOOK, type OreId } from '@/game/data/ores'
 import { ATTR_COLOR, ATTRS, type Attr } from '@/game/data/attributes'
 import { SMITH_LINES, smithItemId } from '@/game/data/items'
@@ -110,6 +112,7 @@ import { flow } from '@/game/flow'
 import { sfx } from '@/game/audio/sfx'
 import { fmt } from '@/utils/format'
 import FButton from '@/components/atoms/FButton.vue'
+import IconCoin from '@/components/icons/IconCoin.vue'
 import ItemIcon from '@/components/art/ItemIcon.vue'
 import OreIcon from '@/components/art/OreIcon.vue'
 import DealStamp from '@/components/game/DealStamp.vue'
@@ -178,7 +181,7 @@ const strike = (): void => {
   }
   const r = RECIPE_BY_ID[g.recipe]!
   const grade = gradeOf(g.hits.reduce((a, b) => a + b, 0), profile.level, r.level)
-  const paid = r.gold
+  const paid = smithPrice(r)
   const made = smithForge(g.recipe, grade)
   window.removeEventListener('keydown', onKey)
   if (!made) { game.value = null; sfx('denied'); return }
@@ -331,6 +334,13 @@ onUnmounted(() => {
   gap: 0.6em
   color: var(--bc-text)
   font-size: clamp(0.7rem, 2.8vmin, 0.88rem)
+.piece__gold
+  display: inline-flex
+  align-items: center
+  gap: 0.25em
+.piece__coin
+  width: 1.1em
+  height: 1.1em
 .piece__ore
   display: inline-flex
   align-items: center

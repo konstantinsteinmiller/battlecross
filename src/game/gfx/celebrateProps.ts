@@ -56,7 +56,10 @@ const crest = (r: number): BufferGeometry[] => [
   P(rbox(r * 1.5, r * 0.15, 0.04, 0.4, 6, 3), RED, [0, 0, 0.19], [0, 0, -Math.PI / 4])
 ]
 /** The crest held overhead, with the arm's stub under it. */
-const heldCrest = (): PartyPieceGeo => ({ lit: crest(0.4), glow: [] })
+const CREST_R = 0.34
+const heldCrest = (): PartyPieceGeo => ({ lit: [...crest(CREST_R), P(sph(0.1, 8, 6), '#4f8f3a', [0, -CREST_R * 0.9, 0.02])], glow: [] })
+/** The goblin's raised arm: a unit-long stem (along Y), stretched between shoulder and grip each frame. */
+const armStem = (): BufferGeometry[] => [P(rcyl(0.075, 1, 0.03, 8, 1), '#4f8f3a')]
 
 /** A mug: a barrel of ale with a foam head and a handle. */
 const mug = (): PartyPieceGeo => ({
@@ -213,15 +216,26 @@ export class CelebrateProps {
     if (c) {
       const crestGeo = merge(heldCrest().lit)
       const mugGeo = merge(mug().lit)
-      this.geos.push(crestGeo, mugGeo)
+      const armGeo = merge(armStem())
+      this.geos.push(crestGeo, mugGeo, armGeo)
       for (const p of c.celebrants) {
         if (p.role === 'crest') {
+          // g: at the goblin's feet. children[0] the shield (held out to one side, clear of the head),
+          // children[1] the raised arm from the shoulder to the grip.
           const g = new Group()
+          const sg = new Group()
           const m = new Mesh(crestGeo, celVC())
           const l = new Mesh(crestGeo, outlineMat())
           l.renderOrder = -1
           m.frustumCulled = l.frustumCulled = false
-          g.add(m, l)
+          sg.add(m, l)
+          const ag = new Group()
+          const am = new Mesh(armGeo, celVC())
+          const al = new Mesh(armGeo, outlineMat())
+          al.renderOrder = -1
+          am.frustumCulled = al.frustumCulled = false
+          ag.add(am, al)
+          g.add(sg, ag)
           g.visible = false
           this.root.add(g)
           this.crests.set(p.unit, g)
@@ -252,11 +266,29 @@ export class CelebrateProps {
       const gy = groundAt(u.x, u.z)
       const cg = this.crests.get(p.unit)
       if (cg) {
-        // Held overhead (its rim stays above the head even lowered: the goblin is 0.94 m tall), rising with the cheer; it tilts with the beat.
+        // Held in one raised fist out to the side of the head (never over it, so it cannot sink into it from
+        // the high camera): at the hip-side at rest, up beside the head at a cheer. The arm runs from the
+        // shoulder to the grip under the shield; the shield leans toward the camera and sways with the beat.
         cg.visible = true
-        cg.position.set(u.x, gy + lift + 1.5 + p.up * 0.45, u.z + 0.05)
-        cg.rotation.z = Math.sin(time * 3.2 + p.off * 4) * 0.14
-        cg.rotation.y = Math.sin(time * 1.3 + p.off) * 0.25
+        cg.position.set(u.x, gy + lift, u.z)
+        const side = p.unit % 2 ? 1 : -1
+        const sway = Math.sin(time * 3.2 + p.off * 4) * 0.08
+        const cx = side * 0.66 + sway * 0.4
+        const cy = 0.82 + p.up * 0.62
+        const sg = cg.children[0]!
+        sg.position.set(cx, cy, 0.1)
+        sg.rotation.set(-0.35, side * 0.15, -side * 0.12 + sway)
+        const ag = cg.children[1]!
+        const sx = side * 0.2
+        const sy = 0.6
+        const hx = cx - side * 0.04
+        const hy = cy - CREST_R * 0.9
+        const dx = hx - sx
+        const dy = hy - sy
+        const len = Math.hypot(dx, dy)
+        ag.position.set((sx + hx) / 2, (sy + hy) / 2, 0.06)
+        ag.rotation.set(0, 0, -Math.atan2(dx, dy))
+        ag.scale.set(1, len, 1)
       }
       const mg = this.mugs.get(p.unit)
       if (mg) {
