@@ -15,7 +15,18 @@
       div.assault__goal(role="status")
         span.assault__goal-text {{ v.phase === 'breach' ? t('assault.breach') : t('assault.goal') }}
         span.assault__pips(:aria-label="t('assault.towers', { n: 2 - v.towers, total: 2 })")
-          i.assault__pip(v-for="q in 2" :key="q" :class="{ 'is-down': q <= 2 - v.towers }")
+          span.assault__pip(v-for="q in 2" :key="q" :class="{ 'is-down': q <= 2 - v.towers }")
+            //- A standing watchtower (stone, battlements, a slit and a banner), or its rubble with a tick once it has fallen.
+            svg.assault__tower(v-if="q > 2 - v.towers" viewBox="0 0 24 30" aria-hidden="true")
+              path.assault__flag(d="M12 1v6M12 1.5l5 1.8-5 1.8")
+              path.assault__stone(d="M5 10h2.6V7.6h2.6V10h3.6V7.6h2.6V10H19v4l-1.2 1.4V27H6.2V15.4L5 14z")
+              path.assault__slit(d="M11 15h2v4.5h-2z")
+              path.assault__door(d="M9.4 27v-3.4a2.6 2.6 0 0 1 5.2 0V27z")
+            svg.assault__tower(v-else viewBox="0 0 24 30" aria-hidden="true")
+              path.assault__stone(d="M2 27l3-6 4 1.4 2.6-4.2 3.6 2.6 3-3.4 4.4 4.2 1.4 5.4z")
+              path.assault__stone(d="M7 21l2.4-3.2 3 .8")
+              circle.assault__badge(cx="17.5" cy="8" r="6")
+              path.assault__tick(d="M14.4 8l2.2 2.3 3.6-4.4")
       Transition(name="assault-fade")
         p.assault__hint(v-if="hint" :key="hintKey" :class="{ 'is-urgent': v.hint === 'idle', 'is-push': v.hint === 'pushing' }" aria-live="polite" data-assault-hint) {{ hint }}
       div.assault__btn.assault__btn--skip(v-if="v.phase === 'play'")
@@ -136,16 +147,39 @@ const skipSiege = (): void => assaultActions.skipSiege()
     max-width: 86vw
 .assault__pips
   display: flex
-  gap: 0.3rem
+  align-items: flex-end
+  gap: 0.35rem
 .assault__pip
-  width: 0.9em
-  height: 1.3em
-  border-radius: 0.2em 0.2em 0.1em 0.1em
-  border: 2px solid var(--bc-ink)
-  background: var(--bc-leather)
-  &.is-down
-    background: var(--bc-stone-deep)
-    transform: rotate(18deg) scaleY(0.6)
+  display: block
+  width: 2.5em
+  height: 3em
+  filter: drop-shadow(0 1px 0 var(--bc-ink))
+.assault__tower
+  display: block
+  width: 100%
+  height: 100%
+  overflow: visible
+  stroke: var(--bc-ink)
+  stroke-width: 1.4
+  stroke-linejoin: round
+  stroke-linecap: round
+.assault__stone
+  fill: #b9b4a6
+.assault__slit
+  fill: var(--bc-ink)
+  stroke: none
+.assault__door
+  fill: var(--bc-leather)
+.assault__flag
+  fill: #d8322a
+.assault__badge
+  fill: #3fbf5a
+.assault__tick
+  fill: none
+  stroke: #fff
+  stroke-width: 2.2
+.assault__pip.is-down .assault__stone
+  fill: #7d786c
 .assault__hint
   position: absolute
   left: 50%

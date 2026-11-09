@@ -18,6 +18,8 @@ export const MARKS = {
   'potion-mana': { viewBox: '0 0 48 48', d: 'M24 7c6 9.500 12 15 12 22a12 12 0 0 1-24 0c0-7 6-12.500 12-22z' },
   /** Over a townsperson whose quest is undecided. */
   quest: { viewBox: '0 0 24 24', d: 'M9.6 3h4.800l-0.800 11h-3.200zM12 16.400a2.300 2.300 0 1 1 0 4.600a2.300 2.300 0 0 1 0-4.600z' },
+  /** Over the place the goal sends the hero to on the world map: a downward marker, bobbing. */
+  seek: { viewBox: '0 0 40 48', d: 'M20 46 L5 24 A16 16 0 1 1 35 24 Z M20 11a6 6 0 1 0 0.010 0z' },
   /** The mouse pointer of a desktop lesson. */
   cursor: { viewBox: '0 0 40 52', d: 'M4 3 L4 40 L13.5 31.5 L20 47 L27 44 L20.5 29 L33 28.5 Z' }
 } as const satisfies Record<string, Mark>

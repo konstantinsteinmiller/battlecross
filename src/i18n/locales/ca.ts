@@ -7625,6 +7625,7 @@ export default {
     elderDragon: "El Drac Ancestral",
     trainingDummy: 'Maniquí d’Entrenament',
     goblin: 'Gòblin',
+    goblinOverseer: 'Capatàs goblin',
     goblinSlinger: 'Gòblin Foner',
     bandit: 'Bandit',
     banditArcher: 'Bandit Arquer',

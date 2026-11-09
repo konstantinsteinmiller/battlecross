@@ -7620,6 +7620,7 @@ export default {
     elderDragon: "Dragonul Străvechi",
     trainingDummy: 'Manechin de antrenament',
     goblin: 'Goblin',
+    goblinOverseer: 'Supraveghetor goblin',
     goblinSlinger: 'Goblin Prăștiaș',
     bandit: 'Bandit',
     banditArcher: 'Bandit Arcaș',

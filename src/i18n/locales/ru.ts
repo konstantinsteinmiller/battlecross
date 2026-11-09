@@ -7680,6 +7680,7 @@ export default {
     elderDragon: "Древний Дракон",
     trainingDummy: 'Тренировочное чучело',
     goblin: 'Гоблин',
+    goblinOverseer: 'Гоблин-надсмотрщик',
     goblinSlinger: 'Гоблин-пращник',
     bandit: 'Разбойник',
     banditArcher: 'Разбойник-лучник',

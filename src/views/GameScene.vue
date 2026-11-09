@@ -11,7 +11,7 @@
     OptionsModal(v-if="optionsMounted" :is-open="optionsOpen" @close="optionsOpen = false" @intro="replayIntro")
     TravelVeil
     //- The feature lessons, over every screen (and the pacing that picks them).
-    LessonLayer(v-if="!introOn")
+    LessonLayer(v-if="!introOn && !celebrateHud.active")
     //- A new save picks the boy or the girl hero over the opening fight.
     HeroChoice(v-if="!introOn" @done="onHeroPicked")
     //- The intro (#130): its own chunk, mounted only while it plays.
@@ -29,6 +29,7 @@ import { loadKeyboardLayout } from '@/game/engine/keyLabels'
 import { input, adoptBootMode, currentZone } from '@/game/boot'
 import { flow, travel, openMap, talkTo, visitHiddenTrainer } from '@/game/flow'
 import { hud } from '@/game/state/hud'
+import { celebrateHud } from '@/game/state/celebrateHud'
 import { isFreshProfile, needsHeroChoice, profile } from '@/game/state/profile'
 import { talk } from '@/game/talk'
 import { coach } from '@/game/coach'
@@ -39,6 +40,7 @@ import { getAudioContext } from '@/use/useAssets'
 import { afterPaint, yieldToBrowser } from '@/game/engine/slicer'
 import { toggleGameMute } from '@/use/useGameMute'
 import { registerGameCheats } from '@/game/cheats'
+import { installCheatWord } from '@/use/useCheatWord'
 import { PREVIEW_ON } from '@/game/previewFlags'
 import GameHud from '@/components/hud/GameHud.vue'
 import { SCREEN_CHUNKS, queueScreens } from '@/components/screens/chunks'
@@ -74,6 +76,7 @@ const IntroLayer = defineAsyncComponent(() => import('@/components/screens/intro
  * hidden tab).
  */
 registerGameCheats()
+let removeCheatWord: (() => void) | null = null
 // `--hud-s`: the HUD's sizes shrink on a very small viewport (see the composable).
 useHudScale()
 
@@ -167,6 +170,7 @@ onMounted(async () => {
   void loadKeyboardLayout()
   app.setSuspended(isGamePaused.value)
   window.addEventListener('keydown', onKey)
+  removeCheatWord = installCheatWord()
   if (import.meta.env.DEV) {
     // Probe hooks for browser checks. Folds away in production.
     ;(window as unknown as Record<string, unknown>).__game = { app, input, flow, hud, profile, travel, openMap, zone: currentZone, coach, talk, talkTo, visitHiddenTrainer }
@@ -250,6 +254,7 @@ onUnmounted(() => {
   syncGameplayLifecycle(false)
   detachInput?.()
   window.removeEventListener('keydown', onKey)
+  removeCheatWord?.()
   app.setWanted(false)
   app.detach()
 })

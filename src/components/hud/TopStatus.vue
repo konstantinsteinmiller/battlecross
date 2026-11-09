@@ -9,7 +9,8 @@
     //- The next goal: under the boss's bar while it lives, else on top (the place is the zone badge, top left).
     GoalTracker(v-if="hud.bossKey")
     template(v-else)
-      GoalTracker
+      //- A town shows its goal above the town map instead (GameHud).
+      GoalTracker(v-if="flow.screen !== 'town'")
       div.plate(v-if="hud.targetKey" :class="{ 'plate--elite': hud.targetElite }")
         span.plate__name
           span.plate__label {{ t(hud.targetKey) }}
@@ -25,6 +26,7 @@
  *  its clearing are the zone badge under the hero's frame. */
 import { useI18n } from 'vue-i18n'
 import { hud } from '@/game/state/hud'
+import { flow } from '@/game/flow'
 import FBar from '@/components/atoms/FBar.vue'
 import GameIcon from '@/components/icons/GameIcon.vue'
 import GoalTracker from './GoalTracker.vue'

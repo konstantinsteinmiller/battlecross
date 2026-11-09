@@ -85,7 +85,8 @@
                 span.node__badge.node__badge--quest(v-else-if="n.decision" aria-hidden="true")
                   GameIcon(name="chat")
                 span.node__seek(v-if="seek.node === n.id || goalNode === n.id" aria-hidden="true" data-seek)
-                  GameIcon(name="down")
+                  img.node__seek-art(v-if="ICON_ART.get('mark-seek')" :src="ICON_ART.get('mark-seek')" alt="" draggable="false")
+                  GameIcon(v-else name="down")
                 span.node__badge.node__badge--trainer(v-if="n.trainer" aria-hidden="true")
                   GameIcon(name="book")
                 span.node__spark(v-if="n.fresh" aria-hidden="true")
@@ -223,7 +224,7 @@ import { isNodeLockedByDemo } from '@/use/useFullVersion'
 import { hud } from '@/game/state/hud'
 import { input } from '@/game/boot'
 import { watchLostInput } from '@/game/engine/lostInput'
-import { UI_ART } from '@/game/assets/overrides'
+import { ICON_ART, UI_ART } from '@/game/assets/overrides'
 import { sceneQuality } from '@/game/engine/quality'
 import { sfx } from '@/game/audio/sfx'
 import { registerQaAdTap } from '@/use/useQaAdTrigger'
@@ -1312,6 +1313,13 @@ onBeforeUnmount(() => {
   :deep(svg)
     width: 100%
     height: 100%
+// The painted marker is taller than the chevron it replaces and wears its own colours.
+.node__seek-art
+  display: block
+  width: 100%
+  height: 100%
+  object-fit: contain
+  filter: drop-shadow(0 2px 2px rgba(0, 0, 0, 0.55))
 
 @keyframes seek-bob
   from

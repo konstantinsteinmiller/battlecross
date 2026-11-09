@@ -7651,6 +7651,7 @@ export default {
     elderDragon: "Senais pūķis",
     trainingDummy: 'Treniņa lelle',
     goblin: 'Goblins',
+    goblinOverseer: 'Goblinu uzraugs',
     goblinSlinger: 'Goblins lingotājs',
     bandit: 'Laupītājs',
     banditArcher: 'Laupītājs loka šāvējs',

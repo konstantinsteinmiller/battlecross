@@ -7576,6 +7576,7 @@ export default {
     elderDragon: "古の竜",
     trainingDummy: '訓練用のかかし',
     goblin: 'ゴブリン',
+    goblinOverseer: 'ゴブリンの監督官',
     goblinSlinger: 'ゴブリン投石兵',
     bandit: '山賊',
     banditArcher: '山賊の弓兵',

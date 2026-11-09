@@ -7638,6 +7638,7 @@ export default {
     elderDragon: "Senovinis drakonas",
     trainingDummy: 'Treniruočių manekenas',
     goblin: 'Goblinas',
+    goblinOverseer: 'Goblinų prižiūrėtojas',
     goblinSlinger: 'Goblinas svaidytojas',
     bandit: 'Banditas',
     banditArcher: 'Banditas lankininkas',

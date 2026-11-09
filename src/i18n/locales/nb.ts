@@ -7576,6 +7576,7 @@ export default {
     elderDragon: "Urdragen",
     trainingDummy: 'Treningsdukke',
     goblin: 'Goblin',
+    goblinOverseer: 'Goblin-oppsynsmann',
     goblinSlinger: 'Goblinslynger',
     bandit: 'Banditt',
     banditArcher: 'Bandittbueskytter',

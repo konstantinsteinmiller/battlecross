@@ -7627,6 +7627,7 @@ export default {
     elderDragon: "Le Dragon Ancestral",
     trainingDummy: 'Mannequin d’entraînement',
     goblin: 'Gobelin',
+    goblinOverseer: 'Contremaître gobelin',
     goblinSlinger: 'Gobelin frondeur',
     bandit: 'Bandit',
     banditArcher: 'Archer bandit',

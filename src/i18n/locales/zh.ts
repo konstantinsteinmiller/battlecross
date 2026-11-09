@@ -7576,6 +7576,7 @@ export default {
     elderDragon: "上古巨龙",
     trainingDummy: '训练木桩',
     goblin: '哥布林',
+    goblinOverseer: '哥布林监工',
     goblinSlinger: '哥布林投石手',
     bandit: '强盗',
     banditArcher: '强盗弓手',

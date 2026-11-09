@@ -7576,6 +7576,7 @@ export default {
     elderDragon: "Cổ Long",
     trainingDummy: 'Hình Nhân Tập Luyện',
     goblin: 'Goblin',
+    goblinOverseer: 'Quản đốc Goblin',
     goblinSlinger: 'Goblin Ném Đá',
     bandit: 'Thổ Phỉ',
     banditArcher: 'Cung Thủ Thổ Phỉ',

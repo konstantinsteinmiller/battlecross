@@ -21283,10 +21283,26 @@
       "anchor": "centre",
       "cells": [
         {
+          "id": "mark-seek",
+          "label": "Mark-seek",
+          "variant": "icons",
+          "x": 0,
+          "y": 0,
+          "w": 256,
+          "h": 256,
+          "target": "images/icons/mark-seek.webp",
+          "fit": {
+            "h": 0.836,
+            "w": 0.617,
+            "bottom": 0.918,
+            "cx": 0.5
+          }
+        },
+        {
           "id": "mark-cursor",
           "label": "Mark-cursor",
           "variant": "icons",
-          "x": 0,
+          "x": 256,
           "y": 0,
           "w": 256,
           "h": 256,

@@ -7633,6 +7633,7 @@ export default {
     elderDragon: "Ο Αρχαίος Δράκος",
     trainingDummy: 'Ανδρείκελο εκπαίδευσης',
     goblin: 'Γκόμπλιν',
+    goblinOverseer: 'Επιστάτης Γκόμπλιν',
     goblinSlinger: 'Γκόμπλιν Σφενδονιστής',
     bandit: 'Ληστής',
     banditArcher: 'Ληστής Τοξότης',

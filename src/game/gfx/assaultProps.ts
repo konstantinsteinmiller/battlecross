@@ -134,9 +134,9 @@ const catapultArm = (): AssaultPieceGeo => ({
   glow: []
 })
 
-/** The lever the hero pulls: a post with a red grip, beside the catapult. */
+/** The lever the hero pulls: a post with a red grip, beside the catapult. The post leans toward +Z (rotation about X by +a moves its top to +Z), its foot on the stone base and the grip on its tip. */
 const lever = (): AssaultPieceGeo => ({
-  lit: [P(rbox(0.46, 0.2, 0.46, 0.3, 6, 3), ROCK2, [0, 0.1, 0]), P(rcyl(0.06, 1.0, 0.02, 6, 1), IRON, [0, 0.7, 0], [0.32, 0, 0]), P(sph(0.13, 8, 6), RED, [0, 1.19, -0.16])],
+  lit: [P(rbox(0.46, 0.2, 0.46, 0.3, 6, 3), ROCK2, [0, 0.1, 0]), P(rcyl(0.06, 1.0, 0.02, 6, 1), IRON, [0, 0.674, 0.158], [0.32, 0, 0]), P(sph(0.14, 8, 6), RED, [0, 1.243, 0.347])],
   glow: []
 })
 

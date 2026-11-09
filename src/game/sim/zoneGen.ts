@@ -571,6 +571,8 @@ export const generateZone = (def: ZoneDef, seed: number, o: ZoneGenOpts = {}): Z
     ? placeRebels({ seed, w: Wd, h, solid, sealed, trail, kind, start: { x: clearings[0]!.x, z: clearings[0]!.z }, chests: features.chests }, gangPack,
       [...features.plates, ...features.caves.flatMap(c => [c, c.mouth]), ...(features.puzzle ? [features.puzzle.hint] : [])])
     : null
+  // The second clearing's overseer: one goblin of that pack is bigger and in his own coat (#208). The Hollows' pack either way, gnomes or not.
+  if (def.id === 'hollows' && !o.tutorial && !o.bare && gangPack && !gangPack.finale) { const q = gangPack.kinds.indexOf('goblin'); if (q >= 0) gangPack.kinds[q] = 'goblinOverseer' }
   const gangKeep = rebels ? [{ x: rebels.x, z: rebels.z }] : []
   // The place's set pieces (#120), on their own stream, before the relief
   // (each blocking one stands on a level pad) and before the herbs and the

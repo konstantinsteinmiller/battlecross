@@ -7576,6 +7576,7 @@ export default {
     elderDragon: "Kadim Ejderha",
     trainingDummy: 'Talim Mankeni',
     goblin: 'Goblin',
+    goblinOverseer: 'Goblin Gözetmeni',
     goblinSlinger: 'Sapancı Goblin',
     bandit: 'Haydut',
     banditArcher: 'Okçu Haydut',

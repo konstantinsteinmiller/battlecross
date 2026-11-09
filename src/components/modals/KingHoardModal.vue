@@ -6,7 +6,6 @@
       aria-modal="true"
       aria-labelledby="hoard-title"
       data-king-hoard
-      @keydown="onKey"
     )
       div.hoard__veil(aria-hidden="true")
       div.hoard__rays(aria-hidden="true")
@@ -144,27 +143,40 @@ const take = (): void => {
 
 const reduced = (): boolean => typeof matchMedia === 'function' && matchMedia('(prefers-reduced-motion: reduce)').matches
 
+/**
+ * Keys are read on the window, in the capture phase: they work whatever holds
+ * the focus, and the game's own keys (A / D walk the hero) never see them.
+ */
 const onKey = (e: KeyboardEvent): void => {
-  if (claimed.value) return
+  if (claimed.value || e.ctrlKey || e.metaKey || e.altKey) return
   const ids = picks.value.map(p => p.id)
+  const next = e.key === 'ArrowRight' || e.key === 'ArrowDown' || e.code === 'KeyD' || e.code === 'KeyS'
+  const prev = e.key === 'ArrowLeft' || e.key === 'ArrowUp' || e.code === 'KeyA' || e.code === 'KeyW'
+  const take1 = e.key === 'Enter' || e.key === ' '
+  const num = /^[1-3]$/.test(e.key) ? ids[Number(e.key) - 1] : undefined
+  if (!next && !prev && !take1 && !num) return
+  e.preventDefault()
+  e.stopImmediatePropagation()
+  if (e.repeat) return
   const at = ids.indexOf(sel.value || lastHover)
-  if (e.key === 'ArrowRight' || e.key === 'ArrowDown') { e.preventDefault(); choose(ids[Math.min(ids.length - 1, at + 1)]!); focusCard(sel.value) }
-  else if (e.key === 'ArrowLeft' || e.key === 'ArrowUp') { e.preventDefault(); choose(ids[Math.max(0, at < 0 ? 0 : at - 1)]!); focusCard(sel.value) }
-  else if (e.key === 'Enter' && sel.value) { e.preventDefault(); take() }
-  else if (/^[1-3]$/.test(e.key) && ids[Number(e.key) - 1]) choose(ids[Number(e.key) - 1]!)
+  if (next) { choose(ids[Math.min(ids.length - 1, at + 1)]!); focusCard(sel.value) }
+  else if (prev) { choose(ids[Math.max(0, at < 0 ? 0 : at - 1)]!); focusCard(sel.value) }
+  else if (take1) { if (sel.value) take(); else { choose(ids[0]!); focusCard(sel.value) } }
+  else if (num) choose(num)
 }
-const focusCard = (id: string): void => { void nextTick(() => cardEls.value.find(b => b.dataset.hoardCard === id)?.focus()) }
+const focusCard = (id: string): void => { void nextTick(() => cardEls.value.find(b => b.dataset.hoardCard === id)?.focus({ preventScroll: true })) }
 
 let release: (() => void) | null = null
 const timers: number[] = []
 onMounted(() => {
   release = acquireAppPause()
+  window.addEventListener('keydown', onKey, true)
   // Each card lands with a tick as it is dealt.
   if (!reduced()) picks.value.forEach((_, i) => timers.push(window.setTimeout(() => sfx('uiPoint', 0, 0.5), 550 + i * 140)))
   sfx('chest')
   focusCard(picks.value[0]?.id ?? '')
 })
-onBeforeUnmount(() => { release?.(); release = null; for (const x of timers) window.clearTimeout(x) })
+onBeforeUnmount(() => { window.removeEventListener('keydown', onKey, true); release?.(); release = null; for (const x of timers) window.clearTimeout(x) })
 </script>
 
 <style scoped lang="sass">
@@ -184,7 +196,9 @@ $snap: cubic-bezier(0.22, 1.4, 0.4, 1)
   gap: clamp(0.4rem, 2.2vmin, 1.2rem)
   padding: max(0.6rem, env(safe-area-inset-top)) max(0.6rem, env(safe-area-inset-right)) max(0.6rem, env(safe-area-inset-bottom)) max(0.6rem, env(safe-area-inset-left))
   color: var(--bc-white)
-  overflow: hidden
+  // clip, not hidden: a hidden box can still be scrolled by a focus() on an off-screen card
+  // (the cards are dealt in from below), which pushed the whole hoard above the screen.
+  overflow: clip
   // No scrolling, anywhere: everything below is sized from the viewport.
   overscroll-behavior: none
 

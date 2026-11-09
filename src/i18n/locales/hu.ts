@@ -7576,6 +7576,7 @@ export default {
     elderDragon: "Az Ősi Sárkány",
     trainingDummy: 'Gyakorlóbábu',
     goblin: 'Goblin',
+    goblinOverseer: 'Goblin felügyelő',
     goblinSlinger: 'Goblin parittyás',
     bandit: 'Bandita',
     banditArcher: 'Bandita íjász',

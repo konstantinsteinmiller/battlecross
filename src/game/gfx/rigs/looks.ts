@@ -27,6 +27,8 @@ export const LOOKS: Readonly<Record<string, Look>> = {
   rebelGnome: L({ skin: '#d9a77c', top: '#7a5a3a', bottom: '#4a3a2a', head: 'wizard', hair: '#b8742e', outfit: 'tunic', held: 'hammer', beard: '#d8d0c0', trim: '#8a6a3a', metal: '#9aa4b8' }),
   // A goblin at the Hollows' celebration (#206): the same green hide, a feast-day red scarf for a cap.
   celebGoblin: L({ skin: GOBLIN, top: '#9a5a34', bottom: '#6b4a2c', head: 'bandana', hair: '#d8483a', ears: 'goblin', outfit: 'rags', held: 'none', trim: '#e8b73a' }),
+  // The Hollows' overseer (#208): a bigger goblin in a plate-trimmed leather coat, horned helm, pauldrons and a red cape, a hammer in hand.
+  goblinOverseer: L({ skin: '#5fae3a', top: '#6a2f24', bottom: '#2f2a34', head: 'helm', hair: '#c9483a', ears: 'goblin', outfit: 'leather', held: 'hammer', pauldrons: true, trim: '#e8b73a', bulk: 1.1, cape: '#a02a24', metal: '#9aa4b8' }),
   banditChief: L({ skin: '#d9a47e', top: '#a03a2c', bottom: '#3b2f2a', head: 'horns', hair: '#e8e2cf', outfit: 'leather', held: 'axe', pauldrons: true, trim: '#5a4a44', bulk: 1.12, beard: '#3b2a22', cape: '#5a1f1a' }),
   goblinKing: L({ skin: '#58c23f', top: '#7a2f8a', bottom: '#4a2c5a', head: 'crown', hair: '#58c23f', ears: 'goblin', outfit: 'robe', held: 'club', trim: '#ffd24a', bulk: 1.2, cape: '#c9483a' }),
 

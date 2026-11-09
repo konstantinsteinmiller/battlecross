@@ -73,7 +73,7 @@ import { countFairClear } from './state/fair'
 
 export type Screen = 'boot' | 'zone' | 'town' | 'map'
 export type Modal =
-  | '' | 'results' | 'secondWind' | 'contracts' | 'siege' | 'pause' | 'character' | 'skills' | 'inventory' | 'journal' | 'shop' | 'trainer' | 'healer' | 'alchemy' | 'smithing' | 'sellOre' | 'memory' | 'itemBattle' | 'cups' | 'whack' | 'ring' | 'arm' | 'ending' | 'help' | 'unlock' | 'campPick' | 'arenaUnlock' | 'kingHoard'
+  | '' | 'results' | 'secondWind' | 'contracts' | 'siege' | 'pause' | 'character' | 'skills' | 'inventory' | 'journal' | 'shop' | 'trainer' | 'healer' | 'alchemy' | 'smithing' | 'sellOre' | 'memory' | 'itemBattle' | 'cups' | 'whack' | 'ring' | 'arm' | 'ending' | 'help' | 'unlock' | 'campPick' | 'arenaUnlock' | 'kingHoard' | 'cheat'
 /** A conversation in progress (`talk.ts`, drawn by `DialogLayer`): with a
  *  townsperson in the scene, with a trainer met on the map, or a quest's
  *  decision. It is not a window — the world keeps running under it — and it
@@ -1181,6 +1181,13 @@ export const closeArenaUnlock = (to: 'arena' | 'woods' | 'map'): void => {
   }
   openMap()
   startGameMusic()
+}
+
+/** The town's "Leave for …" goal was tapped: the map opens and the hero walks to that place, stopping at its door (not entering). */
+export const askLeave = (node: NodeId): void => {
+  if (flow.loading || flow.talk || flow.modal || !NODE_BY_ID[node]) return
+  flow.mapWalkTo = node
+  openMap()
 }
 
 /** Leave a zone through the pause menu: what the run earned is kept, the

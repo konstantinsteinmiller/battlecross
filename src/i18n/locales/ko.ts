@@ -7576,6 +7576,7 @@ export default {
     elderDragon: "고대 용",
     trainingDummy: '훈련용 허수아비',
     goblin: '고블린',
+    goblinOverseer: '고블린 감독관',
     goblinSlinger: '고블린 투석꾼',
     bandit: '도적',
     banditArcher: '도적 궁수',

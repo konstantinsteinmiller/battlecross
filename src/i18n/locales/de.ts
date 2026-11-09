@@ -7597,6 +7597,7 @@ export default {
     elderDragon: "Der Älteste Drache",
     trainingDummy: 'Trainingspuppe',
     goblin: 'Goblin',
+    goblinOverseer: 'Goblin-Aufseher',
     goblinSlinger: 'Goblin-Schleuderer',
     bandit: 'Bandit',
     banditArcher: 'Banditenschütze',

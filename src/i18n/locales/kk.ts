@@ -7576,6 +7576,7 @@ export default {
     elderDragon: "Ежелгі айдаһар",
     trainingDummy: 'Жаттығу қуыршағы',
     goblin: 'Гоблин',
+    goblinOverseer: 'Гоблин қадағалаушысы',
     goblinSlinger: 'Сақпаншы гоблин',
     bandit: 'Қарақшы',
     banditArcher: 'Садақшы қарақшы',

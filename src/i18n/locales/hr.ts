@@ -7691,6 +7691,7 @@ export default {
     elderDragon: "Drevni zmaj",
     trainingDummy: 'Strašilo za trening',
     goblin: 'Goblin',
+    goblinOverseer: 'Goblinski nadglednik',
     goblinSlinger: 'Goblin praćkaš',
     bandit: 'Razbojnik',
     banditArcher: 'Razbojnik strijelac',

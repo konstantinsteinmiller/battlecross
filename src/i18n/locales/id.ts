@@ -7576,6 +7576,7 @@ export default {
     elderDragon: "Naga Purba",
     trainingDummy: 'Boneka Latihan',
     goblin: 'Goblin',
+    goblinOverseer: 'Mandor Goblin',
     goblinSlinger: 'Goblin Pengumban',
     bandit: 'Bandit',
     banditArcher: 'Bandit Pemanah',

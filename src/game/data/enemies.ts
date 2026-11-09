@@ -169,6 +169,12 @@ const BASE_ENEMIES: readonly EnemyDef[] = [
     hp: 0.8, dmg: 0.9, armor: 0.6, speed: 3.6, style: 'melee', type: 'physical', range: 1.7, interval: 1.25, windup: 0.32,
     aggro: 8.5, reward: 0.85, color: '#7bc74d', abilities: []
   }),
+  // The Hollows' overseer (#208): the gang's guard, 1.5x a goblin, in his own coat.
+  D({
+    id: 'goblinOverseer', rank: 'normal', rig: 'humanoid', look: 'goblinOverseer', scale: 1.23, r: 0.6, h: 1.7,
+    hp: 1.6, dmg: 1.15, armor: 1.0, speed: 3.4, style: 'melee', type: 'physical', range: 2.0, interval: 1.3, windup: 0.4,
+    aggro: 9, reward: 1.4, color: '#a02a24', abilities: []
+  }),
   D({
     id: 'goblinSlinger', rank: 'normal', rig: 'humanoid', look: 'goblinSlinger', scale: 0.8, r: 0.4, h: 1.1,
     hp: 0.6, dmg: 0.85, armor: 0.3, speed: 3.2, style: 'ranged', type: 'pierce', range: 8, interval: 1.9, windup: 0.45,

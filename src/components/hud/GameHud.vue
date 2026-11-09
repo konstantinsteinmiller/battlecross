@@ -7,7 +7,7 @@
     OverheardLayer(v-if="flow.screen === 'town'")
     //- What a boss shouts at the big beats of its fight.
     BossBarkLayer(v-if="flow.screen === 'zone'")
-    CoachLayer(v-if="(flow.screen === 'zone' || flow.screen === 'town') && !flow.modal && !flow.talk && !isAnyModalOpen")
+    CoachLayer(v-if="(flow.screen === 'zone' || flow.screen === 'town') && !flow.modal && !flow.talk && !isAnyModalOpen && !celebrateHud.active")
     //- The colosseum's announcement: the wave, the next prize, a milestone (#117).
     ArenaBanner(v-if="flow.screen === 'zone' && flow.node === 'arena' && !flow.modal")
     //- The siege (afterplay §8): the gate, the wave, the build phase's defences.
@@ -25,6 +25,8 @@
         HeroFrame
         //- Where he is, and how far the clearing has come.
         ZoneBadge(v-if="flow.screen === 'zone' || flow.screen === 'town'")
+        //- In a town the next goal ("Leave for …", tap to go) sits above the town map.
+        GoalTracker.hud__goal(v-if="flow.screen === 'town' && !flow.talk")
         //- Who keeps what in this town, on one small map (#167).
         TownMinimap(v-if="flow.screen === 'town' && !flow.talk")
         //- After the finale falls: how the hero goes home, under his frame
@@ -64,6 +66,7 @@ import BossBarkLayer from './BossBarkLayer.vue'
 import HeroFrame from './HeroFrame.vue'
 import ZoneBadge from './ZoneBadge.vue'
 import TownMinimap from './TownMinimap.vue'
+import GoalTracker from './GoalTracker.vue'
 import TopStatus from './TopStatus.vue'
 import HudMenu from './HudMenu.vue'
 import SkillBar from './SkillBar.vue'
@@ -118,6 +121,9 @@ const help = (): void => {
 .hud__tl
   grid-area: tl
   position: relative
+.hud__goal
+  margin-top: calc(clamp(0.2rem, 1vmin, 0.5rem) * var(--hud-s, 1))
+  max-width: calc(clamp(98px, 30vmin, 188px) + 4rem)
 .hud__tc
   grid-area: tc
   padding-top: 0.15rem

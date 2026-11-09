@@ -252,9 +252,9 @@ export class CelebrateProps {
       const gy = groundAt(u.x, u.z)
       const cg = this.crests.get(p.unit)
       if (cg) {
-        // Held overhead, rising with the cheer; it tilts with the beat.
+        // Held overhead (its rim stays above the head even lowered: the goblin is 0.94 m tall), rising with the cheer; it tilts with the beat.
         cg.visible = true
-        cg.position.set(u.x, gy + lift + 1.0 + p.up * 0.45, u.z + 0.05)
+        cg.position.set(u.x, gy + lift + 1.5 + p.up * 0.45, u.z + 0.05)
         cg.rotation.z = Math.sin(time * 3.2 + p.off * 4) * 0.14
         cg.rotation.y = Math.sin(time * 1.3 + p.off) * 0.25
       }

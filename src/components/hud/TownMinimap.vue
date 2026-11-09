@@ -119,7 +119,7 @@ watch(() => [flow.talk, flow.modal], ([talking, modal]) => { if (!talking && !mo
 
 <style scoped lang="sass">
 .mini
-  --size: clamp(130px, 40vmin, 250px)
+  --size: clamp(98px, 30vmin, 188px)
   // Icons are a fixed size (never a share of the map's width and height, which stretched them on a wide town).
   --dot: clamp(11px, calc(var(--size) * 0.1), 22px)
   position: relative
@@ -179,6 +179,6 @@ watch(() => [flow.talk, flow.modal], ([talking, modal]) => { if (!talking && !mo
   transform: translate(-50%, -50%)
   border: 1.5px solid var(--bc-ink)
   border-radius: 50%
-  background: var(--bc-paper-hi)
-  box-shadow: 0 0 0 2px var(--bc-gold-hi)
+  background: var(--bc-green)
+  box-shadow: 0 0 0 2px var(--bc-green-hi)
 </style>

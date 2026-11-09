@@ -7668,6 +7668,7 @@ export default {
     elderDragon: "प्राचीन ड्रैगन",
     trainingDummy: 'अभ्यास का पुतला',
     goblin: 'गॉब्लिन',
+    goblinOverseer: 'गॉब्लिन निरीक्षक',
     goblinSlinger: 'गॉब्लिन गुलेलबाज़',
     bandit: 'डाकू',
     banditArcher: 'डाकू तीरंदाज़',

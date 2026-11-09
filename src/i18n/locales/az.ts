@@ -7576,6 +7576,7 @@ export default {
     elderDragon: "Qədim Əjdaha",
     trainingDummy: 'Məşq Dummisi',
     goblin: 'Qoblin',
+    goblinOverseer: 'Qoblin nəzarətçisi',
     goblinSlinger: 'Sapandçı Qoblin',
     bandit: 'Quldur',
     banditArcher: 'Oxatan Quldur',

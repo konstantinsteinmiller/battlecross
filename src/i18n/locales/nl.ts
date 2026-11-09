@@ -7587,6 +7587,7 @@ export default {
     elderDragon: "De Oerdraak",
     trainingDummy: 'Trainingspop',
     goblin: 'Goblin',
+    goblinOverseer: 'Goblin-opzichter',
     goblinSlinger: 'Goblin-slingeraar',
     bandit: 'Bandiet',
     banditArcher: 'Bandiet-boogschutter',

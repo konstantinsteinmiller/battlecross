@@ -7677,6 +7677,7 @@ export default {
     elderDragon: "Pradawny Smok",
     trainingDummy: 'Manekin treningowy',
     goblin: 'Goblin',
+    goblinOverseer: 'Goblinski nadzorca',
     goblinSlinger: 'Goblin procarz',
     bandit: 'Bandyta',
     banditArcher: 'Bandyta łucznik',

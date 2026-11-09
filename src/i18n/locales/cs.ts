@@ -7677,6 +7677,7 @@ export default {
     elderDragon: "Prastarý drak",
     trainingDummy: 'Cvičný panák',
     goblin: 'Goblin',
+    goblinOverseer: 'Goblinský dozorce',
     goblinSlinger: 'Goblin prakovník',
     bandit: 'Bandita',
     banditArcher: 'Bandita lučištník',

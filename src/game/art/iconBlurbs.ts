@@ -168,5 +168,6 @@ export const MARK_ICONS: readonly IconDef[] = [
   { ref: 'potion-health', tint: '#ff5a6a', tintName: 'red', blurb: 'a glossy red playing-card heart' },
   { ref: 'potion-mana', tint: '#5fb8ff', tintName: 'blue', blurb: 'a glossy blue droplet' },
   { ref: 'quest', tint: '#ffd24a', tintName: 'gold', blurb: 'a bold gold exclamation mark: a thick tapering bar above a round dot' },
+  { ref: 'seek', tint: '#ffd24a', tintName: 'gold', blurb: 'a chunky painted quest marker seen from the front, pointing DOWN: a plump gold map-pin / teardrop with its point at the bottom, a round cream-white jewel set in its middle, a thick dark outline and a bright glint on its upper left. It hovers on its own: nothing under it' },
   { ref: 'cursor', tint: '#f4ecd8', tintName: 'white', blurb: 'a white mouse pointer arrow, tip at the upper left, with a dark outline' }
 ]

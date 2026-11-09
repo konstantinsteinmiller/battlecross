@@ -7576,6 +7576,7 @@ export default {
     elderDragon: "Muinaislohikäärme",
     trainingDummy: 'Harjoitusnukke',
     goblin: 'Hiisi',
+    goblinOverseer: 'Maahisen valvoja',
     goblinSlinger: 'Linkohiisi',
     bandit: 'Rosvo',
     banditArcher: 'Rosvojousimies',

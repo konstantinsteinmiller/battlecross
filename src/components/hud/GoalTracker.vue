@@ -35,10 +35,11 @@
  */
 import { computed, ref, watch } from 'vue'
 import { useI18n } from 'vue-i18n'
-import { flow } from '@/game/flow'
+import { flow, askLeave } from '@/game/flow'
 import { onboard } from '@/game/coach/state'
 import { pointToGoal } from '@/game/coach/onboarding'
 import type { GoalId } from '@/game/coach/goal'
+import type { NodeId } from '@/game/data/zones'
 import { isAdShowing } from '@/use/useGamePause'
 import { sfx } from '@/game/audio/sfx'
 import GameIcon from '@/components/icons/GameIcon.vue'
@@ -97,6 +98,11 @@ const show = (): void => {
   const panel = goal.value ? GOAL_PANEL[goal.value.id] : undefined
   if (panel && !flow.loading && !flow.modal && !flow.talk) {
     flow.modal = panel
+    return
+  }
+  // "Leave for …" in a town: the map opens and the hero walks over (without entering).
+  if (goal.value?.id === 'leave' && goal.value.place && flow.screen === 'town' && !flow.loading && !flow.modal && !flow.talk) {
+    askLeave(goal.value.place as NodeId)
     return
   }
   pointToGoal()

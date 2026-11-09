@@ -7923,6 +7923,7 @@ export default {
     elderDragon: "التنين العتيق",
     trainingDummy: 'دمية التدريب',
     goblin: 'غوبلن',
+    goblinOverseer: 'مشرف الغوبلن',
     goblinSlinger: 'غوبلن رامي المقلاع',
     bandit: 'قاطع طريق',
     banditArcher: 'قاطع طريق رامٍ',

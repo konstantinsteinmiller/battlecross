@@ -7576,6 +7576,7 @@ export default {
     elderDragon: "มังกรโบราณ",
     trainingDummy: 'หุ่นฝึกซ้อม',
     goblin: 'ก๊อบลิน',
+    goblinOverseer: 'หัวหน้าคุมงานก๊อบลิน',
     goblinSlinger: 'ก๊อบลินขว้างหิน',
     bandit: 'โจร',
     banditArcher: 'โจรพลธนู',

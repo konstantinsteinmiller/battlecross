@@ -7576,6 +7576,7 @@ export default {
     elderDragon: "La Praa Drako",
     trainingDummy: 'Ekzerca Pupo',
     goblin: 'Koboldo',
+    goblinOverseer: 'Goblina kontrolisto',
     goblinSlinger: 'Kobolda Ŝtonĵetisto',
     bandit: 'Bandito',
     banditArcher: 'Bandita Pafarkisto',

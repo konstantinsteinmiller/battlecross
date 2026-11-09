@@ -1162,7 +1162,7 @@ One landscape image, 1024 x 768 pixels (4:3), holding 12 separate small drawings
 · ONE big illustration filling the canvas is the wrong answer however well it is painted, and so is a canvas of any other shape.
 · Do NOT draw the panel edges: no boxes, borders, gutters, guides or numbers, in any colour, magenta included. The panels are found by measuring.
 · That rule covers every SHADE of the ground too. An earlier attempt came back with a thin, lighter pink line around each panel, and it could not be used. The magenta is ONE unbroken field from one edge of the canvas to the other: where one panel ends and the next begins there is no lighter line, no darker line, no tint and no seam. Looking at the finished image, nobody should be able to tell where the panels are except by where the drawings sit.
-· 11 panels are BLANK in the reference. Leave them flat magenta: do not invent anything for them.
+· 10 panels are BLANK in the reference. Leave them flat magenta: do not invent anything for them.
 
 ATTACHED IMAGES — there are 4, and they do two different jobs.
 · The first 3 are FINISH references: finished paintings from this same game. Take the FINISH from them and nothing else — how thick the outline is, how the lit side and the shadow side meet along a hard edge, where the highlights sit. They are never subjects: nothing they show may appear in any panel unless the layout reference shows it there.
@@ -1174,8 +1174,8 @@ EACH PANEL IS ONE CHUNKY PAINTED OBJECT OR SIGN — NOT A FLAT SYMBOL, AND NOT A
 · Where a panel is a SIGN rather than a thing (an arrow, a tick, a cross, a plus, a question mark, a triangle), paint it as a thick, solid, enamelled token shape with the same volume, outline and glint as everything else — never as a flat letter from a font.
 
 WHAT EACH PANEL IS:
-Panel 1 (row 1, column 1): a white mouse pointer arrow, tip at the upper left, with a dark outline. Main colour: white (about #f4ecd8).
-Panel 2 (row 1, column 2): BLANK — flat magenta and nothing else.
+Panel 1 (row 1, column 1): a chunky painted quest marker seen from the front, pointing DOWN: a plump gold map-pin / teardrop with its point at the bottom, a round cream-white jewel set in its middle, a thick dark outline and a bright glint on its upper left. It hovers on its own: nothing under it. Main colour: gold (about #ffd24a).
+Panel 2 (row 1, column 2): a white mouse pointer arrow, tip at the upper left, with a dark outline. Main colour: white (about #f4ecd8).
 Panel 3 (row 1, column 3): BLANK — flat magenta and nothing else.
 Panel 4 (row 1, column 4): BLANK — flat magenta and nothing else.
 Panel 5 (row 2, column 1): BLANK — flat magenta and nothing else.
@@ -1191,7 +1191,7 @@ COLOUR — each panel's line names its main colour, and the reference shows it. 
 
 THE VIEW — flat and front-on, the way the reference shows it, at the same tilt. No three-quarter view, no perspective, no foreshortening.
 
-ONE HAND — all 1 are painted by the same artist in the same sitting: the same line weight, the same two-step shading, the same light from the upper left. A sheet where one panel has volume and the next is flat is not one set.
+ONE HAND — all 2 are painted by the same artist in the same sitting: the same line weight, the same two-step shading, the same light from the upper left. A sheet where one panel has volume and the next is flat is not one set.
 
 PAINTED VOLUME — this is what the sheet is judged on.
 · Every shape is a chunky, solid, three-dimensional thing lit from the upper left: a LIT side and a SHADOW side that meet along a hard edge (two-tone cel shading), a thin rim light on the shadow side, and a few crisp white highlights.
@@ -1224,7 +1224,7 @@ READABLE AT 24 PIXELS — each of these is shown between 24 and 40 pixels wide i
 · Hold each panel at thumbnail size: if it is not instantly recognisable as a silhouette with two or three big areas of colour, simplify it.
 
 SIZE AND PLACE — measure against the PANEL, not against the paper.
-· In the reference no drawing is wider than about 55% of its panel or taller than about 84%, and every panel keeps a clear magenta margin on all four sides.
+· In the reference no drawing is wider than about 62% of its panel or taller than about 84%, and every panel keeps a clear magenta margin on all four sides.
 · Paint each one as LARGE as the reference shows it: it takes up most of its panel, with a narrow, even margin of magenta around it. A small drawing in the middle of a big empty panel is the wrong answer.
 · Keep each one at the size and in the spot its own panel shows. If yours reaches a panel edge it is too big, and it will be cut in half by the slice.
 · Where a drawing sits in its panel is not a composition choice: do not re-centre, do not even out the spacing, do not let one lean into the next panel.

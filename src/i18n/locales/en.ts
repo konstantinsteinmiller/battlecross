@@ -4040,6 +4040,7 @@ export default {
     elderDragon: "The Elder Dragon",
     'trainingDummy': 'Training Dummy',
     'goblin': 'Goblin',
+    'goblinOverseer': 'Goblin Overseer',
     'goblinSlinger': 'Goblin Slinger',
     'bandit': 'Bandit',
     'banditArcher': 'Bandit Archer',

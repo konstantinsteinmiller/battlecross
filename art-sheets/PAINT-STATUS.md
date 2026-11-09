@@ -4,7 +4,7 @@ A report, not a contract: it is a picture of `art-sheets/painted/` and the
 slicer's receipt at the moment it was written. Re-run `pnpm art:prompts`
 after painting or slicing anything.
 
-**151 sliced · 1 need a repaint · 2 painted, unreceipted · 3 outstanding**
+**154 sliced · 1 need a repaint · 2 painted, unreceipted · 0 outstanding**
 
 | | Sheet | Prompt block in | Reference | State |
 | --- | --- | --- | --- | --- |
@@ -28,8 +28,8 @@ after painting or slicing anything.
 | ✓ | **Item icons: the gap-fill set, 8 of 9** | `PROMPTS-ITEMS.md` | `sheet-items-fill-8.png` (rev `a2db37870d77`) | sliced 2026-10-18 |
 | ✓ | **Item icons: the gap-fill set, 9 of 9** | `PROMPTS-ITEMS.md` | `sheet-items-fill-9.png` (rev `276a728874b1`) | sliced 2026-10-18 |
 | ✓ | **Item icons: the colosseum prizes** | `PROMPTS-ITEMS.md` | `sheet-items-mythic.png` (rev `7e0751c191de`) | sliced 2026-10-18 |
-| · | **Item icons: the afterplay bosses and the siege, 1 of 2** | `PROMPTS-ITEMS.md` | `sheet-items-after-1.png` (rev `d740c33af4f7`) | not painted yet |
-| · | **Item icons: the afterplay bosses and the siege, 2 of 2** | `PROMPTS-ITEMS.md` | `sheet-items-after-2.png` (rev `79d7d9b3c1ea`) | not painted yet |
+| ✓ | **Item icons: the afterplay bosses and the siege, 1 of 2** | `PROMPTS-ITEMS.md` | `sheet-items-after-1.png` (rev `d740c33af4f7`) | sliced 2026-11-03 |
+| ✓ | **Item icons: the afterplay bosses and the siege, 2 of 2** | `PROMPTS-ITEMS.md` | `sheet-items-after-2.png` (rev `79d7d9b3c1ea`) | sliced 2026-11-03 |
 | ✓ | **Item icons: smithed iron** | `PROMPTS-ITEMS.md` | `sheet-items-smith-iron.png` (rev `ce537d394bfe`) | sliced 2026-10-18 |
 | ✓ | **Item icons: smithed silver** | `PROMPTS-ITEMS.md` | `sheet-items-smith-silver.png` (rev `516da39d0173`) | sliced 2026-10-18 |
 | ✓ | **Item icons: smithed gold** | `PROMPTS-ITEMS.md` | `sheet-items-smith-gold.png` (rev `60c4f9d0be35`) | sliced 2026-10-18 |
@@ -143,7 +143,7 @@ after painting or slicing anything.
 | ✓ | **Icons: screen buttons** | `PROMPTS-ICONS.md` | `sheet-icons-ui-2.png` (rev `3e4281f52940`) | sliced 2026-10-18 |
 | ✓ | **Icons: badges, pins and help** | `PROMPTS-ICONS.md` | `sheet-icons-ui-3.png` (rev `85181b617148`) | sliced 2026-10-18 |
 | ✓ | **Icons: equipment slots and marks** | `PROMPTS-ICONS.md` | `sheet-icons-misc.png` (rev `66898855e876`) | sliced 2026-10-18 |
-| · | **Icons: equipment slots and marks (2)** | `PROMPTS-ICONS.md` | `sheet-icons-misc-2.png` — *missing, run `pnpm art:export`* | not painted yet |
+| ✓ | **Icons: equipment slots and marks (2)** | `PROMPTS-ICONS.md` | `sheet-icons-misc-2.png` (rev `9c2e63335786`) | sliced 2026-11-09 |
 | ✓ | **UI: the gold coin** | `PROMPTS-UI.md` | `single-ui-coin.png` (rev `f360573d2c98`) | sliced 2026-10-18 |
 | ✓ | **UI: the wooden cup** | `PROMPTS-UI.md` | `single-ui-cup.png` (rev `39883c69d4e5`) | sliced 2026-10-18 |
 | ✓ | **Logo: the badge (swords behind a shield)** | `PROMPTS-UI.md` | `single-logo-emblem.png` (rev `36585e1bbec8`) | sliced 2026-10-18 |

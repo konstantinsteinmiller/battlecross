@@ -7658,6 +7658,7 @@ export default {
     elderDragon: "Il Drago Antico",
     trainingDummy: 'Manichino da allenamento',
     goblin: 'Goblin',
+    goblinOverseer: 'Sorvegliante goblin',
     goblinSlinger: 'Goblin fromboliere',
     bandit: 'Bandito',
     banditArcher: 'Arciere bandito',
