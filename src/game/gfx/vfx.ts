@@ -928,6 +928,7 @@ export class Vfx {
     }
     if (id.startsWith('field:')) { this.field(id.slice(6), e.x, e.z, e.r ?? 2, e.dur ?? 3, c); return }
     const h = e.unit ? heightOf(e.unit) : 1.2
+    if (id.startsWith('cameo:')) { this.cameo(id.slice(6), e, c, h); return }
     switch (id) {
       case 'slam':
       case 'quake':
@@ -1097,6 +1098,97 @@ export class Vfx {
         this.levelUp(e.x, e.z)
         break
       default:
+        break
+    }
+  }
+
+  /**
+   * The gunslinger on the plains (#210, `coach/cameo.ts`): each beat of the scene in the game's own effects, drawn in the
+   * hunter's teal or the beast's fire so the player sees whose it is.
+   */
+  private cameo(id: string, e: Extract<SimEvent, { t: 'fx' }>, c: string, h: number): void {
+    const ps = this.particles
+    const sp = this.sprites
+    const R = e.r ?? 2
+    switch (id) {
+      case 'land': {
+        // The superhero landing: the ground cracks in his light, a ring of dust runs out, grit flies.
+        this.slam(e.x, e.z, R * 0.4, c)
+        this.ring(e.x, e.z, 0.4, R * 0.75, '#b8a47c', 0.45)
+        for (let k = 0; k < this.n(14); k++) {
+          const a = (k / 14) * Math.PI * 2
+          sp.emit({ x: e.x + Math.cos(a) * 0.5, y: 0.25, z: e.z + Math.sin(a) * 0.5, vx: Math.cos(a) * R * 2.2, vy: 0.4 + Math.random() * 0.6, vz: Math.sin(a) * R * 2.2, color: k % 3 ? '#c8b48c' : '#efe2c4', size: 0.7, sizeEnd: 1.4, life: 0.7 + Math.random() * 0.3, drag: 3, shape: SHAPE.puff, add: 0, hold: 0.2 })
+        }
+        ps.flash(e.x, 0.4, e.z, c, 1.5, 0.14)
+        break
+      }
+      case 'thud':
+        // The beast comes down: a heavy ring of dust, no light.
+        this.ring(e.x, e.z, 0.6, R, '#d0bc94', 0.5)
+        for (let k = 0; k < this.n(8); k++) {
+          const a = (k / 8) * Math.PI * 2 + 0.3
+          sp.emit({ x: e.x + Math.cos(a) * 0.9, y: 0.2, z: e.z + Math.sin(a) * 0.9, vx: Math.cos(a) * 3, vy: 0.5, vz: Math.sin(a) * 3, color: '#c8b48c', size: 0.9, sizeEnd: 1.6, life: 0.8, drag: 3, shape: SHAPE.puff, add: 0, hold: 0.2 })
+        }
+        break
+      case 'roar':
+        this.ring(e.x, e.z, 0.5, R, c, 0.5)
+        this.ring(e.x, e.z, 0.3, R * 0.6, '#ffffff', 0.35)
+        break
+      case 'tower':
+        // The turret unfolds out of a flash: a column of teal light and a ring on the ground.
+        this.poof(e.x, e.z, c)
+        this.pillar(e.x, e.z, 0.45, 2.6, c, 0.45)
+        this.ring(e.x, e.z, 0.2, R, c, 0.45)
+        break
+      case 'towerOut':
+        // It folds itself away: the ring closes in, a last spark.
+        this.ring(e.x, e.z, R, 0.15, c, 0.4)
+        this.poof(e.x, e.z, c, 0.8)
+        ps.sparks(e.x, 0.6, e.z, c, this.n(8), 3, 0.2)
+        break
+      case 'shield':
+        // The shield enhancement: a shell of light closes round him and a column runs up through it.
+        this.ring(e.x, e.z, 0.3, R + 0.6, c, 0.55)
+        this.pillar(e.x, e.z, 0.7, 2.6, c, 0.5)
+        sp.emit({ x: e.x, y: h * 0.6, z: e.z, color: c, size: 2.8, sizeEnd: 1.6, life: 0.45, shape: SHAPE.ring, hold: 0.3 })
+        sp.emit({ x: e.x, y: h * 0.6, z: e.z, color: '#ffffff', size: 1.1, sizeEnd: 0.3, rot: 0.78, life: 0.25, shape: SHAPE.star, hold: 0.3 })
+        ps.riseRing(e.x, 0.1, e.z, c, 0.8, this.n(16))
+        break
+      case 'shieldHit':
+        // A blow on the shield: the shell flares where it is struck, and holds.
+        sp.emit({ x: e.x, y: h * 0.55, z: e.z, color: c, size: 1.4, sizeEnd: 2.6, life: 0.3, shape: SHAPE.ring, hold: 0.2 })
+        ps.flash(e.x, h * 0.55, e.z, c, 1.8, 0.14)
+        ps.sparks(e.x, h * 0.55, e.z, '#ffffff', this.n(6), 4, 0.15)
+        break
+      case 'claw':
+        this.arc(e.x, e.z, (e.a ?? 0) + Math.PI, R, 0.8, c, 0.2)
+        break
+      case 'shot':
+      case 'bigShot': {
+        // A pistol shot: the flash at the barrel, a tracer to the beast, the hit on it.
+        const x2 = e.x2 ?? e.x
+        const z2 = e.z2 ?? e.z
+        const dx = x2 - e.x
+        const dz = z2 - e.z
+        const l = Math.hypot(dx, dz) || 1
+        const big = id === 'bigShot'
+        this.muzzle(e.x, 1.0, e.z, dx / l, dz / l, c, big)
+        this.beam(e.x, e.z, x2, z2, big ? 0.32 : 0.1, c, big ? 0.3 : 0.14, 1.0)
+        if (big) this.beam(e.x, e.z, x2, z2, 0.12, '#ffffff', 0.22, 1.0)
+        this.shotHit('bullet', x2, 1.2, z2, c)
+        if (big) ps.flash(x2, 1.2, z2, c, 3, 0.22)
+        break
+      }
+      case 'leap':
+        // Off the ground in one bound: a puff of dust where the feet were.
+        this.ring(e.x, e.z, 0.3, R, '#d9c9a4', 0.4)
+        for (let k = 0; k < this.n(6); k++) {
+          const a = Math.random() * Math.PI * 2
+          sp.emit({ x: e.x, y: 0.2, z: e.z, vx: Math.cos(a) * 2, vy: 0.6, vz: Math.sin(a) * 2, color: '#c8b48c', size: 0.6, sizeEnd: 1.2, life: 0.6, drag: 3, shape: SHAPE.puff, add: 0, hold: 0.2 })
+        }
+        break
+      case 'step':
+        sp.emit({ x: e.x, y: 0.12, z: e.z, vy: 0.3, color: '#c8b48c', size: 0.35, sizeEnd: 0.7, life: 0.4, drag: 2, shape: SHAPE.puff, add: 0, hold: 0.2 })
         break
     }
   }

@@ -25,7 +25,7 @@ skill families rendered to `.ogg` (46 files, 0.4 MB, not in `public/`). Moving
 them into `public/audio/sfx/` is the drop-in; see its README. Regenerate with
 `npm run sound:spells`.
 
-## Sound effects (48)
+## Sound effects (57)
 
 | Group | Names |
 | --- | --- |
@@ -37,6 +37,7 @@ them into `public/audio/sfx/` is the drop-in; see its README. Regenerate with
 | Rewards | `coin` `loot` `lootRare` `lootEpic` `lootLegend` `chest` `levelUp` `potion` |
 | UI | `denied` `uiClick` `uiOpen` `uiClose` `uiEquip` `uiBuy` `uiLearn` `uiPoint` `uiChoice` `mapMove` |
 | Smithy | `forgeStrike` `forgePerfect` `forgeMiss` |
+| The gunslinger on the plains (#210) | `cameoLand` `cameoShot` `cameoTower` `cameoTowerOut` `cameoShield` `cameoRoar` `cameoLeap` `cameoClaw` `cameoStep` |
 
 What each one is for is in the comments of `RECIPES` in `synth.ts`. The
 frequent ones (`swing`, `hit`, `shoot`, `cast`, `coin`, `death`…) are played
@@ -55,7 +56,11 @@ film has a cue of its own, "The Drake Falls" (#209): it starts with the film,
 is cut to its clock (a blow on the roar, the summon and each slap, the biggest
 on the slay, then a D-major lift that falls away under "1 month later…"),
 plays once, and is gone when the film ends or is skipped; the next place then
-names its own theme (`startIntroMusic` / `stopIntroMusic`). The "Calm" music
+names its own theme (`startIntroMusic` / `stopIntroMusic`). The same cue plays once more
+over the opening fight's cameo (#210, the gunslinger and the chimera), cut to that scene's
+clock; the place's theme comes back after it (`startSceneCue` / `endSceneCue`). The cameo's
+own effects (the row above) are trimmed to sit under the player's fight: a recorded set for
+them should be mastered quieter than the combat set. The "Calm" music
 style in the options plays the town theme everywhere, the intro included.
 
 Which zone look plays which track is `src/game/audio/themes.ts`. A file named

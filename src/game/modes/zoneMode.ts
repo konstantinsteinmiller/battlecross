@@ -82,19 +82,21 @@ import { POTION_CD, ROLL_CD, ROLL_DIST, cycleElixir, rollHero, useElixir, useMan
 import { nearChest, orderOpen, pickChest } from '../sim/interact'
 import { nearOre, orderMine, pickOre } from '../sim/ores'
 import { hud, hudLive, pushHud, sayBark, tickHud, type SkillSlotView, type TextKind } from '../state/hud'
-import { heroBuild, loadoutActive, markTip, profile, TUTORIAL_NODE, tutorialLevelOpen } from '../state/profile'
+import { CAMEO_TIP, heroBuild, loadoutActive, markTip, profile, TUTORIAL_NODE, tutorialLevelOpen } from '../state/profile'
 import { coach, hintGeo, hintPath } from '../coach'
 import { emitCrumbs, findChest, finder, peekOffset } from '../coach/nudgeFx'
 import { BOARD, BOARD_REACH } from '../townTasks'
 import { isDummy, spawnDummy, stepDummy } from '../coach/dummy'
 import { armMentor, boostOpeningFoes, stepMentor, syncHeroSkills } from '../coach/mentor'
+import { CAMEO_BEAST, CAMEO_HERO, CAMEO_TOWER, armCameo, cameoPlaying, clearCameoUnits, endCameo, stepCameo, tryStartCameo, type CameoState } from '../coach/cameo'
+import { INTRO_FIGHT_AT } from '../audio/songs'
 import { MENTOR_SKILL } from '../data/mentor'
 import { isKitLevel, kitEase } from '../coach/kitEase'
 import { grantMercy, stepRelief, TUTORIAL_CHARGED_CAP, potionStopDue, potionStopOver, stepMercy } from '../coach/tutorialAid'
 import { setTruce, watchTruce } from '../sim/truce'
 import { markRevealUsed } from '../coach/reveal'
 import { PREVIEW_FEED } from '../previewFlags'
-import { setBossMusic } from '@/use/useSound'
+import { endSceneCue, holdSceneCue, setBossMusic, startSceneCue } from '@/use/useSound'
 import { heroStatusView, sameChips, targetStackView } from '../state/statusView'
 
 /**
@@ -202,6 +204,12 @@ const HIT_STOP_HEAVY = 0.08
 const HIT_STOP_BOSS = 0.25
 const TRAUMA_LIGHT = 0.2
 const TRAUMA_HEAVY = 0.6
+/** The cameo's effects (#210) and what each sounds like, at what part of full gain. */
+const CAMEO_SOUND: Readonly<Record<string, readonly [SfxName, number]>> = {
+  land: ['cameoLand', 0.75], thud: ['cameoLeap', 0.6], roar: ['cameoRoar', 0.62], tower: ['cameoTower', 0.6], shield: ['cameoShield', 0.62],
+  shot: ['cameoShot', 0.55], bigShot: ['cameoShot', 0.85], claw: ['cameoClaw', 0.58], leap: ['cameoLeap', 0.5], step: ['cameoStep', 0.5],
+  towerOut: ['cameoTowerOut', 0.55]
+}
 /** The element a blow of a damage type carries, layered under its hit (#74). */
 const HIT_ELEMENT: Partial<Record<DamageType, SfxName>> = { fire: 'fire', frost: 'ice', shadow: 'shadow', holy: 'holy', poison: 'poison', acid: 'poison', blood: 'blood', beam: 'beam' }
 /** What a swing or a shot sounds like, by what is in the hand (#74): a sword cuts the air, a club pushes it. */
@@ -410,6 +418,10 @@ export class ZoneMode implements GameMode {
   private dummy = false
   /** The early art was moved up for this visit's first boss. */
   private bossArt = false
+  /** The gunslinger on the plains (#210, `coach/cameo.ts`): armed in the opening fight of a save that has not seen it. */
+  private cameo: CameoState | null = null
+  /** The wall clock (ms) the cameo last kept time by: it runs on the music's seconds, which a slow device's capped steps would lose. */
+  private cameoWall = 0
   /** Skills the hero knew when the loadout was last copied into the scene. */
   private learnedN = profile.hero.learned.length
 
@@ -512,6 +524,8 @@ export class ZoneMode implements GameMode {
     if (setup.dragonAlly) summonDragonAlly(sim)
     // The road teacher (#136) walks into the opening fight once its first pack is down.
     if (setup.kind === 'zone' && setup.tutorial && !profile.hero.learned.includes(MENTOR_SKILL)) armMentor(sim)
+    // The gunslinger and the chimera (#210) pass by once the pack of four is down: once per save, never on a replay.
+    if (setup.kind === 'zone' && setup.tutorial && !profile.tips[CAMEO_TIP]) m.cameo = armCameo()
     // Brann at the opening level's ore rock (#195) is not in the scene any more: a second person to talk to, mid-fight, took
     // the first-timer's eyes off the action (the playtests' early leavers). Smithing is taught in Sunford (`sunfordSmith`).
     // An escort (#85): what the visit is about, said once at the start.
@@ -520,6 +534,8 @@ export class ZoneMode implements GameMode {
     m.baseline = captureBaseline(sim)
     // A saved game: the same visit, put back as it was saved.
     if (resume?.sim && !restoreSim(sim, m.baseline, resume.sim)) throw new Error('[zone] the saved visit does not match this zone')
+    // A visit saved mid-cameo kept its actors: they go (the scene was marked seen as it began, it is not played again).
+    clearCameoUnits(sim)
     m.bankedGold = sim.hero.gold
     m.visitKey = `${setup.kind}:${setup.zone ?? setup.town ?? ''}:${setup.seed}:${setup.tutorial ? 1 : 0}:${setup.encounter ? 1 : 0}`
     const paid = profile.meta.visitGold
@@ -562,6 +578,8 @@ export class ZoneMode implements GameMode {
     const skills = sim.hero.skills
     if (skills.includes('royalGuard') || skills.includes('armyOfTheRealm')) { kinds.add('guard'); kinds.add('archer'); kinds.add('mage') }
     if (skills.includes('deployTurret')) { kinds.add('turret'); kinds.add('rocketTurret') }
+    // The cameo's three rigs are built now, not on the frame they leap in.
+    if (m.cameo) for (const k of [CAMEO_HERO, CAMEO_BEAST, CAMEO_TOWER]) kinds.add(k)
     if (setup.siege) for (const id of [...siegeKinds(setup.siege.tier), 'guard']) kinds.add(id)
     else if (setup.kind === 'arena') for (const id of arenaKinds(setup.level)) kinds.add(id)
     const jobs = prewarmKinds(kinds)
@@ -1208,6 +1226,7 @@ export class ZoneMode implements GameMode {
             break
           }
           this.vfx.play(e, id => sim.get(id)?.h ?? 1.2)
+          if (e.id.startsWith('cameo:')) { this.cameoSound(e.id.slice(6), e.x, e.z); break }
           this.fxSound(e.id, e.x)
           if (e.id.startsWith('burst:') || e.id === 'slam' || e.id === 'quake' || e.id === 'blast') this.cam.addTrauma(TRAUMA_HEAVY * (e.id === 'quake' ? 1 : 0.55))
           break
@@ -1338,6 +1357,19 @@ export class ZoneMode implements GameMode {
     ev.length = 0
   }
 
+  /**
+   * The cameo's own sounds (#210): distinct, but under the player's fight (each recipe is trimmed in `synth.ts`, and here
+   * they are played at part gain, a little muffled, and fainter the further the hero is from them).
+   */
+  private cameoSound(id: string, x: number, z: number): void {
+    const name = CAMEO_SOUND[id]
+    const h = this.sim.hero.unit
+    const far = Math.max(0.3, Math.min(1, 1 - (Math.hypot(x - h.x, z - h.z) - 10) / 24))
+    if (name) sfx(name[0], this.pan(x), name[1] * far, 0.12)
+    // The superhero landing: a small shake (the player's own blows shake harder).
+    if (id === 'land') this.cam.addTrauma(TRAUMA_LIGHT * 1.2 * far)
+  }
+
   private fxSound(id: string, x: number): void {
     const p = this.pan(x)
     if (id.startsWith('burst:')) {
@@ -1358,6 +1390,12 @@ export class ZoneMode implements GameMode {
   // ─── The step ──────────────────────────────────────────────────────────────
 
   update(dt: number, first: boolean): void {
+    // A lesson that stops the world stops the cameo and its music with it (they go on together after).
+    if (cameoPlaying(this.cameo)) {
+      holdSceneCue(this.potionStop || this.dodgeStop)
+      // Stopped, its clock does not run either.
+      if (this.potionStop || this.dodgeStop) this.cameoWall = performance.now()
+    }
     if (this.potionStop) { this.holdForPotion(first); return }
     if (this.dodgeStop) { this.holdForDodge(first); return }
     if (first) this.handleInput()
@@ -1399,6 +1437,7 @@ export class ZoneMode implements GameMode {
     // The dummy knocked apart (or walked past): the opening beat is done for good.
     if (stepDummy(this.sim)) markTip('dummy')
     stepMentor(this.sim, simDt)
+    this.stepCameo(dt, first)
     // A skill learned on the way (hers) joins the hero in the scene at once.
     if (profile.hero.learned.length !== this.learnedN) {
       this.learnedN = profile.hero.learned.length
@@ -1433,6 +1472,36 @@ export class ZoneMode implements GameMode {
       this.cb.onEnd(sim.ended)
     }
   }
+
+  /**
+   * The cameo (#210): waits for its moment and for room in the view, then plays on wall seconds, once a frame: the scene
+   * keeps the music's time, not the fight's (its hit-stop and slow motion, nor the steps a slow device drops: the loop caps
+   * the steps of a frame, and on a busy machine the fight's clock fell a third behind the cue; a 0.25 s clamp on the frame
+   * still lost 2.6 s of 13 to long frames). A pause (no frames) or a lesson's stop does not count: the cue stopped with it
+   * and comes back where the scene is.
+   */
+  private stepCameo(dt: number, first: boolean): void {
+    const c = this.cameo
+    if (!c || c.phase === 'done') return
+    if (c.phase === 'wait') {
+      if (!tryStartCameo(this.sim, c, dt, this.screenGround, this.talkOn)) return
+      markTip(CAMEO_TIP)
+      this.cameoWall = performance.now()
+      startSceneCue(() => c.t - INTRO_FIGHT_AT)
+      return
+    }
+    if (!first) return
+    const now = performance.now()
+    // A long frame (a hitch, a screenshot) is kept; a gap of over a second was a pause (no frames ran): it counts as one step.
+    const gap = Math.max(0, (now - this.cameoWall) / 1000)
+    const real = gap > 1 ? dt : gap
+    this.cameoWall = now
+    if (stepCameo(this.sim, c, real)) endSceneCue()
+  }
+
+  /** The ground under a point of the view (fractions of its width and height), for the cameo's stage. */
+  private screenGround = (fx: number, fy: number): { x: number; z: number } | null =>
+    this.cam.screenToGround(fx * this.cam.width, fy * this.cam.height, ground) ? { x: ground.x, z: ground.z } : null
 
   /** The first lane charge of the tutorial level's boss starts: the dodge lesson comes half a second into it. */
   private armDodgeLesson(t: { shape: string; x: number; z: number; a: number; src?: number }): void {
@@ -1568,7 +1637,7 @@ export class ZoneMode implements GameMode {
         // Room for a raised weapon, a cape, a knock-up and a big swing's trail.
         const s = Math.max(1, w.v.scale)
         bound.radius = (u.h + u.r) * s + 1.2 + Math.max(0, w.v.float)
-        bound.center.set(x, groundAt(x, z) + u.h * s * 0.5, z)
+        bound.center.set(x, groundAt(x, z) + u.h * s * 0.5 + (u.stunt?.lift ?? 0), z)
         seen = frustum.intersectsSphere(bound)
       }
       w.v.rig.root.visible = seen
@@ -2177,6 +2246,7 @@ export class ZoneMode implements GameMode {
 
   dispose(): void {
     setBossMusic(false)
+    if (cameoPlaying(this.cameo)) { endCameo(this.sim, this.cameo!); endSceneCue(0.4) }
     hud.potionStop = false
     hud.rollStop = false
     if (this.sim.siege) {

@@ -30,13 +30,17 @@ const freed = (npc: string, look: string, emotion: Emotion, says: readonly strin
   bye: []
 })
 
-/** The hero's thought as the first chest opens, and the cries from the cage (#187; `sim/camp.ts`'s `stepHelp`). */
+/** The hero's thought as the first chest opens, and the cries from the cage (#187; `sim/camp.ts`'s `stepHelp`); and the
+ *  one line as the chimera bounds away from its hunter on the plains (#210, `coach/cameo.ts`). */
 const heroThought: ConversationDef = {
   id: 'bark.hero',
   name: 'dlg.ui.hero',
   look: 'hero',
   voice: 'hero',
-  greet: [{ id: 'cage', lines: [{ id: 'dlg.bark.hero.cage.1', by: 'hero', emotion: 'neutral' }] }],
+  greet: [
+    { id: 'cage', lines: [{ id: 'dlg.bark.hero.cage.1', by: 'hero', emotion: 'neutral' }] },
+    { id: 'hunt', lines: [{ id: 'dlg.bark.hero.hunt.1', by: 'hero', emotion: 'neutral' }] }
+  ],
   nodes: {},
   back: {},
   bye: []

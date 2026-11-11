@@ -1,7 +1,7 @@
 import { prependBaseUrl } from '@/utils/function'
 import useUser, { MUSIC_TRACK_FILES } from '@/use/useUser'
 import { getAudioContext, loadAudioBuffer, resourceCache, registerHtmlAudio, unregisterHtmlAudio, isAudioSuspended, registerOneShotSource } from '@/use/useAssets'
-import { isAudioPaused } from '@/use/useGamePause'
+import { isAudioPaused, isGamePaused } from '@/use/useGamePause'
 import { isPlatformAudioMuted } from '@/use/useGamePauseAudio'
 import { isMobileAudioMuted } from '@/use/useMobileAudioMute'
 
@@ -68,6 +68,7 @@ export const setMusicTrack = (id: TrackId): void => {
   gameTrack.value = id
   bossAwake.value = false
   introCue.value = false
+  if (scene) { scene = null; setCueClock(null) }
   retrackSynth?.()
 }
 
@@ -95,6 +96,51 @@ export const stopIntroMusic = (fade = 0.6): void => {
   if (!introCue.value) return
   setCueClock(null)
   if (currentMusic() === 'introFight') stopMusic(fade)
+}
+
+/**
+ * The same cue over a scene of the game itself (#210, the gunslinger on the plains): `clock` is the scene's second of the
+ * cue. Unlike the film it plays over a live level, so the world can stop under it: a modal or the pause (the game loop
+ * stops, the music would not) or a lesson's freeze (`holdSceneCue`) takes the cue down, and it comes back where the scene
+ * then is. Like the film it changes WHICH track is wanted, never whether music plays: muted, paused or under an ad it only
+ * records it. When the scene is over (`endSceneCue`) the place's own music (or a boss's) is wanted again, and comes in as a
+ * change of area does.
+ */
+let scene: { lesson: boolean } | null = null
+let sceneWatch = false
+const sceneHeld = (): boolean => !!scene && (scene.lesson || isGamePaused.value)
+const applySceneHold = (): void => {
+  if (!scene) return
+  if (sceneHeld()) { if (currentMusic() === 'introFight') stopMusic(0.2) } else retrackSynth?.()
+}
+
+export const startSceneCue = (clock: () => number): void => {
+  if (!sceneWatch) {
+    sceneWatch = true
+    watch(isGamePaused, () => applySceneHold())
+  }
+  scene = { lesson: false }
+  // Held, the cue's film is "past its end": nothing (re)starts it until the world moves again.
+  setCueClock(() => (sceneHeld() ? Infinity : clock()))
+  introCue.value = true
+  retrackSynth?.()
+}
+
+/** A lesson stops the world under the scene (`on`), or lets it go again. Safe to call every step: it acts on a change. */
+export const holdSceneCue = (on: boolean): void => {
+  if (!scene || scene.lesson === on) return
+  scene.lesson = on
+  applySceneHold()
+}
+
+/** The scene is over (or its level is left): the cue goes, and the place's own music is wanted again. */
+export const endSceneCue = (fade = 1.2): void => {
+  if (!scene) return
+  scene = null
+  setCueClock(null)
+  introCue.value = false
+  if (currentMusic() === 'introFight') stopMusic(fade)
+  retrackSynth?.()
 }
 
 /**

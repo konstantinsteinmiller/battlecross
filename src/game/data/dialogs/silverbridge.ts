@@ -258,10 +258,15 @@ const sbMasterGeo = conversation('sbMasterGeo', {
   bye: [{ id: 'bye' }]
 })
 
-/** Professor Quint Sprocket: every lesson a demonstration, every demonstration loud. */
+/**
+ * Professor Quint Sprocket: every lesson a demonstration, every demonstration loud. Out of class he hunts: he is the
+ * gunslinger who chased a chimera past the hero on the plains (#210, `coach/cameo.ts`), and a hero who saw it is known
+ * at once (`gunslingerSeen`, derived from the cameo's tip: `CAMEO_FLAG` in `state/profile.ts`).
+ */
 const sbMasterAether = conversation('sbMasterAether', {
   name: 'npc.sbMasterAether.name', look: 'sbMasterAether', mood: 'proud',
   greet: [
+    { id: 'plains', when: { met: false, flags: ['gunslingerSeen'] }, mood: 'excited' },
     { id: 'hello', when: { met: false }, lines: 'nn', mood: 'excited' },
     { id: 'again', mood: 'excited' }
   ],

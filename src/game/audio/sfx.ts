@@ -32,6 +32,8 @@ export type SfxName =
   // UI
   // The smithy's anvil: a strike on the glow, a perfect one, and one that misses it
   | 'forgeStrike' | 'forgePerfect' | 'forgeMiss'
+  // The gunslinger on the plains (#210): his landing, pistols, turret and shield, the chimera's roar, leaps and claws, his running steps
+  | 'cameoLand' | 'cameoShot' | 'cameoTower' | 'cameoTowerOut' | 'cameoShield' | 'cameoRoar' | 'cameoLeap' | 'cameoClaw' | 'cameoStep'
   | 'denied' | 'uiClick' | 'uiOpen' | 'uiClose' | 'uiEquip' | 'uiBuy' | 'uiLearn' | 'uiPoint' | 'uiChoice' | 'mapMove'
 
 export const SFX_NAMES: readonly SfxName[] = [
@@ -44,7 +46,8 @@ export const SFX_NAMES: readonly SfxName[] = [
   'summon', 'heal', 'shieldUp', 'roar', 'telegraph',
   'overheat', 'alert', 'bossIntro', 'death', 'deathBig', 'coin', 'loot', 'lootRare', 'lootEpic', 'lootLegend', 'chest', 'levelUp', 'potion', 'denied', 'uiClick',
   'uiOpen', 'uiClose', 'uiEquip', 'uiBuy', 'uiLearn', 'uiPoint', 'uiChoice', 'mapMove',
-  'forgeStrike', 'forgePerfect', 'forgeMiss'
+  'forgeStrike', 'forgePerfect', 'forgeMiss',
+  'cameoLand', 'cameoShot', 'cameoTower', 'cameoTowerOut', 'cameoShield', 'cameoRoar', 'cameoLeap', 'cameoClaw', 'cameoStep'
 ]
 
 type Player = (name: SfxName, pan: number, gain: number, muffle: number) => void

@@ -1926,10 +1926,17 @@ export const recordMastery = (
 
 // ─── The world ───────────────────────────────────────────────────────────────
 
+/** The opening fight's cameo (#210, `coach/cameo.ts`) has played on this save: marked as it begins, never played again. */
+export const CAMEO_TIP = 'cameo'
+/** The world flag it derives (dialogue conditions read flags): the payoff line in Silverbridge. */
+export const CAMEO_FLAG = 'gunslingerSeen'
+
 /** The world's flags: those in the save, and those the afterplay derives from
  *  them (`afterplay`, each fallen town overrun or rebuilt: `data/breaking.ts`). */
 export const flagSet = (): Set<string> => {
   const f = new Set(profile.world.flags)
+  // The gunslinger was seen on the plains (#210): Silverbridge's aether master knows the hero when they meet.
+  if (profile.tips[CAMEO_TIP]) f.add(CAMEO_FLAG)
   for (const d of breakingDerived(profile.world.afterplay, f)) f.add(d)
   // The prestige trials passed, and the Wanderer they bring (afterplay §10).
   for (const d of prestigeDerived({ flags: f, forged: profile.inv.infernalForged })) f.add(d)

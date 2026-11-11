@@ -339,7 +339,9 @@ const TRIM: Partial<Record<SfxName, number>> = {
   explode: 0.78, quake: 0.8, deathBig: 0.85, roar: 0.85,
   // The review's heavier casts (#118), levelled to the other casts.
   castEarthShift: 0.6, castAvalancheLeap: 0.6, castShadowMark: 0.75, castShadow: 0.8, castFrostShatter: 0.85,
-  shadow: 0.4, impactShock: 0.7, crowdRoar: 0.8
+  shadow: 0.4, impactShock: 0.7, crowdRoar: 0.8,
+  // The cameo (#210): its own sounds, but under the player's fight (the scene plays them at part gain on top of this).
+  cameoLand: 0.7, cameoShot: 0.6, cameoTower: 0.65, cameoTowerOut: 0.6, cameoShield: 0.65, cameoRoar: 0.6, cameoLeap: 0.65, cameoClaw: 0.6, cameoStep: 0.55
 }
 
 /**
@@ -352,7 +354,9 @@ const CAP_WINDOW = 0.25
 const recent: number[] = []
 const NEVER_DROP: ReadonlySet<SfxName> = new Set<SfxName>([
   'hurt', 'bossIntro', 'levelUp', 'denied', 'uiClick', 'uiOpen', 'uiClose', 'uiEquip', 'uiBuy', 'uiLearn', 'uiPoint',
-  'uiChoice', 'forgeStrike', 'forgePerfect', 'forgeMiss', 'potion', 'chest', 'loot', 'lootRare', 'lootEpic', 'lootLegend', 'deathBig', 'overheat'
+  'uiChoice', 'forgeStrike', 'forgePerfect', 'forgeMiss', 'potion', 'chest', 'loot', 'lootRare', 'lootEpic', 'lootLegend', 'deathBig', 'overheat',
+  // The cameo's few story beats (#210): rare, one of each, and the scene reads by them.
+  'cameoLand', 'cameoRoar', 'cameoTower', 'cameoShield'
 ])
 
 /** Open (a muffle of 0 has no filter at all) and fully muffled cutoffs (Hz). */
@@ -980,6 +984,87 @@ const RECIPES: Record<SfxName, (pan: number, g: number) => void> = {
     boom(120, 70, 0.12, 0.18 * g, p)
     metal(560, 0.28, 0.09 * g, p, 0, 0.5)
     tone({ wave: 'tri', f0: 210, f1: 140, dur: 0.1, vol: 0.1 * g, at: 0.01, pan: p })
+  },
+  // ── The gunslinger on the plains (#210) ──
+  // Each actor has a voice of its own: his are bright and mechanical (brass, a charged whine, the aether's teal hum), the
+  // chimera's low and animal (a two-throated roar, weight, claws on a shield). All are trimmed under the player's own fight
+  // (TRIM), and the scene plays them fainter still the further away the hero is.
+  // The superhero landing: the air rushing, a heavy thump into the ground, the ground cracking, grit pattering.
+  cameoLand: (p, g) => {
+    space(0.34)
+    whoosh(900, 2600, 500, 0.22, 0.12 * g, p, 0, 1.8)
+    boom(110, 34, 0.55, 0.42 * g, p, 0.18)
+    crack(0.26 * g, p, 0.18, 1200, 0.03)
+    rumble(0.6, 0.16 * g, p, 0.2, 140)
+    crackle(10, 0.5, 0.06 * g, p, 0.24, 2400)
+    metal(1320, 0.4, 0.03 * g, p, 0.19, 1.2)
+  },
+  // An aether pistol: a tight crack, a hiss of charge leaving the barrel, a little brass ring (lighter than a musket).
+  cameoShot: (p, g) => {
+    space(0.18)
+    crack(0.3 * g, p, 0, 3400, 0.01)
+    tone({ wave: 'p12', f0: 2400, f1: 700, dur: 0.09, vol: 0.06 * g, pan: p })
+    tone({ wave: 'tri', f0: 420, f1: 110, dur: 0.08, vol: 0.14 * g, pan: p, dirt: true })
+    burst({ dur: 0.14, vol: 0.08 * g, type: 'bandpass', f0: 5200, f1: 1800, q: 3, at: 0.01, pan: p })
+    metal(2650, 0.18, 0.02 * g, p, 0.01)
+  },
+  // The turret unfolds: a clank of plates locking, a servo whir rising, then its hum (two detuned tones, a slow beat).
+  cameoTower: (p, g) => {
+    space(0.26)
+    metal(880, 0.22, 0.08 * g, p, 0, 0.8)
+    crack(0.18 * g, p, 0.02, 2200, 0.014)
+    tone({ wave: 'saw', f0: 140, f1: 520, dur: 0.32, vol: 0.04 * g, attack: 0.05, at: 0.06, pan: p, dirt: true })
+    metal(1180, 0.2, 0.05 * g, p, 0.34, 0.9)
+    tone({ wave: 'sine', f0: 220, dur: 1.3, vol: 0.05 * g, attack: 0.15, at: 0.36, pan: p })
+    tone({ wave: 'sine', f0: 223, dur: 1.3, vol: 0.04 * g, attack: 0.15, at: 0.36, pan: p })
+    tone({ wave: 'sine', f0: 880, dur: 0.9, vol: 0.012 * g, attack: 0.2, at: 0.4, pan: p })
+  },
+  // It folds away: the hum falls, a servo whir down, a last click, a sparkle of the teal going out.
+  cameoTowerOut: (p, g) => {
+    space(0.3)
+    tone({ wave: 'sine', f0: 220, f1: 90, dur: 0.5, vol: 0.05 * g, pan: p })
+    tone({ wave: 'saw', f0: 520, f1: 120, dur: 0.36, vol: 0.035 * g, attack: 0.02, pan: p, dirt: true })
+    metal(1020, 0.16, 0.05 * g, p, 0.36, 0.8)
+    bell(A5, 0.03 * g, 0.4, 0.4, p)
+  },
+  // The shield enhancement: a rising charged shimmer, a glassy shell closing (a chord of bells), the field settling to a hum.
+  cameoShield: (p, g) => {
+    space(0.4)
+    whoosh(400, 2600, 1800, 0.32, 0.08 * g, p, 0, 2.4)
+    tone({ wave: 'sine', f0: 260, f1: 520, dur: 0.34, vol: 0.06 * g, attack: 0.06, pan: p })
+    bell(D6, 0.045 * g, 0.7, 0.26, p)
+    bell(A5, 0.04 * g, 0.8, 0.29, p)
+    bell(F5 + 12, 0.03 * g, 0.9, 0.32, p)
+    tone({ wave: 'tri', f0: 130, dur: 0.6, vol: 0.04 * g, attack: 0.1, at: 0.28, pan: p, dirt: true })
+  },
+  // The chimera: a lion's throat and a goat's bleat over it, a sub under both, a hiss of the serpent tail.
+  cameoRoar: (p, g) => {
+    space(0.45)
+    growl(98, 66, 1.05, 0.22 * g, p, 0, 28)
+    growl(330, 250, 0.55, 0.06 * g, p, 0.12, 40)
+    tone({ wave: 'sine', f0: 50, f1: 38, dur: 0.95, vol: 0.18 * g, attack: 0.07, pan: p, dirt: true })
+    burst({ dur: 0.5, vol: 0.05 * g, type: 'highpass', f0: 4200, f1: 6200, attack: 0.2, at: 0.5, pan: p })
+  },
+  // A heavy bound: the push off (or the landing) of something big: a low thump, a rush of air, dust and grit.
+  cameoLeap: (p, g) => {
+    space(0.28)
+    whoosh(220, 900, 300, 0.3, 0.1 * g, p, 0, 1.6)
+    boom(90, 30, 0.45, 0.3 * g, p, 0.02)
+    burst({ dur: 0.28, vol: 0.06 * g, type: 'bandpass', f0: 1800, f1: 900, q: 1.4, at: 0.05, pan: p })
+  },
+  // Claws raking the shield: three scrapes, the swipe's air, and the shell answering with a glassy clang.
+  cameoClaw: (p, g) => {
+    space(0.24)
+    for (let k = 0; k < 3; k++) burst({ dur: 0.1, vol: 0.12 * g, type: 'bandpass', f0: 2600 - k * 300, f1: 900, q: 4, at: k * 0.035, pan: p })
+    burst({ dur: 0.22, vol: 0.14 * g, type: 'bandpass', f0: 180, fmid: 700, fmidAt: 0.6, f1: 240, q: 1.3, attack: 0.12, pan: p })
+    metal(1560, 0.5, 0.06 * g, p, 0.06, 1.4)
+    bell(D6, 0.035 * g, 0.5, 0.07, p)
+  },
+  // A few quick steps on grass and dirt: soft thuds with a little grit.
+  cameoStep: (p, g) => {
+    space(0.06)
+    boom(140, 80, 0.07, 0.12 * g, p)
+    burst({ dur: 0.06, vol: 0.05 * g, type: 'bandpass', f0: 900, f1: 500, q: 1.2, pan: p })
   }
 }
 

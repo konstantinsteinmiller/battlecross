@@ -229,10 +229,20 @@ export const makeRigView = (u: Unit, heroLook?: Look): RigView => {
     spec = humanoid(heroLook)
     // His weapon's own light (its tier's colour) is what his swings are drawn in.
     color = heroLook.glow ?? '#7ff4ff'
+  } else if (u.rank === 'npc' && !LOOKS[u.kind] && (ENEMY_BY_ID[u.kind] || MINIONS[u.kind])) {
+    // A beast or a machine that is a scene piece (the chimera and the turret of #210's cameo): its own rig, not a ghost.
+    const e = ENEMY_BY_ID[u.kind]
+    const m = MINIONS[u.kind]
+    spec = e ? specFor(e.rig, e.look ?? e.id, true) : specFor(m!.rig, m!.look, false)
+    scale = (e ? e.scale * NPC_BEAST_SCALE : m!.scale)
+    color = e ? e.color : m!.color
   } else if (u.rank === 'npc') {
-    spec = humanoid(LOOKS[u.kind] ?? LOOKS.peddler!)
+    const look = LOOKS[u.kind] ?? LOOKS.peddler!
+    spec = humanoid(look)
     // A digger of the chain gang (#205) is a small one, chained or running.
     scale = NPC_SCALE[u.kind] ?? MINIONS[u.kind]?.scale ?? 1
+    // A hero of another league (the intro's, the cameo's gunslinger) shoots and swings in their own light.
+    if (look.hero && look.glow) color = look.glow
   } else if (u.kind === 'caravan') {
     // The escort's cart (#85).
     spec = { key: 'cart', family: 'cart', build: buildCart, float: 0, held: 'none', ghost: false }
@@ -355,6 +365,8 @@ export const makeRigView = (u: Unit, heroLook?: Look): RigView => {
 
 /** Small folk that are scene pieces (npc rank, drawn at their own size): the celebration's goblins (#206); the chain gang's gnomes (#205) take the minion table's. */
 const NPC_SCALE: Readonly<Record<string, number>> = { celebGoblin: 0.85 }
+/** A boss beast seen as a scene piece (#210's chimera) is drawn a little under its fight size: a glimpse, not the stage. */
+const NPC_BEAST_SCALE = 0.8
 
 /** Build the templates a zone will need, one per call (the loader slices it). */
 export const prewarmKinds = (kinds: Iterable<string>): Array<() => void> => {

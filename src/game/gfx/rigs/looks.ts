@@ -197,6 +197,10 @@ export const LOOKS: Readonly<Record<string, Look>> = {
   sbMasterGeo: L({ skin: '#d9a47e', top: '#5f7a3a', bottom: '#6a4a2a', head: 'bun', hair: '#d8d8d0', outfit: 'robe', held: 'staff', trim: '#c79a5a', metal: '#7a5a34', glow: '#ffb84a' }),
   // Aether: a lecturer's brown coat with brass trim, goggles on white hair, a pistol and a battery pack.
   sbMasterAether: L({ skin: '#e2b08a', top: '#6a4a2a', bottom: '#3a3430', head: 'goggles', hair: '#e8e8f0', outfit: 'leather', held: 'gun', off: 'battery', trim: '#e0a84a', beard: '#e8e8f0', glow: '#4ff0c8', metal: '#c9a24a' }),
+  // The same man out hunting (#210, the gunslinger on the plains, `coach/cameo.ts`): his face, goggles, white hair and
+  // beard and his brown coat, now with a pistol in each hand and his mythic kit: crimson-trimmed pauldrons, gauntlets and
+  // greaves, a crimson cape. Seen once from afar, met again in Silverbridge.
+  cameoGunslinger: L({ skin: '#e2b08a', top: '#6a4a2a', bottom: '#2e2a2c', head: 'goggles', hair: '#e8e8f0', outfit: 'leather', held: 'gun', off: 'gun', trim: '#d0283c', beard: '#e8e8f0', glow: '#4ff0c8', metal: '#d9b04e', pauldrons: true, cape: '#7a1420', gloves: 'plate', gloveTrim: '#d0283c', boots: 'plate', bootTrim: '#d0283c', hero: true }),
   // Chrono: a time-blue robe with brass trim, a circlet, a grey beard, a staff and a glowing orb.
   sbMasterChrono: L({ skin: '#e8c4a4', top: '#2a5ab8', bottom: '#1c3a7a', head: 'circlet', hair: '#c8ccd8', style: 'short', outfit: 'robe', held: 'staff', off: 'orb', trim: '#e0b84a', beard: '#c8ccd8', glow: '#7fd8ff' }),
   // Blood: a dark-red alchemist's coat, long black hair, a flask and her book of recipes.
