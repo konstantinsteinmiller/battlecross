@@ -290,7 +290,15 @@ Build order and the decisions taken are in `game-implementation-plan.md`
 - [x] #207 ✅ Weapons don't show a damage number and what they scale with, this is important as most player choose weapons based on damage, not on stats. Color code the weapon damage with the stats color on the weapon item. The skip button in the tutorial is completely different from the normal button design. The digger Brann in the tutorial level is offering the player to use the smithy, but the player has no ore, give the player 2-3(minimum to smith 1 new weapon) ore in the introduction dialog (rerecord the changed dialogs VOs), so he can try out the smithing if he wants to.
 - [x] #208 The goblin overseer in the Goblin Hollows really does not stand out, make him 1.5x bigger than a normal goblin and give him some characteristic clothings.
 - [x] #209 ✅ The game intro needs an epic fantasy fight track that is very pleasant to listen to while the 2 heroes beat the dragon. Use an Opus high effort agent to compose a short 15 seconds track that only plays for the intro fight and uses real instruments like piano and other fitting instruments to make it a mind-blowingly epic music track. Use the Role of a AAA game studio expert sound designer.
-- [ ] #210
+- [x] #210 action scene while player fights the 4 enemy group, a hero and a chimera jumps in from the right and (hero with superhero landing) and the exchange 2 blows and then the chimera flees to the left with a big leap and the foreign hero (skill based hero wielding pistols/guns and placing tech towers from the aether tech tree, the tower disappears after the hero jumps away, fully equipped with mythic gear, using a shield enhancement spell before the attacking the chimera) follows it with a few running steps, then jumps away. the scene
+  should happen after the player defeated the 4 enemies in the tutorial level and should be visible near the top edge(or on the bottom edge if the top edge is too close to the pallisades) of the players viewport, the game continues while the chimera + hero scene plays, the player can't attack them, but walk towards them. Also give this fight each own sound effects and vfx, so the player clearly notices them, should the player walk out of the scene right before the chimera enters the top part of the player viewport,  with the chimera and foreign hero at the top half, so the player can experience the fight against a strong beat with some skill show-offs by a gunslinger class.
+  Timing: trigger it right after the first 4 enemies pack falls, or while the player walks
+  between packs, not mid-fight. That's a calm beat where eyes are free.
+  One line of framing: a single spoken line ("Someone else is hunting that beast" from the player character) so it reads as story.
+  Payoff: have the gunslinger show up again soon in Silverbridge, which is the aether-tech teacher and he has a new VO for the player when they meet for the first time in silverbridge, for example in Sunford or the Hollows, or at least name him in the goal text or the journal. That ties the glimpse to something the player will actually see.
+  Distinct but quiet: give it its own sounds and visuals as the roadmap says,   
+  but keep it lower in the mix than the player's own combat.
+  play the intro epic battle music during this scenic battle.
 - [ ] #211
 - [ ] #212
 - [ ] #213

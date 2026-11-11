@@ -826,3 +826,11 @@ The demo/unlock is built (`app-store-submission.md`, "In-App Purchase") but was 
 - **Listen first.** It is code-composed like the rest of the score (no sampled instruments): `node tools/music-render.mjs --out <dir> introFight` writes it as an mp3. Measured: -17.4 LU, peak -2 dB (the boss theme -17.5 LU, the area themes about -18).
 - **The "Calm" music style plays the town theme through the intro too**, as it does through a boss fight. Say if the film should keep its cue regardless.
 - **After the film, the black and "1 month later…" are silent** until the opening level starts its own theme; before, the tundra's theme ran on under the load. A replay from the options brings the place's theme back from its top, as before.
+
+## #210 the gunslinger on the plains (the opening fight's cameo): defaults chosen, change freely
+
+- **No journal or goal note.** The journal holds errands only and the goal line is the next step of the fight; a free note there would be a new system, so the payoff is the aether master's own first-meeting line in Silverbridge. Say if a journal entry ("A gunslinger hunts the chimera") is wanted.
+- **The hunter IS Professor Quint Sprocket** (Silverbridge's aether master): the same face, goggles, white hair and beard, brown coat and teal gun light, here with a pistol in each hand, a crimson cape, pauldrons, gauntlets and greaves (`cameoGunslinger` look). His Silverbridge look is unchanged.
+- **Where it plays:** a row near the top edge of the view, a row further in when that one lies beyond the palisades (a phone held upright sees far more ground up and down), else the bottom edge. On a desktop the bottom row passes near the skill bar.
+- **The chimera is drawn at 80 % of its boss size**, a glimpse, not a second fight on the screen.
+- **The place's theme comes back from its top** after the cue (as after the intro), not from the bar it was stopped in.
