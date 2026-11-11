@@ -207,9 +207,9 @@ export const townTheme = (town: TownId): ThemeId =>
   ((town === 'oakhaven' && hasFlag('oakhavenFallen')) || flagSet().has(overrunFlag(town)) ? 'ruin' : TOWNS[town].theme)
 
 /**
- * The besieged gate before the Hollows (roadmap #204): due at the first entry (and again at the next while it was
- * only skipped and the King lives). `assaultNext` is set by the journey that builds it; `assaultSkipped` lets the
- * entry right after a skip go straight in.
+ * The besieged gate before the Hollows (roadmap #204): shown ONCE, ever. It is marked seen the moment it is built, so a
+ * skip, a win, a fall, a closed tab or a retry after dying to the King never brings it back. `assaultNext` is set by the
+ * journey that builds it; `assaultSkipped` lets the entry right after a skip go straight in.
  */
 let assaultNext = false
 let assaultSkipped = false
@@ -611,6 +611,8 @@ export const travel = async (node: NodeId): Promise<void> => {
     // The Hollows' first entry opens on the besieged gate (#204); the entry proper follows it.
     assaultNext = assaultOnEntry(node)
     assaultSkipped = false
+    // Seen once, for good: marked as it begins (not only when won).
+    if (assaultNext && !hasFlag(ASSAULT_FLAG)) { profile.world.flags.push(ASSAULT_FLAG); saveProfile() }
     if (NODE_BY_ID[node]!.kind !== 'town' && !assaultNext) profile.world.visits[node] = (profile.world.visits[node] ?? 0) + 1
     const mode = await buildNode(node, (p) => { flow.loadProgress = p })
     enter(node, mode)
@@ -624,15 +626,13 @@ export const travel = async (node: NodeId): Promise<void> => {
 }
 
 /**
- * The besieged gate is over (roadmap #204): won, it is never played again; skipped, it is offered again on the next
- * entry while the King lives. The Hollows proper follow at once.
+ * The besieged gate is over (roadmap #204): won or skipped, it is never played again. The Hollows proper follow at once.
  */
 export const finishAssault = async (how: 'won' | 'skipped'): Promise<void> => {
   if (flow.loading) return
-  if (how === 'won') {
-    if (!hasFlag(ASSAULT_FLAG)) profile.world.flags.push(ASSAULT_FLAG)
-    saveProfile()
-  } else assaultSkipped = true
+  if (!hasFlag(ASSAULT_FLAG)) profile.world.flags.push(ASSAULT_FLAG)
+  saveProfile()
+  assaultSkipped = how === 'skipped'
   measureEnd('hollows', how === 'won')
   await travel('hollows')
 }

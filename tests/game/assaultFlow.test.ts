@@ -52,18 +52,18 @@ describe('when the besieged gate comes', () => {
     expect(f.assaultOnEntry('hollows')).toBe(false)
   })
 
-  it('a skipped siege goes straight into the Hollows, and is offered again on the next entry', async () => {
+  it('a skipped siege goes straight into the Hollows, and is never offered again', async () => {
     const built: Array<{ node: string; assault: boolean }> = []
     f.setNodeBuilder(async (node) => {
       built.push({ node, assault: f.assaultOnEntry('x') })
       return { setup: { theme: 'cave' }, snapshot: () => null } as never
     })
     await f.finishAssault('skipped')
-    expect(p.hasFlag(d.ASSAULT_FLAG)).toBe(false)
+    expect(p.hasFlag(d.ASSAULT_FLAG)).toBe(true)
     // The entry after the skip is the Hollows themselves ...
     expect(built.map(b => b.node)).toEqual(['hollows'])
-    // ... and the next journey there plays the siege again.
-    expect(f.assaultOnEntry('hollows')).toBe(true)
+    // ... and no later journey there plays the siege again (dying to the King and retrying included).
+    expect(f.assaultOnEntry('hollows')).toBe(false)
   })
 
   it('the siege is not a visit: it does not count one for the Hollows', async () => {
