@@ -7652,6 +7652,7 @@ export default {
     hydraSpawn: 'Hydran sikiö'
   },
   results: {
+    trainer: 'Opettajalle',
     spend: 'Käytä pisteet ({n})',
     careful: 'Varovainen voitto ×{mult}',
     victory: 'Voitto!',

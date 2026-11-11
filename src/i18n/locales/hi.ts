@@ -7744,6 +7744,7 @@ export default {
     hydraSpawn: 'हाइड्रा संतति'
   },
   results: {
+    trainer: 'गुरु के पास जाएँ',
     spend: 'अंक खर्च करें ({n})',
     careful: 'सावधान जीत ×{mult}',
     victory: 'जीत!',

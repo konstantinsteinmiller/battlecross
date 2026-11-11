@@ -7727,6 +7727,7 @@ export default {
     hydraSpawn: 'Hidras pēcnācējs'
   },
   results: {
+    trainer: 'Pie skolotāja',
     spend: 'Iztērēt punktus ({n})',
     careful: 'Uzmanīga uzvara ×{mult}',
     victory: 'Uzvara!',

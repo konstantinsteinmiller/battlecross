@@ -7652,6 +7652,7 @@ export default {
     hydraSpawn: 'ลูกไฮดรา'
   },
   results: {
+    trainer: 'ไปหาครูฝึก',
     spend: 'ใช้แต้ม ({n})',
     careful: 'ชนะอย่างระมัดระวัง ×{mult}',
     victory: 'ชนะแล้ว!',

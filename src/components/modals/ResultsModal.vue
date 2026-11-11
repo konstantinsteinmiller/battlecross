@@ -107,6 +107,7 @@
           dd {{ clock(r.seconds) }}
     template(#footer)
       FButton(v-if="r && r.outcome !== 'victory'" :label="t('results.retry')" type="secondary" :size="compact ? 'sm' : 'md'" icon="replay" :is-disabled="adInFlight" @click="retryVisit")
+      FButton(v-if="r && r.outcome === 'defeat' && trainerWorthVisit()" :label="t('results.trainer')" type="secondary" :size="compact ? 'sm' : 'md'" icon="book" :is-disabled="adInFlight" data-visit-trainer @click="visitTrainer")
       FButton(:label="t('ui.continue')" type="success" :size="compact ? 'sm' : 'md'" icon="skip-forward" attention :is-disabled="adInFlight" @click="leaveResults")
 </template>
 
@@ -121,7 +122,7 @@ import { useI18n } from 'vue-i18n'
 import { ITEM_BY_ID, TIER_COLOR } from '@/game/data/items'
 import { POINTS_PER_LEVEL } from '@/game/data/attributes'
 import { SIEGE_WAVES } from '@/game/data/siege'
-import { flow, leaveResults, openCharacter, purseOffered, retryVisit, triplePurse } from '@/game/flow'
+import { flow, leaveResults, openCharacter, purseOffered, retryVisit, trainerWorthVisit, triplePurse, visitTrainer } from '@/game/flow'
 import { adInFlight, rewardIsVideo } from '@/use/useAdGate'
 import { clock, fmt } from '@/utils/format'
 import FModal from '@/components/molecules/FModal.vue'

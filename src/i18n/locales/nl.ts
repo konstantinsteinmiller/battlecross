@@ -7663,6 +7663,7 @@ export default {
     hydraSpawn: 'Hydrabroed'
   },
   results: {
+    trainer: 'Naar een leraar',
     spend: 'Punten besteden ({n})',
     careful: 'Voorzichtige zege ×{mult}',
     victory: 'Overwinning!',

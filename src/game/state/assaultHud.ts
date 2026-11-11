@@ -15,7 +15,12 @@ export const assaultHud = reactive({
   /** What the player needs to hear: the two ways, the ram being pushed, or the idle reminder. */
   hint: '' as '' | 'levers' | 'pushing' | 'idle',
   /** The cutscene's progress, 0..1. */
-  cut01: 0
+  cut01: 0,
+  /** The ram's way: where it is on the screen, and the angle (radians, screen space) toward the tower it will roll to. */
+  aim: false,
+  aimX: 0,
+  aimY: 0,
+  aimAngle: 0
 })
 
 /** The scene's hands for the HUD's buttons (set while the siege is the live scene). */

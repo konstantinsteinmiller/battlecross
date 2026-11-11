@@ -7652,6 +7652,7 @@ export default {
     hydraSpawn: 'Con Non Thủy Quái'
   },
   results: {
+    trainer: 'Đến gặp thầy dạy',
     spend: 'Dùng điểm ({n})',
     careful: 'Chiến thắng cẩn trọng ×{mult}',
     victory: 'Chiến thắng!',

@@ -7652,6 +7652,7 @@ export default {
     hydraSpawn: '九頭蛇幼體'
   },
   results: {
+    trainer: '拜訪導師',
     spend: '使用點數 ({n})',
     careful: '謹慎通關 ×{mult}',
     victory: '勝利！',

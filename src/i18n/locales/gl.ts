@@ -7704,6 +7704,7 @@ export default {
     hydraSpawn: 'Cría de hidra'
   },
   results: {
+    trainer: 'Visitar un mestre',
     spend: 'Gastar puntos ({n})',
     careful: 'Vitoria prudente ×{mult}',
     victory: 'Vitoria!',

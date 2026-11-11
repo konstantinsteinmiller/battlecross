@@ -4118,6 +4118,7 @@ export default {
 
   // ─── End of a visit ───────────────────────────────────────────────────────
   'results': {
+    'trainer': 'Visit a trainer',
     'spend': 'Spend points ({n})',
     // A careful clear (#113): little health lost, the visit pays up to twice.
     'careful': 'Careful clear ×{mult}',

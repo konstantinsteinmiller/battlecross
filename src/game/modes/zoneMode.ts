@@ -1985,6 +1985,26 @@ export class ZoneMode implements GameMode {
     v.towers = a.towers.filter(t => !t.down).length
     v.hint = assaultHint(a)
     v.cut01 = a.phase === 'panorama' ? Math.min(1, a.t / PANORAMA_S) : 1
+    // The ram's direction on the screen: a chevron over the ram, pointing to the tower it rolls to (the nearest still standing).
+    const r = a.ram
+    let tw: { x: number; z: number } | null = null
+    let bd = Infinity
+    if (a.phase === 'play' && (r.mode === 'idle' || r.mode === 'roll')) {
+      for (let q = 0; q < a.towers.length; q++) {
+        if (a.towers[q]!.down) continue
+        const L = ASSAULT_LAYOUT.towers[q]!
+        const d = Math.hypot(L.x - r.x, L.z - r.z)
+        if (d < bd) { bd = d; tw = L }
+      }
+    }
+    const p1 = { x: 0, y: 0 }
+    const p2 = { x: 0, y: 0 }
+    if (tw && this.project(r.x, 2.2, r.z, p1) && this.project(tw.x, 2.2, tw.z, p2)) {
+      v.aim = true
+      v.aimX = p1.x
+      v.aimY = p1.y
+      v.aimAngle = Math.atan2(p2.y - p1.y, p2.x - p1.x)
+    } else v.aim = false
   }
 
   // ─── The siege (afterplay §8) ─────────────────────────────────────────────

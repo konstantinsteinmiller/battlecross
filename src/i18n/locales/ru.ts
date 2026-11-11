@@ -7756,6 +7756,7 @@ export default {
     hydraSpawn: 'Отродье гидры'
   },
   results: {
+    trainer: 'К наставнику',
     spend: 'Потратить очки ({n})',
     careful: 'Осторожная победа ×{mult}',
     victory: 'Победа!',

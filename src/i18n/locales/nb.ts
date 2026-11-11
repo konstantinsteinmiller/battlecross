@@ -7652,6 +7652,7 @@ export default {
     hydraSpawn: 'Hydraavkom'
   },
   results: {
+    trainer: 'Besøk en lærer',
     spend: 'Bruk poeng ({n})',
     careful: 'Forsiktig seier ×{mult}',
     victory: 'Seier!',

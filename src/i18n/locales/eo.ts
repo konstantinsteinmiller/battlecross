@@ -7652,6 +7652,7 @@ export default {
     hydraSpawn: 'Hidrido'
   },
   results: {
+    trainer: 'Viziti instruiston',
     spend: 'Elspezi poentojn ({n})',
     careful: 'Singarda venko ×{mult}',
     victory: 'Venko!',

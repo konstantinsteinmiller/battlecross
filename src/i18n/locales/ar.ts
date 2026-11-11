@@ -7999,6 +7999,7 @@ export default {
     hydraSpawn: 'نسل الهيدرا'
   },
   results: {
+    trainer: 'زيارة مدرّب',
     spend: 'أنفق النقاط ({n})',
     careful: 'نصر حذر ×{mult}',
     victory: 'نصر!',

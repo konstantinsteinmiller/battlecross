@@ -7696,6 +7696,7 @@ export default {
     hydraSpawn: 'Odraslă de hidră'
   },
   results: {
+    trainer: 'La un maestru',
     spend: 'Cheltuiește punctele ({n})',
     careful: 'Victorie prudentă ×{mult}',
     victory: 'Victorie!',

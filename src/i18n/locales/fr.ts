@@ -7703,6 +7703,7 @@ export default {
     hydraSpawn: 'Rejeton d\'hydre'
   },
   results: {
+    trainer: 'Voir un maître',
     spend: 'Dépenser les points ({n})',
     careful: 'Victoire prudente ×{mult}',
     victory: 'Victoire !',

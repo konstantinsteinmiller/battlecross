@@ -7652,6 +7652,7 @@ export default {
     hydraSpawn: 'Keturunan Hidra'
   },
   results: {
+    trainer: 'Temui pelatih',
     spend: 'Gunakan poin ({n})',
     careful: 'Kemenangan hati-hati ×{mult}',
     victory: 'Menang!',

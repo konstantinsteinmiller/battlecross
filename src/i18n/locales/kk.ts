@@ -7652,6 +7652,7 @@ export default {
     hydraSpawn: 'Гидра ұрпағы'
   },
   results: {
+    trainer: 'Ұстазға бару',
     spend: 'Ұпайларды жұмсау ({n})',
     careful: 'Абайлы жеңіс ×{mult}',
     victory: 'Жеңіс!',

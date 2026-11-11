@@ -7714,6 +7714,7 @@ export default {
     hydraSpawn: 'Hidros atžala'
   },
   results: {
+    trainer: 'Pas mokytoją',
     spend: 'Išleisti taškus ({n})',
     careful: 'Atsargi pergalė ×{mult}',
     victory: 'Pergalė!',

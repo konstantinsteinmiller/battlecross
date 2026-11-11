@@ -7652,6 +7652,7 @@ export default {
     hydraSpawn: 'Hidra Yavrusu'
   },
   results: {
+    trainer: 'Bir hocaya git',
     spend: 'Puanları harca ({n})',
     careful: 'Dikkatli zafer ×{mult}',
     victory: 'Zafer!',

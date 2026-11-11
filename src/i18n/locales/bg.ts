@@ -7726,6 +7726,7 @@ export default {
     hydraSpawn: 'Изчадие на хидрата'
   },
   results: {
+    trainer: 'При учител',
     spend: 'Разпредели точките ({n})',
     careful: 'Предпазлива победа ×{mult}',
     victory: 'Победа!',

@@ -7652,6 +7652,7 @@ export default {
     hydraSpawn: 'Gidra zoti'
   },
   results: {
+    trainer: 'Ustozga borish',
     spend: 'Ochkolarni sarflash ({n})',
     careful: 'Ehtiyotkor gʻalaba ×{mult}',
     victory: 'Gʻalaba!',

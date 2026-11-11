@@ -7753,6 +7753,7 @@ export default {
     hydraSpawn: 'Hydří potomek'
   },
   results: {
+    trainer: 'K učiteli',
     spend: 'Utratit body ({n})',
     careful: 'Opatrné vítězství ×{mult}',
     victory: 'Vítězství!',

@@ -7753,6 +7753,7 @@ export default {
     hydraSpawn: 'Pomiot hydry'
   },
   results: {
+    trainer: 'Do trenera',
     spend: 'Wydaj punkty ({n})',
     careful: 'Ostrożne zwycięstwo ×{mult}',
     victory: 'Zwycięstwo!',

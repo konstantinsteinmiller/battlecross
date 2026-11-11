@@ -7673,6 +7673,7 @@ export default {
     hydraSpawn: 'Hydrabrut'
   },
   results: {
+    trainer: 'Zum Lehrer',
     spend: 'Punkte verteilen ({n})',
     careful: 'Vorsichtiger Sieg ×{mult}',
     victory: 'Sieg!',

@@ -7767,6 +7767,7 @@ export default {
     hydraSpawn: 'Hidrin izdanak'
   },
   results: {
+    trainer: 'Posjeti učitelja',
     spend: 'Potroši bodove ({n})',
     careful: 'Oprezna pobjeda ×{mult}',
     victory: 'Pobjeda!',

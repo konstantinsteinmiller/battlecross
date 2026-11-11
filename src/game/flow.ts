@@ -1245,6 +1245,18 @@ export const retryVisit = async (): Promise<void> => {
   else await travel(node)
 }
 
+/** After a fall: from the result window straight to Sunford's trainers (the way to come back stronger). */
+export const visitTrainer = async (): Promise<void> => {
+  if (leaving || flow.loading) return
+  await adBreak()
+  flow.results = null
+  flow.encounter = null
+  await travel('sunford')
+}
+
+/** Is there a trainer worth the walk: Sunford is open and the hero is not already in it. */
+export const trainerWorthVisit = (): boolean => isNodeOpen('sunford') && flow.node !== 'sunford'
+
 // ─── Towns ───────────────────────────────────────────────────────────────────
 
 export const npcById = (id: string): NpcDef | null => {

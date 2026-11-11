@@ -7709,6 +7709,7 @@ export default {
     hydraSpawn: 'Γόνος της Ύδρας'
   },
   results: {
+    trainer: 'Στον δάσκαλο',
     spend: 'Ξόδεψε πόντους ({n})',
     careful: 'Προσεκτική νίκη ×{mult}',
     victory: 'Νίκη!',

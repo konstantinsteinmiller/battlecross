@@ -7652,6 +7652,7 @@ export default {
     hydraSpawn: 'Hidraivadék'
   },
   results: {
+    trainer: 'Mesterhez',
     spend: 'Pontok elköltése ({n})',
     careful: 'Óvatos győzelem ×{mult}',
     victory: 'Győzelem!',

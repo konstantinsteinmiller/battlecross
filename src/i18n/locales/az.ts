@@ -7652,6 +7652,7 @@ export default {
     hydraSpawn: 'Hidra törəməsi'
   },
   results: {
+    trainer: 'Müəllimə get',
     spend: 'Xalları xərclə ({n})',
     careful: 'Ehtiyatlı qələbə ×{mult}',
     victory: 'Qələbə!',

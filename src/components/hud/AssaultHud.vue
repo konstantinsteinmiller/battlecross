@@ -29,8 +29,12 @@
               path.assault__tick(d="M14.4 8l2.2 2.3 3.6-4.4")
       Transition(name="assault-fade")
         p.assault__hint(v-if="hint" :key="hintKey" :class="{ 'is-urgent': v.hint === 'idle', 'is-push': v.hint === 'pushing' }" aria-live="polite" data-assault-hint) {{ hint }}
+      //- The ram's way: chevrons over the ram, pointing to the tower it will roll to.
+      div.assault__aim(v-if="v.aim" :style="{ left: v.aimX + 'px', top: v.aimY + 'px', '--a': v.aimAngle + 'rad' }" aria-hidden="true" data-assault-aim)
+        svg.assault__chev(viewBox="0 0 60 24")
+          path(v-for="i in 3" :key="i" :style="{ animationDelay: (i - 1) * 0.18 + 's' }" d="M6 3l9 9-9 9")
       div.assault__btn.assault__btn--skip(v-if="v.phase === 'play'")
-        FButton(type="secondary" size="md" icon="fast-forward" icon-position="left" data-assault-skip :label="t('assault.skip')" @click="skipSiege")
+        FButton(type="secondary" size="lg" icon="fast-forward" icon-position="left" data-assault-skip :label="t('assault.skip')" @click="skipSiege")
 </template>
 
 <script setup lang="ts">
@@ -113,6 +117,37 @@ const skipSiege = (): void => assaultActions.skipSiege()
     height: 100%
     transform-origin: left center
     background: var(--bc-gold-hi)
+// The ram's way: three chevrons that walk toward the tower, over the ram.
+.assault__aim
+  position: absolute
+  width: 0
+  height: 0
+  transform: rotate(var(--a, 0rad))
+  pointer-events: none
+.assault__chev
+  position: absolute
+  left: 0.6rem
+  top: -1.1rem
+  width: clamp(3.6rem, 12vmin, 5.4rem)
+  overflow: visible
+  fill: none
+  stroke: var(--bc-gold-hi)
+  stroke-width: 5
+  stroke-linecap: round
+  stroke-linejoin: round
+  filter: drop-shadow(0 0 3px var(--bc-ink)) drop-shadow(0 0 6px rgba(255, 170, 60, 0.6))
+  path
+    opacity: 0.25
+    animation: assault-chev 1s ease-in-out infinite
+    &:nth-child(2)
+      transform: translateX(16px)
+    &:nth-child(3)
+      transform: translateX(32px)
+@keyframes assault-chev
+  0%, 100%
+    opacity: 0.2
+  40%
+    opacity: 1
 .assault__btn
   pointer-events: auto
   &--cut

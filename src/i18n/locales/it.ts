@@ -7734,6 +7734,7 @@ export default {
     hydraSpawn: 'Progenie dell\'idra'
   },
   results: {
+    trainer: 'Dal maestro',
     spend: 'Spendi i punti ({n})',
     careful: 'Vittoria prudente ×{mult}',
     victory: 'Vittoria!',

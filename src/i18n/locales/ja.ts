@@ -7652,6 +7652,7 @@ export default {
     hydraSpawn: 'ヒュドラの落とし子'
   },
   results: {
+    trainer: '師匠を訪ねる',
     spend: 'ポイントを使う ({n})',
     careful: '慎重な勝利 ×{mult}',
     victory: '勝利！',

@@ -7652,6 +7652,7 @@ export default {
     hydraSpawn: '히드라 새끼'
   },
   results: {
+    trainer: '스승 찾아가기',
     spend: '포인트 사용 ({n})',
     careful: '신중한 승리 ×{mult}',
     victory: '승리!',
