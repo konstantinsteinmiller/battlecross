@@ -1,5 +1,5 @@
 import { reactive, ref, toRaw, watch } from 'vue'
-import { getState, setStates } from '@/use/useGameState'
+import { flushPersist, getState, setStates } from '@/use/useGameState'
 import { ARENA_MILESTONES } from '../data/arena'
 import { saveDataVersion } from '@/use/useSaveStatus'
 import {
@@ -828,6 +828,9 @@ export const learnSkill = (id: string): boolean => {
   const free = slots.indexOf('')
   if (free >= 0) slots[free] = id
   saveProfile()
+  // A learned skill is written out at once: a tab closed in the next 2.5 s must not lose it.
+  saveProfile()
+  flushPersist()
   return true
 }
 
@@ -1953,6 +1956,8 @@ export const clearNode = (id: NodeId): boolean => {
   if (profile.world.cleared.includes(id)) return false
   profile.world.cleared.push(id)
   if (NODE_BY_ID[id]?.kind === 'zone') profile.story++
+  saveProfile()
+  flushPersist()
   if (id === AFTERPLAY_NODE) openAfterplay()
   return true
 }

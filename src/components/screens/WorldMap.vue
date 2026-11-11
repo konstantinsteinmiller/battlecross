@@ -956,6 +956,13 @@ const pick = (id: NodeId): void => {
   if (cardOpen.value && pannable.value) centreOn(p, side.value ? 0.56 : (NODE_BY_ID[id]?.at[1] ?? 0) * 100 > 52 ? 0.74 : 0.3, true)
 }
 
+// The goal chip, tapped: the place it names is picked, as a tap on it.
+watch(() => flow.mapGoto, id => {
+  if (!id) return
+  flow.mapGoto = ''
+  if (NODE_BY_ID[id]) pick(id)
+})
+
 /** A click or a tap on open ground: walk there. */
 const walkToPoint = (e: MouseEvent): void => {
   if (rushing.value || alarm.value || find.value) return

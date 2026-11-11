@@ -30,7 +30,7 @@
 import { computed } from 'vue'
 import { useI18n } from 'vue-i18n'
 import { hud } from '@/game/state/hud'
-import { flow } from '@/game/flow'
+import { flow, walkToObjective } from '@/game/flow'
 import { onboard } from '@/game/coach/state'
 import { pointToGoal } from '@/game/coach/onboarding'
 import { ARENA_WAVES } from '@/game/data/zones'
@@ -54,6 +54,8 @@ const tappable = computed(() => !isTown.value && goal.value?.id === 'clear')
 const goalText = computed(() => (goal.value ? t(`goal.${goal.value.id}`, { place: goal.value.place ? t(`node.${goal.value.place}.name`) : '', foe: '' }) : ''))
 const show = (): void => {
   sfx('uiClick')
+  // The hero walks to the next pack (or the silver key) by the path a click would take.
+  if (goal.value?.id === 'clear' && walkToObjective('clear')) return
   pointToGoal()
 }
 </script>

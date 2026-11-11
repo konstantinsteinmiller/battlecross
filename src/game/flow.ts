@@ -34,6 +34,8 @@ import { canOfferReward, canShowInterstitial, claimReward, isRewardGated, markIn
 import { breakAllowed } from '@/game/adPacing'
 import { campLessonPending } from '@/game/coach/campLesson'
 import { startRescue } from '@/game/sim/rescue'
+import { startWalk } from '@/game/sim/autowalk'
+import { objectiveOf } from '@/game/coach/world'
 import { CAMP_TEACHERS, CAMP_THANKS } from '@/game/sim/camp'
 import { DEMO_END_FLAG } from './data/fullVersion'
 import { gateActive, isNodeLockedByDemo, resetPurchaseStatus } from '@/use/useFullVersion'
@@ -134,6 +136,8 @@ export const flow = reactive({
   modal: '' as Modal,
   /** The Second wind on offer costs nothing (the tutorial level): no video, no limit. */
   windFree: false,
+  /** The goal chip on the world map, tapped: the place the map should pick (walk the hero to), consumed by the map. */
+  mapGoto: '' as NodeId | '',
   /** The conversation in progress, if any. */
   talk: '' as Talk,
   /** The node the live scene is. */
@@ -1244,6 +1248,14 @@ export const npcById = (id: string): NpcDef | null => {
 
 /** The live scene, when it is one the hero stands in. */
 const liveZone = (): ZoneMode | null => (app.mode instanceof ZoneMode ? app.mode : null)
+
+/** The goal chip in a level, tapped: the hero walks to the objective (the next pack, the boss, the silver key) by the path a click would take. */
+export const walkToObjective = (goalId: string): boolean => {
+  const z = liveZone()
+  if (!z || flow.modal || flow.talk) return false
+  const o = objectiveOf(z.sim, goalId)
+  return !!o && startWalk(z.sim, o.x, o.z)
+}
 
 /** The goal "Free the caged teachers", tapped: the hero walks to the gold key, then to the cage and opens it. */
 export const rescueTeachers = (): boolean => {

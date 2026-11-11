@@ -14,6 +14,7 @@ import { noGear } from '@/game/data/items'
 import { startAttrs } from '@/game/data/attributes'
 import { objectiveOf } from '@/game/coach/world'
 import { startRescue } from '@/game/sim/rescue'
+import { startWalk, walkActive } from '@/game/sim/autowalk'
 import { KEY_DROP_T } from '@/game/sim/camp'
 import { frustration, grantMercy, MERCY, RELIEF, stepRelief, TUTORIAL_CHARGED_CAP } from '@/game/coach/tutorialAid'
 
@@ -185,5 +186,32 @@ describe('tutorial level: "Free the caged teachers" walks the hero there', () =>
     sim.hero.stickX = 1
     stepSim(sim, plan, 1 / 30)
     expect(sim.camp!.auto).toBeUndefined()
+  })
+})
+
+describe('the goal chip walks the hero to the objective', () => {
+  const make = (zone: 'plains' | 'hollows') => {
+    const plan = generateZone(ZONES[zone], hashSeed(zone, 3), {})
+    const sim = new Sim({ seed: hashSeed(zone, 3), w: plan.w, h: plan.h, level: 3, difficulty: 1, mode: 'zone', zone })
+    applyPlan(sim, plan)
+    createHero(sim, { build: { level: 3, attrs: startAttrs(), equipped: noGear(), passives: [] }, skills: [], x: plan.start.x, z: plan.start.z, xpInto: 0, potions: 1 })
+    populateZone(sim, plan, zone, [], [])
+    return { plan, sim }
+  }
+  it('goes toward the next pack along the path, and stops when the player takes the stick', () => {
+    for (const zone of ['plains', 'hollows'] as const) {
+      const { plan, sim } = make(zone)
+      const o = objectiveOf(sim, 'clear')!
+      expect(o).toBeTruthy()
+      const u = sim.hero.unit
+      const d0 = Math.hypot(o.x - u.x, o.z - u.z)
+      expect(startWalk(sim, o.x, o.z)).toBe(true)
+      expect(walkActive(sim)).toBe(true)
+      for (let i = 0; i < 30 * 8; i++) stepSim(sim, plan, 1 / 30)
+      expect(Math.hypot(o.x - u.x, o.z - u.z), zone).toBeLessThan(d0 - 4)
+      sim.hero.stickX = 1
+      stepSim(sim, plan, 1 / 30)
+      expect(walkActive(sim)).toBe(false)
+    }
   })
 })

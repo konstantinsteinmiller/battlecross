@@ -35,7 +35,7 @@
  */
 import { computed, ref, watch } from 'vue'
 import { useI18n } from 'vue-i18n'
-import { flow, askLeave, rescueTeachers } from '@/game/flow'
+import { flow, askLeave, rescueTeachers, walkToObjective } from '@/game/flow'
 import { onboard } from '@/game/coach/state'
 import { pointToGoal } from '@/game/coach/onboarding'
 import type { GoalId } from '@/game/coach/goal'
@@ -105,8 +105,15 @@ const show = (): void => {
     askLeave(goal.value.place as NodeId)
     return
   }
+  // On the world map: the goal's place is picked, and the hero walks there by the map's own paths.
+  if (flow.screen === 'map' && goal.value?.place && !flow.modal && !flow.talk) {
+    flow.mapGoto = goal.value.place as NodeId
+    return
+  }
   // "Free the caged teachers": the hero walks to the gold key, then to the cage and opens it.
   if (goal.value?.id === 'rescue' && rescueTeachers()) return
+  // In a level: the hero walks to the next pack, the boss or the silver key by the path a click would take.
+  if ((goal.value?.id === 'clear' || goal.value?.id === 'boss') && walkToObjective(goal.value.id)) return
   pointToGoal()
 }
 </script>
