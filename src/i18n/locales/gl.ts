@@ -450,8 +450,8 @@ export default {
     hint: {
       levers: 'Tira da panca dunha catapulta, ou métete baixo o ariete e empurra.',
       idle: 'Achégate a unha panca de catapulta brillante, ou ponte baixo o ariete para empurralo.',
-      push: 'Segue! Preme as teclas de movemento para empurrar o ariete máis rápido.',
-      pushTouch: 'Segue! Move o joystick para empurrar o ariete máis rápido.'
+      push: 'Segue! Preme calquera tecla de movemento, en calquera dirección, para empurrar o ariete máis rápido.',
+      pushTouch: 'Segue! Move o stick en calquera dirección para empurrar o ariete máis rápido.'
     },
     toast: {
       tower: 'Cae unha torre!',
@@ -7704,6 +7704,7 @@ export default {
     hydraSpawn: 'Cría de hidra'
   },
   results: {
+    spend: 'Gastar puntos ({n})',
     careful: 'Vitoria prudente ×{mult}',
     victory: 'Vitoria!',
     defeat: 'Derrota',

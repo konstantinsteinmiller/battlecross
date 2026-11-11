@@ -450,8 +450,8 @@ export default {
     hint: {
       levers: 'Zieh den Hebel eines Katapults oder tritt unter den Rammbock und schieb.',
       idle: 'Geh zu einem leuchtenden Katapulthebel oder stell dich unter den Rammbock, um ihn zu schieben.',
-      push: 'Weiter so! Tippe die Bewegungstasten, um den Rammbock schneller zu schieben.',
-      pushTouch: 'Weiter so! Bewege den Daumenstick, um den Rammbock schneller zu schieben.'
+      push: 'Weiter so! Tippe eine beliebige Bewegungstaste, in jede Richtung, um den Rammbock schneller zu schieben.',
+      pushTouch: 'Weiter so! Bewege den Daumenstick in eine beliebige Richtung, um den Rammbock schneller zu schieben.'
     },
     toast: {
       tower: 'Ein Turm fällt!',
@@ -7673,6 +7673,7 @@ export default {
     hydraSpawn: 'Hydrabrut'
   },
   results: {
+    spend: 'Punkte verteilen ({n})',
     careful: 'Vorsichtiger Sieg ×{mult}',
     victory: 'Sieg!',
     defeat: 'Besiegt',

@@ -450,8 +450,8 @@ export default {
     hint: {
       levers: 'Tira la leva di una catapulta, oppure mettiti sotto l\'ariete e spingi.',
       idle: 'Avvicinati a una leva di catapulta luminosa, oppure mettiti sotto l\'ariete per spingerlo.',
-      push: 'Continua! Premi i tasti di movimento per spingere l\'ariete più veloce.',
-      pushTouch: 'Continua! Muovi lo stick per spingere l\'ariete più veloce.'
+      push: 'Continua! Premi un tasto di movimento qualsiasi, in qualsiasi direzione, per spingere l’ariete più veloce.',
+      pushTouch: 'Continua! Muovi lo stick in qualsiasi direzione per spingere l’ariete più veloce.'
     },
     toast: {
       tower: 'Una torre crolla!',
@@ -7734,6 +7734,7 @@ export default {
     hydraSpawn: 'Progenie dell\'idra'
   },
   results: {
+    spend: 'Spendi i punti ({n})',
     careful: 'Vittoria prudente ×{mult}',
     victory: 'Vittoria!',
     defeat: 'Sconfitta',

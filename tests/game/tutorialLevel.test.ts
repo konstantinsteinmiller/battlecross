@@ -215,3 +215,22 @@ describe('the goal chip walks the hero to the objective', () => {
     }
   })
 })
+
+describe('points spent in a level count at once', () => {
+  it('the hero\'s stats are worked out again from the new build, keeping his health share', async () => {
+    const { refreshHeroStats } = await import('@/game/sim/hero')
+    const sim = setupRun({ zone: 'plains', level: 1, cls: 'aegis', seed: 8 }).sim
+    const u = sim.hero.unit
+    u.hp = u.s.maxHp / 2
+    const before = u.s.maxHp
+    const attrs = { ...sim.hero.build.attrs }
+    const first = Object.keys(attrs)[0] as keyof typeof attrs
+    const more = { ...attrs, [first]: attrs[first] + 6 }
+    // Every attribute raised: whichever one feeds health, the maximum cannot fall.
+    const all = Object.fromEntries(Object.entries(attrs).map(([k, v]) => [k, (v as number) + 6])) as typeof attrs
+    refreshHeroStats(sim, { ...sim.hero.build, attrs: all })
+    expect(u.s.maxHp).toBeGreaterThanOrEqual(before)
+    expect(u.hp / u.s.maxHp).toBeCloseTo(0.5, 1)
+    expect(more).toBeTruthy()
+  })
+})

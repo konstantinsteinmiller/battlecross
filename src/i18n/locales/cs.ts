@@ -452,8 +452,8 @@ export default {
     hint: {
       levers: 'Zatáhni za páku katapultu, nebo se postav pod beran a tlač.',
       idle: 'Přijď ke zářící páce katapultu, nebo se postav pod beran a tlač ho.',
-      push: 'Vydrž! Mačkáním pohybových kláves tlačíš beran rychleji.',
-      pushTouch: 'Vydrž! Pohybem páčky tlačíš beran rychleji.'
+      push: 'Pokračuj! Mačkej libovolnou klávesu pohybu, v libovolném směru, ať beranidlo tlačíš rychleji.',
+      pushTouch: 'Pokračuj! Pohybuj páčkou v libovolném směru, ať beranidlo tlačíš rychleji.'
     },
     toast: {
       tower: 'Věž padá!',
@@ -7753,6 +7753,7 @@ export default {
     hydraSpawn: 'Hydří potomek'
   },
   results: {
+    spend: 'Utratit body ({n})',
     careful: 'Opatrné vítězství ×{mult}',
     victory: 'Vítězství!',
     defeat: 'Porážka',

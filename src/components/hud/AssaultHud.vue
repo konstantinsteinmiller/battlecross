@@ -30,7 +30,7 @@
       Transition(name="assault-fade")
         p.assault__hint(v-if="hint" :key="hintKey" :class="{ 'is-urgent': v.hint === 'idle', 'is-push': v.hint === 'pushing' }" aria-live="polite" data-assault-hint) {{ hint }}
       div.assault__btn.assault__btn--skip(v-if="v.phase === 'play'")
-        FButton(type="secondary" size="sm" icon="fast-forward" icon-position="left" data-assault-skip :label="t('assault.skip')" @click="skipSiege")
+        FButton(type="secondary" size="md" icon="fast-forward" icon-position="left" data-assault-skip :label="t('assault.skip')" @click="skipSiege")
 </template>
 
 <script setup lang="ts">
@@ -122,9 +122,10 @@ const skipSiege = (): void => assaultActions.skipSiege()
     transform: translateY(50%)
   &--skip
     position: absolute
-    right: calc(env(safe-area-inset-right, 0px) + clamp(0.6rem, 2.4vmin, 1.2rem))
-    bottom: calc(env(safe-area-inset-bottom, 0px) + clamp(7.5rem, 22vmin, 11rem))
-    opacity: 0.92
+    // The top right corner, under the pause and help buttons: always in reach, clear of the skill buttons and the potion.
+    right: calc(env(safe-area-inset-right, 0px) + var(--pad, 0.5rem))
+    top: calc(env(safe-area-inset-top, 0px) + var(--pad, 0.5rem) + max(46px, calc(clamp(2.75rem, 9.5vmin, 3.1rem) * var(--hud-s, 1))) + 0.5rem)
+    opacity: 0.96
 .assault__goal
   position: absolute
   top: max(58px, calc(4.4rem * var(--hud-s, 1)))

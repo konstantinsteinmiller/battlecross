@@ -449,8 +449,8 @@ export default {
     hint: {
       levers: 'Vedä katapultin vipua tai astu muurinmurtajan alle ja työnnä.',
       idle: 'Mene hohtavan katapultin vivun luo tai seiso muurinmurtajan alla työntääksesi sitä.',
-      push: 'Jatka! Paina liikenäppäimiä työntääksesi muurinmurtajaa nopeammin.',
-      pushTouch: 'Jatka! Liikuta peukalotikkua työntääksesi muurinmurtajaa nopeammin.'
+      push: 'Jatka! Paina mitä tahansa liiketeppoa, mihin suuntaan tahansa, työntääksesi muurinmurtajaa nopeammin.',
+      pushTouch: 'Jatka! Liikuta tikkua mihin suuntaan tahansa työntääksesi muurinmurtajaa nopeammin.'
     },
     toast: {
       tower: 'Torni kaatuu!',
@@ -7652,6 +7652,7 @@ export default {
     hydraSpawn: 'Hydran sikiö'
   },
   results: {
+    spend: 'Käytä pisteet ({n})',
     careful: 'Varovainen voitto ×{mult}',
     victory: 'Voitto!',
     defeat: 'Tappio',

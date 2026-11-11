@@ -450,8 +450,8 @@ export default {
     hint: {
       levers: 'Estira la palanca d\'una catapulta, o posa\'t sota l\'ariet i empeny.',
       idle: 'Apropa\'t a una palanca de catapulta resplendent, o posa\'t sota l\'ariet per empènyer-lo.',
-      push: 'Continua! Prem les tecles de moviment per empènyer l\'ariet més de pressa.',
-      pushTouch: 'Continua! Mou la palanca tàctil per empènyer l\'ariet més de pressa.'
+      push: 'Continua! Prem qualsevol tecla de moviment, en qualsevol direcció, per empènyer l’ariet més de pressa.',
+      pushTouch: 'Continua! Mou el joystick en qualsevol direcció per empènyer l’ariet més de pressa.'
     },
     toast: {
       tower: 'Cau una torre!',
@@ -7701,6 +7701,7 @@ export default {
     hydraSpawn: 'Cria d\'hidra'
   },
   results: {
+    spend: 'Gastar punts ({n})',
     careful: 'Victòria prudent ×{mult}',
     victory: 'Victòria!',
     defeat: 'Derrota',

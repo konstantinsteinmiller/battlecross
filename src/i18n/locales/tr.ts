@@ -449,8 +449,8 @@ export default {
     hint: {
       levers: 'Bir mancınığın koluna asıl ya da koçbaşının altına girip it.',
       idle: 'Parlayan bir mancınık koluna yaklaş ya da itmek için koçbaşının altında dur.',
-      push: 'Devam et! Koçbaşını daha hızlı itmek için hareket tuşlarına bas.',
-      pushTouch: 'Devam et! Koçbaşını daha hızlı itmek için çubuğu oynat.'
+      push: 'Devam et! Koçbaşını daha hızlı itmek için herhangi bir hareket tuşuna, herhangi bir yöne bas.',
+      pushTouch: 'Devam et! Koçbaşını daha hızlı itmek için çubuğu herhangi bir yöne oynat.'
     },
     toast: {
       tower: 'Bir kule yıkılıyor!',
@@ -7652,6 +7652,7 @@ export default {
     hydraSpawn: 'Hidra Yavrusu'
   },
   results: {
+    spend: 'Puanları harca ({n})',
     careful: 'Dikkatli zafer ×{mult}',
     victory: 'Zafer!',
     defeat: 'Yenildin',

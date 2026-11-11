@@ -449,8 +449,8 @@ export default {
     hint: {
       levers: 'Dra i en katapults spak, eller gå under stormbocken och knuffa.',
       idle: 'Gå fram till en glödande katapultspak, eller ställ dig under stormbocken för att knuffa den.',
-      push: 'Fortsätt! Tryck på rörelsetangenterna för att knuffa stormbocken snabbare.',
-      pushTouch: 'Fortsätt! Använd styrspaken för att knuffa stormbocken snabbare.'
+      push: 'Fortsätt! Tryck på valfri rörelsetangent, i valfri riktning, för att knuffa murbrukan snabbare.',
+      pushTouch: 'Fortsätt! Rör styrspaken i valfri riktning för att knuffa murbrukan snabbare.'
     },
     toast: {
       tower: 'Ett torn faller!',
@@ -7652,6 +7652,7 @@ export default {
     hydraSpawn: 'Hydraavkomma'
   },
   results: {
+    spend: 'Använd poäng ({n})',
     careful: 'Försiktig seger ×{mult}',
     victory: 'Seger!',
     defeat: 'Besegrad',

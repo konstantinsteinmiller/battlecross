@@ -449,8 +449,8 @@ export default {
     hint: {
       levers: 'Dra i et katapulthåndtak, eller gå under rambukken og skyv.',
       idle: 'Gå bort til et glødende katapulthåndtak, eller still deg under rambukken for å skyve den.',
-      push: 'Fortsett! Trykk på bevegelsestastene for å skyve rambukken raskere.',
-      pushTouch: 'Fortsett! Bruk tommelpinnen for å skyve rambukken raskere.'
+      push: 'Fortsett! Trykk på en hvilken som helst bevegelsestast, i en hvilken som helst retning, for å skyve rambukken raskere.',
+      pushTouch: 'Fortsett! Beveg tommelspaken i en hvilken som helst retning for å skyve rambukken raskere.'
     },
     toast: {
       tower: 'Et tårn faller!',
@@ -7652,6 +7652,7 @@ export default {
     hydraSpawn: 'Hydraavkom'
   },
   results: {
+    spend: 'Bruk poeng ({n})',
     careful: 'Forsiktig seier ×{mult}',
     victory: 'Seier!',
     defeat: 'Beseiret',

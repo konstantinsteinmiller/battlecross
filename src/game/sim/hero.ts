@@ -53,6 +53,22 @@ export interface HeroInit {
   rested?: number
 }
 
+/**
+ * The hero's build changed in the middle of a visit (points spent on the attributes sheet): his stats are worked out again
+ * from it, keeping his health and mana as the share they were.
+ */
+export const refreshHeroStats = (sim: Sim, build: HeroBuild): void => {
+  const h = sim.hero
+  const u = h.unit
+  const hp01 = u.s.maxHp > 0 ? u.hp / u.s.maxHp : 1
+  const mp01 = u.s.maxMana > 0 ? u.mana / u.s.maxMana : 1
+  h.build = build
+  Object.assign(u.s, heroStats(build))
+  if (u.alive) u.hp = Math.max(1, Math.min(u.s.maxHp, u.s.maxHp * hp01))
+  u.mana = Math.min(u.s.maxMana, u.s.maxMana * mp01)
+  h.minionMul = minionMul(u.s.power.cha, u.s.mods)
+}
+
 export const createHero = (sim: Sim, o: HeroInit): HeroState => {
   const s = heroStats(o.build)
   const unit = sim.addUnit({ kind: 'hero', team: 0, rank: 'hero', level: o.build.level, x: o.x, z: o.z, r: 0.45, h: 1.45, s, facing: Math.PI })

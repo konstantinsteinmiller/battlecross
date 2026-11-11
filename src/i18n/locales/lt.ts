@@ -449,8 +449,8 @@ export default {
     hint: {
       levers: 'Patrauk katapultos svirtį arba lįsk po tarano ir stumk.',
       idle: 'Prieik prie švytinčios katapultos svirties arba atsistok po taranu jį stumti.',
-      push: 'Tęsk! Spaudyk judėjimo klavišus, kad taraną stumtum greičiau.',
-      pushTouch: 'Tęsk! Judink nykščio lazdelę, kad taraną stumtum greičiau.'
+      push: 'Tęsk! Spausk bet kurį judėjimo klavišą, bet kuria kryptimi, kad greičiau stumtum taranę.',
+      pushTouch: 'Tęsk! Judink lazdelę bet kuria kryptimi, kad greičiau stumtum taranę.'
     },
     toast: {
       tower: 'Bokštas griūva!',
@@ -7714,6 +7714,7 @@ export default {
     hydraSpawn: 'Hidros atžala'
   },
   results: {
+    spend: 'Išleisti taškus ({n})',
     careful: 'Atsargi pergalė ×{mult}',
     victory: 'Pergalė!',
     defeat: 'Pralaimėjimas',

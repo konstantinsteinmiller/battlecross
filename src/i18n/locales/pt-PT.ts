@@ -450,8 +450,8 @@ export default {
     hint: {
       levers: 'Puxa a alavanca de uma catapulta, ou mete-te debaixo do aríete e empurra.',
       idle: 'Aproxima-te de uma alavanca de catapulta a brilhar, ou põe-te debaixo do aríete para o empurrar.',
-      push: 'Continua! Carrega nas teclas de movimento para empurrar o aríete mais depressa.',
-      pushTouch: 'Continua! Mexe o joystick para empurrar o aríete mais depressa.'
+      push: 'Continua! Toca em qualquer tecla de movimento, em qualquer direção, para empurrar o aríete mais depressa.',
+      pushTouch: 'Continua! Mexe o analógico em qualquer direção para empurrar o aríete mais depressa.'
     },
     toast: {
       tower: 'Cai uma torre!',
@@ -7707,6 +7707,7 @@ export default {
     hydraSpawn: 'Cria de hidra'
   },
   results: {
+    spend: 'Gastar pontos ({n})',
     careful: 'Vitória cuidadosa ×{mult}',
     victory: 'Vitória!',
     defeat: 'Derrota',

@@ -449,8 +449,8 @@ export default {
     hint: {
       levers: '투석기 레버를 당기거나, 공성추 아래로 들어가 밀어라.',
       idle: '빛나는 투석기 레버로 다가가거나, 공성추 아래에 서서 밀어라.',
-      push: '계속해! 이동 키를 눌러 공성추를 더 빨리 밀어라.',
-      pushTouch: '계속해! 스틱을 움직여 공성추를 더 빨리 밀어라.'
+      push: '계속하세요! 어느 방향이든 이동 키를 누르면 파성퇴가 더 빨리 밀립니다.',
+      pushTouch: '계속하세요! 어느 방향이든 스틱을 움직이면 파성퇴가 더 빨리 밀립니다.'
     },
     toast: {
       tower: '탑이 무너진다!',
@@ -7652,6 +7652,7 @@ export default {
     hydraSpawn: '히드라 새끼'
   },
   results: {
+    spend: '포인트 사용 ({n})',
     careful: '신중한 승리 ×{mult}',
     victory: '승리!',
     defeat: '패배',

@@ -449,8 +449,8 @@ export default {
     hint: {
       levers: 'Tiru la levilon de katapulto, aŭ iru sub la ŝafon kaj puŝu.',
       idle: 'Iru al brilanta katapulta levilo, aŭ stariĝu sub la ŝafo por puŝi ĝin.',
-      push: 'Daŭrigu! Premu la movajn klavojn por pli rapide puŝi la ŝafon.',
-      pushTouch: 'Daŭrigu! Movu la fingrobastonon por pli rapide puŝi la ŝafon.'
+      push: 'Daŭrigu! Premu ajnan movklavon, en ajna direkto, por pli rapide puŝi la murrompilon.',
+      pushTouch: 'Daŭrigu! Movu la stirstangon en ajna direkto por pli rapide puŝi la murrompilon.'
     },
     toast: {
       tower: 'Turo falas!',
@@ -7652,6 +7652,7 @@ export default {
     hydraSpawn: 'Hidrido'
   },
   results: {
+    spend: 'Elspezi poentojn ({n})',
     careful: 'Singarda venko ×{mult}',
     victory: 'Venko!',
     defeat: 'Malvenko',

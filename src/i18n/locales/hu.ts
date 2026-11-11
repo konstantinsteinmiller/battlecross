@@ -449,8 +449,8 @@ export default {
     hint: {
       levers: 'Húzd meg egy katapult karját, vagy állj a faltörő kos alá és told.',
       idle: 'Menj egy izzó katapultkarhoz, vagy állj a faltörő kos alá, hogy told.',
-      push: 'Folytasd! Nyomd a mozgásgombokat, hogy gyorsabban told a kost.',
-      pushTouch: 'Folytasd! Mozgasd a hüvelykujj-kart, hogy gyorsabban told a kost.'
+      push: 'Csak így tovább! Nyomj bármelyik mozgásgombot, bármilyen irányba, hogy gyorsabban told a faltörő kost.',
+      pushTouch: 'Csak így tovább! Mozgasd a kart bármilyen irányba, hogy gyorsabban told a faltörő kost.'
     },
     toast: {
       tower: 'Ledől egy torony!',
@@ -7652,6 +7652,7 @@ export default {
     hydraSpawn: 'Hidraivadék'
   },
   results: {
+    spend: 'Pontok elköltése ({n})',
     careful: 'Óvatos győzelem ×{mult}',
     victory: 'Győzelem!',
     defeat: 'Vereség',

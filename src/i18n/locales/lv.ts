@@ -449,8 +449,8 @@ export default {
     hint: {
       levers: 'Pavelc katapultas sviru vai ieej zem tarana un stūmi.',
       idle: 'Pieej pie mirdzošas katapultas sviras vai nostājies zem tarana, lai to stumtu.',
-      push: 'Turpini! Spied kustības taustiņus, lai stumtu taranu ātrāk.',
-      pushTouch: 'Turpini! Kustini īkšķa nūjiņu, lai stumtu taranu ātrāk.'
+      push: 'Turpini! Spied jebkuru kustības taustiņu jebkurā virzienā, lai ātrāk stumtu tarānu.',
+      pushTouch: 'Turpini! Kustini nūjiņu jebkurā virzienā, lai ātrāk stumtu tarānu.'
     },
     toast: {
       tower: 'Tornis krīt!',
@@ -7727,6 +7727,7 @@ export default {
     hydraSpawn: 'Hidras pēcnācējs'
   },
   results: {
+    spend: 'Iztērēt punktus ({n})',
     careful: 'Uzmanīga uzvara ×{mult}',
     victory: 'Uzvara!',
     defeat: 'Sakāve',

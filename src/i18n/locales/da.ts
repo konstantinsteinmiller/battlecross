@@ -449,8 +449,8 @@ export default {
     hint: {
       levers: 'Træk i et katapults håndtag, eller stil dig under rambukken og skub.',
       idle: 'Gå hen til et glødende katapulthåndtag, eller stil dig under rambukken for at skubbe.',
-      push: 'Bliv ved! Tryk på bevægelsestasterne for at skubbe rambukken hurtigere.',
-      pushTouch: 'Bliv ved! Brug tommelfingerpinden for at skubbe rambukken hurtigere.'
+      push: 'Bliv ved! Tryk på en vilkårlig bevægelsestast, i en vilkårlig retning, for at skubbe rambukken hurtigere.',
+      pushTouch: 'Bliv ved! Bevæg tommelstikken i en vilkårlig retning for at skubbe rambukken hurtigere.'
     },
     toast: {
       tower: 'Et tårn falder!',
@@ -7652,6 +7652,7 @@ export default {
     hydraSpawn: 'Hydraafkom'
   },
   results: {
+    spend: 'Brug point ({n})',
     careful: 'Forsigtig sejr ×{mult}',
     victory: 'Sejr!',
     defeat: 'Besejret',

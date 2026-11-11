@@ -449,8 +449,8 @@ export default {
     hint: {
       levers: 'Trage de maneta unei catapulte sau intră sub berbec și împinge.',
       idle: 'Apropie-te de o manetă de catapultă strălucitoare sau stai sub berbec ca să-l împingi.',
-      push: 'Continuă! Apasă tastele de mișcare ca să împingi berbecul mai repede.',
-      pushTouch: 'Continuă! Mișcă stickul ca să împingi berbecul mai repede.'
+      push: 'Continuă! Apasă orice tastă de mișcare, în orice direcție, ca să împingi berbecul mai repede.',
+      pushTouch: 'Continuă! Mișcă joystickul în orice direcție ca să împingi berbecul mai repede.'
     },
     toast: {
       tower: 'Un turn cade!',
@@ -7696,6 +7696,7 @@ export default {
     hydraSpawn: 'Odraslă de hidră'
   },
   results: {
+    spend: 'Cheltuiește punctele ({n})',
     careful: 'Victorie prudentă ×{mult}',
     victory: 'Victorie!',
     defeat: 'Înfrângere',

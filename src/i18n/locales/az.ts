@@ -449,8 +449,8 @@ export default {
     hint: {
       levers: 'Katapultun qolunu çək və ya qoçbaşın altına girib it.',
       idle: 'Parlayan katapult qoluna yaxınlaş və ya qoçbaşı itələmək üçün altında dur.',
-      push: 'Davam et! Qoçbaşı sürətləndirmək üçün hərəkət düymələrinə bas.',
-      pushTouch: 'Davam et! Qoçbaşı sürətləndirmək üçün çubuğu hərəkət etdir.'
+      push: 'Davam et! Qüllə qırıcını daha sürətli itələmək üçün istənilən hərəkət düyməsinə istənilən istiqamətdə bas.',
+      pushTouch: 'Davam et! Qüllə qırıcını daha sürətli itələmək üçün çubuğu istənilən istiqamətdə hərəkət etdir.'
     },
     toast: {
       tower: 'Qüllə yıxıldı!',
@@ -7652,6 +7652,7 @@ export default {
     hydraSpawn: 'Hidra törəməsi'
   },
   results: {
+    spend: 'Xalları xərclə ({n})',
     careful: 'Ehtiyatlı qələbə ×{mult}',
     victory: 'Qələbə!',
     defeat: 'Məğlub oldun',

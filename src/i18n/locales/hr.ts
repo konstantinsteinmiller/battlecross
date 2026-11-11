@@ -452,8 +452,8 @@ export default {
     hint: {
       levers: 'Povuci polugu katapulta ili uđi pod ovna i gurni.',
       idle: 'Priđi sjajnoj poluzi katapulta ili stani pod ovna da ga gurneš.',
-      push: 'Samo naprijed! Pritišći tipke kretanja da ovna gurneš brže.',
-      pushTouch: 'Samo naprijed! Pomiči palac-štapić da ovna gurneš brže.'
+      push: 'Samo naprijed! Pritisni bilo koju tipku kretanja, u bilo kojem smjeru, da brže gurneš ovna.',
+      pushTouch: 'Samo naprijed! Pomiči palicu u bilo kojem smjeru da brže gurneš ovna.'
     },
     toast: {
       tower: 'Toranj pada!',
@@ -7767,6 +7767,7 @@ export default {
     hydraSpawn: 'Hidrin izdanak'
   },
   results: {
+    spend: 'Potroši bodove ({n})',
     careful: 'Oprezna pobjeda ×{mult}',
     victory: 'Pobjeda!',
     defeat: 'Poraz',

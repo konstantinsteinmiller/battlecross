@@ -449,8 +449,8 @@ export default {
     hint: {
       levers: 'Kéo cần máy bắn đá, hoặc chui xuống dưới xe phá thành rồi đẩy.',
       idle: 'Lại gần cần máy bắn đá đang sáng, hoặc đứng dưới xe phá thành để đẩy.',
-      push: 'Cố lên! Nhấn các phím di chuyển để đẩy xe phá thành nhanh hơn.',
-      pushTouch: 'Cố lên! Gạt cần điều khiển để đẩy xe phá thành nhanh hơn.'
+      push: 'Tiếp tục nào! Nhấn bất kỳ phím di chuyển nào, theo hướng nào cũng được, để đẩy xe phá thành nhanh hơn.',
+      pushTouch: 'Tiếp tục nào! Gạt cần điều khiển theo hướng nào cũng được để đẩy xe phá thành nhanh hơn.'
     },
     toast: {
       tower: 'Một tháp đổ!',
@@ -7652,6 +7652,7 @@ export default {
     hydraSpawn: 'Con Non Thủy Quái'
   },
   results: {
+    spend: 'Dùng điểm ({n})',
     careful: 'Chiến thắng cẩn trọng ×{mult}',
     victory: 'Chiến thắng!',
     defeat: 'Thất bại',

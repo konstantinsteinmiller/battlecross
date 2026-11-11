@@ -20,7 +20,8 @@ import {
 import { overrunFlag, rebuiltFlag, rebuiltTiers } from './data/breaking'
 import { WANDERER_FLAG, trialFlag, visitTrialFlags } from './data/prestige'
 import { hud, pushHud } from './state/hud'
-import { freeCaptives } from './state/profile'
+import { freeCaptives, heroBuild } from './state/profile'
+import { refreshHeroStats } from './sim/hero'
 import { cageOf } from './data/cages'
 import { addHerbs, addOres, addPieces, markTreasureDug, treasureFor, setElixirs, countContracts, countErrands, countTasks, finishEscortTasks, markChestsOpened, recordArenaWaves, recordMastery, setManaPotions } from './state/profile'
 import { zoneMastery, type Mastery } from './sim/route'
@@ -136,6 +137,8 @@ export const flow = reactive({
   modal: '' as Modal,
   /** The Second wind on offer costs nothing (the tutorial level): no video, no limit. */
   windFree: false,
+  /** The window the hero sheet returns to when it is closed ('results': the sheet was opened from the result window). */
+  bookBack: '' as Modal,
   /** The goal chip on the world map, tapped: the place the map should pick (walk the hero to), consumed by the map. */
   mapGoto: '' as NodeId | '',
   /** The conversation in progress, if any. */
@@ -335,10 +338,22 @@ let precompile: Precompile = async () => {}
 /** `boot.ts` owns the renderer; it hands the shader warm-up in. */
 export const setPrecompile = (fn: Precompile): void => { precompile = fn }
 
+/**
+ * The attributes sheet, from anywhere (the portrait on the HUD, the points badge, C, the result window's button). In a level only
+ * this page opens (the loadout is fixed once a fight is on) and the stats follow the points spent when it closes.
+ */
+export const openCharacter = (): boolean => {
+  if (flow.loading || flow.talk || (flow.modal && flow.modal !== 'results')) return false
+  if (app.mode instanceof ZoneMode && app.mode.sim.siege) return false
+  flow.bookBack = flow.modal === 'results' ? 'results' : ''
+  flow.modal = 'character'
+  return true
+}
+
 const openPanel = (panel: 'map' | 'character' | 'inventory' | 'skills'): void => {
   if (flow.modal || flow.talk || flow.loading) return
-  // The loadout is fixed once a fight is on: menus open in towns and on the map.
-  if (flow.screen === 'zone') return
+  // The loadout is fixed once a fight is on: the attributes sheet is the one menu that opens there.
+  if (flow.screen === 'zone') { if (panel === 'character') openCharacter(); return }
   if (panel === 'map') { openMap(); return }
   flow.modal = panel
 }
@@ -1387,7 +1402,15 @@ export const visitHiddenTrainer = (node: NodeId): void => {
 }
 
 export const closeModal = (): void => {
-  flow.modal = ''
+  const back = flow.bookBack
+  flow.bookBack = ''
+  // Points spent in a level count at once.
+  if (flow.modal === 'character' && flow.screen === 'zone') {
+    const z = liveZone()
+    if (z) refreshHeroStats(z.sim, heroBuild())
+  }
+  flow.modal = back
+  if (back) return
   // A window a conversation opened: the talk goes on (a parting word, then
   // the topics again), and the townsperson stays the one in front of the hero.
   if (flow.talk && talkWaiting()) { talkResume(); return }

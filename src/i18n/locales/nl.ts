@@ -450,8 +450,8 @@ export default {
     hint: {
       levers: 'Trek aan de hendel van een katapult, of stap onder de stormram en duw.',
       idle: 'Loop naar een gloeiende katapulthendel, of ga onder de stormram staan om hem te duwen.',
-      push: 'Doorgaan! Tik op de bewegingstoetsen om de stormram sneller te duwen.',
-      pushTouch: 'Doorgaan! Beweeg de duimstick om de stormram sneller te duwen.'
+      push: 'Ga door! Tik op een willekeurige bewegingstoets, in elke richting, om de stormram sneller te duwen.',
+      pushTouch: 'Ga door! Beweeg de duimstick in elke richting om de stormram sneller te duwen.'
     },
     toast: {
       tower: 'Een toren valt!',
@@ -7663,6 +7663,7 @@ export default {
     hydraSpawn: 'Hydrabroed'
   },
   results: {
+    spend: 'Punten besteden ({n})',
     careful: 'Voorzichtige zege ×{mult}',
     victory: 'Overwinning!',
     defeat: 'Verslagen',

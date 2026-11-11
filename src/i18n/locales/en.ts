@@ -420,8 +420,8 @@ export default {
     'hint': {
       'levers': 'Pull a catapult\'s lever, or step under the ram and push.',
       'idle': 'Walk up to a glowing catapult lever, or stand under the ram to push it.',
-      'push': 'Keep going! Tap the movement keys to push the ram faster.',
-      'pushTouch': 'Keep going! Work the thumb stick to push the ram faster.'
+      'push': 'Keep going! Tap any movement key, in any direction, to push the ram faster.',
+      'pushTouch': 'Keep going! Work the thumb stick in any direction to push the ram faster.'
     },
     'toast': {
       'tower': 'A tower falls!',
@@ -4118,6 +4118,7 @@ export default {
 
   // ─── End of a visit ───────────────────────────────────────────────────────
   'results': {
+    'spend': 'Spend points ({n})',
     // A careful clear (#113): little health lost, the visit pays up to twice.
     'careful': 'Careful clear ×{mult}',
     'victory': 'Victory!',

@@ -449,8 +449,8 @@ export default {
     hint: {
       levers: '拉動投石機的拉桿,或鑽到攻城錘下面推動。',
       idle: '走到發光的投石機拉桿旁,或站在攻城錘下面推動它。',
-      push: '繼續!按移動鍵讓攻城錘推得更快。',
-      pushTouch: '繼續!撥動搖桿讓攻城錘推得更快。'
+      push: '繼續！向任意方向按移動鍵，就能更快地推動攻城錘。',
+      pushTouch: '繼續！向任意方向撥動搖桿，就能更快地推動攻城錘。'
     },
     toast: {
       tower: '一座塔樓倒下了!',
@@ -7652,6 +7652,7 @@ export default {
     hydraSpawn: '九頭蛇幼體'
   },
   results: {
+    spend: '使用點數 ({n})',
     careful: '謹慎通關 ×{mult}',
     victory: '勝利！',
     defeat: '戰敗',

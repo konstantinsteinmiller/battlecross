@@ -4,7 +4,7 @@
       //- The book's three pages, as tabs standing on the top bar.
       nav.book__tabs(role="tablist")
         button.book__tab(
-          v-for="p in PAGES"
+          v-for="p in pages"
           :key="p.id"
           type="button"
           role="tab"
@@ -58,6 +58,8 @@ import JournalPage from './JournalPage.vue'
 import { openErrands } from '@/game/state/profile'
 
 type Page = 'character' | 'skills' | 'inventory' | 'journal'
+/** In a level only the attributes page opens: the loadout and the bag are fixed once a fight is on. */
+const pages = computed(() => (flow.screen === 'zone' ? PAGES.filter(p => p.id === 'character') : PAGES))
 const PAGES: ReadonlyArray<{ id: Page; icon: GameIconName }> = [
   { id: 'character', icon: 'hero' },
   { id: 'skills', icon: 'book' },

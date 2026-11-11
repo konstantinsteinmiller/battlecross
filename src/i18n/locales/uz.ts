@@ -449,8 +449,8 @@ export default {
     hint: {
       levers: 'Katapult dastasini torting yoki taran ostiga kirib itaring.',
       idle: 'Yaltiroq katapult dastasiga yaqinlashing yoki itarish uchun taran ostida turing.',
-      push: 'Davom eting! Taranni tezroq itarish uchun harakat tugmalarini bosing.',
-      pushTouch: 'Davom eting! Taranni tezroq itarish uchun tayoqchani siljiting.'
+      push: 'Davom et! Qo‘chqorni tezroq itarish uchun istalgan harakat tugmasini istalgan yo‘nalishda bos.',
+      pushTouch: 'Davom et! Qo‘chqorni tezroq itarish uchun tayoqchani istalgan yo‘nalishda siljit.'
     },
     toast: {
       tower: 'Minora qulaydi!',
@@ -7652,6 +7652,7 @@ export default {
     hydraSpawn: 'Gidra zoti'
   },
   results: {
+    spend: 'Ochkolarni sarflash ({n})',
     careful: 'Ehtiyotkor gʻalaba ×{mult}',
     victory: 'Gʻalaba!',
     defeat: 'Magʻlubiyat',

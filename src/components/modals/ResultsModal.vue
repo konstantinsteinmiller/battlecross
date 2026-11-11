@@ -62,6 +62,7 @@
               )
         p.results__open(v-if="r.unlocked.length") {{ t('results.unlocked', { places: r.unlocked.map(n => t(`node.${n}.name`)).join(', ') }) }}
         p.results__tip(v-if="r.outcome === 'defeat'") {{ t('results.tip') }}
+        FButton.results__spend(v-if="profile.hero.points > 0" :label="t('results.spend', { n: profile.hero.points })" type="warning" :size="compact ? 'sm' : 'md'" icon="up" data-spend-points @click="openCharacter")
       dl.results__stats
         div
           dt {{ t('results.xp') }}
@@ -120,7 +121,7 @@ import { useI18n } from 'vue-i18n'
 import { ITEM_BY_ID, TIER_COLOR } from '@/game/data/items'
 import { POINTS_PER_LEVEL } from '@/game/data/attributes'
 import { SIEGE_WAVES } from '@/game/data/siege'
-import { flow, leaveResults, purseOffered, retryVisit, triplePurse } from '@/game/flow'
+import { flow, leaveResults, openCharacter, purseOffered, retryVisit, triplePurse } from '@/game/flow'
 import { adInFlight, rewardIsVideo } from '@/use/useAdGate'
 import { clock, fmt } from '@/utils/format'
 import FModal from '@/components/molecules/FModal.vue'

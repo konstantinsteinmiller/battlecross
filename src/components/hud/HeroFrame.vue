@@ -2,7 +2,15 @@
   div.hero-frame
     //- The portrait medallion: experience fills the ring round it, the level
     //- sits in a gold crest on its rim.
-    div.hero-frame__face(:class="{ 'is-rested': hud.rested }")
+    div.hero-frame__face(
+      :class="{ 'is-rested': hud.rested, 'is-open': canOpen }"
+      :role="canOpen ? 'button' : undefined"
+      :tabindex="canOpen ? 0 : undefined"
+      :aria-label="canOpen ? t('menu.character') : undefined"
+      data-hero-face
+      @click="openSheet"
+      @keydown.enter.prevent="openSheet"
+    )
       svg.xpring(
         viewBox="0 0 100 100"
         role="meter"
@@ -79,7 +87,7 @@
 import { computed, onUnmounted, ref, watch } from 'vue'
 import { useI18n } from 'vue-i18n'
 import { hud } from '@/game/state/hud'
-import { flow } from '@/game/flow'
+import { flow, openCharacter } from '@/game/flow'
 import { profile } from '@/game/state/profile'
 import { POINTS_PER_LEVEL } from '@/game/data/attributes'
 import FBar from '@/components/atoms/FBar.vue'
@@ -110,6 +118,10 @@ const BURST = Array.from({ length: 24 }, (_, i) => {
 /** In a fight the levels gained are banked at its end: the points to spend
  *  are the banked ones plus three for every level the fight has added. */
 const pending = computed(() => flow.screen !== 'zone' ? 0 : profile.hero.points + Math.max(0, hud.level - profile.level) * POINTS_PER_LEVEL)
+
+/** The portrait (and its points badge) open the attributes sheet, in a level too. */
+const canOpen = computed(() => flow.screen === 'zone' && !flow.modal && !flow.talk && !flow.loading)
+const openSheet = (): void => { if (canOpen.value) openCharacter() }
 
 /** A level gained mid-fight: the number on the rim pops (roadmap #6). Entering
  *  a zone only brings the HUD up to the saved level, which is not a level-up. */
@@ -142,6 +154,10 @@ onUnmounted(() => clearTimeout(popTimer))
 
 // ── The medallion ────────────────────────────────────────────────────────────
 .hero-frame__face
+  &.is-open
+    pointer-events: auto
+    cursor: pointer
+    touch-action: manipulation
   --face: max(36px, calc(clamp(2.9rem, 13vmin, 4.6rem) * var(--hud-s, 1)))
   position: relative
   width: var(--face)

@@ -450,8 +450,8 @@ export default {
     hint: {
       levers: 'Tire le levier d\'une catapulte, ou glisse-toi sous le bélier et pousse.',
       idle: 'Approche-toi d\'un levier de catapulte lumineux, ou place-toi sous le bélier pour le pousser.',
-      push: 'Continue ! Tape les touches de déplacement pour pousser le bélier plus vite.',
-      pushTouch: 'Continue ! Actionne le joystick pour pousser le bélier plus vite.'
+      push: 'Continue ! Appuie sur n’importe quelle touche de déplacement, dans n’importe quelle direction, pour pousser le bélier plus vite.',
+      pushTouch: 'Continue ! Agite le stick dans n’importe quelle direction pour pousser le bélier plus vite.'
     },
     toast: {
       tower: 'Une tour s\'effondre !',
@@ -7703,6 +7703,7 @@ export default {
     hydraSpawn: 'Rejeton d\'hydre'
   },
   results: {
+    spend: 'Dépenser les points ({n})',
     careful: 'Victoire prudente ×{mult}',
     victory: 'Victoire !',
     defeat: 'Défaite',

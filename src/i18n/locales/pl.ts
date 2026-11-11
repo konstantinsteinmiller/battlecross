@@ -450,8 +450,8 @@ export default {
     hint: {
       levers: 'Pociągnij dźwignię katapulty albo wejdź pod taran i pchaj.',
       idle: 'Podejdź do świecącej dźwigni katapulty albo stań pod taranem, by go pchać.',
-      push: 'Dalej! Naciskaj klawisze ruchu, by pchać taran szybciej.',
-      pushTouch: 'Dalej! Poruszaj gałką, by pchać taran szybciej.'
+      push: 'Dalej! Naciskaj dowolny klawisz ruchu, w dowolnym kierunku, by szybciej pchać taran.',
+      pushTouch: 'Dalej! Poruszaj gałką w dowolnym kierunku, by szybciej pchać taran.'
     },
     toast: {
       tower: 'Wieża pada!',
@@ -7753,6 +7753,7 @@ export default {
     hydraSpawn: 'Pomiot hydry'
   },
   results: {
+    spend: 'Wydaj punkty ({n})',
     careful: 'Ostrożne zwycięstwo ×{mult}',
     victory: 'Zwycięstwo!',
     defeat: 'Porażka',

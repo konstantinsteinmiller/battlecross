@@ -450,8 +450,8 @@ export default {
     hint: {
       levers: 'Tira de la palanca de una catapulta, o métete bajo el ariete y empuja.',
       idle: 'Acércate a una palanca de catapulta brillante, o ponte bajo el ariete para empujarlo.',
-      push: '¡Sigue! Pulsa las teclas de movimiento para empujar el ariete más rápido.',
-      pushTouch: '¡Sigue! Mueve el joystick para empujar el ariete más rápido.'
+      push: '¡Sigue! Pulsa cualquier tecla de movimiento, en cualquier dirección, para empujar el ariete más rápido.',
+      pushTouch: '¡Sigue! Mueve el stick en cualquier dirección para empujar el ariete más rápido.'
     },
     toast: {
       tower: '¡Cae una torre!',
@@ -7704,6 +7704,7 @@ export default {
     hydraSpawn: 'Engendro de hidra'
   },
   results: {
+    spend: 'Gastar puntos ({n})',
     careful: 'Victoria cuidadosa ×{mult}',
     victory: '¡Victoria!',
     defeat: 'Derrota',

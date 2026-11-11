@@ -449,8 +449,8 @@ export default {
     hint: {
       levers: 'Tarik tuas ketapel, atau masuk ke bawah alat pendobrak lalu dorong.',
       idle: 'Dekati tuas ketapel yang bersinar, atau berdiri di bawah alat pendobrak untuk mendorongnya.',
-      push: 'Terus! Tekan tombol gerak agar pendobrak melaju lebih cepat.',
-      pushTouch: 'Terus! Gerakkan tongkat jempol agar pendobrak melaju lebih cepat.'
+      push: 'Terus! Tekan tombol gerak apa saja, ke arah mana saja, untuk mendorong alat pendobrak lebih cepat.',
+      pushTouch: 'Terus! Gerakkan tongkat ke arah mana saja untuk mendorong alat pendobrak lebih cepat.'
     },
     toast: {
       tower: 'Sebuah menara runtuh!',
@@ -7652,6 +7652,7 @@ export default {
     hydraSpawn: 'Keturunan Hidra'
   },
   results: {
+    spend: 'Gunakan poin ({n})',
     careful: 'Kemenangan hati-hati ×{mult}',
     victory: 'Menang!',
     defeat: 'Kalah',
