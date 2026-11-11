@@ -88,8 +88,8 @@ import { emitCrumbs, findChest, finder, peekOffset } from '../coach/nudgeFx'
 import { BOARD, BOARD_REACH } from '../townTasks'
 import { isDummy, spawnDummy, stepDummy } from '../coach/dummy'
 import { armMentor, boostOpeningFoes, stepMentor, syncHeroSkills } from '../coach/mentor'
-import { placeMiner, stepMiner } from '../coach/miner'
 import { MENTOR_SKILL } from '../data/mentor'
+import { isKitLevel, kitEase } from '../coach/kitEase'
 import { grantMercy, stepRelief, TUTORIAL_CHARGED_CAP, potionStopDue, potionStopOver, stepMercy } from '../coach/tutorialAid'
 import { setTruce, watchTruce } from '../sim/truce'
 import { markRevealUsed } from '../coach/reveal'
@@ -465,6 +465,13 @@ export class ZoneMode implements GameMode {
     // The campaign's Frostlands and Temple hold more than their level band says (the invaded ones have their own multipliers).
     const harder = setup.kind === 'zone' && !setup.invaded && setup.zone ? CAMPAIGN_HARDER[setup.zone] : undefined
     if (harder) { sim.enemyHpMul *= harder.hp; sim.enemyDmgMul *= harder.dmg }
+    // The foes meet the hero's kit: fewer skills learned than the level is tuned for, softer foes (`coach/kitEase.ts`).
+    const kitLevel = setup.kind === 'zone' && !setup.invaded ? (setup.tutorial ? 'plains' : setup.zone) : undefined
+    if (isKitLevel(kitLevel)) {
+      const e = kitEase(kitLevel, profile.hero.learned.length)
+      sim.enemyDmgMul *= e.dmg
+      sim.enemyHpMul *= e.hp
+    }
     applyPlan(sim, plan)
     createHero(sim, {
       build: heroBuild(), skills: loadoutActive(), x: plan.start.x, z: plan.start.z, xpInto: profile.hero.xp,
@@ -505,8 +512,8 @@ export class ZoneMode implements GameMode {
     if (setup.dragonAlly) summonDragonAlly(sim)
     // The road teacher (#136) walks into the opening fight once its first pack is down.
     if (setup.kind === 'zone' && setup.tutorial && !profile.hero.learned.includes(MENTOR_SKILL)) armMentor(sim)
-    // The opening level's one ore rock has a miner at it (#195): the one to ask about smithing.
-    if (setup.kind === 'zone' && setup.tutorial) placeMiner(sim)
+    // Brann at the opening level's ore rock (#195) is not in the scene any more: a second person to talk to, mid-fight, took
+    // the first-timer's eyes off the action (the playtests' early leavers). Smithing is taught in Sunford (`sunfordSmith`).
     // An escort (#85): what the visit is about, said once at the start.
     if (setup.escort) pushHud({ t: 'toast', key: 'escort.start' })
     sim.events.length = 0
@@ -1392,7 +1399,6 @@ export class ZoneMode implements GameMode {
     // The dummy knocked apart (or walked past): the opening beat is done for good.
     if (stepDummy(this.sim)) markTip('dummy')
     stepMentor(this.sim, simDt)
-    if (this.setup.tutorial) stepMiner(this.sim, this.talkOn)
     // A skill learned on the way (hers) joins the hero in the scene at once.
     if (profile.hero.learned.length !== this.learnedN) {
       this.learnedN = profile.hero.learned.length
