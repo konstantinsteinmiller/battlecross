@@ -637,6 +637,10 @@ export const initProfile = (): void => {
   watch(saveDataVersion, () => loadProfile())
 }
 
+/** The tutorial level is the plains until they have been cleared once: its deaths cost nothing and its big blows are softened. */
+export const TUTORIAL_NODE = 'plains'
+export const tutorialLevelOpen = (): boolean => !profile.world.cleared.includes(TUTORIAL_NODE)
+
 /** Has this save ever been played? (A first-timer boots into the opening fight.) */
 export const isFreshProfile = (): boolean =>
   profile.level <= 1 && profile.story === 0 && profile.questsDone === 0 && profile.stats.runs === 0 && profile.stats.kills === 0

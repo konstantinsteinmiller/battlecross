@@ -12,6 +12,7 @@ import { finishMine } from './ores'
 import { stepPickups, stepPieceDrop } from './herbs'
 import { holdCaged, stepCaptives } from './cages'
 import { stepCamp, stepHelp } from './camp'
+import { stepRescue } from './rescue'
 import { stepGate } from './gate'
 import { stepAssault } from './assault'
 import { stepRebels } from './rebels'
@@ -87,7 +88,7 @@ export const stepSim = (sim: Sim, plan: ZonePlan, dt: number): void => {
   // A cage's freed people (#100): out, a word, and off home.
   if (sim.captives.length) stepCaptives(sim, dt)
   // The first visit's camp (#156): the road teacher walks over once the boss is down.
-  if (sim.camp) { stepCamp(sim, dt); stepHelp(sim, dt) }
+  if (sim.camp) { stepCamp(sim, dt); stepHelp(sim, dt); stepRescue(sim) }
   // Rested (#9): the double-XP pool drains with fight time, never in town.
   const h = sim.hero
   if (h && h.rested > 0 && !sim.ended && sim.mode !== 'town') h.rested = Math.max(0, h.rested - dt)

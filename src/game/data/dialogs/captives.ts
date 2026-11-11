@@ -51,6 +51,6 @@ export const CAPTIVE_BARKS: readonly ConversationDef[] = [
   // The first visit's camp (#156): Ser Aldric thanks the hero for the three of them
   // and offers their lessons (`sim/camp.ts`, CAMP_THANKS); freed on the burned road in
   // the afterplay (#164), he sends the hero to the fort.
-  freed('trainerAegis', 'trainerAegis', 'proud', ['freed', 'road']),
+  freed('trainerAegis', 'trainerAegis', 'proud', ['freed', 'road', 'next']),
   freed('sfShadow', 'sfShadow', 'warm', ['road'])
 ]

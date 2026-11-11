@@ -2,6 +2,7 @@
   div.skill-bar(:class="{ 'is-mouse': hud.device === 'mouse', 'is-lite': lite, 'is-wide': wide }")
     //- The dodge roll (every class): beside the bar, nearest the thumb's sweep.
     button.roll(
+      ref="rollBtn"
       type="button"
       data-roll
       :class="{ 'is-ready': rollReady }"
@@ -19,6 +20,9 @@
         template(#badge)
           KeyCap.slot__key(v-if="hud.device === 'mouse'" :code="rollCode")
       span.slot__flash(aria-hidden="true")
+      //- The tutorial's dodge stop: the world waits for this button.
+      span.slot__stop(v-if="hud.rollStop" data-roll-stop role="img" :aria-label="t('hud.rollStop')")
+        GameIcon(name="up")
     //- The six actives. Only filled slots are drawn; `data-skill-slot` keeps
     //- the real slot number for the coach and the keys.
     button.slot(
@@ -88,6 +92,15 @@
       div.potion-spot(v-if="hud.potionStop && spot" data-potion-spot aria-hidden="true")
         span.potion-spot__hole(:style="spot")
         span.potion-spot__text {{ t('hud.potionStop') }}
+    //- The dodge stop's lightbox, the same as the potion's: a hole over the dodge button, the line to read and the key to press.
+    Teleport(to="body")
+      div.potion-spot(v-if="hud.rollStop && rollSpot" data-roll-spot aria-hidden="true")
+        span.potion-spot__hole(:style="rollSpot")
+        span.potion-spot__text
+          | {{ t('hud.rollStop') }}
+          span.roll-spot__keys(v-if="hud.device === 'mouse'")
+            KeyCap.roll-spot__key(:code="rollCode")
+            span.roll-spot__name {{ t('hud.rollStopKey') }}
     //- A new player's mana flask arrives with the first mana potion (`coach/reveal.ts`).
     Transition(name="reveal")
       button.slot.slot--potion.slot--mana(
@@ -286,6 +299,7 @@ onUnmounted(() => {
   removeTicker?.()
   release()
   cancelAnimationFrame(spotRaf)
+  cancelAnimationFrame(rollRaf)
 })
 
 // ── The potion stop's lightbox (#154) ────────────────────────────────────────
@@ -308,6 +322,26 @@ watch(() => hud.potionStop, (on) => {
   cancelAnimationFrame(spotRaf)
   if (on) followSpot()
   else spot.value = null
+}, { immediate: true })
+
+// ── The dodge stop's lightbox ────────────────────────────────────────────────
+const rollBtn = ref<HTMLElement | null>(null)
+const rollSpot = ref<Record<string, string> | null>(null)
+let rollRaf = 0
+const followRollSpot = (): void => {
+  const r = rollBtn.value?.getBoundingClientRect()
+  if (r && r.width > 0) {
+    const pad = r.width * 0.16
+    const next = { left: `${r.left - pad}px`, top: `${r.top - r.height * 1.05}px`, width: `${r.width + pad * 2}px`, height: `${r.height * 2.05 + pad}px` }
+    const s = rollSpot.value
+    if (!s || s.left !== next.left || s.top !== next.top || s.width !== next.width || s.height !== next.height) rollSpot.value = next
+  }
+  if (hud.rollStop) rollRaf = requestAnimationFrame(followRollSpot)
+}
+watch(() => hud.rollStop, (on) => {
+  cancelAnimationFrame(rollRaf)
+  if (on) followRollSpot()
+  else rollSpot.value = null
 }, { immediate: true })
 
 // ── Tap and drag-to-aim ──────────────────────────────────────────────────────
@@ -766,6 +800,14 @@ const onElixirNext = (e: PointerEvent): void => {
   font-weight: 800
   color: var(--bc-gold)
   text-shadow: 0 2px 0 var(--bc-ink), 0 -2px 0 var(--bc-ink), 2px 0 0 var(--bc-ink), -2px 0 0 var(--bc-ink), 0 4px 10px rgba(0, 0, 0, 0.6)
+.roll-spot__keys
+  display: flex
+  align-items: center
+  justify-content: center
+  gap: 0.5em
+  margin-top: 0.5em
+.roll-spot__key
+  font-size: 1.1em
 @keyframes potion-spot-in
   from
     opacity: 0

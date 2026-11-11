@@ -255,6 +255,8 @@ export default {
     potion: 'Can iksiri ({n} qalıb)',
     manaPotion: 'Mana iksiri ({n} qalıb)',
     potionStop: 'Davam etmək üçün sağlamlıq iksiri iç',
+    rollStop: 'Təhlükə zonasından yayın!',
+    rollStopKey: 'Boşluq',
     minimap: 'Şəhər xəritəsi: müəllimlər, tacirlər, dəmirçilər və şəfaçılar',
     groups: '{total} düşmən dəstəsindən {n} məğlub edildi',
     wave: 'Dalğa {n} / {total}',
@@ -476,6 +478,7 @@ export default {
     clear: 'Təmizlə: {place}',
     boss: 'Məğlub et: {foe}',
     campLesson: 'Müəllimlərdən pulsuz bir bacarıq öyrən',
+    choice: 'Sunforddakı Maranın yanına get və ya Qoblin Oyuqlarında Qoblin Kralını məğlub et.',
     rescue: 'Qəfəsdəki müəllimləri azad et',
     exit: 'Qənimətini götür və çıx',
     wave: 'Dalğalardan sağ çıx',
@@ -6320,7 +6323,8 @@ export default {
         freed: {
           '1': 'Bizi quldurlardan xilas etdiyin üçün sağ ol! Ocağa gəl: hamımız sənə öyrədəcəyik, ilk dərs pulsuzdur.'
         },
-        road: { '1': 'Bizi tapdın! İblislər bizi Sanford yolunda tutdular. Qala Keçidinə gedirik: bizi qalada axtar.' }
+        road: { '1': 'Bizi tapdın! İblislər bizi Sanford yolunda tutdular. Qala Keçidinə gedirik: bizi qalada axtar.' },
+        next: { '1': 'Sunforddakı Mara bizi xilas etdiyinə görə səni mükafatlandıracaq. Qoblin Kralı da dayandırılmalıdır. Seçim səninkidir.' }
       },
       sfShadow: {
         road: { '1': 'Nəhayət kimsə gəldi. Qala Keçidinə yollanırıq. Bizi qalada axtar.' }
@@ -7886,6 +7890,7 @@ export default {
     title: 'İkinci nəfəs',
     text: 'Yıxıldın. Canının {n}%-i ilə ayağa qalxıb döyüşü bitirmək istəyirsən?',
     once: 'Hər ziyarətdə bir dəfə.',
+    free: 'Pulsuz',
     watch: 'Video izlə',
     take: 'Yenidən qalx',
     decline: 'Xeyr, sağ ol'

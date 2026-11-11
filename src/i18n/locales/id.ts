@@ -255,6 +255,8 @@ export default {
     potion: 'Ramuan nyawa (sisa {n})',
     manaPotion: 'Ramuan mana (sisa {n})',
     potionStop: 'Minum ramuan kesehatan untuk lanjut',
+    rollStop: 'Berguling keluar dari zona bahaya!',
+    rollStopKey: 'Spasi',
     minimap: 'Peta kota: guru, pedagang, pandai besi, dan tabib',
     groups: '{n} dari {total} kelompok musuh dikalahkan',
     wave: 'Gelombang {n} / {total}',
@@ -476,6 +478,7 @@ export default {
     clear: 'Bersihkan {place}',
     boss: 'Kalahkan {foe}',
     campLesson: 'Pelajari satu skill gratis dari para guru',
+    choice: 'Temui Mara di Sunford atau kalahkan Raja Goblin di Liang Goblin.',
     rescue: 'Bebaskan para guru dalam kurungan',
     exit: 'Ambil jarahan lalu pergi',
     wave: 'Bertahan dari gelombang',
@@ -6320,7 +6323,8 @@ export default {
         freed: {
           '1': 'Terima kasih telah membebaskan kami dari bandit! Ke api unggun: kami semua mengajarimu, pelajaran pertama gratis.'
         },
-        road: { '1': 'Kau menemukan kami! Para iblis menangkap kami di jalan ke Sunford. Kami akan pergi ke Penyeberangan Benteng: temui kami di benteng.' }
+        road: { '1': 'Kau menemukan kami! Para iblis menangkap kami di jalan ke Sunford. Kami akan pergi ke Penyeberangan Benteng: temui kami di benteng.' },
+        next: { '1': 'Mara di Sunford akan memberimu hadiah karena menyelamatkan kami. Raja Goblin juga harus dihentikan. Pilihan ada di tanganmu.' }
       },
       sfShadow: {
         road: { '1': 'Akhirnya ada yang datang. Kami berangkat ke Penyeberangan Benteng. Cari kami di benteng.' }
@@ -7886,6 +7890,7 @@ export default {
     title: 'Napas kedua',
     text: 'Kamu jatuh. Bangkit dengan {n}% kesehatanmu dan selesaikan pertarungan?',
     once: 'Sekali per kunjungan.',
+    free: 'Gratis',
     watch: 'Tonton video',
     take: 'Bangkit lagi',
     decline: 'Tidak, terima kasih'

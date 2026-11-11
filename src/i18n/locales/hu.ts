@@ -255,6 +255,8 @@ export default {
     potion: 'Gyógyital (maradt: {n})',
     manaPotion: 'Manaital (maradt: {n})',
     potionStop: 'Igyál egy gyógyitalt a folytatáshoz',
+    rollStop: 'Gurulj ki a veszélyzónából!',
+    rollStopKey: 'Szóköz',
     minimap: 'Városi térkép: tanítók, kereskedők, kovácsok és gyógyítók',
     groups: 'Legyőzött ellenséges csapatok: {n} / {total}',
     wave: 'Hullám: {n} / {total}',
@@ -476,6 +478,7 @@ export default {
     clear: 'Tisztítsd meg: {place}',
     boss: 'Győzd le: {foe}',
     campLesson: 'Tanulj ingyen egy képességet a tanítóktól',
+    choice: 'Keresd fel Marát Sunfordban, vagy győzd le a Goblinkirályt a Goblinüregekben.',
     rescue: 'Szabadítsd ki a ketrecbe zárt tanítókat',
     exit: 'Vidd a zsákmányt, és indulj',
     wave: 'Éld túl a hullámokat',
@@ -6320,7 +6323,8 @@ export default {
         freed: {
           '1': 'Köszönjük, hogy kiszabadítottál a banditáktól! Gyere a tűzhöz: mind tanítunk, az első lecke ingyenes.'
         },
-        road: { '1': 'Megtaláltál minket! A démonok elkaptak a sunfordi úton. A Bástyagázlóhoz megyünk: keress minket az erődben.' }
+        road: { '1': 'Megtaláltál minket! A démonok elkaptak a sunfordi úton. A Bástyagázlóhoz megyünk: keress minket az erődben.' },
+        next: { '1': 'Mara Sunfordban megjutalmaz a megmentésünkért. A Goblinkirályt is meg kell állítani. A döntés a tiéd.' }
       },
       sfShadow: {
         road: { '1': 'Ideje volt, hogy jöjjön valaki. Indulunk a Bástyagázlóhoz. Az erődben keress minket.' }
@@ -7886,6 +7890,7 @@ export default {
     title: 'Második szél',
     text: 'Elestél. Felállsz az életerőd {n}%-ával, és befejezed a harcot?',
     once: 'Látogatásonként egyszer.',
+    free: 'Ingyenes',
     watch: 'Videó megnézése',
     take: 'Talpra állok',
     decline: 'Nem, kösz'

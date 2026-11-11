@@ -255,6 +255,8 @@ export default {
     potion: 'Mikstura zdrowia (zostało: {n})',
     manaPotion: 'Mikstura many (zostało: {n})',
     potionStop: 'Wypij miksturę zdrowia, aby kontynuować',
+    rollStop: 'Zrób unik i wyjdź ze strefy zagrożenia!',
+    rollStopKey: 'Spacja',
     minimap: 'Mapa miasta: nauczyciele, kupcy, kowale i uzdrowiciele',
     groups: 'Pokonane grupy wrogów: {n} z {total}',
     wave: 'Fala {n} / {total}',
@@ -477,6 +479,7 @@ export default {
     clear: 'Oczyść: {place}',
     boss: 'Pokonaj: {foe}',
     campLesson: 'Naucz się darmowej umiejętności od nauczycieli',
+    choice: 'Idź do Mary w Sunford albo pokonaj Króla Goblinów w Goblińskich Jamach.',
     rescue: 'Uwolnij nauczycieli z klatki',
     exit: 'Weź łup i wyjdź',
     wave: 'Przetrwaj fale',
@@ -6419,7 +6422,8 @@ export default {
         freed: {
           '1': 'Dzięki, że uwolniłeś nas od bandytów! Chodź do ogniska: wszyscy będziemy cię uczyć, pierwsza lekcja za darmo.'
         },
-        road: { '1': 'Znalazłeś nas! Demony złapały nas na drodze do Sunford. Idziemy do Przeprawy Bastionu: szukaj nas w forcie.' }
+        road: { '1': 'Znalazłeś nas! Demony złapały nas na drodze do Sunford. Idziemy do Przeprawy Bastionu: szukaj nas w forcie.' },
+        next: { '1': 'Mara w Sunford nagrodzi cię za nasze ocalenie. Króla Goblinów też trzeba powstrzymać. Wybór należy do ciebie.' }
       },
       sfShadow: {
         road: { '1': 'Najwyższy czas, żeby ktoś przyszedł. Ruszamy do Przeprawy Bastionu. Szukaj nas w forcie.' }
@@ -7988,6 +7992,7 @@ export default {
     text: 'Upadłeś. Wstajesz z {n}% zdrowia i kończysz walkę?',
     text__f: 'Upadłaś. Wstajesz z {n}% zdrowia i kończysz walkę?',
     once: 'Raz na wizytę.',
+    free: 'Za darmo',
     watch: 'Obejrzyj film',
     take: 'Wstań',
     decline: 'Nie, dzięki'

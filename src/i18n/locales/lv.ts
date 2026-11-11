@@ -255,6 +255,8 @@ export default {
     potion: 'Veselības dzira (atlikušas: {n})',
     manaPotion: 'Manas dzira (atlikušas: {n})',
     potionStop: 'Izdzer veselības dziru, lai turpinātu',
+    rollStop: 'Izvairies no bīstamās zonas!',
+    rollStopKey: 'Atstarpe',
     minimap: 'Pilsētas karte: skolotāji, tirgotāji, kalēji un dziednieki',
     groups: 'Sakautas ienaidnieku grupas: {n} no {total}',
     wave: 'Vilnis {n} / {total}',
@@ -476,6 +478,7 @@ export default {
     clear: 'Iztīri: {place}',
     boss: 'Uzvari: {foe}',
     campLesson: 'Apgūsti bezmaksas prasmi pie skolotājiem',
+    choice: 'Dodies pie Maras Sanfordā vai uzvari Goblinu karali Goblinu alās.',
     rescue: 'Atbrīvo būrī ieslodzītos skolotājus',
     exit: 'Ņem laupījumu un dodies prom',
     wave: 'Izturi vilņus',
@@ -6392,7 +6395,8 @@ export default {
         freed: {
           '1': 'Paldies, ka atbrīvoji mūs no laupītājiem! Nāc pie ugunskura: mēs visi tevi mācīsim, pirmā nodarbība par brīvu.'
         },
-        road: { '1': 'Tu mūs atradi! Dēmoni mūs noķēra ceļā uz Sanfordu. Dodamies uz Bastiona braslu: meklē mūs cietoksnī.' }
+        road: { '1': 'Tu mūs atradi! Dēmoni mūs noķēra ceļā uz Sanfordu. Dodamies uz Bastiona braslu: meklē mūs cietoksnī.' },
+        next: { '1': 'Mara Sanfordā tevi apbalvos par mūsu glābšanu. Goblinu karali arī jāapturē. Izvēle ir tava.' }
       },
       sfShadow: {
         road: { '1': 'Beidzot kāds atnāca. Mēs dodamies uz Bastiona braslu. Meklē mūs cietoksnī.' }
@@ -7962,6 +7966,7 @@ export default {
     title: 'Otrā elpa',
     text: 'Tu nokriti. Piecelties ar {n}% veselības un pabeigt cīņu?',
     once: 'Vienu reizi katrā apmeklējumā.',
+    free: 'Bezmaksas',
     watch: 'Skatīties video',
     take: 'Piecelties',
     decline: 'Nē, paldies'

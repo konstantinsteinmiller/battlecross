@@ -255,6 +255,8 @@ export default {
     potion: 'Poción de vida (quedan {n})',
     manaPotion: 'Poción de maná (quedan {n})',
     potionStop: 'Bebe una poción de salud para continuar',
+    rollStop: '¡Esquiva fuera de la zona de peligro!',
+    rollStopKey: 'Espacio',
     minimap: 'Mapa del pueblo: maestros, comerciantes, herreros y curanderos',
     groups: '{n} de {total} grupos de enemigos derrotados',
     wave: 'Oleada {n} / {total}',
@@ -477,6 +479,7 @@ export default {
     clear: 'Despeja {place}',
     boss: 'Derrota a {foe}',
     campLesson: 'Aprende una habilidad gratis de los maestros',
+    choice: 'Ve con Mara a Sunford o derrota al Rey Goblin en las Hondonadas Goblin.',
     rescue: 'Libera a los maestros enjaulados',
     exit: 'Coge el botín y sal',
     wave: 'Sobrevive a las oleadas',
@@ -6370,7 +6373,8 @@ export default {
         freed: {
           '1': '¡Gracias por librarnos de los bandidos! Ven junto al fuego: todos te enseñaremos, y la primera lección es gratis.'
         },
-        road: { '1': '¡Nos has encontrado! Los demonios nos atraparon en el camino de Sunford. Iremos al Paso del Bastión: búscanos en el fuerte.' }
+        road: { '1': '¡Nos has encontrado! Los demonios nos atraparon en el camino de Sunford. Iremos al Paso del Bastión: búscanos en el fuerte.' },
+        next: { '1': 'Mara, en Sunford, premiará tu bondad al salvarnos. También hay que detener al Rey Goblin. Tú eliges.' }
       },
       sfShadow: {
         road: { '1': 'Ya era hora de que alguien viniera. Nos vamos al Paso del Bastión. Búscanos en el fuerte.' }
@@ -7938,6 +7942,7 @@ export default {
     title: 'Segundo aliento',
     text: 'Caíste. ¿Te levantas con el {n}% de tu salud y terminas el combate?',
     once: 'Una vez por visita.',
+    free: 'Gratis',
     watch: 'Ver un vídeo',
     take: 'Levantarte',
     decline: 'No, gracias'

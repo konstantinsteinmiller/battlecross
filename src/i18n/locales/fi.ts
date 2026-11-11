@@ -255,6 +255,8 @@ export default {
     potion: 'Terveysjuoma ({n} jäljellä)',
     manaPotion: 'Manajuoma ({n} jäljellä)',
     potionStop: 'Juo terveysjuoma jatkaaksesi',
+    rollStop: 'Väistä pois vaaravyöhykkeeltä!',
+    rollStopKey: 'Välilyönti',
     minimap: 'Kaupungin kartta: opettajat, kauppiaat, sepät ja parantajat',
     groups: '{n} / {total} vihollisryhmää voitettu',
     wave: 'Aalto {n} / {total}',
@@ -476,6 +478,7 @@ export default {
     clear: 'Puhdista {place}',
     boss: 'Kukista {foe}',
     campLesson: 'Opi ilmainen taito opettajilta',
+    choice: 'Mene Maran luo Sunfordiin tai kukista Hiisikuningas Hiisien onkaloissa.',
     rescue: 'Vapauta häkkiin suljetut opettajat',
     exit: 'Ota saalis ja lähde',
     wave: 'Selviydy aalloista',
@@ -6320,7 +6323,8 @@ export default {
         freed: {
           '1': 'Kiitos, että vapautit meidät rosvoilta! Tule nuotiolle: opetamme sinua kaikki, ensimmäinen oppitunti ilmaiseksi.'
         },
-        road: { '1': 'Löysit meidät! Demonit nappasivat meidät Sunfordin tiellä. Lähdemme Bastionin ylityspaikalle: etsi meidät linnakkeesta.' }
+        road: { '1': 'Löysit meidät! Demonit nappasivat meidät Sunfordin tiellä. Lähdemme Bastionin ylityspaikalle: etsi meidät linnakkeesta.' },
+        next: { '1': 'Mara Sunfordissa palkitsee sinut pelastuksestamme. Hiisikuningas on myös pysäytettävä. Valinta on sinun.' }
       },
       sfShadow: {
         road: { '1': 'Olipa jo aikakin, että joku tuli. Lähdemme Bastionin ylityspaikalle. Etsi meitä linnakkeesta.' }
@@ -7886,6 +7890,7 @@ export default {
     title: 'Toinen tuuli',
     text: 'Kaaduit. Nouset ylös {n} %:lla terveydestäsi ja viet taistelun loppuun?',
     once: 'Kerran per käynti.',
+    free: 'Ilmainen',
     watch: 'Katso video',
     take: 'Nouse takaisin',
     decline: 'Ei kiitos'

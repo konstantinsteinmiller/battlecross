@@ -255,6 +255,8 @@ export default {
     potion: 'Gyvybės eliksyras (liko: {n})',
     manaPotion: 'Manos eliksyras (liko: {n})',
     potionStop: 'Išgerk gyvybės eliksyrą, kad tęstum',
+    rollStop: 'Išsisuk iš pavojaus zonos!',
+    rollStopKey: 'Tarpas',
     minimap: 'Miesto žemėlapis: mokytojai, pirkliai, kalviai ir gydytojai',
     groups: 'Įveikta priešų grupių: {n} iš {total}',
     wave: 'Banga {n} / {total}',
@@ -476,6 +478,7 @@ export default {
     clear: 'Išvalyk: {place}',
     boss: 'Nugalėk: {foe}',
     campLesson: 'Išmok nemokamą įgūdį iš mokytojų',
+    choice: 'Eik pas Marą į Sunfordą arba nugalėk Goblinų karalių Goblinų urvuose.',
     rescue: 'Išlaisvink narve uždarytus mokytojus',
     exit: 'Pasiimk grobį ir išeik',
     wave: 'Atlaikyk bangas',
@@ -6379,7 +6382,8 @@ export default {
         freed: {
           '1': 'Ačiū, kad išlaisvinai mus iš banditų! Ateik prie laužo: mokysime tave visi, pirmoji pamoka nemokama.'
         },
-        road: { '1': 'Tu mus radai! Demonai sugavo mus kelyje į Sanfordą. Keliaujame į Bastiono brastą: ieškok mūsų tvirtovėje.' }
+        road: { '1': 'Tu mus radai! Demonai sugavo mus kelyje į Sanfordą. Keliaujame į Bastiono brastą: ieškok mūsų tvirtovėje.' },
+        next: { '1': 'Mara Sunforde apdovanos tave už mūsų išgelbėjimą. Goblinų karalių taip pat reikia sustabdyti. Pasirinkimas tavo.' }
       },
       sfShadow: {
         road: { '1': 'Pagaliau kažkas atėjo. Išeiname į Bastiono brastą. Ieškok mūsų tvirtovėje.' }
@@ -7948,6 +7952,7 @@ export default {
     title: 'Antras kvėpavimas',
     text: 'Griuvai. Atsistoji su {n}% sveikatos ir baigi kovą?',
     once: 'Vieną kartą per apsilankymą.',
+    free: 'Nemokamai',
     watch: 'Žiūrėti vaizdo įrašą',
     take: 'Atsistoti',
     decline: 'Ne, ačiū'

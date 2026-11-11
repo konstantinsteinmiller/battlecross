@@ -152,7 +152,7 @@ export const orderMove = (sim: Sim, x: number, z: number): void => {
   h.order.z = z
   h.queued = null
   h.unit.targetId = 0
-  cancelSwing(h.unit)
+  cancelSwing(h.unit, sim)
   setGoal(sim, h.unit, x, z)
 }
 
@@ -182,9 +182,10 @@ export const setStick = (sim: Sim, x: number, z: number): void => {
   sim.hero.stickZ = z
 }
 
-/** A basic swing that has not landed yet is dropped when the hero moves. */
-const cancelSwing = (u: Unit): void => {
+/** A basic swing that has not landed yet is dropped when the hero moves (`sim`: the drop is counted, for the tutorial's relief). */
+const cancelSwing = (u: Unit, sim?: Sim): void => {
   if (u.action && u.action.id === 'attack' && !u.action.done) {
+    if (sim) sim.swingCancels++
     u.action = null
     u.attackCd = Math.min(u.attackCd, 0.15)
   }
@@ -482,7 +483,7 @@ export const stepHero = (sim: Sim, dt: number): void => {
   if (u.action) {
     // A skill's wind-up roots him; a basic swing gives way to the stick. A
     // chest's lid and the pickaxe do not (#99): once begun, they finish.
-    if (u.action.id === 'attack' && stick > 0.2) cancelSwing(u)
+    if (u.action.id === 'attack' && stick > 0.2) cancelSwing(u, sim)
     else return
   }
 

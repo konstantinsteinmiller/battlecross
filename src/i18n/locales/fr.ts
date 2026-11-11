@@ -255,6 +255,8 @@ export default {
     potion: 'Potion de soin (reste : {n})',
     manaPotion: 'Potion de mana (reste : {n})',
     potionStop: 'Bois une potion de soin pour continuer',
+    rollStop: 'Esquive hors de la zone de danger !',
+    rollStopKey: 'Espace',
     minimap: 'Plan de la ville : maîtres, marchands, forgerons et guérisseurs',
     groups: '{n} groupes d’ennemis vaincus sur {total}',
     wave: 'Vague {n} / {total}',
@@ -477,6 +479,7 @@ export default {
     clear: 'Nettoie {place}',
     boss: 'Bats {foe}',
     campLesson: 'Apprends une compétence gratuite auprès des maîtres',
+    choice: 'Va voir Mara à Sunford ou bats le Roi gobelin dans les Cavernes gobelines.',
     rescue: 'Libère les maîtres en cage',
     exit: 'Prends ton butin et pars',
     wave: 'Survis aux vagues',
@@ -6369,7 +6372,8 @@ export default {
         freed: {
           '1': 'Merci de nous avoir délivrés des bandits ! Viens près du feu : nous t\'apprendrons tous, première leçon offerte.'
         },
-        road: { '1': 'Tu nous as trouvés ! Les démons nous ont pris sur la route de Sunford. Nous partons pour Gué-du-Bastion : retrouve-nous au fort.' }
+        road: { '1': 'Tu nous as trouvés ! Les démons nous ont pris sur la route de Sunford. Nous partons pour Gué-du-Bastion : retrouve-nous au fort.' },
+        next: { '1': 'Mara, à Sunford, te récompensera de nous avoir sauvés. Le Roi gobelin doit aussi être arrêté. À toi de choisir.' }
       },
       sfShadow: {
         road: { '1': 'Il était temps que quelqu’un vienne. Nous filons à Gué-du-Bastion. Cherche-nous au fort.' }
@@ -7938,6 +7942,7 @@ export default {
     title: 'Second souffle',
     text: 'Tu es à terre. Te relever avec {n} % de ta santé et finir le combat ?',
     once: 'Une fois par visite.',
+    free: 'Gratuit',
     watch: 'Regarder une vidéo',
     take: 'Se relever',
     decline: 'Non merci'

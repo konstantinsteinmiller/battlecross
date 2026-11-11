@@ -7,6 +7,7 @@ import { dummyBeat, dummyOf } from './dummy'
 import { mentorCue, mentorUnit } from './mentor'
 import { MENTOR_NPC, ROAD_NPCS } from '../data/mentor'
 import { nextObjective, openBranches } from '../sim/route'
+import { gateGoal } from '../sim/gate'
 
 /**
  * ─── Where the next objective stands, in the scene (roadmap #69) ─────────────
@@ -21,7 +22,7 @@ import { nextObjective, openBranches } from '../sim/route'
  * `nudgeWorld` (plain numbers, not reactive) for the layers and the pacing.
  */
 
-export interface Objective { x: number; z: number; kind: 'dummy' | 'pack' | 'boss' | 'trainer' | 'caravan'; npc?: string }
+export interface Objective { x: number; z: number; kind: 'dummy' | 'pack' | 'boss' | 'trainer' | 'caravan' | 'key'; npc?: string }
 
 const TEACHERS = new Map<string, ClassId | undefined>()
 for (const t of Object.values(TOWNS)) for (const n of t.npcs) if (n.role === 'trainer') TEACHERS.set(n.id, n.cls)
@@ -61,6 +62,9 @@ export const objectiveOf = (sim: Sim, goal: string): Objective | null => {
     return c ? { x: c.x, z: c.z, kind: 'caravan' } : null
   }
   if (goal === 'clear' || goal === 'boss') {
+    // The palisade before the boss (#194): once its pack has fallen the marker is the silver key, then the gate it opens.
+    const gate = gateGoal(sim)
+    if (gate) return { x: gate.x, z: gate.z, kind: 'key' }
     // The main road, pack by pack (`sim/route.ts`: never into a branch).
     const o = nextObjective(sim, u)
     return o.kind === 'pack' || o.kind === 'boss' ? { x: o.x, z: o.z, kind: o.kind } : null

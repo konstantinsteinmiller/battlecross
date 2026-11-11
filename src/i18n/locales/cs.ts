@@ -255,6 +255,8 @@ export default {
     potion: 'Lektvar zdraví (zbývá {n})',
     manaPotion: 'Lektvar many (zbývá {n})',
     potionStop: 'Vypij lektvar zdraví a pokračuj',
+    rollStop: 'Uhni se z nebezpečné zóny!',
+    rollStopKey: 'Mezerník',
     minimap: 'Mapa města: učitelé, obchodníci, kováři a léčitelé',
     groups: 'Poražené skupiny nepřátel: {n} z {total}',
     wave: 'Vlna {n} / {total}',
@@ -479,6 +481,7 @@ export default {
     clear: 'Vyčisti: {place}',
     boss: 'Poraž: {foe}',
     campLesson: 'Nauč se zdarma dovednost od učitelů',
+    choice: 'Zajdi za Marou do Sunfordu, nebo poraz Krále goblinů v Gobliních slujích.',
     rescue: 'Osvoboď učitele z klece',
     exit: 'Vezmi kořist a odejdi',
     wave: 'Přežij vlny',
@@ -6419,7 +6422,8 @@ export default {
         freed: {
           '1': 'Díky, žes nás vysvobodil od banditů! Pojď k ohni: všichni tě budeme učit, první lekce zdarma.'
         },
-        road: { '1': 'Našel jsi nás! Démoni nás chytili na cestě do Sunfordu. Míříme do Baštového brodu: najdi nás v pevnosti.' }
+        road: { '1': 'Našel jsi nás! Démoni nás chytili na cestě do Sunfordu. Míříme do Baštového brodu: najdi nás v pevnosti.' },
+        next: { '1': 'Mara v Sunfordu tě odmění za naši záchranu. Krále goblinů je také třeba zastavit. Volba je na tobě.' }
       },
       sfShadow: {
         road: { '1': 'Bylo načase, že někdo přišel. Jdeme do Baštového brodu. Hledej nás v pevnosti.' }
@@ -7988,6 +7992,7 @@ export default {
     text: 'Upadl jsi. Vstaneš s {n} % zdraví a dobojuješ souboj?',
     text__f: 'Upadla jsi. Vstaneš s {n} % zdraví a dobojuješ souboj?',
     once: 'Jednou za návštěvu.',
+    free: 'Zdarma',
     watch: 'Podívat se na video',
     take: 'Vstát',
     decline: 'Ne, díky'

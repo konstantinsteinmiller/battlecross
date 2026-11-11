@@ -35,7 +35,7 @@
  */
 import { computed, ref, watch } from 'vue'
 import { useI18n } from 'vue-i18n'
-import { flow, askLeave } from '@/game/flow'
+import { flow, askLeave, rescueTeachers } from '@/game/flow'
 import { onboard } from '@/game/coach/state'
 import { pointToGoal } from '@/game/coach/onboarding'
 import type { GoalId } from '@/game/coach/goal'
@@ -48,7 +48,7 @@ import type { GameIconName } from '@/components/icons/iconNames'
 const { t } = useI18n()
 
 const ICON: Record<GoalId, GameIconName> = {
-  dummy: 'sword', clear: 'sword', boss: 'skull', rescue: 'unlock', campLesson: 'book', exit: 'forward', wave: 'trophy', fight: 'sword', escort: 'shield',
+  dummy: 'sword', clear: 'sword', boss: 'skull', rescue: 'unlock', campLesson: 'book', choice: 'map', exit: 'forward', wave: 'trophy', fight: 'sword', escort: 'shield',
   trainer: 'chat', learn: 'book', points: 'plus', leave: 'map', travel: 'map', decide: 'chat', explore: 'map', mara: 'chat'
 }
 
@@ -105,6 +105,8 @@ const show = (): void => {
     askLeave(goal.value.place as NodeId)
     return
   }
+  // "Free the caged teachers": the hero walks to the gold key, then to the cage and opens it.
+  if (goal.value?.id === 'rescue' && rescueTeachers()) return
   pointToGoal()
 }
 </script>

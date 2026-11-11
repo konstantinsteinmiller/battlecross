@@ -255,6 +255,8 @@ export default {
     potion: 'Poțiune de viață (rămase: {n})',
     manaPotion: 'Poțiune de mană (rămase: {n})',
     potionStop: 'Bea o poțiune de viață ca să continui',
+    rollStop: 'Ferește-te din zona de pericol!',
+    rollStopKey: 'Spațiu',
     minimap: 'Harta orașului: maeștri, negustori, fierari și vindecători',
     groups: '{n} din {total} grupuri de inamici învinse',
     wave: 'Valul {n} / {total}',
@@ -476,6 +478,7 @@ export default {
     clear: 'Curăță {place}',
     boss: 'Învinge: {foe}',
     campLesson: 'Învață o abilitate gratuită de la profesori',
+    choice: 'Mergi la Mara în Sunford sau învinge-l pe Regele Goblin în Văgăunile Goblinilor.',
     rescue: 'Eliberează profesorii din cușcă',
     exit: 'Ia prada și pleacă',
     wave: 'Supraviețuiește valurilor',
@@ -6362,7 +6365,8 @@ export default {
         freed: {
           '1': 'Mulțumim că ne-ai scăpat de bandiți! Vino la foc: te vom învăța toți, prima lecție e gratuită.'
         },
-        road: { '1': 'Ne-ai găsit! Demonii ne-au prins pe drumul spre Sunford. Mergem la Vadul Bastionului: caută-ne în fort.' }
+        road: { '1': 'Ne-ai găsit! Demonii ne-au prins pe drumul spre Sunford. Mergem la Vadul Bastionului: caută-ne în fort.' },
+        next: { '1': 'Mara din Sunford te va răsplăti pentru salvarea noastră. Și Regele Goblin trebuie oprit. Alegerea e a ta.' }
       },
       sfShadow: {
         road: { '1': 'Era și timpul să vină cineva. Plecăm spre Vadul Bastionului. Caută-ne în fort.' }
@@ -7930,6 +7934,7 @@ export default {
     title: 'A doua suflare',
     text: 'Ai căzut. Te ridici cu {n}% din sănătate și termini lupta?',
     once: 'O dată pe vizită.',
+    free: 'Gratuit',
     watch: 'Vezi un videoclip',
     take: 'Ridică-te',
     decline: 'Nu, mulțumesc'

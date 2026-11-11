@@ -255,6 +255,8 @@ export default {
     potion: 'Bình máu (còn {n})',
     manaPotion: 'Bình mana (còn {n})',
     potionStop: 'Uống bình máu để tiếp tục',
+    rollStop: 'Lăn ra khỏi vùng nguy hiểm!',
+    rollStopKey: 'Phím cách',
     minimap: 'Bản đồ thị trấn: thầy dạy, thương nhân, thợ rèn và thầy thuốc',
     groups: 'Đã hạ {n} trên {total} nhóm địch',
     wave: 'Đợt {n} / {total}',
@@ -476,6 +478,7 @@ export default {
     clear: 'Dọn sạch {place}',
     boss: 'Hạ gục {foe}',
     campLesson: 'Học miễn phí một kỹ năng từ các sư phụ',
+    choice: 'Hãy đến gặp Mara ở Sunford hoặc đánh bại Vua Goblin ở Hang Goblin.',
     rescue: 'Giải cứu các sư phụ bị nhốt trong lồng',
     exit: 'Lấy chiến lợi phẩm rồi đi',
     wave: 'Sống sót qua các đợt',
@@ -6320,7 +6323,8 @@ export default {
         freed: {
           '1': 'Cảm ơn đã cứu chúng ta khỏi lũ cướp! Lại bên đống lửa: tất cả sẽ dạy ngươi, bài học đầu miễn phí.'
         },
-        road: { '1': 'Ngươi tìm thấy chúng ta rồi! Lũ quỷ bắt chúng ta trên đường tới Sunford. Chúng ta sẽ tới Ải Thành Lũy: hãy tìm chúng ta ở pháo đài.' }
+        road: { '1': 'Ngươi tìm thấy chúng ta rồi! Lũ quỷ bắt chúng ta trên đường tới Sunford. Chúng ta sẽ tới Ải Thành Lũy: hãy tìm chúng ta ở pháo đài.' },
+        next: { '1': 'Mara ở Sunford sẽ thưởng cho bạn vì đã cứu chúng tôi. Vua Goblin cũng phải bị ngăn chặn. Lựa chọn là của bạn.' }
       },
       sfShadow: {
         road: { '1': 'Cuối cùng cũng có người tới. Chúng ta đi Ải Thành Lũy đây. Tìm chúng ta ở pháo đài nhé.' }
@@ -7886,6 +7890,7 @@ export default {
     title: 'Hơi thở thứ hai',
     text: 'Bạn đã ngã xuống. Đứng dậy với {n}% máu và kết thúc trận đấu nhé?',
     once: 'Mỗi lượt vào chơi một lần.',
+    free: 'Miễn phí',
     watch: 'Xem video',
     take: 'Đứng dậy',
     decline: 'Không, cảm ơn'

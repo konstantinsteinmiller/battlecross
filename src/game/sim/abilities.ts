@@ -118,7 +118,9 @@ const BARRAGE_WARN = 0.95
 const strike = (sim: Sim, u: Unit, a: AbilityDef, t: Unit, mul = 1): void => {
   // A charged blow is a share of the target's health, not of the attacker's hit (#147).
   // A structure (the siege's gate, a ballista) is not a fighter: it takes the plain heavy blow.
-  const base = a.pct && t.rank !== 'turret' ? t.s.maxHp * a.pct * mul : u.s.baseDmg * (a.dmg ?? 1) * mul
+  let base = a.pct && t.rank !== 'turret' ? t.s.maxHp * a.pct * mul : u.s.baseDmg * (a.dmg ?? 1) * mul
+  // The tutorial level softens the big blows (charged cone, the lane charge) to a share of the hero's health.
+  if (sim.chargedCap > 0 && t.rank === 'hero' && (a.charged || a.kind === 'charge')) base = Math.min(base, t.s.maxHp * sim.chargedCap)
   const dealt = dealDamage(sim, u, t, base, { type: a.type ?? 'physical', heavy: true, canCrit: false })
   if (dealt > 0 && a.status && t.alive) {
     const v = a.status.id === 'burn' || a.status.id === 'poison' || a.status.id === 'bleed' ? u.s.baseDmg * a.status.v : a.status.v

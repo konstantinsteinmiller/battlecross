@@ -255,6 +255,8 @@ export default {
     potion: 'Poção de vida (restam {n})',
     manaPotion: 'Poção de mana (restam {n})',
     potionStop: 'Beba uma poção de vida para continuar',
+    rollStop: 'Role para fora da zona de perigo!',
+    rollStopKey: 'Espaço',
     minimap: 'Mapa da cidade: mestres, comerciantes, ferreiros e curandeiros',
     groups: '{n} de {total} grupos de inimigos derrotados',
     wave: 'Onda {n} / {total}',
@@ -477,6 +479,7 @@ export default {
     clear: 'Limpe {place}',
     boss: 'Derrote {foe}',
     campLesson: 'Aprenda uma habilidade grátis com os mestres',
+    choice: 'Vá até a Mara em Sunford ou derrote o Rei Goblin nas Grutas dos Goblins.',
     rescue: 'Liberte os mestres enjaulados',
     exit: 'Pegue o saque e saia',
     wave: 'Sobreviva às ondas',
@@ -6375,7 +6378,8 @@ export default {
         freed: {
           '1': 'Obrigado por nos libertar dos bandidos! Venha para a fogueira: todos vamos te ensinar, a primeira lição é grátis.'
         },
-        road: { '1': 'Você nos encontrou! Os demônios nos pegaram na estrada de Sunford. Vamos para o Passo do Bastião: procure-nos no forte.' }
+        road: { '1': 'Você nos encontrou! Os demônios nos pegaram na estrada de Sunford. Vamos para o Passo do Bastião: procure-nos no forte.' },
+        next: { '1': 'A Mara, em Sunford, vai te recompensar por nos salvar. O Rei Goblin também precisa ser detido. A escolha é sua.' }
       },
       sfShadow: {
         road: { '1': 'Já não era sem tempo. Estamos indo para o Passo do Bastião. Procure-nos no forte.' }
@@ -7943,6 +7947,7 @@ export default {
     title: 'Segundo fôlego',
     text: 'Você caiu. Quer se levantar com {n}% da sua saúde e terminar a luta?',
     once: 'Uma vez por visita.',
+    free: 'Grátis',
     watch: 'Assistir a um vídeo',
     take: 'Levantar',
     decline: 'Não, obrigado'

@@ -255,6 +255,8 @@ export default {
     potion: 'Livseliksir ({n} igjen)',
     manaPotion: 'Manaeliksir ({n} igjen)',
     potionStop: 'Drikk en helsedrikk for å fortsette',
+    rollStop: 'Rull ut av faresonen!',
+    rollStopKey: 'Mellomrom',
     minimap: 'Bykart: lærere, kjøpmenn, smeder og healere',
     groups: '{n} av {total} fiendegrupper beseiret',
     wave: 'Bølge {n} / {total}',
@@ -476,6 +478,7 @@ export default {
     clear: 'Rydd {place}',
     boss: 'Beseir {foe}',
     campLesson: 'Lær en gratis ferdighet av lærerne',
+    choice: 'Gå til Mara i Sunford, eller beseir Goblinkongen i Goblinhulene.',
     rescue: 'Befri de burede lærerne',
     exit: 'Ta byttet og gå',
     wave: 'Overlev bølgene',
@@ -6320,7 +6323,8 @@ export default {
         freed: {
           '1': 'Takk for at du befridde oss fra bandittene! Kom til bålet: vi lærer deg alle, første leksjon er gratis.'
         },
-        road: { '1': 'Du fant oss! Demonene fanget oss på veien til Sunford. Vi drar til Bastionsvadet: finn oss i fortet.' }
+        road: { '1': 'Du fant oss! Demonene fanget oss på veien til Sunford. Vi drar til Bastionsvadet: finn oss i fortet.' },
+        next: { '1': 'Mara i Sunford belønner deg for at du reddet oss. Goblinkongen må også stoppes. Valget er ditt.' }
       },
       sfShadow: {
         road: { '1': 'På tide at noen kom. Vi drar til Bastionsvadet. Se etter oss i fortet.' }
@@ -7886,6 +7890,7 @@ export default {
     title: 'Andre luft',
     text: 'Du falt. Reis deg med {n} % av helsen og fullfør kampen?',
     once: 'Én gang per besøk.',
+    free: 'Gratis',
     watch: 'Se en video',
     take: 'Reis deg igjen',
     decline: 'Nei takk'

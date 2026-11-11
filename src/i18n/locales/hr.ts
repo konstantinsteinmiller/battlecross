@@ -255,6 +255,8 @@ export default {
     potion: 'Napitak zdravlja (preostalo: {n})',
     manaPotion: 'Napitak mane (preostalo: {n})',
     potionStop: 'Popij napitak zdravlja za nastavak',
+    rollStop: 'Izbjegni opasnu zonu!',
+    rollStopKey: 'Razmaknica',
     minimap: 'Karta grada: učitelji, trgovci, kovači i iscjelitelji',
     groups: 'Poražene skupine neprijatelja: {n} od {total}',
     wave: 'Val {n} / {total}',
@@ -479,6 +481,7 @@ export default {
     clear: 'Očisti: {place}',
     boss: 'Pobijedi: {foe}',
     campLesson: 'Nauči besplatnu vještinu od učitelja',
+    choice: 'Idi do Mare u Sunfordu ili pobijedi Kralja goblina u Goblinskim jamama.',
     rescue: 'Oslobodi učitelje iz kaveza',
     exit: 'Uzmi plijen i odlazi',
     wave: 'Preživi valove',
@@ -6433,7 +6436,8 @@ export default {
         freed: {
           '1': 'Hvala što si nas oslobodio od razbojnika! Dođi do vatre: svi ćemo te učiti, prva lekcija je besplatna.'
         },
-        road: { '1': 'Pronašao si nas! Demoni su nas uhvatili na cesti za Sunford. Idemo u Bastionski prijelaz: nađi nas u utvrdi.' }
+        road: { '1': 'Pronašao si nas! Demoni su nas uhvatili na cesti za Sunford. Idemo u Bastionski prijelaz: nađi nas u utvrdi.' },
+        next: { '1': 'Mara u Sunfordu nagradit će te za naše spašavanje. Kralja goblina također treba zaustaviti. Izbor je tvoj.' }
       },
       sfShadow: {
         road: { '1': 'Bilo je vrijeme da netko dođe. Krećemo u Bastionski prijelaz. Potraži nas u utvrdi.' }
@@ -8002,6 +8006,7 @@ export default {
     text: 'Pao si. Ustaješ li s {n}% zdravlja i završavaš borbu?',
     text__f: 'Pala si. Ustaješ li s {n}% zdravlja i završavaš borbu?',
     once: 'Jednom po posjetu.',
+    free: 'Besplatno',
     watch: 'Pogledaj video',
     take: 'Ustani ponovo',
     decline: 'Ne, hvala'

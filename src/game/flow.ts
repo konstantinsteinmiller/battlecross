@@ -33,6 +33,7 @@ import { showMidgameAd } from '@/use/useAds'
 import { canOfferReward, canShowInterstitial, claimReward, isRewardGated, markInterstitialShown } from '@/use/useAdGate'
 import { breakAllowed } from '@/game/adPacing'
 import { campLessonPending } from '@/game/coach/campLesson'
+import { startRescue } from '@/game/sim/rescue'
 import { CAMP_TEACHERS, CAMP_THANKS } from '@/game/sim/camp'
 import { DEMO_END_FLAG } from './data/fullVersion'
 import { gateActive, isNodeLockedByDemo, resetPurchaseStatus } from '@/use/useFullVersion'
@@ -131,6 +132,8 @@ export interface ResultsData {
 export const flow = reactive({
   screen: 'boot' as Screen,
   modal: '' as Modal,
+  /** The Second wind on offer costs nothing (the tutorial level): no video, no limit. */
+  windFree: false,
   /** The conversation in progress, if any. */
   talk: '' as Talk,
   /** The node the live scene is. */
@@ -782,7 +785,11 @@ export const secondWindAllowed = (mode: 'zone' | 'arena' | 'town', siege = false
 const offerSecondWind = (): boolean => {
   const z = app.mode instanceof ZoneMode ? app.mode : null
   // In a siege only the hero's fall is undone, never the gate's (afterplay §8.1).
-  if (!z || flow.modal || z.sim.siege?.phase === 'lost' || !secondWindAllowed(z.sim.mode, !!z.sim.siege)) return false
+  if (!z || flow.modal || z.sim.siege?.phase === 'lost') return false
+  // The tutorial level: a free revive every time, with no video and no ad gate.
+  const free = z.tutorialLevel && !PREVIEW_ON
+  if (!free && !secondWindAllowed(z.sim.mode, !!z.sim.siege)) return false
+  flow.windFree = free
   flow.modal = 'secondWind'
   return true
 }
@@ -798,10 +805,11 @@ export const takeSecondWind = async (): Promise<boolean> => {
   windBusy = true
   let ok = false
   try {
-    ok = await claimReward(() => {})
+    // Free (the tutorial level): nothing to watch.
+    ok = flow.windFree ? true : await claimReward(() => {})
   } finally {
     windBusy = false
-    resumeMusicAfterAd()
+    if (!flow.windFree) resumeMusicAfterAd()
   }
   if (!ok) return false
   flow.modal = ''
@@ -1236,6 +1244,12 @@ export const npcById = (id: string): NpcDef | null => {
 
 /** The live scene, when it is one the hero stands in. */
 const liveZone = (): ZoneMode | null => (app.mode instanceof ZoneMode ? app.mode : null)
+
+/** The goal "Free the caged teachers", tapped: the hero walks to the gold key, then to the cage and opens it. */
+export const rescueTeachers = (): boolean => {
+  const z = liveZone()
+  return !!z && !flow.modal && !flow.talk && startRescue(z.sim)
+}
 
 /**
  * Start a conversation. The world keeps running (no window, no pause): the

@@ -56,6 +56,10 @@ export const CAMP_LESSONS: ReadonlyArray<(typeof CAMP_TEACHERS)[number]> = CAMP_
 /** The knight's thanks, said once as the cage opens (a bark with its recording). */
 export const CAMP_THANKS = 'dlg.bark.trainerAegis.freed.1'
 export const CAMP_SPEAKER = 'trainerAegis'
+/** The knight's last words once the free lesson is taken: Mara's reward, the Goblin King, the hero's choice (the quest objective follows). */
+export const CAMP_NEXT = 'dlg.bark.trainerAegis.next.1'
+/** The tip that marks those words as said (and the "go to Mara or beat the Goblin King" objective as given). */
+export const CAMP_NEXT_TIP = 'campNext'
 
 export interface CampPlan {
   /** The camp's middle (metres). */
@@ -269,6 +273,8 @@ export interface CampState {
   t: number
   /** The cage's cries for help (#187): armed by the first chest the hero opens, over when the cage is. */
   help?: { armed: boolean; t: number; n: number }
+  /** The goal's "Free the caged teachers" was tapped: the hero walks to the key, then to the cage (`rescue.ts`). */
+  auto?: { kind: '' | 'move' | 'chest' }
 }
 
 // ─── The cries for help (#187) ───────────────────────────────────────────────

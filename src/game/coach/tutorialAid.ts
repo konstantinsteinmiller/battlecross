@@ -30,6 +30,9 @@ import type { Unit } from '../sim/types'
 /** Health share below which the potion stop comes. */
 export const POTION_STOP_HP = 0.35
 
+/** The most one charged blow or charge may take of the hero's health on the tutorial level. */
+export const TUTORIAL_CHARGED_CAP = 0.2
+
 /** The hero's stun skill the opening boss is built around ("Shield Bash"). */
 export const BASH_SKILL = 'shieldSlam'
 
@@ -72,6 +75,76 @@ const stateOf = (sim: Sim): AidState => {
   return s
 }
 
+/**
+ * ─── Frustration relief on the tutorial level ────────────────────────────────
+ *
+ * A first-timer who runs from the fight, swings at nothing, or keeps cancelling
+ * his own swings by moving gets hit for nothing: enemy blows are softened while
+ * that goes on, and come back as he fights properly.
+ *
+ *   running away    he moves fast, away from the nearest awake enemy
+ *   not hitting     `idleHit` seconds in a fight without one of his blows landing
+ *   move cancels    each basic swing his own move dropped before it landed
+ *
+ * The frustration (0..1) climbs with those and drains while he fights well;
+ * `sim.reliefMul` is 1 at 0 and `1 − RELIEF.cut` at 1.
+ */
+export const RELIEF = {
+  /** The most the blows are cut at full frustration. */
+  cut: 0.55,
+  /** Frustration per second of running away / of not hitting, and per cancelled swing. */
+  flee: 0.3,
+  whiff: 0.18,
+  cancel: 0.12,
+  /** Seconds in a fight without landing a blow before that counts. */
+  idleHit: 5,
+  /** Frustration drained per second of fighting well or of peace. */
+  decay: 0.12,
+  /** Enemies this close (metres) make it a fight. */
+  fight: 14,
+  /** Running away: a speed above this (m/s) and the share of it that points away from the enemy. */
+  fleeSpeed: 2,
+  fleeAway: 0.5
+} as const
+
+interface ReliefState { f: number; sinceHit: number; cancels: number }
+const reliefs = new WeakMap<Sim, ReliefState>()
+
+/** The frustration now (0..1), for the log and the tests. */
+export const frustration = (sim: Sim): number => reliefs.get(sim)?.f ?? 0
+
+/** One step of the relief; call it after the sim step, before its events are drained. */
+export const stepRelief = (sim: Sim, dt: number): void => {
+  let s = reliefs.get(sim)
+  if (!s) { s = { f: 0, sinceHit: 0, cancels: sim.swingCancels }; reliefs.set(sim, s) }
+  const u = sim.hero.unit
+  let foe: Unit | undefined
+  let fd: number = RELIEF.fight
+  if (u.alive && !sim.ended && !u.truce) {
+    for (const e of sim.units) {
+      if (!e.alive || e.team !== 1 || !e.awake || e.rank === 'npc') continue
+      const d = Math.hypot(e.x - u.x, e.z - u.z)
+      if (d < fd) { fd = d; foe = e }
+    }
+  }
+  let landed = false
+  for (const e of sim.events) if (e.t === 'hit' && e.src === u.id) landed = true
+  if (landed || !foe) s.sinceHit = 0
+  else s.sinceHit += dt
+  const cancelled = sim.swingCancels - s.cancels
+  s.cancels = sim.swingCancels
+  let rise = 0
+  if (foe) {
+    const sp = Math.hypot(u.vx, u.vz)
+    // Running away: fast, and mostly along the line from the enemy to him.
+    if (sp > RELIEF.fleeSpeed && (u.vx * (u.x - foe.x) + u.vz * (u.z - foe.z)) / (sp * Math.max(0.01, fd)) > RELIEF.fleeAway) rise += RELIEF.flee
+    if (s.sinceHit > RELIEF.idleHit) rise += RELIEF.whiff
+  }
+  if (foe && cancelled > 0) s.f += cancelled * RELIEF.cancel
+  s.f = Math.min(1, Math.max(0, s.f + (rise > 0 ? rise * dt : -RELIEF.decay * dt)))
+  sim.reliefMul = 1 - RELIEF.cut * s.f
+}
+
 /** The potion stop is due now (and is used up by saying so). */
 export const potionStopDue = (sim: Sim): boolean => {
   const s = stateOf(sim)
@@ -104,6 +177,19 @@ export const openingBoss = (sim: Sim): Unit | undefined => {
   let kind = ''
   for (const q of sim.groups) if (q.boss) { g = q.id; kind = q.boss }
   return g < 0 ? undefined : sim.units.find(u => u.group === g && u.kind === kind && u.team === 1 && u.alive)
+}
+
+/**
+ * A free revive on the tutorial level: whoever has just fallen once fights on
+ * against softer blows (the same cut as the boss's mercy, taken once for the
+ * visit, never stacked on it).
+ */
+export const grantMercy = (sim: Sim): boolean => {
+  const s = stateOf(sim)
+  if (s.mercy) return false
+  s.mercy = true
+  sim.foeHitMul *= 1 - MERCY.cut
+  return true
 }
 
 /** Where the boss fight stands, for the log and the tests. */

@@ -255,6 +255,8 @@ export default {
     potion: 'Poción de saúde (quedan {n})',
     manaPotion: 'Poción de maná (quedan {n})',
     potionStop: 'Bebe unha poción de saúde para continuar',
+    rollStop: 'Esquiva fóra da zona de perigo!',
+    rollStopKey: 'Espazo',
     minimap: 'Mapa da vila: mestres, comerciantes, ferreiros e curandeiros',
     groups: '{n} de {total} grupos inimigos derrotados',
     wave: 'Vaga {n} / {total}',
@@ -477,6 +479,7 @@ export default {
     clear: 'Limpa {place}',
     boss: 'Derrota a {foe}',
     campLesson: 'Aprende unha habilidade de balde dos mestres',
+    choice: 'Vai ver a Mara a Sunford ou derrota o Rei Trasno nas Covas dos Trasnos.',
     rescue: 'Libera os mestres enxaulados',
     exit: 'Colle o botín e marcha',
     wave: 'Sobrevive ás vagas',
@@ -6370,7 +6373,8 @@ export default {
         freed: {
           '1': 'Grazas por liberarnos dos bandidos! Ven ao lume: ensinarémosche todos, e a primeira lección é de balde.'
         },
-        road: { '1': 'Atopáchesnos! Os demos collérannos no camiño de Sunford. Imos ao Vao do Bastión: búscanos no forte.' }
+        road: { '1': 'Atopáchesnos! Os demos collérannos no camiño de Sunford. Imos ao Vao do Bastión: búscanos no forte.' },
+        next: { '1': 'A Mara, en Sunford, recompensarate por salvarnos. Tamén hai que deter o Rei Trasno. A escolla é túa.' }
       },
       sfShadow: {
         road: { '1': 'Xa era hora de que viñese alguén. Marchamos ao Vao do Bastión. Búscanos no forte.' }
@@ -7938,6 +7942,7 @@ export default {
     title: 'Segundo alento',
     text: 'Caíches. Levántaste co {n}% da túa saúde e rematas o combate?',
     once: 'Unha vez por visita.',
+    free: 'Gratis',
     watch: 'Ver un vídeo',
     take: 'Levantarte',
     decline: 'Non, grazas'

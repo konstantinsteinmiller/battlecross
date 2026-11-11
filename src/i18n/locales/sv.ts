@@ -255,6 +255,8 @@ export default {
     potion: 'Hälsodryck ({n} kvar)',
     manaPotion: 'Manadryck ({n} kvar)',
     potionStop: 'Drick en hälsodryck för att fortsätta',
+    rollStop: 'Rulla ut ur farozonen!',
+    rollStopKey: 'Mellanslag',
     minimap: 'Stadskarta: lärare, handlare, smeder och helare',
     groups: '{n} av {total} fiendegrupper besegrade',
     wave: 'Våg {n} / {total}',
@@ -476,6 +478,7 @@ export default {
     clear: 'Rensa {place}',
     boss: 'Besegra {foe}',
     campLesson: 'Lär dig en gratis färdighet av lärarna',
+    choice: 'Gå till Mara i Sunford, eller besegra Goblinkungen i Goblinhålorna.',
     rescue: 'Befria de burade lärarna',
     exit: 'Ta bytet och gå',
     wave: 'Överlev vågorna',
@@ -6320,7 +6323,8 @@ export default {
         freed: {
           '1': 'Tack för att du befriade oss från banditerna! Kom till elden: vi lär dig alla, första lektionen är gratis.'
         },
-        road: { '1': 'Du hittade oss! Demonerna fångade oss på vägen till Sunford. Vi beger oss till Bastionsvadet: hitta oss i fortet.' }
+        road: { '1': 'Du hittade oss! Demonerna fångade oss på vägen till Sunford. Vi beger oss till Bastionsvadet: hitta oss i fortet.' },
+        next: { '1': 'Mara i Sunford belönar dig för att du räddade oss. Goblinkungen måste också stoppas. Valet är ditt.' }
       },
       sfShadow: {
         road: { '1': 'Det var på tiden att någon kom. Vi drar till Bastionsvadet. Leta efter oss i fortet.' }
@@ -7886,6 +7890,7 @@ export default {
     title: 'Andra andningen',
     text: 'Du föll. Res dig med {n} % av din hälsa och avsluta striden?',
     once: 'En gång per besök.',
+    free: 'Gratis',
     watch: 'Se en video',
     take: 'Res dig igen',
     decline: 'Nej tack'

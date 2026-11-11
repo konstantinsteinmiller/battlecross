@@ -255,6 +255,8 @@ export default {
     potion: 'Can iksiri ({n} kaldı)',
     manaPotion: 'Mana iksiri ({n} kaldı)',
     potionStop: 'Devam etmek için bir can iksiri iç',
+    rollStop: 'Tehlike bölgesinden yuvarlanarak kaç!',
+    rollStopKey: 'Boşluk',
     minimap: 'Kasaba haritası: ustalar, tüccarlar, demirciler ve şifacılar',
     groups: '{total} düşman grubundan {n} tanesi yenildi',
     wave: 'Dalga {n} / {total}',
@@ -476,6 +478,7 @@ export default {
     clear: 'Temizle: {place}',
     boss: 'Yen: {foe}',
     campLesson: 'Öğretmenlerden bedava bir yetenek öğren',
+    choice: 'Sunford’daki Mara’ya git ya da Goblin Oyukları’nda Goblin Kralı’nı yen.',
     rescue: 'Kafesteki öğretmenleri kurtar',
     exit: 'Ganimetini al ve çık',
     wave: 'Dalgalardan sağ çık',
@@ -6320,7 +6323,8 @@ export default {
         freed: {
           '1': 'Bizi haydutlardan kurtardığın için teşekkürler! Ateşin başına gel: hepimiz öğreteceğiz, ilk ders bedava.'
         },
-        road: { '1': 'Bizi buldun! İblisler bizi Sunford yolunda yakaladı. Burç Geçidi’ne gidiyoruz: bizi kalede bul.' }
+        road: { '1': 'Bizi buldun! İblisler bizi Sunford yolunda yakaladı. Burç Geçidi’ne gidiyoruz: bizi kalede bul.' },
+        next: { '1': 'Sunford’daki Mara, bizi kurtardığın için seni ödüllendirecek. Goblin Kralı da durdurulmalı. Seçim senin.' }
       },
       sfShadow: {
         road: { '1': 'Sonunda biri geldi. Burç Geçidi’ne yola çıkıyoruz. Bizi kalede ara.' }
@@ -7886,6 +7890,7 @@ export default {
     title: 'İkinci nefes',
     text: 'Yere düştün. Canının %{n} kadarıyla ayağa kalkıp dövüşü bitirmek ister misin?',
     once: 'Ziyaret başına bir kez.',
+    free: 'Ücretsiz',
     watch: 'Video izle',
     take: 'Ayağa kalk',
     decline: 'Hayır, teşekkürler'

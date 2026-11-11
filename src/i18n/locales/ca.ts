@@ -255,6 +255,8 @@ export default {
     potion: 'Poció de salut (en queden {n})',
     manaPotion: 'Poció de manà (en queden {n})',
     potionStop: 'Beu una poció de salut per continuar',
+    rollStop: 'Esquiva fora de la zona de perill!',
+    rollStopKey: 'Espai',
     minimap: 'Mapa del poble: mestres, comerciants, ferrers i curanderes',
     groups: '{n} de {total} grups enemics derrotats',
     wave: 'Onada {n} / {total}',
@@ -477,6 +479,7 @@ export default {
     clear: 'Neteja {place}',
     boss: 'Derrota {foe}',
     campLesson: 'Aprèn una habilitat gratis dels mestres',
+    choice: 'Ves a veure la Mara a Sunford o derrota el Rei Gòblin a les Coves dels Gòblins.',
     rescue: 'Allibera els mestres engabiats',
     exit: 'Agafa el botí i marxa',
     wave: 'Sobreviu a les onades',
@@ -6367,7 +6370,8 @@ export default {
         freed: {
           '1': 'Gràcies per alliberar-nos dels bandits! Vine al foc: t\'ensenyarem tots, i la primera lliçó és gratis.'
         },
-        road: { '1': 'Ens has trobat! Els dimonis ens van atrapar al camí de Sunford. Anirem al Gual del Bastió: busca’ns al fort.' }
+        road: { '1': 'Ens has trobat! Els dimonis ens van atrapar al camí de Sunford. Anirem al Gual del Bastió: busca’ns al fort.' },
+        next: { '1': 'La Mara, a Sunford, et recompensarà per salvar-nos. Cal aturar també el Rei Gòblin. Tu tries.' }
       },
       sfShadow: {
         road: { '1': 'Ja era hora que vingués algú. Marxem cap al Gual del Bastió. Busca’ns al fort.' }
@@ -7936,6 +7940,7 @@ export default {
     title: 'Segon alè',
     text: 'Has caigut. Vols aixecar-te amb el {n}% de la salut i acabar el combat?',
     once: 'Una vegada per visita.',
+    free: 'Gratis',
     watch: 'Mira un vídeo',
     take: 'Aixeca’t',
     decline: 'No, gràcies'

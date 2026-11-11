@@ -255,6 +255,8 @@ export default {
     potion: 'Jon iksiri ({n} ta qoldi)',
     manaPotion: 'Mana iksiri ({n} ta qoldi)',
     potionStop: 'Davom etish uchun sog‘liq iksirini ich',
+    rollStop: 'Xavfli zonadan yuvalanib chiq!',
+    rollStopKey: 'Probel',
     minimap: 'Shahar xaritasi: ustozlar, savdogarlar, temirchilar va tabiblar',
     groups: '{total} ta dushman guruhidan {n} tasi yengildi',
     wave: 'Toʻlqin {n} / {total}',
@@ -476,6 +478,7 @@ export default {
     clear: 'Tozalang: {place}',
     boss: 'Magʻlub eting: {foe}',
     campLesson: 'Ustozlardan bepul bir ko‘nikma o‘rgan',
+    choice: 'Sunforddagi Maraning oldiga bor yoki Goblin g‘orlarida Goblinlar qirolini yeng.',
     rescue: 'Qafasdagi ustozlarni ozod qil',
     exit: 'Oʻljani olib, chiqing',
     wave: 'Toʻlqinlarga bardosh bering',
@@ -6320,7 +6323,8 @@ export default {
         freed: {
           '1': 'Bizni qaroqchilardan qutqarganing uchun rahmat! Gulxanga kel: hammamiz o\'rgatamiz, birinchi dars bepul.'
         },
-        road: { '1': 'Bizni topding! Iblislar bizni Sanford yoʻlida tutib olishdi. Qalʼa kechuviga ketyapmiz: bizni qalʼadan izla.' }
+        road: { '1': 'Bizni topding! Iblislar bizni Sanford yoʻlida tutib olishdi. Qalʼa kechuviga ketyapmiz: bizni qalʼadan izla.' },
+        next: { '1': 'Sunforddagi Mara bizni qutqarganing uchun seni mukofotlaydi. Goblinlar qirolini ham to‘xtatish kerak. Tanlov — sening qo‘lingda.' }
       },
       sfShadow: {
         road: { '1': 'Nihoyat kimdir keldi. Qalʼa kechuviga yoʻl olamiz. Bizni qalʼadan izla.' }
@@ -7886,6 +7890,7 @@ export default {
     title: 'Ikkinchi nafas',
     text: 'Sen yiqilding. Sog‘lig‘ingning {n}% bilan turib, jangni tugatasanmi?',
     once: 'Har kirishda bir marta.',
+    free: 'Bepul',
     watch: 'Video ko‘rish',
     take: 'Qayta turish',
     decline: 'Yo‘q, rahmat'

@@ -255,6 +255,8 @@ export default {
     potion: 'Sanpocio (restas {n})',
     manaPotion: 'Manaopocio (restas {n})',
     potionStop: 'Trinku sanigan eliksiron por daŭrigi',
+    rollStop: 'Ruliĝu el la danĝera zono!',
+    rollStopKey: 'Spaco',
     minimap: 'Urbmapo: instruistoj, komercistoj, forĝistoj kaj resanigistoj',
     groups: '{n} el {total} malamikaj grupoj venkitaj',
     wave: 'Ondo {n} / {total}',
@@ -476,6 +478,7 @@ export default {
     clear: 'Purigu {place}',
     boss: 'Venku {foe}',
     campLesson: 'Lernu senpagan kapablon de la instruistoj',
+    choice: 'Iru al Mara en Sunford aŭ venku la Koboldan Reĝon en la Koboldaj Kavernoj.',
     rescue: 'Liberigu la enkaĝigitajn instruistojn',
     exit: 'Prenu la predon kaj foriru',
     wave: 'Travivu la ondojn',
@@ -6320,7 +6323,8 @@ export default {
         freed: {
           '1': 'Dankon, ke vi liberigis nin de la banditoj! Venu al la fajro: ni ĉiuj instruos vin, la unua leciono senpaga.'
         },
-        road: { '1': 'Vi trovis nin! La demonoj kaptis nin sur la vojo al Sunford. Ni iros al Bastiona Transirejo: trovu nin en la fortikaĵo.' }
+        road: { '1': 'Vi trovis nin! La demonoj kaptis nin sur la vojo al Sunford. Ni iros al Bastiona Transirejo: trovu nin en la fortikaĵo.' },
+        next: { '1': 'Mara en Sunford rekompencos vin pro nia savo. Ankaŭ la Kobolda Reĝo devas esti haltigita. La elekto estas via.' }
       },
       sfShadow: {
         road: { '1': 'Jam estis tempo, ke iu venu. Ni foriras al Bastiona Transirejo. Serĉu nin en la fortikaĵo.' }
@@ -7886,6 +7890,7 @@ export default {
     title: 'Dua spiro',
     text: 'Vi falis. Ĉu releviĝi kun {n}% de via sano kaj fini la batalon?',
     once: 'Unufoje po vizito.',
+    free: 'Senpaga',
     watch: 'Spekti videon',
     take: 'Releviĝi',
     decline: 'Ne, dankon'

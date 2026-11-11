@@ -255,6 +255,8 @@ export default {
     potion: 'Pozione di cura (ne restano {n})',
     manaPotion: 'Pozione di mana (ne restano {n})',
     potionStop: 'Bevi una pozione di salute per continuare',
+    rollStop: 'Schiva fuori dalla zona di pericolo!',
+    rollStopKey: 'Spazio',
     minimap: 'Mappa della città: maestri, mercanti, fabbri e guaritori',
     groups: '{n} gruppi di nemici sconfitti su {total}',
     wave: 'Ondata {n} / {total}',
@@ -477,6 +479,7 @@ export default {
     clear: 'Libera {place}',
     boss: 'Sconfiggi {foe}',
     campLesson: 'Impara un’abilità gratis dai maestri',
+    choice: 'Vai da Mara a Sunford oppure sconfiggi il Re Goblin nelle Grotte dei Goblin.',
     rescue: 'Libera i maestri in gabbia',
     exit: 'Prendi il bottino ed esci',
     wave: 'Sopravvivi alle ondate',
@@ -6400,7 +6403,8 @@ export default {
         freed: {
           '1': 'Grazie per averci liberati dai banditi! Vieni accanto al fuoco: ti insegneremo tutti, la prima lezione è gratis.'
         },
-        road: { '1': 'Ci hai trovati! I demoni ci hanno presi sulla strada per Sunford. Andiamo al Guado del Bastione: cercaci al forte.' }
+        road: { '1': 'Ci hai trovati! I demoni ci hanno presi sulla strada per Sunford. Andiamo al Guado del Bastione: cercaci al forte.' },
+        next: { '1': 'Mara, a Sunford, ti ricompenserà per averci salvati. Anche il Re Goblin va fermato. La scelta è tua.' }
       },
       sfShadow: {
         road: { '1': 'Era ora che arrivasse qualcuno. Partiamo per il Guado del Bastione. Cercaci al forte.' }
@@ -7968,6 +7972,7 @@ export default {
     title: 'Secondo fiato',
     text: 'Sei a terra. Ti rialzi con il {n}% della salute e finisci il combattimento?',
     once: 'Una volta per visita.',
+    free: 'Gratis',
     watch: 'Guarda un video',
     take: 'Rialzati',
     decline: 'No, grazie'

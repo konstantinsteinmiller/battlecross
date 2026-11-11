@@ -214,6 +214,8 @@ export default {
     'potion': 'Health potion ({n} left)',
     'manaPotion': 'Mana potion ({n} left)',
     'potionStop': 'Drink a health potion to go on',
+    'rollStop': 'Dodge out of the danger zone!',
+    'rollStopKey': 'Space',
     'minimap': 'Town map: teachers, traders, smiths and healers',
     'elixir': '{name} ({n} left)',
     'elixirNext': 'Next elixir',
@@ -447,6 +449,7 @@ export default {
     'clear': 'Clear {place}',
     'boss': 'Beat {foe}',
     'campLesson': 'Learn a free skill from the teachers',
+    'choice': 'Go to Mara in Sunford or beat the Goblin King in the Goblin Hollows.',
     'rescue': 'Free the caged teachers',
     'exit': 'Take your loot and leave',
     'wave': 'Survive the waves',
@@ -4015,7 +4018,8 @@ export default {
         'freed': {
           '1': 'Thank you for freeing us from the bandits! Come to the fire: we\'ll all teach you, first lesson free.'
         },
-        'road': { '1': 'You found us! The demons caught us on the Sunford road. We will make for Bastion Crossing: find us at the fort.' }
+        'road': { '1': 'You found us! The demons caught us on the Sunford road. We will make for Bastion Crossing: find us at the fort.' },
+        'next': { '1': 'Mara in Sunford will reward your kindness in saving us. The Goblin King must be stopped too. The choice is yours.' }
       },
       'sfShadow': {
         'road': { '1': 'About time someone came. We are off to Bastion Crossing. Look for us at the fort.' }
@@ -4357,6 +4361,7 @@ export default {
     'title': 'Second wind',
     'text': 'You fell. Get back up with {n}% of your health and finish the fight?',
     'once': 'Once per visit.',
+    'free': 'Free',
     'watch': 'Watch a video',
     'take': 'Get back up',
     'decline': 'No thanks'

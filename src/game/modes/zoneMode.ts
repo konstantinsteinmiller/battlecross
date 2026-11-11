@@ -1,4 +1,4 @@
-import { campPending } from '../sim/camp'
+import { campPending, CAMP_NEXT, CAMP_NEXT_TIP, CAMP_SPEAKER, HELP_CALLS } from '../sim/camp'
 import { campLessonPending } from '../coach/campLesson'
 import { trackFtue } from '@/use/useAnalytics'
 import { AmbientLight, Color, Frustum, Matrix4, Scene, Sphere, Vector2, Vector3, Vector4, type Group, type InstancedMesh, type Line, type Material, type Mesh, type Object3D, type Points, type ShaderMaterial, type SkinnedMesh } from 'three'
@@ -23,7 +23,7 @@ import { ITEM_BY_ID, type ZoneId } from '../data/items'
 import { applyPlan, populateTown, populateZone, summonDragonAlly } from '../sim/director'
 import { arenaKinds, leaveLadder, leaveVisit } from '../sim/director'
 import type { ArenaMod } from '../arenaWeek'
-import { cellOf } from '../sim/grid'
+import { cellOf, isSolidAt } from '../sim/grid'
 import { castSkill, createHero, cycleTarget, orderAttack, orderMove, setStick, slotState, usePotion } from '../sim/hero'
 import { stepSim } from '../sim/step'
 import { reviveHero } from '../sim/combat'
@@ -78,11 +78,11 @@ import { townExitAt } from '../sim/townCells'
 import { townSim, townSimReady } from '../sim/townHooks'
 import { loadTownSim } from '../sim/townSimLoader'
 import { loadTalk } from '../talkLoader'
-import { POTION_CD, ROLL_CD, cycleElixir, rollHero, useElixir, useManaPotion } from '../sim/hero'
+import { POTION_CD, ROLL_CD, ROLL_DIST, cycleElixir, rollHero, useElixir, useManaPotion } from '../sim/hero'
 import { nearChest, orderOpen, pickChest } from '../sim/interact'
 import { nearOre, orderMine, pickOre } from '../sim/ores'
 import { hud, hudLive, pushHud, sayBark, tickHud, type SkillSlotView, type TextKind } from '../state/hud'
-import { heroBuild, loadoutActive, markTip, profile } from '../state/profile'
+import { heroBuild, loadoutActive, markTip, profile, TUTORIAL_NODE, tutorialLevelOpen } from '../state/profile'
 import { coach, hintGeo, hintPath } from '../coach'
 import { emitCrumbs, findChest, finder, peekOffset } from '../coach/nudgeFx'
 import { BOARD, BOARD_REACH } from '../townTasks'
@@ -90,7 +90,7 @@ import { isDummy, spawnDummy, stepDummy } from '../coach/dummy'
 import { armMentor, boostOpeningFoes, stepMentor, syncHeroSkills } from '../coach/mentor'
 import { placeMiner, stepMiner } from '../coach/miner'
 import { MENTOR_SKILL } from '../data/mentor'
-import { potionStopDue, potionStopOver, stepMercy } from '../coach/tutorialAid'
+import { grantMercy, stepRelief, TUTORIAL_CHARGED_CAP, potionStopDue, potionStopOver, stepMercy } from '../coach/tutorialAid'
 import { setTruce, watchTruce } from '../sim/truce'
 import { markRevealUsed } from '../coach/reveal'
 import { PREVIEW_FEED } from '../previewFlags'
@@ -231,6 +231,13 @@ const END_BEAT = { victory: 2.1, defeat: 1.8 }
 const HOARD_AT = 2
 /** Seconds after the fall that Second wind is offered: the fall reads first. */
 const WIND_AT = 1
+/** The tip that marks the dodge lesson as taught. */
+const DODGE_TIP = 'dodgeLesson'
+/** The boss's first charge has wound up this long when the world stops for the dodge. */
+const DODGE_STOP_AFTER_S = 0.5
+/** The camera rests on the cages this long after the first cry for help, then flies back to the hero. */
+const HELP_SHOT_S = 3
+const HELP_SHOT_ZOOM = 1.3
 
 interface View {
   v: RigView
@@ -354,6 +361,11 @@ export class ZoneMode implements GameMode {
   private windAsked = false
   /** The defeat waits on the player's answer to Second wind. */
   private windHeld = false
+  /** The first cry for help has cut the view to the cages (seconds into the shot; -1: not showing). */
+  private helpShotT = -1
+  private helpShown = false
+  /** The tutorial level (the plains before their first clear): revives are free and unlimited, big blows are capped. */
+  readonly tutorialLevel: boolean
   private stepSfx = 0
   /** The enemy the pointer is over (the drag line snaps to it). */
   private hoverId = 0
@@ -380,6 +392,13 @@ export class ZoneMode implements GameMode {
   private truceWatch = { t: 0 }
   /** The opening fight's potion stop (#154): the world waits until the hero drinks. */
   private potionStop = false
+  /** The dodge lesson (tutorial level): seconds of the first boss charge's wind-up left before the world stops (-1: not running). */
+  private dodgeT = -1
+  /** The world waits for the dodge roll. */
+  private dodgeStop = false
+  /** The lane the charge was aimed along (its start, its direction), for the way out. */
+  private dodgeLane = { x: 0, z: 0, a: 0, src: 0 }
+  private dodgeDone = !!profile.tips[DODGE_TIP]
   /** The units as this visit was generated: what a saved game is told apart from. */
   private baseline: SimBaseline | null = null
   /** The share of the hero's run gold already paid into the purse (see `bankRunGold`). */
@@ -404,6 +423,8 @@ export class ZoneMode implements GameMode {
       seed: setup.seed, w: plan.w, h: plan.h, level: setup.level, difficulty: setup.difficulty,
       mode: setup.kind, zone: setup.zone ?? setup.town ?? 'arena'
     })
+    this.tutorialLevel = setup.kind === 'zone' && setup.zone === TUTORIAL_NODE && !setup.invaded && !setup.encounter && !setup.assault && !setup.celebrate && tutorialLevelOpen()
+    if (this.tutorialLevel) this.sim.chargedCap = TUTORIAL_CHARGED_CAP
   }
 
   /** Build a visit, time-sliced so the loader keeps painting. */
@@ -1185,6 +1206,7 @@ export class ZoneMode implements GameMode {
           break
         case 'tele':
           this.vfx.telegraph(e.tele, sim.get(e.tele.src ?? 0) ?? null, sim.time, e.tele.follow ? sim.get(e.tele.follow) ?? null : null)
+          this.armDodgeLesson(e.tele)
           break
         case 'death': {
           const def = ENEMY_BY_ID[e.kind]
@@ -1261,6 +1283,8 @@ export class ZoneMode implements GameMode {
           break
         case 'bark':
           sayBark(e.unit, e.key)
+          // The first cry from the cages: the view cuts to them, so the player sees where the goal is (`helpShot`).
+          if (!this.helpShown && e.key === HELP_CALLS[0]!.key) { this.helpShown = true; this.helpShotT = 0; this.cam.snap() }
           break
         case 'bossPhase': {
           const u = sim.get(e.unit)
@@ -1328,6 +1352,7 @@ export class ZoneMode implements GameMode {
 
   update(dt: number, first: boolean): void {
     if (this.potionStop) { this.holdForPotion(first); return }
+    if (this.dodgeStop) { this.holdForDodge(first); return }
     if (first) this.handleInput()
     if (this.talkOn) this.holdTalk()
     else if (this.talkHold > 0) this.talkHold -= dt
@@ -1344,6 +1369,13 @@ export class ZoneMode implements GameMode {
     if (this.setup.kind === 'zone' && this.setup.tutorial) {
       stepMercy(this.sim, simDt)
       if (potionStopDue(this.sim)) { this.potionStop = true; hud.potionStop = true }
+    }
+    // The tutorial level softens the blows while the hero runs, misses or cancels his own swings.
+    if (this.tutorialLevel) stepRelief(this.sim, simDt)
+    // The dodge lesson: half a second into the first boss charge the world stops (`beginDodgeStop`).
+    if (this.dodgeT >= 0) {
+      this.dodgeT -= simDt
+      if (this.dodgeT <= 0) this.beginDodgeStop()
     }
     // The besieged gate is over: the Hollows follow (or the hero chose to skip).
     if (this.sim.assault?.phase === 'done' && !this.assaultFired) {
@@ -1368,6 +1400,14 @@ export class ZoneMode implements GameMode {
       // Learned mid-fight in the opening: the foes still standing toughen to match.
       if (this.setup.kind === 'zone' && this.setup.tutorial && profile.hero.learned.includes(MENTOR_SKILL)) boostOpeningFoes(this.sim, OPENING.skillHp)
     }
+    // The camp's last words: once the free lesson is taken the knight sends the hero on (Mara, or the Goblin King), and the objective follows.
+    if (this.sim.ended === 'victory' && this.sim.camp && !profile.tips[CAMP_NEXT_TIP] && !campPending(this.sim) && !campLessonPending(this.sim)) {
+      const knight = this.sim.units.find(q => q.alive && q.npc === CAMP_SPEAKER)
+      if (knight) {
+        this.sim.emit({ t: 'bark', unit: knight.id, key: CAMP_NEXT })
+        markTip(CAMP_NEXT_TIP)
+      }
+    }
     this.drain()
     coach.step(this, simDt)
     if (first) consumeEdges(this.input)
@@ -1386,6 +1426,58 @@ export class ZoneMode implements GameMode {
       hud.phase = sim.ended === 'victory' ? 'won' : 'dead'
       this.cb.onEnd(sim.ended)
     }
+  }
+
+  /** The first lane charge of the tutorial level's boss starts: the dodge lesson comes half a second into it. */
+  private armDodgeLesson(t: { shape: string; x: number; z: number; a: number; src?: number }): void {
+    if (!this.tutorialLevel || this.dodgeDone || this.dodgeT >= 0 || this.dodgeStop || t.shape !== 'line') return
+    const src = this.sim.get(t.src ?? 0)
+    const ab = src ? ENEMY_BY_ID[src.kind]?.abilities[src.action?.ability ?? -1] : undefined
+    if (!src || src.team !== 1 || ab?.kind !== 'charge') return
+    this.dodgeLane = { x: t.x, z: t.z, a: t.a, src: src.id }
+    this.dodgeT = DODGE_STOP_AFTER_S
+  }
+
+  /** Half a second in: the world stops, the dodge is ready (its cooldown cleared if it was running) and its button is lit. */
+  private beginDodgeStop(): void {
+    this.dodgeT = -1
+    const sim = this.sim
+    const h = sim.hero
+    const src = sim.get(this.dodgeLane.src)
+    // The charge was stunned or the hero is down or busy: the lesson waits for the next one.
+    if (!h.unit.alive || sim.ended || !src || !src.alive || !src.action || src.action.done) return
+    h.rollCd = 0
+    this.dodgeStop = true
+    hud.rollStop = true
+  }
+
+  /** The way out: sideways across the charge's lane, to the side the hero already stands on (the other if rock is there). */
+  private dodgeWay(): { x: number; z: number } {
+    const u = this.sim.hero.unit
+    const { a, x, z } = this.dodgeLane
+    const px = Math.cos(a)
+    const pz = -Math.sin(a)
+    let side = (u.x - x) * px + (u.z - z) * pz >= 0 ? 1 : -1
+    if (isSolidAt(this.sim.grid, u.x + px * side * ROLL_DIST, u.z + pz * side * ROLL_DIST)) side = -side
+    return { x: px * side, z: pz * side }
+  }
+
+  /** The dodge stop: nothing moves; the pause still opens, and the dodge (button or Space) is the only order taken. */
+  private holdForDodge(first: boolean): void {
+    if (!first) return
+    const i = this.input
+    hud.device = i.device
+    if (i.pauseQueued) this.cb.onPause()
+    if (i.rollQueued) {
+      const way = this.dodgeWay()
+      if (rollHero(this.sim, way.x, way.z)) {
+        this.dodgeStop = false
+        this.dodgeDone = true
+        hud.rollStop = false
+        markTip(DODGE_TIP)
+      }
+    }
+    consumeEdges(i)
   }
 
   /** The potion stop (#154): nothing moves; the pause still opens, and the
@@ -1411,6 +1503,12 @@ export class ZoneMode implements GameMode {
     if (take && reviveHero(this.sim)) {
       hud.phase = 'play'
       this.cam.addTrauma(TRAUMA_LIGHT)
+      // The tutorial level's revive is free and as many as it takes: the next fall is asked about again,
+      // and the foes that felled the hero hit softer from here on.
+      if (this.tutorialLevel) {
+        this.windAsked = false
+        grantMercy(this.sim)
+      }
     }
   }
 
@@ -1432,10 +1530,10 @@ export class ZoneMode implements GameMode {
     setGround(this.field)
     // A nudge may lean the view toward a chest nearby (`coach/nudgeFx.ts`).
     const peek = peekOffset(dt, hx, hz)
-    const shot = this.celebrateShot(dt) ?? this.assaultShot(hx, hz, dt)
+    const shot = this.celebrateShot(dt) ?? this.assaultShot(hx, hz, dt) ?? this.helpShot(dt)
     if (shot) this.cam.follow(shot.x, shot.z, 0, 0, dt, groundAt(shot.x, shot.z))
     else this.cam.follow(hx + this.talkDx * tk + peek.x, hz + this.talkDz * tk + peek.z, hero.vx, hero.vz, dt, groundAt(hx, hz))
-    if (shot) this.cam.zoom = this.sim.celebrate ? this.celebrateZoom : this.assaultZoom
+    if (shot) this.cam.zoom = this.sim.celebrate ? this.celebrateZoom : this.helpShotT >= 0 ? HELP_SHOT_ZOOM : this.assaultZoom
     this.cam.update(dt)
     updateCelFrame(this.camera, this.cam.refDepth)
     // Scenery between the camera and the hero opens round them (a tall rock at a field's near edge).
@@ -1821,6 +1919,20 @@ export class ZoneMode implements GameMode {
   }
 
   /**
+   * The first cry for help in the tutorial level: the view cuts to the cages and rests there for `HELP_SHOT_S`
+   * seconds, then the ordinary follow shot carries it back to the hero.
+   */
+  private helpShot(dt: number): { x: number; z: number } | null {
+    if (this.helpShotT < 0) return null
+    const cage = this.sim.chests.find(q => q.role === 'cage')
+    this.helpShotT += dt
+    if (!cage || this.helpShotT >= HELP_SHOT_S) { this.helpShotT = -1; return null }
+    // The zoom comes home with the assault's own easing once the shot is over.
+    this.assaultZoom = HELP_SHOT_ZOOM
+    return { x: cage.x, z: cage.z }
+  }
+
+  /**
    * The camera's shot at the celebration: from behind the feast table over the crowd to the fire, round the dancers,
    * then a slow pull back to the whole camp (the hero in front of it) for the last seconds.
    */
@@ -2034,6 +2146,7 @@ export class ZoneMode implements GameMode {
   dispose(): void {
     setBossMusic(false)
     hud.potionStop = false
+    hud.rollStop = false
     if (this.sim.siege) {
       siegeHud.active = false
       siegeActions.build = () => false

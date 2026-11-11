@@ -248,7 +248,7 @@ export const dealDamage = (sim: Sim, src: Unit | null, tgt: Unit, base: number, 
   if (outOfReach(tgt)) return 0
   if (!tgt.alive || base <= 0) return 0
   // The opening boss's mercy (#155): every enemy blow lands lighter.
-  if (src && src.team === 1 && tgt.team !== 1) base *= sim.foeHitMul
+  if (src && src.team === 1 && tgt.team !== 1) base *= sim.foeHitMul * sim.reliefMul
   // The colosseum's week (#10): Glass makes every blow harder; All fire turns
   // every enemy blow to fire.
   if (sim.arenaMod === 'glass') base *= GLASS_DAMAGE

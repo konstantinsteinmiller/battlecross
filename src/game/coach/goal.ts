@@ -2,6 +2,7 @@ import { ENEMY_BY_ID } from '../data/enemies'
 import { skillsOf, type ClassId } from '../data/skills'
 import { MAP, NODE_BY_ID, TOWNS, townNpcs, type NodeId, type TownId } from '../data/zones'
 import { flagSet, isNodeOpen, learnBlock, profile } from '../state/profile'
+import { CAMP_NEXT_TIP } from '../sim/camp'
 import type { FeatureId } from './state'
 
 /**
@@ -29,7 +30,7 @@ import type { FeatureId } from './state'
 export const MARA_TOLD_FLAG = 'maraWoods'
 
 export type GoalId =
-  | 'dummy' | 'clear' | 'boss' | 'rescue' | 'campLesson' | 'exit' | 'wave' | 'fight' | 'escort'
+  | 'dummy' | 'clear' | 'boss' | 'rescue' | 'campLesson' | 'choice' | 'exit' | 'wave' | 'fight' | 'escort'
   | 'trainer' | 'learn' | 'points' | 'leave' | 'travel' | 'decide' | 'explore' | 'mara'
 
 export interface Goal {
@@ -114,6 +115,13 @@ export const maraPending = (): boolean => {
   return f.has('arenaOpen') && !f.has(MARA_TOLD_FLAG) && !profile.world.cleared.includes('woods')
 }
 
+/**
+ * The knight has told the hero his choice (Mara's reward in Sunford, or the Goblin King in the Hollows) and neither is done yet:
+ * the objective stays until the hero reaches Sunford or the Hollows are cleared.
+ */
+export const choicePending = (): boolean =>
+  !!profile.tips[CAMP_NEXT_TIP] && !profile.world.cleared.includes('sunford') && !profile.world.cleared.includes('hollows')
+
 const travelGoal = (id: 'leave' | 'travel'): Goal => {
   const next = nextNode()
   return next ? { id, place: next } : { id: 'explore' }
@@ -123,7 +131,7 @@ export const nextGoal = (c: GoalCtx): Goal | null => {
   if (c.quest) return { id: 'decide' }
   if (c.screen === 'zone' && c.zone) {
     const z = c.zone
-    if (z.ended === 'victory') return z.camp === 'cage' ? { id: 'rescue' } : z.camp === 'lesson' ? { id: 'campLesson' } : { id: 'exit' }
+    if (z.ended === 'victory') return z.camp === 'cage' ? { id: 'rescue' } : z.camp === 'lesson' ? { id: 'campLesson' } : choicePending() ? { id: 'choice' } : { id: 'exit' }
     if (z.ended) return null
     if (z.kind === 'arena') return { id: 'wave', n: Math.max(0, z.wave - 1), of: z.waves }
     if (z.dummy) return { id: 'dummy' }
@@ -141,7 +149,7 @@ export const nextGoal = (c: GoalCtx): Goal | null => {
     if (profile.hero.points > 0 && !c.pointsKept) return { id: 'points', n: profile.hero.points, of: 0 }
     return travelGoal('leave')
   }
-  if (c.screen === 'map') return maraPending() ? { id: 'mara', place: 'sunford' } : travelGoal('travel')
+  if (c.screen === 'map') return maraPending() ? { id: 'mara', place: 'sunford' } : choicePending() ? { id: 'choice' } : travelGoal('travel')
   return null
 }
 

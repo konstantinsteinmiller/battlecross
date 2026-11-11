@@ -255,6 +255,8 @@ export default {
     potion: 'Levensdrank (nog {n})',
     manaPotion: 'Manadrank (nog {n})',
     potionStop: 'Drink een genezingsdrankje om verder te gaan',
+    rollStop: 'Rol weg uit de gevarenzone!',
+    rollStopKey: 'Spatiebalk',
     minimap: 'Stadskaart: leraren, handelaars, smeden en genezers',
     groups: '{n} van {total} vijandelijke groepen verslagen',
     wave: 'Golf {n} / {total}',
@@ -477,6 +479,7 @@ export default {
     clear: 'Zuiver {place}',
     boss: 'Versla {foe}',
     campLesson: 'Leer gratis een vaardigheid van de leraren',
+    choice: 'Ga naar Mara in Sunford of versla de Goblinkoning in de Goblinholen.',
     rescue: 'Bevrijd de opgesloten leraren',
     exit: 'Pak je buit en ga',
     wave: 'Overleef de golven',
@@ -6331,7 +6334,8 @@ export default {
         freed: {
           '1': 'Bedankt dat je ons van de bandieten hebt bevrijd! Kom bij het vuur: we leren je allemaal, eerste les gratis.'
         },
-        road: { '1': 'Je hebt ons gevonden! De demonen grepen ons op de weg naar Sunford. We gaan naar de Bastionsoversteek: zoek ons in het fort.' }
+        road: { '1': 'Je hebt ons gevonden! De demonen grepen ons op de weg naar Sunford. We gaan naar de Bastionsoversteek: zoek ons in het fort.' },
+        next: { '1': 'Mara in Sunford beloont je omdat je ons gered hebt. De Goblinkoning moet ook worden gestopt. Jij kiest.' }
       },
       sfShadow: {
         road: { '1': 'Werd tijd dat er iemand kwam. We vertrekken naar de Bastionsoversteek. Zoek ons in het fort.' }
@@ -7897,6 +7901,7 @@ export default {
     title: 'Tweede adem',
     text: 'Je bent gevallen. Sta op met {n}% van je gezondheid en maak het gevecht af?',
     once: 'Eén keer per bezoek.',
+    free: 'Gratis',
     watch: 'Bekijk een video',
     take: 'Sta weer op',
     decline: 'Nee, bedankt'

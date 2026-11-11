@@ -255,6 +255,8 @@ export default {
     potion: 'Heiltrank (noch {n})',
     manaPotion: 'Manatrank (noch {n})',
     potionStop: 'Trink einen Heiltrank, um weiterzumachen',
+    rollStop: 'Weiche aus der Gefahrenzone aus!',
+    rollStopKey: 'Leertaste',
     minimap: 'Stadtplan: Lehrer, Händler, Schmiede und Heiler',
     groups: '{n} von {total} Gegnergruppen besiegt',
     wave: 'Welle {n} / {total}',
@@ -477,6 +479,7 @@ export default {
     clear: '{place} säubern',
     boss: 'Besiege {foe}',
     campLesson: 'Lerne eine Fähigkeit gratis von den Lehrmeistern',
+    choice: 'Geh zu Mara nach Sunford oder besiege den Goblinkönig in den Goblinhöhlen.',
     rescue: 'Befreie die eingesperrten Lehrmeister',
     exit: 'Nimm die Beute und geh',
     wave: 'Überlebe die Wellen',
@@ -6340,7 +6343,8 @@ export default {
         freed: {
           '1': 'Danke, dass du uns von den Banditen befreit hast! Komm ans Feuer: Wir alle lehren dich, die erste Lektion umsonst.'
         },
-        road: { '1': 'Du hast uns gefunden! Die Dämonen haben uns auf der Straße nach Sunford erwischt. Wir gehen nach Bastionsfurt: Such uns in der Festung.' }
+        road: { '1': 'Du hast uns gefunden! Die Dämonen haben uns auf der Straße nach Sunford erwischt. Wir gehen nach Bastionsfurt: Such uns in der Festung.' },
+        next: { '1': 'Mara in Sunford belohnt deine Güte, uns zu retten. Der Goblinkönig muss auch aufgehalten werden. Du hast die Wahl.' }
       },
       sfShadow: {
         road: { '1': 'Wurde auch Zeit, dass jemand kommt. Wir machen uns auf nach Bastionsfurt. Such uns in der Festung.' }
@@ -7907,6 +7911,7 @@ export default {
     title: 'Zweiter Atem',
     text: 'Du bist gefallen. Steh mit {n}% deiner Gesundheit wieder auf und beende den Kampf?',
     once: 'Einmal pro Besuch.',
+    free: 'Gratis',
     watch: 'Video ansehen',
     take: 'Wieder aufstehen',
     decline: 'Nein danke'

@@ -320,6 +320,12 @@ export class Sim {
   enemyHpMul = 1
   /** Every enemy blow is scaled by this as it lands (the opening boss's mercy, #155, `coach/tutorialAid.ts`). */
   foeHitMul = 1
+  /** The tutorial level (the plains until first cleared): no charged blow or charge on the hero takes more than this share of his health (0: no cap). */
+  chargedCap = 0
+  /** Enemy blows are scaled by this too: the tutorial level's frustration relief (`coach/tutorialAid.ts`, `stepRelief`). */
+  reliefMul = 1
+  /** Basic swings the hero's own move dropped before they landed (the relief reads it). */
+  swingCancels = 0
   /** An invaded zone (the afterplay, `invasion.ts`): kills pay `xpMul`, and
    *  the demon pylons (unit ids) and their side group stand. */
   invaded = false
