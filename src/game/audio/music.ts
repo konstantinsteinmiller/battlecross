@@ -29,6 +29,12 @@ export type { TrackId, SongId }
  * A boss fight interrupts the rotation with its own song (`'boss'`), crossfaded
  * in, and loops it — skipping its intro on repeats — for as long as the fight
  * lasts; the zone's theme fades back in afterwards.
+ *
+ * A CUE (`'introFight'`, roadmap #209) is scored to a picture: it plays once,
+ * at the film's own time (`setCueClock`), never loops, never rotates and never
+ * resumes from a bar. Stopped by a gate and started again, it comes back where
+ * the film is; asked for once the film is past it, it plays nothing. Its last
+ * notes ring out and nothing follows until the game names the next track.
  */
 
 /** Song 2 of the rotation; song 1 is the area's own theme. */
@@ -38,8 +44,10 @@ export const ROTATION_SIZE = ROTATION.length + 1
 export const ROTATE_AFTER_S = 45
 /** The first music of the session fades in gently rather than arriving at full level. */
 export const FIRST_FADE_S = 4
-/** Songs that loop and never rotate: the boss fight. */
-const OWN_SONG = (id: TrackId | SongId | null): boolean => id === 'boss'
+/** A song scored to a picture: once, at the film's time (see `setCueClock`). */
+const CUE = (id: TrackId | SongId | null): boolean => id === 'introFight'
+/** Songs that never rotate: the boss fight (which loops) and the cues (which play once). */
+const OWN_SONG = (id: TrackId | SongId | null): boolean => id === 'boss' || CUE(id)
 
 /** Song-to-song handover: the outgoing song's tail fades under the incoming one. */
 const HANDOVER_FADE_S = 2.5
@@ -51,7 +59,9 @@ const HANDOVER_FADE_S = 2.5
 export const CROSSFADE = {
   toBoss: [0.9, 0.25],
   fromBoss: [2.2, 1.6],
-  area: [0.6, 0.35]
+  area: [0.6, 0.35],
+  /** A cue opens on a blow: what played before clears quickly, and the cue is there at once. */
+  toCue: [0.5, 0.03]
 } as const
 
 /** The song an area plays at a rotation slot. */
@@ -90,6 +100,13 @@ let resume: { id: SongId; step: number; played: number } | null = null
 let everStarted = false
 /** A result jingle still ringing (the next music fades it out). */
 let jingle: Out | null = null
+/** The picture a cue is cut to: seconds into the cue (negative before its first 16th). Null: no film, or it is over. */
+let cueClock: (() => number) | null = null
+/** How far ahead of the clock a cue's first note is scheduled. */
+const CUE_LEAD_S = 0.08
+
+/** Cut the cues to a film: `clock` says how many seconds into the cue the picture is. Null: the film is over. */
+export const setCueClock = (clock: (() => number) | null): void => { cueClock = clock }
 
 const retire = (o: Out, at: number, fade: number): void => {
   const g = o.master.gain
@@ -101,7 +118,7 @@ const retire = (o: Out, at: number, fade: number): void => {
   setTimeout(() => o.dispose(), (Math.max(0, at - now) + fade + 0.5) * 1000)
 }
 
-const startSong = (id: SongId, at: number | null, fadeIn: number, allowResume: boolean): void => {
+const startSong = (id: SongId, at: number | null, fadeIn: number, allowResume: boolean, from = 0): void => {
   const a = audio()
   if (!a) return
   const s = getSong(id)
@@ -115,7 +132,7 @@ const startSong = (id: SongId, at: number | null, fadeIn: number, allowResume: b
     stepIdx = Math.min(resume.step, s.steps.length - 1)
     played = resume.played
   } else {
-    stepIdx = 0
+    stepIdx = from
     played = 0
   }
   resume = null
@@ -130,6 +147,19 @@ const startSong = (id: SongId, at: number | null, fadeIn: number, allowResume: b
 /** The end of a pass: hand over to the next song in the rotation, or repeat. */
 const endOfPass = (): void => {
   if (!song || !out) return
+  if (CUE(playing)) {
+    // A cue plays once: its last notes ring out under the hall, and nothing follows it.
+    if (timer !== null) {
+      clearInterval(timer)
+      timer = null
+    }
+    retire(out, nextTime, song.reverb.seconds)
+    out = null
+    song = null
+    playing = null
+    resume = null
+    return
+  }
   if (shouldRotate(area, playing, played)) {
     slot = (slot + 1) % ROTATION_SIZE
     const next = songFor(area ?? 'town', slot)
@@ -264,6 +294,44 @@ const begin = (id: SongId, fade: number = 0.35): void => {
 }
 
 /**
+ * Start a cue where its film is: the first 16th still ahead of the picture,
+ * timed so step k sounds at the film's second k (in 16ths). The film past its
+ * end, or no film at all: nothing. A cue mid-way (a gate gave it back) comes
+ * in over a moment rather than on a blow; it never takes the session's long
+ * first fade, since it opens on a hit.
+ */
+const startCue = (id: SongId, fadeIn: number): void => {
+  const a = audio()
+  if (!a) return
+  const s = getSong(id)
+  const at = cueClock ? cueClock() : Infinity
+  const spb = stepSeconds(s)
+  const first = Math.max(0, Math.ceil((at + CUE_LEAD_S) / spb - 1e-6))
+  if (!(first < s.steps.length)) return
+  everStarted = true
+  const fade = first > 2 ? Math.max(fadeIn, 0.3) : fadeIn
+  const url = MUSIC_FILES.get(id)
+  if (url) {
+    const f = startFile(url, false, fade)
+    if (f) {
+      try { f.el.currentTime = Math.max(0, at) } catch { /* not seekable yet */ }
+      playing = id
+      fileEl = f.el
+      fileGain = f.gain
+      f.el.addEventListener('ended', () => {
+        if (fileEl !== f.el) return
+        stopFile(f.el, f.gain, 0.05)
+        fileEl = null
+        fileGain = null
+        playing = null
+      }, { once: true })
+      return
+    }
+  }
+  startSong(id, a.ctx.currentTime + first * spb - at, fade, false, first)
+}
+
+/**
  * Ask for a track's music. Leaves a song alone that may keep playing (see
  * `keepsPlaying`), so it is safe to call again and again with the same track.
  * A change of track is a crossfade (`CROSSFADE`): the old song's notes ring
@@ -278,8 +346,8 @@ export const playMusic = (id: TrackId): void => {
   area = id
   if (isMusicRunning() && keepsPlaying(id, playing, slot)) return
   const switching = isMusicRunning()
-  const [fadeOut, fadeIn] = OWN_SONG(id) ? CROSSFADE.toBoss : OWN_SONG(playing) ? CROSSFADE.fromBoss : CROSSFADE.area
-  // A boss fight ends on the zone's own theme, not in the middle of the rotation.
+  const [fadeOut, fadeIn] = CUE(id) ? CROSSFADE.toCue : id === 'boss' ? CROSSFADE.toBoss : playing === 'boss' ? CROSSFADE.fromBoss : CROSSFADE.area
+  // A boss fight (or a cue) ends on the zone's own theme, not in the middle of the rotation.
   if (OWN_SONG(id)) slot = 0
   if (jingle) {
     retire(jingle, a.ctx.currentTime, 0.4)
@@ -288,6 +356,10 @@ export const playMusic = (id: TrackId): void => {
   stopMusic(switching ? fadeOut : 0.15)
   // A song the game replaced does not resume; only one the gates stopped does.
   if (switching) resume = null
+  if (CUE(id)) {
+    startCue(id, fadeIn)
+    return
+  }
   begin(songFor(id, slot), switching ? fadeIn : 0.35)
 }
 
@@ -300,7 +372,8 @@ export const stopMusic = (fade = 0.25): void => {
   }
   const a = audio()
   if (out && a) retire(out, a.ctx.currentTime, fade)
-  if (song && playing) resume = { id: playing, step: Math.floor(stepIdx / song.barSteps) * song.barSteps, played }
+  // (A cue never resumes from a bar: started again, it goes by its film's clock.)
+  if (song && playing) resume = CUE(playing) ? null : { id: playing, step: Math.floor(stepIdx / song.barSteps) * song.barSteps, played }
   out = null
   song = null
   if (fileEl && fileGain) stopFile(fileEl, fileGain, fade)

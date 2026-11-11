@@ -6,7 +6,7 @@ import { isPlatformAudioMuted } from '@/use/useGamePauseAudio'
 import { isMobileAudioMuted } from '@/use/useMobileAudioMute'
 
 import { ref, onMounted, watch, onUnmounted } from 'vue'
-import { isMusicRunning, playMusic, stopMusic, type TrackId } from '@/game/audio/music'
+import { currentMusic, isMusicRunning, playMusic, setCueClock, stopMusic, type TrackId } from '@/game/audio/music'
 
 // We keep the audio instance outside the hook so it's a true Singleton
 const bgMusic = ref<HTMLAudioElement | null>(null)
@@ -40,10 +40,17 @@ let usingSynth = false
 const gameTrack = ref<TrackId>('town')
 /** A boss is awake: its fight music takes over from the place's own. */
 const bossAwake = ref(false)
+/**
+ * The intro's film is on (#209): its fight cue is the wanted track, over the
+ * place's and over a boss's. It stays wanted (silent once the film is over or
+ * skipped, see `stopIntroMusic`) until the game names the next place.
+ */
+const introCue = ref(false)
 const synthTrack = (): TrackId => {
   const { userMusicTrack } = useUser()
-  // "Calm" option: the town theme everywhere, a boss fight included.
+  // "Calm" option: the town theme everywhere, a boss fight and the intro included.
   if (userMusicTrack.value === 'cozy') return 'town'
+  if (introCue.value) return 'introFight'
   return bossAwake.value ? 'boss' : gameTrack.value
 }
 /** Start the game's music (sets the play intent). Safe to call repeatedly. */
@@ -51,12 +58,43 @@ export const startGameMusic = (): void => {
   restartTrack?.()
 }
 
-/** Called by the game when the place changes. A new place has no boss awake in it. */
+/**
+ * Called by the game when the place changes. A new place has no boss awake in
+ * it, and no film over it: the place's music sounds again, even when it is the
+ * place the intro was played over.
+ */
 export const setMusicTrack = (id: TrackId): void => {
-  if (gameTrack.value === id && !bossAwake.value) return
+  if (gameTrack.value === id && !bossAwake.value && !introCue.value) return
   gameTrack.value = id
   bossAwake.value = false
+  introCue.value = false
   retrackSynth?.()
+}
+
+/**
+ * The intro's fight cue (#209), in step with the film: `clock` is how many
+ * seconds into the cue the picture is (`INTRO_FIGHT_AT` before the film's own
+ * clock). Like `setBossMusic` it changes WHICH track is wanted, never whether
+ * music plays: muted, paused or under an ad it only records it, and the gates
+ * bring the cue back where the film then is.
+ */
+export const startIntroMusic = (clock: () => number): void => {
+  setCueClock(clock)
+  introCue.value = true
+  // (Asked again while it plays, the sequencer leaves it alone.)
+  retrackSynth?.()
+}
+
+/**
+ * The film is over, or skipped: the cue fades out over `fade` seconds (its
+ * last chord rings out at the end; a skip takes it down at once), and nothing
+ * plays until the game names the next place (`setMusicTrack`), whose music
+ * then comes in as it would have without the intro.
+ */
+export const stopIntroMusic = (fade = 0.6): void => {
+  if (!introCue.value) return
+  setCueClock(null)
+  if (currentMusic() === 'introFight') stopMusic(fade)
 }
 
 /**

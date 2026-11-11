@@ -5,7 +5,7 @@
 // Chrome of its own (private profile, random debugging port), and reports per
 // song:
 //
-//   pass       one pass's length (a jingle: the whole thing, tail included)
+//   pass       one pass's length (a jingle or a cue: the whole thing, tail included)
 //   loudness   integrated, K-weighted (LUFS-style, gating omitted)
 //   peak       sample peak of the song's own mix
 //   lo/mid/hi  share of the energy below 250 Hz, 250 Hz–2 kHz, above 2 kHz
@@ -101,7 +101,7 @@ window.renderSong = async (id, seconds, wantWav, only) => {
   const base = only ? { ...full, steps: full.steps.map(evs => evs.filter(e => e.i === only)) } : full
   // --dry: no reverb sends, to tell what the voices cost from what the hall costs.
   const song = ${DRY} ? { ...base, chans: Object.fromEntries(Object.entries(base.chans).map(([k, v]) => [k, { ...v, send: 0 }])) } : base
-  const once = song.kind === 'jingle'
+  const once = song.kind === 'jingle' || song.kind === 'cue'
   const pass = Songs.songSeconds(song) + (once ? song.reverb.seconds : 0)
   const len = seconds || pass
   const SR = 44100

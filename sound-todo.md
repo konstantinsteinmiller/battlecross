@@ -50,8 +50,13 @@ cello, plucked strings and piano, with hand percussion that comes and goes.
 Each place has a theme (about 70 s a pass); between two passes of it the
 sequencer plays the travelling piece once, so a visit never loops one tune.
 When a boss wakes, the boss theme crossfades in and the zone's theme returns
-when the fight is over (`setBossMusic` in `src/use/useSound.ts`). The "Calm"
-music style in the options plays the town theme everywhere.
+when the fight is over (`setBossMusic` in `src/use/useSound.ts`). The intro's
+film has a cue of its own, "The Drake Falls" (#209): it starts with the film,
+is cut to its clock (a blow on the roar, the summon and each slap, the biggest
+on the slay, then a D-major lift that falls away under "1 month later…"),
+plays once, and is gone when the film ends or is skipped; the next place then
+names its own theme (`startIntroMusic` / `stopIntroMusic`). The "Calm" music
+style in the options plays the town theme everywhere, the intro included.
 
 Which zone look plays which track is `src/game/audio/themes.ts`. A file named
 after the id replaces that piece; in the rotation it plays whole passes like
@@ -70,6 +75,7 @@ the composed one does.
 | `bastion` | Iron Banner | A minor, 4/4, 88 | fortress, arena |
 | `journey` | The Long Road | G mixolydian, 4/4, 72 | the travelling piece: any zone, after its theme has played |
 | `boss` | Trial of Blades | D minor, 4/4, 112 | a boss is awake (loops without its intro) |
+| `introFight` | The Drake Falls | D minor → D major, 4/4, 133⅓ | the intro's fight, once, in step with the film (12.6 s) |
 | `victory`, `defeat` | | D major / D minor | the result jingles, played once |
 
 The music style option still offers the predecessor's two file styles under
@@ -80,5 +86,8 @@ back to this score.
 A recorded replacement should keep the piece's length and character: a loop
 of about a minute, slow (60 to 92 beats a minute for the areas), strings and
 piano in front, percussion only in places. The boss file loops whole, so a
-recorded one should have no long intro. `node tools/music-render.mjs --out
+recorded one should have no long intro. A recorded `introFight` is played once
+from the film's position, its 0 s at the film's 0.0875 s (`INTRO_FIGHT_AT`),
+so it must keep the composed one's timing: the slay's hit at 6.4125 s into
+the file. `node tools/music-render.mjs --out
 <dir>` writes every composed piece as an mp3 for reference.

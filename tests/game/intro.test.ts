@@ -127,6 +127,25 @@ describe('the first boot (#189)', () => {
   })
 })
 
+describe('the music: the fight\'s own cue (#209)', () => {
+  const runner = read('game/intro/runner.ts')
+
+  it('starts with the film on both paths (the boot\'s scene, a replay\'s), cut to the film\'s clock', () => {
+    expect(runner).toMatch(/const cueTime = \(\): number => clock\.t - INTRO_FIGHT_AT/)
+    expect(runner).toMatch(/if \(pre\) \{ startIntroMusic\(cueTime\); startGameMusic\(\)/)
+    const show = runner.slice(runner.indexOf('const show = '), runner.indexOf('const frame = '))
+    expect(show).toMatch(/startIntroMusic\(cueTime\)\s*startGameMusic\(\)/)
+  })
+
+  it('stops when the film ends or is skipped, and the place\'s music is named only once it is over', () => {
+    const fin = runner.slice(runner.indexOf('const finish = '), runner.indexOf('end = finish'))
+    expect(fin).toMatch(/stopIntroMusic\(clock\.done \? CUE_OUT_END_S : CUE_OUT_SKIP_S\)/)
+    // The place's track is set by what follows the film (`settleAfterIntro`, or the opening level's `enter`), never at its start.
+    expect(runner.match(/setMusicTrack\(/g)).toHaveLength(1)
+    expect(runner).toMatch(/export const settleAfterIntro[^\n]*\n\s*if \(mode instanceof ZoneMode\) setMusicTrack/)
+  })
+})
+
 describe('the script', () => {
   it('lasts at most 12 seconds', () => {
     expect(INTRO_LENGTH).toBeLessThanOrEqual(12)

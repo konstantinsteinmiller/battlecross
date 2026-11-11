@@ -21,7 +21,8 @@ import type { Look } from '../gfx/rigs/humanoid'
 import { stopSpeech } from '../audio/speech'
 import { setZoneFog } from '../gfx/terrain'
 import { trackForTheme } from '../audio/themes'
-import { setMusicTrack, startGameMusic } from '@/use/useSound'
+import { setMusicTrack, startGameMusic, startIntroMusic, stopIntroMusic } from '@/use/useSound'
+import { INTRO_FIGHT_AT } from '../audio/songs'
 import { isGamePaused } from '@/use/useGamePause'
 import { INTRO_TIP, introBoot } from './state'
 import { setSfxGate } from '../audio/sfx'
@@ -69,6 +70,13 @@ export const skipIntro = (): void => { if (introView.t < NO_SKIP_AT) end?.() }
 export const endIntro = (): void => end?.()
 
 const NONE: ZoneCallbacks = { onEnd: () => {}, onInteract: () => {}, onPause: () => {}, onPanel: () => {} }
+
+/**
+ * The fight's own cue (#209, "The Drake Falls" in `audio/songs.ts`) plays for the film and only for it, cut to its clock;
+ * when the film ends its last chord rings out over this long, and a skip takes it down in this.
+ */
+const CUE_OUT_END_S = 2.5
+const CUE_OUT_SKIP_S = 0.6
 
 /** The place's music again, for the scene the intro hands the renderer to. */
 export const settleAfterIntro = (mode: GameMode | null): void => {
@@ -551,6 +559,8 @@ export const runIntro = (next: GameMode | null = null): Promise<void> => new Pro
     cancelAnimationFrame(raf)
     stopSpeech()
     setSfxGate(null)
+    // The cue is the film's: it goes with it. The place's music comes back when the next scene names its track.
+    stopIntroMusic(clock.done ? CUE_OUT_END_S : CUE_OUT_SKIP_S)
     profile.tips[INTRO_TIP] = true
     saveProfile()
     if (boot) {
@@ -591,7 +601,9 @@ export const runIntro = (next: GameMode | null = null): Promise<void> => new Pro
   }
   end = finish
 
-  if (pre) { setMusicTrack(trackForTheme(pre.mode.setup.theme)); startGameMusic(); app.setWanted(true); introView.ready = true }
+  /** Where the picture is in the fight's cue (seconds; its first 16th is a little after the film's start). */
+  const cueTime = (): number => clock.t - INTRO_FIGHT_AT
+  if (pre) { startIntroMusic(cueTime); startGameMusic(); app.setWanted(true); introView.ready = true }
   else {
     build().then((m) => {
       if (over) { m.dispose(); return }
@@ -607,7 +619,7 @@ export const runIntro = (next: GameMode | null = null): Promise<void> => new Pro
     app.resize()
     m.enter()
     app.setWanted(true)
-    setMusicTrack(trackForTheme(m.setup.theme))
+    startIntroMusic(cueTime)
     startGameMusic()
     introView.ready = true
   }

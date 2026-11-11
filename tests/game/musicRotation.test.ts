@@ -53,11 +53,12 @@ vi.mock('@/game/audio/engine', () => ({
   audioAllowed: () => true
 }))
 
-import { getSong, songSeconds, stepSeconds, makeOut, playStep, SONG_IDS, PERCUSSION, OSC_BUDGET, OSC_BUDGET_BOSS, type Ev, type Song, type SongId } from '@/game/audio/songs'
-import { songFor, shouldRotate, keepsPlaying, playMusic, playJingle, stopMusic, currentMusic, isMusicRunning, ROTATION_SIZE, ROTATE_AFTER_S } from '@/game/audio/music'
+import { getSong, songSeconds, stepSeconds, makeOut, playStep, SONG_IDS, PERCUSSION, OSC_BUDGET, OSC_BUDGET_BOSS, INTRO_FIGHT_AT, type Ev, type Song, type SongId } from '@/game/audio/songs'
+import { songFor, shouldRotate, keepsPlaying, playMusic, playJingle, stopMusic, currentMusic, isMusicRunning, setCueClock, ROTATION_SIZE, ROTATE_AFTER_S } from '@/game/audio/music'
 import { trackForTheme, THEME_IDS } from '@/game/audio/themes'
 import { ZONES, TOWNS } from '@/game/data/zones'
-import { useMusic, setMusicTrack, setBossMusic, isBossMusic } from '@/use/useSound'
+import { INTRO_ACTS, INTRO_LENGTH, LABEL_AT } from '@/game/intro/script'
+import { useMusic, setMusicTrack, setBossMusic, isBossMusic, startIntroMusic, stopIntroMusic } from '@/use/useSound'
 import useUser from '@/use/useUser'
 import { setPlatformAudioMuted } from '@/use/useGamePauseAudio'
 
@@ -301,7 +302,7 @@ describe('the score: what it costs to play', () => {
     const out = makeOut(fake.ctx as unknown as BaseAudioContext, fake.ctx.destination as unknown as AudioNode, s)
     const spb = stepSeconds(s)
     let t = 0.05
-    for (let pass = 0; pass < (s.kind === 'jingle' ? 1 : 2); pass++) {
+    for (let pass = 0; pass < (s.kind === 'jingle' || s.kind === 'cue' ? 1 : 2); pass++) {
       for (let step = pass === 0 ? 0 : s.loopBar * s.barSteps; step < s.steps.length; step++) {
         playStep(out, s, step, t, spb)
         t += spb
@@ -328,7 +329,8 @@ describe('the score: what it costs to play', () => {
       const peak = peakOscillators(s)
       expect(peak, s.id).toBeGreaterThan(2)
       diag(`${s.id}: peaks at ${peak} oscillators`)
-      if (peak > (s.kind === 'boss' ? OSC_BUDGET_BOSS : OSC_BUDGET)) over.push(`${s.id} peaks at ${peak} oscillators`)
+      // The boss fight and the intro's fight are the big moments: they get the larger budget.
+      if (peak > (s.kind === 'boss' || s.kind === 'cue' ? OSC_BUDGET_BOSS : OSC_BUDGET)) over.push(`${s.id} peaks at ${peak} oscillators`)
     }
     expect(over).toEqual([])
   })
@@ -491,5 +493,243 @@ describe('setBossMusic', () => {
     expect(now()).toBe('town')
     setBossMusic(false)
     expect(now()).toBe('town')
+  })
+})
+
+// ─── The intro's fight (#209) ────────────────────────────────────────────────
+
+describe('the intro fight: the cue itself', () => {
+  const CUE = getSong('introFight')
+  const spb = stepSeconds(CUE)
+  /** The film second a note starts at. */
+  const film = (at: number): number => INTRO_FIGHT_AT + at * spb
+  const drums = notes(CUE).filter(e => e.i === 'taiko')
+  const beat = (act: string): number[] => INTRO_ACTS.filter(b => b.act === act).map(b => b.at)
+  /** The loudest drum within `tol` seconds of a film moment (late by up to `late`). */
+  const drumAt = (t: number, tol: number, late = tol): number =>
+    Math.max(0, ...drums.filter(e => film(e.at) >= t - tol && film(e.at) <= t + late).map(e => e.v))
+
+  it('is a cue: once, 10 to 16 seconds, never rotated away from and never looped', () => {
+    expect(SONG_IDS).toContain('introFight')
+    expect(CUE.kind).toBe('cue')
+    expect(of('cue').map(s => s.id)).toEqual(['introFight'])
+    expect(CUE.loopBar).toBe(0)
+    expect(songSeconds(CUE)).toBeGreaterThanOrEqual(10)
+    expect(songSeconds(CUE)).toBeLessThanOrEqual(16)
+    // With its hall's tail it is still about the film's length.
+    expect(songSeconds(CUE) + CUE.reverb.seconds).toBeLessThanOrEqual(16)
+    for (const s of [0, 1, 2]) expect(songFor('introFight', s)).toBe('introFight')
+    expect(shouldRotate('introFight', 'introFight', 999)).toBe(false)
+    expect(shouldRotate('meadow', 'introFight', 999)).toBe(false)
+    expect(keepsPlaying('meadow', 'introFight', 1)).toBe(false)
+  })
+
+  it('is written for the orchestra at full stretch: piano, strings, cello, violin, choir and the big drums', () => {
+    const insts = new Set(notes(CUE).map(e => e.i))
+    for (const i of ['piano', 'strings', 'spicc', 'cello', 'violin', 'choir', 'taiko', 'cym'] as const) expect(insts.has(i), i).toBe(true)
+    // The rolling piano: a 16th-note figure through the fight.
+    const fight = notes(CUE).filter(e => e.i === 'piano' && film(e.at) > 1.85 && film(e.at) < 6.45)
+    expect(fight.length).toBeGreaterThan(40)
+  })
+
+  it('is cut to the film: a blow on the roar, the summon and every slap, the biggest one on the slay', () => {
+    // The roar's blow answers it (a little late reads as an answer; early would read as a mistake).
+    expect(drumAt(beat('roar')[0]!, 0, 0.07)).toBeGreaterThanOrEqual(0.9)
+    expect(drumAt(beat('summon')[0]!, 0.02)).toBeGreaterThanOrEqual(0.8)
+    for (const t of beat('slap')) expect(drumAt(t, 0.02), `slap at ${t}`).toBeGreaterThanOrEqual(0.5)
+    // Where a blow lands (the beast caller's slaps, the elementalist's spells half a beat after their cast) it is heavy.
+    for (const b of INTRO_ACTS.filter(b => b.act === 'slap' && b.who === 'beast')) expect(drumAt(b.at, 0.02), `beast at ${b.at}`).toBeGreaterThanOrEqual(0.85)
+    const slay = beat('slay')[0]!
+    expect(drumAt(slay, 0.005)).toBe(1)
+    // …on D major, the whole section: the Picardy lift.
+    const at = Math.round((slay - INTRO_FIGHT_AT) / spb)
+    const chord = new Set(CUE.steps[at]!.filter(e => e.i === 'strings').map(e => e.m % 12))
+    expect([...chord].sort((a, b) => a - b)).toEqual([2, 6, 9])
+    // Nothing in the cue is struck harder than the slay, and it is the most crowded 16th.
+    const crowd = (s: number): number => CUE.steps[s]!.length
+    for (let s = 0; s < CUE.steps.length; s++) expect(crowd(s), `step ${s}`).toBeLessThanOrEqual(crowd(at))
+  })
+
+  it('falls away with the film: the last chord under "1 month later…" is D major, and the cue is over with the film', () => {
+    const last = Math.max(...pitched(CUE).map(e => e.at))
+    expect(film(last)).toBeGreaterThan(LABEL_AT)
+    const final = pitched(CUE).filter(e => e.i === 'strings').reduce((a, e) => Math.max(a, e.at), 0)
+    expect(film(final)).toBeCloseTo(LABEL_AT, 1)
+    expect([...new Set(CUE.steps[final]!.filter(e => e.i === 'strings').map(e => e.m % 12))].sort((a, b) => a - b)).toEqual([2, 6, 9])
+    const end = INTRO_FIGHT_AT + songSeconds(CUE)
+    expect(end).toBeGreaterThanOrEqual(INTRO_LENGTH)
+    expect(end).toBeLessThan(INTRO_LENGTH + 1.5)
+    // No drum after the fight is anywhere near as hard as the fight's: the end is quiet.
+    const slay = beat('slay')[0]!
+    for (const e of drums.filter(e => film(e.at) > slay + 0.1)) expect(e.v, `drum at ${film(e.at).toFixed(2)} s`).toBeLessThanOrEqual(0.6)
+  })
+})
+
+describe('the sequencer: a cue cut to a film', () => {
+  let t = 0
+  beforeEach(() => {
+    vi.useFakeTimers()
+    stopMusic(0)
+    vi.runOnlyPendingTimers()
+    t = 0
+    setCueClock(() => t - INTRO_FIGHT_AT)
+  })
+  afterEach(() => {
+    setCueClock(null)
+    stopMusic(0)
+    vi.useRealTimers()
+  })
+  /** Real time passes: the audio clock, the film's and the sequencer's timer together. */
+  const pass = (seconds: number): void => {
+    for (let k = 0; k < seconds; k += 0.1) {
+      fake.state.now += 0.1
+      t += 0.1
+      vi.advanceTimersByTime(100)
+    }
+  }
+
+  it('plays once from the top and stops at its end; asked for again after, it stays silent', () => {
+    playMusic('meadow')
+    playMusic('introFight')
+    expect(currentMusic()).toBe('introFight')
+    pass(6)
+    expect(currentMusic()).toBe('introFight')
+    pass(songSeconds(getSong('introFight')))
+    expect(currentMusic()).toBe(null)
+    expect(isMusicRunning()).toBe(false)
+    const before = fake.state.oscs.length
+    playMusic('introFight')
+    expect(isMusicRunning()).toBe(false)
+    expect(fake.state.oscs.length).toBe(before)
+  })
+
+  it('started late, it starts where the film is (here: on the slay), not from the top and not from a bar', () => {
+    const cue = getSong('introFight')
+    const slay = 57 * stepSeconds(cue)
+    t = INTRO_FIGHT_AT + slay - 0.1
+    const from = fake.state.oscs.length
+    const now = fake.state.now
+    playMusic('introFight')
+    // (The shared vibrato LFOs start at 0 and never stop: they are not notes.)
+    const started = fake.state.oscs.slice(from).filter(o => Number.isFinite(o.t1))
+    expect(started.length).toBeGreaterThan(15)
+    // The first notes are the slay's, a tenth of a second ahead — none of the fight before it.
+    expect(Math.min(...started.map(o => o.t0))).toBeCloseTo(now + 0.1, 3)
+  })
+
+  it('a gate stops it, and it comes back where the film is; with no film (or one that is over) it plays nothing', () => {
+    playMusic('introFight')
+    pass(2)
+    stopMusic(0.1)
+    expect(isMusicRunning()).toBe(false)
+    t += 3
+    playMusic('introFight')
+    expect(currentMusic()).toBe('introFight')
+    stopMusic(0)
+    setCueClock(null)
+    playMusic('introFight')
+    expect(isMusicRunning()).toBe(false)
+  })
+})
+
+describe('the intro fight: wired to the film', () => {
+  let wrapper: ReturnType<typeof mount> | null = null
+  let t = 0
+  const film = (): number => t - INTRO_FIGHT_AT
+  const start = (): ReturnType<typeof useMusic> => {
+    let api!: ReturnType<typeof useMusic>
+    wrapper = mount(defineComponent({
+      setup () {
+        api = useMusic()
+        api.initMusic()
+        return () => null
+      }
+    }))
+    api.startBattleMusic()
+    return api
+  }
+
+  beforeEach(async () => {
+    HTMLMediaElement.prototype.pause = () => {}
+    wrapper?.unmount()
+    wrapper = null
+    setPlatformAudioMuted(false)
+    useUser().userMusicTrack.value = 'trance'
+    setBossMusic(false)
+    setMusicTrack('town')
+    await nextTick()
+    stopMusic(0)
+    t = 0
+  })
+  afterEach(() => {
+    stopIntroMusic(0)
+    setMusicTrack('town')
+    stopMusic(0)
+  })
+
+  it('a replay over a place: the cue takes over, and when the film is done the place\'s own theme comes back', () => {
+    setMusicTrack('meadow')
+    start()
+    expect(currentMusic()).toBe('meadow')
+    startIntroMusic(film)
+    expect(currentMusic()).toBe('introFight')
+    t = 5
+    stopIntroMusic()
+    expect(isMusicRunning()).toBe(false)
+    // The same place is named again (the intro is over): it must not be taken for "nothing changed".
+    setMusicTrack('meadow')
+    expect(currentMusic()).toBe('meadow')
+  })
+
+  it('the first boot: silence after the film until the opening level names its track', () => {
+    const api = start()
+    startIntroMusic(film)
+    expect(currentMusic()).toBe('introFight')
+    t = INTRO_LENGTH
+    stopIntroMusic(2.5)
+    expect(isMusicRunning()).toBe(false)
+    // Anything that restarts the music meanwhile (an unpause, an unmute) finds the film over and plays nothing.
+    api.startBattleMusic()
+    api.continueMusic()
+    expect(isMusicRunning()).toBe(false)
+    setMusicTrack('meadow')
+    expect(currentMusic()).toBe('meadow')
+  })
+
+  it('a boss waking under the film does not take it over', () => {
+    start()
+    startIntroMusic(film)
+    setBossMusic(true)
+    expect(currentMusic()).toBe('introFight')
+    setBossMusic(false)
+    expect(currentMusic()).toBe('introFight')
+  })
+
+  it('respects the mute: silent while muted, and back at the film\'s place when unmuted', async () => {
+    start()
+    startIntroMusic(film)
+    setPlatformAudioMuted(true)
+    await nextTick()
+    expect(isMusicRunning()).toBe(false)
+    t = 4
+    setPlatformAudioMuted(false)
+    await nextTick()
+    expect(currentMusic()).toBe('introFight')
+    // Muted on the black after the film: nothing comes back.
+    setPlatformAudioMuted(true)
+    await nextTick()
+    t = INTRO_LENGTH + 2
+    setPlatformAudioMuted(false)
+    await nextTick()
+    expect(isMusicRunning()).toBe(false)
+  })
+
+  it('the "Calm" music style keeps the town theme through the intro too', () => {
+    useUser().userMusicTrack.value = 'cozy'
+    start()
+    startIntroMusic(film)
+    expect(currentMusic()).toBe('town')
+    stopIntroMusic()
+    expect(currentMusic()).toBe('town')
   })
 })

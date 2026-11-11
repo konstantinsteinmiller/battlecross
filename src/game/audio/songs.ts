@@ -27,6 +27,7 @@ export type { Ev, Inst, Out } from './voices'
  *   bastion   Iron Banner        A aeolian     4/4   fortress, arena
  *   journey   The Long Road      G mixolydian  4/4   the travelling piece: any zone, between passes of its theme
  *   boss      Trial of Blades    D aeolian     4/4   a boss is awake
+ *   introFight  The Drake Falls  D aeolian     4/4   the intro's fight, once, cut to the film (→ D major)
  *   victory, defeat                                  the result jingles
  *
  * Which zone plays which is `themes.ts`; how they follow each other is
@@ -35,11 +36,12 @@ export type { Ev, Inst, Out } from './voices'
  * to that, so a typo cannot ship as a wrong note.
  */
 
-/** What the game asks for: an area's theme, or the boss fight. */
-export type TrackId = 'town' | 'meadow' | 'wildwood' | 'deep' | 'ember' | 'frost' | 'sanctum' | 'unmade' | 'bastion' | 'boss'
+/** What the game asks for: an area's theme, the boss fight, or the intro fight's cue. */
+export type TrackId = 'town' | 'meadow' | 'wildwood' | 'deep' | 'ember' | 'frost' | 'sanctum' | 'unmade' | 'bastion' | 'boss' | 'introFight'
 /** Everything that can sound: the tracks, the travelling piece, the two jingles. */
 export type SongId = TrackId | 'journey' | 'victory' | 'defeat'
-export type SongKind = 'area' | 'travel' | 'boss' | 'jingle'
+/** `cue`: scored to a picture — played once, in step with the film's clock, never looped or resumed from a bar. */
+export type SongKind = 'area' | 'travel' | 'boss' | 'cue' | 'jingle'
 
 export interface Song extends Mix {
   id: SongId
@@ -822,6 +824,165 @@ const boss = (): Song => {
   })
 }
 
+// ─── "The Drake Falls" — the intro's fight (#209). D aeolian, 4/4, 133⅓ BPM ─
+// 7 bars, 12.6 s, played once and cut to the film (`intro/script.ts`):
+//
+//   film s   16th   the film                      the music
+//   0.20       1    the drake roars               the blow: both taiko, low piano D, the strings and the choir on D minor
+//   0.5–1.9         the two leap in               the drive starts low and grows, a piano sweep, a snare roll, toms up
+//   1.89      16    the pack is thrown in         the theme: violin over a rolling piano, a 3+3+2 drive, the cello falling
+//   3.69–5.94 32…52 six blows, a beat apart       a drum on every beat, heaviest where the blow lands (beats 2 and 4)
+//   6.50      57    the drake goes down           THE hit, on D MAJOR: Bb – C – D, the Aeolian cadence, the violin on D6
+//   7.0–9.6         they walk off, he gets up     the theme's head in major, then Bb – Gm – D: the minor plagal, softening
+//   10.10     89    "1 month later…"              the last D major, the violin resolving G → F#, the piano's farewell
+//
+// A beat is 0.45 s, the six blows' spacing; the slay comes 0.55 s after the
+// last, so the bar of the last two blows is 9/16 (two beats and a tom run) and
+// everything after the slay is written from its 16th (`P`), a 16th off the
+// bar lines the notation draws. The slaps land 12 ms early and the slay on
+// the dot; the roar's blow 50 ms late, which reads as an answer, not a lag.
+// Every note is in D minor except the major third of the last three chords
+// (F#, marked): the Picardy lift is the whole point.
+
+/** The film second of the intro fight's first 16th (its slay, step 57, falls at 6.5 s). */
+export const INTRO_FIGHT_AT = 0.0875
+
+const introFight = (): Song => {
+  const S = new Score(7, 16, 209)
+  /** The slay's 16th: the downbeat everything after the six blows counts from. */
+  const P = 57
+  // The drive: 16ths on the root, the 3+3+2 accents on the root, the octave and the fifth.
+  const DRIVE = [0, 0, 0, 12, 0, 0, 7, 0, 0, 0, 0, 12, 0, 0, 7, 12]
+  const drive = (from: number, to: number, root: string, v: number | ((s: number) => number)): void => {
+    for (let s = from; s < to; s++) {
+      const k = s % 8
+      const lvl = typeof v === 'number' ? v : v(s)
+      S.add(0, s, 'spicc', note(root) + DRIVE[s % 16]!, 1, k === 0 || k === 3 || k === 6 ? lvl : lvl * 0.55)
+    }
+  }
+  /** The piano's left hand: the root in octaves, the low note carrying the weight (short: they come four 16ths apart). */
+  const hammer = (step: number, root: string, v: number): void => {
+    S.add(0, step, 'piano', note(root) - 12, 1, v)
+    S.add(0, step, 'piano', note(root), 1, 0.5)
+  }
+  /** The piano's right hand: the chord rolled in 16ths. */
+  const roll = (step: number, notes: string, order: readonly number[], v: number): void => S.arp(0, step, 'piano', notes, order, 1, 2, v)
+
+  // ── The melody (violin): a pickup, the call (D – A, falling back), the fanfare
+  // up the F chord on the blows, Bb – C – D into the slay, then the call again in
+  // major, and the long G that resolves to F# under "1 month later…".
+  const pickup = '-/8 A4/4 C5/2 E5/2'
+  const call = 'D5/4 A5/6 G5/2 F5/2 E5/2'
+  const fanfare = 'F5/4 A5/4^ C6/4 G5/4^'
+  const ascent = 'Bb5/4 C6/5^ -/7'
+  const after = '-/9 D6/6 E6/2 D6/4 A5/4 D6/8 ~Bb5/4 ~G5/4 ~F#5!/16 -/7'
+  S.tune(0, 'violin', `${pickup} | ${call} | ${fanfare}`, [0.55, 0.9])
+  S.tune(3, 'violin', ascent, [0.92, 1])
+  S.tune(3, 'violin', after, [1, 0.45])
+  // From the blows on, the section an octave down, softer: weight under the line, not a second tune.
+  S.line(2, 'violin', `${fanfare} | ${ascent}`, [0.45, 0.6], { oct: -1 })
+  S.line(3, 'violin', after, [0.6, 0.28], { oct: -1 })
+  // The countermelody (cello): down the scale while the tune climbs, then up into the slay.
+  S.line(1, 'cello', 'D3/6 ~C3/2 Bb2/8 | A2/8 ~G2/8 | Bb2/4 C3/5 -/7', [0.7, 0.85])
+
+  // ── Bar 0: the roar, and the build while the two leap in.
+  S.add(0, 1, 'taiko', 38, 1, 1)
+  S.add(0, 1, 'taiko', 31, 1, 0.95)
+  S.perc(0, 'taiko', '........x.......', 0.75, 36)
+  S.add(0, 1, 'cym', 0, 1, 0.75)
+  S.add(0, 4, 'cym', 0, 12, 0.7)
+  S.chord(0, 1, 'piano', 'D1 D2', 12, 0.9)
+  S.chord(0, 1, 'strings', 'D3 A3 F4', 15, 0.85)
+  S.chord(0, 1, 'choir', 'D4 F4 A4', 10, 0.7)
+  S.add(0, 1, 'cello', note('D2'), 15, 0.8)
+  drive(4, 16, 'D3', s => 0.3 + 0.04 * (s - 4))
+  S.arp(0, 8, 'piano', 'D3 F3 A3 D4 F4 A4 D5 F5', [0, 1, 2, 3, 4, 5, 6, 7], 1, 2, 0.48)
+  for (let s = 8; s < 16; s++) S.add(0, s, 'snare', 0, 1, 0.2 + 0.06 * (s - 8))
+  S.toms(0, 12, [45, 48, 50, 53], 0.85)
+
+  // ── Bars 1–3: the fight. Dm | Bb · F | C · Bb | C (9/16) → D.
+  const harm: Array<[step: number, len: number, root: string, low: string, rh: string]> = [
+    [16, 8, 'D3', 'F3 A3 D4', 'D4 F4 A4 D5'],
+    [24, 8, 'Bb2', 'F3 Bb3 D4', 'D4 F4 Bb4 D5'],
+    [32, 8, 'F2', 'F3 A3 C4', 'C4 F4 A4 C5'],
+    [40, 8, 'C3', 'E3 G3 C4', 'C4 E4 G4 C5'],
+    [48, 4, 'Bb2', 'F3 Bb3 D4', 'D4 F4 Bb4 D5'],
+    [52, 4, 'C3', 'E3 G3 C4', 'C4 E4 G4 C5']
+  ]
+  for (const [at, len, root, low, rh] of harm) {
+    const last = at === 52
+    drive(at, at + len, root, 0.78 + (at - 16) * 0.003)
+    // The last chord is a stab: it clears the air for the tom run and the slay.
+    S.chord(0, at, 'strings', low, last ? 2 : len, last ? 0.95 : 0.75 + (at - 16) * 0.003)
+    if (len === 8) roll(at, rh, ROLL8, 0.42)
+    else if (!last) roll(at, rh, [0, 1, 2, 3], 0.44)
+    else roll(at, `${rh} E5`, [0, 1, 2, 3, 4], 0.46)
+  }
+  for (const [at, root] of [[16, 'D3'], [22, 'D3'], [28, 'Bb2'], [32, 'F2'], [38, 'F2'], [44, 'C3'], [48, 'Bb2'], [52, 'C3']] as const) hammer(at, root, 0.8)
+  S.perc(1, 'taiko', 'X..x..X.X..x..X.', 0.85, 38)
+  S.add(1, 0, 'taiko', 31, 1, 0.9)
+  S.add(1, 0, 'cym', 0, 1, 0.8)
+  // The six blows: a drum on every beat, the heavy ones where a blow lands.
+  S.perc(2, 'taiko', 'x...X...x...X...', 1, 38)
+  for (const s of [36, 44]) S.add(0, s, 'taiko', 31, 1, 0.82)
+  S.perc(2, 'snare', '....S.......S...', 0.6)
+  S.add(3, 0, 'taiko', 38, 1, 0.6)
+  S.add(3, 4, 'taiko', 38, 1, 1)
+  S.add(3, 4, 'snare', 0, 1, 0.65)
+  S.toms(3, 5, [57, 53, 50, 45], 0.95)
+  // The cymbal swells over the 9/16 bar and breaks on the slay.
+  S.add(2, 9, 'cym', 0, 16, 0.95)
+
+  // ── The slay: D major, everyone.
+  S.add(0, P, 'taiko', 38, 1, 1)
+  S.add(0, P, 'taiko', 31, 1, 1)
+  S.add(0, P, 'cym', 0, 2, 1)
+  S.add(0, P, 'piano', note('D1'), 12, 0.95)
+  S.add(0, P, 'piano', note('D2'), 12, 0.9)
+  S.chord(0, P, 'strings', 'D4 F#4! A4 D5', 15, 0.95)
+  // The choir on the open fifth: the strings have the third.
+  S.chord(0, P, 'choir', 'A4 D5', 12, 0.85)
+  S.add(0, P, 'cello', note('D2'), 16, 0.85)
+  // They walk off: the pulse thins to 8ths and the piano turns over the chord.
+  for (let k = 0; k < 7; k++) S.add(0, P + 2 + 2 * k, 'spicc', note('D3') + (k % 2 ? 12 : 0), 1, 0.46 - 0.035 * k)
+  S.arp(0, P + 4, 'piano', 'A3 D4 A4 D5', [0, 1, 2, 3, 2, 1], 2, 3, 0.4)
+  S.add(0, P + 8, 'taiko', 38, 1, 0.55)
+
+  // ── Bb – Gm: he gets up, and the screen goes dark.
+  S.chord(0, P + 16, 'strings', 'D4 F4 Bb4 D5', 7, 0.7)
+  S.chord(0, P + 24, 'strings', 'D4 G4 Bb4 D5', 7, 0.62)
+  S.add(0, P + 16, 'cello', note('Bb2'), 8, 0.7)
+  S.add(0, P + 24, 'cello', note('G2'), 8, 0.62)
+  S.add(0, P + 16, 'piano', note('Bb1'), 8, 0.6)
+  S.add(0, P + 24, 'piano', note('G1'), 6, 0.55)
+  S.arp(0, P + 16, 'piano', 'Bb3 D4 F4 Bb4', [0, 1, 2, 3], 2, 3, 0.38)
+  S.arp(0, P + 24, 'piano', 'Bb3 D4 G4 Bb4', [0, 1, 2, 3], 2, 3, 0.36)
+  S.add(0, P + 16, 'taiko', 38, 1, 0.45)
+
+  // ── "1 month later…": the last D major, dying away; the piano remembers the call.
+  S.chord(0, P + 32, 'strings', 'D4 F#4! A4 D5', 22, 0.5)
+  // The choir breathes in after the chord, and holds it to the end.
+  S.chord(0, P + 35, 'choir', 'A4 D5 F#5!', 18, 0.42)
+  S.add(0, P + 32, 'cello', note('D2'), 22, 0.55)
+  S.add(0, P + 32, 'piano', note('D1'), 22, 0.5)
+  S.add(0, P + 32, 'piano', note('D2'), 22, 0.45)
+  S.line(5, 'piano', '-/13 D5/2 A5/4 F#5!/12 -/1', 0.4)
+  S.add(0, P + 32, 'taiko', 33, 1, 0.4)
+  return finish(S, {
+    id: 'introFight', title: 'The Drake Falls', kind: 'cue', bpm: 400 / 3, gain: 0.57, key: ['D', AEOLIAN, 'D minor'],
+    reverb: { seconds: 2.4, decay: 1.9 },
+    chans: {
+      violin: { gain: 1.25, pan: -0.15, send: 0.45 },
+      strings: { gain: 1.3, pan: 0.1, send: 0.45 },
+      cello: { gain: 1.3, pan: 0.2, send: 0.3 },
+      spicc: { gain: 1.2, pan: -0.2, send: 0.22 },
+      piano: { gain: 0.8, pan: -0.06, send: 0.3, lp: 6000 },
+      choir: { gain: 1.5, send: 0.6 },
+      taiko: { send: 0.45 }
+    }
+  })
+}
+
 // ─── The result jingles ─────────────────────────────────────────────────────
 // Two bars each, played once: strings and piano, like everything else.
 
@@ -864,7 +1025,7 @@ const defeat = (): Song => {
 
 // ─── Registry ───────────────────────────────────────────────────────────────
 
-const COMPOSE: Record<SongId, () => Song> = { town, meadow, wildwood, deep, ember, frost, sanctum, unmade, bastion, journey, boss, victory, defeat }
+const COMPOSE: Record<SongId, () => Song> = { town, meadow, wildwood, deep, ember, frost, sanctum, unmade, bastion, journey, boss, introFight, victory, defeat }
 
 /** Every song there is, in the order the table at the top lists them. */
 export const SONG_IDS = Object.keys(COMPOSE) as SongId[]

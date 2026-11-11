@@ -820,3 +820,9 @@ The demo/unlock is built (`app-store-submission.md`, "In-App Purchase") but was 
 - **The Sunford-or-Hollows choice** names no level. A "(Lv 3–5)" hint on the `goal.choice` chip would need all 39 locales; the Hollows now soften for a hero short of 4 skills instead (`coach/kitEase.ts`).
 - **Hollows cave clutter** (rocks, mushrooms, ~10 miner allies hide the hero and telegraphs): only the Warchief's adds were slowed (every 22 s, first at 10 s); the ally swarm and the cave dressing are untouched and need a look in the browser.
 - **Phone**: NPC speech bubbles can cover the goal chip; the Sunford HUD (two chips + minimap) takes ~40% of the left side. Menu buttons were raised to 44 px; the bubble/chip layout was not changed without seeing it.
+
+## #209 the intro fight's music ("The Drake Falls"): defaults chosen, change freely
+
+- **Listen first.** It is code-composed like the rest of the score (no sampled instruments): `node tools/music-render.mjs --out <dir> introFight` writes it as an mp3. Measured: -17.4 LU, peak -2 dB (the boss theme -17.5 LU, the area themes about -18).
+- **The "Calm" music style plays the town theme through the intro too**, as it does through a boss fight. Say if the film should keep its cue regardless.
+- **After the film, the black and "1 month later…" are silent** until the opening level starts its own theme; before, the tundra's theme ran on under the load. A replay from the options brings the place's theme back from its top, as before.
