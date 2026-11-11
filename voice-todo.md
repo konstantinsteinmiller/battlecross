@@ -23,7 +23,7 @@ rewrites it, and a test fails when it is stale. Do not edit by hand.
 | smalltalkIronhold | 21 | 21 |
 | sunfordSmith | 25 | 25 |
 | sunfordPeddler | 15 | 15 |
-| trainerAegis | 20 | 20 |
+| trainerAegis | 21 | 21 |
 | trainerPyro | 15 | 15 |
 | sfGeo | 12 | 12 |
 | elderMara | 47 | 47 |
@@ -110,7 +110,7 @@ rewrites it, and a test fails when it is stale. Do not edit by hand.
 | rebelGnome | 3 | 3 |
 | pyroCry | 1 | 1 |
 | heroine | 211 | 211 |
-| **All** | **1607** | **1607** |
+| **All** | **1608** | **1608** |
 
 ## Other languages voiced in full
 
@@ -118,22 +118,22 @@ English and German voice every line. A line with no file there is a silent bubbl
 
 | Language | Voiced | Lines |
 | --- | --- | --- |
-| de | 1581 | 1607 |
+| de | 1582 | 1608 |
 
 ## Other languages: the core lines only
 
-English and German are voiced in full. Every other voiced language ships only the **core**: 361 of 1607 lines (70 of them the girl hero's `__f` twins, limit 361), set in data/voice-core.json by id pattern plus an explicit list. Core: the hero's "Will you teach me?" and goodbye lines, the main quest decisions with their boss monologues (Goblin King, Krag, the Colossus core, the oracle, the dragon, the Arch-Demon's throne), the five endings, the story beats of Elder Mara, Captain Hale, Mayor Brenna, Madam Ash and the exiled Sovereign, the intro, the first visit's road teacher (Nettle) and the camp's thanks, every bark (bosses, the siege, freed captives), the afterplay's story (its beats, Scout Wren, the fort's Hale and Mara, the seal decision and its epilogue) and the Wanderer's greeting. Not core: smalltalk, shops, gamblers, the fair's barkers, trainer and master Q&A, trade and heal chatter. A non-core line is a silent bubble; a test fails when a language folder holds a file outside the core.
+English and German are voiced in full. Every other voiced language ships only the **core**: 362 of 1608 lines (70 of them the girl hero's `__f` twins, limit 362), set in data/voice-core.json by id pattern plus an explicit list. Core: the hero's "Will you teach me?" and goodbye lines, the main quest decisions with their boss monologues (Goblin King, Krag, the Colossus core, the oracle, the dragon, the Arch-Demon's throne), the five endings, the story beats of Elder Mara, Captain Hale, Mayor Brenna, Madam Ash and the exiled Sovereign, the intro, the first visit's road teacher (Nettle) and the camp's thanks, every bark (bosses, the siege, freed captives), the afterplay's story (its beats, Scout Wren, the fort's Hale and Mara, the seal decision and its epilogue) and the Wanderer's greeting. Not core: smalltalk, shops, gamblers, the fair's barkers, trainer and master Q&A, trade and heal chatter. A non-core line is a silent bubble; a test fails when a language folder holds a file outside the core.
 Make them with `voice:gen --engine chatterbox --lang <code>` (then `--retry 2`); `voice:collect` builds jobs for the core lines only.
 Indonesian (id) and Vietnamese (vi) are not voiced: Chatterbox cannot speak them. pt-PT keeps English too.
 
 | Language | Core voiced | Core lines |
 | --- | --- | --- |
-| fr | 354 | 361 |
-| es | 359 | 361 |
-| ru | 357 | 361 |
-| ja | 360 | 361 |
-| pt | 357 | 361 |
-| zh | 361 | 361 |
+| fr | 355 | 362 |
+| es | 360 | 362 |
+| ru | 358 | 362 |
+| ja | 361 | 362 |
+| pt | 358 | 362 |
+| zh | 362 | 362 |
 
 ## Parked takes (decision 2026-10-18)
 
@@ -144,7 +144,7 @@ To widen a language beyond the core, change data/voice-core.json and settle the 
 
 Nothing: every line has its recording.
 
-## Every line (1607)
+## Every line (1608)
 
 | File | Who | Scene | English | EN |
 | --- | --- | --- | --- | --- |
@@ -1520,6 +1520,7 @@ Nothing: every line has its recording.
 | `dlg.bark.lightDisciple.freed.1` | Sister Aurelle (lightDisciple) | bark.lightDisciple | The light sent you. I am Sister Aurelle. Seek me in Sunford, I'll teach you the Lightbringer's way. | chatterbox |
 | `dlg.bark.trainerAegis.freed.1` | Ser Aldric (trainerAegis) | bark.trainerAegis | Thank you for freeing us from the bandits! Come to the fire: we'll all teach you, first lesson free. | chatterbox |
 | `dlg.bark.trainerAegis.road.1` | Ser Aldric (trainerAegis) | bark.trainerAegis | You found us! The demons caught us on the Sunford road. We will make for Bastion Crossing: find us at the fort. | chatterbox |
+| `dlg.bark.trainerAegis.next.1` | Ser Aldric (trainerAegis) | bark.trainerAegis | Mara in Sunford will reward your kindness in saving us. The Goblin King must be stopped too. The choice is yours. | chatterbox |
 | `dlg.bark.sfShadow.road.1` | Nettle Quickhand (sfShadow) | bark.sfShadow | About time someone came. We are off to Bastion Crossing. Look for us at the fort. | chatterbox |
 | `dlg.intro.crossing.1` | The Chronicler (chronicler) | intro | Every road in this world meets at a crossing… and every crossing is a battle. | elevenlabs |
 | `dlg.intro.hero.1` | The Chronicler (chronicler) | intro | From the quiet fields of Sunford, a young hero set out. | elevenlabs |

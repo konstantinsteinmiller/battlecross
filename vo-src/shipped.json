@@ -339,6 +339,11 @@
     "at": "2026-10-20",
     "hash": "25bfa415a4"
   },
+  "de/dlg.bark.trainerAegis.next.1": {
+    "engine": "chatterbox",
+    "at": "2026-11-10",
+    "hash": "e8d7d22da8"
+  },
   "de/dlg.bark.trainerAegis.road.1": {
     "engine": "chatterbox",
     "at": "2026-10-25",
@@ -8243,6 +8248,11 @@
     "engine": "chatterbox",
     "at": "2026-10-20",
     "hash": "5d90d914cb"
+  },
+  "en/dlg.bark.trainerAegis.next.1": {
+    "engine": "chatterbox",
+    "at": "2026-11-10",
+    "hash": "bb1f8263f7"
   },
   "en/dlg.bark.trainerAegis.road.1": {
     "engine": "chatterbox",
@@ -16279,6 +16289,11 @@
     "at": "2026-10-20",
     "hash": "ce584e3fb2"
   },
+  "es/dlg.bark.trainerAegis.next.1": {
+    "engine": "chatterbox",
+    "at": "2026-11-10",
+    "hash": "2338b97dd1"
+  },
   "es/dlg.bark.trainerAegis.road.1": {
     "engine": "chatterbox",
     "at": "2026-10-25",
@@ -18068,6 +18083,11 @@
     "engine": "chatterbox",
     "at": "2026-10-20",
     "hash": "6f02ac3f60"
+  },
+  "fr/dlg.bark.trainerAegis.next.1": {
+    "engine": "chatterbox",
+    "at": "2026-11-10",
+    "hash": "8406e4331f"
   },
   "fr/dlg.bark.trainerAegis.road.1": {
     "engine": "chatterbox",
@@ -24089,6 +24109,11 @@
     "at": "2026-10-20",
     "hash": "429ec1cc75"
   },
+  "ja/dlg.bark.trainerAegis.next.1": {
+    "engine": "chatterbox",
+    "at": "2026-11-10",
+    "hash": "9af76065a1"
+  },
   "ja/dlg.bark.trainerAegis.road.1": {
     "engine": "chatterbox",
     "at": "2026-10-25",
@@ -25894,6 +25919,11 @@
     "at": "2026-10-20",
     "hash": "a87246847b"
   },
+  "pt/dlg.bark.trainerAegis.next.1": {
+    "engine": "chatterbox",
+    "at": "2026-11-10",
+    "hash": "7701db82ee"
+  },
   "pt/dlg.bark.trainerAegis.road.1": {
     "engine": "chatterbox",
     "at": "2026-10-25",
@@ -27684,6 +27714,11 @@
     "at": "2026-10-20",
     "hash": "e56fcef27f"
   },
+  "ru/dlg.bark.trainerAegis.next.1": {
+    "engine": "chatterbox",
+    "at": "2026-11-10",
+    "hash": "51f1d1db54"
+  },
   "ru/dlg.bark.trainerAegis.road.1": {
     "engine": "chatterbox",
     "at": "2026-10-25",
@@ -29473,6 +29508,11 @@
     "engine": "chatterbox",
     "at": "2026-10-20",
     "hash": "b67d53533b"
+  },
+  "zh/dlg.bark.trainerAegis.next.1": {
+    "engine": "chatterbox",
+    "at": "2026-11-10",
+    "hash": "af07cd1f8e"
   },
   "zh/dlg.bark.trainerAegis.road.1": {
     "engine": "chatterbox",
