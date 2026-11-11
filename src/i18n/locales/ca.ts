@@ -6294,7 +6294,7 @@ export default {
       }
     },
     bark: {
-      hero: { cage: { 1: 'Algú crida demanant ajuda?' } },
+      hero: { cage: { 1: 'Algú crida demanant ajuda?' }, hunt: { 1: 'Algú altre també caça aquesta bèstia.' } },
       trainerPyro: { help: { 1: 'Ajuda, algú!' } },
       sbMasterSoulwarden: { help: { 1: 'Ens han segrestat!' } },
       sbMasterIronmonk: { help: { 1: 'Monstres! Ajuda!' } },
@@ -6862,6 +6862,7 @@ export default {
       }
     },
     sbMasterAether: {
+      plains: { '1': "Tu! Et vaig veure a les planes! Aquell dia la quimera se'm va escapar. Encara la persegueixo." },
       hello: {
         '1': 'Benvingut, benvingut! Arribes just a temps per a la demostració. Tapa’t les orelles, si us plau.',
         '2': 'Professor Quint Engranatge. El riu em fa girar les rodes de franc. On més podria ensenyar?'

@@ -6247,7 +6247,7 @@ export default {
       }
     },
     bark: {
-      hero: { cage: { 1: 'Kimdir yordam so‘rab qichqiryaptimi?' } },
+      hero: { cage: { 1: 'Kimdir yordam so‘rab qichqiryaptimi?' }, hunt: { 1: 'U yirtqichni yana kimdir ham ovlayapti.' } },
       trainerPyro: { help: { 1: 'Yordam bering, kimdir!' } },
       sbMasterSoulwarden: { help: { 1: 'Bizni o‘g‘irlab ketishdi!' } },
       sbMasterIronmonk: { help: { 1: 'Hayvonlar! Yordam bering!' } },
@@ -6813,6 +6813,7 @@ export default {
       }
     },
     sbMasterAether: {
+      plains: { '1': 'Sen! Seni tekisliklarda ko‘rgandim! O kuni o ximera qo‘limdan qochib ketdi. Hali ham uni ovlayapman.' },
       hello: {
         '1': 'Xush kelibsan, xush kelibsan! Namoyishga aynan vaqtida kelding. Iltimos, quloqlaringni berkit.',
         '2': 'Professor Quint Sprocket. Daryo gʻildiraklarimni tekinga aylantiradi. Yana qayerda dars berardim?'

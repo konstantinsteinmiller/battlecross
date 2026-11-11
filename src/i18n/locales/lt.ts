@@ -6306,7 +6306,7 @@ export default {
       }
     },
     bark: {
-      hero: { cage: { 1: 'Ar kažkas šaukia pagalbos?' } },
+      hero: { cage: { 1: 'Ar kažkas šaukia pagalbos?' }, hunt: { 1: 'Kažkas kitas taip pat medžioja tą žvėrį.' } },
       trainerPyro: { help: { 1: 'Padėkite, kas nors!' } },
       sbMasterSoulwarden: { help: { 1: 'Mus pagrobė!' } },
       sbMasterIronmonk: { help: { 1: 'Pabaisos! Padėkite!' } },
@@ -6875,6 +6875,7 @@ export default {
       }
     },
     sbMasterAether: {
+      plains: { '1': 'Tu! Mačiau tave lygumose! Tą dieną ta chimera man paspruko. Vis dar ją medžioju.' },
       hello: {
         '1': 'Sveikas, sveikas! Kaip tik laiku demonstracijai. Prašau, užsidenk ausis.',
         '2': 'Profesorius Quint Krumpliaratis. Upė suka mano ratus nemokamai. Kur kitur galėčiau mokyti?'

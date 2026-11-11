@@ -6346,7 +6346,7 @@ export default {
       }
     },
     bark: {
-      hero: { cage: { 1: 'Volá tam někdo o pomoc?' } },
+      hero: { cage: { 1: 'Volá tam někdo o pomoc?' }, hunt: { 1: 'Tu bestii loví ještě někdo jiný.' } },
       trainerPyro: { help: { 1: 'Pomoc, je tu někdo!' } },
       sbMasterSoulwarden: { help: { 1: 'Byli jsme unesení!' } },
       sbMasterIronmonk: { help: { 1: 'Příšery! Pomoc!' } },
@@ -6914,6 +6914,7 @@ export default {
       }
     },
     sbMasterAether: {
+      plains: { '1': 'Ty! Viděl jsem tě na pláních! Ta chiméra mi tehdy utekla. Pořád ji lovím.' },
       hello: {
         '1': 'Vítej, vítej! Jdeš akorát na ukázku. Zakryj si uši, prosím.',
         '2': 'Profesor Quint Kolečko. Řeka mi točí kola zadarmo. Kde jinde bych učil?'

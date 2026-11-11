@@ -6247,7 +6247,7 @@ export default {
       }
     },
     bark: {
-      hero: { cage: { 1: 'Ĉu iu krias pri helpo?' } },
+      hero: { cage: { 1: 'Ĉu iu krias pri helpo?' }, hunt: { 1: 'Iu alia ankaŭ ĉasas tiun beston.' } },
       trainerPyro: { help: { 1: 'Helpon, ĉu iu!' } },
       sbMasterSoulwarden: { help: { 1: 'Ni estis kidnapitaj!' } },
       sbMasterIronmonk: { help: { 1: 'Monstroj! Helpon!' } },
@@ -6813,6 +6813,7 @@ export default {
       }
     },
     sbMasterAether: {
+      plains: { '1': 'Vi! Mi vidis vin sur la ebenaĵoj! Tiun tagon la ĥimero eskapis de mi. Mi ankoraŭ ĉasas ĝin.' },
       hello: {
         '1': 'Bonvenon, bonvenon! Vi venis ĝustatempe por la demonstracio. Kovru viajn orelojn, mi petas.',
         '2': 'Profesoro Quint Ĉenrado. La rivero turnas miajn radojn senpage. Kie alie mi instruus?'

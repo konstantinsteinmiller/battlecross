@@ -6258,7 +6258,7 @@ export default {
       }
     },
     bark: {
-      hero: { cage: { 1: 'Schreeuwt daar iemand om hulp?' } },
+      hero: { cage: { 1: 'Schreeuwt daar iemand om hulp?' }, hunt: { 1: 'Iemand anders jaagt ook op dat beest.' } },
       trainerPyro: { help: { 1: 'Help, is daar iemand!' } },
       sbMasterSoulwarden: { help: { 1: 'We zijn ontvoerd!' } },
       sbMasterIronmonk: { help: { 1: 'Monsters! Help!' } },
@@ -6824,6 +6824,7 @@ export default {
       }
     },
     sbMasterAether: {
+      plains: { '1': 'Jij! Ik zag je op de vlakten! Die chimaera is me die dag ontsnapt. Ik jaag er nog steeds op.' },
       hello: {
         '1': 'Welkom, welkom! Je bent precies op tijd voor de demonstratie. Oren dicht, alsjeblieft.',
         '2': 'Professor Quint Tandwiel. De rivier draait mijn raderen gratis. Waar zou ik anders lesgeven?'

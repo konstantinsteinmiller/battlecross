@@ -6267,7 +6267,7 @@ export default {
       }
     },
     bark: {
-      hero: { cage: { 1: 'Schreit da jemand um Hilfe?' } },
+      hero: { cage: { 1: 'Schreit da jemand um Hilfe?' }, hunt: { 1: 'Noch jemand jagt diese Bestie.' } },
       trainerPyro: { help: { 1: 'Hilfe, ist da jemand?' } },
       sbMasterSoulwarden: { help: { 1: 'Wir wurden entführt!' } },
       sbMasterIronmonk: { help: { 1: 'Monster! Hilfe!' } },
@@ -6834,6 +6834,7 @@ export default {
       }
     },
     sbMasterAether: {
+      plains: { '1': 'Du! Dich hab ich draußen in den Ebenen gesehen! Die Chimäre ist mir an dem Tag entwischt. Ich jage sie noch immer.' },
       hello: {
         '1': 'Willkommen, willkommen! Du kommst genau richtig zur Vorführung. Ohren zuhalten, bitte.',
         '2': 'Professor Quint Sprocket. Der Fluss dreht meine Räder umsonst. Wo sonst sollte ich lehren?'

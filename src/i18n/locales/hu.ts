@@ -6247,7 +6247,7 @@ export default {
       }
     },
     bark: {
-      hero: { cage: { 1: 'Valaki segítségért kiabál?' } },
+      hero: { cage: { 1: 'Valaki segítségért kiabál?' }, hunt: { 1: 'Valaki más is vadászik arra a fenevadra.' } },
       trainerPyro: { help: { 1: 'Segítség, valaki!' } },
       sbMasterSoulwarden: { help: { 1: 'Elraboltak minket!' } },
       sbMasterIronmonk: { help: { 1: 'Szörnyek! Segítség!' } },
@@ -6813,6 +6813,7 @@ export default {
       }
     },
     sbMasterAether: {
+      plains: { '1': 'Te! Láttalak a síkságon! Az a kiméra aznap meglépett előlem. Még mindig vadászom rá.' },
       hello: {
         '1': 'Üdv, üdv! Épp időben jöttél a bemutatóra. Fogd be a füled, kérlek.',
         '2': 'Fogaskerék Quint professzor. A folyó ingyen hajtja a kerekeimet. Hol máshol tanítanék?'

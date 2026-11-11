@@ -6297,7 +6297,7 @@ export default {
       }
     },
     bark: {
-      hero: { cage: { 1: 'Hai alguén berrando pedindo axuda?' } },
+      hero: { cage: { 1: 'Hai alguén berrando pedindo axuda?' }, hunt: { 1: 'Alguén máis está a cazar esa besta.' } },
       trainerPyro: { help: { 1: 'Axuda, alguén!' } },
       sbMasterSoulwarden: { help: { 1: 'Secuestráronnos!' } },
       sbMasterIronmonk: { help: { 1: 'Monstros! Axuda!' } },
@@ -6865,6 +6865,7 @@ export default {
       }
     },
     sbMasterAether: {
+      plains: { '1': 'Ti! Vinte nas chairas! Aquel día a quimera escapóuseme. Aínda a estou cazando.' },
       hello: {
         '1': 'Benvido, benvido! Chegas xusto á demostración. Tapa os oídos, por favor.',
         '2': 'Profesor Quint Sprocket. O río fai xirar as miñas rodas de balde. Onde máis ía ensinar?'

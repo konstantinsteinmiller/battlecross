@@ -6247,7 +6247,7 @@ export default {
       }
     },
     bark: {
-      hero: { cage: { 1: '有人在喊救命嗎？' } },
+      hero: { cage: { 1: '有人在喊救命嗎？' }, hunt: { 1: '還有別人在獵那頭野獸。' } },
       trainerPyro: { help: { 1: '救命，有人嗎！' } },
       sbMasterSoulwarden: { help: { 1: '我們被綁架了！' } },
       sbMasterIronmonk: { help: { 1: '有怪物！救命！' } },
@@ -6813,6 +6813,7 @@ export default {
       }
     },
     sbMasterAether: {
+      plains: { '1': '是你！我在平原上見過你！那天那頭奇美拉從我手裡溜了。我還在追獵牠。' },
       hello: {
         '1': '歡迎，歡迎！你來得正好，示範馬上開始。請摀住耳朵。',
         '2': '昆特·斯普羅基特教授。河水免費幫我轉輪子。我還能去哪裡教書呢？'

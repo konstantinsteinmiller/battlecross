@@ -6289,7 +6289,7 @@ export default {
       }
     },
     bark: {
-      hero: { cage: { 1: 'Strigă cineva după ajutor?' } },
+      hero: { cage: { 1: 'Strigă cineva după ajutor?' }, hunt: { 1: 'Mai vânează cineva fiara aceea.' } },
       trainerPyro: { help: { 1: 'Ajutor, cineva!' } },
       sbMasterSoulwarden: { help: { 1: 'Am fost răpiți!' } },
       sbMasterIronmonk: { help: { 1: 'Monștri! Ajutor!' } },
@@ -6857,6 +6857,7 @@ export default {
       }
     },
     sbMasterAether: {
+      plains: { '1': 'Tu! Te-am văzut în câmpii! Himera aceea mi-a scăpat în ziua aceea. Încă o vânez.' },
       hello: {
         '1': 'Bun venit, bun venit! Ai venit exact la demonstrație. Acoperă-ți urechile, te rog.',
         '2': 'Profesorul Quint Rotiță. Râul îmi învârte roțile gratis. Unde altundeva să predau?'

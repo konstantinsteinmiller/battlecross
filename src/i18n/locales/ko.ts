@@ -6247,7 +6247,7 @@ export default {
       }
     },
     bark: {
-      hero: { cage: { 1: '누가 도와달라고 소리치고 있나?' } },
+      hero: { cage: { 1: '누가 도와달라고 소리치고 있나?' }, hunt: { 1: '저 짐승을 쫓는 사람이 또 있구나.' } },
       trainerPyro: { help: { 1: '도와주세요, 아무나!' } },
       sbMasterSoulwarden: { help: { 1: '우리는 납치당했어요!' } },
       sbMasterIronmonk: { help: { 1: '괴물이에요! 도와줘요!' } },
@@ -6813,6 +6813,7 @@ export default {
       }
     },
     sbMasterAether: {
+      plains: { '1': '자네! 평원에서 자네를 봤지! 그날 그 키메라를 놓쳤다네. 아직도 쫓고 있지.' },
       hello: {
         '1': '어서 와, 어서 와! 마침 시연 시간이야. 귀 막아 주게.',
         '2': '퀸트 스프로킷 교수일세. 강이 공짜로 내 바퀴를 돌려 주지. 여기 말고 어디서 가르치겠나?'

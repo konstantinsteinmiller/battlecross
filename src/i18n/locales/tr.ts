@@ -6247,7 +6247,7 @@ export default {
       }
     },
     bark: {
-      hero: { cage: { 1: 'Biri yardım için mi bağırıyor?' } },
+      hero: { cage: { 1: 'Biri yardım için mi bağırıyor?' }, hunt: { 1: 'O canavarı başka biri de avlıyor.' } },
       trainerPyro: { help: { 1: 'İmdat, kimse yok mu!' } },
       sbMasterSoulwarden: { help: { 1: 'Kaçırıldık!' } },
       sbMasterIronmonk: { help: { 1: 'Canavarlar! İmdat!' } },
@@ -6813,6 +6813,7 @@ export default {
       }
     },
     sbMasterAether: {
+      plains: { '1': 'Sen! Seni ovalarda görmüştüm! O gün o kimera elimden kaçtı. Hâlâ onu avlıyorum.' },
       hello: {
         '1': 'Hoş geldin, hoş geldin! Tam gösteriye yetiştin. Kulaklarını kapat lütfen.',
         '2': 'Profesör Quint Sprocket. Nehir çarklarımı bedavaya döndürüyor. Başka nerede ders verirdim ki?'

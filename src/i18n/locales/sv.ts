@@ -6247,7 +6247,7 @@ export default {
       }
     },
     bark: {
-      hero: { cage: { 1: 'Är det någon som skriker på hjälp?' } },
+      hero: { cage: { 1: 'Är det någon som skriker på hjälp?' }, hunt: { 1: 'Någon annan jagar också det odjuret.' } },
       trainerPyro: { help: { 1: 'Hjälp, någon!' } },
       sbMasterSoulwarden: { help: { 1: 'Vi blev kidnappade!' } },
       sbMasterIronmonk: { help: { 1: 'Monster! Hjälp!' } },
@@ -6813,6 +6813,7 @@ export default {
       }
     },
     sbMasterAether: {
+      plains: { '1': 'Du! Jag såg dig ute på slätterna! Den chimären kom undan mig den dagen. Jag jagar den fortfarande.' },
       hello: {
         '1': 'Välkommen, välkommen! Du kommer lagom till demonstrationen. Håll för öronen, tack.',
         '2': 'Professor Quint Kugghjul. Floden driver mina hjul gratis. Var annars skulle jag undervisa?'

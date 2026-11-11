@@ -6247,7 +6247,7 @@ export default {
       }
     },
     bark: {
-      hero: { cage: { 1: 'Có ai đang kêu cứu không?' } },
+      hero: { cage: { 1: 'Có ai đang kêu cứu không?' }, hunt: { 1: 'Còn có người khác đang săn con quái thú đó.' } },
       trainerPyro: { help: { 1: 'Cứu với, có ai không!' } },
       sbMasterSoulwarden: { help: { 1: 'Chúng tôi bị bắt cóc!' } },
       sbMasterIronmonk: { help: { 1: 'Quái vật! Cứu với!' } },
@@ -6813,6 +6813,7 @@ export default {
       }
     },
     sbMasterAether: {
+      plains: { '1': 'Là cậu! Tôi đã thấy cậu ở vùng đồng bằng! Hôm đó con chimera ấy đã thoát khỏi tay tôi. Tôi vẫn đang săn nó.' },
       hello: {
         '1': 'Chào mừng, chào mừng! Cậu tới đúng lúc buổi trình diễn. Bịt tai lại giùm nhé.',
         '2': 'Giáo sư Quint Sprocket. Dòng sông quay bánh xe cho tôi miễn phí. Còn chỗ nào hơn để dạy chứ?'

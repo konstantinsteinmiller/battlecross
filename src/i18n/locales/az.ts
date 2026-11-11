@@ -6247,7 +6247,7 @@ export default {
       }
     },
     bark: {
-      hero: { cage: { 1: 'Kimsə kömək üçün qışqırır?' } },
+      hero: { cage: { 1: 'Kimsə kömək üçün qışqırır?' }, hunt: { 1: 'O vəhşini başqa biri də ovlayır.' } },
       trainerPyro: { help: { 1: 'Kömək, kimsə!' } },
       sbMasterSoulwarden: { help: { 1: 'Bizi qaçırdılar!' } },
       sbMasterIronmonk: { help: { 1: 'Canavarlar! Kömək!' } },
@@ -6813,6 +6813,7 @@ export default {
       }
     },
     sbMasterAether: {
+      plains: { '1': 'Sən! Səni düzənliklərdə görmüşdüm! O gün o ximera əlimdən qaçdı. Hələ də onu ovlayıram.' },
       hello: {
         '1': 'Xoş gəldin, xoş gəldin! Nümayişə düz vaxtında gəldin. Qulaqlarını tut, xahiş edirəm.',
         '2': 'Professor Quint Sprocket. Çay çarxlarımı pulsuz fırladır. Başqa harada dərs verərdim?'

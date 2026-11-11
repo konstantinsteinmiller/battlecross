@@ -2905,6 +2905,7 @@ export default {
       'bye': { '1': 'Off you go. Wrap up warm, it\'s damp by the river.' }
     },
     'sbMasterAether': {
+      'plains': { '1': "You! I saw you out on the plains! That chimera got away from me that day. I'm still hunting it." },
       'hello': { '1': 'Welcome, welcome! You\'re just in time for the demonstration. Cover your ears, please.', '2': 'Professor Quint Sprocket. The river turns my wheels for free. Where else would I teach?' },
       'again': { '1': 'Ah, my favourite pupil! Today\'s demonstration is extra loud.' },
       'train': { '1': 'Observe the blackboard. Now forget the blackboard, and watch the machine.' },
@@ -3821,7 +3822,7 @@ export default {
       }
     },
     'bark': {
-      'hero': { 'cage': { '1': 'Is there somebody screaming for help?' } },
+      'hero': { 'cage': { '1': 'Is there somebody screaming for help?' }, 'hunt': { '1': 'Someone else is hunting that beast.' } },
       'trainerPyro': { 'help': { '1': 'Help! Anybody!' } },
       'sbMasterSoulwarden': { 'help': { '1': 'We were kidnapped!' } },
       'sbMasterIronmonk': { 'help': { '1': 'Monsters! Help!' } },

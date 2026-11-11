@@ -6247,7 +6247,7 @@ export default {
       }
     },
     bark: {
-      hero: { cage: { 1: 'Ada yang berteriak minta tolong?' } },
+      hero: { cage: { 1: 'Ada yang berteriak minta tolong?' }, hunt: { 1: 'Ada orang lain yang memburu binatang buas itu.' } },
       trainerPyro: { help: { 1: 'Tolong, siapa saja!' } },
       sbMasterSoulwarden: { help: { 1: 'Kami diculik!' } },
       sbMasterIronmonk: { help: { 1: 'Monster! Tolong!' } },
@@ -6813,6 +6813,7 @@ export default {
       }
     },
     sbMasterAether: {
+      plains: { '1': 'Kau! Aku melihatmu di padang rumput! Chimera itu lolos dariku hari itu. Aku masih memburunya.' },
       hello: {
         '1': 'Selamat datang, selamat datang! Pas sekali untuk demonstrasi. Tolong tutup telingamu.',
         '2': 'Profesor Quint Sprocket. Sungai memutar rodaku gratis. Di mana lagi aku mau mengajar?'

@@ -6360,7 +6360,7 @@ export default {
       }
     },
     bark: {
-      hero: { cage: { 1: 'Viče li netko upomoć?' } },
+      hero: { cage: { 1: 'Viče li netko upomoć?' }, hunt: { 1: 'Još netko lovi tu zvijer.' } },
       trainerPyro: { help: { 1: 'Upomoć, ima li koga!' } },
       sbMasterSoulwarden: { help: { 1: 'Otete su nas!' } },
       sbMasterIronmonk: { help: { 1: 'Čudovišta! Upomoć!' } },
@@ -6928,6 +6928,7 @@ export default {
       }
     },
     sbMasterAether: {
+      plains: { '1': 'Ti! Vidio sam te na ravnicama! Ta mi je himera tada pobjegla. Još je lovim.' },
       hello: {
         '1': 'Dobro došao, dobro došao! Taman na vrijeme za demonstraciju. Pokrij uši, molim te.',
         '2': 'Profesor Quint Zupčanik. Rijeka mi besplatno okreće kotače. Gdje bih drugdje podučavao?'

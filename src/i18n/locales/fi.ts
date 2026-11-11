@@ -6247,7 +6247,7 @@ export default {
       }
     },
     bark: {
-      hero: { cage: { 1: 'Huutaako joku apua?' } },
+      hero: { cage: { 1: 'Huutaako joku apua?' }, hunt: { 1: 'Joku muukin metsästää tuota petoa.' } },
       trainerPyro: { help: { 1: 'Apua, joku!' } },
       sbMasterSoulwarden: { help: { 1: 'Meidät kidnapattiin!' } },
       sbMasterIronmonk: { help: { 1: 'Hirviöitä! Apua!' } },
@@ -6813,6 +6813,7 @@ export default {
       }
     },
     sbMasterAether: {
+      plains: { '1': 'Sinä! Näin sinut tasangoilla! Se kimaira pääsi minulta karkuun sinä päivänä. Jahtaan sitä yhä.' },
       hello: {
         '1': 'Tervetuloa, tervetuloa! Ehdit juuri näytökseen. Peitä korvasi, kiitos.',
         '2': 'Professori Quint Ratas. Joki pyörittää rattaitani ilmaiseksi. Missä muualla opettaisin?'

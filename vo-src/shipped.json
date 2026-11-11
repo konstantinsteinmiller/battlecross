@@ -174,6 +174,16 @@
     "at": "2026-11-04",
     "hash": "5276e02418"
   },
+  "de/dlg.bark.hero.hunt.1": {
+    "engine": "chatterbox",
+    "at": "2026-11-11",
+    "hash": "6d31d66b61"
+  },
+  "de/dlg.bark.hero.hunt.1__f": {
+    "engine": "chatterbox",
+    "at": "2026-11-11",
+    "hash": "6d31d66b61"
+  },
   "de/dlg.bark.hydra.death.1": {
     "engine": "chatterbox",
     "at": "2026-10-20",
@@ -4149,6 +4159,11 @@
     "at": "2026-10-18",
     "hash": "5f2ad6cc27"
   },
+  "de/dlg.sbMasterAether.plains.1": {
+    "engine": "chatterbox",
+    "at": "2026-11-11",
+    "hash": "54ef205e4f"
+  },
   "de/dlg.sbMasterAether.ready.able.1": {
     "engine": "chatterbox",
     "at": "2026-10-18",
@@ -8083,6 +8098,16 @@
     "engine": "chatterbox",
     "at": "2026-11-04",
     "hash": "a2edb8af74"
+  },
+  "en/dlg.bark.hero.hunt.1": {
+    "engine": "chatterbox",
+    "at": "2026-11-11",
+    "hash": "24e8a8d86b"
+  },
+  "en/dlg.bark.hero.hunt.1__f": {
+    "engine": "chatterbox",
+    "at": "2026-11-11",
+    "hash": "24e8a8d86b"
   },
   "en/dlg.bark.hydra.death.1": {
     "engine": "chatterbox",
@@ -12098,6 +12123,11 @@
     "engine": "chatterbox",
     "at": "2026-10-07",
     "hash": "2c10c3d9ae"
+  },
+  "en/dlg.sbMasterAether.plains.1": {
+    "engine": "chatterbox",
+    "at": "2026-11-11",
+    "hash": "b2785d0693"
   },
   "en/dlg.sbMasterAether.ready.able.1": {
     "engine": "chatterbox",
@@ -16124,6 +16154,16 @@
     "at": "2026-11-02",
     "hash": "6396c48239"
   },
+  "es/dlg.bark.hero.hunt.1": {
+    "engine": "chatterbox",
+    "at": "2026-11-11",
+    "hash": "3dfbf55e63"
+  },
+  "es/dlg.bark.hero.hunt.1__f": {
+    "engine": "chatterbox",
+    "at": "2026-11-11",
+    "hash": "3dfbf55e63"
+  },
   "es/dlg.bark.hydra.death.1": {
     "engine": "chatterbox",
     "at": "2026-10-20",
@@ -17489,6 +17529,11 @@
     "at": "2026-10-18",
     "hash": "64ec9b14fe"
   },
+  "es/dlg.sbMasterAether.plains.1": {
+    "engine": "chatterbox",
+    "at": "2026-11-11",
+    "hash": "a380fd3a00"
+  },
   "es/dlg.scoutWren.again.1": {
     "engine": "chatterbox",
     "at": "2026-10-20",
@@ -17923,6 +17968,16 @@
     "engine": "chatterbox",
     "at": "2026-11-02",
     "hash": "d65ecaa0a4"
+  },
+  "fr/dlg.bark.hero.hunt.1": {
+    "engine": "chatterbox",
+    "at": "2026-11-11",
+    "hash": "9163c89ec7"
+  },
+  "fr/dlg.bark.hero.hunt.1__f": {
+    "engine": "chatterbox",
+    "at": "2026-11-11",
+    "hash": "9163c89ec7"
   },
   "fr/dlg.bark.hydra.death.1": {
     "engine": "chatterbox",
@@ -20984,6 +21039,11 @@
     "at": "2026-10-18",
     "hash": "84a0073a2c"
   },
+  "fr/dlg.sbMasterAether.plains.1": {
+    "engine": "chatterbox",
+    "at": "2026-11-11",
+    "hash": "6c9436da21"
+  },
   "fr/dlg.sbMasterAether.ready.able.1": {
     "engine": "chatterbox",
     "at": "2026-10-18",
@@ -23944,6 +24004,16 @@
     "at": "2026-11-02",
     "hash": "43ff5af57c"
   },
+  "ja/dlg.bark.hero.hunt.1": {
+    "engine": "chatterbox",
+    "at": "2026-11-11",
+    "hash": "efd43c649e"
+  },
+  "ja/dlg.bark.hero.hunt.1__f": {
+    "engine": "chatterbox",
+    "at": "2026-11-11",
+    "hash": "efd43c649e"
+  },
   "ja/dlg.bark.hydra.death.1": {
     "engine": "chatterbox",
     "at": "2026-10-20",
@@ -25329,6 +25399,11 @@
     "at": "2026-10-18",
     "hash": "da038a6f05"
   },
+  "ja/dlg.sbMasterAether.plains.1": {
+    "engine": "chatterbox",
+    "at": "2026-11-11",
+    "hash": "081c864205"
+  },
   "ja/dlg.scoutWren.again.1": {
     "engine": "chatterbox",
     "at": "2026-10-20",
@@ -25758,6 +25833,16 @@
     "engine": "chatterbox",
     "at": "2026-11-02",
     "hash": "628db83059"
+  },
+  "pt/dlg.bark.hero.hunt.1": {
+    "engine": "chatterbox",
+    "at": "2026-11-11",
+    "hash": "4e4ef52239"
+  },
+  "pt/dlg.bark.hero.hunt.1__f": {
+    "engine": "chatterbox",
+    "at": "2026-11-11",
+    "hash": "4e4ef52239"
   },
   "pt/dlg.bark.hydra.death.1": {
     "engine": "chatterbox",
@@ -27119,6 +27204,11 @@
     "at": "2026-10-18",
     "hash": "bcdc42d7ca"
   },
+  "pt/dlg.sbMasterAether.plains.1": {
+    "engine": "chatterbox",
+    "at": "2026-11-11",
+    "hash": "f4a6ca4539"
+  },
   "pt/dlg.scoutWren.again.1": {
     "engine": "chatterbox",
     "at": "2026-10-20",
@@ -27548,6 +27638,16 @@
     "engine": "chatterbox",
     "at": "2026-11-02",
     "hash": "2eb196667b"
+  },
+  "ru/dlg.bark.hero.hunt.1": {
+    "engine": "chatterbox",
+    "at": "2026-11-11",
+    "hash": "b32eb90ef4"
+  },
+  "ru/dlg.bark.hero.hunt.1__f": {
+    "engine": "chatterbox",
+    "at": "2026-11-11",
+    "hash": "b32eb90ef4"
   },
   "ru/dlg.bark.hydra.death.1": {
     "engine": "chatterbox",
@@ -28914,6 +29014,11 @@
     "at": "2026-10-18",
     "hash": "73a558487d"
   },
+  "ru/dlg.sbMasterAether.plains.1": {
+    "engine": "chatterbox",
+    "at": "2026-11-11",
+    "hash": "7f2b2c9ce3"
+  },
   "ru/dlg.scoutWren.again.1": {
     "engine": "chatterbox",
     "at": "2026-10-20",
@@ -29343,6 +29448,16 @@
     "engine": "chatterbox",
     "at": "2026-11-02",
     "hash": "53bf330cad"
+  },
+  "zh/dlg.bark.hero.hunt.1": {
+    "engine": "chatterbox",
+    "at": "2026-11-11",
+    "hash": "816f7f5d28"
+  },
+  "zh/dlg.bark.hero.hunt.1__f": {
+    "engine": "chatterbox",
+    "at": "2026-11-11",
+    "hash": "816f7f5d28"
   },
   "zh/dlg.bark.hydra.death.1": {
     "engine": "chatterbox",
@@ -30733,6 +30848,11 @@
     "engine": "chatterbox",
     "at": "2026-10-20",
     "hash": "96ab5f11cd"
+  },
+  "zh/dlg.sbMasterAether.plains.1": {
+    "engine": "chatterbox",
+    "at": "2026-11-11",
+    "hash": "a5ce1d3ced"
   },
   "zh/dlg.scoutWren.again.1": {
     "engine": "chatterbox",

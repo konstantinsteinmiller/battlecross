@@ -6319,7 +6319,7 @@ export default {
       }
     },
     bark: {
-      hero: { cage: { 1: 'Vai kāds sauc palīgā?' } },
+      hero: { cage: { 1: 'Vai kāds sauc palīgā?' }, hunt: { 1: 'Vēl kāds medī to zvēru.' } },
       trainerPyro: { help: { 1: 'Palīgā, vai kāds ir!' } },
       sbMasterSoulwarden: { help: { 1: 'Mūs nolaupīja!' } },
       sbMasterIronmonk: { help: { 1: 'Briesmoņi! Palīgā!' } },
@@ -6888,6 +6888,7 @@ export default {
       }
     },
     sbMasterAether: {
+      plains: { '1': 'Tu! Es tevi redzēju līdzenumos! Tajā dienā tā himēra man aizbēga. Es to joprojām medīju.' },
       hello: {
         '1': 'Laipni lūgts, laipni lūgts! Tu esi tieši laikā demonstrācijai. Lūdzu, aizspied ausis.',
         '2': 'Profesors Kvints Zobrats. Upe griež manus ratus par brīvu. Kur gan citur lai es mācītu?'

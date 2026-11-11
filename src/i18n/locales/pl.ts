@@ -6346,7 +6346,7 @@ export default {
       }
     },
     bark: {
-      hero: { cage: { 1: 'Czy ktoś woła o pomoc?' } },
+      hero: { cage: { 1: 'Czy ktoś woła o pomoc?' }, hunt: { 1: 'Ktoś jeszcze poluje na tę bestię.' } },
       trainerPyro: { help: { 1: 'Pomocy, ktokolwiek!' } },
       sbMasterSoulwarden: { help: { 1: 'Porwano nas!' } },
       sbMasterIronmonk: { help: { 1: 'Potwory! Pomocy!' } },
@@ -6914,6 +6914,7 @@ export default {
       }
     },
     sbMasterAether: {
+      plains: { '1': 'Ty! Widziałem cię na równinach! Ta chimera mi wtedy uciekła. Wciąż na nią poluję.' },
       hello: {
         '1': 'Witaj, witaj! Akurat na pokaz. Zatkaj uszy, proszę.',
         '2': 'Profesor Quint Zębatka. Rzeka kręci moimi kołami za darmo. Gdzie indziej miałbym uczyć?'

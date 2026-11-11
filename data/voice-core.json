@@ -1,7 +1,7 @@
 {
   "note": "The CORE voice lines (owner decision 2026-10-18). English and the languages in `full` (German, owner decision 2026-10-21) are voiced in full; every other voiced language (fr, es, pt, ru, ja, zh) ships ONLY these lines, the rest stay text-only (silent bubble). Single source of truth: tools/voice/core.mjs, the todo, the tests and `voice:gen --lang` read it. A line is core when its id (without the __f girl-hero suffix) matches a pattern or is listed in `include`, and is not in `exclude`; the __f twin follows its base line. Edit here, then run `pnpm voice:script`.",
   "full": ["de"],
-  "max": 362,
+  "max": 365,
   "patterns": [
     "^dlg\\.quest\\.",
     "^ending\\.(order|syndicate|circle|free|unbound)\\.text$",
@@ -30,7 +30,8 @@
     "dlg.hero.forge",
     "dlg.hero.siege",
     "dlg.hero.who",
-    "dlg.hero.rumor"
+    "dlg.hero.rumor",
+    "dlg.sbMasterAether.plains.1"
   ],
   "exclude": []
 }
