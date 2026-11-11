@@ -30,6 +30,8 @@ export type SfxName =
   // Rewards
   | 'coin' | 'loot' | 'lootRare' | 'lootEpic' | 'lootLegend' | 'chest' | 'levelUp' | 'potion'
   // UI
+  // The smithy's anvil: a strike on the glow, a perfect one, and one that misses it
+  | 'forgeStrike' | 'forgePerfect' | 'forgeMiss'
   | 'denied' | 'uiClick' | 'uiOpen' | 'uiClose' | 'uiEquip' | 'uiBuy' | 'uiLearn' | 'uiPoint' | 'uiChoice' | 'mapMove'
 
 export const SFX_NAMES: readonly SfxName[] = [
@@ -41,7 +43,8 @@ export const SFX_NAMES: readonly SfxName[] = [
   'crowdCheer', 'crowdRoar',
   'summon', 'heal', 'shieldUp', 'roar', 'telegraph',
   'overheat', 'alert', 'bossIntro', 'death', 'deathBig', 'coin', 'loot', 'lootRare', 'lootEpic', 'lootLegend', 'chest', 'levelUp', 'potion', 'denied', 'uiClick',
-  'uiOpen', 'uiClose', 'uiEquip', 'uiBuy', 'uiLearn', 'uiPoint', 'uiChoice', 'mapMove'
+  'uiOpen', 'uiClose', 'uiEquip', 'uiBuy', 'uiLearn', 'uiPoint', 'uiChoice', 'mapMove',
+  'forgeStrike', 'forgePerfect', 'forgeMiss'
 ]
 
 type Player = (name: SfxName, pan: number, gain: number, muffle: number) => void

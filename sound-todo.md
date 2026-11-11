@@ -36,6 +36,7 @@ them into `public/audio/sfx/` is the drop-in; see its README. Regenerate with
 | Enemies | `alert` `bossIntro` `death` `deathBig` |
 | Rewards | `coin` `loot` `lootRare` `lootEpic` `lootLegend` `chest` `levelUp` `potion` |
 | UI | `denied` `uiClick` `uiOpen` `uiClose` `uiEquip` `uiBuy` `uiLearn` `uiPoint` `uiChoice` `mapMove` |
+| Smithy | `forgeStrike` `forgePerfect` `forgeMiss` |
 
 What each one is for is in the comments of `RECIPES` in `synth.ts`. The
 frequent ones (`swing`, `hit`, `shoot`, `cast`, `coin`, `death`…) are played

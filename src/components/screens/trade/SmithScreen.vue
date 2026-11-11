@@ -174,7 +174,7 @@ const strike = (): void => {
   const s = strikeScore(pos.value - g.spot, g.half)
   g.hits.push(s)
   g.marks.push(pos.value)
-  sfx(s >= 0.5 ? 'hitHeavy' : 'hitBlunt')
+  sfx(s >= 0.85 ? 'forgePerfect' : s >= 0.5 ? 'forgeStrike' : 'forgeMiss')
   if (g.hits.length < STRIKES) {
     g.spot = newSpot(g.half)
     return

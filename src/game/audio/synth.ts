@@ -352,7 +352,7 @@ const CAP_WINDOW = 0.25
 const recent: number[] = []
 const NEVER_DROP: ReadonlySet<SfxName> = new Set<SfxName>([
   'hurt', 'bossIntro', 'levelUp', 'denied', 'uiClick', 'uiOpen', 'uiClose', 'uiEquip', 'uiBuy', 'uiLearn', 'uiPoint',
-  'uiChoice', 'potion', 'chest', 'loot', 'lootRare', 'lootEpic', 'lootLegend', 'deathBig', 'overheat'
+  'uiChoice', 'forgeStrike', 'forgePerfect', 'forgeMiss', 'potion', 'chest', 'loot', 'lootRare', 'lootEpic', 'lootLegend', 'deathBig', 'overheat'
 ])
 
 /** Open (a muffle of 0 has no filter at all) and fully muffled cutoffs (Hz). */
@@ -945,6 +945,41 @@ const RECIPES: Record<SfxName, (pan: number, g: number) => void> = {
   mapMove: (_p, g) => {
     burst({ dur: 0.12, vol: 0.09 * g, type: 'bandpass', f0: 1400, f1: 500, q: 1.5 })
     tone({ wave: 'sine', f0: midiHz(G4), f1: midiHz(D5), dur: 0.1, vol: 0.09 * g })
+  },
+  // ── The smithy ──
+  // A hammer on hot iron over the anvil: the face's crack, the thud into the block, the anvil ringing on (inharmonic, long),
+  // sparks flying and the hiss of the glow.
+  forgeStrike: (p, g) => {
+    space(0.3)
+    crack(0.36 * g, p, 0, 3600, 0.014)
+    boom(150, 68, 0.17, 0.24 * g, p)
+    metal(1180, 0.95, 0.17 * g, p, 0, 1.3)
+    metal(1760, 0.55, 0.07 * g, p, 0.006, 1.3)
+    tone({ wave: 'sine', f0: 2650, f1: 2590, dur: 0.4, vol: 0.035 * g, at: 0.01, pan: p })
+    crackle(8, 0.24, 0.05 * g, p, 0.02, 3400)
+    burst({ dur: 0.3, vol: 0.05 * g, type: 'highpass', f0: 6500, f1: 3500, attack: 0.01, at: 0.03, pan: p })
+  },
+  // Dead on the glow: the same blow, struck harder, with a bright shimmer over the ring and a shower of sparks.
+  forgePerfect: (p, g) => {
+    space(0.38)
+    crack(0.42 * g, p, 0, 4000, 0.014)
+    boom(160, 66, 0.2, 0.28 * g, p)
+    metal(1240, 1.3, 0.2 * g, p, 0, 1.5)
+    metal(1860, 0.8, 0.09 * g, p, 0.005, 1.5)
+    metal(2790, 0.5, 0.04 * g, p, 0.01, 1.5)
+    tone({ wave: 'sine', f0: 2790, f1: 2730, dur: 0.6, vol: 0.04 * g, at: 0.01, pan: p })
+    crackle(14, 0.34, 0.06 * g, p, 0.02, 3800)
+    burst({ dur: 0.42, vol: 0.06 * g, type: 'highpass', f0: 7000, f1: 3200, attack: 0.01, at: 0.03, pan: p })
+    bell(A5, 0.07 * g, 0.7, 0.07, p)
+    bell(D6 + 12, 0.05 * g, 0.8, 0.13, p)
+  },
+  // Off the glow: cold iron, a flat clank, no ring and no sparks.
+  forgeMiss: (p, g) => {
+    space(0.12)
+    crack(0.22 * g, p, 0, 1800, 0.016)
+    boom(120, 70, 0.12, 0.18 * g, p)
+    metal(560, 0.28, 0.09 * g, p, 0, 0.5)
+    tone({ wave: 'tri', f0: 210, f1: 140, dur: 0.1, vol: 0.1 * g, at: 0.01, pan: p })
   }
 }
 
