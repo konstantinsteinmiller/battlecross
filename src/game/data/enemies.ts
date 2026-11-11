@@ -724,7 +724,7 @@ const BASE_ENEMIES: readonly EnemyDef[] = [
     aggro: 10, reward: 0.45, color: '#6fbf3f', phase2: 0.5,
     abilities: [
       { kind: 'slam', cd: 8, first: 3, range: 3.2, windup: 0.85, recover: 0.6, dmg: 1.7, r: 3.4, pose: 1, status: { id: 'knockdown', dur: 0.6, v: 1 } },
-      { kind: 'summon', cd: 16, first: 6, range: 20, windup: 0.8, recover: 0.5, spawn: 'goblin', count: 2 },
+      { kind: 'summon', cd: 22, first: 10, range: 20, windup: 0.8, recover: 0.5, spawn: 'goblin', count: 2 },
       { kind: 'enrage', cd: 30, first: 0, range: 20, windup: 0.7, recover: 0.3, phase: 2 }
     ]
   }),

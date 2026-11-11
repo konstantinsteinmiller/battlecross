@@ -26,7 +26,7 @@ import type { ArenaMod } from '../arenaWeek'
 import { cellOf, isSolidAt } from '../sim/grid'
 import { castSkill, createHero, cycleTarget, orderAttack, orderMove, setStick, slotState, usePotion } from '../sim/hero'
 import { stepSim } from '../sim/step'
-import { reviveHero } from '../sim/combat'
+import { grantXp, reviveHero } from '../sim/combat'
 import { generateArena, generateEncounter, generateZone, type ZonePlan } from '../sim/zoneGen'
 import { Sim } from '../sim/world'
 import { captureBaseline, restoreSim, snapshotSim, type SimBaseline, type SimSnapshot } from '../sim/snapshot'
@@ -1815,6 +1815,12 @@ export class ZoneMode implements GameMode {
     // loot, the book) has its art moved to the head of the idle queue (D149).
     if (boss && !hud.bossKey && !this.bossArt && profile.stats.runs === 0) { this.bossArt = true; queueEarlyArt(true) }
     hud.bossKey = boss ? foeKey(sim.invaded, boss.kind) : ''
+    // The opening boss wakes: the level-up the first fights banked is paid out now (a breather before the fight, shown with the
+    // burst and the toast), instead of waiting for the result screen with the hero at level 1 through the whole boss fight.
+    if (boss && sim.holdLevelUp && this.setup.kind === 'zone' && this.setup.tutorial) {
+      sim.holdLevelUp = false
+      grantXp(sim, 1)
+    }
     hud.bossHp01 = boss ? boss.hp / boss.s.maxHp : 0
     hud.bossLevel = boss?.level ?? 0
     hud.bossTier = unitLevelTier(boss?.level ?? 0, h.level)

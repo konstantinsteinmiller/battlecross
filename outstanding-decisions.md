@@ -813,3 +813,10 @@ de 26, fr 7, ru 4, pt 4, es 2, ja 1 (list: the failures in the last `voice:gen -
 ## iOS full-version unlock: reviewer shortcut and a device test (2026-10-26)
 
 The demo/unlock is built (`app-store-submission.md`, "In-App Purchase") but was written without a Mac: the Swift plugin is uncompiled and no purchase was ever made. Two things only you can settle. (1) App Review starts a fresh save and has to play to the Goblin King to see the offer; do you want a reviewer shortcut (for example a long-press in Options that sets the Goblin King's flag), or accept the few fights? In effect: no shortcut. (2) Run one TestFlight build through the "How to test" list before the iOS submission.
+
+## Informed playtest round (2026-11-11), items left for the owner
+
+- **"Teleports. Interested?"** (`dlg.sfShadowRoad.hello.1`, voiced in 8 languages): the skill is called Shadowstep everywhere else. Changing the word means all 39 locales and a re-voice; not done.
+- **The Sunford-or-Hollows choice** names no level. A "(Lv 3–5)" hint on the `goal.choice` chip would need all 39 locales; the Hollows now soften for a hero short of 4 skills instead (`coach/kitEase.ts`).
+- **Hollows cave clutter** (rocks, mushrooms, ~10 miner allies hide the hero and telegraphs): only the Warchief's adds were slowed (every 22 s, first at 10 s); the ally swarm and the cave dressing are untouched and need a look in the browser.
+- **Phone**: NPC speech bubbles can cover the goal chip; the Sunford HUD (two chips + minimap) takes ~40% of the left side. Menu buttons were raised to 44 px; the bubble/chip layout was not changed without seeing it.

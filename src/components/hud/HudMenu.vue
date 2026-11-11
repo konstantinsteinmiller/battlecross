@@ -31,8 +31,8 @@ const { t } = useI18n()
   :deep(.f-hud-button)
     min-width: 0
     min-height: 0
-    width: max(30px, calc(clamp(2.5rem, 9.5vmin, 3.1rem) * var(--hud-s, 1)))
-    height: max(30px, calc(clamp(2.5rem, 9.5vmin, 3.1rem) * var(--hud-s, 1)))
+    width: max(30px, calc(clamp(2.75rem, 9.5vmin, 3.1rem) * var(--hud-s, 1)))
+    height: max(30px, calc(clamp(2.75rem, 9.5vmin, 3.1rem) * var(--hud-s, 1)))
     &::after
       content: ''
       position: absolute

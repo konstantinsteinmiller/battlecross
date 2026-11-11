@@ -354,7 +354,9 @@ watch(() => talk.beat, () => { pending = true; typed.value = false; void nextTic
 // The list comes up: the keys start on the first topic (a finger needs no highlight).
 watch(() => talk.phase, (p) => {
   if (p === 'choices') {
-    focus.value = hud.device === 'mouse' ? 0 : -1
+    // Nothing is highlighted: Space on a fresh list only lights the first topic, a second Space takes it (a held or mashed Space
+    // no longer picks the first topic over and over).
+    focus.value = -1
     // The line stays up behind the list, whole.
     if (!typed.value) finishTyping(performance.now())
   }
