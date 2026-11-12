@@ -682,7 +682,7 @@ export const MAP: readonly MapNode[] = [
   { id: 'arena', kind: 'arena', at: [0.315, 0.835], links: ['sunford', 'hollows'], needs: ['arenaOpen'] },
   { id: 'woods', kind: 'zone', at: [0.415, 0.525], links: ['plains', 'outskirts', 'crags', 'silverbridge'] },
   // The big town, over the river west of the woods (roadmap #86).
-  { id: 'silverbridge', kind: 'town', at: [0.25, 0.435], links: ['woods'] },
+  { id: 'silverbridge', kind: 'town', at: [0.25, 0.3467], links: ['woods'] },
   { id: 'outskirts', kind: 'zone', at: [0.555, 0.67], links: ['woods', 'oakhaven', 'bastion'], quest: 'siege' },
   { id: 'oakhaven', kind: 'town', at: [0.695, 0.795], links: ['outskirts'] },
   // The afterplay's fort, on the road between the Outskirts and the Crags: on

@@ -37,6 +37,8 @@ const VIA: Readonly<Record<string, Pt[]>> = {
   'arena-sunford': [[396, 760], [300, 716]],
   'hollows-plains': [[262, 452], [352, 482]],
   'plains-woods': [[508, 540], [590, 492]],
+  // From Silverbridge on its river, down the hill and over the big river by the bridge south of the Woods.
+  'silverbridge-woods': [[418, 352], [424, 400], [501, 461], [633, 474]],
   // Down the west bank and over the Sunford road: a crossroads.
   'arena-hollows': [[428, 690], [338, 618], [258, 520]],
   'outskirts-woods': [[818, 590], [742, 548]],
