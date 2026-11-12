@@ -1,13 +1,14 @@
 <template lang="pug">
   div.assault(v-if="v.active" data-assault-hud :class="{ 'is-cut': v.phase === 'panorama' }")
+    //- The one skip button, top right under the menu buttons: the film in the panorama, the whole siege in the play.
+    div.assault__btn.assault__btn--skip
+      FButton(type="secondary" size="sm" icon="fast-forward" icon-position="left" :data-assault-skip="v.phase === 'panorama' ? null : ''" :data-assault-skip-cut="v.phase === 'panorama' ? '' : null" :label="t('intro.skip')" @click="v.phase === 'panorama' ? skipCut() : skipSiege()")
     //- The panorama: letterbox bars slide in, the skip button waits at the corner.
     div.assault__bar.assault__bar--top(aria-hidden="true")
     div.assault__bar.assault__bar--bottom(aria-hidden="true")
     Transition(name="assault-fade")
       div.assault__cut(v-if="v.phase === 'panorama'")
         h2.assault__title {{ t('assault.title') }}
-        div.assault__btn.assault__btn--cut
-          FButton(type="secondary" size="md" icon="fast-forward" icon-position="left" data-assault-skip-cut :label="t('assault.skipCut')" @click="skipCut")
         div.assault__progress(aria-hidden="true")
           i(:style="{ transform: 'scaleX(' + v.cut01 + ')' }")
     //- The play: the goal with its two towers, the hint, and the way out.
@@ -33,8 +34,6 @@
       div.assault__aim(v-if="v.aim" :style="{ left: v.aimX + 'px', top: v.aimY + 'px', '--a': v.aimAngle + 'rad' }" aria-hidden="true" data-assault-aim)
         svg.assault__chev(viewBox="0 0 60 24")
           path(v-for="i in 3" :key="i" :style="{ animationDelay: (i - 1) * 0.18 + 's' }" d="M6 3l9 9-9 9")
-      div.assault__btn.assault__btn--skip(v-if="v.phase === 'play'")
-        FButton(type="secondary" size="lg" icon="fast-forward" icon-position="left" data-assault-skip :label="t('assault.skip')" @click="skipSiege")
 </template>
 
 <script setup lang="ts">
@@ -150,17 +149,13 @@ const skipSiege = (): void => assaultActions.skipSiege()
     opacity: 1
 .assault__btn
   pointer-events: auto
-  &--cut
-    position: absolute
-    right: calc(env(safe-area-inset-right, 0px) + clamp(0.7rem, 3vmin, 1.6rem))
-    bottom: calc(var(--bar) * 0.5)
-    transform: translateY(50%)
   &--skip
     position: absolute
     // The top right corner, under the pause and help buttons: always in reach, clear of the skill buttons and the potion.
     right: calc(env(safe-area-inset-right, 0px) + var(--pad, 0.5rem))
     top: calc(env(safe-area-inset-top, 0px) + var(--pad, 0.5rem) + max(46px, calc(clamp(2.75rem, 9.5vmin, 3.1rem) * var(--hud-s, 1))) + 0.5rem)
     opacity: 0.96
+    z-index: 3
 .assault__goal
   position: absolute
   top: max(58px, calc(4.4rem * var(--hud-s, 1)))
@@ -177,6 +172,10 @@ const skipSiege = (): void => assaultActions.skipSiege()
   color: var(--bc-gold-hi)
   font-size: max(11px, calc(clamp(0.74rem, 2.9vmin, 0.98rem) * var(--hud-s, 1)))
   white-space: nowrap
+  // Centred and never wider than the space the corner skip button leaves on both sides: it wraps instead of running under it.
+  max-width: calc(100vw - 2 * 9.5rem)
+  @media (max-width: 760px)
+    white-space: normal
   @media (max-aspect-ratio: 3/4)
     top: max(158px, calc(10rem * var(--hud-s, 1)))
     white-space: normal
