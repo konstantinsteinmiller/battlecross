@@ -1,4 +1,5 @@
 import { reactive, watch } from 'vue'
+import { xpToNext, xpToReach } from './data/progression'
 import { app, type GameMode } from './engine/app'
 import { afterPaint } from './engine/slicer'
 import { createInput, type Input } from './engine/input'
@@ -649,7 +650,17 @@ export const finishAssault = async (how: 'won' | 'skipped'): Promise<void> => {
   saveProfile()
   assaultSkipped = how === 'skipped'
   measureEnd('hollows', how === 'won')
+  // Holding the gate to the end is paid in experience (a skip is not).
+  const levelBefore = profile.level
+  if (how === 'won') grantXp(siegeXp(profile.level, profile.hero.xp))
   await travel('hollows')
+  if (profile.level > levelBefore) pushHud({ t: 'toast', key: 'toast.levelUp', params: { level: profile.level } })
+}
+
+/** The siege's reward: up to level 3 for a hero at level 1-2, up to level 4 at level 3, else half the level's bar. */
+export const siegeXp = (level: number, xp: number): number => {
+  if (level >= 4) return Math.round(xpToNext(level) * 0.5)
+  return Math.max(0, xpToReach(level <= 2 ? 3 : 4) - (xpToReach(level) + xp))
 }
 
 /**
