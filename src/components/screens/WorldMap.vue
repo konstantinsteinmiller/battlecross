@@ -82,9 +82,7 @@
                   GameIcon(name="lock")
                 span.node__badge.node__badge--done(v-if="n.cleared && n.kind !== 'town'" aria-hidden="true")
                   GameIcon(name="check")
-                span.node__badge.node__badge--quest(v-else-if="n.decision" aria-hidden="true")
-                  GameIcon(name="chat")
-                span.node__seek(v-if="seek.node === n.id || goalNode === n.id" aria-hidden="true" data-seek)
+                span.node__seek(v-if="seek.node === n.id || markNode === n.id || (n.decision && !n.cleared)" aria-hidden="true" data-seek)
                   img.node__seek-art(v-if="ICON_ART.get('mark-seek')" :src="ICON_ART.get('mark-seek')" alt="" draggable="false")
                   GameIcon(v-else name="down")
                 span.node__badge.node__badge--trainer(v-if="n.trainer" aria-hidden="true")
@@ -255,6 +253,8 @@ import { nextMilestone } from '@/game/data/arena'
 
 /** The place the goal chip names ("Travel to Sunford"): a new player gets the same bobbing arrow a sought teacher's place has, so the way on is one thing to look for on a busy map (#178). */
 const goalNode = computed(() => ((onboard.goal?.id === 'travel' || onboard.goal?.id === 'mara') && !isVeteran() ? onboard.goal.place ?? '' : ''))
+/** After the opening level the goal is a choice (Mara in Sunford or the King in the Hollows): the quest marker stands over Sunford, without quieting the Hollows. */
+const markNode = computed(() => goalNode.value || (onboard.goal?.id === 'choice' && !isVeteran() ? 'sunford' : ''))
 const emit = defineEmits<{ (e: 'options'): void }>()
 const { t } = useI18n()
 /** The colosseum's modifier this week (#10). */
@@ -1455,10 +1455,6 @@ onBeforeUnmount(() => {
 .node__badge--done
   +cel.tone('green')
   +cel.fill(48%, 88%)
-.node__badge--quest
-  +cel.tone('gold')
-  +cel.fill(48%, 88%)
-  animation: badge-nudge 1.6s ease-in-out infinite
 .node__badge--trainer
   top: 46%
   right: -4%
@@ -1559,10 +1555,6 @@ onBeforeUnmount(() => {
   background: #e6dfd3
   box-shadow: none
   color: var(--m-paper-ink-soft)
-.is-here .node__label
-  background: var(--bc-gold-hi, #ffe978)
-.is-selected .node__label
-  background: var(--bc-gold, #ffc526)
 // The afterplay: the Breaking holds it (§4). A blood-red ring round the landmark.
 // A new player's map says one thing (#178): the goal's place keeps its tags, every other place goes quiet (no NEW
 // flag; a locked one fades). The level pill stays on EVERY place: the player reads where he is strong enough from the whole map.
