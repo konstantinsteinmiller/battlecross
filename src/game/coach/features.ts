@@ -206,7 +206,8 @@ export const stepOf = (id: FeatureId, c: FeatureCtx): Step | null => {
       if (!next) return null
       const picked = c.dom.attr('.node.is-selected', 'data-node')
       if (picked === next && c.dom.has('.card__actions button')) return { kind: 'tap', at: '.card__actions button', last: true, here: true }
-      return { kind: 'tap', at: `.node[data-node="${next}"]`, here: true }
+      // The place itself wears no box: the bouncing quest marker over it says where to go.
+      return null
     }
     case 'buy': {
       if (c.modal !== 'shop') return null

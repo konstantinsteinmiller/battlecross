@@ -983,7 +983,9 @@ const skipWalk = (): void => { if (rushing.value) skipRush?.() }
 
 /** Travel: to the place's door first (brisk, and a tap skips it), then the veil. */
 const go = async (id: NodeId): Promise<void> => {
-  if (rushing.value || flow.loading) return
+  // Already on the way in: another press takes the hero the rest of the way at once.
+  if (rushing.value) { skipWalk(); return }
+  if (flow.loading) return
   if (isNodeLockedByDemo(id)) { openUnlock('map'); return }
   cardOpen.value = false
   const p = nodeAt(id)
@@ -1002,7 +1004,14 @@ const go = async (id: NodeId): Promise<void> => {
     })
     rushing.value = false
     skipRush = null
-    if (!arrived) { cardOpen.value = true; return }
+    // No road to the spot (a coast, a blocked cell): the hero is set down there, the press is never lost.
+    if (!arrived) {
+      const r = restAt(id)
+      hero.x = r[0]
+      hero.y = r[1]
+      placeHero()
+      clearPath()
+    }
   }
   selected.value = ''
   keepPos()
