@@ -69,9 +69,8 @@ import { SLOW_MO, slowMoScale } from '../gfx/slowMo'
 import { LevelProps } from '../gfx/levelProps'
 import type { TownView } from '../gfx/townView'
 import { loadTownView } from '../gfx/townLoader'
-import { prefetchLikely, prefetchNow, queueEarlyArt, warmCampCards } from '../assets/preload'
+import { mapImages, prefetchLikely, prefetchNow, queueEarlyArt, warmCampCards } from '../assets/preload'
 import { idleTask } from '@/utils/idleQueue'
-import { UI_ART } from '../assets/overrides'
 import { StillCull } from '../gfx/cull'
 import { BAKE_TILE, StillBake } from '../gfx/stillBake'
 import { townExitAt } from '../sim/townCells'
@@ -1335,7 +1334,7 @@ export class ZoneMode implements GameMode {
           break
         case 'victory':
           // The map opens next: its art decoded before it does.
-          prefetchNow(UI_ART.get('map'))
+          for (const u of mapImages()) prefetchNow(u)
           this.chestOpen = 0.001
           if (this.chest) this.chest.root.visible = true
           pushHud({ t: 'flash', color: '#ffffff', strength: 0.35 })

@@ -77,6 +77,11 @@ the files cut from it out of the game, so the game draws those again.
   along the cut) are keyed out and never measured.
 - The skill sheets go out with three painted weapon icons as finish
   references, attached BEFORE the sheet (the prompt documents say which).
+- A MAP LANDMARK (`sheet-landmarks-*`, `PROMPTS-MAP.md`) is registered like a
+  portrait, by its foot line, but the whole panel square is kept: the drawing's
+  box sits at 80 % in its middle, so a pennant or water past the box survives,
+  and the map shows the file at 1.25 × the box. Written at 384 px (`exact`).
+  The burned towns go out with the finished towns attached, in panel order.
 - Output sizes: items and skills 192 px, portraits 256 px, the coin 64 px,
   the map 1376 × 768, the ground 256 px.
 

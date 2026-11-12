@@ -4,7 +4,7 @@ A report, not a contract: it is a picture of `art-sheets/painted/` and the
 slicer's receipt at the moment it was written. Re-run `pnpm art:prompts`
 after painting or slicing anything.
 
-**154 sliced · 1 need a repaint · 2 painted, unreceipted · 0 outstanding**
+**157 sliced · 1 need a repaint · 2 painted, unreceipted · 1 outstanding**
 
 | | Sheet | Prompt block in | Reference | State |
 | --- | --- | --- | --- | --- |
@@ -144,6 +144,10 @@ after painting or slicing anything.
 | ✓ | **Icons: badges, pins and help** | `PROMPTS-ICONS.md` | `sheet-icons-ui-3.png` (rev `85181b617148`) | sliced 2026-10-18 |
 | ✓ | **Icons: equipment slots and marks** | `PROMPTS-ICONS.md` | `sheet-icons-misc.png` (rev `66898855e876`) | sliced 2026-10-18 |
 | ✓ | **Icons: equipment slots and marks (2)** | `PROMPTS-ICONS.md` | `sheet-icons-misc-2.png` (rev `9c2e63335786`) | sliced 2026-11-09 |
+| ✓ | **Map landmarks: the towns and the colosseum** | `PROMPTS-MAP.md` | `sheet-landmarks-towns.png` (rev `289a81aba1b7`) | sliced 2026-11-12 |
+| ✓ | **Map landmarks: the early wilds** | `PROMPTS-MAP.md` | `sheet-landmarks-wilds-1.png` (rev `296734f8c7ac`) | sliced 2026-11-12 |
+| ✓ | **Map landmarks: the far wilds** | `PROMPTS-MAP.md` | `sheet-landmarks-wilds-2.png` (rev `a135a8c1d7e5`) | sliced 2026-11-12 |
+| · | **Map landmarks: the burned towns** | `PROMPTS-MAP.md` | `sheet-landmarks-ruins.png` (rev `a493b7d264ce`) | not painted yet |
 | ✓ | **UI: the gold coin** | `PROMPTS-UI.md` | `single-ui-coin.png` (rev `f360573d2c98`) | sliced 2026-10-18 |
 | ✓ | **UI: the wooden cup** | `PROMPTS-UI.md` | `single-ui-cup.png` (rev `39883c69d4e5`) | sliced 2026-10-18 |
 | ✓ | **Logo: the badge (swords behind a shield)** | `PROMPTS-UI.md` | `single-logo-emblem.png` (rev `36585e1bbec8`) | sliced 2026-10-18 |

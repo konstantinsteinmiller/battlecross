@@ -16,6 +16,7 @@ import overrides from 'virtual:asset-overrides'
  *   public/images/portraits/<look>.webp     → that speaker's portrait
  *   public/images/ui/<name>.webp            → map parchment, logo and the like
  *   public/images/icons/<family>-<id>.webp  → a UI glyph, status, class emblem, slot or mark
+ *   public/images/landmarks/<node id>.webp  → that place's picture on the world map
  *   public/audio/voice/<lang>/<line id>.ogg → that dialogue line, spoken
  *
  * The list is taken at BUILD time (`assetOverridesPlugin` in vite.config.ts),
@@ -42,5 +43,8 @@ export const UI_ART = byName(overrides.ui, 'images/ui')
 export const ICON_ART = byName(overrides.icons, 'images/icons')
 /** The painted logo badge (`emblem`) and mascot (`mascot`), shown by the loader. */
 export const LOGO_ART = byName(overrides.logo, 'images/logo')
+/** The painted landmarks of the world map, by node id (`<town>-ruined` for a
+ *  burned town). A missing one keeps the map's own drawing. */
+export const LANDMARK_ART = byName(overrides.landmarks, 'images/landmarks')
 /** Recorded dialogue lines, keyed `<lang>/<line id>` (`audio/speech.ts`). */
 export const VOICE_FILES = byName(overrides.voice ?? [], 'audio/voice')

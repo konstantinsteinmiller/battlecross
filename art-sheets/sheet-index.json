@@ -21317,6 +21317,418 @@
       ]
     },
     {
+      "id": "sheet-landmarks-towns",
+      "kind": "set",
+      "title": "Map landmarks: the towns and the colosseum",
+      "files": {
+        "clean": "sheet-landmarks-towns.png",
+        "key": "sheet-landmarks-towns-key.png"
+      },
+      "width": 768,
+      "height": 576,
+      "cols": 3,
+      "rows": 2,
+      "maxEdge": 384,
+      "exact": true,
+      "crop": 1,
+      "anchor": "feet",
+      "cells": [
+        {
+          "id": "sunford",
+          "label": "Landmark: Sunford",
+          "variant": "landmarks",
+          "x": 0,
+          "y": 0,
+          "w": 256,
+          "h": 288,
+          "target": "images/landmarks/sunford.webp",
+          "fit": {
+            "h": 0.625,
+            "w": 0.723,
+            "bottom": 0.766,
+            "cx": 0.529
+          }
+        },
+        {
+          "id": "silverbridge",
+          "label": "Landmark: Silverbridge",
+          "variant": "landmarks",
+          "x": 256,
+          "y": 0,
+          "w": 256,
+          "h": 288,
+          "target": "images/landmarks/silverbridge.webp",
+          "fit": {
+            "h": 0.746,
+            "w": 0.758,
+            "bottom": 0.844,
+            "cx": 0.5
+          }
+        },
+        {
+          "id": "oakhaven",
+          "label": "Landmark: Oakhaven",
+          "variant": "landmarks",
+          "x": 512,
+          "y": 0,
+          "w": 256,
+          "h": 288,
+          "target": "images/landmarks/oakhaven.webp",
+          "fit": {
+            "h": 0.563,
+            "w": 0.773,
+            "bottom": 0.766,
+            "cx": 0.5
+          }
+        },
+        {
+          "id": "bastion",
+          "label": "Landmark: Bastion",
+          "variant": "landmarks",
+          "x": 0,
+          "y": 288,
+          "w": 256,
+          "h": 288,
+          "target": "images/landmarks/bastion.webp",
+          "fit": {
+            "h": 0.465,
+            "w": 0.641,
+            "bottom": 0.766,
+            "cx": 0.5
+          }
+        },
+        {
+          "id": "ironhold",
+          "label": "Landmark: Ironhold",
+          "variant": "landmarks",
+          "x": 256,
+          "y": 288,
+          "w": 256,
+          "h": 288,
+          "target": "images/landmarks/ironhold.webp",
+          "fit": {
+            "h": 0.469,
+            "w": 0.758,
+            "bottom": 0.766,
+            "cx": 0.5
+          }
+        },
+        {
+          "id": "arena",
+          "label": "Landmark: Arena",
+          "variant": "landmarks",
+          "x": 512,
+          "y": 288,
+          "w": 256,
+          "h": 288,
+          "target": "images/landmarks/arena.webp",
+          "fit": {
+            "h": 0.559,
+            "w": 0.695,
+            "bottom": 0.816,
+            "cx": 0.5
+          }
+        }
+      ]
+    },
+    {
+      "id": "sheet-landmarks-wilds-1",
+      "kind": "set",
+      "title": "Map landmarks: the early wilds",
+      "files": {
+        "clean": "sheet-landmarks-wilds-1.png",
+        "key": "sheet-landmarks-wilds-1-key.png"
+      },
+      "width": 768,
+      "height": 576,
+      "cols": 3,
+      "rows": 2,
+      "maxEdge": 384,
+      "exact": true,
+      "crop": 1,
+      "anchor": "feet",
+      "cells": [
+        {
+          "id": "plains",
+          "label": "Landmark: Plains",
+          "variant": "landmarks",
+          "x": 0,
+          "y": 0,
+          "w": 256,
+          "h": 288,
+          "target": "images/landmarks/plains.webp",
+          "fit": {
+            "h": 0.434,
+            "w": 0.734,
+            "bottom": 0.773,
+            "cx": 0.5
+          }
+        },
+        {
+          "id": "hollows",
+          "label": "Landmark: Hollows",
+          "variant": "landmarks",
+          "x": 256,
+          "y": 0,
+          "w": 256,
+          "h": 288,
+          "target": "images/landmarks/hollows.webp",
+          "fit": {
+            "h": 0.535,
+            "w": 0.695,
+            "bottom": 0.77,
+            "cx": 0.5
+          }
+        },
+        {
+          "id": "woods",
+          "label": "Landmark: Woods",
+          "variant": "landmarks",
+          "x": 512,
+          "y": 0,
+          "w": 256,
+          "h": 288,
+          "target": "images/landmarks/woods.webp",
+          "fit": {
+            "h": 0.551,
+            "w": 0.664,
+            "bottom": 0.781,
+            "cx": 0.504
+          }
+        },
+        {
+          "id": "outskirts",
+          "label": "Landmark: Outskirts",
+          "variant": "landmarks",
+          "x": 0,
+          "y": 288,
+          "w": 256,
+          "h": 288,
+          "target": "images/landmarks/outskirts.webp",
+          "fit": {
+            "h": 0.469,
+            "w": 0.738,
+            "bottom": 0.766,
+            "cx": 0.506
+          }
+        },
+        {
+          "id": "crags",
+          "label": "Landmark: Crags",
+          "variant": "landmarks",
+          "x": 256,
+          "y": 288,
+          "w": 256,
+          "h": 288,
+          "target": "images/landmarks/crags.webp",
+          "fit": {
+            "h": 0.555,
+            "w": 0.727,
+            "bottom": 0.789,
+            "cx": 0.5
+          }
+        },
+        {
+          "id": "mines",
+          "label": "Landmark: Mines",
+          "variant": "landmarks",
+          "x": 512,
+          "y": 288,
+          "w": 256,
+          "h": 288,
+          "target": "images/landmarks/mines.webp",
+          "fit": {
+            "h": 0.449,
+            "w": 0.695,
+            "bottom": 0.828,
+            "cx": 0.5
+          }
+        }
+      ]
+    },
+    {
+      "id": "sheet-landmarks-wilds-2",
+      "kind": "set",
+      "title": "Map landmarks: the far wilds",
+      "files": {
+        "clean": "sheet-landmarks-wilds-2.png",
+        "key": "sheet-landmarks-wilds-2-key.png"
+      },
+      "width": 768,
+      "height": 576,
+      "cols": 3,
+      "rows": 2,
+      "maxEdge": 384,
+      "exact": true,
+      "crop": 1,
+      "anchor": "feet",
+      "cells": [
+        {
+          "id": "tundra",
+          "label": "Landmark: Tundra",
+          "variant": "landmarks",
+          "x": 0,
+          "y": 0,
+          "w": 256,
+          "h": 288,
+          "target": "images/landmarks/tundra.webp",
+          "fit": {
+            "h": 0.637,
+            "w": 0.727,
+            "bottom": 0.781,
+            "cx": 0.5
+          }
+        },
+        {
+          "id": "temple",
+          "label": "Landmark: Temple",
+          "variant": "landmarks",
+          "x": 256,
+          "y": 0,
+          "w": 256,
+          "h": 288,
+          "target": "images/landmarks/temple.webp",
+          "fit": {
+            "h": 0.516,
+            "w": 0.703,
+            "bottom": 0.828,
+            "cx": 0.508
+          }
+        },
+        {
+          "id": "citadel",
+          "label": "Landmark: Citadel",
+          "variant": "landmarks",
+          "x": 512,
+          "y": 0,
+          "w": 256,
+          "h": 288,
+          "target": "images/landmarks/citadel.webp",
+          "fit": {
+            "h": 0.703,
+            "w": 0.625,
+            "bottom": 0.797,
+            "cx": 0.5
+          }
+        },
+        {
+          "id": "peak",
+          "label": "Landmark: Peak",
+          "variant": "landmarks",
+          "x": 0,
+          "y": 288,
+          "w": 256,
+          "h": 288,
+          "target": "images/landmarks/peak.webp",
+          "fit": {
+            "h": 0.641,
+            "w": 0.742,
+            "bottom": 0.766,
+            "cx": 0.508
+          }
+        },
+        {
+          "id": "fortress",
+          "label": "Landmark: Fortress",
+          "variant": "landmarks",
+          "x": 256,
+          "y": 288,
+          "w": 256,
+          "h": 288,
+          "target": "images/landmarks/fortress.webp",
+          "fit": {
+            "h": 0.66,
+            "w": 0.68,
+            "bottom": 0.766,
+            "cx": 0.5
+          }
+        },
+        {
+          "id": "rift",
+          "label": "Landmark: Rift",
+          "variant": "landmarks",
+          "x": 512,
+          "y": 288,
+          "w": 256,
+          "h": 288,
+          "target": "images/landmarks/rift.webp",
+          "fit": {
+            "h": 0.676,
+            "w": 0.758,
+            "bottom": 0.797,
+            "cx": 0.5
+          }
+        }
+      ]
+    },
+    {
+      "id": "sheet-landmarks-ruins",
+      "kind": "set",
+      "title": "Map landmarks: the burned towns",
+      "files": {
+        "clean": "sheet-landmarks-ruins.png",
+        "key": "sheet-landmarks-ruins-key.png"
+      },
+      "width": 512,
+      "height": 512,
+      "cols": 2,
+      "rows": 2,
+      "maxEdge": 384,
+      "exact": true,
+      "crop": 1,
+      "anchor": "feet",
+      "cells": [
+        {
+          "id": "sunford-ruined",
+          "label": "Landmark: Sunford (burned)",
+          "variant": "landmarks",
+          "x": 0,
+          "y": 0,
+          "w": 256,
+          "h": 256,
+          "target": "images/landmarks/sunford-ruined.webp",
+          "fit": {
+            "h": 0.59,
+            "w": 0.723,
+            "bottom": 0.766,
+            "cx": 0.529
+          }
+        },
+        {
+          "id": "oakhaven-ruined",
+          "label": "Landmark: Oakhaven (burned)",
+          "variant": "landmarks",
+          "x": 256,
+          "y": 0,
+          "w": 256,
+          "h": 256,
+          "target": "images/landmarks/oakhaven-ruined.webp",
+          "fit": {
+            "h": 0.551,
+            "w": 0.773,
+            "bottom": 0.766,
+            "cx": 0.5
+          }
+        },
+        {
+          "id": "ironhold-ruined",
+          "label": "Landmark: Ironhold (burned)",
+          "variant": "landmarks",
+          "x": 0,
+          "y": 256,
+          "w": 256,
+          "h": 256,
+          "target": "images/landmarks/ironhold-ruined.webp",
+          "fit": {
+            "h": 0.469,
+            "w": 0.758,
+            "bottom": 0.766,
+            "cx": 0.5
+          }
+        }
+      ]
+    },
+    {
       "id": "single-ui-coin",
       "kind": "single",
       "title": "UI: the gold coin",

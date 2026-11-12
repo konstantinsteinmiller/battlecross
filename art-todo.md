@@ -110,6 +110,37 @@ The frames are drawn in code until a file exists (`src/components/atoms/FSocket.
 `FBar.vue`); a file dropped in replaces the drawn frame only, never the fill, the
 ticks or the icon. The experience bar has no frame to paint (ticks only).
 
+## World map landmarks — `public/images/landmarks/<id>.webp`
+
+One picture per place on the world map, standing on its clearing over the
+painted terrain (`src/components/screens/map/landmarks.ts` draws it until the
+file exists; `WorldMap.vue` shows the file as an `<img>` when the build lists
+it, so a missing one is never requested). The game draws the ring, the
+shadow, the name, the level pill, the badges, the quest marker and the cloud
+itself: the painting is the place alone, on no ground plate, with no
+lettering. A place not reached yet is washed out by the map (a CSS filter),
+so there is no locked painting.
+
+The file is the drawing's 100-unit box PLUS a 12.5 % margin on every side
+(a pennant over the top, water under the foot): 1.25 × the box, the box's
+foot line at 74 % of the file's height. Written at 384 × 384 (`exact`): the
+map shows it at 1.25 × a 44–150 css px box.
+
+| Sheet (`PROMPTS-MAP.md`) | Ids |
+| --- | --- |
+| `sheet-landmarks-towns` | `sunford` `silverbridge` `oakhaven` `bastion` `ironhold` `arena` |
+| `sheet-landmarks-wilds-1` | `plains` `hollows` `woods` `outskirts` `crags` `mines` |
+| `sheet-landmarks-wilds-2` | `tundra` `temple` `citadel` `peak` `fortress` `rift` |
+| `sheet-landmarks-ruins` | `sunford-ruined` `oakhaven-ruined` `ironhold-ruined`: a town burned (Oakhaven's lost siege, an afterplay overrun). Painted from the finished towns, which ride along as references. Without its burned file a burned town shows its burned DRAWING, never the standing painting |
+
+State (2026-11-12): the towns and both wilds sheets are painted and live.
+`sheet-landmarks-wilds-2` is an interim take, flatter than the other two
+(the citadel's side wisps keyed to faint ghosts), and its re-roll prompt is
+ready. `sheet-landmarks-ruins` is not painted yet. Gemini's daily image limit
+stopped the queue: `pnpm art:desk`, then queue `sheet-landmarks-wilds-2`,
+`sheet-landmarks-ruins` (and `sheet-landmarks-towns` once more if Silverbridge's
+river should lose its square-cut ends).
+
 ## Textures — `public/images/textures/<name>.webp`
 
 | Name | What |

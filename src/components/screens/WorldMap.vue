@@ -75,7 +75,9 @@
               )
                 svg.node__ring(viewBox="0 0 100 100" aria-hidden="true" focusable="false")
                   ellipse(cx="50" cy="81" rx="45" ry="19")
-                svg.node__art(viewBox="0 0 100 100" aria-hidden="true" focusable="false" v-html="n.art")
+                //- The painted landmark when there is one (`images/landmarks/`), else the map's own drawing.
+                img.node__art.node__art--painted(v-if="n.paint" :src="n.paint" :class="{ 'is-faded': n.faded }" alt="" draggable="false" decoding="async" data-landmark-art)
+                svg.node__art(v-else viewBox="0 0 100 100" aria-hidden="true" focusable="false" v-html="n.art")
                 svg.node__doom(v-if="n.doom" viewBox="0 0 100 100" aria-hidden="true" focusable="false" data-rift-doom v-html="DOOM_SKULL")
                 svg.node__clouds(v-if="n.clouds" viewBox="0 0 100 100" aria-hidden="true" focusable="false" v-html="n.clouds")
                 span.node__lock(v-if="n.demoLocked" aria-hidden="true")
@@ -222,7 +224,7 @@ import { isNodeLockedByDemo } from '@/use/useFullVersion'
 import { hud } from '@/game/state/hud'
 import { input } from '@/game/boot'
 import { watchLostInput } from '@/game/engine/lostInput'
-import { ICON_ART, UI_ART } from '@/game/assets/overrides'
+import { ICON_ART, LANDMARK_ART, UI_ART } from '@/game/assets/overrides'
 import { sceneQuality } from '@/game/engine/quality'
 import { sfx } from '@/game/audio/sfx'
 import { registerQaAdTap } from '@/use/useQaAdTrigger'
@@ -242,7 +244,7 @@ import { MAP_H, MAP_W, type Pt } from './map/geo'
 import { ROADS, nodeAt } from './map/roads'
 import { paintedCrossings } from './map/paintedBridges'
 import { mapBridgesSvg, mapPlateUrl } from './map/terrain'
-import { cloudCover, landmarkSvg } from './map/landmarks'
+import { cloudCover, landmarkSvg, paintedLandmark } from './map/landmarks'
 import { MAP_REGIONS, SKY_CLOUDS, birdsSvg, decorSvg, frameSvg, skyCloudSvg, tearClip } from './map/life'
 import { GH, GW, findPath, fogCells, nearestWalkable, stepWalk, walkMask } from './map/walk'
 import { mapClock } from './map/session'
@@ -370,7 +372,12 @@ interface NodeView {
   call: boolean
   fresh: boolean
   veil: 'wait' | 'lift' | ''
+  /** The drawn landmark ('' when a painted one stands in for it). */
   art: string
+  /** The painted landmark's URL ('' : none, the drawing shows). */
+  paint: string
+  /** Not reached yet: the painted landmark is washed out, as the drawing is. */
+  faded: boolean
   clouds: string
   zone?: ZoneDef
   /** The afterplay: the zone is its invaded self (its band, its roster). */
@@ -394,6 +401,9 @@ const nodes = computed<NodeView[]>(() => MAP.map((n) => {
   const state = veil.get(n.id) ?? ''
   // A place with an open road to it shows through thin cloud; the far ones lie deep.
   const near = n.links.some(l => NODE_BY_ID[l] && isOpen(l))
+  // A town the demons hold in the afterplay stands burned (#164), as Oakhaven after its siege was lost.
+  const ruined = (n.id === 'oakhaven' && flags.value.has('oakhavenFallen')) || flags.value.has(overrunFlag(n.id))
+  const paint = paintedLandmark(n.id, ruined, LANDMARK_ART)
   return {
     id: n.id,
     kind: n.kind,
@@ -412,8 +422,9 @@ const nodes = computed<NodeView[]>(() => MAP.map((n) => {
     call: n.kind === 'arena' && arenaCall.value,
     fresh: fresh.has(n.id),
     veil: state,
-    // A town the demons hold in the afterplay stands burned (#164), as Oakhaven after its siege was lost.
-    art: landmarkSvg(n.id, { locked: !isSeen(n.id), ruined: (n.id === 'oakhaven' && flags.value.has('oakhavenFallen')) || flags.value.has(overrunFlag(n.id)) }),
+    art: paint ? '' : landmarkSvg(n.id, { locked: !isSeen(n.id), ruined }),
+    paint,
+    faded: !isSeen(n.id),
     doom: n.id === 'rift' && riftCalls.value,
     clouds: !isSeen(n.id) ? (near ? CLOUDS_NEAR : CLOUDS_FAR) : state ? CLOUDS_NEAR : '',
     zone,
@@ -1307,6 +1318,23 @@ onBeforeUnmount(() => {
   height: 100%
   overflow: visible
   pointer-events: none
+// A painted landmark (`images/landmarks/<id>.webp`) is the drawing's box plus the
+// margin its reference gave it (a pennant over the top, water under the foot):
+// 1.25 x the box, with the box in its middle, so its foot stands where the
+// drawing's does. A place not reached yet is washed out, as `landmarks.ts`
+// draws a locked one (it lies under cloud as well).
+.node__art--painted
+  inset: -12.5%
+  width: 125%
+  height: 125%
+  // The base reset caps an image at its box (`max-width: 100%`), which would shrink it back to the drawing's box.
+  max-width: none
+  max-height: none
+  object-fit: contain
+  user-select: none
+  -webkit-user-drag: none
+  &.is-faded
+    filter: grayscale(0.86) brightness(1.12) contrast(0.72)
 .node__ring ellipse
   fill: none
   stroke: var(--bc-white, #fff)

@@ -273,6 +273,17 @@ const DRAW: Record<NodeId, (p: Pen, st: LandmarkState) => string> = {
 /** The inner markup of a landmark: goes in an `<svg viewBox="0 0 100 100">`. */
 export const landmarkSvg = (id: NodeId, st: LandmarkState = {}): string => DRAW[id](pen(st), st)
 
+/**
+ * The painted landmark that stands in for the drawing, from the files the
+ * build found (`LANDMARK_ART`, keyed by node id), or '' to keep the drawing.
+ * A burned town shows only its own burned painting (`<id>-ruined`): its
+ * standing one would hide what the player's choice did, so without the
+ * burned painting the burned DRAWING shows. Only known files are asked for,
+ * so a miss is never a request.
+ */
+export const paintedLandmark = (id: NodeId, ruined: boolean, art: ReadonlyMap<string, string>): string =>
+  art.get(ruined ? `${id}-ruined` : id) ?? ''
+
 // ── Cloud cover ──────────────────────────────────────────────────────────────
 const CLOUD = 'M-27 0a11 11 0 0 1 2-21.500a15.500 15.500 0 0 1 29-5.500a12.500 12.500 0 0 1 22 9a9.500 9.500 0 0 1-1 18z'
 const CLOUD_LIP = 'M-27 0a11 11 0 0 1-7.500-8q18 6 36 3t30-4a9.500 9.500 0 0 1-6.500 9z'

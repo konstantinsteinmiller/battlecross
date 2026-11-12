@@ -114,7 +114,9 @@ const OVERRIDE_DIRS = {
   // Painted UI icons, status icons, class emblems and marks (`ICON_ART`).
   icons: { dir: 'public/images/icons', exts: IMAGE_EXTS },
   // The painted logo badge and mascot (`LOGO_ART`): the splash shows them when present.
-  logo: { dir: 'public/images/logo', exts: IMAGE_EXTS }
+  logo: { dir: 'public/images/logo', exts: IMAGE_EXTS },
+  // The painted landmarks of the world map (`LANDMARK_ART`): a missing one keeps its drawing.
+  landmarks: { dir: 'public/images/landmarks', exts: IMAGE_EXTS }
 } as const
 // Spoken dialogue lines: one sub-folder per language, a file per line id
 // (`dlg.sunfordSmith.hello.1.ogg`). Listed as `<lang>/<file>`.
@@ -133,7 +135,7 @@ const scanVoice = (): string[] => {
   return out.sort()
 }
 const scanOverrides = (): Record<keyof typeof OVERRIDE_DIRS | 'voice', string[]> => {
-  const out = { sfx: [] as string[], music: [] as string[], textures: [] as string[], items: [] as string[], skills: [] as string[], portraits: [] as string[], ui: [] as string[], icons: [] as string[], logo: [] as string[], voice: scanVoice() }
+  const out = { sfx: [] as string[], music: [] as string[], textures: [] as string[], items: [] as string[], skills: [] as string[], portraits: [] as string[], ui: [] as string[], icons: [] as string[], logo: [] as string[], landmarks: [] as string[], voice: scanVoice() }
   for (const [key, { dir, exts }] of Object.entries(OVERRIDE_DIRS)) {
     const abs = fileURLToPath(new URL(`./${dir}`, import.meta.url))
     if (!existsSync(abs)) continue

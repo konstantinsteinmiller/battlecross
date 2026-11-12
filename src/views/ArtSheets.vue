@@ -21,6 +21,8 @@
         span.stage__tinted(v-else-if="c.draw === 'svg'" v-html="BRAND_REFS[c.glyph || ''] || ''")
         svg(v-else-if="c.draw === 'mark'" :viewBox="markOf(c).viewBox" :fill="c.tint")
           path(:d="markOf(c).d")
+        //- A world-map place, as the map draws it (never its painted file).
+        svg(v-else-if="c.draw === 'landmark'" viewBox="0 0 100 100" v-html="landmarkOf(c)")
         Portrait(v-else-if="c.draw === 'portrait'" :look="c.id")
         IconCoin(v-else)
     section.sheet(v-for="v in views" :key="v.stem")
@@ -50,7 +52,7 @@ import {
 } from '@/game/art/artSheet'
 import { CG_BANNER, COVER_SIZES, coverPlateSvg, cropBox } from '@/game/art/coverScenes'
 import { PORTRAIT_ART, UI_ART } from '@/game/assets/overrides'
-import { MAP } from '@/game/data/zones'
+import { MAP, type NodeId } from '@/game/data/zones'
 import { groundDetail } from '@/game/gfx/textures'
 import { MAP_H, MAP_W } from '@/components/screens/map/geo'
 import { mapPlateSvg } from '@/components/screens/map/terrain'
@@ -68,6 +70,11 @@ import { BACKDROP_SAFE, backdropSvg } from '@/components/game/backdrops'
 /** The UI glyph or mark a panel draws (the manifest names it in `glyph`). */
 const uiName = (c: SheetCell): GameIconName => (isGameIconName(c.glyph) ? c.glyph : 'help')
 const markOf = (c: SheetCell): Mark => MARKS[c.glyph as keyof typeof MARKS] ?? MARKS.quest
+/** A landmark's drawing: its node id, burned when the id says so. */
+const landmarkOf = (c: SheetCell): string => {
+  const id = (c.glyph ?? c.id).replace(/-ruined$/, '') as NodeId
+  return landmarkSvg(id, { ruined: (c.glyph ?? c.id).endsWith('-ruined') })
+}
 
 // THE REFERENCE MUST NEVER BE THE SHIPPED PAINTING OF ITSELF. `Portrait` and
 // `IconCoin` show a painted file when one exists, so an export after the first
@@ -135,9 +142,15 @@ const PAINT = ['fill', 'fill-opacity', 'fill-rule', 'stroke', 'stroke-width', 's
  *
  * A bust is the exception: its flat bottom IS the edge of the frame
  * `Portrait` puts it in, so it stays on its box, cut there like the vector.
+ * So is a map landmark, whose foot line is its place's spot on the map.
  */
 const placeOf = (c: SheetCell, img: HTMLImageElement): [number, number, number] => {
   if (c.draw === 'portrait') return [OFF, OFF, SIZE]
+  // A landmark keeps its box too (the map stands it on its spot by the box's
+  // foot line), but its image is the box PLUS the margin (`drawingOf`): a flag
+  // or a spire stands over the box's top, water runs under its foot. Drawn
+  // whole, the box lands at `REF_SCALE` in the middle of the square.
+  if (c.draw === 'landmark') return [0, 0, CELL]
   // Measured at twice the panel, so the box is good to half a pixel.
   const R = CELL * 2
   const [, g] = canvas(R, R)

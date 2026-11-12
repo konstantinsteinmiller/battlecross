@@ -1008,6 +1008,24 @@
       "rev": "9c2e63335786",
       "painting": "73a3d339f1e0",
       "at": "2026-11-09T15:09:46.430Z"
+    },
+    "sheet-landmarks-towns.jpg": {
+      "sheet": "sheet-landmarks-towns",
+      "rev": "289a81aba1b7",
+      "painting": "a2da9d76969d",
+      "at": "2026-11-12T21:56:43.115Z"
+    },
+    "sheet-landmarks-wilds-1.jpg": {
+      "sheet": "sheet-landmarks-wilds-1",
+      "rev": "296734f8c7ac",
+      "painting": "1c3a4e84b0f6",
+      "at": "2026-11-12T21:57:54.979Z"
+    },
+    "sheet-landmarks-wilds-2.jpg": {
+      "sheet": "sheet-landmarks-wilds-2",
+      "rev": "a135a8c1d7e5",
+      "painting": "623b0b55278d",
+      "at": "2026-11-12T22:00:25.650Z"
     }
   }
 }

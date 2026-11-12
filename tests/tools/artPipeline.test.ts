@@ -31,9 +31,12 @@ import { SLOT_GLYPH, UI_ICONS, VECTOR_ONLY } from '@/game/art/iconBlurbs'
 import { ORNAMENTS } from '@/game/art/ornamentRefs'
 import { BAR_FRAME_REFS } from '@/game/art/barFrameRefs'
 import { EMBLEM_BODY } from '@/game/art/brandRefs'
+import { MAP } from '@/game/data/zones'
+import { OVERRUN_ROADS } from '@/game/data/breaking'
+import { paintedLandmark } from '@/components/screens/map/landmarks'
 import { HERO_OUTFITS, heroGenderOfId, heroOutfit, heroOutfitOf, heroOutfitOfId, heroPortraitId, heroSampleEquipped } from '@/game/art/heroPortrait'
 import {
-  ART_CATALOGUE, BACKGROUND, CELL, COVERS, FINISH, GLOW, ICON_FILL, ICON_SETS, NOTATION, READABLE, READABLE_SMALL, SCENERY, SKILL_FINISH_REFS, SEE_THROUGH, SETS, SINGLES, STYLE_BACKDROP, STYLE_GREY, STYLE_PART, TALL,
+  ART_CATALOGUE, BACKGROUND, CELL, COVERS, FINISH, GLOW, ICON_FILL, ICON_SETS, LANDMARK_FINISH, LANDMARK_FINISH_REFS, LANDMARK_SETS, NOTATION, READABLE, READABLE_SMALL, RUINED_TOWNS, SCENERY, SKILL_FINISH_REFS, SEE_THROUGH, SETS, SINGLES, STYLE_BACKDROP, STYLE_GREY, STYLE_LANDMARK, STYLE_PART, TALL,
   allStems, artTarget, fitsOfIndex, manifestTargets, MAP_PARTS, MAP_PART_SPAN, mapPartTarget, mapSubTarget, mapTileRect, panelHeight, panelWidth, promptBlocks, promptDocs, sheetIndex, sheetSize, type Fits
 } from '@/game/art/artSheet'
 
@@ -250,7 +253,7 @@ describe('the manifest covers the game', () => {
 
   it('every target is a file the build would load: an override folder, the exact id, no duplicates', () => {
     const config = readFileSync(join(ROOT, 'vite.config.ts'), 'utf-8')
-    const folders = ['items', 'skills', 'portraits', 'ui', 'textures', 'icons', 'logo']
+    const folders = ['items', 'skills', 'portraits', 'ui', 'textures', 'icons', 'logo', 'landmarks']
     // The folders `assetOverridesPlugin` scans; a target anywhere else is never listed.
     for (const f of folders) expect(config, f).toContain(`'public/images/${f}'`)
     const seen = new Set<string>()
@@ -277,7 +280,8 @@ describe('the manifest covers the game', () => {
     // ... and the logo's badge and mascot, and the painted wordmark (#76).
     // ... and the wooden cup of the cup stand (the last +1).
     // The portraits: 43 speakers (21 of them teachers), 25 more people with a face in the talk window (#164), the boy hero's four and the girl hero's four.
-    expect(seen.size).toBe(210 + SMITHED.length + 6 + SKILLS.length + ENDGAME_SKILLS.length + 43 + 25 + 4 + 4 + 1 + 2 + 6 + ORNAMENTS.length + Object.keys(BAR_FRAME_REFS).length + icons + 2 + 1 + 1)
+    // ... and every place on the world map, and the three towns that can burn, as they stand burned.
+    expect(seen.size).toBe(210 + SMITHED.length + 6 + SKILLS.length + ENDGAME_SKILLS.length + 43 + 25 + 4 + 4 + 1 + 2 + 6 + ORNAMENTS.length + Object.keys(BAR_FRAME_REFS).length + icons + 2 + 1 + 1 + MAP.length + RUINED_TOWNS.length)
     // The catalogue `pnpm art:status` reports on is exactly what the sheets write.
     const catalogue = Object.entries(ART_CATALOGUE).flatMap(([kind, ids]) => ids.map(id => artTarget(kind as keyof typeof ART_CATALOGUE, id)))
     expect([...catalogue].sort()).toEqual([...seen].sort())
@@ -352,8 +356,10 @@ describe('the manifest covers the game', () => {
       const brand = s.id.startsWith('single-logo-title-') || s.id === 'single-logo-wordmark' ? 1024 : s.id.startsWith('single-logo-') ? 512 : null
       // The rank frames of the bars (#137) are 4:1 strips, written at 1024 x 256 (`exact`).
       const bars = s.id.startsWith('sheet-ui-bar-frame-') ? 1024 : null
-      expect(s.maxEdge, s.id).toBe(brand ?? bars ?? icon ?? (s.id.startsWith('sheet-portraits') ? 256 : s.id === 'single-ui-coin' ? 64 : s.id === 'single-ui-cup' ? 256 : 192))
-      expect(!!s.exact, s.id).toBe(brand !== null || bars !== null)
+      // The map's landmarks are shown over 1.25 x a 120-unit box, up to ~190 css px: 384 (`exact`), still a downsample of a 4:3 return.
+      const landmark = s.id.startsWith('sheet-landmarks-') ? 384 : null
+      expect(s.maxEdge, s.id).toBe(landmark ?? brand ?? bars ?? icon ?? (s.id.startsWith('sheet-portraits') ? 256 : s.id === 'single-ui-coin' ? 64 : s.id === 'single-ui-cup' ? 256 : 192))
+      expect(!!s.exact, s.id).toBe(brand !== null || bars !== null || landmark !== null)
     }
   })
 
@@ -443,6 +449,107 @@ describe('every other icon in the game is a painter target', () => {
   })
 })
 
+describe('the world map\'s landmarks', () => {
+  const landmarkCells = () => LANDMARK_SETS.flatMap(s => s.cells.flatMap(c => (c ? [c] : [])))
+
+  it('every place on the map has a panel, and so does every town that can burn: one per node id, in images/landmarks', () => {
+    const cells = landmarkCells()
+    expect(cells.map(c => c.id).sort()).toEqual([...MAP.map(n => n.id), ...RUINED_TOWNS.map(t => `${t}-ruined`)].sort())
+    // Burned: Oakhaven after its lost siege, and the afterplay's overrun towns.
+    expect([...RUINED_TOWNS].sort()).toEqual([...new Set(['oakhaven', ...Object.keys(OVERRUN_ROADS)])].sort())
+    for (const c of cells) {
+      expect(c.target, c.id).toBe(`images/landmarks/${c.id}.webp`)
+      expect([c.draw, c.glyph], c.id).toEqual(['landmark', c.id])
+    }
+    expect(ART_CATALOGUE.landmarks).toEqual(cells.map(c => c.id))
+    expect(readFileSync(join(ROOT, 'vite.config.ts'), 'utf-8')).toContain("landmarks: { dir: 'public/images/landmarks'")
+  })
+
+  it('three family sheets of six on tall panels, the burned towns on a square one; registered by the foot, the whole square kept, written at 384', () => {
+    expect(LANDMARK_SETS.map(s => [s.stem, s.cols, s.rows, sheetSize(s).width, sheetSize(s).height])).toEqual([
+      ['sheet-landmarks-towns', 3, 2, 768, 576],
+      ['sheet-landmarks-wilds-1', 3, 2, 768, 576],
+      ['sheet-landmarks-wilds-2', 3, 2, 768, 576],
+      ['sheet-landmarks-ruins', 2, 2, 512, 512]
+    ])
+    for (const s of LANDMARK_SETS) {
+      expect(SETS, s.stem).toContain(s)
+      expect([s.kind, s.doc, s.anchor, s.crop, s.maxEdge, s.exact], s.stem).toEqual(['landmarks', 'PROMPTS-MAP.md', 'feet', 1, 384, true])
+    }
+    // A family is painted in one hand: the towns together, the early wilds, the far wilds.
+    expect(idsOf('sheet-landmarks-towns')).toEqual(['sunford', 'silverbridge', 'oakhaven', 'bastion', 'ironhold', 'arena'])
+    expect(blanksOf('sheet-landmarks-ruins')).toBe(1)
+  })
+
+  it('the families go out with two painted icons as the finish; the burned towns with their own finished towns, in panel order', () => {
+    const blocks = promptBlocks()
+    for (const stem of ['sheet-landmarks-towns', 'sheet-landmarks-wilds-1', 'sheet-landmarks-wilds-2']) {
+      const b = blocks.find(x => x.stem === stem)!
+      expect(b.styleRefs, stem).toEqual(LANDMARK_FINISH_REFS)
+      expect(b.text, stem).toMatch(/They are never subjects: no extra house and no chest/)
+    }
+    for (const f of LANDMARK_FINISH_REFS) expect(existsSync(join(ROOT, f)), f).toBe(true)
+    const ruins = blocks.find(x => x.stem === 'sheet-landmarks-ruins')!
+    expect(ruins.styleRefs).toEqual(RUINED_TOWNS.map(t => `public/images/landmarks/${t}.webp`))
+    expect(ruins.text).toMatch(/the SAME places, already finished, in panel order/)
+    expect(ruins.text).toContain('ATTACHED IMAGES — there are 4')
+    expect(ruins.text).toContain('1 panel is BLANK')
+  })
+
+  it('the prompt asks for a three-quarter bird\'s-eye picture with no ground, no lettering and real volume, in a style block that does not forbid it', () => {
+    // One line differs from the shared block: the ban on three-quarter views.
+    const a = STYLE_PART.split('\n')
+    const b = STYLE_LANDMARK.split('\n')
+    expect(b).toHaveLength(a.length)
+    expect(a.filter((l, i) => l !== b[i])).toHaveLength(1)
+    expect(STYLE_LANDMARK).not.toMatch(/three-quarter/)
+    for (const s of LANDMARK_SETS) {
+      const text = promptBlocks().find(x => x.stem === s.stem)!.text
+      expect(text, s.stem).toContain(LANDMARK_FINISH)
+      expect(text, s.stem).toMatch(/THREE-QUARTER BIRD'S-EYE VIEW/)
+      expect(text, s.stem).toMatch(/NO ground under it/)
+      expect(text, s.stem).toMatch(/NO lettering anywhere/)
+      expect(text, s.stem).toMatch(/shown between about 50 and 150 pixels wide/)
+      // The volume is asked for before the style block.
+      expect(text.indexOf(LANDMARK_FINISH), s.stem).toBeLessThan(text.indexOf(STYLE_LANDMARK))
+      expect(text, s.stem).not.toContain(STYLE_PART)
+    }
+  })
+
+  it('each blurb reads as THAT place, from its card: the farm town\'s smithy, the silver roofs on the bridge, the cave behind its stakes, the arena', () => {
+    const blurb = (id: string): string => landmarkCells().find(c => c.id === id)!.blurb
+    expect(blurb('sunford')).toMatch(/farming town/)
+    expect(blurb('sunford')).toMatch(/blacksmith/)
+    expect(blurb('silverbridge')).toMatch(/SILVER roofs/)
+    expect(blurb('silverbridge')).toMatch(/stone bridge/)
+    expect(blurb('silverbridge')).toMatch(/never a square-cut block/)
+    expect(blurb('hollows')).toMatch(/cave mouth/)
+    expect(blurb('hollows')).toMatch(/sharpened wooden stakes/)
+    expect(blurb('arena')).toMatch(/colosseum/)
+    expect(blurb('ironhold')).toMatch(/forge/)
+    expect(blurb('oakhaven')).toMatch(/walled trade town/)
+    // Nothing on the map may carry the magenta the slicer keys away, and nothing is a see-through wisp.
+    expect(blurb('rift')).toMatch(/never hot pink or magenta/)
+    expect(blurb('citadel')).toMatch(/no smoke, no wisps/)
+  })
+
+  it('the map shows a painted landmark only where the build found one, and a burned town only as its burned painting', () => {
+    const art = new Map([['sunford', '/images/landmarks/sunford.webp'], ['oakhaven', '/images/landmarks/oakhaven.webp'], ['oakhaven-ruined', '/images/landmarks/oakhaven-ruined.webp']])
+    expect(paintedLandmark('sunford', false, art)).toBe('/images/landmarks/sunford.webp')
+    // No file: the drawing (never a guessed URL, so never a 404).
+    expect(paintedLandmark('hollows', false, art)).toBe('')
+    expect(paintedLandmark('oakhaven', true, art)).toBe('/images/landmarks/oakhaven-ruined.webp')
+    // Burned with no burned painting: the burned DRAWING, not the standing town.
+    expect(paintedLandmark('sunford', true, art)).toBe('')
+    const map = readFileSync(join(ROOT, 'src', 'components', 'screens', 'WorldMap.vue'), 'utf-8').replace(/\r\n/g, '\n')
+    expect(map).toContain('paintedLandmark(n.id, ruined, LANDMARK_ART)')
+    expect(map).toMatch(/img\.node__art\.node__art--painted\(v-if="n\.paint"/)
+    expect(map).toMatch(/svg\.node__art\(v-else /)
+    // The file covers the box plus the reference's margin: 1.25 x, the box in its middle.
+    expect(map).toMatch(/\.node__art--painted\n  inset: -12\.5%\n  width: 125%\n  height: 125%/)
+  })
+})
+
 describe('the brand: the logo badge and the loader\'s mascot (#65)', () => {
   it('the badge is the lockup\'s own, and its prompt forbids letters (the title stays code-drawn)', () => {
     // Cut from the generated lockup, so a regenerated logo cannot leave the
@@ -517,7 +624,8 @@ describe('what a prompt says', () => {
   it('every keyed sheet carries the shared clauses; effects carry four more; a backdrop has no magenta contract', () => {
     for (const s of [...SETS, ...SINGLES]) {
       const text = textOf(s.stem)
-      expect(text, s.stem).toContain(STYLE_PART)
+      // A map landmark is a three-quarter picture: its style block differs by the one line that forbids that (their own test).
+      expect(text, s.stem).toContain(s.kind === 'landmarks' ? STYLE_LANDMARK : STYLE_PART)
       expect(text, s.stem).toContain(BACKGROUND)
       expect(text, s.stem).toContain(GLOW)
       // Effects, and the icon sheets (signs and symbols have no material of their own to shade).
@@ -529,7 +637,8 @@ describe('what a prompt says', () => {
       for (const clause of [NOTATION, FINISH, SEE_THROUGH]) expect(text.includes(clause), `${s.stem}: ${clause.slice(0, 24)}`).toBe(effect)
       // Icons are seen at 40 px, and say so; a bust is shown larger.
       // (The icon sheets carry the 24 px version of it instead: their own test.)
-      expect(text.includes(READABLE), `${s.stem}: readable at 40 px`).toBe(s.kind !== 'portraits' && s.kind !== 'icons' && !ornament)
+      // (A landmark is shown 50 to 150 px wide on the map, and says that instead.)
+      expect(text.includes(READABLE), `${s.stem}: readable at 40 px`).toBe(s.kind !== 'portraits' && s.kind !== 'icons' && s.kind !== 'landmarks' && !ornament)
       // Shape first, and repeated last.
       expect(text.split('\n')[2], s.stem).toMatch(/^WHAT COMES BACK IS /)
       expect(text.split('\n').at(-1), s.stem).toMatch(/^OUTPUT: /)
@@ -594,7 +703,7 @@ describe('what a prompt says', () => {
     for (const f of SKILL_FINISH_REFS) expect(manifestTargets().has(f.replace(/^public\//, '')), f).toBe(true)
     // Nothing else is sent with more than its own reference.
     // (The icon sheets borrow the same finish references; see their own test.)
-    for (const b of blocks) if (!b.stem.startsWith('sheet-skills-') && !b.stem.startsWith('sheet-skills2-') && !b.stem.startsWith('sheet-skills3-') && !b.stem.startsWith('sheet-icons-') && b.stem !== 'sheet-ui-ornaments' && b.stem !== 'sheet-ui-rule-crest' && !b.stem.startsWith('sheet-ui-bar-frame-') && b.stem !== 'single-logo-mascot' && !b.stem.startsWith('single-logo-title-') && b.stem !== 'single-logo-wordmark' && b.stem !== 'sheet-portraits-girl' && !b.stem.startsWith('sheet-portraits-people-') && !b.stem.startsWith('cover-') && !b.stem.startsWith('bg-ui-terrain-') && b.stem !== 'bg-ui-map') expect(b.styleRefs, b.stem).toBeUndefined()
+    for (const b of blocks) if (!b.stem.startsWith('sheet-skills-') && !b.stem.startsWith('sheet-skills2-') && !b.stem.startsWith('sheet-skills3-') && !b.stem.startsWith('sheet-icons-') && b.stem !== 'sheet-ui-ornaments' && b.stem !== 'sheet-ui-rule-crest' && !b.stem.startsWith('sheet-ui-bar-frame-') && b.stem !== 'single-logo-mascot' && !b.stem.startsWith('single-logo-title-') && b.stem !== 'single-logo-wordmark' && b.stem !== 'sheet-portraits-girl' && !b.stem.startsWith('sheet-landmarks-') && !b.stem.startsWith('sheet-portraits-people-') && !b.stem.startsWith('cover-') && !b.stem.startsWith('bg-ui-terrain-') && b.stem !== 'bg-ui-map') expect(b.styleRefs, b.stem).toBeUndefined()
   })
 
   it('a sheet says its own grid, its blanks and its measured size', () => {
@@ -639,7 +748,7 @@ describe('the prompt documents', () => {
   it.each([['without fits', undefined], ['with measured fits', fakeFits()]])('parity %s: every block parses back to its builder\'s text, byte for byte', (_name, fits) => {
     const docs = promptDocs(fits as Fits | undefined)
     const blocks = promptBlocks(fits as Fits | undefined)
-    expect(Object.keys(docs).sort()).toEqual(['PROMPTS-COVERS.md', 'PROMPTS-ICONS.md', 'PROMPTS-ITEMS.md', 'PROMPTS-PORTRAITS.md', 'PROMPTS-SKILLS.md', 'PROMPTS-UI.md'])
+    expect(Object.keys(docs).sort()).toEqual(['PROMPTS-COVERS.md', 'PROMPTS-ICONS.md', 'PROMPTS-ITEMS.md', 'PROMPTS-MAP.md', 'PROMPTS-PORTRAITS.md', 'PROMPTS-SKILLS.md', 'PROMPTS-UI.md'])
     const jobs = Object.entries(docs).flatMap(([name, text]) => parsePromptDoc(text, name))
     expect(jobs).toHaveLength(blocks.length)
     expect(blocks).toHaveLength(SETS.length + SINGLES.length + SCENERY.length + COVERS.length)

@@ -1,4 +1,4 @@
-import { ICON_ART, ITEM_ART, PORTRAIT_ART, SKILL_ART, UI_ART } from './overrides'
+import { ICON_ART, ITEM_ART, LANDMARK_ART, PORTRAIT_ART, SKILL_ART, UI_ART } from './overrides'
 import { profile, isFreshProfile, needsHeroChoice, learnBlock } from '../state/profile'
 import { CAMP_LESSONS } from '../sim/camp'
 import { HERO_GENDERS, heroOutfit, heroPortraitId } from '../art/heroPortrait'
@@ -99,6 +99,15 @@ export const awaitCritical = (node: string = bootNode(), capMs = 2500): Promise<
   ])
 
 /**
+ * The world map's own art: the painted terrain, then every place's painted
+ * landmark as it stands (a burned town's painting is fetched when the map
+ * shows it). The map holds its first frame for its images (`useArtGate`), so
+ * these are warmed before it opens.
+ */
+export const mapImages = (): string[] =>
+  [UI_ART.get('map'), ...[...LANDMARK_ART].filter(([id]) => !id.endsWith('-ruined')).map(([, u]) => u)].filter((u): u is string => !!u)
+
+/**
  * What the player can reach from `node`, most likely first. In a town: the
  * people here (their portraits speak in every conversation), the trade
  * table's backdrop, the map (he leaves a town by it), the book's own art,
@@ -121,8 +130,8 @@ export const likelyImages = (node: string): string[] => {
   // hold behind the town's own pictures (D149).
   const bookArt = [UI_ART.get('bg-inventory'), UI_ART.get('bg-skills'), ...byPrefix(ICON_ART, 'class-'), ...skillArt(skillsOf(bookClass()).map(sk => sk.id))]
   const out = town
-    ? [...bookArt, ...people, UI_ART.get('bg-trade'), UI_ART.get('map'), ...bookFirst, ...glyphs, ...book]
-    : [...glyphs, ...book, UI_ART.get('map')]
+    ? [...bookArt, ...people, UI_ART.get('bg-trade'), ...mapImages(), ...bookFirst, ...glyphs, ...book]
+    : [...glyphs, ...book, ...mapImages()]
   return [...new Set(out.filter((u): u is string => !!u))].filter(u => !warm.has(u))
 }
 

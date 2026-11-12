@@ -138,6 +138,20 @@ about 2500 px.
 - **In effect:** an Upgrade button on the equipment page, in any town.
 - **Recommended:** keep (a blacksmith to walk up to is the alternative).
 
+### 63. The painted map landmarks (`art-todo.md`, world map landmarks)
+
+Every place on the map now has a painted landmark. The towns and the early
+wilds are the strong takes. The far wilds (tundra, temple, citadel, peak,
+fortress, rift) are an interim take, flatter than the rest. The burned towns
+are not painted yet. The account's daily image limit stopped the queue.
+
+- **In effect:** all 18 painted landmarks ship. A burned town shows its
+  burned drawing until `sheet-landmarks-ruins` is painted.
+- **Recommended:** when the limit resets, run `pnpm art:desk` and queue
+  `sheet-landmarks-wilds-2`, then `sheet-landmarks-ruins`. Optionally queue
+  `sheet-landmarks-towns` again so Silverbridge's river loses its square-cut
+  ends. To go back to the drawings, delete `public/images/landmarks/`.
+
 Decision report for #78–#94: https://claude.ai/artifact/QkADooVg1f8ndUYurrpaYi
 
 ## Defaults taken in the playtest pass, overrule any
