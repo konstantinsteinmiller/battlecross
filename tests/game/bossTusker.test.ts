@@ -97,6 +97,20 @@ describe('Tusker the war boar (#74)', () => {
     expect(t.boss!.mode).not.toBe('dazed')
   })
 
+  it('the gore and the pin together never take more than 40 % of the hero health', () => {
+    const sim = arena()
+    const h = sim.hero.unit
+    h.s.maxHp = h.hp = 60
+    h.s.armor = 0
+    const t = boar(sim)
+    t.s.baseDmg = 1000
+    step(sim, 1.4, () => t.boss!.mode === 'charge')
+    step(sim, 3, () => t.boss!.carry !== 0)
+    step(sim, 4, () => t.boss!.mode !== 'charge')
+    expect(h.alive).toBe(true)
+    expect(h.hp).toBeGreaterThanOrEqual(60 * 0.6 - 0.01)
+  })
+
   it('at half health the King leaps off and Tusker leaves the field, gone and uncounted', () => {
     const sim = arena()
     const h = sim.hero.unit

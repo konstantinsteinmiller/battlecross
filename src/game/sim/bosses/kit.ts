@@ -64,8 +64,8 @@ export const move = (sim: Sim, u: Unit, id: string, windup: number, recover: num
 }
 
 /** Hit `t` as `u`'s ability would: a multiple of its base hit, heavy. */
-export const strikeFor = (sim: Sim, u: Unit, t: Unit, mul: number, type = ENEMY_BY_ID[u.kind]?.type ?? 'physical'): number =>
-  dealDamage(sim, u, t, u.s.baseDmg * mul, { type, heavy: true, canCrit: false })
+export const strikeFor = (sim: Sim, u: Unit, t: Unit, mul: number, type = ENEMY_BY_ID[u.kind]?.type ?? 'physical', capHp?: number): number =>
+  dealDamage(sim, u, t, u.s.baseDmg * mul, { type, heavy: true, canCrit: false, capHp })
 
 // ─── Dazed ──────────────────────────────────────────────────────────────────
 
@@ -101,6 +101,8 @@ export interface ChargeOpts {
   daze: number
   /** Carries whoever it hits (a gore); else knocks them aside and runs on (a dash). */
   carry: boolean
+  /** A charge never takes more than this share of the hero's health (a carrying one splits it over the gore and the pin). */
+  capHp?: number
   /** What ramming the wall at (x, z) does: seconds dazed (0: it just stops). Overrides `daze`. */
   wallDaze?: (sim: Sim, x: number, z: number) => number
 }
@@ -141,6 +143,9 @@ export const runCharge = (sim: Sim, u: Unit): void => {
   sim.emit({ t: 'fx', id: 'dash', x: u.x, z: u.z, x2: u.x + b.dx * b.left, z2: u.z + b.dz * b.left, color: ENEMY_BY_ID[u.kind]?.color })
 }
 
+/** A carrying charge is two blows (the gore, the pin): each may take this share of what is left, so that together they take at most `capHp`. */
+const capOf = (o: ChargeOpts): number | undefined => o.capHp === undefined ? undefined : 1 - Math.sqrt(1 - o.capHp)
+
 const hitsBuf: Unit[] = []
 const out2: [number, number] = [0, 0]
 
@@ -174,12 +179,12 @@ export const stepCharge = (sim: Sim, u: Unit, dt: number): boolean => {
       for (const t of sim.inCircle(other(u), u.x + b.dx * u.r * 0.6, u.z + b.dz * u.r * 0.6, u.r * 0.7, hitsBuf)) {
         if (o.carry && t.rank === 'hero') {
           b.carry = t.id
-          strikeFor(sim, u, t, o.dmg)
+          strikeFor(sim, u, t, o.dmg, undefined, capOf(o))
           // Caught on its tusks: helpless until the wall (or the end of the run).
           applyStatus(sim, t, 'stun', 6, 1, u, { quiet: true })
           sim.emit({ t: 'fx', id: 'slam', x: t.x, z: t.z, r: 1.4, color: '#ffffff' })
         } else {
-          strikeFor(sim, u, t, o.dmg)
+          strikeFor(sim, u, t, o.dmg, undefined, o.capHp)
           t.kx += -b.dz * 7 * Math.sign((t.x - u.x) * -b.dz + (t.z - u.z) * b.dx || 1)
           t.kz += b.dx * 7 * Math.sign((t.x - u.x) * -b.dz + (t.z - u.z) * b.dx || 1)
         }
@@ -218,7 +223,7 @@ const ram = (sim: Sim, u: Unit, o: ChargeOpts, carried: Unit | undefined): void 
   b.carry = 0
   if (carried && carried.alive) {
     // Pinned against the rock: the full blow, and held there.
-    strikeFor(sim, u, carried, o.pinDmg)
+    strikeFor(sim, u, carried, o.pinDmg, undefined, capOf(o))
     keepOut(sim, carried)
     removeStatus(carried, 'stun')
     applyStatus(sim, carried, 'stun', o.pinStun, 1, u)

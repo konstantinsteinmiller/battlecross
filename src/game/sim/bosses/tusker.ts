@@ -24,8 +24,8 @@ import { bark, daze, exitField, move, other, warn, windCharge, type ChargeOpts }
  *             charging back in once, then leaves for good.
  */
 
-const GORE: ChargeOpts = { speed: 11, max: 20, dmg: 1.2, pinDmg: 2.6, pinStun: 2, daze: 3.5, carry: true }
-const DASH: ChargeOpts = { speed: 15, max: 6.5, dmg: 1.3, pinDmg: 0, pinStun: 0, daze: 0, carry: false }
+const GORE: ChargeOpts = { speed: 11, max: 20, dmg: 1.2, pinDmg: 2.6, pinStun: 2, daze: 3.5, carry: true, capHp: 0.4 }
+const DASH: ChargeOpts = { speed: 15, max: 6.5, dmg: 1.3, pinDmg: 0, pinStun: 0, daze: 0, carry: false, capHp: 0.4 }
 const out2: [number, number] = [0, 0]
 
 /** A spot `d` metres from (x, z) away from the hero, on open ground. */

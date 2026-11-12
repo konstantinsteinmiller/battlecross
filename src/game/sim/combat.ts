@@ -49,6 +49,8 @@ export interface HitOpts {
   drain?: boolean
   /** Reflected / redirected damage: never reflects or redirects again. */
   echo?: boolean
+  /** The most of the target's health NOW that this one blow may take (0.4: never more than 40 %). */
+  capHp?: number
 }
 
 const STUN_LIKE: ReadonlySet<StatusId> = new Set<StatusId>(['stun', 'knockup', 'knockdown', 'frozen', 'fear', 'confuse'])
@@ -414,6 +416,7 @@ export const dealDamage = (sim: Sim, src: Unit | null, tgt: Unit, base: number, 
   // A freed gnome (#205) cannot be killed: it keeps nine tenths of a tenth and runs.
   if (tgt.kind === REBEL_KIND && tgt.team === 0) left = rebelHurt(sim, tgt, left)
   const before = tgt.hp
+  if (o.capHp !== undefined && before > 0) left = Math.min(left, before * o.capHp)
   tgt.hp -= left
   if (toHero) {
     sim.hero.taken += left
