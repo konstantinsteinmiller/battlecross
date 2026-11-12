@@ -64,6 +64,8 @@ export interface AssaultLayout {
   towers: AssaultTower[]
   catapults: AssaultCatapult[]
   ram: { x: number; z: number; cells: number[] }
+  /** The rams: the first in the middle of the yard (for the first tower), the second waiting almost at the wall before the other tower. */
+  rams: Array<{ x: number; z: number }>
   start: { x: number; z: number }
   /** The cave mouth's middle, and the line the party pours through. */
   mouth: { x: number; z: number }
@@ -103,6 +105,7 @@ const layoutOf = (): AssaultLayout => {
     towers,
     catapults,
     ram: { x: mid(17), z: mid(25), cells: [] },
+    rams: [{ x: mid(17), z: mid(25) }, { x: towers[1]!.foot.x, z: towers[1]!.foot.z + 5 }],
     start: { x: mid(17), z: mid(29) },
     mouth: { x: ((MOUTH_I0 + MOUTH_I1 + 1) / 2) * CELL, z: mid(MOUTH_J0 + 1) },
     wallZ: (PAL_J + 0.5) * CELL,

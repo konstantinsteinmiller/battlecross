@@ -59,6 +59,8 @@ export interface RamState {
   riding: boolean
   /** m/s now (eases between the creep and the push). */
   speed: number
+  /** The tower this ram is for (index): each has its own, and each is left where it struck. */
+  tower: number
   /** Ready to take the hero in again: he has stepped away since the last ride. */
   armed: boolean
 }
@@ -84,7 +86,10 @@ export interface AssaultState {
   idle: number
   towers: TowerState[]
   catapults: CatapultState[]
+  /** The ram the hero is at (riding one, else the nearest one still to be used). */
   ram: RamState
+  /** Both rams, by tower. */
+  rams: RamState[]
   rebels: RebelState[]
   /** The cries: seconds since the last, and how many were made. */
   cries: { t: number; n: number }
@@ -140,10 +145,11 @@ export const armAssault = (sim: Sim, o: { low?: boolean } = {}): void => {
     const s = L.storm[spot]!
     setGoal(sim, u, s.x + (rng() - 0.5) * 1.4, s.z)
   }
+  const rams: RamState[] = L.rams.map((p, q) => ({ x: p.x, z: p.z, mode: 'idle', t: 0, target: q, blows: 0, riding: false, speed: 0, armed: true, tower: q }))
   sim.assault = {
     phase: 'panorama', t: 0, play: 0, idle: 0, towers,
     catapults: L.catapults.map(c => ({ state: 'ready', t: 0, dwell: 0, at: c.at })),
-    ram: { x: L.ram.x, z: L.ram.z, mode: 'idle', t: 0, target: -1, blows: 0, riding: false, speed: 0, armed: true },
+    ram: rams[0]!, rams,
     rebels, cries: { t: 0, n: 0 }, arrowT: 0.6, outcome: '', seed: (sim.seed ^ SALT) >>> 0
   }
 }
@@ -201,7 +207,7 @@ const stepCatapults = (sim: Sim, dt: number): void => {
     const def = ASSAULT_LAYOUT.catapults[q]!
     c.t += dt
     if (c.state === 'ready') {
-      const near = a.phase === 'play' && h.alive && !a.ram.riding && Math.hypot(def.lever.x - h.x, def.lever.z - h.z) <= LEVER_REACH
+      const near = a.phase === 'play' && h.alive && !a.rams.some(q => q.riding) && Math.hypot(def.lever.x - h.x, def.lever.z - h.z) <= LEVER_REACH
       c.dwell = near ? c.dwell + dt : 0
       if (c.dwell < 0.35) return
       // Its own tower, or the other when that one is down; none left: nothing to throw at.
@@ -229,9 +235,25 @@ const stepCatapults = (sim: Sim, dt: number): void => {
   })
 }
 
-const stepRam = (sim: Sim, dt: number): void => {
+const stepRams = (sim: Sim, dt: number): void => {
   const a = sim.assault!
-  const r = a.ram
+  for (const r of a.rams) stepRam(sim, r, dt)
+  // The one the hero is at: the one he rides, else the nearest that still has a tower to break.
+  const h = sim.hero.unit
+  let best = a.rams.find(q => q.riding)
+  if (!best) {
+    let bd = Infinity
+    for (const q of a.rams) {
+      if (a.towers[q.tower]!.down || q.mode === 'spent') continue
+      const d = Math.hypot(q.x - h.x, q.z - h.z)
+      if (d < bd) { bd = d; best = q }
+    }
+  }
+  if (best) a.ram = best
+}
+
+const stepRam = (sim: Sim, r: RamState, dt: number): void => {
+  const a = sim.assault!
   const hero = sim.hero
   const h = hero.unit
   r.t += dt
@@ -239,19 +261,15 @@ const stepRam = (sim: Sim, dt: number): void => {
     r.riding = false
     r.speed = 0
     if (a.phase !== 'play' || !h.alive || standing(a) === 0) return
+    // Each ram is for its own tower: one that has fallen (to a stone) leaves its ram alone.
+    if (a.towers[r.tower]!.down) { r.mode = 'spent'; return }
+    if (a.towers[r.tower]!.incoming || a.rams.some(q => q.riding)) return
     const away = Math.hypot(r.x - h.x, r.z + RAM_RIDE_Z - h.z)
     // After a ride the hero steps out from under it before it takes him in again.
     if (away > RAM_REACH + 1) r.armed = true
     if (away > RAM_REACH || !r.armed) return
-    // Under the ram: it goes for the nearest tower no stone is on its way to.
-    let best = -1
-    let bd = Infinity
-    a.towers.forEach((t, q) => {
-      if (t.down || t.incoming) return
-      const d = Math.hypot(ASSAULT_LAYOUT.towers[q]!.foot.x - r.x, ASSAULT_LAYOUT.towers[q]!.foot.z - r.z)
-      if (d < bd) { bd = d; best = q }
-    })
-    if (best < 0) return
+    // Under the ram: it rolls to its own tower.
+    const best = r.tower
     r.mode = 'roll'
     r.armed = false
     r.t = 0
@@ -263,12 +281,8 @@ const stepRam = (sim: Sim, dt: number): void => {
     return
   }
   if (r.mode === 'roll') {
-    // Its tower fell to a stone on the way: it takes the other, or stops.
-    if (a.towers[r.target]!.down) {
-      const o = spare(a, r.target)
-      if (o < 0 || a.towers[o]!.incoming) { r.mode = 'idle'; r.riding = false; return }
-      r.target = o
-    }
+    // Its tower fell to a stone on the way: the ram stops where it is, left alone.
+    if (a.towers[r.target]!.down) { r.mode = 'spent'; r.riding = false; r.speed = 0; return }
     // Any push on a key or the stick (or a tap to walk) speeds it up.
     const pushed = Math.hypot(hero.stickX, hero.stickZ) > 0.2 || hero.order.kind !== 'none'
     const want = pushed ? RAM_PUSH : RAM_CREEP
@@ -301,7 +315,8 @@ const stepRam = (sim: Sim, dt: number): void => {
       hitTower(sim, r.target, 1)
     }
     if (r.blows >= RAM_BLOWS && r.t >= due + 0.6) {
-      r.mode = standing(a) > 0 ? 'idle' : 'spent'
+      // Its work is done: the ram stays where it struck, and the other one is for the other tower.
+      r.mode = 'spent'
       r.riding = false
       r.speed = 0
       r.t = 0
@@ -315,7 +330,9 @@ const stepRam = (sim: Sim, dt: number): void => {
  */
 const keepOutOfRam = (sim: Sim): void => {
   const a = sim.assault!
-  const r = a.ram
+  for (const r of a.rams) keepOutOf(sim, r)
+}
+const keepOutOf = (sim: Sim, r: RamState): void => {
   const cz = r.z + 0.05
   const riderId = r.riding ? sim.hero.unit.id : -1
   for (const u of sim.units) {
@@ -471,7 +488,7 @@ export const stepAssault = (sim: Sim, dt: number): void => {
   }
   for (const t of a.towers) if (t.down && t.fallT >= 0 && t.fallT < FALL_S + 0.5) t.fallT += dt
   stepCatapults(sim, dt)
-  stepRam(sim, dt)
+  stepRams(sim, dt)
   // Under the ram the hero walks with it, whatever the stick says.
   if (a.ram.riding && h.unit.alive) {
     const u = h.unit

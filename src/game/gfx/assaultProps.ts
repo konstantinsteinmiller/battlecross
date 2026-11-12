@@ -251,8 +251,8 @@ export class AssaultProps {
   /** The breach's loose pieces (single stakes, halves of the rails): when each lets go, how far it tips, how it twists. */
   private chunks: Array<{ g: Group; t: number; delay: number; tip: number; twist: number; y0: number }> = []
   private arms: Group[] = []
-  private ramG!: Group
-  private logG!: Group
+  private ramGs: Group[] = []
+  private logGs: Group[] = []
   private banners: Group[] = []
   private arrows: Shot[] = []
   private stones: Shot[] = []
@@ -355,10 +355,14 @@ export class AssaultProps {
       this.piece(lever(), [c.lever.x, groundAt(c.lever.x, c.lever.z), c.lever.z], 0)
     })
     // The ram, and its swinging log.
-    this.ramG = this.piece(ram(), [L.ram.x, groundAt(L.ram.x, L.ram.z), L.ram.z], Math.PI)
-    this.logG = this.piece(ramLog(), [0, 2.4, 0], 0)
-    this.root.remove(this.logG)
-    this.ramG.add(this.logG)
+    for (const p of L.rams) {
+      const g = this.piece(ram(), [p.x, groundAt(p.x, p.z), p.z], Math.PI)
+      const log = this.piece(ramLog(), [0, 2.4, 0], 0)
+      this.root.remove(log)
+      g.add(log)
+      this.ramGs.push(g)
+      this.logGs.push(log)
+    }
     // The rebels' banners in the yard.
     for (const [x, zz, ry] of [[7.5, 40, 0.3], [46.5, 40, -0.3], [33, 41, 0.1]] as const) this.banners.push(this.piece(banner(), [x, groundAt(x, zz), zz], ry))
     // Shared shot geometry.
@@ -594,22 +598,24 @@ export class AssaultProps {
       arm.rotation.x = ang
     })
     // The ram: where it is, rocking as it rolls, the log drawn back and swung.
-    const r = a.ram
-    this.ramG.position.set(r.x, groundAt(r.x, r.z), r.z)
-    this.ramG.rotation.z = r.mode === 'roll' ? Math.sin(time * (7 + r.speed * 2)) * 0.012 * (0.4 + r.speed * 0.3) : 0
-    let swing = 0
-    if (r.mode === 'blow') {
-      const k = Math.max(0, Math.min(2, r.blows))
-      const due = 0.55 + k * RAM_BLOW_GAP
-      const back = due - 0.55
-      // Drawn back over half a second, then it swings through.
-      const u = (r.t - back) / 0.55
-      if (u < 1) swing = ease(Math.max(0, u)) * 0.6
-      else swing = 0.6 - ease(Math.min(1, (r.t - due) / 0.12 + 1)) * 0.72
-    } else if (r.mode === 'roll') swing = Math.sin(time * 5) * 0.03
-    this.logG.rotation.x = swing
-    // A cloud at the wheels while it is pushed.
-    if (r.mode === 'roll' && Math.random() < dt * (this.low ? 5 : 14) * (r.speed / 2)) this.dust(r.x, r.z + 1.2, 1, 0.5)
+    a.rams.forEach((r, q) => {
+      const ramG = this.ramGs[q]!
+      ramG.position.set(r.x, groundAt(r.x, r.z), r.z)
+      ramG.rotation.z = r.mode === 'roll' ? Math.sin(time * (7 + r.speed * 2)) * 0.012 * (0.4 + r.speed * 0.3) : 0
+      let swing = 0
+      if (r.mode === 'blow') {
+        const k = Math.max(0, Math.min(2, r.blows))
+        const due = 0.55 + k * RAM_BLOW_GAP
+        const back = due - 0.55
+        // Drawn back over half a second, then it swings through.
+        const u = (r.t - back) / 0.55
+        if (u < 1) swing = ease(Math.max(0, u)) * 0.6
+        else swing = 0.6 - ease(Math.min(1, (r.t - due) / 0.12 + 1)) * 0.72
+      } else if (r.mode === 'roll') swing = Math.sin(time * 5) * 0.03
+      this.logGs[q]!.rotation.x = swing
+      // A cloud at the wheels while it is pushed.
+      if (r.mode === 'roll' && Math.random() < dt * (this.low ? 5 : 14) * (r.speed / 2)) this.dust(r.x, r.z + 1.2, 1, 0.5)
+    })
     // The banners stir.
     this.banners.forEach((b, q) => { b.rotation.y = (q ? -0.3 : 0.3) + Math.sin(time * 1.7 + q * 2) * 0.1 })
     // Pulsing rings: where the hero can act (a lever not yet pulled, the ram waiting), quicker once he has idled.
@@ -618,7 +624,7 @@ export class AssaultProps {
       this.ringT = a.idle > 6 ? 0.9 : 1.7
       const col = a.idle > 6 ? '#fff0a0' : '#ffd24a'
       a.catapults.forEach((c, q) => { if (c.state === 'ready') this.vfx.ring(L.catapults[q]!.lever.x, L.catapults[q]!.lever.z, 0.25, a.idle > 6 ? 2.2 : 1.6, col, 0.8, 0.07) })
-      if (r.mode === 'idle') this.vfx.ring(r.x, r.z + 1.1, 0.3, a.idle > 6 ? 2.6 : 1.9, col, 0.8, 0.07)
+      for (const r of a.rams) if (r.mode === 'idle') this.vfx.ring(r.x, r.z + 1.1, 0.3, a.idle > 6 ? 2.6 : 1.9, col, 0.8, 0.07)
     }
     // Shots in the air.
     for (const s of this.arrows) this.placeShot(s, dt, true)

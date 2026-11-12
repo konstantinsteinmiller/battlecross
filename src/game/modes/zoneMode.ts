@@ -2072,20 +2072,18 @@ export class ZoneMode implements GameMode {
     v.hint = assaultHint(a)
     v.cut01 = a.phase === 'panorama' ? Math.min(1, a.t / PANORAMA_S) : 1
     // The ram's direction on the screen: a chevron over the ram, pointing to the tower it rolls to (the nearest still standing).
+    // Over the ram, pointing to its tower; while the hero is still far from a ram that waits, over the hero, pointing to the ram (the second one stands almost at the wall).
     const r = a.ram
+    const hero = this.sim.hero.unit
     let tw: { x: number; z: number } | null = null
-    let bd = Infinity
-    if (a.phase === 'play' && (r.mode === 'idle' || r.mode === 'roll')) {
-      for (let q = 0; q < a.towers.length; q++) {
-        if (a.towers[q]!.down) continue
-        const L = ASSAULT_LAYOUT.towers[q]!
-        const d = Math.hypot(L.x - r.x, L.z - r.z)
-        if (d < bd) { bd = d; tw = L }
-      }
+    let from = { x: r.x, z: r.z }
+    if (a.phase === 'play' && (r.mode === 'idle' || r.mode === 'roll') && !a.towers[r.tower]!.down) {
+      tw = ASSAULT_LAYOUT.towers[r.tower]!
+      if (r.mode === 'idle' && Math.hypot(r.x - hero.x, r.z - hero.z) > 6 && hero.alive) { tw = { x: r.x, z: r.z }; from = { x: hero.x, z: hero.z } }
     }
     const p1 = { x: 0, y: 0 }
     const p2 = { x: 0, y: 0 }
-    if (tw && this.project(r.x, 2.2, r.z, p1) && this.project(tw.x, 2.2, tw.z, p2)) {
+    if (tw && this.project(from.x, 2.2, from.z, p1) && this.project(tw.x, 2.2, tw.z, p2)) {
       v.aim = true
       v.aimX = p1.x
       v.aimY = p1.y

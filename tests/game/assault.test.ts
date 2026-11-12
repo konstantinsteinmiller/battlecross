@@ -8,6 +8,7 @@ import { startAttrs } from '@/game/data/attributes'
 import { ASSAULT_LAYOUT, generateAssault, PAL_J } from '@/game/sim/assaultMap'
 import { armAssault, assaultHint, skipAssault, skipPanorama } from '@/game/sim/assault'
 import { isSolidCell } from '@/game/sim/grid'
+import { CELL } from '@/game/sim/grid'
 import {
   ASSAULT_FLAG, BREACH_S, CATAPULT_FLIGHT, CATAPULT_WIND, CRIES, CRIER, PANORAMA_S, RAM_BLOWS, RAM_HALF_X, RAM_HALF_Z, RAM_RIDE_Z, assaultDue, cryKey, cryPeriod
 } from '@/game/data/assault'
@@ -143,10 +144,11 @@ describe('the besieged gate', () => {
     run(sim, plan, 5.5)
     expect(sim.assault!.towers[q]!.down).toBe(true)
     expect(r.riding).toBe(false)
-    expect(r.mode).toBe('idle')
-    // Standing where he is, he is not taken in again until he has stepped away.
+    // Its work is done: it is left alone where it struck, and does not take him in again.
+    expect(r.mode).toBe('spent')
     run(sim, plan, 0.5)
-    expect(r.mode).toBe('idle')
+    expect(r.mode).toBe('spent')
+    expect(r.riding).toBe(false)
   })
 
   it('the ram is solid: a goblin or the hero standing in it is pushed out, and nobody runs through it', () => {
@@ -174,19 +176,29 @@ describe('the besieged gate', () => {
     expect(r.riding || Math.abs(h.x - r.x) >= RAM_HALF_X || Math.abs(h.z - r.z) >= RAM_HALF_Z).toBe(true)
   })
 
-  it('the ram needs two rides for two towers; both fallen ends the ram', () => {
+  it('each tower has its own ram: the first is left alone where it struck, the second waits near the wall at the other tower', () => {
     const { sim, plan } = scene()
     play(sim, plan)
-    const r = sim.assault!.ram
+    const rams = sim.assault!.rams
+    expect(rams.length).toBe(2)
+    expect(rams[1]!.z).toBeLessThan(rams[0]!.z)
+    // The waiting one stands on open ground, a few metres from the wall.
+    expect(isSolidCell(sim.grid, Math.floor(rams[1]!.x / CELL), Math.floor(rams[1]!.z / CELL))).toBe(false)
     for (let ride = 0; ride < 2; ride++) {
+      const r = rams[ride]!
       goto(sim, r.x + 8, r.z + 8)
       run(sim, plan, 0.1)
       goto(sim, r.x, r.z + 1.1)
       run(sim, plan, 0.2)
-      for (let i = 0; i < 900 && r.mode !== 'idle' && r.mode !== 'spent'; i++) { setStick(sim, 0, -1); run(sim, plan, STEP) }
+      expect(r.target).toBe(ride)
+      for (let i = 0; i < 900 && r.mode !== 'spent'; i++) { setStick(sim, 0, -1); run(sim, plan, STEP) }
+      expect(r.mode).toBe('spent')
+      // Left where it struck, never taken to the other tower.
+      expect(sim.assault!.towers[ride]!.down).toBe(true)
     }
     expect(sim.assault!.towers.every(t => t.down)).toBe(true)
-    expect(r.mode).toBe('spent')
+    expect(rams[0]!.mode).toBe('spent')
+    expect(rams[1]!.mode).toBe('spent')
   })
 
   it('"Skip Siege" ends it at once, and it is not won', () => {
