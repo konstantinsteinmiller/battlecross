@@ -246,6 +246,8 @@ const DODGE_STOP_AFTER_S = 0.5
 /** The camera rests on the cages this long after the first cry for help, then flies back to the hero. */
 const HELP_SHOT_S = 3
 const HELP_SHOT_ZOOM = 1.3
+/** The world stays still this long after the cage shot, while the view flies back to the hero. */
+const HELP_BACK_S = 1.1
 
 interface View {
   v: RigView
@@ -371,6 +373,7 @@ export class ZoneMode implements GameMode {
   private windHeld = false
   /** The first cry for help has cut the view to the cages (seconds into the shot; -1: not showing). */
   private helpShotT = -1
+  private helpBackT = 0
   private helpShown = false
   /** The tutorial level (the plains before their first clear): revives are free and unlimited, big blows are capped. */
   readonly tutorialLevel: boolean
@@ -1398,6 +1401,12 @@ export class ZoneMode implements GameMode {
     }
     if (this.potionStop) { this.holdForPotion(first); return }
     if (this.dodgeStop) { this.holdForDodge(first); return }
+    // The cut to the cages and the way back: nobody fights or walks while the view is away from the fight.
+    if (this.helpShotT >= 0 || this.helpBackT > 0) {
+      if (this.helpShotT < 0) this.helpBackT -= dt
+      this.holdForShot(first)
+      return
+    }
     if (first) this.handleInput()
     if (this.talkOn) this.holdTalk()
     else if (this.talkHold > 0) this.talkHold -= dt
@@ -1552,6 +1561,14 @@ export class ZoneMode implements GameMode {
         markTip(DODGE_TIP)
       }
     }
+    consumeEdges(i)
+  }
+
+  /** The view is on the cages (or on its way back): the world waits; only the pause is taken, and the hero's orders are dropped. */
+  private holdForShot(first: boolean): void {
+    if (!first) return
+    const i = this.input
+    if (i.pauseQueued) this.cb.onPause()
     consumeEdges(i)
   }
 
@@ -2007,7 +2024,7 @@ export class ZoneMode implements GameMode {
     if (this.helpShotT < 0) return null
     const cage = this.sim.chests.find(q => q.role === 'cage')
     this.helpShotT += dt
-    if (!cage || this.helpShotT >= HELP_SHOT_S) { this.helpShotT = -1; return null }
+    if (!cage || this.helpShotT >= HELP_SHOT_S) { this.helpShotT = -1; if (cage) this.helpBackT = HELP_BACK_S; return null }
     // The zoom comes home with the assault's own easing once the shot is over.
     this.assaultZoom = HELP_SHOT_ZOOM
     return { x: cage.x, z: cage.z }
