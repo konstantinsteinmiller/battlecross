@@ -126,6 +126,11 @@ export type ScreenToGround = (fx: number, fy: number) => { x: number; z: number 
  */
 export const CAMEO_BANDS = { top: [0.25, 0.31, 0.37], bottom: [0.8, 0.74, 0.68] } as const
 
+/** How high the leaps go (m, the feet): over the treetops of a wood (a tree stands 3-5 m), never through them. */
+export const LEAP_HERO = 6
+export const LEAP_BEAST = 5.2
+export const LEAP_OUT = 10
+
 /** A leap or a run in progress, on the scene's clock. */
 interface Move {
   u: number
@@ -288,8 +293,8 @@ export const beginCameo = (sim: Sim, s: CameoState, st: CameoStage): void => {
   const beast = actor(sim, CAMEO_BEAST, st.beastFrom, { r: 0.9, h: 1.85 })
   s.hero = hero.id
   s.beast = beast.id
-  hero.stunt = { lift: 3.4, flip: 0 }
-  beast.stunt = { lift: 2.6, flip: 0 }
+  hero.stunt = { lift: LEAP_HERO, flip: 0 }
+  beast.stunt = { lift: LEAP_BEAST, flip: 0 }
 }
 
 /** Over: whatever of the scene is still in the world goes (a skip of the visit, a defeat). */
@@ -338,8 +343,8 @@ const play = (sim: Sim, s: CameoState, b: CameoBeat): void => {
   switch (b.act) {
     case 'leap':
       // Both bound in from beyond the right edge: the beast first, its hunter a stride behind with a forward flip.
-      if (beast) move(s, beast, st.beast, -0.15 - CAMEO_FROM, 2.6)
-      if (hero) move(s, hero, st.hero, 0.2 - CAMEO_FROM, 3.4, 1)
+      if (beast) move(s, beast, st.beast, -0.15 - CAMEO_FROM, LEAP_BEAST)
+      if (hero) move(s, hero, st.hero, 0.2 - CAMEO_FROM, LEAP_HERO, 1)
       break
     case 'beastLand':
       if (!beast) break
@@ -422,7 +427,7 @@ const play = (sim: Sim, s: CameoState, b: CameoBeat): void => {
       fx(sim, 'roar', beast.x, beast.z, { r: 3.2, color: BEAST_FIRE, unit: beast.id })
       fx(sim, 'leap', beast.x, beast.z, { r: 2.4, color: BEAST_FIRE, unit: beast.id })
       beast.action = null
-      move(s, beast, st.beastTo, 2.1, 3.6)
+      move(s, beast, st.beastTo, 2.1, LEAP_BEAST)
       break
     case 'line':
       // The player's own hero, as it goes: one line of framing.
@@ -438,7 +443,7 @@ const play = (sim: Sim, s: CameoState, b: CameoBeat): void => {
       if (!hero) break
       // Away in a leap, rising out of the picture to the left: a hunter on a trail.
       fx(sim, 'leap', hero.x, hero.z, { r: 1.6, color: CAMEO_TEAL, unit: hero.id })
-      move(s, hero, st.heroTo, 9.6 - 8.3, 6.5, 1, true)
+      move(s, hero, st.heroTo, 9.6 - 8.3, LEAP_OUT, 1, true)
       break
     case 'beastGone':
       if (beast) sim.dismiss(beast)
@@ -490,7 +495,8 @@ const stepMoves = (sim: Sim, s: CameoState, dt: number): void => {
     // A run and the beast's bounds are strides; his leaps are a flip in the air, legs together.
     if (!u.action) u.anim = m.flips ? 'idle' : 'walk'
     if (m.high <= 0) { u.stunt = undefined; continue }
-    const lift = m.rise ? m.high * k * k : m.high * 4 * k * (1 - k)
+    // Over the treetops the whole way: a flat-topped arc (the body is high above the canopy for most of the flight, down only at its ends), and the leap out of the picture climbs fast.
+    const lift = m.rise ? m.high * Math.pow(k, 0.55) : m.high * Math.pow(Math.sin(Math.PI * k), 0.45)
     u.stunt = { lift, flip: m.flips ? Math.min(1, Math.max(0, (k - 0.12) / 0.7)) * m.flips : 0 }
   }
   s.moves = s.moves.filter(m => s.t < m.t0 + m.dur + 0.05)
