@@ -259,6 +259,11 @@
     "at": "2026-11-04",
     "hash": "53e2a9045a"
   },
+  "de/dlg.bark.sbMasterAether.fight.1": {
+    "engine": "chatterbox",
+    "at": "2026-11-13",
+    "hash": "9a07d502a2"
+  },
   "de/dlg.bark.sbMasterIronmonk.help.1": {
     "engine": "chatterbox",
     "at": "2026-11-04",
@@ -8183,6 +8188,11 @@
     "engine": "chatterbox",
     "at": "2026-11-04",
     "hash": "524c2e60df"
+  },
+  "en/dlg.bark.sbMasterAether.fight.1": {
+    "engine": "chatterbox",
+    "at": "2026-11-13",
+    "hash": "90be7031a7"
   },
   "en/dlg.bark.sbMasterIronmonk.help.1": {
     "engine": "chatterbox",
@@ -16239,6 +16249,11 @@
     "at": "2026-11-05",
     "hash": "73b7952988"
   },
+  "es/dlg.bark.sbMasterAether.fight.1": {
+    "engine": "chatterbox",
+    "at": "2026-11-13",
+    "hash": "7423c25ee8"
+  },
   "es/dlg.bark.sbMasterIronmonk.help.1": {
     "engine": "chatterbox",
     "at": "2026-11-02",
@@ -18048,6 +18063,11 @@
     "engine": "chatterbox",
     "at": "2026-11-05",
     "hash": "7f73831a13"
+  },
+  "fr/dlg.bark.sbMasterAether.fight.1": {
+    "engine": "chatterbox",
+    "at": "2026-11-13",
+    "hash": "1294e3d0b6"
   },
   "fr/dlg.bark.sbMasterIronmonk.help.1": {
     "engine": "chatterbox",
@@ -24089,6 +24109,11 @@
     "at": "2026-11-04",
     "hash": "f3e843371b"
   },
+  "ja/dlg.bark.sbMasterAether.fight.1": {
+    "engine": "chatterbox",
+    "at": "2026-11-13",
+    "hash": "88cfa9090d"
+  },
   "ja/dlg.bark.sbMasterIronmonk.help.1": {
     "engine": "chatterbox",
     "at": "2026-11-02",
@@ -25914,6 +25939,11 @@
     "at": "2026-11-05",
     "hash": "3b41b55408"
   },
+  "pt/dlg.bark.sbMasterAether.fight.1": {
+    "engine": "chatterbox",
+    "at": "2026-11-13",
+    "hash": "5ec675c56d"
+  },
   "pt/dlg.bark.sbMasterIronmonk.help.1": {
     "engine": "chatterbox",
     "at": "2026-11-02",
@@ -27724,6 +27754,11 @@
     "at": "2026-11-04",
     "hash": "5c8400940d"
   },
+  "ru/dlg.bark.sbMasterAether.fight.1": {
+    "engine": "chatterbox",
+    "at": "2026-11-13",
+    "hash": "fffe4eee0f"
+  },
   "ru/dlg.bark.sbMasterIronmonk.help.1": {
     "engine": "chatterbox",
     "at": "2026-11-02",
@@ -29533,6 +29568,11 @@
     "engine": "chatterbox",
     "at": "2026-11-04",
     "hash": "0ff8c7d67a"
+  },
+  "zh/dlg.bark.sbMasterAether.fight.1": {
+    "engine": "chatterbox",
+    "at": "2026-11-13",
+    "hash": "1902de62b5"
   },
   "zh/dlg.bark.sbMasterIronmonk.help.1": {
     "engine": "chatterbox",
