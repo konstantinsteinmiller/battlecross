@@ -496,8 +496,11 @@ export const stepHero = (sim: Sim, dt: number): void => {
     return
   }
   const stick = Math.hypot(h.stickX, h.stickZ)
-  if (u.action) {
-    // A skill's wind-up roots him; a basic swing gives way to the stick. A
+  // A swing begun on the run goes on while he runs (VITE_APP_WALK_ATTACK).
+  const swingOnRun = sim.walkAttack && u.action?.id === 'attack' && u.walkAtk && stick > 0.12
+  if (!swingOnRun) u.walkAtk = false
+  if (u.action && !swingOnRun) {
+    // A skill's wind-up roots him; a basic swing gives way to the stick (unless it is one made on the run). A
     // chest's lid and the pickaxe do not (#99): once begun, they finish.
     if (u.action.id === 'attack' && stick > 0.2) cancelSwing(u, sim)
     else return
@@ -509,8 +512,11 @@ export const stepHero = (sim: Sim, dt: number): void => {
     stop(u)
     stride(sim, u, h.stickX, h.stickZ, dt)
     u.anim = 'walk'
+    if (sim.walkAttack) swingOnTheRun(sim, u)
+    else u.aim = u.facing
     return
   }
+  u.aim = u.facing
 
   // A cast waiting on range.
   if (h.queued) {
@@ -618,6 +624,28 @@ export const stepHero = (sim: Sim, dt: number): void => {
     h.order.targetId = near.id
     u.targetId = near.id
   }
+}
+
+/**
+ * The basic attack on the run (VITE_APP_WALK_ATTACK): while the stick moves him, the target is the red-marked foe, else the nearest awake
+ * one in reach; his chest turns to it (`aim`), the legs keep running, and a swing starts whenever the weapon is ready and the foe is in
+ * range. Out of range or with nobody near, the chest simply follows the legs.
+ */
+const swingOnTheRun = (sim: Sim, u: Unit): void => {
+  if (hasStatus(u, 'stealth') || sim.leaving || u.truce) { u.aim = u.facing; return }
+  // A swing in flight keeps the chest on the foe it was made at, in reach or not.
+  if (u.action?.id === 'attack') {
+    const at = sim.live(u.action.targetId)
+    if (at) u.aim = Math.atan2(at.x - u.x, at.z - u.z)
+    return
+  }
+  let t: Unit | undefined = sim.live(u.targetId)
+  if (t && (t.team !== 1 || !t.awake || atPeace(sim, t))) t = undefined
+  // The marked foe wins while it is in reach; out of reach, the nearest one.
+  if (!t || !inAttackRange(sim, u, t, 0.4)) t = nearestAwake(sim, u, u.s.atkRange + 0.4)
+  if (!t || !inAttackRange(sim, u, t, 0.4)) { if (!u.action) u.aim = u.facing; return }
+  u.aim = Math.atan2(t.x - u.x, t.z - u.z)
+  if (u.attackCd <= 0) startAttack(sim, u, t, u.s.atkInterval * WINDUP, true)
 }
 
 const nearestAwake = (sim: Sim, u: Unit, maxDist: number): Unit | undefined => {

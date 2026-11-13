@@ -87,6 +87,8 @@ export interface RigView {
   sec: Float32Array
   lastFlinch: number
   lastRootZ: number
+  /** The chest's turn away from the legs while a swing is made on the run (radians, eased). */
+  twist: number
   /** Where the last blow came from: the direction it travelled, radians. */
   hitYaw: number
   /** An extra flash on the body (a critical hit's gold), fading. */
@@ -320,6 +322,7 @@ export const makeRigView = (u: Unit, heroLook?: Look): RigView => {
     sec: new Float32Array(12),
     lastFlinch: 0,
     lastRootZ: 0,
+    twist: 0,
     hitYaw: 0,
     flash: 0,
     flashHex: '#ffffff',

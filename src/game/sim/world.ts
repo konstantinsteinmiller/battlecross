@@ -1,3 +1,4 @@
+import { WALK_ATTACK } from './flags'
 import { mulberry32, type Rng } from './rng'
 import { createGrid, nearestOpen, type Grid } from './grid'
 import type { HeroBuild } from './stats'
@@ -319,6 +320,8 @@ export class Sim {
   /** Enemy health multiplier (the opening fight once the hero knows the road teacher's skill, `OPENING.skillHp`). */
   enemyHpMul = 1
   /** Every enemy blow is scaled by this as it lands (the opening boss's mercy, #155, `coach/tutorialAid.ts`). */
+  /** The hero swings on the run (VITE_APP_WALK_ATTACK, `flags.ts`). */
+  walkAttack = WALK_ATTACK
   foeHitMul = 1
   /** The tutorial level (the plains until first cleared): no charged blow or charge on the hero takes more than this share of his health (0: no cap). */
   chargedCap = 0
@@ -478,6 +481,8 @@ export class Sim {
       pathI: 0,
       repathT: 0,
       attackCd: 0.2 + this.rng() * 0.5,
+      aim: o.facing ?? 0,
+      walkAtk: false,
       action: null,
       cds: new Array<number>(o.abilityCount ?? 0).fill(0),
       ai: 'idle',

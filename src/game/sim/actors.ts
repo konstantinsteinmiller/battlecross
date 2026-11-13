@@ -178,18 +178,25 @@ export const inAttackRange = (sim: Sim, u: Unit, tgt: Unit, slack = 0): boolean 
 }
 
 /** Begin a basic swing at `tgt` if the weapon is ready. */
-export const startAttack = (sim: Sim, u: Unit, tgt: Unit, windup: number): boolean => {
+/** `onTheMove`: swung while running (VITE_APP_WALK_ATTACK): the legs keep their heading and their stride; the upper body turns to the target. */
+export const startAttack = (sim: Sim, u: Unit, tgt: Unit, windup: number, onTheMove = false): boolean => {
   if (u.attackCd > 0 || u.action || isControlled(u)) return false
   const speed = attackSpeedOf(u)
   const interval = u.s.atkInterval / speed
   const w = Math.min(interval * 0.6, windup / speed)
   u.action = newAction(u, 'attack', w, Math.max(w + 0.08, interval * 0.72), tgt.id, tgt.x, tgt.z)
   u.attackCd = interval
-  u.anim = 'attack'
-  u.animT = 0
   u.animStyle = u.swings % 2
-  face(u, tgt.x, tgt.z)
-  stop(u)
+  if (onTheMove) {
+    // The run goes on (`anim` stays 'walk'); only the chest turns to the foe.
+    u.aim = Math.atan2(tgt.x - u.x, tgt.z - u.z)
+    u.walkAtk = true
+  } else {
+    u.anim = 'attack'
+    u.animT = 0
+    face(u, tgt.x, tgt.z)
+    stop(u)
+  }
   sim.emit({ t: 'swing', src: u.id, style: u.s.atkStyle, heavy: u.s.atkHeavy })
   return true
 }

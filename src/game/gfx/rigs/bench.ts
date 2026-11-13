@@ -68,7 +68,7 @@ const starter = (): Record<EquipSlot, string | null> =>
   ({ ...(Object.fromEntries(EQUIP_SLOTS.map(s => [s, null])) as Record<EquipSlot, string | null>), main: 'rustedShortsword' })
 
 const fakeUnit = (id: number, o: { style: 'melee' | 'ranged' | 'magic'; heavy: boolean; dual: boolean }): Unit => ({
-  id, kind: 'hero', team: 0, rank: 'hero', level: 1, x: 0, z: 0, px: 0, pz: 0, vx: 0, vz: 0, facing: 0, r: 0.45, h: 1.45,
+  id, kind: 'hero', team: 0, rank: 'hero', level: 1, x: 0, z: 0, px: 0, pz: 0, vx: 0, vz: 0, facing: 0, aim: 0, walkAtk: false, r: 0.45, h: 1.45,
   hp: 10, mana: 0, shield: 0, shieldT: 0, alive: true, deadT: 0,
   s: { atkStyle: o.style, atkHeavy: o.heavy, dual: o.dual ? 1 : 0, maxHp: 10 } as Unit['s'],
   statuses: [], targetId: 0, hasGoal: false, goalX: 0, goalZ: 0, path: [], pathI: 0, repathT: 0, attackCd: 0, action: null,

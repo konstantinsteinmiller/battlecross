@@ -116,6 +116,17 @@ const T = new Float32Array(N)
 const W = new Float32Array(N)
 const O = new Float32Array(N)
 
+/** The channels a swing on the run takes from the walk cycle: the pelvis and the legs run on whatever the arms are doing. */
+const RUN_LOWER = [hipY, hipZ, hipRx, hipRy, hipRz, lLx, lLz, kL, fL, lRx, lRz, kR, fR] as const
+/** The most the chest turns away from the legs (radians): past it the upper body is as round as it goes. */
+const CHEST_TWIST_MAX = 1.35
+const angleDiff = (to: number, from: number): number => {
+  let d = to - from
+  while (d > Math.PI) d -= TAU
+  while (d < -Math.PI) d += TAU
+  return d
+}
+
 /** A trail's strength at clip time `s`: on from the strike's start `S`, full until `t0`, gone by `t1`. */
 const win = (s: number, S: number, t0: number, t1: number): number =>
   s < S ? 0 : s <= t0 ? 1 : 1 - clamp01((s - t0) / Math.max(0.01, t1 - t0))
@@ -235,8 +246,21 @@ const humanoid = (v: RigView, u: Unit, time: number, dt: number, speed: number):
   v.walkK += ((moving && s < 0 ? 1 : 0) - v.walkK) * Math.min(1, dt * 12)
 
   // ── 1–2. Stance, walk, clip ──
+  // A swing made on the run (VITE_APP_WALK_ATTACK): the swing is the upper body's, the stride is the legs'.
+  const onRun = !!clip && s >= 0 && u.walkAtk && moving && clip === v.clip && v.clipSrc?.id === 'attack'
   if (clip && s >= 0) {
     sample(clip, s, v.clipS, T)
+    if (onRun) {
+      walkPose(v, speed, W)
+      for (const c of RUN_LOWER) T[c] = W[c]!
+      // The body keeps the run's lean and bob; the swing's own lunge is a fraction of what it is standing.
+      T[pitch] = W[pitch]! + T[pitch]! * 0.4
+      T[rootZ] = T[rootZ]! * 0.35
+      T[rootY] = T[rootY]! * 0.5
+      // The chest rides the stride's counter-turn a little, so the swing breathes with the steps.
+      T[torRy] = T[torRy]! + (W[torRy]! - v.set.stance[torRy]! * 0.5) * 0.35
+      v.walkK = 1
+    }
   } else {
     // A townsperson at work plays their loop in place of the plain stance (`townClips.ts`).
     if (v.loop) sampleLoop(v.loop, v.loopT, T)
@@ -423,6 +447,15 @@ const humanoid = (v: RigView, u: Unit, time: number, dt: number, speed: number):
   v.blinkT -= dt
   if (v.blinkT <= 0) v.blinkT = 1.8 + Math.random() * 3.6
   if (v.blinkT < 0.13) O[lid] = Math.max(O[lid]!, Math.sin((v.blinkT / 0.13) * Math.PI))
+  // The chest faces the foe while the legs run on: eased in and out (and no further than a body can turn).
+  const twistTo = onRun ? clamp(angleDiff(u.aim, v.yaw), -CHEST_TWIST_MAX, CHEST_TWIST_MAX) : 0
+  v.twist += (twistTo - v.twist) * Math.min(1, dt * (onRun ? 18 : 9))
+  if (Math.abs(v.twist) > 0.002) {
+    O[torRy] = O[torRy]! + v.twist
+    // The head follows the chest, the pelvis gives a quarter of the turn back so the hips do not look nailed to the legs.
+    O[hipRy] = O[hipRy]! - v.twist * 0.2
+    O[torRy] = O[torRy]! + v.twist * 0.2
+  }
   apply(v, r, O)
 
   // ── 5. Secondary motion ──

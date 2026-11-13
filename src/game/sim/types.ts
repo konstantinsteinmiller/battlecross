@@ -153,6 +153,10 @@ export interface Unit {
   vz: number
   /** Heading, radians: 0 faces +Z (toward the camera), atan2(dx, dz). */
   facing: number
+  /** Where the upper body points while a swing is made on the run (radians, as `facing`); the legs keep `facing`. */
+  aim: number
+  /** A basic swing is in flight while the unit runs: the view mixes the swing over the walk cycle (upper body) and turns the chest to `aim`. */
+  walkAtk: boolean
   /** Collision radius and height (metres). */
   r: number
   h: number
