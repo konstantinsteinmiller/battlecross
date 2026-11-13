@@ -30,6 +30,8 @@
 //                                       it signs in to P4D, reads the Versions list and runs
 //                                       the Inspector pass on the newest existing version
 //   pnpm deploy:poki --strict           budget warnings fail the run
+//   pnpm deploy:poki --update-types a,b the Create Version "what this update includes" options (config `updateTypes`)
+//   pnpm deploy:poki --reload-idle-ms N no-input window after the iframe reload (default 60000)
 //   pnpm deploy:poki --honest-ticks     tick only what the run proved
 //   pnpm deploy:poki --keep             leave Chrome open at the end
 //
@@ -184,7 +186,7 @@ try {
     } else {
       const notes = arg('notes', gitNotes())
       const up = await uploadVersion(cdp, {
-        zipPath: join(ROOT, cfg.zip), name: versionName, notes, log: m => info(m),
+        zipPath: join(ROOT, cfg.zip), name: versionName, notes, updateTypes: (arg('update-types', null)?.split(',').map(x => x.trim()).filter(Boolean)) ?? cfg.updateTypes ?? ['Bug Fixes'], log: m => info(m),
       })
       versionId = up.id
       pass(`uploaded as "${up.label}"`, `version ${up.id} — ${up.status}`)
@@ -219,6 +221,7 @@ try {
       port,
       playMs: Number(arg('play-ms', cfg.qa?.playMs ?? 45000)),
       adWaitMs: Number(arg('ad-wait-ms', cfg.qa?.adWaitMs ?? 120000)),
+      reloadIdleMs: Number(arg('reload-idle-ms', cfg.qa?.reloadIdleMs ?? 60000)),
       hooks: cfg.hooks ?? {},
       allowHosts: cfg.allowHosts ?? [],
       declares: cfg.declares ?? {},

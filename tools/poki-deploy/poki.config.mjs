@@ -33,6 +33,10 @@ export default {
 
   /** What the version is called in P4D. Keep the version number in it — it is
    *  the only thing tying a live build back to a commit. */
+  /** The required "what this update includes" multi-select of the Create Version form (names exactly as Poki lists them; `--update-types a,b`
+   *  overrides for one run). An unknown name makes the upload throw with the list Poki offers. */
+  updateTypes: ['Bug Fixes'],
+
   versionName: version => `Battlecross ${version}`,
 
   /** Extra hosts the gates and the runtime sweep should accept. Anything here

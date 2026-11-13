@@ -94,12 +94,60 @@ const SET_REACT_INPUT = `(sel, value) => {
   return true
 }`
 
+/** Centre of an element in viewport coordinates (null when it is missing or has no box). */
+const CENTER_OF = `(fn) => { const el = fn(); if (!el) return null; el.scrollIntoView({ block: 'center' }); const r = el.getBoundingClientRect(); return r.width && r.height ? { x: r.left + r.width / 2, y: r.top + r.height / 2 } : null }`
+
+/** A real mouse click at a point: the update-type dropdown is a react-select, which opens on mousedown and picks on mouseup, and ignores el.click(). */
+const clickAt = async (cdp, { x, y }) => {
+  for (const type of ['mouseMoved', 'mousePressed', 'mouseReleased']) {
+    await cdp.send('Input.dispatchMouseEvent', { type, x, y, button: 'left', buttons: type === 'mousePressed' ? 1 : 0, clickCount: 1 })
+  }
+}
+
+/** The select's control (react-select, class prefix "Select__"), found from the fieldset that holds the label text: the form has no stable ids. */
+const UPDATE_CONTROL = `() => {
+  const fs = [...document.querySelectorAll('fieldset')].find(e => /what this update includes/i.test(e.textContent || ''))
+  return fs ? fs.querySelector('.Select__control') : null
+}`
+
+const OPTIONS = `[...document.querySelectorAll('.Select__option')]`
+
+/**
+ * The Create Version form's required "Please specify what this update includes." multi-select (added Nov 2026). Until at least one type
+ * is chosen the Upload button stays disabled, which is how an unattended upload stalled. Opens the control with a real click and picks
+ * each wanted option by its text; throws with the options Poki offers when one is not among them, so a renamed option is a one-line fix.
+ */
+const selectUpdateTypes = async (cdp, types, log) => {
+  const chosen = () => cdp.eval('(() => { const c = (' + UPDATE_CONTROL + ')(); return c ? (c.innerText || "").replace(/\\s+/g, " ").trim() : null })()')
+  for (const type of types) {
+    if ((await chosen())?.toLowerCase().includes(type.toLowerCase())) continue
+    const at = await cdp.eval('(' + CENTER_OF + ')(' + UPDATE_CONTROL + ')')
+    if (!at) throw new Error('could not find the "what this update includes" field in the Create Version modal — Poki may have changed the form')
+    await clickAt(cdp, at)
+    await sleep(500)
+    const want = JSON.stringify(type.toLowerCase())
+    const o = await cdp.eval('(' + CENTER_OF + ')(() => ' + OPTIONS + '.find(o => (o.innerText || "").trim().toLowerCase() === ' + want + '))')
+    if (!o) {
+      const offered = await cdp.eval(OPTIONS + '.map(o => (o.innerText || "").trim()).filter(Boolean)')
+      throw new Error('the update type "' + type + '" is not offered. Poki offers: ' + ((offered || []).join(' | ') || '(the dropdown did not open)'))
+    }
+    await clickAt(cdp, o)
+    await sleep(500)
+    if (!(await chosen())?.toLowerCase().includes(type.toLowerCase())) throw new Error('clicked "' + type + '" but it did not become a chip in the field')
+    log?.('update type: ' + type)
+  }
+  // close the menu so it does not cover the notes and the Upload button
+  await cdp.send('Input.dispatchKeyEvent', { type: 'keyDown', key: 'Escape', code: 'Escape', windowsVirtualKeyCode: 27 })
+  await cdp.send('Input.dispatchKeyEvent', { type: 'keyUp', key: 'Escape', code: 'Escape', windowsVirtualKeyCode: 27 })
+  await sleep(300)
+}
+
 /**
  * Upload one zip as a new version.
  * Returns the new version's id — the handle everything downstream needs.
  */
 export const uploadVersion = async (cdp, {
-  zipPath, name, notes = '', optimizeImages = true, pollMs = 5000, processingTimeoutMs = 900000, log,
+  zipPath, name, notes = '', updateTypes = ['Bug Fixes'], optimizeImages = true, pollMs = 5000, processingTimeoutMs = 900000, log,
 }) => {
   const zip = resolve(zipPath)
   const before = await readVersions(cdp)
@@ -136,6 +184,9 @@ export const uploadVersion = async (cdp, {
   if (notes) {
     await cdp.eval(`(${SET_REACT_INPUT})(document.querySelector('textarea'), ${JSON.stringify(notes)})`)
   }
+
+  // Required since Nov 2026: Upload stays disabled until at least one update type is chosen (skill trap 13).
+  if (updateTypes.length) await selectUpdateTypes(cdp, updateTypes, log)
 
   // Poki re-encodes images server-side when this is on. It is checked by
   // default and worth leaving on — it is the same figure the Inspector then
