@@ -1,3 +1,4 @@
+import { chargeCapOf } from './chargeCap'
 import { ENEMY_BY_ID, type AbilityDef } from '../data/enemies'
 import { hasLineOfSight, isSolidAt, nearestOpen } from './grid'
 import { addField, face, fire, stop } from './actors'
@@ -121,7 +122,9 @@ const strike = (sim: Sim, u: Unit, a: AbilityDef, t: Unit, mul = 1): void => {
   let base = a.pct && t.rank !== 'turret' ? t.s.maxHp * a.pct * mul : u.s.baseDmg * (a.dmg ?? 1) * mul
   // The tutorial level softens the big blows (charged cone, the lane charge) to a share of the hero's health.
   if (sim.chargedCap > 0 && t.rank === 'hero' && (a.charged || a.kind === 'charge')) base = Math.min(base, t.s.maxHp * sim.chargedCap)
-  const dealt = dealDamage(sim, u, t, base, { type: a.type ?? 'physical', heavy: true, canCrit: false })
+  // Charged blows never take more than a share of the hero's current health (30-50 % by the foe's level, at least a fifth of his full bar).
+  const cap = t.rank === 'hero' && (a.charged || a.kind === 'charge') ? chargeCapOf(u.level) : {}
+  const dealt = dealDamage(sim, u, t, base, { type: a.type ?? 'physical', heavy: true, canCrit: false, ...cap })
   if (dealt > 0 && a.status && t.alive) {
     const v = a.status.id === 'burn' || a.status.id === 'poison' || a.status.id === 'bleed' ? u.s.baseDmg * a.status.v : a.status.v
     applyStatus(sim, t, a.status.id, a.status.dur, v, u, { type: a.status.type })

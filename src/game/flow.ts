@@ -50,7 +50,7 @@ import { difficultyFactor } from '@/use/useUser'
 import { trackForTheme } from './audio/themes'
 import { PREVIEW_ON } from './previewFlags'
 import { INTRO_ENABLED, INTRO_TIP, introBoot } from './intro/state'
-import { classifyOnboarding } from './coach/reveal'
+import { classifyOnboarding, isVeteran } from './coach/reveal'
 import { chestReward, escortPacks, merchantTiers, type EncounterSpec } from './data/encounters'
 import { dayKey } from './rareShelf'
 import { carefulMult } from './careful'
@@ -817,13 +817,16 @@ const offerSecondWind = (): boolean => {
   // In a siege only the hero's fall is undone, never the gate's (afterplay §8.1).
   if (!z || flow.modal || z.sim.siege?.phase === 'lost') return false
   // The tutorial level: a free revive every time, with no video and no ad gate.
-  const free = z.tutorialLevel && !PREVIEW_ON
+  // The first revive of a first-time player is free as well, wherever it comes (the tip is set once it is taken).
+  const free = (z.tutorialLevel || (!isVeteran() && !profile.tips[FIRST_WIND_TIP])) && !PREVIEW_ON
   if (!free && !secondWindAllowed(z.sim.mode, !!z.sim.siege)) return false
   flow.windFree = free
   flow.modal = 'secondWind'
   return true
 }
 
+/** Set once a first-time player has taken his free Second wind: later ones are the video's again. */
+const FIRST_WIND_TIP = 'firstWindTaken'
 let windBusy = false
 /**
  * Take Second wind: the video, then up again. A video that did not finish
@@ -837,6 +840,7 @@ export const takeSecondWind = async (): Promise<boolean> => {
   try {
     // Free (the tutorial level): nothing to watch.
     ok = flow.windFree ? true : await claimReward(() => {})
+    if (ok && flow.windFree && !profile.tips[FIRST_WIND_TIP]) markTip(FIRST_WIND_TIP)
   } finally {
     windBusy = false
     if (!flow.windFree) resumeMusicAfterAd()

@@ -44,7 +44,9 @@ describe('tutorial level: the first boss', () => {
     const cone = (e: (typeof ENEMIES)[number]): number => e.abilities.findIndex(a => a.charged)
     expect(hit(TUTORIAL_CHARGED_CAP, cone)).toBeLessThanOrEqual(0.2 + 1e-6)
     expect(hit(TUTORIAL_CHARGED_CAP, cone)).toBeGreaterThan(0.05)
-    expect(hit(0, cone)).toBeGreaterThanOrEqual(0.35)
+    // Without the tutorial's cap the general cap on charged blows (30 % of the current health at a low level) still holds.
+    expect(hit(0, cone)).toBeGreaterThanOrEqual(0.25)
+    expect(hit(0, cone)).toBeLessThanOrEqual(0.3 + 1e-6)
   })
 
   it('its lane charge is capped too', () => {
