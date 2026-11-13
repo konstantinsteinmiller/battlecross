@@ -6251,6 +6251,7 @@ export default {
       trainerPyro: { help: { 1: 'Cứu với, có ai không!' } },
       sbMasterSoulwarden: { help: { 1: 'Chúng tôi bị bắt cóc!' } },
       sbMasterIronmonk: { help: { 1: 'Quái vật! Cứu với!' } },
+      sbMasterAether: { fight: { 1: 'Đấu với ta đi, Ác Mộng!' } },
       sphinx: {
         intro: { '1': "Trả lời ta đi, nhóc con, nếu không cát của ta sẽ chôn vùi ngươi." },
         riddle: { '1': "Vậy thì một câu đố. Bước lên nơi ta chỉ, theo đúng thứ tự đó." },

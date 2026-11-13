@@ -25,7 +25,7 @@ skill families rendered to `.ogg` (46 files, 0.4 MB, not in `public/`). Moving
 them into `public/audio/sfx/` is the drop-in; see its README. Regenerate with
 `npm run sound:spells`.
 
-## Sound effects (57)
+## Sound effects (59)
 
 | Group | Names |
 | --- | --- |
@@ -38,6 +38,7 @@ them into `public/audio/sfx/` is the drop-in; see its README. Regenerate with
 | UI | `denied` `uiClick` `uiOpen` `uiClose` `uiEquip` `uiBuy` `uiLearn` `uiPoint` `uiChoice` `mapMove` |
 | Smithy | `forgeStrike` `forgePerfect` `forgeMiss` |
 | The gunslinger on the plains (#210) | `cameoLand` `cameoShot` `cameoTower` `cameoTowerOut` `cameoShield` `cameoRoar` `cameoLeap` `cameoClaw` `cameoStep` |
+| The chimera fighting back in the cameo (#210) | `cameoBreath` (its stream of fire breaking on his shield, 2.23–3.35 s of the cue) `cameoLash` (its serpent tail whipping onto the shield between his shots) |
 
 What each one is for is in the comments of `RECIPES` in `synth.ts`. The
 frequent ones (`swing`, `hit`, `shoot`, `cast`, `coin`, `death`…) are played

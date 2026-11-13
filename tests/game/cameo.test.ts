@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest'
-import { readFileSync } from 'node:fs'
+import { existsSync, readFileSync, readdirSync } from 'node:fs'
 import { resolve } from 'node:path'
 import { Sim, outOfReach } from '@/game/sim/world'
 import { createHero } from '@/game/sim/hero'
@@ -20,8 +20,11 @@ import type { DialogWorld } from '@/game/dialog/types'
 import { LOOKS } from '@/game/gfx/rigs/looks'
 import { CAMEO_FLAG, CAMEO_TIP, flagSet, profile } from '@/game/state/profile'
 import en from '@/i18n/locales/en'
+import { speakSeconds } from '@/game/dialog/pacing'
+import { CARDS, LINE_DELIVERY } from '@/game/audio/voiceCards'
 import {
-  CAMEO_ACTS, CAMEO_BEAST, CAMEO_BLOWS, CAMEO_DELAY, CAMEO_END, CAMEO_FOE_NEAR, CAMEO_FROM, CAMEO_HERO, CAMEO_LINE, CAMEO_TOWER,
+  CAMEO_16TH, CAMEO_ACTS, CAMEO_BARK_LOOK, CAMEO_BEAST, CAMEO_BLOWS, CAMEO_BREATH, CAMEO_DELAY, CAMEO_END, CAMEO_FOE_NEAR, CAMEO_FROM, CAMEO_HERO,
+  CAMEO_LINE, CAMEO_SHOUT, CAMEO_TEAL, CAMEO_TOWER,
   armCameo, beginCameo, cameoDue, cameoUnits, clearCameoUnits, stageCameo, stepCameo, tryStartCameo, type CameoStage, type ScreenToGround
 } from '@/game/coach/cameo'
 
@@ -99,6 +102,52 @@ describe('the cameo: its script is cut to the intro\'s fight cue', () => {
     expect(CAMEO_ACTS.filter(b => b.act === 'shot' || b.act === 'turret').length).toBeGreaterThanOrEqual(2)
     expect(at('flee')).toBeCloseTo(INTRO_ACTS.find(b => b.act === 'slay')!.at, 2)
     expect(at('flee')).toBeCloseTo(INTRO_FIGHT_AT + 57 * spb, 2)
+  })
+
+  it('the beast fights back on the cue: its breath while he sets up, its tail lashing between his shots', () => {
+    /** A time that falls on one of the cue's 16ths. */
+    const on16th = (t: number): void => {
+      const k = (t - INTRO_FIGHT_AT) / spb
+      expect(Math.abs(k - Math.round(k)), `${t} on a 16th`).toBeLessThan(0.01)
+    }
+    expect(CAMEO_16TH).toBeCloseTo(spb, 6)
+    // The breath: from the summon's drive (after the turret is down) until before the first shot; the shell closes into it.
+    on16th(CAMEO_BREATH.from)
+    on16th(CAMEO_BREATH.to)
+    expect(CAMEO_BREATH.from).toBeGreaterThan(at('tower'))
+    expect(at('breathPose')).toBeGreaterThan(at('tower'))
+    expect(at('breathPose')).toBeLessThan(CAMEO_BREATH.from)
+    expect(at('breath')).toBe(CAMEO_BREATH.from)
+    expect(at('shield') - CAMEO_BREATH.from).toBeGreaterThan(0)
+    expect(at('shield') - CAMEO_BREATH.from).toBeLessThan(0.25)
+    expect(CAMEO_BREATH.to).toBeLessThan(at('shot'))
+    // The fire flares on the shell on the drums' accents, inside the stream.
+    const burns = CAMEO_ACTS.filter(b => b.act === 'burn').map(b => b.at)
+    expect(burns.length).toBeGreaterThanOrEqual(3)
+    for (const t of burns) { on16th(t); expect(t).toBeGreaterThan(at('shield')); expect(t).toBeLessThanOrEqual(CAMEO_BREATH.to) }
+    // Two lashes, each on the 8th between two of his blows, each drawn back first.
+    const lashes = CAMEO_ACTS.filter(b => b.act === 'lash')
+    expect(lashes).toHaveLength(2)
+    for (const [k, l] of lashes.entries()) {
+      on16th(l.at)
+      const before = CAMEO_BLOWS.filter(t => t < l.at).at(-1)!
+      const after = CAMEO_BLOWS.find(t => t > l.at)!
+      expect(before, `lash ${k}`).toBeDefined()
+      expect(after, `lash ${k}`).toBeDefined()
+      expect(Math.abs(l.at - (before + after) / 2), `lash ${k} between two blows`).toBeLessThan(0.02)
+      expect(at('lashPose', k)).toBeLessThan(l.at)
+      expect(at('lashPose', k)).toBeGreaterThan(before)
+    }
+    // His blows come between hers: the lashes fall between shots, never on one.
+    for (const l of lashes) for (const t of CAMEO_BLOWS) expect(Math.abs(l.at - t)).toBeGreaterThan(0.15)
+  })
+
+  it('his shout comes as he squares up, in the room after the landing\'s blow, and is long over before the hero\'s line', () => {
+    expect(at('shout')).toBeGreaterThan(at('land'))
+    expect(at('shout') - at('land')).toBeLessThan(0.3)
+    // Before the violin's pickup (the cue's 8th 16th) and the beast's roar answers after it starts.
+    expect(at('shout')).toBeLessThan(INTRO_FIGHT_AT + 8 * spb)
+    expect(at('roar')).toBeGreaterThan(at('shout') + 1)
   })
 
   it('then the resolve: the line as the beast leaps away, a few running steps, the leap out, the turret folds after him', () => {
@@ -285,10 +334,20 @@ describe('the cameo: as it plays', () => {
     expect(fx('bigShot')).toHaveLength(1)
     expect(fx('towerOut')).toHaveLength(1)
     expect(fx('step').length).toBeGreaterThanOrEqual(3)
-    // The player's hero says the one line, once, over his own head.
+    // The hunter shouts at the beast once, over his own head; later the player's hero says the one line, once, over his.
     const barks = events.filter(x => x.e.t === 'bark')
-    expect(barks).toHaveLength(1)
-    expect(barks[0]!.e).toMatchObject({ unit: sim.hero.unit.id, key: CAMEO_LINE })
+    expect(barks).toHaveLength(2)
+    const hunter = events.find(x => x.e.t === 'fx' && x.e.id === 'cameo:land')!.e as Extract<Sim['events'][number], { t: 'fx' }>
+    expect(barks[0]!.e).toMatchObject({ unit: hunter.unit, key: CAMEO_SHOUT })
+    expect(barks[1]!.e).toMatchObject({ unit: sim.hero.unit.id, key: CAMEO_LINE })
+    // The beast fights back: its breath (one stream, a gust a 16th) and two lashes of its tail, each cracking on his shield.
+    expect(fx('breath')).toHaveLength(1)
+    expect(fx('flame')).toHaveLength(Math.round((CAMEO_BREATH.to - CAMEO_BREATH.from) / CAMEO_16TH) + 1)
+    for (const t of fx('flame')) expect(t).toBeGreaterThanOrEqual(CAMEO_BREATH.from - 0.02)
+    expect(fx('lash')).toHaveLength(2)
+    const flares = fx('shieldHit')
+    for (const t of [...fx('lash'), ...fx('claw')]) expect(flares.some(f => Math.abs(f - t) < 0.001), `a flare at ${t}`).toBe(true)
+    expect(flares.filter(f => f > at('shield') - 0.02 && f < CAMEO_BREATH.to + 0.02).length).toBeGreaterThanOrEqual(4)
     // The turret stands only while he is there; everyone is gone at the end.
     const tower = seen.get(CAMEO_TOWER)!
     expect(Math.min(...tower)).toBeGreaterThanOrEqual(1.9 - 0.02)
@@ -298,10 +357,22 @@ describe('the cameo: as it plays', () => {
   })
 
   it('its blows are drawn as blows (impact, flinch) but count for nothing: no damage, no number, nothing of the hero\'s', () => {
-    const { events } = runScene()
-    const hits = events.filter(x => x.e.t === 'hit').map(x => x.e as Extract<Sim['events'][number], { t: 'hit' }>)
-    expect(hits.length).toBeGreaterThanOrEqual(5)
-    for (const h of hits) { expect(h.amount).toBe(0); expect(h.toHero).toBe(false); expect(h.killed).toBe(false) }
+    const { sim, events } = runScene()
+    type Hit = Extract<Sim['events'][number], { t: 'hit' }>
+    const hits = events.filter(x => x.e.t === 'hit').map(x => ({ t: x.t, e: x.e as Hit }))
+    expect(hits.length).toBeGreaterThanOrEqual(6)
+    for (const { e: h } of hits) {
+      expect(h.amount).toBe(0)
+      expect(h.toHero).toBe(false)
+      expect(h.killed).toBe(false)
+      expect(h.tgt).not.toBe(sim.hero.unit.id)
+    }
+    // The beast's one blow on him: the tail's second lash gets through the shield for a flash (a flinch, no harm).
+    const lash = at('lash', 1)
+    const onHim = hits.filter(h => Math.abs(h.t - lash) < 0.02)
+    expect(onHim).toHaveLength(1)
+    expect(onHim[0]!.e.type).toBe('poison')
+    expect(hits.filter(h => h.e.src === onHim[0]!.e.src)).toHaveLength(1)
   })
 
   it('nothing can target, pick or hurt the scene\'s units, and a saved visit drops them', () => {
@@ -310,7 +381,7 @@ describe('the cameo: as it plays', () => {
     openGround(sim)
     const s = armCameo()
     beginCameo(sim, s, stageCameo(sim, view(sim))!)
-    for (let i = 0; i < 60 * 4; i++) { stepSim(sim, plan, DT); stepCameo(sim, s, DT) }
+    for (let i = 0; i < 60 * 6.2; i++) { stepSim(sim, plan, DT); stepCameo(sim, s, DT) }
     const units = cameoUnits(sim)
     expect(units.map(u => u.kind).sort()).toEqual([CAMEO_BEAST, CAMEO_HERO, CAMEO_TOWER].sort())
     for (const u of units) {
@@ -330,6 +401,27 @@ describe('the cameo: as it plays', () => {
     }
     clearCameoUnits(sim)
     expect(cameoUnits(sim)).toHaveLength(0)
+  })
+
+  it('its poses keep the scene\'s clock, not the fight\'s: the breath is held, and he braces, to the end of the stream', () => {
+    const { sim, plan } = visit()
+    packsDown(sim, plan)
+    openGround(sim)
+    const s = armCameo()
+    beginCameo(sim, s, stageCameo(sim, view(sim))!)
+    const pose = (kind: string): string | undefined => cameoUnits(sim).find(u => u.kind === kind)?.action?.id
+    const seen: Record<string, Array<[number, string | undefined]>> = { beast: [], hero: [] }
+    while (s.t < CAMEO_BREATH.to - 0.05) {
+      stepSim(sim, plan, DT)
+      stepCameo(sim, s, DT)
+      seen.beast!.push([s.t, pose(CAMEO_BEAST)])
+      seen.hero!.push([s.t, pose(CAMEO_HERO)])
+    }
+    // From its first gust to its last the beast is in its breath, and he is in his shell's brace from the moment it closes.
+    for (const [t, id] of seen.beast!) if (t >= CAMEO_BREATH.from) expect(id, `beast at ${t.toFixed(2)}`).toBe('breathe')
+    for (const [t, id] of seen.hero!) if (t >= at('shield')) expect(id, `hero at ${t.toFixed(2)}`).toBe('geodeShell')
+    // Every actor is staged: the fight's step does not tick its pose a second time.
+    expect(cameoUnits(sim).every(u => u.staged)).toBe(true)
   })
 
   it('does not touch the fight\'s dice', () => {
@@ -354,6 +446,33 @@ describe('the cameo: its words, its look, its sounds', () => {
     expect(text.length).toBeLessThanOrEqual(120)
   })
 
+  it('the hunter shouts in the aether master\'s own voice, in every language, and his bubble is gone long before the hero\'s line', async () => {
+    const conv = CAPTIVE_BARKS.find(c => c.greet.some(g => g.lines.some(l => l.id === CAMEO_SHOUT)))!
+    expect(conv.voice).toBe('sbMasterAether')
+    expect(conv.look).toBe(CAMEO_HERO)
+    expect(CARDS[conv.voice!]).toBeDefined()
+    expect((en as any).dlg.bark.sbMasterAether.fight['1']).toBe('Fight me, Nightmare!')
+    // Said bitter and hard, Nightmare a name: the voice pipeline's own direction for it.
+    expect(LINE_DELIVERY[CAMEO_SHOUT]!.tone).toBe('shout')
+    expect(LINE_DELIVERY[CAMEO_SHOUT]!.direction).toMatch(/Nightmare/)
+    const dir = resolve(__dirname, '../../src/i18n/locales')
+    const langs = readdirSync(dir).filter(f => f.endsWith('.ts')).map(f => f.slice(0, -3))
+    expect(langs).toHaveLength(39)
+    for (const lang of langs) {
+      const m = (await import(`../../src/i18n/locales/${lang}.ts`)).default as any
+      const text = m.dlg.bark.sbMasterAether.fight['1'] as string
+      expect(text, lang).toBeTruthy()
+      // The bubble's whole life (its typing and its hold) ends well before the hero's line.
+      expect(at('shout') + speakSeconds(text) + 0.6, lang).toBeLessThan(at('line') - 2)
+    }
+    // Voiced in every voiced language (data/voice-core.json: every bark is core).
+    for (const lang of ['en', 'de', 'fr', 'es', 'ru', 'ja', 'pt', 'zh']) {
+      expect(existsSync(resolve(__dirname, `../../public/audio/voice/${lang}/${CAMEO_SHOUT}.ogg`)), lang).toBe(true)
+    }
+    // His bubble is his teal, said as a shout.
+    expect(CAMEO_BARK_LOOK[CAMEO_HERO]).toMatchObject({ band: CAMEO_TEAL, emotion: 'shout' })
+  })
+
   it('the hunter is the aether master: his face, hair and beard, goggles, coat and gun light, with a pistol in each hand', () => {
     const me = LOOKS[CAMEO_HERO]!
     const master = LOOKS.sbMasterAether!
@@ -365,14 +484,19 @@ describe('the cameo: its words, its look, its sounds', () => {
   })
 
   it('every sound of the scene is a sound of its own', () => {
-    for (const n of ['cameoLand', 'cameoShot', 'cameoTower', 'cameoTowerOut', 'cameoShield', 'cameoRoar', 'cameoLeap', 'cameoClaw', 'cameoStep']) expect(SFX_NAMES).toContain(n)
+    const all = ['cameoLand', 'cameoShot', 'cameoTower', 'cameoTowerOut', 'cameoShield', 'cameoRoar', 'cameoLeap', 'cameoClaw', 'cameoStep', 'cameoBreath', 'cameoLash']
+    for (const n of all) expect(SFX_NAMES).toContain(n)
     // …and it is played under the player's fight: trimmed, and at part gain by the scene.
     const synth = readFileSync(resolve(__dirname, '../../src/game/audio/synth.ts'), 'utf8')
     const trim = synth.slice(synth.indexOf('const TRIM'), synth.indexOf('const CAP ='))
-    for (const n of ['cameoLand', 'cameoShot', 'cameoRoar', 'cameoClaw']) expect(trim).toMatch(new RegExp(`${n}: 0\\.[1-7]`))
+    for (const n of all) expect(trim).toMatch(new RegExp(`${n}: 0\\.[1-7]`))
     const zone = readFileSync(resolve(__dirname, '../../src/game/modes/zoneMode.ts'), 'utf8')
     const table = zone.slice(zone.indexOf('const CAMEO_SOUND'), zone.indexOf('}', zone.indexOf('const CAMEO_SOUND')))
     for (const m of table.matchAll(/\['cameo\w+', ([\d.]+)\]/g)) expect(Number(m[1])).toBeLessThan(1)
+    // The beast's breath and lash have sounds of their own, at part gain.
+    expect(table).toMatch(/breath: \['cameoBreath', 0\.[1-7]\d*\]/)
+    expect(table).toMatch(/lash: \['cameoLash', 0\.[1-7]\d*\]/)
+    expect(readFileSync(resolve(__dirname, '../../sound-todo.md'), 'utf8')).toMatch(/`cameoBreath`[\s\S]*`cameoLash`/)
   })
 })
 

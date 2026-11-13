@@ -6304,6 +6304,7 @@ export default {
       trainerPyro: { help: { 1: 'Socorro, alguém!' } },
       sbMasterSoulwarden: { help: { 1: 'Fomos raptados!' } },
       sbMasterIronmonk: { help: { 1: 'Monstros! Socorro!' } },
+      sbMasterAether: { fight: { 1: 'Luta comigo, Pesadelo!' } },
       sphinx: {
         intro: { '1': "Responde-me, pequenino, ou sê enterrado na minha areia." },
         riddle: { '1': "Um enigma, então. Pisa onde eu mostrar, por essa ordem." },

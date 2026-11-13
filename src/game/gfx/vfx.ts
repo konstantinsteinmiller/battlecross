@@ -1163,6 +1163,79 @@ export class Vfx {
       case 'claw':
         this.arc(e.x, e.z, (e.a ?? 0) + Math.PI, R, 0.8, c, 0.2)
         break
+      case 'breath': {
+        // The chimera's breath begins (the boss's `breath` look, drawn as one stream): a tongue of fire laid along the ground
+        // to the shell, and a burst of it at the jaws.
+        const x2 = e.x2 ?? e.x
+        const z2 = e.z2 ?? e.z
+        const L = Math.hypot(x2 - e.x, z2 - e.z) || 1
+        this.arc(e.x, e.z, e.a ?? Math.atan2(x2 - e.x, z2 - e.z), L, 0.2, c, 1.2, true)
+        ps.flash(e.x, 1.05, e.z, '#fff0c8', 1.4, 0.12)
+        break
+      }
+      case 'flame': {
+        // One gust of the stream, a 16th of the cue: tongues racing from the jaws, dying where the shell is, and the fire
+        // breaking on it (spread sideways and back, hot white at the heart of it).
+        const x2 = e.x2 ?? e.x
+        const z2 = e.z2 ?? e.z
+        const dx = x2 - e.x
+        const dz = z2 - e.z
+        const L = Math.hypot(dx, dz) || 1
+        const a = Math.atan2(dx, dz)
+        for (let k = 0; k < this.n(7); k++) {
+          const off = a + (Math.random() - 0.5) * 0.3
+          const v = L * (2.4 + Math.random() * 0.9)
+          sp.emit({ x: e.x, y: 1.05, z: e.z, vx: Math.sin(off) * v, vy: -0.25 + Math.random() * 0.4, vz: Math.cos(off) * v, color: k % 3 === 0 ? '#fff4d8' : c, size: 0.45, sizeEnd: 1.25, life: L / v, shape: SHAPE.puff, add: 1, hold: 0.3 })
+        }
+        for (let k = 0; k < this.n(4); k++) {
+          const off = a + (Math.random() - 0.5) * 0.2
+          const v = L * (3 + Math.random())
+          sp.emit({ x: e.x, y: 1.05, z: e.z, vx: Math.sin(off) * v, vy: 0, vz: Math.cos(off) * v, color: '#ffffff', size: 0.5, sizeEnd: 0.12, aspect: 0.25, align: true, stretch: 0.02, life: L / v, shape: SHAPE.streak })
+        }
+        // The splash on the shell: out to both sides of the line and a little back toward the beast.
+        const px = Math.cos(a)
+        const pz = -Math.sin(a)
+        for (let k = 0; k < this.n(5); k++) {
+          const side = k % 2 ? 1 : -1
+          const s2 = 1.6 + Math.random() * 1.6
+          sp.emit({ x: x2, y: 0.9 + Math.random() * 0.4, z: z2, vx: px * side * s2 - Math.sin(a) * 0.8, vy: 0.6 + Math.random() * 0.8, vz: pz * side * s2 - Math.cos(a) * 0.8, color: k % 2 ? c : '#ffd27a', size: 0.5, sizeEnd: 1.1, life: 0.3 + Math.random() * 0.15, drag: 3, shape: SHAPE.puff, add: 1, hold: 0.25 })
+        }
+        ps.flash(x2, 1.0, z2, '#ffb05a', 1.1, 0.1)
+        break
+      }
+      case 'lash': {
+        // The serpent tail whips over the beast's back and cracks on the shell: a green whip drawn along its arc in a tenth of
+        // a second (tail root high behind the beast → over its head → the shell), a spark of venom where it lands.
+        const x2 = e.x2 ?? e.x
+        const z2 = e.z2 ?? e.z
+        const a = e.a ?? Math.atan2(x2 - e.x, z2 - e.z)
+        const y0 = 1.9
+        const y2 = 1.1
+        // The arc's top: above the beast's head, halfway along.
+        const cx = e.x + Math.sin(a) * 1.9
+        const cz = e.z + Math.cos(a) * 1.9
+        const cy = 2.9
+        const N = 22
+        for (let i = 0; i <= N; i++) {
+          const k = i / N
+          const u0 = (1 - k) * (1 - k)
+          const u1 = 2 * k * (1 - k)
+          const u2 = k * k
+          const x = u0 * e.x + u1 * cx + u2 * x2
+          const y = u0 * y0 + u1 * cy + u2 * y2
+          const z = u0 * e.z + u1 * cz + u2 * z2
+          this.later(k * 0.1, () => {
+            sp.emit({ x, y, z, color: i % 4 === 0 ? '#d8ff7a' : c, size: 0.5 - k * 0.16, sizeEnd: 0.1, life: 0.26, shape: SHAPE.dot, hold: 0.4 })
+            sp.emit({ x, y, z, color: '#f4ffe0', size: 0.2 - k * 0.06, sizeEnd: 0.05, life: 0.18, shape: SHAPE.dot, hold: 0.4 })
+            if (i === N) {
+              sp.emit({ x, y, z, color: '#ffffff', size: 1.1, sizeEnd: 0.3, rot: Math.random(), life: 0.18, shape: SHAPE.star, hold: 0.3 })
+              ps.sparks(x, y, z, '#d8ff7a', this.n(10), 4.5, 0.2)
+              ps.flash(x, y, z, c, 1.6, 0.12)
+            }
+          })
+        }
+        break
+      }
       case 'shot':
       case 'bigShot': {
         // A pistol shot: the flash at the barrel, a tracer to the beast, the hit on it.

@@ -6364,6 +6364,7 @@ export default {
       trainerPyro: { help: { 1: 'Upomoć, ima li koga!' } },
       sbMasterSoulwarden: { help: { 1: 'Otete su nas!' } },
       sbMasterIronmonk: { help: { 1: 'Čudovišta! Upomoć!' } },
+      sbMasterAether: { fight: { 1: 'Bori se sa mnom, Noćna moro!' } },
       sphinx: {
         intro: { '1': "Odgovori mi, mališa, ili će te zakopati moj pijesak." },
         riddle: { '1': "Zagonetka, dakle. Stani gdje pokažem, tim redom." },

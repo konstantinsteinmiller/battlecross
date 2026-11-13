@@ -6251,6 +6251,7 @@ export default {
       trainerPyro: { help: { 1: 'Helpon, ĉu iu!' } },
       sbMasterSoulwarden: { help: { 1: 'Ni estis kidnapitaj!' } },
       sbMasterIronmonk: { help: { 1: 'Monstroj! Helpon!' } },
+      sbMasterAether: { fight: { 1: 'Batalu kontraŭ mi, Koŝmaro!' } },
       sphinx: {
         intro: { '1': "Respondu al mi, etulo, aŭ mia sablo entombigos vin." },
         riddle: { '1': "Enigmo do. Paŝu, kien mi montras, en tiu ordo." },

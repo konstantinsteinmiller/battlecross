@@ -6324,6 +6324,7 @@ export default {
       trainerPyro: { help: { 1: 'Помощ, някой!' } },
       sbMasterSoulwarden: { help: { 1: 'Отвлякоха ни!' } },
       sbMasterIronmonk: { help: { 1: 'Чудовища! Помощ!' } },
+      sbMasterAether: { fight: { 1: 'Бий се с мен, Кошмар!' } },
       sphinx: {
         intro: { '1': "Отговори ми, малкия, или ще те погребе пясъкът ми." },
         riddle: { '1': "Гатанка, тогава. Стъпвай където покажа, в този ред." },

@@ -6262,6 +6262,7 @@ export default {
       trainerPyro: { help: { 1: 'Help, is daar iemand!' } },
       sbMasterSoulwarden: { help: { 1: 'We zijn ontvoerd!' } },
       sbMasterIronmonk: { help: { 1: 'Monsters! Help!' } },
+      sbMasterAether: { fight: { 1: 'Vecht tegen me, Nachtmerrie!' } },
       sphinx: {
         intro: { '1': "Antwoord me, kleintje, of word begraven in mijn zand." },
         riddle: { '1': "Een raadsel dan. Stap waar ik het toon, in die volgorde." },

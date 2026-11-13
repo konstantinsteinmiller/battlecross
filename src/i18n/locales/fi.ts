@@ -6251,6 +6251,7 @@ export default {
       trainerPyro: { help: { 1: 'Apua, joku!' } },
       sbMasterSoulwarden: { help: { 1: 'Meidät kidnapattiin!' } },
       sbMasterIronmonk: { help: { 1: 'Hirviöitä! Apua!' } },
+      sbMasterAether: { fight: { 1: 'Taistele minua vastaan, Painajainen!' } },
       sphinx: {
         intro: { '1': "Vastaa minulle, pienokainen, tai hiekkani hautaa sinut." },
         riddle: { '1': "Arvoitus siis. Astu sinne, minne näytän, siinä järjestyksessä." },

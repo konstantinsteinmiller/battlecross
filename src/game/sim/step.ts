@@ -110,7 +110,8 @@ export const stepSim = (sim: Sim, plan: ZonePlan, dt: number): void => {
     if (u.flinch > 0) u.flinch = Math.max(0, u.flinch - dt * 5)
     u.animT += dt
     const a = u.action
-    if (a) {
+    // A scene's actor keeps its own time (the music's): its pose is not ticked twice.
+    if (a && !u.staged) {
       a.t += dt
       if (!a.done && a.t >= a.hitAt) {
         a.done = true

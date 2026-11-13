@@ -1,5 +1,6 @@
 import { isSolidAt } from '../sim/grid'
 import { mulberry32 } from '../sim/rng'
+import { HEAD_COLOR } from '../sim/bosses/chimera'
 import { plainStats } from '../sim/stats'
 import { newAction, type Sim } from '../sim/world'
 import type { Unit } from '../sim/types'
@@ -40,6 +41,8 @@ export const CAMEO_TOWER = 'turret'
 const KINDS: ReadonlySet<string> = new Set([CAMEO_HERO, CAMEO_BEAST, CAMEO_TOWER])
 /** What the player's hero says as the beast leaps away (a hero line: the girl hero has her own take). */
 export const CAMEO_LINE = 'dlg.bark.hero.hunt.1'
+/** What the hunter shouts as he squares up to the beast, in the aether master's own voice ("Fight me, Nightmare!"). */
+export const CAMEO_SHOUT = 'dlg.bark.sbMasterAether.fight.1'
 
 /** Seconds after the pack of four is down before the scene may start: the kill reads first. */
 export const CAMEO_DELAY = 1.4
@@ -54,16 +57,33 @@ export const CAMEO_FROM = -1.1
 export const CAMEO_END = 13.4
 
 export type CameoAct =
-  | 'leap' | 'beastLand' | 'landPose' | 'land' | 'roar' | 'towerPose' | 'tower' | 'shieldPose' | 'shield'
-  | 'shot' | 'claw' | 'turret' | 'flee' | 'line' | 'run' | 'exit' | 'beastGone' | 'gone' | 'towerOut' | 'end'
+  | 'leap' | 'beastLand' | 'landPose' | 'land' | 'shout' | 'roar' | 'towerPose' | 'tower' | 'breathPose' | 'shieldPose' | 'breath'
+  | 'shield' | 'burn' | 'shot' | 'lashPose' | 'lash' | 'claw' | 'turret' | 'flee' | 'line' | 'run' | 'exit' | 'beastGone' | 'gone'
+  | 'towerOut' | 'end'
 export interface CameoBeat { at: number; act: CameoAct; n?: number }
+
+/** One 16th of the cue (s): 133⅓ BPM (`introFight` in `audio/songs.ts`); its step k sounds at film second 0.0875 + k·16th. */
+export const CAMEO_16TH = 0.1125
+/** The cue's step `k` on the scene's clock. */
+const step16 = (k: number): number => Math.round((0.0875 + k * CAMEO_16TH) * 10000) / 10000
+
+/**
+ * The chimera's breath (a stream of fire, the boss's own held breath, `cone`): its first gust on the cue's 19th 16th (the
+ * drive's accent after the summon), one gust a 16th to the 29th, while he sets the turret down and closes the shield; the
+ * flames break on the shell from the moment it closes.
+ */
+export const CAMEO_BREATH = { from: step16(19), to: step16(29) } as const
 
 /**
  * The script, on the cue's clock (see the table over `introFight` in `audio/songs.ts`):
  *   0.20   the cue's opening blow      the superhero landing (the chimera landed a beat before, turning on him)
- *   1.90   the summon downbeat         the turret is set down
- *   2.40                               the shield, wrapped round him before he shoots
+ *   0.31   the blow ringing out        his shout ("Fight me, Nightmare!"), in the room before the violin's pickup
+ *   1.44   the toms of the build       the chimera roars back
+ *   1.90   the summon downbeat         the turret is set down; the chimera rears for its breath
+ *   2.23–3.35  the 3+3+2 drive         its breath: a stream of fire, a gust a 16th; the shield closes into it at 2.40
+ *                                      (he is pushed back a step) and flares on the drums' accents (2.56, 2.79, 3.13)
  *   3.69…  the six blows, 0.45 apart   pistol, pistol | claw on the shield | turret, both pistols | claw
+ *          and the 8ths between them   the serpent tail lashes: on the shield (he hops back), then through it (a flash)
  *   6.50   THE hit                     the charged shot; the chimera bounds away to the left
  *   7.0–   the resolve                 the line, a few running steps, the leap away; the turret folds
  */
@@ -72,15 +92,25 @@ export const CAMEO_ACTS: readonly CameoBeat[] = [
   { at: -0.15, act: 'beastLand' },
   { at: -0.1, act: 'landPose' },
   { at: 0.2, act: 'land' },
-  { at: 0.8, act: 'roar' },
+  { at: 0.31, act: 'shout' },
+  { at: step16(12), act: 'roar' },
   { at: 1.65, act: 'towerPose' },
   { at: 1.9, act: 'tower' },
+  { at: CAMEO_BREATH.from - 0.3, act: 'breathPose' },
   { at: 2.15, act: 'shieldPose' },
+  { at: CAMEO_BREATH.from, act: 'breath' },
   { at: 2.4, act: 'shield' },
+  { at: step16(22), act: 'burn', n: 0 },
+  { at: step16(24), act: 'burn', n: 1 },
+  { at: step16(27), act: 'burn', n: 2 },
   { at: 3.69, act: 'shot', n: 0 },
   { at: 4.14, act: 'shot', n: 1 },
+  { at: step16(38) - 0.2, act: 'lashPose', n: 0 },
+  { at: step16(38), act: 'lash', n: 0 },
   { at: 4.59, act: 'claw', n: 0 },
   { at: 5.04, act: 'turret' },
+  { at: step16(46) - 0.2, act: 'lashPose', n: 1 },
+  { at: step16(46), act: 'lash', n: 1 },
   { at: 5.49, act: 'shot', n: 2 },
   { at: 5.94, act: 'claw', n: 1 },
   { at: 6.5, act: 'flee' },
@@ -98,7 +128,14 @@ export const CAMEO_BLOWS: readonly number[] = CAMEO_ACTS.filter(b => b.act === '
 
 /** The aether school's teal: his gun light, his shield, his turret. */
 export const CAMEO_TEAL = '#4ff0c8'
-const BEAST_FIRE = '#ff9a3a'
+/** The beast's colours are the boss's own: the lion's fire, the serpent tail's green (`sim/bosses/chimera.ts`). */
+const BEAST_FIRE = HEAD_COLOR.lion
+const BEAST_TAIL = HEAD_COLOR.serpent
+
+/** How the hunter's speech bubble is drawn (`BossBarkLayer.vue`): his teal on the paper, said as a shout. */
+export const CAMEO_BARK_LOOK: Readonly<Record<string, { paper: string; band: string; emotion: string }>> = {
+  [CAMEO_HERO]: { paper: '#eafff8', band: CAMEO_TEAL, emotion: 'shout' }
+}
 
 /** Where the two fight, in world metres. */
 export interface CameoStage {
@@ -144,6 +181,8 @@ interface Move {
   high: number
   flips: number
   rise: boolean
+  /** Pushed or hopping back: the body keeps facing where it faced (at the beast), it does not turn to the way it goes. */
+  back?: boolean
   done?: boolean
 }
 
@@ -163,11 +202,13 @@ export interface CameoState {
   moves: Move[]
   /** The clock of the next running footstep. */
   step: number
+  /** The clock of the breath's next gust of fire. */
+  flame: number
 }
 
 /** Arm the scene for this visit (the opening fight, on a save that has not seen it). */
 export const armCameo = (): CameoState => ({
-  phase: 'wait', wait: 0, retry: 0, t: CAMEO_FROM, next: 0, stage: null, hero: 0, beast: 0, tower: 0, moves: [], step: 0
+  phase: 'wait', wait: 0, retry: 0, t: CAMEO_FROM, next: 0, stage: null, hero: 0, beast: 0, tower: 0, moves: [], step: 0, flame: CAMEO_BREATH.from
 })
 
 /** The scene is on (the units are in the world, the cue is wanted). */
@@ -277,6 +318,8 @@ const actor = (sim: Sim, kind: string, at: { x: number; z: number }, o: { r: num
   })
   // Out of everyone's reach: nothing picks, aims at or hurts a unit under a truce (`outOfReach`), and a tap on it is no order.
   u.truce = true
+  // Its poses run on the scene's clock alone (`tickPose`): the fight's step leaves them be.
+  u.staged = true
   u.x = u.px = at.x
   u.z = u.pz = at.z
   return u
@@ -288,6 +331,7 @@ export const beginCameo = (sim: Sim, s: CameoState, st: CameoStage): void => {
   s.phase = 'play'
   s.t = CAMEO_FROM
   s.next = 0
+  s.flame = CAMEO_BREATH.from
   const hero = actor(sim, CAMEO_HERO, st.heroFrom, { r: 0.45, h: 1.45, style: 'ranged' })
   hero.s.dual = 1
   const beast = actor(sim, CAMEO_BEAST, st.beastFrom, { r: 0.9, h: 1.85 })
@@ -305,10 +349,25 @@ export const endCameo = (sim: Sim, s: CameoState): void => {
   s.phase = 'done'
 }
 
-const move = (s: CameoState, u: Unit, to: { x: number; z: number }, dur: number, high: number, flips = 0, rise = false): void => {
+const move = (s: CameoState, u: Unit, to: { x: number; z: number }, dur: number, high: number, flips = 0, rise = false, back = false): void => {
   s.moves = s.moves.filter(m => m.u !== u.id)
-  s.moves.push({ u: u.id, fx: u.x, fz: u.z, tx: to.x, tz: to.z, t0: s.t, dur, high, flips, rise })
+  s.moves.push({ u: u.id, fx: u.x, fz: u.z, tx: to.x, tz: to.z, t0: s.t, dur, high, flips, rise, back })
 }
+
+/** A step (or a small hop, `high`) straight back from the beast, still facing it. */
+const giveGround = (s: CameoState, u: Unit, from: Unit, d: number, dur: number, high: number): void => {
+  const l = Math.hypot(u.x - from.x, u.z - from.z) || 1
+  move(s, u, { x: u.x + ((u.x - from.x) / l) * d, z: u.z + ((u.z - from.z) / l) * d }, dur, high, 0, false, true)
+}
+
+/** Where the beast's jaws are (its head is about 1.1 m ahead of it at the size it is drawn), and a point a little short of a body. */
+const ahead = (u: Unit, d: number): { x: number; z: number } => ({ x: u.x + Math.sin(u.facing) * d, z: u.z + Math.cos(u.facing) * d })
+const shortOf = (from: Unit, to: Unit, d: number): { x: number; z: number } => {
+  const l = Math.hypot(to.x - from.x, to.z - from.z) || 1
+  return { x: to.x - ((to.x - from.x) / l) * d, z: to.z - ((to.z - from.z) / l) * d }
+}
+/** The shell round him is about this far out (m): fire and tail break on it, not on him. */
+const SHELL = 0.85
 
 /** A pose of a named cast (the hero rig's clip for that skill or ability), its blow `hitAt` seconds in. */
 const pose = (u: Unit, id: string, hitAt: number, end: number, at: { x: number; z: number }, anim: Unit['anim'] = 'cast'): void => {
@@ -324,8 +383,8 @@ const fx = (sim: Sim, id: string, x: number, z: number, o: { x2?: number; z2?: n
 }
 
 /** A blow that reads as one: the game's own impact and flinch (a `hit` from the one who dealt it), no number, no sound of the hero's. */
-const strike = (sim: Sim, from: Unit, to: Unit, heavy: boolean): void => {
-  sim.emit({ t: 'hit', src: from.id, tgt: to.id, x: to.x, z: to.z, h: to.h, amount: 0, crit: heavy, type: 'pierce', heavy, toHero: false, killed: false, dot: false })
+const strike = (sim: Sim, from: Unit, to: Unit, heavy: boolean, type: 'pierce' | 'poison' = 'pierce'): void => {
+  sim.emit({ t: 'hit', src: from.id, tgt: to.id, x: to.x, z: to.z, h: to.h, amount: 0, crit: heavy, type, heavy, toHero: false, killed: false, dot: false })
 }
 
 /** Where a pistol's barrel is, roughly (for the shot's line: the rig's own muzzle flash is drawn at the real one). */
@@ -360,13 +419,32 @@ const play = (sim: Sim, s: CameoState, b: CameoBeat): void => {
       hero.stunt = undefined
       fx(sim, 'land', st.hero.x, st.hero.z, { r: 3.2, color: CAMEO_TEAL, unit: hero.id })
       break
+    case 'shout':
+      // He rises out of the landing and calls the beast by its name: his line, in a bubble over his own head.
+      if (hero) sim.emit({ t: 'bark', unit: hero.id, key: CAMEO_SHOUT })
+      break
     case 'roar':
+      // The beast answers him: up on its haunches, a roar (short: it rears for its breath next).
       if (!beast) break
-      pose(beast, 'enrage', 0.25, 1.1, st.hero)
+      pose(beast, 'enrage', 0.2, 0.48, hero ?? st.hero)
       fx(sim, 'roar', beast.x, beast.z, { r: 5, color: BEAST_FIRE, unit: beast.id })
       break
     case 'towerPose':
       if (hero) pose(hero, 'deployTurret', 0.25, 0.7, st.tower)
+      break
+    case 'breathPose':
+      // It draws its breath in, rearing back (the boss's breath, held open for the whole stream: `breathe`).
+      if (beast) pose(beast, 'breathe', CAMEO_BREATH.from - b.at, CAMEO_BREATH.to - b.at + 0.3, hero ?? st.hero)
+      break
+    case 'breath':
+      if (!beast || !hero) break
+      // The stream starts: a tongue of fire along the ground to him (each 16th's gust is `stepCameo`'s).
+      beast.facing = Math.atan2(hero.x - beast.x, hero.z - beast.z)
+      {
+        const m = ahead(beast, 1.1)
+        const p = shortOf(beast, hero, SHELL)
+        fx(sim, 'breath', m.x, m.z, { x2: p.x, z2: p.z, color: BEAST_FIRE, unit: beast.id, a: beast.facing })
+      }
       break
     case 'tower': {
       const t = actor(sim, CAMEO_TOWER, st.tower, { r: 0.4, h: 1.1, style: 'ranged' })
@@ -378,11 +456,39 @@ const play = (sim: Sim, s: CameoState, b: CameoBeat): void => {
       break
     }
     case 'shieldPose':
-      if (hero) pose(hero, 'geodeShell', 0.25, 0.7, st.beast)
+      // The shell's cast, its arms held braced against the fire until the breath is spent.
+      if (hero) pose(hero, 'geodeShell', 0.25, CAMEO_BREATH.to - b.at, beast ?? st.beast)
       break
     case 'shield':
-      if (hero) fx(sim, 'shield', hero.x, hero.z, { r: 1.4, color: CAMEO_TEAL, unit: hero.id })
+      if (!hero) break
+      fx(sim, 'shield', hero.x, hero.z, { r: 1.4, color: CAMEO_TEAL, unit: hero.id })
+      // It closes as the fire reaches him: the shell takes it, and the push of it slides him back a step.
+      if (beast) {
+        fx(sim, 'shieldHit', hero.x, hero.z, { r: 1.2, color: CAMEO_TEAL, unit: hero.id })
+        giveGround(s, hero, beast, 0.3, 0.4, 0)
+      }
       break
+    case 'burn':
+      // The flames flare on the shell on the drums' accents (he holds; nothing gets through).
+      if (hero) fx(sim, 'shieldHit', hero.x, hero.z, { r: 1.2, color: CAMEO_TEAL, unit: hero.id })
+      break
+    case 'lashPose':
+      // The serpent tail draws back over its back, between his shots.
+      if (beast && hero) pose(beast, 'lash', 0.2, 0.46, hero)
+      break
+    case 'lash': {
+      if (!beast || !hero) break
+      // It whips over the beast's back and cracks on the shell: the first time he hops back from it, the second it gets
+      // through for a flash (a flinch, a green spark: no harm, no number).
+      beast.facing = Math.atan2(hero.x - beast.x, hero.z - beast.z)
+      const root = ahead(beast, -0.75)
+      const p = shortOf(beast, hero, SHELL)
+      fx(sim, 'lash', root.x, root.z, { x2: p.x, z2: p.z, color: BEAST_TAIL, unit: beast.id, a: beast.facing })
+      fx(sim, 'shieldHit', hero.x, hero.z, { r: 1.2, color: CAMEO_TEAL, unit: hero.id })
+      if (b.n === 0) giveGround(s, hero, beast, 0.4, 0.28, 0.3)
+      else strike(sim, beast, hero, false, 'poison')
+      break
+    }
     case 'shot': {
       if (!hero || !beast) break
       // Left, right, then both: the basic attack's pose, its flash at the barrel (`trackUnit`), a tracer and an impact.
@@ -491,9 +597,9 @@ const stepMoves = (sim: Sim, s: CameoState, dt: number): void => {
       if (u.anim === 'walk') u.anim = 'idle'
       continue
     }
-    if (Math.abs(m.tx - m.fx) + Math.abs(m.tz - m.fz) > 1e-3) u.facing = Math.atan2(m.tx - m.fx, m.tz - m.fz)
-    // A run and the beast's bounds are strides; his leaps are a flip in the air, legs together.
-    if (!u.action) u.anim = m.flips ? 'idle' : 'walk'
+    if (!m.back && Math.abs(m.tx - m.fx) + Math.abs(m.tz - m.fz) > 1e-3) u.facing = Math.atan2(m.tx - m.fx, m.tz - m.fz)
+    // A run and the beast's bounds are strides; his leaps are a flip in the air, legs together; a step back is a slide.
+    if (!u.action) u.anim = m.flips || m.back ? 'idle' : 'walk'
     if (m.high <= 0) { u.stunt = undefined; continue }
     // Over the treetops the whole way: a flat-topped arc (the body is high above the canopy for most of the flight, down only at its ends), and the leap out of the picture climbs fast.
     const lift = m.rise ? m.high * Math.pow(k, 0.55) : m.high * Math.pow(Math.sin(Math.PI * k), 0.45)
@@ -530,6 +636,14 @@ export const stepCameo = (sim: Sim, s: CameoState, dt: number): boolean => {
   const beast = sim.get(s.beast)
   const tower = sim.get(s.tower)
   if (tower && beast) tower.facing = Math.atan2(beast.x - tower.x, beast.z - tower.z)
+  // The breath: a gust of fire every 16th of the cue, from its jaws to the shell round him.
+  if (beast && hero && s.t >= s.flame && s.flame <= CAMEO_BREATH.to + 1e-6) {
+    s.flame += CAMEO_16TH
+    beast.facing = Math.atan2(hero.x - beast.x, hero.z - beast.z)
+    const m = ahead(beast, 1.1)
+    const p = shortOf(beast, hero, SHELL)
+    fx(sim, 'flame', m.x, m.z, { x2: p.x, z2: p.z, color: BEAST_FIRE, unit: beast.id })
+  }
   while (s.next < CAMEO_ACTS.length && s.t >= CAMEO_ACTS[s.next]!.at) {
     const b = CAMEO_ACTS[s.next++]!
     play(sim, s, b)

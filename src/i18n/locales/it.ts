@@ -6331,6 +6331,7 @@ export default {
       trainerPyro: { help: { 1: 'Aiuto, c’è qualcuno?' } },
       sbMasterSoulwarden: { help: { 1: 'Siamo stati rapiti!' } },
       sbMasterIronmonk: { help: { 1: 'Mostri! Aiuto!' } },
+      sbMasterAether: { fight: { 1: 'Affrontami, Incubo!' } },
       sphinx: {
         intro: { '1': "Rispondimi, piccolo, o sarai sepolto nella mia sabbia." },
         riddle: { '1': "Un indovinello, allora. Calpesta dove ti mostro, in quell'ordine." },

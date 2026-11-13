@@ -6251,6 +6251,7 @@ export default {
       trainerPyro: { help: { 1: '救命，有人吗！' } },
       sbMasterSoulwarden: { help: { 1: '我们被绑架了！' } },
       sbMasterIronmonk: { help: { 1: '有怪物！救命！' } },
+      sbMasterAether: { fight: { 1: '来战吧，梦魇！' } },
       sphinx: {
         intro: { '1': "回答我，小家伙，否则就被我的沙子掩埋。" },
         riddle: { '1': "那就出个谜题。按我指示的顺序，踩上去。" },

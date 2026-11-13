@@ -226,6 +226,8 @@ export interface Unit {
   stunt?: { lift: number; flip: number }
   /** In a conversation (the hero, roadmap #153, `sim/truce.ts`): nothing hurts or picks him. */
   truce?: boolean
+  /** A scene's actor (#210's cameo): its poses run on the scene's own clock (`coach/cameo.ts`), the sim does not tick them. */
+  staged?: boolean
 }
 
 /**

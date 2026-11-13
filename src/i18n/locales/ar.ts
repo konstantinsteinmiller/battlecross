@@ -6592,6 +6592,7 @@ export default {
       trainerPyro: { help: { 1: 'النجدة، أيّ أحد!' } },
       sbMasterSoulwarden: { help: { 1: 'لقد اختُطفنا!' } },
       sbMasterIronmonk: { help: { 1: 'وحوش! النجدة!' } },
+      sbMasterAether: { fight: { 1: 'قاتلني يا كابوس!' } },
       sphinx: {
         intro: { '1': "أجبني يا صغيري، وإلا دفنتك رمالي." },
         riddle: { '1': "لغز إذن. اخطُ حيث أريك، وبهذا الترتيب." },

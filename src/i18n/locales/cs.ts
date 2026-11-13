@@ -6350,6 +6350,7 @@ export default {
       trainerPyro: { help: { 1: 'Pomoc, je tu někdo!' } },
       sbMasterSoulwarden: { help: { 1: 'Byli jsme unesení!' } },
       sbMasterIronmonk: { help: { 1: 'Příšery! Pomoc!' } },
+      sbMasterAether: { fight: { 1: 'Bojuj se mnou, Noční můro!' } },
       sphinx: {
         intro: { '1': "Odpověz mi, maličký, nebo tě pohřbí můj písek." },
         riddle: { '1': "Tedy hádanka. Šlápni tam, kam ukážu, v tomto pořadí." },

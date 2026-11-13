@@ -6251,6 +6251,7 @@ export default {
       trainerPyro: { help: { 1: '誰か、助けて！' } },
       sbMasterSoulwarden: { help: { 1: '私たちはさらわれたの！' } },
       sbMasterIronmonk: { help: { 1: 'モンスターよ！助けて！' } },
+      sbMasterAether: { fight: { 1: 'かかってこい、ナイトメア！' } },
       sphinx: {
         intro: { '1': "答えなさい、小さき者。さもなくば砂に埋もれるがいい。" },
         riddle: { '1': "では謎かけを。わたしが示す場所を、その順に踏みなさい。" },

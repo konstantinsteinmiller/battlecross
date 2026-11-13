@@ -46,8 +46,15 @@ const heroThought: ConversationDef = {
   bye: []
 }
 
+/**
+ * The hunter on the plains (#210, `coach/cameo.ts`): Silverbridge's aether master, out hunting, shouts at the chimera as
+ * he lands in front of it. His own voice (the same man the hero meets in Silverbridge), his hunting look.
+ */
+const gunslinger = freed('sbMasterAether', 'cameoGunslinger', 'shout', ['fight'])
+
 export const CAPTIVE_BARKS: readonly ConversationDef[] = [
   heroThought,
+  gunslinger,
   freed('trainerPyro', 'trainerPyro', 'excited', ['help'], 'pyroCry'),
   freed('sbMasterSoulwarden', 'sbMasterSoulwarden', 'grave', ['help']),
   freed('sbMasterIronmonk', 'sbMasterIronmonk', 'excited', ['help']),

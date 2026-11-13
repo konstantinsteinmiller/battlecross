@@ -6251,6 +6251,7 @@ export default {
       trainerPyro: { help: { 1: 'Hjelp, noen!' } },
       sbMasterSoulwarden: { help: { 1: 'Vi ble kidnappet!' } },
       sbMasterIronmonk: { help: { 1: 'Monstre! Hjelp!' } },
+      sbMasterAether: { fight: { 1: 'Kjemp mot meg, Mareritt!' } },
       sphinx: {
         intro: { '1': "Svar meg, lille venn, eller bli begravd i sanden min." },
         riddle: { '1': "En gåte, da. Tråkk der jeg viser, i den rekkefølgen." },

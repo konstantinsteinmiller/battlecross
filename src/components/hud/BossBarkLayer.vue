@@ -6,6 +6,8 @@
       ref="bubble"
       :text="text"
       tone="npc"
+      :emotion="line.look?.emotion ?? ''"
+      :style="line.look ? { '--paper': line.look.paper, '--paper-lo': line.look.band } : undefined"
       tail
     )
 </template>
@@ -15,7 +17,8 @@
  * What a boss shouts at a big beat of its fight (#74): the line in the
  * dialogue's bubble over its head, typed out, faded at the end, with its
  * recording when there is one (`data/dialogs/bosses.ts`). The sim says when
- * (`bark` events, handed over by the zone through `takeBark`).
+ * (`bark` events, handed over by the zone through `takeBark`). A speaker with a look of its own (the cameo's hunter,
+ * #210: his teal, said as a shout) gets its paper, from `CAMEO_BARK_LOOK`.
  */
 import { computed, onMounted, onUnmounted, ref, shallowRef } from 'vue'
 import { useI18n } from 'vue-i18n'
@@ -25,9 +28,10 @@ import { flow } from '@/game/flow'
 import { revealed, speakSeconds } from '@/game/dialog/pacing'
 import SpeechBubble from '@/components/dialog/SpeechBubble.vue'
 import { speakLine } from '@/game/audio/speech'
+import { CAMEO_BARK_LOOK } from '@/game/coach/cameo'
 
 const { t, locale } = useI18n()
-const line = shallowRef<{ unit: number; key: string; t: number; dur: number } | null>(null)
+const line = shallowRef<{ unit: number; key: string; t: number; dur: number; look?: { paper: string; band: string; emotion: string } } | null>(null)
 const bubble = ref<InstanceType<typeof SpeechBubble> | null>(null)
 const text = computed(() => (line.value ? t(line.value.key) : ''))
 
@@ -47,7 +51,8 @@ onMounted(() => {
       return
     }
     if (next) {
-      line.value = { unit: next.unit, key: next.key, t: 0, dur: speakSeconds(t(next.key)) + 0.6 }
+      const kind = zone?.sim.get(next.unit)?.kind
+      line.value = { unit: next.unit, key: next.key, t: 0, dur: speakSeconds(t(next.key)) + 0.6, look: kind ? CAMEO_BARK_LOOK[kind] : undefined }
       void speakLine(next.key, locale.value)
     }
     const now = line.value

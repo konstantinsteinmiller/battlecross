@@ -6341,6 +6341,7 @@ export default {
       trainerPyro: { help: { 1: 'बचाओ, कोई है!' } },
       sbMasterSoulwarden: { help: { 1: 'हमारा अपहरण हो गया है!' } },
       sbMasterIronmonk: { help: { 1: 'राक्षस! बचाओ!' } },
+      sbMasterAether: { fight: { 1: 'मुझसे लड़, दुःस्वप्न!' } },
       sphinx: {
         intro: { '1': "जवाब दो, नन्हे, वरना मेरी रेत तुम्हें दफ़ना देगी।" },
         riddle: { '1': "तो एक पहेली। जहाँ मैं दिखाऊँ, उसी क्रम में कदम रखो।" },

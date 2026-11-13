@@ -6251,6 +6251,7 @@ export default {
       trainerPyro: { help: { 1: 'Kömək, kimsə!' } },
       sbMasterSoulwarden: { help: { 1: 'Bizi qaçırdılar!' } },
       sbMasterIronmonk: { help: { 1: 'Canavarlar! Kömək!' } },
+      sbMasterAether: { fight: { 1: 'Mənimlə döyüş, Kabus!' } },
       sphinx: {
         intro: { '1': "Cavab ver mənə, balaca, yoxsa qumum səni basdıracaq." },
         riddle: { '1': "Onda tapmaca. Göstərdiyim yerə, o ardıcıllıqla bas." },

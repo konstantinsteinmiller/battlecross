@@ -6293,6 +6293,7 @@ export default {
       trainerPyro: { help: { 1: 'Ajutor, cineva!' } },
       sbMasterSoulwarden: { help: { 1: 'Am fost răpiți!' } },
       sbMasterIronmonk: { help: { 1: 'Monștri! Ajutor!' } },
+      sbMasterAether: { fight: { 1: 'Luptă-te cu mine, Coșmarule!' } },
       sphinx: {
         intro: { '1': "Răspunde-mi, micuțule, sau fii îngropat în nisipul meu." },
         riddle: { '1': "O ghicitoare, deci. Calcă unde îți arăt, în ordinea aceea." },

@@ -6251,6 +6251,7 @@ export default {
       trainerPyro: { help: { 1: 'Yordam bering, kimdir!' } },
       sbMasterSoulwarden: { help: { 1: 'Bizni o‘g‘irlab ketishdi!' } },
       sbMasterIronmonk: { help: { 1: 'Hayvonlar! Yordam bering!' } },
+      sbMasterAether: { fight: { 1: 'Men bilan jang qil, Qorabosti!' } },
       sphinx: {
         intro: { '1': "Javob ber, kichkintoy, aks holda qumim seni ko‘mib yuboradi." },
         riddle: { '1': "Unda topishmoq. Men ko‘rsatgan joyga, o‘sha tartibda qadam bos." },

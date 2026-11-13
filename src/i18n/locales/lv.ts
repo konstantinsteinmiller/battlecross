@@ -6323,6 +6323,7 @@ export default {
       trainerPyro: { help: { 1: 'Palīgā, vai kāds ir!' } },
       sbMasterSoulwarden: { help: { 1: 'Mūs nolaupīja!' } },
       sbMasterIronmonk: { help: { 1: 'Briesmoņi! Palīgā!' } },
+      sbMasterAether: { fight: { 1: 'Cīnies ar mani, Murg!' } },
       sphinx: {
         intro: { '1': "Atbildi man, mazulīt, vai tevi apraks manas smiltis." },
         riddle: { '1': "Tad mīkla. Kāp tur, kur rādu, tādā secībā." },

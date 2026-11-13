@@ -890,5 +890,21 @@ export const DIRECTIONS: Readonly<Record<string, string>> = {
 export const directionOf = (l: { emotion?: string; gesture?: string }): string =>
   `${DIRECTIONS[l.emotion ?? 'neutral'] ?? DIRECTIONS.neutral}${l.gesture ? ` (With a ${l.gesture}.)` : ''}`
 
+/**
+ * Lines whose delivery is more than their emotion's, by id: their own stage direction and situation (for the engines
+ * that read them, and the job sheet a listener checks). Chatterbox steers by the tone alone; the text the model reads
+ * (`SAY` in `tools/voice/collect.mjs`) carries the pauses.
+ */
+export const LINE_DELIVERY: Readonly<Record<string, { direction: string; situation: string; tone?: Tone; pause?: readonly [number, number] }>> = {
+  // The cameo on the plains (#210): the aether master, out hunting, squares up to the chimera he has chased for years.
+  'dlg.bark.sbMasterAether.fight.1': {
+    direction: 'Shouted across a field, bitter and hard. "Fight me", then the shortest breath, then "Nightmare!" spat out as a name, with loathing and disgust. Not playful, not theatrical: a man who has hunted this beast for years.',
+    situation: 'Professor Quint Sprocket, out hunting on the plains, lands in front of the chimera he has chased for years and shouts at it; Nightmare is his name for the beast.',
+    tone: 'shout',
+    // The silence between "Fight me" and the name (s), measured on every take (`tools/voice/pause.mjs`): QA fails the rest.
+    pause: [0.12, 0.25]
+  }
+}
+
 /** A line's tone: its own when set, else its emotion's. */
 export const toneOf = (l: { tone?: string; emotion?: string }): string => l.tone ?? TONES[l.emotion ?? 'neutral'] ?? 'neutral'

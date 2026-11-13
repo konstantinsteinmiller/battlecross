@@ -6298,6 +6298,7 @@ export default {
       trainerPyro: { help: { 1: 'Ajuda, algú!' } },
       sbMasterSoulwarden: { help: { 1: 'Ens han segrestat!' } },
       sbMasterIronmonk: { help: { 1: 'Monstres! Ajuda!' } },
+      sbMasterAether: { fight: { 1: 'Lluita amb mi, Malson!' } },
       sphinx: {
         intro: { '1': "Respon-me, petit, o la meva sorra t'enterrarà." },
         riddle: { '1': "Un endevinall, doncs. Trepitja on t'indiqui, en aquest ordre." },

@@ -580,8 +580,15 @@ const beast = (v: RigView, u: Unit, time: number, speed: number): void => {
   const a = u.action
   const b = beatsOf(u, big ? 0.13 : 0.09)
   const kind = a ? a.id : ''
+  // A scene's long breath (#210's chimera, `breathe`): the boss's breath, held open the whole stream, back to rest at its end.
+  if (b.on && kind === 'breathe' && a && a.t >= a.hitAt) {
+    b.hit = 1
+    b.out = inOut(clamp01((a.t - (a.end - 0.3)) / 0.3))
+  }
   // A breath is held open; a slam or a leap comes down from above.
-  const breathing = b.on && kind === 'cone'
+  const breathing = b.on && (kind === 'cone' || kind === 'breathe')
+  // The serpent tail's lash (#210's chimera): drawn back high over the haunches, then whipped forward over the back.
+  const lash = b.on && kind === 'lash'
   const slam = b.on && (kind === 'slam' || kind === 'leap' || kind === 'smash' || kind === 'barrage')
   const roar = b.on && (kind === 'enrage' || kind === 'summon' || kind === 'heal')
 
@@ -605,6 +612,12 @@ const beast = (v: RigView, u: Unit, time: number, speed: number): void => {
       bodyX += beat(b, -0.22, 0.2)
       bodyZ += beat(b, -0.2, 0.25)
       headX += beat(b, -0.55, 0.3)
+    } else if (lash) {
+      // The body braces low and turns its haunch in; the tail does the work (below).
+      bodyX += beat(b, -0.12, 0.16)
+      bodyY += beat(b, -0.04, -0.06)
+      headX += beat(b, -0.2, 0.25)
+      bl += beat(b, 0.3, -0.2)
     } else {
       // The bite: haunches down and back, then the whole body behind the jaws.
       bodyX += beat(b, 0.26, -0.3)
@@ -635,7 +648,8 @@ const beast = (v: RigView, u: Unit, time: number, speed: number): void => {
   // held open through a breath or a roar, at rest just parted.
   const jaw = breathing ? beat(b, 0.35, 0.62) : roar || slam ? beat(b, 0.55, 0.3) : b.on ? beat(b, 0.6, 0.02) : 0.05 + Math.sin(time * 1.1 + v.phase) * 0.025
   pose(r, 'jaw', jaw, 0, 0)
-  pose(r, 'tail', -0.3 + Math.sin(time * 5) * 0.1 - beat(b, 0.5, -0.3), Math.sin(time * 6 + v.phase) * 0.5 * (1 - b.hold), 0)
+  if (lash) pose(r, 'tail', beat(b, -0.75, 1.35), beat(b, 0.7, -0.5), 0)
+  else pose(r, 'tail', -0.3 + Math.sin(time * 5) * 0.1 - beat(b, 0.5, -0.3), Math.sin(time * 6 + v.phase) * 0.5 * (1 - b.hold), 0)
   // The dragon shares these bones for its neck, wings and second tail.
   pose(r, 'neck', -headX * 0.5 + Math.sin(time * 1.4) * 0.05 + (breathing ? beat(b, -0.4, 0.3) : 0), Math.sin(time * 0.9) * 0.08, 0)
   const flap = Math.sin(time * (v.float > 0 ? 8 : 2.2) + v.phase)

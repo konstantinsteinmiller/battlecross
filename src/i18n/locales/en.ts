@@ -3826,6 +3826,7 @@ export default {
       'trainerPyro': { 'help': { '1': 'Help! Anybody!' } },
       'sbMasterSoulwarden': { 'help': { '1': 'We were kidnapped!' } },
       'sbMasterIronmonk': { 'help': { '1': 'Monsters! Help!' } },
+      'sbMasterAether': { 'fight': { '1': 'Fight me, Nightmare!' } },
       sphinx: {
         intro: { '1': "Answer me, little one, or be buried in my sand." },
         riddle: { '1': "A riddle, then. Step where I show you, in that order." },

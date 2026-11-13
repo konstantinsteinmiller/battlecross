@@ -6251,6 +6251,7 @@ export default {
       trainerPyro: { help: { 1: '도와주세요, 아무나!' } },
       sbMasterSoulwarden: { help: { 1: '우리는 납치당했어요!' } },
       sbMasterIronmonk: { help: { 1: '괴물이에요! 도와줘요!' } },
+      sbMasterAether: { fight: { 1: '덤벼라, 나이트메어!' } },
       sphinx: {
         intro: { '1': "대답하거라, 작은 것아. 아니면 내 모래에 묻히리라." },
         riddle: { '1': "그럼 수수께끼다. 내가 보여 주는 곳을, 그 순서대로 밟아라." },

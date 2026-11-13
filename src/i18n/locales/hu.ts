@@ -6251,6 +6251,7 @@ export default {
       trainerPyro: { help: { 1: 'Segítség, valaki!' } },
       sbMasterSoulwarden: { help: { 1: 'Elraboltak minket!' } },
       sbMasterIronmonk: { help: { 1: 'Szörnyek! Segítség!' } },
+      sbMasterAether: { fight: { 1: 'Harcolj velem, Rémálom!' } },
       sphinx: {
         intro: { '1': "Felelj, kicsikém, vagy eltemet a homokom." },
         riddle: { '1': "Akkor egy talány. Lépj oda, ahová mutatom, ebben a sorrendben." },

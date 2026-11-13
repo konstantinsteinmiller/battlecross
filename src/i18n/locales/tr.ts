@@ -6251,6 +6251,7 @@ export default {
       trainerPyro: { help: { 1: 'İmdat, kimse yok mu!' } },
       sbMasterSoulwarden: { help: { 1: 'Kaçırıldık!' } },
       sbMasterIronmonk: { help: { 1: 'Canavarlar! İmdat!' } },
+      sbMasterAether: { fight: { 1: 'Benimle dövüş, Kâbus!' } },
       sphinx: {
         intro: { '1': "Cevap ver bana küçük şey, yoksa kumuma gömülürsün." },
         riddle: { '1': "Öyleyse bir bilmece. Gösterdiğim yerlere, o sırayla bas." },

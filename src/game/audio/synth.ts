@@ -341,7 +341,8 @@ const TRIM: Partial<Record<SfxName, number>> = {
   castEarthShift: 0.6, castAvalancheLeap: 0.6, castShadowMark: 0.75, castShadow: 0.8, castFrostShatter: 0.85,
   shadow: 0.4, impactShock: 0.7, crowdRoar: 0.8,
   // The cameo (#210): its own sounds, but under the player's fight (the scene plays them at part gain on top of this).
-  cameoLand: 0.7, cameoShot: 0.6, cameoTower: 0.65, cameoTowerOut: 0.6, cameoShield: 0.65, cameoRoar: 0.6, cameoLeap: 0.65, cameoClaw: 0.6, cameoStep: 0.55
+  cameoLand: 0.7, cameoShot: 0.6, cameoTower: 0.65, cameoTowerOut: 0.6, cameoShield: 0.65, cameoRoar: 0.6, cameoLeap: 0.65, cameoClaw: 0.6, cameoStep: 0.55,
+  cameoBreath: 0.55, cameoLash: 0.6
 }
 
 /**
@@ -356,7 +357,7 @@ const NEVER_DROP: ReadonlySet<SfxName> = new Set<SfxName>([
   'hurt', 'bossIntro', 'levelUp', 'denied', 'uiClick', 'uiOpen', 'uiClose', 'uiEquip', 'uiBuy', 'uiLearn', 'uiPoint',
   'uiChoice', 'forgeStrike', 'forgePerfect', 'forgeMiss', 'potion', 'chest', 'loot', 'lootRare', 'lootEpic', 'lootLegend', 'deathBig', 'overheat',
   // The cameo's few story beats (#210): rare, one of each, and the scene reads by them.
-  'cameoLand', 'cameoRoar', 'cameoTower', 'cameoShield'
+  'cameoLand', 'cameoRoar', 'cameoTower', 'cameoShield', 'cameoBreath'
 ])
 
 /** Open (a muffle of 0 has no filter at all) and fully muffled cutoffs (Hz). */
@@ -1065,6 +1066,25 @@ const RECIPES: Record<SfxName, (pan: number, g: number) => void> = {
     space(0.06)
     boom(140, 80, 0.07, 0.12 * g, p)
     burst({ dur: 0.06, vol: 0.05 * g, type: 'bandpass', f0: 900, f1: 500, q: 1.2, pan: p })
+  },
+  // The chimera's breath (the stream lasts the cue's 2.23–3.35): a roar of fire that swells and holds, its crackle, a low
+  // throat under it, and the shell hissing where the flames break on it (on the drums' accents, 0.34, 0.56 and 0.9 s in).
+  cameoBreath: (p, g) => {
+    space(0.3)
+    burst({ dur: 1.25, vol: 0.2 * g, type: 'lowpass', f0: 400, fmid: 2200, fmidAt: 0.3, f1: 600, attack: 0.12, pan: p, dirt: true })
+    burst({ dur: 1.1, vol: 0.07 * g, type: 'bandpass', f0: 1500, f1: 3000, q: 1.2, attack: 0.15, pan: p })
+    crackle(16, 1.1, 0.08 * g, p, 0.1)
+    tone({ wave: 'saw', f0: 62, f1: 48, dur: 1.1, vol: 0.045 * g, attack: 0.1, pan: p, dirt: true })
+    for (const at of [0.17, 0.34, 0.56, 0.9]) burst({ dur: 0.16, vol: 0.05 * g, type: 'bandpass', f0: 5200, f1: 3800, q: 3, attack: 0.02, at, pan: p })
+  },
+  // The serpent tail's lash: the whip's air rising fast, its crack, the snake's hiss, the shell ticking under it.
+  cameoLash: (p, g) => {
+    space(0.2)
+    whoosh(500, 2400, 3600, 0.13, 0.1 * g, p, 0, 2.6)
+    crack(0.3 * g, p, 0.11, 2800, 0.012)
+    burst({ dur: 0.05, vol: 0.12 * g, type: 'bandpass', f0: 1800, f1: 900, q: 1.6, at: 0.11, pan: p })
+    burst({ dur: 0.32, vol: 0.05 * g, type: 'highpass', f0: 5200, f1: 6800, attack: 0.04, at: 0.13, pan: p })
+    bell(D6, 0.025 * g, 0.35, 0.12, p)
   }
 }
 

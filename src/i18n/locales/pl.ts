@@ -6350,6 +6350,7 @@ export default {
       trainerPyro: { help: { 1: 'Pomocy, ktokolwiek!' } },
       sbMasterSoulwarden: { help: { 1: 'Porwano nas!' } },
       sbMasterIronmonk: { help: { 1: 'Potwory! Pomocy!' } },
+      sbMasterAether: { fight: { 1: 'Walcz ze mną, Koszmarze!' } },
       sphinx: {
         intro: { '1': "Odpowiedz mi, maleństwo, albo pogrzebie cię mój piasek." },
         riddle: { '1': "Zagadka, zatem. Stąpaj tam, gdzie pokażę, w tej kolejności." },

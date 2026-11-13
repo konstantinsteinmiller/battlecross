@@ -207,7 +207,7 @@ const TRAUMA_HEAVY = 0.6
 const CAMEO_SOUND: Readonly<Record<string, readonly [SfxName, number]>> = {
   land: ['cameoLand', 0.75], thud: ['cameoLeap', 0.6], roar: ['cameoRoar', 0.62], tower: ['cameoTower', 0.6], shield: ['cameoShield', 0.62],
   shot: ['cameoShot', 0.55], bigShot: ['cameoShot', 0.85], claw: ['cameoClaw', 0.58], leap: ['cameoLeap', 0.5], step: ['cameoStep', 0.5],
-  towerOut: ['cameoTowerOut', 0.55]
+  towerOut: ['cameoTowerOut', 0.55], breath: ['cameoBreath', 0.55], lash: ['cameoLash', 0.55]
 }
 /** The element a blow of a damage type carries, layered under its hit (#74). */
 const HIT_ELEMENT: Partial<Record<DamageType, SfxName>> = { fire: 'fire', frost: 'ice', shadow: 'shadow', holy: 'holy', poison: 'poison', acid: 'poison', blood: 'blood', beam: 'beam' }
@@ -1368,8 +1368,10 @@ export class ZoneMode implements GameMode {
     const h = this.sim.hero.unit
     const far = Math.max(0.3, Math.min(1, 1 - (Math.hypot(x - h.x, z - h.z) - 10) / 24))
     if (name) sfx(name[0], this.pan(x), name[1] * far, 0.12)
-    // The superhero landing: a small shake (the player's own blows shake harder).
+    // The superhero landing: a small shake (the player's own blows shake harder); a touch of one as the fire starts and as
+    // the tail cracks on the shield, so those blows land too.
     if (id === 'land') this.cam.addTrauma(TRAUMA_LIGHT * 1.2 * far)
+    else if (id === 'breath' || id === 'lash') this.cam.addTrauma(TRAUMA_LIGHT * 0.5 * far)
   }
 
   private fxSound(id: string, x: number): void {

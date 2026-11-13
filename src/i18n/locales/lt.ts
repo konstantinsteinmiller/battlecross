@@ -6310,6 +6310,7 @@ export default {
       trainerPyro: { help: { 1: 'Padėkite, kas nors!' } },
       sbMasterSoulwarden: { help: { 1: 'Mus pagrobė!' } },
       sbMasterIronmonk: { help: { 1: 'Pabaisos! Padėkite!' } },
+      sbMasterAether: { fight: { 1: 'Kovok su manimi, Košmare!' } },
       sphinx: {
         intro: { '1': "Atsakyk man, mažyli, arba palaidos tave mano smėlis." },
         riddle: { '1': "Tuomet mįslė. Žengk ten, kur parodysiu, ta tvarka." },

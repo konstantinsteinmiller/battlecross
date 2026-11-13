@@ -6305,6 +6305,7 @@ export default {
       trainerPyro: { help: { 1: 'Βοήθεια, κανείς;' } },
       sbMasterSoulwarden: { help: { 1: 'Μας απήγαγαν!' } },
       sbMasterIronmonk: { help: { 1: 'Τέρατα! Βοήθεια!' } },
+      sbMasterAether: { fight: { 1: 'Πολέμα με, Εφιάλτη!' } },
       sphinx: {
         intro: { '1': "Απάντησέ μου, μικρέ, αλλιώς θα σε θάψει η άμμος μου." },
         riddle: { '1': "Ένα αίνιγμα, λοιπόν. Πάτα εκεί που δείχνω, με αυτή τη σειρά." },

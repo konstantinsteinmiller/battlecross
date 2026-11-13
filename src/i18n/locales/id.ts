@@ -6251,6 +6251,7 @@ export default {
       trainerPyro: { help: { 1: 'Tolong, siapa saja!' } },
       sbMasterSoulwarden: { help: { 1: 'Kami diculik!' } },
       sbMasterIronmonk: { help: { 1: 'Monster! Tolong!' } },
+      sbMasterAether: { fight: { 1: 'Lawan aku, Mimpi Buruk!' } },
       sphinx: {
         intro: { '1': "Jawab aku, kecil, atau terkuburlah dalam pasirku." },
         riddle: { '1': "Kalau begitu, teka-teki. Injak tempat yang kutunjukkan, sesuai urutannya." },
