@@ -35,7 +35,8 @@ import { ROOT, VO_SRC, args } from './lib.mjs'
 import { processTake, encode } from './post.mjs'
 import { judge, pickBest } from './qa.mjs'
 import { styleFor } from './style.mjs'
-import { transcribe } from './whisper.mjs'
+import { WORDS, transcribe } from './whisper.mjs'
+import { pauseOf } from './pause.mjs'
 
 const a = args()
 const engineName = a.engine ?? 'chatterbox'
@@ -144,8 +145,14 @@ for (const j of jobs) {
 // 4. Read every take back (Whisper), judge it, ship the best one.
 const flat = results.flatMap(r => r.takes.map(t => ({ r, t })))
 if (a.qa !== false && a['no-qa'] !== true && flat.length) {
-  const heard = await transcribe(flat.map(({ r, t }) => ({ id: `${r.job.id}.t${t.take}`, wav: t.master, lang: r.job.lang })))
+  const heard = await transcribe(flat.map(({ r, t }) => ({ id: `${r.job.id}.t${t.take}`, wav: t.master, lang: r.job.lang, ...(r.job.pause ? { words: true } : {}) })))
   for (const { r, t } of flat) t.heard = heard[`${r.job.id}.t${t.take}`] ?? null
+  // A line that needs a pause between its phrases (`pause` in the catalogue): measured at its break, judged by QA.
+  for (const { r, t } of flat) {
+    if (!r.job.pause) continue
+    t.pauseWant = r.job.pause
+    t.pause = pauseOf(t.master, r.job.text, WORDS.get(`${r.job.id}.t${t.take}`))?.gap ?? null
+  }
 }
 const fixer = []
 for (const r of results) {

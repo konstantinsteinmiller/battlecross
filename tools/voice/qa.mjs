@@ -172,6 +172,10 @@ export const judge = (take, max) => {
   if (take.target?.lufs != null && take.lufs != null && Math.abs(take.lufs - take.target.lufs) > LIMITS.lufs) reasons.push(`loudness ${take.lufs} LUFS (target ${take.target.lufs})`)
   if (take.peak > LIMITS.peak) reasons.push(`peak ${take.peak} dBFS`)
   if (!(take.seconds > 0.15)) reasons.push('empty take')
+  // A pause the line asks for between its phrases (`pause.mjs`): measured at its first break, in seconds.
+  if (take.pauseWant && (take.pause == null || take.pause < take.pauseWant[0] - 0.005 || take.pause > take.pauseWant[1] + 0.005)) {
+    reasons.push(`pause ${take.pause == null ? 'not found' : `${take.pause.toFixed(2)} s`} (want ${take.pauseWant[0]}–${take.pauseWant[1]} s)`)
+  }
   const warnings = max && take.seconds > budget + 0.001 && !reasons.some(r => r.startsWith('length')) ? [`long: ${take.seconds.toFixed(2)} s (budget ${budget.toFixed(1)} s)`] : []
   return { ok: reasons.length === 0, wer: e, reasons, warnings }
 }

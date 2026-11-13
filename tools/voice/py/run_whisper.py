@@ -1,6 +1,6 @@
 """faster-whisper QA transcription.  python run_whisper.py <jobs.json> <results.json>
 
-jobs:    {"jobs":[{"id","wav","lang","prompt?"}]}   (lang "en"/"de"; omit or "auto" to detect;
+jobs:    {"jobs":[{"id","wav","lang","prompt?","words?"}]}   (words: each word's [word, start, end] in results too)   (lang "en"/"de"; omit or "auto" to detect;
          prompt = optional initial_prompt to bias spelling of names, e.g. "Flux, Cyber City")
 results: {"results":[{"id","text","seconds_wall","language","language_probability","error?"}],
           "engine","model","load_seconds"}
@@ -43,8 +43,11 @@ def main():
             lang = job.get("lang")
             segs, info = model.transcribe(job["wav"], language=None if lang in (None, "", "auto") else lang,
                                           beam_size=5, vad_filter=False, condition_on_previous_text=False,
-                                          initial_prompt=job.get("prompt") or None)
+                                          initial_prompt=job.get("prompt") or None, word_timestamps=bool(job.get("words")))
+            segs = list(segs)
             rec["text"] = " ".join(s.text.strip() for s in segs).strip()
+            if job.get("words"):
+                rec["words"] = [[w.word, round(w.start, 3), round(w.end, 3)] for s in segs for w in (s.words or [])]
             rec["language"] = info.language
             rec["language_probability"] = round(float(info.language_probability), 3)
         except Exception as e:

@@ -33,7 +33,7 @@ const PATHS = {
   out: 'public/audio/voice'
 }
 
-export const { CARDS, TONES, toneOf, directionOf, voiceOf } = await load(PATHS.cards)
+export const { CARDS, TONES, toneOf, directionOf, voiceOf, LINE_DELIVERY } = await load(PATHS.cards)
 export const LANGS = PATHS.langs
 /** Languages written without spaces between words: QA compares characters, lengths count characters. */
 export const CJK = new Set(['zh', 'ja'])
@@ -78,8 +78,11 @@ export const VOICE_LINES = MANIFEST.lines.map(l => {
     status: 'live',
     who: l.who,
     emotion: l.emotion,
-    when: [whenOf(l)],
-    direction: [directionOf(l)],
+    // A line with a delivery of its own (`LINE_DELIVERY` in the cards) says how and where; the rest, their emotion's.
+    when: [LINE_DELIVERY[l.id]?.situation ?? whenOf(l)],
+    direction: [LINE_DELIVERY[l.id]?.direction ?? directionOf(l)],
+    ...(LINE_DELIVERY[l.id]?.tone ? { tone: LINE_DELIVERY[l.id].tone } : {}),
+    ...(LINE_DELIVERY[l.id]?.pause ? { pause: LINE_DELIVERY[l.id].pause } : {}),
     max: maxOf(l.text),
     text: l.text,
     hash: textHashOf(l),

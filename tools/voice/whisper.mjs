@@ -54,7 +54,10 @@ export const runPython = (env, runner, payload, { label = runner, idleMs = IDLE_
   })
 })
 
-/** `{ id: text }` for each `{ id, wav, lang }`; `{}` when Whisper is not set up. */
+/** Each word's [word, start s, end s] from the last read-back, for the items that asked (`words: true`): a line's pause is measured by them (`pause.mjs`). */
+export const WORDS = new Map()
+
+/** `{ id: text }` for each `{ id, wav, lang, words? }`; `{}` when Whisper is not set up. */
 export const transcribe = async (items) => {
   if (!existsSync(pythonOf('whisper'))) {
     console.warn('  no Whisper environment (pnpm voice:setup whisper): skipping the read-back')
@@ -71,5 +74,6 @@ export const transcribe = async (items) => {
     console.warn(`  ${e.message}; starting it again`)
     return runPython('whisper', 'run_whisper.py', payload, { label: 'whisper' })
   })
+  for (const x of r.results) if (x.words) WORDS.set(x.id, x.words)
   return Object.fromEntries(r.results.map(x => [x.id, x.text ?? null]))
 }

@@ -64,7 +64,15 @@ const SAY = {
   'ja/dlg.quest.throne.circle.2': '彼らは、研究と、呼ぶ。ほかの者は、息をひそめる。',
   'ja/dlg.quest.throne.circle.2__f': '彼らは、研究と、呼ぶ。ほかの者は、息をひそめる。',
   // 炎 and 鋼 in kana, so the model reads them right (#130).
-  'ja/dlg.intro.fire.1': 'ほのおは、呼び声に応え、はがねは、新たな名を知った。'
+  'ja/dlg.intro.fire.1': 'ほのおは、呼び声に応え、はがねは、新たな名を知った。',
+  // The hunter's shout on the plains (#210): with a plain comma the model ran "Fight me" into the name (0.00–0.09 s of
+  // silence); a dash gives it the short beat that makes the name land as a name (`pause` in LINE_DELIVERY, measured).
+  'en/dlg.bark.sbMasterAether.fight.1': 'Fight me — Nightmare!',
+  'de/dlg.bark.sbMasterAether.fight.1': 'Kämpf gegen mich — Albtraum!',
+  'fr/dlg.bark.sbMasterAether.fight.1': 'Affronte-moi ! Cauchemar !',
+  'ru/dlg.bark.sbMasterAether.fight.1': 'Сразись со мной — Кошмар!',
+  // 魇 is rare: read back as 梦口. 演 has its reading (yǎn), so the model says 梦魇 right.
+  'zh/dlg.bark.sbMasterAether.fight.1': '来战吧，梦演！'
 }
 
 /** Lines that are a sound more than words (a gasp, a laugh): QA only fails added speech. */
@@ -111,6 +119,7 @@ for (const line of pick) {
       ...(SAY[`${lang}/${file}`] ? { say: SAY[`${lang}/${file}`] } : {}),
       ...(LOOSE.has(line.key) ? { loose: true } : {}),
       emphasis,
+      ...(line.pause ? { pause: line.pause } : {}),
       direction: line.direction[LANGS.indexOf(lang)] ?? line.direction[0],
       directionEn: line.direction[0],
       situation: line.when[LANGS.indexOf(lang)] ?? line.when[0],
