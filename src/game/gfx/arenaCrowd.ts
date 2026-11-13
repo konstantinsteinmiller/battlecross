@@ -1,9 +1,11 @@
-import { BufferGeometry, Group, InstancedMesh, Matrix4, Mesh, Quaternion, Vector3 } from 'three'
+import { BufferGeometry, Float32BufferAttribute, Group, InstancedMesh, Matrix4, Mesh, Quaternion, Vector3 } from 'three'
 import { CELL } from '../sim/grid'
 import type { ZonePlan } from '../sim/zoneGen'
 import { mulberry32 } from '../sim/rng'
 import { celVC, celVCInst, outlineMat } from './cel'
-import { merge, paint, rbox, rcyl, sph, xform } from './kit'
+import { merge, paint, pose, rbox, rcyl, sph, xform } from './kit'
+import { buildHumanoid, type Look } from './rigs/humanoid'
+import { LOOKS } from './rigs/looks'
 import type { Particles } from './particles'
 
 /**
@@ -18,7 +20,53 @@ import type { Particles } from './particles'
  */
 
 const COATS = ['#d8584a', '#4a8ad8', '#e8c040', '#6ac06a', '#b86ad8', '#e88a3a']
-const SKIN = ['#f0c8a0', '#d8a078', '#a87050']
+const SKIN = ['#f0c8a0', '#d8a078', '#a87050', '#e8b890', '#c89a70']
+const HAIR = ['#3a2a20', '#7a4a2a', '#c8a050', '#b8642a', '#2a2028', '#d8d0c0']
+/** The folk of the towns, dressed in the crowd's coats: each variant is one of the town looks with its own coat, skin and hair. */
+const FOLK = ['villager', 'villagerF', 'farmer', 'merchantF', 'villager', 'villagerF'] as const
+
+/**
+ * One spectator as a STATIC mesh: the town folk's own chibi (`rigs/humanoid.ts`, the lowest detail), posed once on its bones (arms down,
+ * or an arm up in a cheer) and baked to plain geometry, so the stands hold figures that look like the people of the towns, drawn
+ * instanced (a few hundred of them for a handful of draw calls).
+ */
+const bakeFan = (look: Look, cheer: boolean): BufferGeometry => {
+  const r = buildHumanoid(look, 0)
+  if (cheer) {
+    pose(r, 'armR', -2.7, 0, 0.25)
+    pose(r, 'foreR', -0.35, 0, 0)
+    pose(r, 'armL', 0.1, 0, -0.15)
+  } else {
+    pose(r, 'armL', 0.05, 0, -0.08)
+    pose(r, 'armR', 0.05, 0, 0.08)
+  }
+  r.root.updateMatrixWorld(true)
+  r.mesh.skeleton.update()
+  const src = r.mesh.geometry
+  const n = src.attributes.position!.count
+  const pos = new Float32Array(n * 3)
+  const nor = new Float32Array(n * 3)
+  const skinIndex = src.attributes.skinIndex!
+  const bm = r.mesh.skeleton.boneMatrices!
+  const v = new Vector3()
+  const nv = new Vector3()
+  const m = new Matrix4()
+  for (let i = 0; i < n; i++) {
+    v.fromBufferAttribute(src.attributes.position!, i)
+    r.mesh.applyBoneTransform(i, v)
+    pos.set([v.x, v.y, v.z], i * 3)
+    m.fromArray(bm, skinIndex.getX(i) * 16)
+    nv.fromBufferAttribute(src.attributes.normal!, i).transformDirection(m)
+    nor.set([nv.x, nv.y, nv.z], i * 3)
+  }
+  const g = new BufferGeometry()
+  g.setAttribute('position', new Float32BufferAttribute(pos, 3))
+  g.setAttribute('normal', new Float32BufferAttribute(nor, 3))
+  if (src.attributes.color) g.setAttribute('color', src.attributes.color.clone())
+  if (src.index) g.setIndex(src.index.clone())
+  r.mesh.geometry.dispose()
+  return g
+}
 const _m = new Matrix4()
 const _q = new Quaternion()
 const _p = new Vector3()
@@ -65,10 +113,11 @@ export class ArenaCrowd {
     so.renderOrder = -1
     this.root.add(sm, so)
 
-    // ── The crowd: seated evenly along every step (never two in one place),
-    // a coat drawn for each seat; one instanced mesh per coat ──
+    // ── The crowd: standing evenly along every step (never two in one place); each has a coat, a look of the town folk, and (one in
+    // three) an arm raised. One instanced mesh per variant ──
     const PER_STEP = this.low ? 44 : 100
-    const byCoat: Array<Fan['seats']> = COATS.map(() => [])
+    const VARIANTS = COATS.length * 2
+    const bySeat: Array<Fan['seats']> = Array.from({ length: VARIANTS }, () => [])
     for (let t = 0; t < 4; t++) {
       const r = R0 + t * 1.8 + 0.9
       const n = Math.round(PER_STEP * (r / (R0 + 0.9)))
@@ -76,19 +125,19 @@ export class ArenaCrowd {
         const a = ((q + (t % 2) * 0.5) / n) * Math.PI * 2
         const x = this.cx + Math.cos(a) * r
         const z = this.cz + Math.sin(a) * r
-        byCoat[Math.floor(rng() * COATS.length)]!.push({ x, y: 0.9 + t * 0.9, z, rot: Math.atan2(this.cx - x, this.cz - z), phase: rng() * 6.28, s: 0.85 + rng() * 0.3 })
+        const v = Math.floor(rng() * COATS.length) * 2 + (rng() < 0.34 ? 1 : 0)
+        bySeat[v]!.push({ x, y: 0.9 + t * 0.9, z, rot: Math.atan2(this.cx - x, this.cz - z), phase: rng() * 6.28, s: 0.72 + rng() * 0.14 })
       }
     }
-    for (let c = 0; c < COATS.length; c++) {
-      const skin = SKIN[c % SKIN.length]!
-      const g = merge([
-        xform(paint(sph(1, 8, 6), COATS[c]!), [0, 0.45, 0], [0, 0, 0], [0.32, 0.45, 0.26]),
-        xform(paint(sph(0.24, 8, 6), skin), [0, 1.05, 0])
-      ])
+    for (let v = 0; v < VARIANTS; v++) {
+      const c = v >> 1
+      const look: Look = { ...LOOKS[FOLK[c]!]!, top: COATS[c]!, skin: SKIN[(c * 2 + 1) % SKIN.length]!, hair: HAIR[(c * 5 + 2) % HAIR.length]! }
+      const g = bakeFan(look, (v & 1) === 1)
       this.owned.push(g)
-      const seats = byCoat[c]!
-      const mesh = new InstancedMesh(g, celVCInst(), Math.max(1, seats.length))
-      const line = new InstancedMesh(g, outlineMat(undefined, undefined, true), Math.max(1, seats.length))
+      const seats = bySeat[v]!
+      if (!seats.length) continue
+      const mesh = new InstancedMesh(g, celVCInst(), seats.length)
+      const line = new InstancedMesh(g, outlineMat(undefined, undefined, true), seats.length)
       line.renderOrder = -1
       mesh.count = seats.length
       line.count = seats.length
