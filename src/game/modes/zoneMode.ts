@@ -55,6 +55,10 @@ import { armSiege, buildBlock, buildDefence, skipBuild } from '../sim/siege'
 import { SIEGE_PROP_KINDS, SiegeProps } from '../gfx/siegeProps'
 import { siegeActions, siegeHud } from '../state/siegeHud'
 import { AssaultProps } from '../gfx/assaultProps'
+import { UndercroftProps } from '../gfx/undercroftProps'
+import { generateUndercroft } from '../sim/undercroftMap'
+import { armUndercroft, skipUndercroft } from '../sim/undercroft'
+import { underActions, underHud } from '../state/underHud'
 import { HollowsTricks } from '../gfx/hollowsTricks'
 import { RebelProps } from '../gfx/rebelProps'
 import { CelebrateProps } from '../gfx/celebrateProps'
@@ -162,6 +166,8 @@ export interface ZoneSetup {
   siege?: { tier: SiegeTier; story: boolean; rotation: number; commander: 'hale' | 'mara' }
   /** The besieged gate before the Hollows' first entry (roadmap #204, `sim/assault.ts`). */
   assault?: boolean
+  /** The Smugglers' Undercroft under the first level (roadmap #EXT-1, `sim/undercroft.ts`). */
+  undercroft?: boolean
   flags: ReadonlySet<string>
 }
 
@@ -197,6 +203,8 @@ export interface ZoneCallbacks {
   onFinaleWon?(): boolean
   /** The besieged gate is over: won (both towers down) or skipped (#204). */
   onAssaultEnd?(how: 'won' | 'skipped', held?: boolean): void
+  /** The Undercroft is over: won (the Tunnel Warden down) or skipped (#EXT-1). */
+  onUndercroftEnd?(how: 'won' | 'skipped'): void
   /** The celebration is over (watched to its end, or skipped). */
   onCelebrateEnd?(how: 'watched' | 'skipped'): void
 }
@@ -378,6 +386,8 @@ export class ZoneMode implements GameMode {
   private siegeProps: SiegeProps | null = null
   /** The Hollows' besieged gate (#204): its props, whether the hand-over was made, and the camera's zoom while it frames the scene. */
   private assaultProps: AssaultProps | null = null
+  private underProps: UndercroftProps | null = null
+  private underFired = false
   private tricksFx: HollowsTricks | null = null
   /** The last hop beat sounded for each mimic (unit id). */
   private mimicBeat = new Map<number, number>()
@@ -511,6 +521,8 @@ export class ZoneMode implements GameMode {
         ? generateSiege(setup.seed)
       : setup.celebrate
         ? generateCelebration(setup.seed)
+      : setup.undercroft
+        ? generateUndercroft(setup.seed)
       : setup.assault
         ? generateAssault(setup.seed)
       : setup.kind === 'arena'
@@ -559,10 +571,11 @@ export class ZoneMode implements GameMode {
     })
     // Adaptive pressure (#124, D144): zones only — never a town, the colosseum
     // (its ladder climbs by itself, and its board stays fair) or the opening fight.
-    if (setup.kind === 'zone' && !setup.tutorial && !setup.assault && !setup.celebrate) sim.pressure = newPressure(sessionPressure(), sessionRampPool())
+    if (setup.kind === 'zone' && !setup.tutorial && !setup.assault && !setup.celebrate && !setup.undercroft) sim.pressure = newPressure(sessionPressure(), sessionRampPool())
     // An invaded zone or an encounter in its wilds (the afterplay): kills pay more, pylons and scars stand.
     if (setup.kind === 'zone' && setup.invaded) armInvasion(sim)
     if (setup.kind === 'zone' && setup.celebrate) armCelebration(sim, { freed: setup.celebrate.freed })
+    else if (setup.kind === 'zone' && setup.undercroft) armUndercroft(sim)
     else if (setup.kind === 'zone' && setup.assault) armAssault(sim, { low: m.low })
     else if (setup.kind === 'zone') populateZone(sim, plan, setup.zone!, profile.inv.items, profile.world.chests)
     // The colosseum knows what is owned: a milestone's mythic is given once (#117).
@@ -650,6 +663,7 @@ export class ZoneMode implements GameMode {
     // The cameo's three rigs are built now, not on the frame they leap in.
     if (m.cameo) for (const k of [CAMEO_HERO, CAMEO_BEAST, CAMEO_TOWER]) kinds.add(k)
     if (setup.kind === 'zone' && setup.assault) for (const id of SALLY_KINDS) kinds.add(id)
+    if (setup.kind === 'zone' && setup.undercroft) kinds.add('tunnelWarden')
     if (setup.siege) for (const id of [...siegeKinds(setup.siege.tier), 'guard']) kinds.add(id)
     else if (setup.kind === 'arena') for (const id of arenaKinds(setup.level)) kinds.add(id)
     const jobs = prewarmKinds(kinds)
@@ -698,6 +712,10 @@ export class ZoneMode implements GameMode {
     if (sim.tricks) {
       m.tricksFx = new HollowsTricks(sim, m.vfx, n => m.cam.addTrauma(n))
       m.tricksFx.build(m.scene)
+    }
+    if (setup.undercroft) {
+      m.underProps = new UndercroftProps(sim, m.vfx, n => m.cam.addTrauma(n))
+      m.underProps.build(m.scene)
     }
     if (setup.assault) {
       m.assaultProps = new AssaultProps(sim, m.vfx, n => m.cam.addTrauma(n))
@@ -989,6 +1007,8 @@ export class ZoneMode implements GameMode {
       celebrateActions.skip = () => skipCelebration(this.sim)
       this.syncCelebrate()
     }
+    underHud.active = !!this.sim.under
+    if (this.sim.under) underActions.skip = () => skipUndercroft(this.sim)
     assaultHud.active = !!this.sim.assault
     if (this.sim.assault) {
       assaultActions.skipCut = () => skipPanorama(this.sim)
@@ -1198,6 +1218,7 @@ export class ZoneMode implements GameMode {
       this.props?.onEvent(e)
       this.siegeProps?.onEvent(e)
       this.assaultProps?.onEvent(e)
+      this.underProps?.onEvent(e)
       this.tricksFx?.onEvent(e)
       if (e.t === 'trick' && (e.id === 'potHint' || e.id === 'leverHint' || e.id === 'galleryHint')) pushHud({ t: 'toast', key: e.id === 'potHint' ? 'tricks.pot' : e.id === 'leverHint' ? 'tricks.lever' : 'tricks.gallery' })
       this.rebelProps?.onEvent(e)
@@ -1572,6 +1593,11 @@ export class ZoneMode implements GameMode {
       this.bashT -= simDt
       if (this.bashT <= 0) this.beginBashStop()
     }
+    // The Undercroft is over (the warden down, or skipped): the tunnel comes out under the smithy (#EXT-1, #EXT-9).
+    if (this.sim.under?.phase === 'done' && !this.underFired) {
+      this.underFired = true
+      this.cb.onUndercroftEnd?.(this.sim.under.outcome === 'won' ? 'won' : 'skipped')
+    }
     // The besieged gate is over: the Hollows follow (or the hero chose to skip).
     if (this.sim.assault?.phase === 'done' && !this.assaultFired) {
       this.assaultFired = true
@@ -1679,6 +1705,20 @@ export class ZoneMode implements GameMode {
     this.sim.emit({ t: 'bark', unit: h.id, key: MONO_LINES[this.monoN]! })
     this.monoN++
     if (this.monoN >= MONO_LINES.length) markTip(MONO_TIP)
+  }
+
+  /** The Undercroft's HUD mirror, and the hero standing on the cart while he rides it. */
+  private syncUnder(): void {
+    const u = this.sim.under!
+    const v = underHud
+    v.phase = u.phase
+    v.dark = u.phase === 'corridor'
+    const lit = u.braziers.filter(b => b.lit).length
+    v.lit = Math.min(1, 0.2 + lit * 0.25)
+    v.hits = u.cart.hits + u.cart.falls
+    v.chests = u.stash.opened
+    const h = this.sim.hero.unit
+    h.stunt = u.cart.on ? { lift: 0.55, flip: 0 } : undefined
   }
 
   /** The bag lesson's clock: the hint shows once, when nothing else holds the player's eye (no talk, no cut, no stop). */
@@ -2022,6 +2062,7 @@ export class ZoneMode implements GameMode {
     this.props?.update(fxDt, hx, hz)
     this.siegeProps?.update(fxDt)
     this.assaultProps?.update(fxDt)
+    this.underProps?.update(fxDt)
     this.tricksFx?.update(fxDt)
     // The mimic's hop: a thud for every landing, at the beat of its stride.
     for (const m of this.sim.mimics) {
@@ -2241,6 +2282,7 @@ export class ZoneMode implements GameMode {
     hud.zoneLevel = sim.level
     if (sim.siege) this.syncSiege()
     if (sim.assault) this.syncAssault()
+    if (sim.under) this.syncUnder()
     if (sim.celebrate) this.syncCelebrate()
     // The townsperson within reach.
     let near = ''
@@ -2603,6 +2645,8 @@ export class ZoneMode implements GameMode {
       assaultActions.skipCut = () => {}
       assaultActions.skipSiege = () => {}
     }
+    if (this.sim.under) { underHud.active = false; underActions.skip = () => {} }
+    this.underProps?.dispose()
     this.assaultProps?.dispose()
     this.tricksFx?.dispose()
     this.rebelProps?.dispose()

@@ -192,7 +192,7 @@ const stepGallery = (sim: Sim, g: GalleryState, dt: number): void => {
 }
 
 /** The false floor: cracks while the hero stands on it, then gives way. */
-const stepTrap = (sim: Sim, p: TrapState, dt: number): void => {
+export const stepTrap = (sim: Sim, p: TrapState, dt: number): void => {
   const h = sim.hero.unit
   const on = h.alive && Math.hypot(h.x - p.x, h.z - p.z) <= p.r - 0.3
   if (p.state === 'armed') {

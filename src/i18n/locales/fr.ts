@@ -444,6 +444,7 @@ export default {
   },
   wanted: { title: "Recherché" },
   tricks: { pot: "La marmite du cuisinier soigne la bande. Fais d’abord taire le cuisinier !", lever: "Un levier ! Tire-le pour faire rouler les rochers sur la bande.", gallery: "Frondeurs sur l’échafaudage, hors de portée ! Coupe la corde du poteau pour les faire tomber." },
+  under: { goal: { corridor: "Suis le tunnel et allume les braseros.", cart: "Accroche-toi ! Dirige à gauche et à droite, roule par-dessus les tonneaux et les trous de rail.", stash: "La planque des contrebandiers. Attention à la plaque de pression !", warden: "Le Gardien du Tunnel ! Attire sa foreuse dans un pilier pourri.", done: "La sortie est ouverte." }, skip: "Passer", toast: { purse: "La bourse des contrebandiers : +{gold} or", out: "Le tunnel débouche sous la forge de Sunford." } },
   tusker: { hint: "Attire la charge de Tusker dans un pilier pourri !", crash: "Le plafond s’effondre sur le Roi !" },
   assault: {
     title: 'Siège de la porte des Cavernes',
@@ -7648,6 +7649,7 @@ export default {
     goblinShaman: "Chaman gobelin",
     bombGoblin: "Gobelin bombe",
     shieldBrute: "Brute au bouclier",
+    tunnelWarden: "Gardien du Tunnel",
     mimic: "Mimique",
     bandit: 'Bandit',
     banditArcher: 'Archer bandit',

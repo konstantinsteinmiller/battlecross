@@ -446,6 +446,7 @@ export default {
   },
   wanted: { title: "Traži se" },
   tricks: { pot: "Kuharov kotao liječi skupinu. Prvo ušutkaj kuhara!", lever: "Poluga! Povuci je da se gromade otkotrljaju na skupinu.", gallery: "Praćkaši na skeli, izvan dosega! Prereži uže na stupu da ih srušiš." },
+  under: { goal: { corridor: "Slijedi tunel i zapali žarišta.", cart: "Drži se! Skreći lijevo i desno, preskoči bačve i praznine u tračnicama.", stash: "Krijumčarska skrovišta. Pazi na tlačnu ploču!", warden: "Čuvar tunela! Namami njegovu bušilicu na trulo stupište.", done: "Izlaz je otvoren." }, skip: "Preskoči", toast: { purse: "Krijumčarska kesa: +{gold} zlata", out: "Tunel izlazi ispod kovačnice u Sunfordu." } },
   tusker: { hint: "Namami Tuskerov juriš u trulo stupište!", crash: "Strop se ruši na Kralja!" },
   assault: {
     title: 'Opsada vrata Špilja',
@@ -7712,6 +7713,7 @@ export default {
     goblinShaman: "Goblinski šaman",
     bombGoblin: "Goblin bombaš",
     shieldBrute: "Štitonoša",
+    tunnelWarden: "Čuvar tunela",
     mimic: "Mimik",
     bandit: 'Razbojnik',
     banditArcher: 'Razbojnik strijelac',

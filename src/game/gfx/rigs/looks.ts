@@ -34,6 +34,8 @@ export const LOOKS: Readonly<Record<string, Look>> = {
   goblinShaman: L({ skin: '#4f9a52', top: '#3f5a2e', bottom: '#2f3a22', head: 'wizard', hair: '#e8e2cf', ears: 'goblin', outfit: 'robe', held: 'staff', trim: '#7dff8a', eyeGlow: '#7dff8a', metal: '#8a6a3a' }),
   bombGoblin: L({ skin: '#a6d44a', top: '#8a3a24', bottom: '#4a3a28', head: 'goggles', hair: '#ffb02a', ears: 'goblin', outfit: 'apron', held: 'flask', trim: '#ffb02a', metal: '#3e3a3a' }),
   shieldBrute: L({ skin: '#5a9a3a', top: '#5d5a66', bottom: '#2f2a34', head: 'greathelm', hair: '#c9483a', ears: 'goblin', outfit: 'plate', held: 'hammer', off: 'shield', pauldrons: true, trim: '#c9a24a', bulk: 1.18, metal: '#9aa4b8' }),
+  // The Undercroft's warden (#EXT-1): a miner's hulk in goggles and a hard hat, a drill-hammer in his fist.
+  tunnelWarden: L({ skin: '#b58a62', top: '#5a5a66', bottom: '#2f2a34', head: 'helm', hair: '#3a2a1c', outfit: 'leather', held: 'hammer', pauldrons: true, trim: '#e8b73a', bulk: 1.3, beard: '#3a2a1c', cape: '#7a4a24', metal: '#c8ccd6', eyeGlow: '#ffb02a' }),
   goblinOverseer: L({ skin: '#5fae3a', top: '#6a2f24', bottom: '#2f2a34', head: 'helm', hair: '#c9483a', ears: 'goblin', outfit: 'leather', held: 'hammer', pauldrons: true, trim: '#e8b73a', bulk: 1.1, cape: '#a02a24', metal: '#9aa4b8' }),
   banditChief: L({ skin: '#d9a47e', top: '#a03a2c', bottom: '#3b2f2a', head: 'horns', hair: '#e8e2cf', outfit: 'leather', held: 'axe', pauldrons: true, trim: '#5a4a44', bulk: 1.12, beard: '#3b2a22', cape: '#5a1f1a' }),
   goblinKing: L({ skin: '#58c23f', top: '#7a2f8a', bottom: '#4a2c5a', head: 'crown', hair: '#58c23f', ears: 'goblin', outfit: 'robe', held: 'club', trim: '#ffd24a', bulk: 1.2, cape: '#c9483a' }),

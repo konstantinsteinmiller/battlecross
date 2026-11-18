@@ -468,6 +468,8 @@ export type SimEvent =
   | { t: 'trick'; id: 'pot' | 'potOut' | 'lever' | 'boulderHit' | 'potHint' | 'leverHint' | 'galleryHint' | 'galleryDown' | 'galleryLand' | 'trapCrack' | 'trapFall'; x: number; z: number }
   /** A chest comes alive ('wake') or its mimic falls ('fall') (#225). */
   | { t: 'mimic'; id: 'wake' | 'fall'; chest: number; unit: number; x: number; z: number; tier?: string }
+  /** The Undercroft's beats (#EXT-1): a brazier catches, the cart starts, a barrel or a rail gap hits, the cart ends, the warden wakes, he falls. */
+  | { t: 'under'; id: 'brazier' | 'cartStart' | 'barrel' | 'gap' | 'cartEnd' | 'warden' | 'won'; n: number; x: number; z: number }
   | { t: 'tusker'; id: 'beams' | 'crash'; x: number; z: number }
   | { t: 'rebel'; id: 'snap' | 'flee' | 'stab' | 'guarded'; n: number; x: number; z: number }
   | { t: 'overheat'; on: boolean }

@@ -4,6 +4,7 @@ import type { Action, Unit } from '../types'
 import { SCRIPTED, runCharge, stepCharge, stepExit } from './kit'
 import { TUSKER_SCRIPTS } from './tusker'
 import { MIMIC_SCRIPTS } from './mimic'
+import { WARDEN_SCRIPTS } from './warden'
 import { SKYFIRE_SCRIPTS } from './skyfire'
 import { HELLGATE_SCRIPTS } from './hellgate'
 import { SHATTERLAKE_SCRIPTS } from './shatterlake'
@@ -97,6 +98,7 @@ export interface BotGoal { x: number; z: number; attack?: number }
 export const BOSS_SCRIPTS: Record<string, BossScript> = {
   ...TUSKER_SCRIPTS,
   ...MIMIC_SCRIPTS,
+  ...WARDEN_SCRIPTS,
   ...SKYFIRE_SCRIPTS,
   ...HELLGATE_SCRIPTS,
   ...SHATTERLAKE_SCRIPTS,

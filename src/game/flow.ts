@@ -55,9 +55,10 @@ import { chestReward, escortPacks, merchantTiers, type EncounterSpec } from './d
 import { dayKey } from './rareShelf'
 import { carefulMult } from './careful'
 import { BOARD } from './townTasks'
-import { lesson, mapSpot, markMet, markTip, setMapPos } from './state/profile'
+import { lesson, mapSpot, markMet, markTip, setMapPos, TUTORIAL_NODE } from './state/profile'
 import { kingHoardPicks, type HoardPick } from './data/hoard'
 import { ASSAULT_FLAG, assaultDue, sallyPurse } from './data/assault'
+import { UNDER_FLAG, UNDER_XP, underDue, underPurse } from './data/undercroft'
 import { rebellionDue } from './data/rebellion'
 import { PARTY_TIP, partyDue } from './data/celebrate'
 import { SIEGE_LORD, siegeEnemyLevel, type SiegeTier } from './data/siege'
@@ -243,6 +244,69 @@ export const buildPartyPlace = (onProgress: (p01: number) => void, freed = 4): R
   partyNext = true
   rebelsFreed = freed
   return buildNode('hollows', onProgress)
+}
+
+/**
+ * The Smugglers' Undercroft (roadmap #EXT-1): offered ONCE, right after the first level's result window, in place of the map
+ * (#EXT-9): the cage's floor gives way and the hero drops into the tunnels. It ends in Sunford, under the smithy.
+ */
+let underNext = false
+let hoardOnClaim: ((id: string) => void) | null = null
+const undercroftSetup = (): ZoneSetup => ({
+  kind: 'zone', zone: 'hollows', theme: ZONES.hollows.theme, seed: hashSeed('undercroft', profile.stats.runs), level: visitLevel(ZONES.hollows, profile.level),
+  difficulty: 1, undercroft: true, flags: flagSet()
+})
+/** Is the first level's exit due to drop into the Undercroft (once, on the first visit of the first level)? */
+const underOnExit = (): boolean =>
+  flow.node === TUTORIAL_NODE && !PREVIEW_ON && !flow.encounter && underDue(hasFlag) && (profile.world.visits[TUTORIAL_NODE] ?? 0) <= 1
+
+/** Drop into the Undercroft behind the loading veil. */
+export const startUndercroft = async (): Promise<void> => {
+  if (flow.loading || booting) return
+  flow.loading = true
+  flow.loadProgress = 0
+  flow.loadingNode = 'hollows'
+  try {
+    await afterPaint()
+    app.setWanted(false)
+    underNext = true
+    const mode = await buildNode('hollows', (p) => { flow.loadProgress = p })
+    enter('hollows', mode)
+  } catch (e) {
+    console.error('[flow] undercroft failed', e)
+    app.setWanted(true)
+  } finally {
+    underNext = false
+    flow.loading = false
+  }
+}
+
+/**
+ * The Undercroft is over (the warden down, or skipped): never offered again. A win pays the smugglers' purse, experience and an
+ * epic piece out of three; either way the tunnel comes up under the smithy in Sunford and the map is skipped (#EXT-9).
+ */
+export const finishUndercroft = async (how: 'won' | 'skipped'): Promise<void> => {
+  if (flow.loading) return
+  if (!hasFlag(UNDER_FLAG)) { profile.world.flags.push(UNDER_FLAG); saveProfile() }
+  const out = async (): Promise<void> => {
+    await travel('sunford')
+    if (how === 'won') pushHud({ t: 'toast', key: 'under.toast.out' })
+  }
+  if (how === 'won') {
+    const gold = underPurse(profile.level)
+    profile.gold += gold
+    grantXp(Math.round(xpToNext(profile.level) * UNDER_XP))
+    saveProfile()
+    pushHud({ t: 'toast', key: 'under.toast.purse', params: { gold } })
+    const picks = kingHoardPicks({ level: profile.level, attrs: totalAttrs(), equipped: profile.inv.equipped, owned: [...profile.inv.items], ups: profile.inv.upgrades })
+    if (picks.length) {
+      hoard.picks = picks
+      hoardOnClaim = (id) => { gainItem(id); saveProfile(); void out() }
+      flow.modal = 'kingHoard'
+      return
+    }
+  }
+  await out()
 }
 
 const assaultSetup = (): ZoneSetup => ({
@@ -481,11 +545,12 @@ const buildZone = async (node: NodeId, onProgress: (p01: number) => void, encoun
   // A saved visit is rebuilt from the setup it was built with, not today's.
   const setup: ZoneSetup = saved
     ? { ...saved.setup, flags: new Set(saved.setup.flags) }
-    : encounter ? encounterSetup(encounter) : partyNext ? partySetup() : assaultNext ? assaultSetup() : setupFor(node)
+    : encounter ? encounterSetup(encounter) : underNext ? undercroftSetup() : partyNext ? partySetup() : assaultNext ? assaultSetup() : setupFor(node)
   assaultNext = false
   partyNext = false
   const mode = await ZoneMode.create(setup, gameInput(), {
     onAssaultEnd: (how, held) => { void finishAssault(how, !!held) },
+    onUndercroftEnd: (how) => { void finishUndercroft(how) },
     onCelebrateEnd: () => { finishCelebration() },
     onEnd: (outcome) => { void finishVisit(outcome) },
     askSecondWind: offerSecondWind,
@@ -1187,6 +1252,8 @@ const afterKing = (kingAnswered: boolean): void => {
     flow.modal = 'ending'
     return
   }
+  // The first level's exit: the cage's floor gives way (#EXT-1), and the tunnel comes out in Sunford (#EXT-9): no map.
+  if (underOnExit()) { flow.modal = ''; void startUndercroft(); return }
   flow.modal = ''
   openMap()
   startGameMusic()
@@ -1223,6 +1290,15 @@ export const offerKingHoard = (): boolean => {
 
 /** The hero keeps one of the three. */
 export const claimKingHoard = (id: string): void => {
+  // The Undercroft's own pick of three (#EXT-1): the hero keeps it on the spot.
+  if (hoardOnClaim && hoard.picks.some(p => p.id === id)) {
+    const f = hoardOnClaim
+    hoardOnClaim = null
+    hoard.picks = []
+    flow.modal = ''
+    f(id)
+    return
+  }
   const mode = app.mode instanceof ZoneMode ? app.mode : null
   if (!hoard.picks.some(p => p.id === id)) return
   mode?.claimHoard(id)

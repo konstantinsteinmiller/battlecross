@@ -443,6 +443,7 @@ export default {
   },
   wanted: { title: "Ieškomas" },
   tricks: { pot: "Virėjo puodas gydo gaują. Pirmiausia nutildyk virėją!", lever: "Svirtis! Patraukk, ir riedulių ritinys nusirita ant gaujos.", gallery: "Svaidytuvininkai ant pastolių, nepasiekiami! Perpjauk virvės stulpą, kad jie nukristų." },
+  under: { goal: { corridor: "Sek tunelį ir uždek žarijų dubenis.", cart: "Laikykis! Sukis kairėn ir dešinėn, perriedėk statines ir bėgių tarpus.", stash: "Kontrabandininkų slėptuvė. Saugokis spaudimo plokštės!", warden: "Tunelio sargas! Privilioti jo grąžtą į supuvusį stulpą.", done: "Kelias laukan atviras." }, skip: "Praleisti", toast: { purse: "Kontrabandininkų piniginė: +{gold} aukso", out: "Tunelis išeina po Sunfordo kalve." } },
   tusker: { hint: "Privilioti Tuskerio šuolį į supuvusį stulpą!", crash: "Lubos griūva ant Karaliaus!" },
   assault: {
     title: 'Urvų vartų apgultis',
@@ -7659,6 +7660,7 @@ export default {
     goblinShaman: "Goblinų šamanas",
     bombGoblin: "Goblinas bombonešis",
     shieldBrute: "Skydo brutas",
+    tunnelWarden: "Tunelio sargas",
     mimic: "Mimikas",
     bandit: 'Banditas',
     banditArcher: 'Banditas lankininkas',

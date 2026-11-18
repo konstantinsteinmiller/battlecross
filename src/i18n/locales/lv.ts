@@ -443,6 +443,7 @@ export default {
   },
   wanted: { title: "Meklēts" },
   tricks: { pot: "Pavāra katls dziedē bariņu. Vispirms apklusini pavāru!", lever: "Svira! Pavelc to, lai laukakmeņi ripo bariņam virsū.", gallery: "Katapultētāji uz sastatnēm, nesasniedzami! Pārgriez virves stabu, lai viņi nokristu." },
+  under: { goal: { corridor: "Seko tunelim un aizdedzini ugunskurus.", cart: "Turies! Grozi pa kreisi un pa labi, ripo pāri mucām un sliežu spraugām.", stash: "Kontrabandistu slēptuve. Uzmanies no spiediena plātnes!", warden: "Tuneļa sargs! Pievilini viņa urbi pie satrunējuša staba.", done: "Izeja ir vaļā." }, skip: "Izlaist", toast: { purse: "Kontrabandistu maks: +{gold} zelta", out: "Tunelis iznāk zem Sanfordas kalēja darbnīcas." } },
   tusker: { hint: "Ievilini Taskera triecienu satrunējušā stabā!", crash: "Griesti sabrūk uz Karali!" },
   assault: {
     title: 'Alu vārtu aplenkums',
@@ -7672,6 +7673,7 @@ export default {
     goblinShaman: "Goblinu šamanis",
     bombGoblin: "Bumbu goblins",
     shieldBrute: "Vairoga brutālis",
+    tunnelWarden: "Tuneļa sargs",
     mimic: "Mimiks",
     bandit: 'Laupītājs',
     banditArcher: 'Laupītājs loka šāvējs',

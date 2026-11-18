@@ -414,6 +414,7 @@ export default {
   },
   'wanted': { 'title': "Wanted" },
   'tricks': { 'pot': "The cook's stew pot mends the pack. Silence the cook first!", 'lever': "A lever! Pull it to roll the boulders onto the pack.", 'gallery': "Slingers on the scaffold, out of reach! Cut its rope post to bring them down." },
+  'under': { 'goal': { 'corridor': "Follow the tunnel and light the braziers.", 'cart': "Hold on! Steer left and right, roll over barrels and rail gaps.", 'stash': "The smugglers' stash. Mind the pressure plate!", 'warden': "The Tunnel Warden! Lure his drill into a rotten pillar.", 'done': "The way out is open." }, 'skip': "Skip", 'toast': { 'purse': "The smugglers' purse: +{gold} gold", 'out': "The tunnel comes out under the smithy in Sunford." } },
   'tusker': { 'hint': "Lure Tusker's charge into a rotten pillar!", 'crash': "The roof falls on the King!" },
   'assault': {
     'title': 'Siege of the Hollows\' Gate',
@@ -4061,6 +4062,7 @@ export default {
     'goblinShaman': "Goblin Shaman",
     'bombGoblin': "Bomb Goblin",
     'shieldBrute': "Shield Brute",
+    'tunnelWarden': "Tunnel Warden",
     'mimic': "Mimic",
     'bandit': 'Bandit',
     'banditArcher': 'Bandit Archer',

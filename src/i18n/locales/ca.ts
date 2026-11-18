@@ -444,6 +444,7 @@ export default {
   },
   wanted: { title: "Es busca" },
   tricks: { pot: "L’olla del cuiner cura la colla. Fes callar primer el cuiner!", lever: "Una palanca! Tira-hi per fer rodar els pedrusquets sobre la colla.", gallery: "Fonyadors a la bastida, fora d’abast! Talla la corda del pal per fer-los caure." },
+  under: { goal: { corridor: "Segueix el túnel i encén els braser.", cart: "Agafa't fort! Gira a esquerra i dreta, rodola sobre barrils i buits de via.", stash: "L'amagatall dels contrabandistes. Compte amb la placa de pressió!", warden: "El Guardià del Túnel! Fes que el seu trepant xoqui contra un pilar podrit.", done: "La sortida és oberta." }, skip: "Omet", toast: { purse: "La bossa dels contrabandistes: +{gold} d'or", out: "El túnel surt sota la farreria de Sunford." } },
   tusker: { hint: "Atrau la càrrega de Tusker cap a un pilar podrit!", crash: "El sostre s’enfonsa sobre el Rei!" },
   assault: {
     title: 'Setge de la porta dels Caus',
@@ -7646,6 +7647,7 @@ export default {
     goblinShaman: "Xaman goblin",
     bombGoblin: "Goblin bomba",
     shieldBrute: "Bruta escut",
+    tunnelWarden: "Guardià del Túnel",
     mimic: "Mímic",
     bandit: 'Bandit',
     banditArcher: 'Bandit Arquer',

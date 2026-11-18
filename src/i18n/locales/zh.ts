@@ -443,6 +443,7 @@ export default {
   },
   wanted: { title: "通缉" },
   tricks: { pot: "厨子的汤锅会给整群怪物疗伤。先让厨子闭嘴！", lever: "有个拉杆！拉下去，让巨石滚向怪群。", gallery: "弹弓手站在脚手架上，够不着！砍断绳柱就能让他们摔下来。" },
+  under: { goal: { corridor: "沿着隧道前进，点燃火盆。", cart: "抓紧！左右操控，翻滚越过木桶和轨道缺口。", stash: "走私客的藏宝室。小心压力板！", warden: "隧道守卫！引诱他的钻头撞上腐朽的柱子。", done: "出路已开启。" }, skip: "跳过", toast: { purse: "走私客的钱袋：+{gold} 金币", out: "隧道在桑福德的铁匠铺下方出口。" } },
   tusker: { hint: "引诱塔斯克的冲撞撞上腐朽的柱子！", crash: "屋顶砸在国王身上！" },
   assault: {
     title: '洞窟城门攻防战',
@@ -7597,6 +7598,7 @@ export default {
     goblinShaman: "哥布林萨满",
     bombGoblin: "炸弹哥布林",
     shieldBrute: "盾牌蛮汉",
+    tunnelWarden: "隧道守卫",
     mimic: "拟态怪",
     bandit: '强盗',
     banditArcher: '强盗弓手',

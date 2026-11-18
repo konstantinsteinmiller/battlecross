@@ -444,6 +444,7 @@ export default {
   },
   wanted: { title: "Poszukiwany" },
   tricks: { pot: "Garnek kucharza leczy bandę. Najpierw uciszaj kucharza!", lever: "Dźwignia! Pociągnij, a głazy stoczą się na bandę.", gallery: "Procarze na rusztowaniu, poza zasięgiem! Przetnij linę przy słupie, a spadną." },
+  under: { goal: { corridor: "Idź tunelem i rozpal kosze z ogniem.", cart: "Trzymaj się! Skręcaj w lewo i w prawo, przetaczaj się nad beczkami i lukami w torach.", stash: "Kryjówka przemytników. Uważaj na płytę naciskową!", warden: "Strażnik tunelu! Zwab jego wiertło na zbutwiały filar.", done: "Droga na zewnątrz jest wolna." }, skip: "Pomiń", toast: { purse: "Sakiewka przemytników: +{gold} złota", out: "Tunel wychodzi pod kuźnią w Sunford." } },
   tusker: { hint: "Zwab szarżę Tuskera na zbutwiały filar!", crash: "Strop wali się na Króla!" },
   assault: {
     title: 'Oblężenie bramy Jaskiń',
@@ -7698,6 +7699,7 @@ export default {
     goblinShaman: "Goblinia szamanka",
     bombGoblin: "Goblin bombowy",
     shieldBrute: "Tarczowy osiłek",
+    tunnelWarden: "Strażnik tunelu",
     mimic: "Mimik",
     bandit: 'Bandyta',
     banditArcher: 'Bandyta łucznik',

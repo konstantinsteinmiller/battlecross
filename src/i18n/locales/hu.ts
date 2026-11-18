@@ -443,6 +443,7 @@ export default {
   },
   wanted: { title: "Körözött" },
   tricks: { pot: "A szakács fazeka gyógyítja a bandát. Előbb a szakácsot hallgattasd el!", lever: "Egy kar! Húzd meg, és a sziklák a bandára gördülnek.", gallery: "Parittyások az állványon, elérhetetlenül! Vágd el a kötéloszlopot, hogy leessenek." },
+  under: { goal: { corridor: "Kövesd az alagutat, és gyújtsd meg a parázstartókat.", cart: "Kapaszkodj! Kormányozz jobbra-balra, gurulj át a hordókon és a sínhézagokon.", stash: "A csempészek rejtekhelye. Vigyázz a nyomólapra!", warden: "Az Alagútőr! Csalogasd fúróját egy korhadt oszlopba.", done: "A kijárat nyitva áll." }, skip: "Kihagyás", toast: { purse: "A csempészek erszénye: +{gold} arany", out: "Az alagút a sunfordi kovácsműhely alatt jön fel." } },
   tusker: { hint: "Csalogasd Tusker rohamát egy korhadt oszlopnak!", crash: "A tető rázuhan a Királyra!" },
   assault: {
     title: 'A Barlangok kapujának ostroma',
@@ -7597,6 +7598,7 @@ export default {
     goblinShaman: "Goblin sámán",
     bombGoblin: "Bombagoblin",
     shieldBrute: "Pajzsos nyers",
+    tunnelWarden: "Alagútőr",
     mimic: "Mimik",
     bandit: 'Bandita',
     banditArcher: 'Bandita íjász',

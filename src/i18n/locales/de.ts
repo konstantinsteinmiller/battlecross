@@ -444,6 +444,7 @@ export default {
   },
   wanted: { title: "Gesucht" },
   tricks: { pot: "Der Eintopf des Kochs heilt das Rudel. Erst den Koch zum Schweigen bringen!", lever: "Ein Hebel! Zieh ihn, und die Felsbrocken rollen ins Rudel.", gallery: "Schleuderer auf dem Gerüst, außer Reichweite! Kappe den Seilpfosten, dann stürzen sie ab." },
+  under: { goal: { corridor: "Folge dem Tunnel und entzünde die Feuerschalen.", cart: "Festhalten! Lenke nach links und rechts, rolle über Fässer und Schienenlücken.", stash: "Das Schmugglerlager. Vorsicht vor der Druckplatte!", warden: "Der Tunnelwächter! Lock seinen Bohrer in einen morschen Pfeiler.", done: "Der Weg nach draußen ist frei." }, skip: "Überspringen", toast: { purse: "Die Schmugglerbeute: +{gold} Gold", out: "Der Tunnel kommt unter der Schmiede in Sunford heraus." } },
   tusker: { hint: "Lock Tuskers Ansturm in einen morschen Pfeiler!", crash: "Die Decke stürzt auf den König!" },
   assault: {
     title: 'Belagerung des Höhlentors',
@@ -7618,6 +7619,7 @@ export default {
     goblinShaman: "Goblin-Schamane",
     bombGoblin: "Bombengoblin",
     shieldBrute: "Schildbrecher-Brocken",
+    tunnelWarden: "Tunnelwächter",
     mimic: "Mimic",
     bandit: 'Bandit',
     banditArcher: 'Banditenschütze',

@@ -443,6 +443,7 @@ export default {
   },
   wanted: { title: "Qidirilmoqda" },
   tricks: { pot: "Oshpazning qozoni to‘dani davolaydi. Avval oshpazni jim qiling!", lever: "Dasta! Torting, toshlar to‘daning ustiga dumalaydi.", gallery: "Iskala ustidagi sopqonchilar yetib bo‘lmas! Ularni tushirish uchun arqon ustunini kesing." },
+  under: { goal: { corridor: "Tunnel bo‘ylab yuring va mash‘al qozonlarini yoqing.", cart: "Mahkam ushlang! Chapga-o‘ngga buring, bochkalar va relslar oralig‘i ustidan dumalab o‘ting.", stash: "Kontrabandachilar yashirinma joyi. Bosim plitasidan ehtiyot bo‘ling!", warden: "Tunnel qo‘riqchisi! Uning parmasini chirigan ustunga yo‘naltiring.", done: "Chiqish yo‘li ochiq." }, skip: "O‘tkazib yuborish", toast: { purse: "Kontrabandachilar hamyoni: +{gold} oltin", out: "Tunnel Sanfordning temirchilik ustaxonasi ostidan chiqadi." } },
   tusker: { hint: "Tuskerning hujumini chirigan ustunga yo‘naltiring!", crash: "Shift Qirolning ustiga qulaydi!" },
   assault: {
     title: 'G\'orlar darvozasini qamal qilish',
@@ -7597,6 +7598,7 @@ export default {
     goblinShaman: "Goblin shamani",
     bombGoblin: "Bombali goblin",
     shieldBrute: "Qalqonli vahshiy",
+    tunnelWarden: "Tunnel qo‘riqchisi",
     mimic: "Mimik",
     bandit: 'Qaroqchi',
     banditArcher: 'Kamonchi qaroqchi',

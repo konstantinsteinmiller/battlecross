@@ -443,6 +443,7 @@ export default {
   },
   wanted: { title: "Dicari" },
   tricks: { pot: "Panci sang juru masak menyembuhkan gerombolan. Bungkam dulu juru masaknya!", lever: "Tuas! Tarik agar batu-batu besar menggelinding ke gerombolan.", gallery: "Penembak ketapel di perancah, di luar jangkauan! Putuskan tiang talinya agar mereka jatuh." },
+  under: { goal: { corridor: "Ikuti terowongan dan nyalakan tungku api.", cart: "Berpeganglah! Belok kiri dan kanan, berguling melewati tong dan celah rel.", stash: "Gudang rahasia para penyelundup. Awas pelat tekan!", warden: "Penjaga Terowongan! Pancing bornya ke tiang yang lapuk.", done: "Jalan keluar terbuka." }, skip: "Lewati", toast: { purse: "Kantong para penyelundup: +{gold} emas", out: "Terowongan keluar di bawah pandai besi Sunford." } },
   tusker: { hint: "Pancing serudukan Tusker ke tiang yang lapuk!", crash: "Atap runtuh menimpa Sang Raja!" },
   assault: {
     title: 'Pengepungan gerbang Gua',
@@ -7597,6 +7598,7 @@ export default {
     goblinShaman: "Dukun Goblin",
     bombGoblin: "Goblin Bom",
     shieldBrute: "Brutal Berperisai",
+    tunnelWarden: "Penjaga Terowongan",
     mimic: "Mimik",
     bandit: 'Bandit',
     banditArcher: 'Bandit Pemanah',

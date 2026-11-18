@@ -444,6 +444,7 @@ export default {
   },
   wanted: { title: "Ricercato" },
   tricks: { pot: "Il pentolone del cuoco cura il branco. Zittisci prima il cuoco!", lever: "Una leva! Tirala per far rotolare i massi sul branco.", gallery: "Frombolieri sull’impalcatura, fuori portata! Taglia la corda del palo per farli cadere." },
+  under: { goal: { corridor: "Segui il tunnel e accendi i bracieri.", cart: "Tieniti forte! Sterza a sinistra e a destra, rotola sopra barili e buchi nei binari.", stash: "Il nascondiglio dei contrabbandieri. Attento alla placca a pressione!", warden: "Il Guardiano del Tunnel! Attira il suo trapano contro un pilastro marcio.", done: "La via d'uscita è aperta." }, skip: "Salta", toast: { purse: "La borsa dei contrabbandieri: +{gold} oro", out: "Il tunnel esce sotto la fucina di Sunford." } },
   tusker: { hint: "Attira la carica di Tusker contro un pilastro marcio!", crash: "Il soffitto crolla sul Re!" },
   assault: {
     title: 'Assedio alla porta delle Grotte',
@@ -7679,6 +7680,7 @@ export default {
     goblinShaman: "Sciamano goblin",
     bombGoblin: "Goblin bomba",
     shieldBrute: "Bruto scudato",
+    tunnelWarden: "Guardiano del Tunnel",
     mimic: "Mimic",
     bandit: 'Bandito',
     banditArcher: 'Arciere bandito',

@@ -443,6 +443,7 @@ export default {
   },
   wanted: { title: "Căutat" },
   tricks: { pot: "Oala bucătarului vindecă ceata. Redu mai întâi bucătarul la tăcere!", lever: "O pârghie! Trage-o ca să rostogolești bolovanii peste ceată.", gallery: "Praștieri pe schelă, la distanță! Taie coarda stâlpului ca să cadă." },
+  under: { goal: { corridor: "Urmează tunelul și aprinde jarurile.", cart: "Ține-te bine! Virează stânga și dreapta, rostogolește-te peste butoaie și goluri în șine.", stash: "Ascunzătoarea contrabandiștilor. Atenție la placa de presiune!", warden: "Paznicul Tunelului! Atrage burghiul lui într-un stâlp putred.", done: "Calea afară este deschisă." }, skip: "Sari peste", toast: { purse: "Punga contrabandiștilor: +{gold} aur", out: "Tunelul iese sub fierăria din Sunford." } },
   tusker: { hint: "Atrage atacul lui Tusker într-un stâlp putred!", crash: "Tavanul se prăbușește peste Rege!" },
   assault: {
     title: 'Asediul porții Peșterilor',
@@ -7641,6 +7642,7 @@ export default {
     goblinShaman: "Șamanul goblin",
     bombGoblin: "Goblin cu bombă",
     shieldBrute: "Brutul cu scut",
+    tunnelWarden: "Paznicul Tunelului",
     mimic: "Mimic",
     bandit: 'Bandit',
     banditArcher: 'Bandit Arcaș',

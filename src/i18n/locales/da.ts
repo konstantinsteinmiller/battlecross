@@ -443,6 +443,7 @@ export default {
   },
   wanted: { title: "Eftersøgt" },
   tricks: { pot: "Kokkens gryde heler flokken. Tag kokken først!", lever: "En arm! Træk i den, så vælter klipperne ned over flokken.", gallery: "Slyngekastere på stilladset, uden for rækkevidde! Skær rebstolpen over, så de falder ned." },
+  under: { goal: { corridor: "Følg tunnelen og tænd bækkenerne.", cart: "Hold fast! Styr til siden, rul over tønder og huller i skinnerne.", stash: "Smuglernes gemmested. Pas på trykpladen!", warden: "Tunnelvogteren! Lok hans bor ind i en rådden pille.", done: "Vejen ud er åben." }, skip: "Spring over", toast: { purse: "Smuglernes pung: +{gold} guld", out: "Tunnelen kommer op under smedjen i Sunford." } },
   tusker: { hint: "Lok Tuskers anstormning ind i en rådden pille!", crash: "Loftet styrter ned over Kongen!" },
   assault: {
     title: 'Belejringen af Hulernes port',
@@ -7597,6 +7598,7 @@ export default {
     goblinShaman: "Goblinshaman",
     bombGoblin: "Bombegoblin",
     shieldBrute: "Skjoldbrutalist",
+    tunnelWarden: "Tunnelvogter",
     mimic: "Mimic",
     bandit: 'Bandit',
     banditArcher: 'Banditbueskytte',

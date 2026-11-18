@@ -443,6 +443,7 @@ export default {
   },
   wanted: { title: "Serĉata" },
   tricks: { pot: "La poto de la kuiristo resanigas la bandon. Unue silentigu la kuiriston!", lever: "Levilo! Tiru ĝin por ruli la rokojn sur la bandon.", gallery: "Ĵetistoj sur la fasto, ekster atingo! Distranĉu la ŝnurpoŝton por faligi ilin." },
+  under: { goal: { corridor: "Sekvu la tunelon kaj ŝaltu la fajrujojn.", cart: "Tenu vin! Stiru maldekstren kaj dekstren, rulu super bareloj kaj relaj interspacoj.", stash: "La kaŝejo de la kontrabandistoj. Atentu la premplaton!", warden: "La Gardisto de la Tunelo! Logu lian boron en putran kolonon.", done: "La elirejo estas libera." }, skip: "Preterpasi", toast: { purse: "La monujo de la kontrabandistoj: +{gold} oro", out: "La tunelo eliras sub la forĝejo en Sunford." } },
   tusker: { hint: "Logu la ŝargon de Tusker en putran kolonon!", crash: "La plafono falas sur la Reĝon!" },
   assault: {
     title: 'Sieĝo de la pordego de la Kavernoj',
@@ -7597,6 +7598,7 @@ export default {
     goblinShaman: "Koboldo-ŝamano",
     bombGoblin: "Bomba koboldo",
     shieldBrute: "Ŝilda brutulo",
+    tunnelWarden: "Gardisto de la Tunelo",
     mimic: "Mimiko",
     bandit: 'Bandito',
     banditArcher: 'Bandita Pafarkisto',

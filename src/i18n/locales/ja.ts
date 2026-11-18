@@ -443,6 +443,7 @@ export default {
   },
   wanted: { title: "お尋ね者" },
   tricks: { pot: "料理人の鍋が群れを癒やしている。まず料理人を黙らせろ！", lever: "レバーだ！ 引いて、岩を群れの上に転がせ。", gallery: "足場の上のスリング兵は手が届かない！ ロープの柱を切って落とせ。" },
+  under: { goal: { corridor: "トンネルを進み、かがり火に火を灯せ。", cart: "つかまれ！ 左右に操作して、樽やレールの切れ目を転がって越えろ。", stash: "密輸業者の隠し部屋。感圧板に気をつけろ！", warden: "トンネルの番人！ ドリルを腐った柱に誘い込め。", done: "出口が開いた。" }, skip: "スキップ", toast: { purse: "密輸業者の財布：+{gold} ゴールド", out: "トンネルはサンフォードの鍛冶屋の下に出る。" } },
   tusker: { hint: "タスカーの突進を、腐った柱へ誘い込め！", crash: "天井が王の上に崩れ落ちる！" },
   assault: {
     title: '洞窟の門の攻城戦',
@@ -7597,6 +7598,7 @@ export default {
     goblinShaman: "ゴブリンシャーマン",
     bombGoblin: "爆弾ゴブリン",
     shieldBrute: "盾の大男",
+    tunnelWarden: "トンネルの番人",
     mimic: "ミミック",
     bandit: '山賊',
     banditArcher: '山賊の弓兵',

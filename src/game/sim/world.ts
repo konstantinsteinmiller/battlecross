@@ -11,6 +11,7 @@ import type { CampState } from './camp'
 import type { AssaultState } from './assault'
 import type { TrickState } from './tricks'
 import type { MimicState } from './mimic'
+import type { UnderState } from './undercroft'
 import type { RebelState } from './rebels'
 import type { CelebrationState } from './celebrate'
 import type { GateState } from './gate'
@@ -300,6 +301,8 @@ export class Sim {
   tricks: TrickState | null = null
   /** The chests that turned out to be mimics (`mimic.ts`, roadmap #225), and how many are still owed this visit. */
   mimics: MimicState[] = []
+  /** The Smugglers' Undercroft under the first level (`undercroft.ts`, roadmap #EXT-1); null elsewhere. */
+  under: UnderState | null = null
   mimicLeft = 0
   /** The Hollows' chain gang of gnome diggers while the King lives (roadmap #205, `rebels.ts`); null elsewhere. */
   rebels: RebelState | null = null

@@ -443,6 +443,7 @@ export default {
   },
   wanted: { title: "Axtarılır" },
   tricks: { pot: "Aşpazın qazanı dəstəni sağaldır. Əvvəlcə aşpazı susdur!", lever: "Qol! Onu çək, qayalar dəstənin üstünə yuvarlansın.", gallery: "Sapançılar iskelədə, əlçatmazdır! Onları endirmək üçün ip dirəyini kəs." },
+  under: { goal: { corridor: "Tuneli izlə və manqalları yandır.", cart: "Yapış! Sola-sağa yönəlt, çəlləklərin və rels boşluqlarının üstündən yuvarlan.", stash: "Qaçaqmalçıların gizlətməsi. Təzyiq lövhəsinə diqqət!", warden: "Tunel Gözətçisi! Onun buruğunu çürük sütuna yönəlt.", done: "Çıxış açıqdır." }, skip: "Keç", toast: { purse: "Qaçaqmalçıların kisəsi: +{gold} qızıl", out: "Tunel Sanfordun dəmirçixanasının altından çıxır." } },
   tusker: { hint: "Tuskerin hücumunu çürük sütuna yönəlt!", crash: "Tavan Kralın üstünə çökür!" },
   assault: {
     title: 'Mağaralar qapısının mühasirəsi',
@@ -7597,6 +7598,7 @@ export default {
     goblinShaman: "Goblin Şamanı",
     bombGoblin: "Bomba Qoblini",
     shieldBrute: "Qalxanlı Cəllad",
+    tunnelWarden: "Tunel Gözətçisi",
     mimic: "Mimik",
     bandit: 'Quldur',
     banditArcher: 'Oxatan Quldur',

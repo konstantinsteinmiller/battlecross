@@ -446,6 +446,7 @@ export default {
   },
   wanted: { title: "Hledá se" },
   tricks: { pot: "Kuchařův hrnec léčí smečku. Nejdřív umlč kuchaře!", lever: "Páka! Zatáhni a valouny se skutálejí na smečku.", gallery: "Prakovníci na lešení, mimo dosah! Přeřízni lano u sloupku a srazíš je dolů." },
+  under: { goal: { corridor: "Následuj tunel a zapal ohniště.", cart: "Drž se! Zatáčej vlevo a vpravo, přeskoč sudy a mezery v kolejích.", stash: "Pašerácká skrýš. Pozor na tlakovou desku!", warden: "Strážce tunelu! Nalákej jeho vrták do shnilého sloupu.", done: "Cesta ven je volná." }, skip: "Přeskočit", toast: { purse: "Pašerácká měna: +{gold} zlata", out: "Tunel ústí pod kovárnou v Sunfordu." } },
   tusker: { hint: "Nalákej Tuskerův nájezd do shnilého sloupu!", crash: "Strop se zřítil na Krále!" },
   assault: {
     title: 'Obléhání brány Jeskyní',
@@ -7698,6 +7699,7 @@ export default {
     goblinShaman: "Goblinský šaman",
     bombGoblin: "Goblin s bombou",
     shieldBrute: "Štítový surovec",
+    tunnelWarden: "Strážce tunelu",
     mimic: "Mimik",
     bandit: 'Bandita',
     banditArcher: 'Bandita lučištník',

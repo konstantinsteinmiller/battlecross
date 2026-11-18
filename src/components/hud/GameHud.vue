@@ -16,6 +16,7 @@
     SiegeHud(v-if="flow.screen === 'zone' && siegeHud.active")
     //- The besieged gate before the Hollows (roadmap #204): the cutscene's bars and skip, the goal, the hints, Skip Siege.
     AssaultHud(v-if="flow.screen === 'zone' && assaultHud.active && !flow.modal")
+    UndercroftHud(v-if="flow.screen === 'zone' && underHud.active && !flow.modal")
     //- The celebration after the Goblin King (roadmap #206): the film's bars, title and skip; the game's own HUD steps aside.
     CelebrateHud(v-if="flow.screen === 'zone' && celebrateHud.active && !flow.modal")
     //- The "Open" prompt on the chest in reach.
@@ -83,6 +84,8 @@ import ArenaBanner from './ArenaBanner.vue'
 import WantedPoster from './WantedPoster.vue'
 import SiegeHud from './SiegeHud.vue'
 import AssaultHud from './AssaultHud.vue'
+import UndercroftHud from './UndercroftHud.vue'
+import { underHud } from '@/game/state/underHud'
 import CelebrateHud from './CelebrateHud.vue'
 import { celebrateHud } from '@/game/state/celebrateHud'
 import { assaultHud } from '@/game/state/assaultHud'

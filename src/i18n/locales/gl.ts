@@ -444,6 +444,7 @@ export default {
   },
   wanted: { title: "Búscase" },
   tricks: { pot: "A pota do cociñeiro cura a manda. Cala primeiro o cociñeiro!", lever: "Unha panca! Tira dela para rolar as penas sobre a manda.", gallery: "Fondeiros no andamio, fóra de alcance! Corta a corda do poste para derrubalos." },
+  under: { goal: { corridor: "Segue o túnel e acende os braseiros.", cart: "Agárrate! Xira á esquerda e á dereita, rola sobre barrís e ocos da vía.", stash: "O alixo dos contrabandistas. Coidado coa placa de presión!", warden: "O Garda do Túnel! Atrae o seu trade contra un piar podre.", done: "A saída está aberta." }, skip: "Omitir", toast: { purse: "A bolsa dos contrabandistas: +{gold} de ouro", out: "O túnel sae baixo a ferrería de Sunford." } },
   tusker: { hint: "Atrae a carga de Tusker cara a un piar podre!", crash: "O teito desprómase sobre o Rei!" },
   assault: {
     title: 'Cerco á porta das Covas',
@@ -7649,6 +7650,7 @@ export default {
     goblinShaman: "Xamán goblin",
     bombGoblin: "Goblin bomba",
     shieldBrute: "Bruto do escudo",
+    tunnelWarden: "Garda do Túnel",
     mimic: "Mímico",
     bandit: 'Bandido',
     banditArcher: 'Bandido Arqueiro',

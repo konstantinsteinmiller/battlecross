@@ -443,6 +443,7 @@ export default {
   },
   wanted: { title: "Etterlyst" },
   tricks: { pot: "Kokkens gryte leger flokken. Ta kokken først!", lever: "En spak! Trekk i den, så ruller steinblokkene ned på flokken.", gallery: "Slyngekastere på stillaset, utenfor rekkevidde! Kutt tauet ved stolpen, så faller de ned." },
+  under: { goal: { corridor: "Følg tunnelen og tenn kullbekkene.", cart: "Hold deg fast! Styr til sidene, rull over tønner og hull i skinnene.", stash: "Smuglernes gjemmested. Pass deg for trykkplaten!", warden: "Tunnelvokteren! Lokk boret hans inn i en råtten påle.", done: "Veien ut er åpen." }, skip: "Hopp over", toast: { purse: "Smuglernes pung: +{gold} gull", out: "Tunnelen kommer opp under smia i Sunford." } },
   tusker: { hint: "Lokk Tuskers anløp inn i en råtten påle!", crash: "Taket styrter ned over Kongen!" },
   assault: {
     title: 'Beleiringen av Hulenes port',
@@ -7597,6 +7598,7 @@ export default {
     goblinShaman: "Goblinsjaman",
     bombGoblin: "Bombegoblin",
     shieldBrute: "Skjoldbrute",
+    tunnelWarden: "Tunnelvokter",
     mimic: "Mimic",
     bandit: 'Banditt',
     banditArcher: 'Bandittbueskytter',

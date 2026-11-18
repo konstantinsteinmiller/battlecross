@@ -443,6 +443,7 @@ export default {
   },
   wanted: { title: "Truy nã" },
   tricks: { pot: "Nồi của đầu bếp chữa lành cả bầy. Hãy hạ đầu bếp trước!", lever: "Một cần gạt! Kéo nó để lăn những tảng đá vào bầy.", gallery: "Xạ thủ ná cao su trên giàn giáo, ngoài tầm với! Cắt dây ở cột để hạ họ xuống." },
+  under: { goal: { corridor: "Đi theo đường hầm và thắp các chậu lửa.", cart: "Bám chặt! Lái sang trái phải, lăn qua thùng và khoảng trống trên đường ray.", stash: "Kho giấu của bọn buôn lậu. Coi chừng tấm áp lực!", warden: "Người Gác Hầm! Dụ mũi khoan của hắn vào một cột mục.", done: "Lối ra đã mở." }, skip: "Bỏ qua", toast: { purse: "Túi tiền của bọn buôn lậu: +{gold} vàng", out: "Đường hầm thông ra dưới lò rèn ở Sunford." } },
   tusker: { hint: "Dụ cú húc của Tusker vào một cột mục!", crash: "Mái nhà sập xuống đầu Nhà Vua!" },
   assault: {
     title: 'Vây hãm cổng Hang động',
@@ -7597,6 +7598,7 @@ export default {
     goblinShaman: "Pháp sư Goblin",
     bombGoblin: "Goblin bom",
     shieldBrute: "Lực sĩ khiên",
+    tunnelWarden: "Người Gác Hầm",
     mimic: "Mimic",
     bandit: 'Thổ Phỉ',
     banditArcher: 'Cung Thủ Thổ Phỉ',

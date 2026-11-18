@@ -444,6 +444,7 @@ export default {
   },
   wanted: { title: "Gezocht" },
   tricks: { pot: "De pot van de kok geneest de bende. Breng eerst de kok tot zwijgen!", lever: "Een hendel! Trek eraan en de rotsblokken rollen op de bende af.", gallery: "Slingeraars op de steiger, buiten bereik! Kap de touwpaal door en ze storten neer." },
+  under: { goal: { corridor: "Volg de tunnel en steek de vuurschalen aan.", cart: "Hou je vast! Stuur links en rechts, rol over vaten en gaten in de rails.", stash: "De schuilplaats van de smokkelaars. Pas op voor de drukplaat!", warden: "De Tunnelwachter! Lok zijn boor in een verrotte pilaar.", done: "De uitgang is open." }, skip: "Overslaan", toast: { purse: "De buidel van de smokkelaars: +{gold} goud", out: "De tunnel komt uit onder de smederij in Sunford." } },
   tusker: { hint: "Lok Tuskers aanval in een verrotte pilaar!", crash: "Het plafond stort op de Koning neer!" },
   assault: {
     title: 'Belegering van de poort van de Holen',
@@ -7608,6 +7609,7 @@ export default {
     goblinShaman: "Goblinsjamaan",
     bombGoblin: "Bomgoblin",
     shieldBrute: "Schildbeul",
+    tunnelWarden: "Tunnelwachter",
     mimic: "Mimic",
     bandit: 'Bandiet',
     banditArcher: 'Bandiet-boogschutter',

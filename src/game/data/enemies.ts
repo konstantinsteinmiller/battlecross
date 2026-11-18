@@ -265,6 +265,16 @@ const BASE_ENEMIES: readonly EnemyDef[] = [
       { kind: 'barrage', cd: 9, first: 5, range: 13, windup: 0.8, recover: 0.5, dmg: 1.3, r: 2, count: 3, fx: 'bomb', type: 'fire' }
     ]
   }),
+  // The Smugglers' Undercroft's warden (#EXT-1, `sim/bosses/warden.ts`): a drill-armed brute; lure his run into the rotten pillars.
+  D({
+    id: 'tunnelWarden', rank: 'boss', rig: 'humanoid', look: 'tunnelWarden', scale: 1.7, r: 0.9, h: 2.3,
+    hp: 5 * KING_HP_MUL, dmg: 1.2, armor: 2, speed: 3.4, style: 'melee', type: 'physical', range: 2.8, interval: 1.5, windup: 0.5, heavy: true,
+    aggro: 30, reward: 1, color: '#c98a4a', script: 'warden',
+    abilities: [
+      // The roof sheds rock once he is hurt.
+      { kind: 'barrage', cd: 9, first: 4, range: 13, windup: 0.9, recover: 0.5, dmg: 1.1, r: 1.8, count: 4, fx: 'rock', type: 'physical', below: 0.5 }
+    ]
+  }),
   D({
     id: 'goblinKing', rank: 'boss', rig: 'humanoid', look: 'goblinKing', scale: 1.6, r: 0.85, h: 2.2,
     hp: 6.5 * KING_HP_MUL, dmg: 1.15, armor: 2.2, speed: 3.6, style: 'melee', type: 'physical', range: 2.7, interval: 1.4, windup: 0.45, heavy: true,

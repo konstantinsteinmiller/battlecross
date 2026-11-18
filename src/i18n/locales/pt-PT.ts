@@ -444,6 +444,7 @@ export default {
   },
   wanted: { title: "Procurado" },
   tricks: { pot: "O tacho do cozinheiro cura o bando. Cala primeiro o cozinheiro!", lever: "Uma alavanca! Puxa-a para rolar os rochedos sobre o bando.", gallery: "Fundibulários no andaime, fora de alcance! Corta a corda do poste para os derrubar." },
+  under: { goal: { corridor: "Segue o túnel e acende os braseiros.", cart: "Agarra-te! Vira à esquerda e à direita, rola por cima de barris e falhas na linha.", stash: "O esconderijo dos contrabandistas. Cuidado com a placa de pressão!", warden: "O Guarda do Túnel! Atrai a sua broca para um pilar podre.", done: "A saída está aberta." }, skip: "Saltar", toast: { purse: "A bolsa dos contrabandistas: +{gold} de ouro", out: "O túnel sai debaixo da forja de Sunford." } },
   tusker: { hint: "Atrai a investida de Tusker para um pilar podre!", crash: "O teto desaba sobre o Rei!" },
   assault: {
     title: 'Cerco ao portão das Grutas',
@@ -7652,6 +7653,7 @@ export default {
     goblinShaman: "Xamã goblin",
     bombGoblin: "Goblin bomba",
     shieldBrute: "Bruto do escudo",
+    tunnelWarden: "Guarda do Túnel",
     mimic: "Mímico",
     bandit: 'Bandido',
     banditArcher: 'Arqueiro bandido',

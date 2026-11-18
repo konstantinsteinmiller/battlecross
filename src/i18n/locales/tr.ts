@@ -443,6 +443,7 @@ export default {
   },
   wanted: { title: "Aranıyor" },
   tricks: { pot: "Aşçının kazanı çeteyi iyileştiriyor. Önce aşçıyı sustur!", lever: "Bir kol! Çek, kayalar çetenin üstüne yuvarlansın.", gallery: "Askıdaki sapancılar ulaşılmaz! Onları düşürmek için ip direğini kes." },
+  under: { goal: { corridor: "Tüneli izle ve mangalları yak.", cart: "Tutun! Sağa sola yönlendir, fıçıların ve ray boşluklarının üstünden yuvarlan.", stash: "Kaçakçıların deposu. Basınç plakasına dikkat!", warden: "Tünel Bekçisi! Matkabını çürük bir direğe çek.", done: "Çıkış yolu açık." }, skip: "Atla", toast: { purse: "Kaçakçıların kesesi: +{gold} altın", out: "Tünel, Sunford'daki demirci dükkânının altından çıkıyor." } },
   tusker: { hint: "Tusker’ın hücumunu çürük bir direğe çek!", crash: "Tavan Kral’ın üstüne çöküyor!" },
   assault: {
     title: 'Mağaraların kapısının kuşatması',
@@ -7597,6 +7598,7 @@ export default {
     goblinShaman: "Goblin Şaman",
     bombGoblin: "Bombacı Goblin",
     shieldBrute: "Kalkanlı Canavar",
+    tunnelWarden: "Tünel Bekçisi",
     mimic: "Mimik",
     bandit: 'Haydut',
     banditArcher: 'Okçu Haydut',

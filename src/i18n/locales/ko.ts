@@ -443,6 +443,7 @@ export default {
   },
   wanted: { title: "현상 수배" },
   tricks: { pot: "요리사의 솥이 무리를 치유한다. 먼저 요리사를 조용히 시켜라!", lever: "레버다! 당기면 바위가 무리 위로 굴러간다.", gallery: "비계 위의 투석병은 닿지 않는다! 밧줄 기둥을 끊어 떨어뜨려라." },
+  under: { goal: { corridor: "터널을 따라가며 화로에 불을 붙여라.", cart: "꽉 잡아! 좌우로 조종하고, 통과 레일 틈 위를 굴러 넘어라.", stash: "밀수업자의 은신처. 압력판을 조심해!", warden: "터널 감시자! 그의 드릴을 썩은 기둥으로 유인해라.", done: "출구가 열렸다." }, skip: "건너뛰기", toast: { purse: "밀수업자의 주머니: +{gold} 골드", out: "터널은 선퍼드의 대장간 아래로 이어진다." } },
   tusker: { hint: "터스커의 돌진을 썩은 기둥으로 유인하라!", crash: "천장이 왕 위로 무너진다!" },
   assault: {
     title: '동굴 성문 공성전',
@@ -7597,6 +7598,7 @@ export default {
     goblinShaman: "고블린 주술사",
     bombGoblin: "폭탄 고블린",
     shieldBrute: "방패 투사",
+    tunnelWarden: "터널 감시자",
     mimic: "미믹",
     bandit: '도적',
     banditArcher: '도적 궁수',
