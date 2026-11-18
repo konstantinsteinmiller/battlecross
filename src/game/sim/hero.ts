@@ -268,6 +268,7 @@ export const castSkill = (sim: Sim, slot: number, aim: { x: number; z: number } 
   const st = slotState(sim, slot)
   const def = st.def
   if (!def || !u.alive || sim.ended === 'defeat' || sim.leaving) return false
+  if (u.noFight) { sim.emit({ t: 'denied', why: 'locked' }); return false }
   if (st.cd > 0) { sim.emit({ t: 'denied', why: 'cooldown' }); return false }
   if (st.locked) { sim.emit({ t: 'denied', why: 'locked' }); return false }
   if (st.noMana) { sim.emit({ t: 'denied', why: 'mana' }); return false }
@@ -513,6 +514,14 @@ export const stepHero = (sim: Sim, dt: number): void => {
   // A swing begun on the run goes on while he runs (VITE_APP_WALK_ATTACK).
   const swingOnRun = sim.walkAttack && u.action?.id === 'attack' && u.walkAtk && stick > 0.12
   if (!swingOnRun) u.walkAtk = false
+  // Hands full (the siege's lever or ram): whatever was ordered against a foe is dropped, and nothing new is begun.
+  if (u.noFight) {
+    if (u.action?.id === 'attack') cancelSwing(u, sim)
+    if (h.order.kind === 'attack') { h.order.kind = 'none'; h.order.targetId = 0 }
+    h.queued = null
+    u.targetId = 0
+    u.walkAtk = false
+  }
   if (u.action && !swingOnRun) {
     // A skill's wind-up roots him; a basic swing gives way to the stick (unless it is one made on the run). A
     // chest's lid and the pickaxe do not (#99): once begun, they finish.
@@ -631,7 +640,7 @@ export const stepHero = (sim: Sim, dt: number): void => {
 
   // Nothing ordered: answer whoever is on top of him.
   u.anim = 'idle'
-  if (hasStatus(u, 'stealth') || sim.leaving) return
+  if (hasStatus(u, 'stealth') || sim.leaving || u.noFight) return
   const near = nearestAwake(sim, u, u.s.atkStyle === 'melee' ? AUTO_ENGAGE : u.s.atkRange)
   if (near && (u.s.atkStyle === 'melee' || hasLineOfSight(sim.grid, u.x, u.z, near.x, near.z))) {
     h.order.kind = 'attack'
@@ -646,7 +655,7 @@ export const stepHero = (sim: Sim, dt: number): void => {
  * range. Out of range or with nobody near, the chest simply follows the legs.
  */
 const swingOnTheRun = (sim: Sim, u: Unit): void => {
-  if (hasStatus(u, 'stealth') || sim.leaving || u.truce) { u.aim = u.facing; return }
+  if (hasStatus(u, 'stealth') || sim.leaving || u.truce || u.noFight) { u.aim = u.facing; return }
   // A swing in flight keeps the chest on the foe it was made at, in reach or not.
   if (u.action?.id === 'attack') {
     const at = sim.live(u.action.targetId)

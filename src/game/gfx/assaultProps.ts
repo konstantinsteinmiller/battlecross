@@ -2,7 +2,7 @@ import { Group, Mesh, Quaternion, Vector3, type BufferGeometry, type Scene } fro
 import { sfx } from '../audio/sfx'
 import { sceneQuality } from '../engine/quality'
 import { CATAPULT_FLIGHT, CATAPULT_WIND, RAM_BLOW_GAP } from '../data/assault'
-import { ASSAULT_LAYOUT, BREACH_I0, BREACH_I1, PAL_I0, PAL_I1 } from '../sim/assaultMap'
+import { ASSAULT_LAYOUT, BREACH_I0, BREACH_I1, PAL_I0, PAL_I1, SALLY_GATE_I0, SALLY_GATE_I1 } from '../sim/assaultMap'
 import { CELL } from '../sim/grid'
 import type { SimEvent } from '../sim/types'
 import type { Sim } from '../sim/world'
@@ -116,6 +116,61 @@ const stakeOnly = (h: number, hex: string): AssaultPieceGeo => ({
 /** Half a rail, lashed to the stakes behind it. */
 const railHalf = (y: number): AssaultPieceGeo => ({ lit: [P(rbox(1.5, 0.16, 0.14, 0.3, 6, 3), OAK2, [0, y, 0.24])], glow: [] })
 
+/** The gate's half-width between its posts (m): the passage is two cells wide each side of the middle. */
+const GATE_HALF = 3.0
+/** How far the leaves swing open (rad), inward toward the cave. */
+const GATE_OPEN = 1.4
+
+/**
+ * One leaf of the great gate in its loose parts, built about its hinge (x = 0) and reaching along `s * x`:
+ * five heavy planks, the two iron bands and the diagonal brace that hold them. The leaf's centre of each
+ * part is in hinge coordinates, so a part can fall on its own when the gate is wrecked.
+ */
+const gateLeafParts = (s: 1 | -1): TowerPart[] => {
+  const parts: TowerPart[] = []
+  const add = (geos: BufferGeometry[], c: [number, number, number], long: boolean, rank: number): void => {
+    for (const g of geos) g.translate(-c[0], -c[1], -c[2])
+    parts.push({ geos, c, long, rank })
+  }
+  for (let q = 0; q < 5; q++) {
+    const x = s * (0.3 + q * 0.58)
+    add([P(rbox(0.56, 3.7, 0.2, 0.25, 4, 6), q % 2 ? OAK : OAK3, [x, 1.95, 0])], [x, 1.95, 0], true, 0.3 + q * 0.1)
+  }
+  // The iron bands run across the planks' face; the brace crosses them on top.
+  add([P(rbox(2.86, 0.2, 0.06, 0.3, 6, 3), IRON, [s * 1.45, 0.75, 0.12]), P(rbox(2.86, 0.2, 0.06, 0.3, 6, 3), IRON, [s * 1.45, 3.05, 0.12])], [s * 1.45, 1.9, 0.12], false, 0.2)
+  add([P(rbox(3.3, 0.16, 0.05, 0.3, 6, 3), OAK2, [s * 1.45, 1.9, 0.2], [0, 0, s * 0.74])], [s * 1.45, 1.9, 0.2], false, 0.1)
+  return parts
+}
+
+/** The gate's frame in its loose parts, about the gate's middle on the wall line: two stout posts and the lintel with its hide banner. */
+const gateFrameParts = (): TowerPart[] => {
+  const parts: TowerPart[] = []
+  const add = (geos: BufferGeometry[], c: [number, number, number], long: boolean, rank: number): void => {
+    for (const g of geos) g.translate(-c[0], -c[1], -c[2])
+    parts.push({ geos, c, long, rank })
+  }
+  for (const sx of [-1, 1]) {
+    const x = sx * (GATE_HALF + 0.45)
+    add([P(rbox(0.8, 4.6, 0.9, 0.18, 6, 8), OAK2, [x, 2.3, 0]), P(rbox(0.74, 0.22, 0.06, 0.3, 6, 3), IRON, [x, 4.2, 0.47]), P(rbox(0.74, 0.22, 0.06, 0.3, 6, 3), IRON, [x, 1.1, 0.47])], [x, 2.3, 0], true, 0.6 + (sx + 1) * 0.1)
+  }
+  add([
+    P(rbox(8.4, 0.62, 0.8, 0.18, 12, 4), OAK, [0, 5.0, 0]),
+    P(rbox(1.5, 1.0, 0.05, 0.4, 6, 6), RED, [0, 4.25, 0.46]),
+    P(rbox(0.5, 0.5, 0.04, 0.4, 4, 4), '#d8cfae', [0, 4.35, 0.5])
+  ], [0, 4.9, 0], false, 0.05)
+  return parts
+}
+
+/** The gate whole and shut (the bench's and the audits' drawing). */
+const gate = (): AssaultPieceGeo => ({
+  lit: [
+    ...gateFrameParts().flatMap(p => p.geos.map(g => g.translate(p.c[0], p.c[1], p.c[2]))),
+    ...gateLeafParts(1).flatMap(p => p.geos.map(g => g.translate(p.c[0] - GATE_HALF + 0.05, p.c[1], p.c[2]))),
+    ...gateLeafParts(-1).flatMap(p => p.geos.map(g => g.translate(p.c[0] + GATE_HALF - 0.05, p.c[1], p.c[2])))
+  ],
+  glow: []
+})
+
 /** The cave mouth's frame: two stone jambs, a lintel, the darkness between, a torch at each jamb. */
 const mouth = (): AssaultPieceGeo => {
   const lit: BufferGeometry[] = []
@@ -214,8 +269,8 @@ const arrow = (): BufferGeometry => merge([
 ])
 
 /** Every besieged-gate piece, as the poke-through and coplanar audits read them. */
-export const assaultPieceParts = (): Record<'tower' | 'rubble' | 'palisade' | 'mouth' | 'catapult' | 'arm' | 'lever' | 'ram' | 'log' | 'banner', AssaultPieceGeo> =>
-  ({ tower: tower(), rubble: rubble(), palisade: palisadeChunk(1), mouth: mouth(), catapult: catapult(), arm: catapultArm(), lever: lever(), ram: ram(), log: ramLog(), banner: banner() })
+export const assaultPieceParts = (): Record<'tower' | 'rubble' | 'palisade' | 'mouth' | 'catapult' | 'arm' | 'lever' | 'ram' | 'log' | 'banner' | 'gate', AssaultPieceGeo> =>
+  ({ gate: gate(), tower: tower(), rubble: rubble(), palisade: palisadeChunk(1), mouth: mouth(), catapult: catapult(), arm: catapultArm(), lever: lever(), ram: ram(), log: ramLog(), banner: banner() })
 
 const ease = (k: number): number => k * k * (3 - 2 * k)
 const _v = new Vector3()
@@ -260,7 +315,121 @@ export class AssaultProps {
   private landed = [false, false]
   private ringT = 0
   private breachT = -1
+  /** The great gate: its two leaves on their hinges, seconds since it began to open (-1: shut) and since it was wrecked. */
+  private leaves: Group[] = []
+  private gateT = -1
+  private gateWreckT = -1
+  /** The gate's loose parts: each leaf's planks and bands, then the frame. */
+  private gateTimbers: Timber[][] = [[], [], []]
+  private gateHost: Group | null = null
+  private gateCreaked = false
   private pulse = 0
+
+  /** One loose timber's step (its host's origin in the world at `ox`, `oz` for the dust): hang and shudder, fall and bounce, lie, sink and go. */
+  private stepTimber(m: Timber, ct: number, dt: number, ox: number, oz: number): void {
+    if (!m.g.visible) return
+    const gp = m.g.position
+    // Local to the host: ground is y = 0, the timber's centre starts at `c`.
+    if (m.state === 'hang') {
+      if (ct < m.delay) {
+        // A shudder before it lets go.
+        m.g.rotation.z = Math.sin(ct * 60 + m.c[0]) * 0.02 * Math.min(1, ct / Math.max(0.2, m.delay))
+        return
+      }
+      m.state = 'fall'
+    }
+    if (m.state === 'fall') {
+      m.vy -= 14 * dt
+      gp.x += m.vx * dt
+      gp.y += m.vy * dt
+      gp.z += m.vz * dt
+      m.g.rotation.x += m.wx * dt
+      m.g.rotation.z += m.wz * dt
+      if (gp.y <= m.rest) {
+        gp.y = m.rest
+        if (m.bounces < 2 && m.vy < -2) {
+          m.vy = -m.vy * 0.32
+          m.vx *= 0.5
+          m.vz *= 0.5
+          m.wx *= 0.5
+          m.wz *= 0.5
+          m.bounces++
+          if (!this.low) this.dust(ox + gp.x, oz + gp.z, 1, 0.8, '#8a6a4a')
+          if (m.bounces === 1 && Math.random() < 0.5) sfx('hitHeavy', 0, 0.35)
+        } else {
+          m.state = 'lie'
+          m.lieT = 0
+          m.vx = m.vz = m.vy = 0
+        }
+      }
+    } else {
+      // Lying: it settles flat (a stem on its side), then sinks into the ground and goes.
+      m.lieT += dt
+      const k = Math.min(1, m.lieT / 0.35)
+      m.g.rotation.x += ((m.long ? Math.PI / 2 : 0) - (m.g.rotation.x % (Math.PI * 2))) * k * 0.2
+      m.g.rotation.z += (0 - m.g.rotation.z) * k * 0.2
+      m.g.rotation.y = m.yaw
+      if (m.lieT > 1.1) gp.y = m.rest - Math.min(1, (m.lieT - 1.1) / 1.4) * 0.8
+      if (m.lieT > 2.5) m.g.visible = false
+    }
+  }
+
+  /** Build the great gate: the frame on the wall line, two leaves hinged to it, every part loose for the day it is wrecked. */
+  private buildGate(x: number, z: number): void {
+    const y = groundAt(x, z)
+    const host = new Group()
+    host.position.set(x, y, z)
+    this.root.add(host)
+    this.gateHost = host
+    const rnd = (n: number, k: number): number => ((Math.sin((n + 1) * 12.9898 + k * 78.233 + x) * 43758.5453) % 1 + 1) % 1
+    const loose = (into: Timber[], parent: Group, p: TowerPart, n: number): void => {
+      const tg = this.piece({ lit: p.geos, glow: [] }, p.c)
+      this.root.remove(tg)
+      parent.add(tg)
+      into.push({
+        g: tg, c: p.c, long: p.long, delay: p.rank * 0.5 + rnd(n, 1) * 0.25,
+        // Down and a little out toward the yard, a few tumbling the other way into the cave.
+        vx: (rnd(n, 2) - 0.5) * 1.4, vy: rnd(n, 3) * 1.1, vz: (rnd(n, 4) - 0.35) * 2.2,
+        wx: (rnd(n, 5) - 0.5) * 5, wz: (rnd(n, 6) - 0.5) * 5,
+        rest: p.long ? 0.16 : 0.28, yaw: rnd(n, 7) * Math.PI, bounces: 0, state: 'hang', lieT: 0
+      })
+    }
+    gateFrameParts().forEach((p, n) => loose(this.gateTimbers[2]!, host, p, n))
+    ;([1, -1] as const).forEach((s, side) => {
+      const leaf = new Group()
+      leaf.position.set(-s * (GATE_HALF - 0.05), 0.0, 0)
+      host.add(leaf)
+      this.leaves.push(leaf)
+      gateLeafParts(s).forEach((p, n) => loose(this.gateTimbers[side]!, leaf, p, 10 + side * 10 + n))
+    })
+  }
+
+  /** The gate's life: the bar lifts and the leaves swing in (with a lurch and a settle), then, when the siege is broken, every part comes away. */
+  private stepGate(dt: number): void {
+    if (!this.gateHost) return
+    const gx = this.gateHost.position.x
+    if (this.gateT >= 0) {
+      this.gateT += dt
+      // A shudder as the bar goes up, then the leaves swing (ease-out with a small overshoot and settle).
+      const k = Math.min(1, Math.max(0, (this.gateT - 0.3) / 1.2))
+      const over = k < 1 ? 1 - Math.pow(1 - k, 3) + Math.sin(k * Math.PI) * 0.06 : 1
+      const shake = this.gateT < 0.3 ? Math.sin(this.gateT * 90) * 0.012 : 0
+      if (!this.gateCreaked && this.gateT >= 0.3) {
+        this.gateCreaked = true
+        sfx('chest', 0, 0.8)
+        this.dust(gx, ASSAULT_LAYOUT.wallZ + 0.4, this.low ? 4 : 9, 2.4)
+      }
+      if (this.gateWreckT < 0) {
+        this.leaves[0]!.rotation.y = GATE_OPEN * over + shake
+        this.leaves[1]!.rotation.y = -GATE_OPEN * over - shake
+      }
+    }
+    if (this.gateWreckT >= 0) {
+      this.gateWreckT += dt
+      const ct = this.gateWreckT
+      for (let side = 0; side < 3; side++) for (const m of this.gateTimbers[side]!) this.stepTimber(m, ct, dt, gx + (side === 0 ? -GATE_HALF : side === 1 ? GATE_HALF : 0), ASSAULT_LAYOUT.wallZ)
+    }
+  }
 
   constructor(private sim: Sim, private vfx: Vfx, private trauma: (n: number) => void) {}
 
@@ -291,9 +460,13 @@ export class AssaultProps {
     const L = ASSAULT_LAYOUT
     // The palisade: the stakes outside the breach are one still piece; the chunks between the towers each tip over later.
     const z = L.wallZ
+    // The great gate stands in the middle of the wall, shut, until the first tower falls.
+    this.buildGate(((SALLY_GATE_I0 + SALLY_GATE_I1 + 1) / 2) * CELL, z)
     for (let i = PAL_I0; i <= PAL_I1; i += 2) {
       const x = (i + 1) * CELL
       const inBreach = i >= BREACH_I0 && i + 1 <= BREACH_I1
+      // The gate is built whole in the gap.
+      if (i >= SALLY_GATE_I0 && i + 1 <= SALLY_GATE_I1) continue
       // A tower stands in the wall where a chunk would be.
       if (L.towers.some(t => Math.abs(t.x - x) < 0.1)) continue
       if (!inBreach) { this.piece(palisadeChunk(i), [x, groundAt(x, z), z + 0.0]); continue }
@@ -451,8 +624,21 @@ export class AssaultProps {
         sfx('crowdCheer', 0, 0.8)
         this.trauma(0.5)
         break
+      case 'sally':
+        this.gateT = 0
+        sfx('bossIntro', 0, 0.8)
+        sfx('crowdRoar', 0, 0.6)
+        this.trauma(0.55)
+        break
+      case 'held':
+        sfx('crowdCheer', 0, 1)
+        this.vfx.ring(e.x, e.z + 4, 0.5, 4, '#ffd24a', 0.6)
+        break
       case 'breach':
         this.breachT = 0
+        // The gate is wrecked with the rest of the wall: every board and post lets go.
+        this.gateWreckT = 0
+        this.dust(e.x, L.wallZ + 0.5, this.low ? 6 : 16, 3.2)
         sfx('crowdRoar', 0, 1)
         this.trauma(0.7)
         break
@@ -511,53 +697,7 @@ export class AssaultProps {
         sfx('quake', 0, 0.7)
       }
       const ct = (this.collapseT[q]! += dt)
-      for (const m of this.timbers[q]!) {
-        if (!m.g.visible) continue
-        const gp = m.g.position
-        // Local to the tower's rig: ground is y = 0, the timber's centre starts at `c`.
-        if (m.state === 'hang') {
-          if (ct < m.delay) {
-            // A shudder before it lets go.
-            m.g.rotation.z = Math.sin(ct * 60 + m.c[0]) * 0.02 * Math.min(1, ct / Math.max(0.2, m.delay))
-            continue
-          }
-          m.state = 'fall'
-        }
-        if (m.state === 'fall') {
-          m.vy -= 14 * dt
-          gp.x += m.vx * dt
-          gp.y += m.vy * dt
-          gp.z += m.vz * dt
-          m.g.rotation.x += m.wx * dt
-          m.g.rotation.z += m.wz * dt
-          if (gp.y <= m.rest) {
-            gp.y = m.rest
-            if (m.bounces < 2 && m.vy < -2) {
-              m.vy = -m.vy * 0.32
-              m.vx *= 0.5
-              m.vz *= 0.5
-              m.wx *= 0.5
-              m.wz *= 0.5
-              m.bounces++
-              if (!this.low) this.dust(tw.x + gp.x, tw.z + gp.z - 1.5, 1, 0.8, '#8a6a4a')
-              if (m.bounces === 1 && Math.random() < 0.5) sfx('hitHeavy', 0, 0.35)
-            } else {
-              m.state = 'lie'
-              m.lieT = 0
-              m.vx = m.vz = m.vy = 0
-            }
-          }
-        } else {
-          // Lying: it settles flat (a stem on its side), then sinks into the ground and goes.
-          m.lieT += dt
-          const k = Math.min(1, m.lieT / 0.35)
-          m.g.rotation.x += ((m.long ? Math.PI / 2 : 0) - (m.g.rotation.x % (Math.PI * 2))) * k * 0.2
-          m.g.rotation.z += (0 - m.g.rotation.z) * k * 0.2
-          m.g.rotation.y = m.yaw
-          if (m.lieT > 1.1) gp.y = m.rest - Math.min(1, (m.lieT - 1.1) / 1.4) * 0.8
-          if (m.lieT > 2.5) m.g.visible = false
-        }
-      }
+      for (const m of this.timbers[q]!) this.stepTimber(m, ct, dt, tw.x, tw.z - 1.5)
       if (!this.landed[q] && ct > 0.9) {
         this.landed[q] = true
         this.dust(tw.x, tw.z + 1, 20, 3)
@@ -566,14 +706,16 @@ export class AssaultProps {
       }
     })
     // The palisade's middle tips over once the breach comes, chunk by chunk from the middle out.
+    this.stepGate(dt)
     if (this.breachT >= 0) {
       this.breachT += dt
       for (const c of this.chunks) {
-        const k = Math.min(1, Math.max(0, (this.breachT - c.delay) / 0.7))
+        const bt = this.breachT
+        const k = Math.min(1, Math.max(0, (bt - c.delay) / 0.7))
         // They go over INTO the cave side (toward -Z), twisting, and lie in the dust.
         c.g.rotation.x = -ease(k) * ease(k) * c.tip
         c.g.rotation.z = c.twist * ease(k)
-        c.g.position.y = c.y0 - (k >= 1 ? Math.min(1, (this.breachT - c.delay - 0.7) / 1.5) * 0.5 : 0)
+        c.g.position.y = c.y0 - (k >= 1 ? Math.min(1, (bt - c.delay - 0.7) / 1.5) * 0.5 : 0)
         if (k > 0 && c.t < 0) {
           c.t = 0
           this.dust(c.g.position.x, L.wallZ, 2, 0.6)
@@ -585,7 +727,7 @@ export class AssaultProps {
             })
           }
         }
-        if (this.breachT - c.delay > 6 && c.g.visible) c.g.visible = false
+        if (bt - c.delay > 6 && c.g.visible) c.g.visible = false
       }
     }
     // The catapults' arms: ready (forward), cranked back by the wind-up, snapped forward on release.

@@ -135,13 +135,14 @@ export const separate = (sim: Sim, dt: number): void => {
       a.kz *= k
       if (Math.abs(a.kx) + Math.abs(a.kz) < 0.05) a.kx = a.kz = 0
     }
-    if (a.rank === 'npc' || a.rank === 'turret') continue
+    if (a.rank === 'turret' || (a.rank === 'npc' && !a.crowd)) continue
     for (let j = i + 1; j < us.length; j++) {
       const b = us[j]!
       if (!b.alive) continue
       const dx = b.x - a.x
       const dz = b.z - a.z
-      const rr = (a.r + b.r) * 0.9
+      // A crowd of NPCs (the siege's party) keeps its bodies apart at full radius; everyone else at 0.9.
+      const rr = (a.r + b.r) * (a.crowd && b.crowd ? 1 : 0.9)
       const d2 = dx * dx + dz * dz
       if (d2 >= rr * rr || d2 < 1e-6) continue
       const d = Math.sqrt(d2)
@@ -149,11 +150,15 @@ export const separate = (sim: Sim, dt: number): void => {
       const nx = dx / d
       const nz = dz / d
       // The heavier body gives less; statues and turrets give nothing.
-      const fixedB = b.rank === 'npc' || b.rank === 'turret' || b.rank === 'boss' || !!b.rooted
+      const fixedB = (b.rank === 'npc' && !b.crowd) || b.rank === 'turret' || b.rank === 'boss' || !!b.rooted
       const fixedA = a.rank === 'boss' || !!a.rooted
+      // The hero is never shoved about by the party; it steps round him.
+      const heroVsCrowd = (a.rank === 'hero' && !!b.crowd) || (b.rank === 'hero' && !!a.crowd)
       if (fixedA && fixedB) continue
-      const wa = fixedA ? 0 : fixedB ? 2 : 1
-      const wb = fixedB ? 0 : fixedA ? 2 : 1
+      const heroA = heroVsCrowd && a.rank === 'hero'
+      const heroB = heroVsCrowd && b.rank === 'hero'
+      const wa = fixedA || heroA ? 0 : fixedB || heroB ? 2 : 1
+      const wb = fixedB || heroB ? 0 : fixedA || heroA ? 2 : 1
       if (wa > 0) {
         moveCircle(sim.grid, a.x, a.z, -nx * push * wa, -nz * push * wa, a.r, out2, bodyBlocks(a))
         a.x = out2[0]

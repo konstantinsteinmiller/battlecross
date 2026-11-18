@@ -1,13 +1,18 @@
 import {
   BREACH_S, CATAPULT_FLIGHT, CATAPULT_WIND, CRIES, CRY_FIRST_S, HINT_IDLE_S, LEVER_REACH, PANORAMA_S, RAM_BLOW_GAP, RAM_BLOWS, RAM_CREEP,
-  RAM_HALF_X, RAM_HALF_Z, RAM_PUSH, RAM_REACH, RAM_RIDE_Z, RAM_STOP, cryKey, cryPeriod, type Cry
+  RAM_HALF_X, RAM_HALF_Z, RAM_PUSH, RAM_REACH, RAM_RIDE_Z, RAM_STOP, SALLY_CAP_S, SALLY_FLOOR, SALLY_SWING, SALLY_SWING_GAP, SALLY_WAVES,
+  cryKey, cryPeriod, type Cry
 } from '../data/assault'
-import { ASSAULT_LAYOUT, BREACH_I0, BREACH_I1, PAL_J, palisadeCells } from './assaultMap'
+import { ASSAULT_LAYOUT, BREACH_I0, BREACH_I1, PAL_J, SALLY_GATE_I0, SALLY_GATE_I1, palisadeCells } from './assaultMap'
+import { CELL } from './grid'
+import { dealDamage } from './combat'
+import { spawnEnemy } from './spawn'
 import { face, setGoal, stop, walk } from './actors'
 import { setTempSolid } from './grid'
 import { mulberry32 } from './rng'
 import { plainStats } from './stats'
 import type { Sim } from './world'
+import type { Unit } from './types'
 
 /**
  * ─── The siege of the Hollows' gate, as the sim plays it (roadmap #204) ──────
@@ -65,7 +70,7 @@ export interface RamState {
   armed: boolean
 }
 
-export type RebelMode = 'run' | 'hack' | 'back' | 'wait' | 'charge' | 'gone'
+export type RebelMode = 'run' | 'hack' | 'back' | 'wait' | 'charge' | 'gone' | 'fight'
 export interface RebelState {
   unit: number
   who: 'goblin' | 'gnome'
@@ -74,6 +79,21 @@ export interface RebelState {
   spot: number
   /** Seconds to the next swing. */
   swing: number
+}
+
+/** The sally (#EXT-7): 'idle' until the first tower falls, 'on' while the guards fight, 'done' for good. */
+export interface SallyState {
+  state: 'idle' | 'on' | 'done'
+  /** Seconds since the gate opened. */
+  t: number
+  /** Waves sent so far. */
+  wave: number
+  guards: number[]
+  /** Guards sent, and fallen. */
+  sent: number
+  fallen: number
+  /** Every guard fell: the line held. */
+  held: boolean
 }
 
 export interface AssaultState {
@@ -98,6 +118,10 @@ export interface AssaultState {
   outcome: '' | 'won' | 'skipped'
   /** Seed of the siege's own dice (the sim's are left alone). */
   seed: number
+  /** The gate guards' sally when the first tower falls. */
+  sally: SallyState
+  /** A weaker machine: fewer guards in each wave. */
+  low: boolean
 }
 
 const SALT = 0x5ad3c71f
@@ -142,6 +166,7 @@ export const armAssault = (sim: Sim, o: { low?: boolean } = {}): void => {
       kind: who === 'gnome' ? 'rebelGnome' : 'siegeGoblin', team: 0, rank: 'npc', level: 1, x: home.x + (rng() - 0.5) * 2, z: home.z + rng() * 2, r: who === 'gnome' ? 0.28 : 0.38,
       h: who === 'gnome' ? 0.85 : 1.15, s: { ...rebelStats }, facing: Math.PI
     })
+    u.crowd = true
     rebels.push({ unit: u.id, who, mode: 'run', t: rng() * 1.2, spot, swing: rng() })
     const s = L.storm[spot]!
     setGoal(sim, u, s.x + (rng() - 0.5) * 1.4, s.z)
@@ -151,7 +176,8 @@ export const armAssault = (sim: Sim, o: { low?: boolean } = {}): void => {
     phase: 'panorama', t: 0, play: 0, idle: 0, towers,
     catapults: L.catapults.map(c => ({ state: 'ready', t: 0, dwell: 0, at: c.at })),
     ram: rams[0]!, rams,
-    rebels, cries: { t: 0, n: 0 }, arrowT: 0.6, outcome: '', seed: (sim.seed ^ SALT) >>> 0
+    rebels, cries: { t: 0, n: 0 }, arrowT: 0.6, outcome: '', seed: (sim.seed ^ SALT) >>> 0,
+    sally: { state: 'idle', t: 0, wave: 0, guards: [], sent: 0, fallen: 0, held: false }, low: !!o.low
   }
 }
 
@@ -188,6 +214,11 @@ const hitTower = (sim: Sim, q: number, blows: number): void => {
   a.idle = 0
   const tw = ASSAULT_LAYOUT.towers[q]!
   sim.emit({ t: 'assault', id: 'tower', n: q, x: tw.x, z: tw.z })
+  // The first tower of two: the gate swings open and the guards charge out (#EXT-7). Both at once: no sally.
+  if (a.sally.state === 'idle' && a.phase === 'play') {
+    if (standing(a) === 1) startSally(sim)
+    else a.sally.state = 'done'
+  }
   // The archers lose their footing.
   for (const id of t.archers) {
     const u = sim.get(id)
@@ -353,6 +384,119 @@ const keepOutOf = (sim: Sim, r: RamState): void => {
   }
 }
 
+// ─── The sally (#EXT-7) ──────────────────────────────────────────────────────
+
+const gateX = (): number => ((SALLY_GATE_I0 + SALLY_GATE_I1 + 1) / 2) * CELL
+
+/** The gate swings open: the palisade's two middle cells let go and the first wave charges out. */
+const startSally = (sim: Sim): void => {
+  const a = sim.assault!
+  const g = sim.grid
+  for (let i = SALLY_GATE_I0; i <= SALLY_GATE_I1; i++) setTempSolid(g, i, PAL_J, false)
+  a.sally.state = 'on'
+  a.sally.t = 0
+  a.idle = 0
+  sim.emit({ t: 'assault', id: 'sally', n: 0, x: gateX(), z: ASSAULT_LAYOUT.wallZ })
+}
+
+const sendWave = (sim: Sim, a: AssaultState): void => {
+  const s = a.sally
+  const w = SALLY_WAVES[s.wave]!
+  const kinds = a.low ? w.kinds.slice(0, 2) : w.kinds
+  const hero = sim.hero.unit
+  kinds.forEach((kind, k) => {
+    const x = gateX() + (k - (kinds.length - 1) / 2) * 1.1
+    // Behind the doors, far enough back that they are swung wide before the first guard reaches them.
+    const z = (PAL_J - 3.6) * CELL + (k % 2) * 0.6
+    const u = spawnEnemy(sim, kind, x, z, -1)
+    if (!u) return
+    u.awake = true
+    u.targetId = hero.id
+    // Home is the yard in front of the gate, so no leash pulls them back through it.
+    u.homeX = gateX()
+    u.homeZ = (PAL_J + 8) * CELL
+    u.facing = 0
+    s.guards.push(u.id)
+    s.sent++
+  })
+  s.wave++
+}
+
+/** How many guards still stand (or are still to come). */
+export const sallyFoes = (sim: Sim, a: AssaultState): number => {
+  if (a.sally.state !== 'on') return 0
+  let n = 0
+  for (const id of a.sally.guards) if (sim.get(id)?.alive) n++
+  for (let q = a.sally.wave; q < SALLY_WAVES.length; q++) n += a.low ? Math.min(2, SALLY_WAVES[q]!.kinds.length) : SALLY_WAVES[q]!.kinds.length
+  return n
+}
+
+/** The sally is over: the guards that are left run off (a held line has none), the rebels fall back. */
+const endSally = (sim: Sim, a: AssaultState, held: boolean): void => {
+  const s = a.sally
+  s.state = 'done'
+  s.held = held
+  for (const id of s.guards) {
+    const u = sim.get(id)
+    if (u?.alive) sim.dismiss(u)
+  }
+  const L = ASSAULT_LAYOUT
+  for (const r of a.rebels) {
+    if (r.mode !== 'fight') continue
+    const u = sim.get(r.unit)
+    if (!u) continue
+    r.mode = 'back'
+    r.t = 0
+    const home = L.rally[r.spot % L.rally.length]!
+    setGoal(sim, u, home.x + (r.spot % 3 - 1) * 1.2, home.z)
+  }
+  if (held) sim.emit({ t: 'assault', id: 'held', n: 0, x: gateX(), z: L.wallZ })
+}
+
+const stepSally = (sim: Sim, dt: number): void => {
+  const a = sim.assault!
+  const s = a.sally
+  if (s.state !== 'on') return
+  s.t += dt
+  while (s.wave < SALLY_WAVES.length && s.t >= SALLY_WAVES[s.wave]!.at) sendWave(sim, a)
+  let alive = 0
+  for (const id of s.guards) if (sim.get(id)?.alive) alive++
+  s.fallen = s.sent - alive
+  // The hero is a guest at this fight: he never goes under while it lasts.
+  const h = sim.hero.unit
+  if (h.alive && h.hp < h.s.maxHp * SALLY_FLOOR) h.hp = h.s.maxHp * SALLY_FLOOR
+  if (s.wave >= SALLY_WAVES.length && alive === 0) endSally(sim, a, true)
+  else if (s.t >= SALLY_CAP_S) endSally(sim, a, false)
+}
+
+/** One rebel in the sally: to the nearest guard, and hack at it beside the hero. */
+const fightGuard = (sim: Sim, a: AssaultState, r: RebelState, u: Unit, dt: number): void => {
+  let tgt: Unit | undefined
+  let bd = Infinity
+  for (const id of a.sally.guards) {
+    const g = sim.get(id)
+    if (!g?.alive) continue
+    const d = Math.hypot(g.x - u.x, g.z - u.z)
+    if (d < bd) { bd = d; tgt = g }
+  }
+  if (!tgt) { u.anim = 'idle'; stop(u); return }
+  if (bd > tgt.r + u.r + 0.9) {
+    u.repathT -= dt
+    if (u.repathT <= 0 || !u.hasGoal) { u.repathT = 0.4; const a = (r.unit * 2.39996) % (Math.PI * 2); const ring = tgt.r + u.r + 0.5; setGoal(sim, u, tgt.x + Math.cos(a) * ring, tgt.z + Math.sin(a) * ring) }
+    if (walk(sim, u, dt, 1.15)) u.anim = 'walk'
+    return
+  }
+  stop(u)
+  face(u, tgt.x, tgt.z)
+  r.swing -= dt
+  if (r.swing <= 0) {
+    u.anim = 'attack'
+    u.animT = 0
+    r.swing = SALLY_SWING_GAP + (r.unit % 5) * 0.06
+    dealDamage(sim, u, tgt, tgt.s.maxHp * SALLY_SWING, { type: 'physical', canCrit: false })
+  }
+}
+
 const stepRebels = (sim: Sim, dt: number): void => {
   const a = sim.assault!
   const L = ASSAULT_LAYOUT
@@ -361,6 +505,12 @@ const stepRebels = (sim: Sim, dt: number): void => {
     const u = sim.get(r.unit)
     if (!u || !u.alive || r.mode === 'gone') continue
     r.t += dt
+    // The sally: the whole party turns on the guards.
+    if (a.sally.state === 'on' && r.mode !== 'charge') {
+      if (r.mode !== 'fight') { r.mode = 'fight'; r.swing = (r.unit % 4) * 0.2 }
+      fightGuard(sim, a, r, u, dt)
+      continue
+    }
     if (r.mode === 'charge') {
       // Through the breach, into the cave.
       if (walk(sim, u, dt, 1.25)) { u.anim = 'walk'; continue }
@@ -458,6 +608,7 @@ const breach = (sim: Sim): void => {
   const a = sim.assault!
   const g = sim.grid
   for (let i = BREACH_I0; i <= BREACH_I1; i++) setTempSolid(g, i, PAL_J, false)
+  if (a.sally.state === 'on') endSally(sim, a, false)
   a.phase = 'breach'
   a.t = 0
   const L = ASSAULT_LAYOUT
@@ -475,7 +626,10 @@ const breach = (sim: Sim): void => {
 /** Every step while the siege is on. */
 export const stepAssault = (sim: Sim, dt: number): void => {
   const a = sim.assault
-  if (!a || a.phase === 'done') return
+  if (!a || a.phase === 'done') {
+    if (a && sim.hero) sim.hero.unit.noFight = false
+    return
+  }
   const h = sim.hero
   a.t += dt
   if (a.phase === 'panorama') {
@@ -500,6 +654,14 @@ export const stepAssault = (sim: Sim, dt: number): void => {
     u.anim = 'walk'
     h.order = { kind: 'none', targetId: 0, x: u.x, z: u.z }
   }
+  // Hands full: under the ram's handles or at a lever (reaching, or winding up) the hero does not fight.
+  const u = h.unit
+  u.noFight = a.phase === 'play' && u.alive && (a.ram.riding || a.catapults.some((c, q) => {
+    const lv = ASSAULT_LAYOUT.catapults[q]!.lever
+    const near = Math.hypot(lv.x - u.x, lv.z - u.z) <= LEVER_REACH + 0.4
+    return near && (c.state === 'wind' || (c.state === 'ready' && c.dwell > 0))
+  }))
+  stepSally(sim, dt)
   stepRebels(sim, dt)
   keepOutOfRam(sim)
   stepArchers(sim, dt)

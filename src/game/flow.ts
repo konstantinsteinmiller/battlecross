@@ -57,7 +57,7 @@ import { carefulMult } from './careful'
 import { BOARD } from './townTasks'
 import { lesson, mapSpot, markMet, markTip, setMapPos } from './state/profile'
 import { kingHoardPicks, type HoardPick } from './data/hoard'
-import { ASSAULT_FLAG, assaultDue } from './data/assault'
+import { ASSAULT_FLAG, assaultDue, sallyPurse } from './data/assault'
 import { rebellionDue } from './data/rebellion'
 import { PARTY_TIP, partyDue } from './data/celebrate'
 import { SIEGE_LORD, siegeEnemyLevel, type SiegeTier } from './data/siege'
@@ -485,7 +485,7 @@ const buildZone = async (node: NodeId, onProgress: (p01: number) => void, encoun
   assaultNext = false
   partyNext = false
   const mode = await ZoneMode.create(setup, gameInput(), {
-    onAssaultEnd: (how) => { void finishAssault(how) },
+    onAssaultEnd: (how, held) => { void finishAssault(how, !!held) },
     onCelebrateEnd: () => { finishCelebration() },
     onEnd: (outcome) => { void finishVisit(outcome) },
     askSecondWind: offerSecondWind,
@@ -657,7 +657,7 @@ export const travel = async (node: NodeId): Promise<void> => {
 /**
  * The besieged gate is over (roadmap #204): won or skipped, it is never played again. The Hollows proper follow at once.
  */
-export const finishAssault = async (how: 'won' | 'skipped'): Promise<void> => {
+export const finishAssault = async (how: 'won' | 'skipped', held = false): Promise<void> => {
   if (flow.loading) return
   if (!hasFlag(ASSAULT_FLAG)) profile.world.flags.push(ASSAULT_FLAG)
   saveProfile()
@@ -666,8 +666,12 @@ export const finishAssault = async (how: 'won' | 'skipped'): Promise<void> => {
   // Holding the gate to the end is paid in experience (a skip is not).
   const levelBefore = profile.level
   if (how === 'won') grantXp(siegeXp(profile.level, profile.hero.xp))
+  // The strongbox of the gate guards (#EXT-7): the sally is beaten, or a smaller one when the line broke.
+  const purse = how === 'won' ? sallyPurse(profile.level, held) : 0
+  if (purse) { profile.gold += purse; saveProfile() }
   await travel('hollows')
   if (profile.level > levelBefore) pushHud({ t: 'toast', key: 'toast.levelUp', params: { level: profile.level } })
+  if (purse) pushHud({ t: 'toast', key: 'assault.toast.purse', params: { gold: purse } })
 }
 
 /** The siege's reward: up to level 3 for a hero at level 1-2, up to level 4 at level 3, else half the level's bar. */

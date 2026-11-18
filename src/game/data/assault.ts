@@ -65,3 +65,35 @@ export const cryKey = (who: keyof typeof CRIER, cry: Cry): string => `dlg.bark.$
 export const cryPeriod = (made: number): number => (made < 3 ? 5 : made < 6 ? 13 : 20 + (((made * 2654435761) >>> 0) % 5001) / 1000)
 /** From the end of the panorama to the first cry. */
 export const CRY_FIRST_S = 1.2
+
+/**
+ * ─── The sally (roadmap #EXT-7) ──────────────────────────────────────────────
+ *
+ * When the FIRST tower falls the palisade's gate swings open and the gate guards charge out in three waves: a
+ * hold-the-line of at least `SALLY_WAVES`' last `at` seconds with the goblins and gnomes of the storming party
+ * fighting beside the hero. Beating every guard "holds the line" and pays a strongbox when the siege is won;
+ * it never fails the siege (a line that breaks is only a smaller purse): the hero is hurt at half strength and
+ * never falls below a quarter of his health while it lasts.
+ */
+export const SALLY_WAVES: ReadonlyArray<{ at: number; kinds: readonly string[] }> = [
+  { at: 0, kinds: ['goblin', 'goblin', 'goblin'] },
+  { at: 8, kinds: ['goblin', 'goblinSlinger', 'goblin'] },
+  { at: 16, kinds: ['wolf', 'goblin', 'goblin', 'goblin'] }
+]
+/** Every kind the sally can send (the scene prewarms them). */
+export const SALLY_KINDS: readonly string[] = [...new Set(SALLY_WAVES.flatMap(w => w.kinds))]
+/** The guards that are left after this long run away: the line did not hold, the purse is smaller. */
+export const SALLY_CAP_S = 40
+/** Enemy blows land this much lighter during the siege (the hero is a guest at somebody else's fight). */
+export const SALLY_FOE_MUL = 0.5
+/** The hero's health never drops below this share of his maximum while the sally lasts. */
+export const SALLY_FLOOR = 0.25
+/** A swing of a party member: this share of the guard's health, every `SALLY_SWING_GAP` s. */
+export const SALLY_SWING = 0.1
+export const SALLY_SWING_GAP = 0.9
+/** The strongbox of a held line, in gold: `base + perLevel × level`, (half of it when the line broke). */
+export const SALLY_PURSE = { base: 40, perLevel: 12 }
+export const sallyPurse = (level: number, held: boolean): number => {
+  const full = SALLY_PURSE.base + SALLY_PURSE.perLevel * Math.max(1, level)
+  return held ? full : Math.round(full / 2)
+}

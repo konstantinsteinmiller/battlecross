@@ -34,6 +34,9 @@ export const PAL_I0 = 4
 export const PAL_I1 = 31
 export const BREACH_I0 = 14
 export const BREACH_I1 = 23
+/** The great gate that swings open for the sally (#EXT-7): four cells (6 m) in the middle of the wall, on the cave mouth's axis. */
+export const SALLY_GATE_I0 = 16
+export const SALLY_GATE_I1 = 19
 /** The cave mouth's columns and rows (behind the palisade). */
 const MOUTH_I0 = 15
 const MOUTH_I1 = 20

@@ -14,7 +14,7 @@
     //- The play: the goal with its two towers, the hint, and the way out.
     template(v-if="v.phase !== 'panorama'")
       div.assault__goal(role="status")
-        span.assault__goal-text {{ v.phase === 'breach' ? t('assault.breach') : t('assault.goal') }}
+        span.assault__goal-text {{ v.phase === 'breach' ? t('assault.breach') : v.sally ? t('assault.sally', { n: v.foes }) : t('assault.goal') }}
         span.assault__pips(:aria-label="t('assault.towers', { n: 2 - v.towers, total: 2 })")
           span.assault__pip(v-for="q in 2" :key="q" :class="{ 'is-down': q <= 2 - v.towers }")
             //- A standing watchtower (stone, battlements, a slit and a banner), or its rubble with a tick once it has fallen.

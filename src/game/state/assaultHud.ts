@@ -14,6 +14,9 @@ export const assaultHud = reactive({
   towers: 2,
   /** What the player needs to hear: the two ways, the ram being pushed, or the idle reminder. */
   hint: '' as '' | 'levers' | 'pushing' | 'idle',
+  /** The sally is on (#EXT-7): the gate guards are out, and how many are left (those still to come too). */
+  sally: false,
+  foes: 0,
   /** The cutscene's progress, 0..1. */
   cut01: 0,
   /** The ram's way: where it is on the screen, and the angle (radians, screen space) toward the tower it will roll to. */
