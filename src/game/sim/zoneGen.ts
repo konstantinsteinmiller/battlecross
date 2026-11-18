@@ -259,6 +259,17 @@ export const waysTo = (p: Pick<ZonePlan, 'packs' | 'optionalPacks' | 'chests' | 
   ...(p.cageKey ? [p.cageKey] : [])
 ]
 
+/**
+ * One trick per section of the Hollows (#EXT-2), by position in the pack: the cook's camp (a shaman mends the pack: kill it first),
+ * the lane (bomb goblins run down it at the hero: dodge-roll them), the slinger gallery (slingers behind a shield brute: bash its
+ * guard open, then reach the gallery).
+ */
+const HOLLOWS_TRICKS: Record<number, Array<[number, string]>> = {
+  1: [[0, 'goblinShaman']],
+  2: [[0, 'bombGoblin'], [1, 'bombGoblin']],
+  3: [[0, 'shieldBrute'], [1, 'goblinSlinger'], [2, 'goblinSlinger']]
+}
+
 const weighted = (rng: Rng, kinds: ZoneDef['kinds']): string => {
   let total = 0
   for (const k of kinds) total += k.w
@@ -524,6 +535,8 @@ export const generateZone = (def: ZoneDef, seed: number, o: ZoneGenOpts = {}): Z
       }
       kinds.push(kind)
     }
+    // The Hollows' three set fights (#EXT-2/#EXT-3): each section has its own trick, set by who stands in the pack.
+    if (def.id === 'hollows' && !o.tutorial && !o.bare && !o.alt && HOLLOWS_TRICKS[k]) for (const [at, kind] of HOLLOWS_TRICKS[k]!) if (kinds.length > at) kinds[at] = kind
     packs.push({ x: c.x, z: c.z, r: c.r, kinds, finale: false, boss: '' })
   }
   // The first level's opening pack stands a little further up its clearing: it sees the hero later, so the cry for help and the

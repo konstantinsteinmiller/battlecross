@@ -180,6 +180,25 @@ const BASE_ENEMIES: readonly EnemyDef[] = [
     hp: 0.6, dmg: 0.85, armor: 0.3, speed: 3.2, style: 'ranged', type: 'pierce', range: 8, interval: 1.9, windup: 0.45,
     shotFx: 'rock', aggro: 10, keep: 6, reward: 0.9, color: '#9bd45a', abilities: []
   }),
+  // #EXT-3: three kinds before the King. The shaman mends the pack (kill it first); the bomb goblin runs at the hero and
+  // bursts (a dodge-roll test); the shield brute turns blows from the front until a bash (or any stun) opens its guard.
+  D({
+    id: 'goblinShaman', rank: 'normal', rig: 'humanoid', look: 'goblinShaman', scale: 0.86, r: 0.42, h: 1.2,
+    hp: 0.7, dmg: 0.7, armor: 0.3, speed: 3.1, style: 'magic', type: 'poison', range: 7, interval: 2.2, windup: 0.5,
+    shotFx: 'venom', aggro: 10, keep: 6, reward: 1.2, color: '#7dff8a',
+    abilities: [{ kind: 'heal', cd: 5, first: 2.5, range: 10, windup: 0.8, recover: 0.4, dmg: 2.4 }]
+  }),
+  D({
+    id: 'bombGoblin', rank: 'normal', rig: 'humanoid', look: 'bombGoblin', scale: 0.8, r: 0.4, h: 1.1,
+    hp: 0.45, dmg: 0.5, armor: 0, speed: 5.2, style: 'melee', type: 'physical', range: 1.4, interval: 1.6, windup: 0.3,
+    aggro: 11, reward: 1, color: '#ff8a2a', deathBlast: { r: 2.6, dmg: 2.2, type: 'fire' },
+    abilities: [{ kind: 'slam', cd: 4, first: 0.5, range: 2.4, windup: 0.65, recover: 0.3, dmg: 2.2, r: 2.6, type: 'fire', fx: 'bomb' }]
+  }),
+  D({
+    id: 'shieldBrute', rank: 'normal', rig: 'humanoid', look: 'shieldBrute', scale: 1.15, r: 0.55, h: 1.6,
+    hp: 1.7, dmg: 1.1, armor: 1.4, speed: 3.0, style: 'melee', type: 'physical', range: 1.9, interval: 1.5, windup: 0.45, heavy: true,
+    aggro: 9, reward: 1.6, color: '#9aa4b8', abilities: []
+  }),
   D({
     id: 'bandit', rank: 'normal', rig: 'humanoid', look: 'bandit', scale: 1, r: 0.46, h: 1.4,
     hp: 1.05, dmg: 1, armor: 1.2, speed: 3.4, style: 'melee', type: 'physical', range: 1.9, interval: 1.3, windup: 0.36,

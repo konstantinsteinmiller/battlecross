@@ -55,7 +55,7 @@ export const ZONES: Readonly<Record<ZoneId, ZoneDef>> = {
   },
   hollows: {
     id: 'hollows', theme: 'cave', min: 3, max: 5, sections: 4, pack: [3, 4],
-    kinds: [{ kind: 'goblin', w: 5 }, { kind: 'goblinSlinger', w: 3 }, { kind: 'wolf', w: 2 }],
+    kinds: [{ kind: 'goblin', w: 5 }, { kind: 'goblinSlinger', w: 3 }, { kind: 'wolf', w: 2 }, { kind: 'goblinShaman', w: 2 }, { kind: 'bombGoblin', w: 2 }, { kind: 'shieldBrute', w: 1.5 }],
     finale: { leader: 'tusker', with: ['goblin', 'goblinSlinger'] }
   },
   woods: {
