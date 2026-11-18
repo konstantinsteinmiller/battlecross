@@ -8090,6 +8090,7 @@ export default {
       escort: 'คาราวาน'
     },
     slay: 'ปราบ {n} × {enemy} ที่{place}',
+    hunt: "ล่า {n} × {enemy} ที่ไหนก็ได้: รางวัลก้อนโต",
     gather: 'นำ {n} × {plant} มาให้',
     escort: 'คุ้มกันคาราวานบนเส้นทางสู่โอ๊คเฮเวน',
     xp: '+{n} XP',

@@ -8101,6 +8101,7 @@ export default {
       escort: 'Karavaan'
     },
     slay: 'Versla {n} × {enemy} in {place}',
+    hunt: "Jaag op {n} × {enemy}, waar dan ook: grote beloning",
     gather: 'Breng {n} × {plant}',
     escort: 'Bewaak de karavaan op weg naar Oakhaven',
     xp: '+{n} XP',

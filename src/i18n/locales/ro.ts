@@ -8138,6 +8138,7 @@ export default {
       escort: 'Caravană'
     },
     slay: 'Învinge {n} × {enemy} în {place}',
+    hunt: "Vânează {n} × {enemy} oriunde: mare recompensă",
     gather: 'Adu {n} × {plant}',
     escort: 'Păzește caravana pe drumul spre Oakhaven',
     xp: '+{n} XP',

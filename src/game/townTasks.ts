@@ -51,12 +51,20 @@ export const taskGold = (level: number): number => 50 + level * 15
 export const TASK_XP = 0.2
 /** The caravan pays more: it is a whole journey. */
 export const ESCORT_PAY = 2
+/** A mimic hunt (#225): two or three of them, anywhere, for a big purse. */
+export const MIMIC_PAY = 4
+
+/** The mimic hunt a board posts once the hero has met one: 2 or 3 mimics in any zone. */
+export const mimicTask = (town: TownId, day: string): TownTask => {
+  const rng = mulberry32(hashSeed(`mimic:${day}:${town}`))
+  return { town, kind: 'slay', zone: '', enemy: 'mimic', plant: '', n: randInt(rng, 2, 3), have: 0, done: false }
+}
 
 /**
  * A town's tasks for a day. `zones`: the zones the hero can reach, hardest
  * last; `caravan`: the road to Oakhaven is open (its outskirts won).
  */
-export const postTasks = (town: TownId, day: string, zones: readonly ZoneId[], caravan: boolean): TownTask[] => {
+export const postTasks = (town: TownId, day: string, zones: readonly ZoneId[], caravan: boolean, mimic = false): TownTask[] => {
   const rng = mulberry32(hashSeed(`task:${day}:${town}`))
   // Hunts close to home: the reachable zones of the town's own region; a
   // hero who has gone further than that still finds work back there.
@@ -91,6 +99,8 @@ export const postTasks = (town: TownId, day: string, zones: readonly ZoneId[], c
     const t = rng() < 0.5 ? slay() : gather()
     if (t && !out.some(o => o.kind === t.kind && o.enemy === t.enemy && o.plant === t.plant && o.zone === t.zone)) out.push(t)
   }
+  // Once the hero has met a mimic, a board may ask for a few more (about half the days).
+  if (mimic && mulberry32(hashSeed(`mimicday:${day}:${town}`))() < 0.5) out.push(mimicTask(town, day))
   return out
 }
 
@@ -104,7 +114,7 @@ export interface TaskDeeds {
 export const countTaskDeeds = (list: TownTask[], d: TaskDeeds): TownTask[] => {
   const moved: TownTask[] = []
   for (const t of list) {
-    if (t.done || t.kind !== 'slay' || t.have >= t.n || t.zone !== d.zone) continue
+    if (t.done || t.kind !== 'slay' || t.have >= t.n || (t.zone !== '' && t.zone !== d.zone)) continue
     const add = d.kills[t.enemy] ?? 0
     if (add > 0) { t.have = Math.min(t.n, t.have + add); moved.push(t) }
   }

@@ -8090,6 +8090,7 @@ export default {
       escort: '상단'
     },
     slay: '{place}에서 {enemy} ×{n} 처치',
+    hunt: "어디서든 {n} × {enemy} 사냥: 큰 보상",
     gather: '{plant} ×{n} 가져오기',
     escort: '오크헤이븐 가는 길에서 상단 지키기',
     xp: '+{n} 경험치',

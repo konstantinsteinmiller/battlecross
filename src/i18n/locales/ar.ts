@@ -8442,6 +8442,7 @@ export default {
       escort: 'قافلة'
     },
     slay: 'اهزم {n} × {enemy} في {place}',
+    hunt: "اصطد {n} × {enemy} في أي مكان: مكافأة كبيرة",
     gather: 'أحضر {n} × {plant}',
     escort: 'احرس القافلة على الطريق إلى أوكهيفن',
     xp: '+{n} خبرة',

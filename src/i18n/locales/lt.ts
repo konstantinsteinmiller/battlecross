@@ -8156,6 +8156,7 @@ export default {
       escort: 'Karavanas'
     },
     slay: 'Nugalėk {n} × {enemy} — {place}',
+    hunt: "Medžiok {n} × {enemy} bet kur: didelis atlygis",
     gather: 'Atnešk {n} × {plant}',
     escort: 'Saugok karavaną kelyje į Oakhaveną',
     xp: '+{n} PT',

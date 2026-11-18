@@ -8090,6 +8090,7 @@ export default {
       escort: '隊商'
     },
     slay: '{place}で{enemy} ×{n}を倒す',
+    hunt: "どこでも {n} × {enemy} を狩れ：大きな報酬",
     gather: '{plant} ×{n}を届ける',
     escort: 'オークヘイヴンへの道で隊商を守る',
     xp: '+{n} 経験値',

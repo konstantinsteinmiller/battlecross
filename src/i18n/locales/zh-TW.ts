@@ -8090,6 +8090,7 @@ export default {
       escort: '商隊'
     },
     slay: '在{place}擊敗 {enemy} ×{n}',
+    hunt: "在任何地方獵殺 {n} × {enemy}：豐厚獎勵",
     gather: '上交 {plant} ×{n}',
     escort: '在通往奧克赫文的路上護衛商隊',
     xp: '+{n} 經驗',

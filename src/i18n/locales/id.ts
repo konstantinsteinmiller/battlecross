@@ -8090,6 +8090,7 @@ export default {
       escort: 'Kafilah'
     },
     slay: 'Kalahkan {n} × {enemy} di {place}',
+    hunt: "Buru {n} × {enemy} di mana saja: hadiah besar",
     gather: 'Bawakan {n} × {plant}',
     escort: 'Kawal kafilah di jalan menuju Oakhaven',
     xp: '+{n} XP',

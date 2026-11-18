@@ -8146,6 +8146,7 @@ export default {
       escort: 'Caravane'
     },
     slay: 'Vaincs {n} × {enemy} — {place}',
+    hunt: "Chasse {n} × {enemy} où que ce soit : grosse récompense",
     gather: 'Apporte {n} × {plant}',
     escort: 'Protège la caravane sur la route d’Oakhaven',
     xp: '+{n} XP',

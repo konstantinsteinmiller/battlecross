@@ -8186,6 +8186,7 @@ export default {
       escort: 'क़ाफ़िला'
     },
     slay: '{place} में {n} × {enemy} हराएँ',
+    hunt: "कहीं भी {n} × {enemy} का शिकार करो: बड़ा इनाम",
     gather: '{n} × {plant} लाएँ',
     escort: 'ओकहेवन के रास्ते पर क़ाफ़िले की रक्षा करें',
     xp: '+{n} XP',

@@ -8111,6 +8111,7 @@ export default {
       escort: 'Karawane'
     },
     slay: 'Besiege {n} × {enemy} in {place}',
+    hunt: "Jage {n} × {enemy}, egal wo: große Belohnung",
     gather: 'Bring {n} × {plant}',
     escort: 'Bewache die Karawane auf dem Weg nach Oakhaven',
     xp: '+{n} EP',

@@ -8210,6 +8210,7 @@ export default {
       escort: 'Karavana'
     },
     slay: 'Pobijedi {n} × {enemy} — {place}',
+    hunt: "Lovi {n} × {enemy} bilo gdje: velika nagrada",
     gather: 'Donesi {n} × {plant}',
     escort: 'Čuvaj karavanu na putu do Oakhavena',
     xp: '+{n} ISK',

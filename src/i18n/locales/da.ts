@@ -8090,6 +8090,7 @@ export default {
       escort: 'Karavane'
     },
     slay: 'Besejr {n} × {enemy} i {place}',
+    hunt: "Jag {n} × {enemy} hvor som helst: stor belønning",
     gather: 'Bring {n} × {plant}',
     escort: 'Bevogt karavanen på vejen til Oakhaven',
     xp: '+{n} XP',

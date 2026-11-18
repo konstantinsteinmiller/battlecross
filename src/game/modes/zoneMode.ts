@@ -86,7 +86,7 @@ import { POTION_CD, ROLL_CD, ROLL_DIST, cycleElixir, rollHero, useElixir, useMan
 import { nearChest, orderOpen, pickChest } from '../sim/interact'
 import { nearOre, orderMine, pickOre } from '../sim/ores'
 import { hud, hudLive, pushHud, sayBark, tickHud, type SkillSlotView, type TextKind } from '../state/hud'
-import { CAMEO_TIP, grantXp as grantProfileXp, heroBuild, loadoutActive, markTip, profile, saveProfile, TUTORIAL_NODE, tutorialLevelOpen } from '../state/profile'
+import { CAMEO_TIP, meetMimic, grantXp as grantProfileXp, heroBuild, loadoutActive, markTip, profile, saveProfile, TUTORIAL_NODE, tutorialLevelOpen } from '../state/profile'
 import { coach, hintGeo, hintPath } from '../coach'
 import { emitCrumbs, findChest, finder, peekOffset } from '../coach/nudgeFx'
 import { BOARD, BOARD_REACH } from '../townTasks'
@@ -1204,6 +1204,10 @@ export class ZoneMode implements GameMode {
           // The overseers still guard the gang: the hero is told once in a while.
           if (e.id === 'guarded') pushHud({ t: 'toast', key: 'rebels.toast.guarded' })
           else if (e.id === 'snap' && sim.rebels && sim.rebels.freed === 1) pushHud({ t: 'toast', key: 'rebels.toast.freed' })
+          break
+        case 'mimic':
+          // The first mimic the hero meets opens the boards' mimic hunts (#225).
+          if (e.id === 'wake') { meetMimic(); this.cam.addTrauma(TRAUMA_HEAVY); this.hitStop(HIT_STOP_HEAVY) }
           break
         case 'tusker':
           // The King's mount: the way to hurt him is shown once, and the crash gets its own line (#EXT-4).

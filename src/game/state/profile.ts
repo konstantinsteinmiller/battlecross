@@ -34,7 +34,7 @@ import { RECIPE_BY_ID, gradeMakes, type Grade } from '../data/smithing'
 import { ELIXIR_BY_ID, ELIXIR_CAP, ELIXIR_IDS, brewFee, isElixir, type ElixirId } from '../data/elixirs'
 import { BATTLE_MIN_ITEMS, BATTLE_ROW, CUPS_ANTE, CUPS_BONUS_ROW, CUPS_ROW, MEMORY_ROW, battleFee, cupsPayout, battleXp, gamblerTable, prizeOf } from '../gamble'
 import { DUG_FLAG, PIECES_NEEDED, TREASURE_ERRAND, TREASURE_ZONE, isPiece, piecesIn } from '../data/treasure'
-import { ESCORT_PAY, TASK_XP, countTaskDeeds, postTasks, taskGold, type TaskDeeds, type TownTask } from '../townTasks'
+import { ESCORT_PAY, MIMIC_PAY, TASK_XP, countTaskDeeds, mimicTask, postTasks, taskGold, type TaskDeeds, type TownTask } from '../townTasks'
 import { errandDef, type ErrandDef, type ErrandReward } from '../data/errands'
 import { countTalk, countVisit, errandState, handInCost, settle, type ErrandDeeds, type ErrandSave, type ErrandState, type ErrandWorld } from '../errands'
 import { FACTIONS, FRIEND_DISCOUNT, QUEST_BY_ID, REP_FRIEND, REP_MAX, REP_MIN, choiceOpen, type FactionId } from '../data/quests'
@@ -1066,11 +1066,22 @@ export const tasksOf = (town: TownId): TownTask[] => {
   const day = dayKey()
   if (profile.meta.tasks.day !== day) profile.meta.tasks = { day, towns: {} }
   if (!profile.meta.tasks.towns[town]) {
-    profile.meta.tasks.towns[town] = postTasks(town, day, reachableZones(), isNodeOpen('oakhaven'))
+    profile.meta.tasks.towns[town] = postTasks(town, day, reachableZones(), isNodeOpen('oakhaven'), !!profile.tips[MIMIC_TIP])
     saveProfile()
   }
   // The reactive list (a screen showing it follows its counts).
   return profile.meta.tasks.towns[town]!
+}
+
+/** The first mimic the hero meets (#225): from then on the boards may post a mimic hunt, and today's boards get one now. */
+export const MIMIC_TIP = 'mimicMet'
+export const meetMimic = (): void => {
+  if (profile.tips[MIMIC_TIP]) return
+  profile.tips[MIMIC_TIP] = true
+  if (profile.meta.tasks.day === dayKey()) {
+    for (const [town, list] of Object.entries(profile.meta.tasks.towns)) if (list && !list.some(t => t.enemy === 'mimic')) list.push(mimicTask(town as TownId, profile.meta.tasks.day))
+  }
+  saveProfile()
 }
 
 /** How far a task is: counted, or (gathering) what the pouch holds. */
@@ -1081,7 +1092,7 @@ export const tasksReady = (town: TownId): number => tasksOf(town).filter(taskRea
 
 /** What a task pays now. */
 export const taskPay = (t: TownTask): { gold: number; xp: number } => {
-  const k = t.kind === 'escort' ? ESCORT_PAY : 1
+  const k = t.kind === 'escort' ? ESCORT_PAY : t.enemy === 'mimic' ? MIMIC_PAY : 1
   return { gold: taskGold(profile.level) * k, xp: Math.round(xpToNext(Math.min(profile.level, heroLevelCap() - 1)) * TASK_XP * k) }
 }
 

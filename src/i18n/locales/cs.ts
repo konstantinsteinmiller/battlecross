@@ -8196,6 +8196,7 @@ export default {
       escort: 'Karavana'
     },
     slay: 'Poraz {n} × {enemy} — {place}',
+    hunt: "Ulov {n} × {enemy} kdekoli: velká odměna",
     gather: 'Přines {n} × {plant}',
     escort: 'Chraň karavanu na cestě do Oakhavenu',
     xp: '+{n} ZK',

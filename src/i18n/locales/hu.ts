@@ -8090,6 +8090,7 @@ export default {
       escort: 'Karaván'
     },
     slay: 'Győzd le: {n} × {enemy} — {place}',
+    hunt: "Vadássz {n} × {enemy} bárhol: nagy jutalom",
     gather: 'Hozz: {n} × {plant}',
     escort: 'Védd a karavánt az Oakhavenbe vezető úton',
     xp: '+{n} TP',

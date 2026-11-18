@@ -8090,6 +8090,7 @@ export default {
       escort: 'Karavano'
     },
     slay: 'Venku {n} × {enemy} en {place}',
+    hunt: "Ĉasu {n} × {enemy} ie ajn: granda rekompenco",
     gather: 'Alportu {n} × {plant}',
     escort: 'Gardu la karavanon sur la vojo al Oakhaven',
     xp: '+{n} SP',

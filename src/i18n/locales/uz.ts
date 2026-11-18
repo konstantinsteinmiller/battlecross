@@ -8090,6 +8090,7 @@ export default {
       escort: 'Karvon'
     },
     slay: 'Yeng: {n} × {enemy} ({place})',
+    hunt: "Istalgan joyda {n} × {enemy} ovlang: katta mukofot",
     gather: 'Olib kel: {n} × {plant}',
     escort: 'Oakhavenga boradigan yoʻlda karvonni qoʻriqla',
     xp: '+{n} XP',

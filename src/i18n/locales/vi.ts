@@ -8090,6 +8090,7 @@ export default {
       escort: 'Đoàn buôn'
     },
     slay: 'Hạ {n} × {enemy} ở {place}',
+    hunt: "Săn {n} × {enemy} ở bất cứ đâu: phần thưởng lớn",
     gather: 'Mang {n} × {plant} đến',
     escort: 'Bảo vệ đoàn buôn trên đường đến Oakhaven',
     xp: '+{n} XP',

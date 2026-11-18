@@ -8144,6 +8144,7 @@ export default {
       escort: 'Caravana'
     },
     slay: 'Derrota {n} × {enemy} a {place}',
+    hunt: "Caça {n} × {enemy} allà on sigui: gran recompensa",
     gather: 'Porta {n} × {plant}',
     escort: 'Protegeix la caravana pel camí d’Oakhaven',
     xp: '+{n} XP',

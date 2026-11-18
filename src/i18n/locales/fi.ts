@@ -8090,6 +8090,7 @@ export default {
       escort: 'Karavaani'
     },
     slay: 'Voita {n} × {enemy} — {place}',
+    hunt: "Metsästä {n} × {enemy} missä tahansa: iso palkkio",
     gather: 'Tuo {n} × {plant}',
     escort: 'Suojele karavaania tiellä Oakhaveniin',
     xp: '+{n} XP',

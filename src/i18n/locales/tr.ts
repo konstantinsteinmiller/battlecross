@@ -8090,6 +8090,7 @@ export default {
       escort: 'Kervan'
     },
     slay: 'Yen: {n} × {enemy} ({place})',
+    hunt: "Her yerde {n} × {enemy} avla: büyük ödül",
     gather: 'Getir: {n} × {plant}',
     escort: 'Oakhaven yolunda kervanı koru',
     xp: '+{n} TP',

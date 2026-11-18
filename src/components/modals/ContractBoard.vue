@@ -85,7 +85,7 @@ const tasks = computed<TownTask[]>(() => {
 const contractsOpen = computed(() => profile.world.cleared.filter(n => n !== 'sunford').length >= 2)
 
 const taskWhat = (k: TownTask): string =>
-  k.kind === 'slay' ? t('board.slay', { n: k.n, enemy: t(`enemy.${k.enemy}`), place: t(`node.${k.zone}.name`) })
+  k.kind === 'slay' && !k.zone ? t('board.hunt', { n: k.n, enemy: t(`enemy.${k.enemy}`) }) : k.kind === 'slay' ? t('board.slay', { n: k.n, enemy: t(`enemy.${k.enemy}`), place: t(`node.${k.zone}.name`) })
     : k.kind === 'gather' ? t('board.gather', { n: k.n, plant: t(`plant.${k.plant}.name`) })
       : t('board.escort')
 

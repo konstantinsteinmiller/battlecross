@@ -4432,6 +4432,7 @@ export default {
     'lead': 'Today\'s tasks. Hand them in here when they are done.',
     'kind': { 'slay': 'Hunt', 'gather': 'Herbs', 'escort': 'Caravan' },
     'slay': 'Defeat {n} × {enemy} in {place}',
+    'hunt': "Hunt {n} × {enemy} anywhere: a big reward",
     'gather': 'Bring {n} × {plant}',
     'escort': 'Guard the caravan on the road to Oakhaven',
     'xp': '+{n} XP',

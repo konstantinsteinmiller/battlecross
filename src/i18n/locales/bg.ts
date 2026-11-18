@@ -8168,6 +8168,7 @@ export default {
       escort: 'Керван'
     },
     slay: 'Победи {n} × {enemy} в {place}',
+    hunt: "Ловувай {n} × {enemy} навсякъде: голяма награда",
     gather: 'Донеси {n} × {plant}',
     escort: 'Пази кервана по пътя за Оукхейвън',
     xp: '+{n} опит',

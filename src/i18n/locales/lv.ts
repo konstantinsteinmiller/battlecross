@@ -8170,6 +8170,7 @@ export default {
       escort: 'Karavāna'
     },
     slay: 'Uzvari {n} × {enemy} — {place}',
+    hunt: "Medī {n} × {enemy} jebkur: liela balva",
     gather: 'Atnes {n} × {plant}',
     escort: 'Sargā karavānu ceļā uz Oukheivenu',
     xp: '+{n} pieredze',
