@@ -169,7 +169,7 @@ export default {
   intro: {
     narrator: 'Kronikarz',
     skip: 'Pomiń',
-    later: 'Miesiąc później…',
+    later: 'Kilka godzin później…',
     holdKey: 'Przytrzymaj {key}, aby pominąć',
     holdTouch: 'Przytrzymaj, aby pominąć',
     replay: 'Obejrzyj intro'
@@ -257,6 +257,8 @@ export default {
     potionStop: 'Wypij miksturę zdrowia, aby kontynuować',
     rollStop: 'Zrób unik i wyjdź ze strefy zagrożenia!',
     rollStopKey: 'Spacja',
+    bagHint: 'Otwórz plecak i ekwipunek z portretu, tak samo jak w mieście!',
+    bashStop: 'Przerwij atak za pomocą {skill}!',
     minimap: 'Mapa miasta: nauczyciele, kupcy, kowale i uzdrowiciele',
     groups: 'Pokonane grupy wrogów: {n} z {total}',
     wave: 'Fala {n} / {total}',
@@ -6346,7 +6348,7 @@ export default {
       }
     },
     bark: {
-      hero: { cage: { 1: 'Czy ktoś woła o pomoc?' }, hunt: { 1: 'Ktoś jeszcze poluje na tę bestię.' } },
+      hero: { cage: { 1: 'Czy ktoś woła o pomoc?' }, hunt: { 1: 'Ktoś jeszcze poluje na tę bestię.' }, levelUp: { 1: 'Jestem silniejszy!' } },
       trainerPyro: { help: { 1: 'Pomocy, ktokolwiek!' } },
       sbMasterSoulwarden: { help: { 1: 'Porwano nas!' } },
       sbMasterIronmonk: { help: { 1: 'Potwory! Pomocy!' } },
@@ -7687,6 +7689,7 @@ export default {
     goblinSlinger: 'Goblin procarz',
     bandit: 'Bandyta',
     banditArcher: 'Bandyta łucznik',
+    banditRaider: 'Bandyta najeźdźca',
     wolf: 'Wilk',
     banditChief: 'Herszt bandytów',
     gnome: 'Gnom',

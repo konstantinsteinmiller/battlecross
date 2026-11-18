@@ -58,6 +58,9 @@
       //- Dragged off the button: the arrow says "let go on the field".
       span.slot__aim(aria-hidden="true")
         GameIcon(name="up")
+      //- The tutorial's shield-bash stop (#216): the world waits for this skill.
+      span.slot__stop(v-if="hud.bashStop && hud.bashSlot === s.slot" data-bash-stop role="img" :aria-label="t('hud.bashStop', { skill: t(`skill.${s.v.id}.name`) })")
+        GameIcon(name="up")
       span.slot__flash(aria-hidden="true")
     //- The belt: one tap each, never aimed. A flask with nothing left dims
     //- but stays, so the bar never jumps.
@@ -101,6 +104,14 @@
           span.roll-spot__keys(v-if="hud.device === 'mouse'")
             KeyCap.roll-spot__key(:code="rollCode")
             span.roll-spot__name {{ t('hud.rollStopKey') }}
+    //- The shield-bash stop's lightbox: a hole over the stun skill's button, what to do, and the key to press.
+    Teleport(to="body")
+      div.potion-spot(v-if="hud.bashStop && bashSpot" data-bash-spot aria-hidden="true")
+        span.potion-spot__hole(:style="bashSpot")
+        span.potion-spot__text
+          | {{ t('hud.bashStop', { skill: t(`skill.${hud.skills[hud.bashSlot]?.id}.name`) }) }}
+          span.roll-spot__keys(v-if="hud.device === 'mouse'")
+            KeyCap.roll-spot__key(:code="keyCode(hud.bashSlot)")
     //- A new player's mana flask arrives with the first mana potion (`coach/reveal.ts`).
     Transition(name="reveal")
       button.slot.slot--potion.slot--mana(
@@ -300,6 +311,7 @@ onUnmounted(() => {
   release()
   cancelAnimationFrame(spotRaf)
   cancelAnimationFrame(rollRaf)
+  cancelAnimationFrame(bashRaf)
 })
 
 // ── The potion stop's lightbox (#154) ────────────────────────────────────────
@@ -342,6 +354,25 @@ watch(() => hud.rollStop, (on) => {
   cancelAnimationFrame(rollRaf)
   if (on) followRollSpot()
   else rollSpot.value = null
+}, { immediate: true })
+
+// ── The shield-bash stop's lightbox (#216) ───────────────────────────────────
+const bashSpot = ref<Record<string, string> | null>(null)
+let bashRaf = 0
+const followBashSpot = (): void => {
+  const r = document.querySelector<HTMLElement>(`[data-skill-slot="${hud.bashSlot}"]`)?.getBoundingClientRect()
+  if (r && r.width > 0) {
+    const pad = r.width * 0.16
+    const next = { left: `${r.left - pad}px`, top: `${r.top - pad}px`, width: `${r.width + pad * 2}px`, height: `${r.height + pad * 2}px` }
+    const s = bashSpot.value
+    if (!s || s.left !== next.left || s.top !== next.top || s.width !== next.width || s.height !== next.height) bashSpot.value = next
+  }
+  if (hud.bashStop) bashRaf = requestAnimationFrame(followBashSpot)
+}
+watch(() => hud.bashStop, (on) => {
+  cancelAnimationFrame(bashRaf)
+  if (on) followBashSpot()
+  else bashSpot.value = null
 }, { immediate: true })
 
 // ── Tap and drag-to-aim ──────────────────────────────────────────────────────

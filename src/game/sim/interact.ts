@@ -4,7 +4,8 @@ import {
   POTION_BELT_MAX, POTION_HEAL, ZONE_LOOT, finaleGold, manaPotionGold, secretGold, type ChestTable, type ChestTier
 } from '../data/loot'
 import { face, setGoal, stop } from './actors'
-import { heal } from './combat'
+import { grantXp, heal } from './combat'
+import { xpToNext } from '../data/progression'
 import { SOLID_SEALED, setCellBit } from './grid'
 import { mulberry32, type Rng } from './rng'
 import { spawnEnemy } from './spawn'
@@ -177,7 +178,11 @@ export const openChest = (sim: Sim, c: ChestState): void => {
   if (h.opening === c.id) h.opening = -1
   if (c.special) sim.specialOpened.push(c.special)
   sim.emit({ t: 'chest', id: c.id, x: c.x, z: c.z, state: 'open' })
-  if (c.role === 'cage') freeCaptives(sim, c)
+  if (c.role === 'cage') {
+    freeCaptives(sim, c)
+    // Freeing people is worth experience, paid at once (about an eighth of the bar).
+    grantXp(sim, Math.round(xpToNext(sim.hero.level) * 0.12))
+  }
   const at = spillOf(c)
   const pool = c.role === 'finale' ? sim.dropTable.chest.concat(sim.dropTable.mob) : sim.invaded && sim.dropTable.infernal?.length ? sim.dropTable.infernal : ZONE_LOOT[sim.zone as ZoneId]?.items ?? []
   // Every pile in the chest is one purse (and one number over it).
@@ -270,7 +275,11 @@ export const stepPlates = (sim: Sim): void => {
       p.step++
       p.solved = p.step >= p.order.length
       sim.emit({ t: 'plate', id: pl.id, x: pl.x, z: pl.z, ok: true, step: p.step, solved: p.solved })
-      if (p.solved) openDoor(sim, p.door)
+      if (p.solved) {
+        openDoor(sim, p.door)
+        // Solving the puzzle is worth experience: a fifth of the bar to the next level.
+        grantXp(sim, Math.round(xpToNext(sim.hero.level) / 5))
+      }
       continue
     }
     // Out of turn: every plate goes dark, with no other punishment. If this

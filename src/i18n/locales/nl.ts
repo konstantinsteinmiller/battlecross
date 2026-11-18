@@ -169,7 +169,7 @@ export default {
   intro: {
     narrator: 'De Kroniekschrijver',
     skip: 'Overslaan',
-    later: '1 maand later…',
+    later: 'Een paar uur later…',
     holdKey: 'Houd {key} ingedrukt om over te slaan',
     holdTouch: 'Ingedrukt houden om over te slaan',
     replay: 'Intro bekijken'
@@ -257,6 +257,8 @@ export default {
     potionStop: 'Drink een genezingsdrankje om verder te gaan',
     rollStop: 'Rol weg uit de gevarenzone!',
     rollStopKey: 'Spatiebalk',
+    bagHint: 'Open je tas en uitrusting via je portret, net als in de stad!',
+    bashStop: 'Stop de aanval met {skill}!',
     minimap: 'Stadskaart: leraren, handelaars, smeden en genezers',
     groups: '{n} van {total} vijandelijke groepen verslagen',
     wave: 'Golf {n} / {total}',
@@ -6258,7 +6260,7 @@ export default {
       }
     },
     bark: {
-      hero: { cage: { 1: 'Schreeuwt daar iemand om hulp?' }, hunt: { 1: 'Iemand anders jaagt ook op dat beest.' } },
+      hero: { cage: { 1: 'Schreeuwt daar iemand om hulp?' }, hunt: { 1: 'Iemand anders jaagt ook op dat beest.' }, levelUp: { 1: 'Ik ben sterker geworden!' } },
       trainerPyro: { help: { 1: 'Help, is daar iemand!' } },
       sbMasterSoulwarden: { help: { 1: 'We zijn ontvoerd!' } },
       sbMasterIronmonk: { help: { 1: 'Monsters! Help!' } },
@@ -7597,6 +7599,7 @@ export default {
     goblinSlinger: 'Goblin-slingeraar',
     bandit: 'Bandiet',
     banditArcher: 'Bandiet-boogschutter',
+    banditRaider: 'Bandiet-plunderaar',
     wolf: 'Wolf',
     banditChief: 'Bandietenleider',
     gnome: 'Gnoom',

@@ -62,6 +62,6 @@ export const CRIES = ['down', 'nomore', 'free'] as const
 export type Cry = (typeof CRIES)[number]
 export const CRIER = { goblin: 'rebelGoblin', gnome: 'rebelGnome' } as const
 export const cryKey = (who: keyof typeof CRIER, cry: Cry): string => `dlg.bark.${CRIER[who]}.${cry}.1`
-export const cryPeriod = (made: number): number => (made < 3 ? 3 : made < 6 ? 8 : 12 + (((made * 2654435761) >>> 0) % 3001) / 1000)
+export const cryPeriod = (made: number): number => (made < 3 ? 5 : made < 6 ? 13 : 20 + (((made * 2654435761) >>> 0) % 5001) / 1000)
 /** From the end of the panorama to the first cry. */
 export const CRY_FIRST_S = 1.2

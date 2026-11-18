@@ -57,7 +57,12 @@ import { getSong, songSeconds, stepSeconds, makeOut, playStep, SONG_IDS, PERCUSS
 import { songFor, shouldRotate, keepsPlaying, playMusic, playJingle, stopMusic, currentMusic, isMusicRunning, setCueClock, ROTATION_SIZE, ROTATE_AFTER_S } from '@/game/audio/music'
 import { trackForTheme, THEME_IDS } from '@/game/audio/themes'
 import { ZONES, TOWNS } from '@/game/data/zones'
-import { INTRO_ACTS, INTRO_LENGTH, LABEL_AT } from '@/game/intro/script'
+import { INTRO_ACTS as ALL_ACTS, INTRO_LENGTH as ALL_LENGTH, LABEL_AT as ALL_LABEL, PRE_S } from '@/game/intro/script'
+
+/** The film's own beats, counted from the second the two heroes arrive (the cue and the cameo are cut to that clock; the player's fight before it, #217, has its own). */
+const INTRO_ACTS = ALL_ACTS.filter(b => b.who !== 'dragon' && b.act !== 'counter' && b.act !== 'stomp').map(b => ({ ...b, at: b.at - PRE_S }))
+const INTRO_LENGTH = ALL_LENGTH - PRE_S
+const LABEL_AT = ALL_LABEL - PRE_S
 import { useMusic, setMusicTrack, setBossMusic, isBossMusic, startIntroMusic, stopIntroMusic } from '@/use/useSound'
 import useUser from '@/use/useUser'
 import { setPlatformAudioMuted } from '@/use/useGamePauseAudio'
@@ -550,7 +555,7 @@ describe('the intro fight: the cue itself', () => {
     for (let s = 0; s < CUE.steps.length; s++) expect(crowd(s), `step ${s}`).toBeLessThanOrEqual(crowd(at))
   })
 
-  it('falls away with the film: the last chord under "1 month later…" is D major, and the cue is over with the film', () => {
+  it('falls away with the film: the last chord under "A few hours later…" is D major, and the cue is over with the film', () => {
     const last = Math.max(...pitched(CUE).map(e => e.at))
     expect(film(last)).toBeGreaterThan(LABEL_AT)
     const final = pitched(CUE).filter(e => e.i === 'strings').reduce((a, e) => Math.max(a, e.at), 0)

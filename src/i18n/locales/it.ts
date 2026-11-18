@@ -169,7 +169,7 @@ export default {
   intro: {
     narrator: 'Il Cronista',
     skip: 'Salta',
-    later: '1 mese dopo…',
+    later: 'Qualche ora dopo…',
     holdKey: 'Tieni premuto {key} per saltare',
     holdTouch: 'Tieni premuto per saltare',
     replay: 'Guarda l’intro'
@@ -257,6 +257,8 @@ export default {
     potionStop: 'Bevi una pozione di salute per continuare',
     rollStop: 'Schiva fuori dalla zona di pericolo!',
     rollStopKey: 'Spazio',
+    bagHint: 'Apri zaino ed equipaggiamento dal tuo ritratto, proprio come in città!',
+    bashStop: "Interrompi l'attacco con {skill}!",
     minimap: 'Mappa della città: maestri, mercanti, fabbri e guaritori',
     groups: '{n} gruppi di nemici sconfitti su {total}',
     wave: 'Ondata {n} / {total}',
@@ -6327,7 +6329,7 @@ export default {
       }
     },
     bark: {
-      hero: { cage: { 1: 'Qualcuno sta gridando aiuto?' }, hunt: { 1: 'Qualcun altro sta dando la caccia a quella bestia.' } },
+      hero: { cage: { 1: 'Qualcuno sta gridando aiuto?' }, hunt: { 1: 'Qualcun altro sta dando la caccia a quella bestia.' }, levelUp: { 1: 'Sono diventato più forte!' } },
       trainerPyro: { help: { 1: 'Aiuto, c’è qualcuno?' } },
       sbMasterSoulwarden: { help: { 1: 'Siamo stati rapiti!' } },
       sbMasterIronmonk: { help: { 1: 'Mostri! Aiuto!' } },
@@ -7668,6 +7670,7 @@ export default {
     goblinSlinger: 'Goblin fromboliere',
     bandit: 'Bandito',
     banditArcher: 'Arciere bandito',
+    banditRaider: 'Bandito predone',
     wolf: 'Lupo',
     banditChief: 'Capo dei banditi',
     gnome: 'Gnomo',

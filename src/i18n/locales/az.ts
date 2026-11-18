@@ -169,7 +169,7 @@ export default {
   intro: {
     narrator: 'Salnaməçi',
     skip: 'Keç',
-    later: '1 ay sonra…',
+    later: 'Bir neçə saat sonra…',
     holdKey: 'Keçmək üçün {key} düyməsini basılı saxla',
     holdTouch: 'Keçmək üçün basılı saxla',
     replay: 'Girişə bax'
@@ -257,6 +257,8 @@ export default {
     potionStop: 'Davam etmək üçün sağlamlıq iksiri iç',
     rollStop: 'Təhlükə zonasından yayın!',
     rollStopKey: 'Boşluq',
+    bagHint: 'Çantanı və təchizatını portretindən aç, necə ki şəhərdə!',
+    bashStop: 'Hücumu {skill} ilə dayandır!',
     minimap: 'Şəhər xəritəsi: müəllimlər, tacirlər, dəmirçilər və şəfaçılar',
     groups: '{total} düşmən dəstəsindən {n} məğlub edildi',
     wave: 'Dalğa {n} / {total}',
@@ -6247,7 +6249,7 @@ export default {
       }
     },
     bark: {
-      hero: { cage: { 1: 'Kimsə kömək üçün qışqırır?' }, hunt: { 1: 'O vəhşini başqa biri də ovlayır.' } },
+      hero: { cage: { 1: 'Kimsə kömək üçün qışqırır?' }, hunt: { 1: 'O vəhşini başqa biri də ovlayır.' }, levelUp: { 1: 'Güclənmişəm!' } },
       trainerPyro: { help: { 1: 'Kömək, kimsə!' } },
       sbMasterSoulwarden: { help: { 1: 'Bizi qaçırdılar!' } },
       sbMasterIronmonk: { help: { 1: 'Canavarlar! Kömək!' } },
@@ -7586,6 +7588,7 @@ export default {
     goblinSlinger: 'Sapandçı Qoblin',
     bandit: 'Quldur',
     banditArcher: 'Oxatan Quldur',
+    banditRaider: 'Quldur basqınçı',
     wolf: 'Canavar',
     banditChief: 'Quldurbaşı',
     gnome: 'Qnom',

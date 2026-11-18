@@ -854,3 +854,8 @@ The demo/unlock is built (`app-store-submission.md`, "In-App Purchase") but was 
 - **The pause between "Fight me" and the name** is now a QA rule (`pause` in `LINE_DELIVERY`, `tools/voice/pause.mjs`): measured at the line's comma from Whisper's word times, 0.12–0.25 s. Shipped takes: en 0.23 s, de 0.23 s, fr 0.21 s, es 0.21 s, ru 0.14 s, ja 0.15 s, pt 0.12 s, zh 0.17 s. With a plain comma the model ran the two together (0.00–0.09 s); en/de/ru read a dash, fr an exclamation, and zh 梦演 for the rare 魇 (read back as 梦口 before; `SAY` in `tools/voice/collect.mjs`). **Listen** in `pnpm voice:review` (search "fight"): the Spanish take was read back as "Pedea" (QA forgives one word in a short line); if it says "Pedea", reject it there and `voice:gen --rejected` re-voices it.
 - **The name in each language** is the language's word for nightmare used as a name (Albtraum, Cauchemar, Pesadilla, Кошмар, 梦魇, vocatives where the language has them: Noční můro, Koszmarze, Košmare, Coșmarule…); Japanese and Korean use the loanword (ナイトメア, 나이트메어), which reads as a name there. Say if he should call it something else.
 - **The core voice list grew to 366** (its limit was 365) for the shout in fr/es/ru/ja/pt/zh, as the cameo's first lines did.
+
+
+### German ElevenLabs voice-over (#219)
+
+All 1,612 German lines are voiced with ElevenLabs. Seven of them (frostDisciple.hello.2, the two class.say lines, windrunner bye, wanderer trial, Silverbridge bridge.2, Aether fight) shipped with the Whisper read-back switched off: it misheard names or wanted a longer pause. Nothing was listened to by ear: please listen to a few German scenes, and to those seven.

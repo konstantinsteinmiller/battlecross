@@ -121,6 +121,17 @@ export default {
       scenarios: { success: 'cinematic-trailer' }
     },
 
+    // YouTube Shorts: vertical 1080×1920, a boss fight start to finish in 24 s (a Short may run to 3 minutes; 20–30 s is where the
+    // loop pays). On demand, named scenarios only: `pnpm preview:video --formats shorts --scenarios short-king-win,short-jarl-win,short-ember-fail,short-jarl-fail`.
+    shorts: {
+      onDemand: true,
+      durationMs: 24_000,
+      quality: ['high'],
+      orientations: {
+        portrait: { width: 1080, height: 1920, dpr: 2, isMobile: false, hasTouch: false }
+      }
+    },
+
     poki: {
       durationMs: 5_000,
       fps: 60,

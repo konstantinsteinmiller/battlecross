@@ -169,7 +169,7 @@ export default {
   intro: {
     narrator: 'कथावाचक',
     skip: 'छोड़ें',
-    later: '1 महीने बाद…',
+    later: 'कुछ घंटों बाद…',
     holdKey: 'छोड़ने के लिए {key} दबाए रखें',
     holdTouch: 'छोड़ने के लिए दबाए रखें',
     replay: 'इंट्रो देखें'
@@ -257,6 +257,8 @@ export default {
     potionStop: 'आगे बढ़ने के लिए हेल्थ पोशन पिएँ',
     rollStop: 'खतरे के क्षेत्र से बचकर निकलो!',
     rollStopKey: 'स्पेस',
+    bagHint: 'अपने चित्र से अपना थैला और साज-सामान खोलो, बिल्कुल शहर की तरह!',
+    bashStop: '{skill} से हमले को रोको!',
     minimap: 'नगर का नक्शा: शिक्षक, व्यापारी, लोहार और वैद्य',
     groups: 'दुश्मनों के {total} में से {n} दल हारे',
     wave: 'लहर {n} / {total}',
@@ -6337,7 +6339,7 @@ export default {
       }
     },
     bark: {
-      hero: { cage: { 1: 'क्या कोई मदद के लिए चिल्ला रहा है?' }, hunt: { 1: 'कोई और भी उस जानवर का शिकार कर रहा है।' } },
+      hero: { cage: { 1: 'क्या कोई मदद के लिए चिल्ला रहा है?' }, hunt: { 1: 'कोई और भी उस जानवर का शिकार कर रहा है।' }, levelUp: { 1: 'मैं और मज़बूत हो गया!' } },
       trainerPyro: { help: { 1: 'बचाओ, कोई है!' } },
       sbMasterSoulwarden: { help: { 1: 'हमारा अपहरण हो गया है!' } },
       sbMasterIronmonk: { help: { 1: 'राक्षस! बचाओ!' } },
@@ -7678,6 +7680,7 @@ export default {
     goblinSlinger: 'गॉब्लिन गुलेलबाज़',
     bandit: 'डाकू',
     banditArcher: 'डाकू तीरंदाज़',
+    banditRaider: 'डाकू लुटेरा',
     wolf: 'भेड़िया',
     banditChief: 'डाकुओं का सरदार',
     gnome: 'ग्नोम',

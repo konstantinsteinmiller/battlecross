@@ -169,7 +169,7 @@ export default {
   intro: {
     narrator: 'Le Chroniqueur',
     skip: 'Passer',
-    later: '1 mois plus tard…',
+    later: 'Quelques heures plus tard…',
     holdKey: 'Maintenez {key} pour passer',
     holdTouch: 'Maintenez pour passer',
     replay: 'Revoir l’intro'
@@ -257,6 +257,8 @@ export default {
     potionStop: 'Bois une potion de soin pour continuer',
     rollStop: 'Esquive hors de la zone de danger !',
     rollStopKey: 'Espace',
+    bagHint: 'Ouvre ton sac et ton équipement depuis ton portrait, comme en ville !',
+    bashStop: "Interromps l'attaque avec {skill} !",
     minimap: 'Plan de la ville : maîtres, marchands, forgerons et guérisseurs',
     groups: '{n} groupes d’ennemis vaincus sur {total}',
     wave: 'Vague {n} / {total}',
@@ -6296,7 +6298,7 @@ export default {
       }
     },
     bark: {
-      hero: { cage: { 1: 'Quelqu’un crie à l’aide ?' }, hunt: { 1: 'Quelqu’un d’autre traque cette bête.' } },
+      hero: { cage: { 1: 'Quelqu’un crie à l’aide ?' }, hunt: { 1: 'Quelqu’un d’autre traque cette bête.' }, levelUp: { 1: 'Je suis devenu plus fort !' } },
       trainerPyro: { help: { 1: 'À l’aide, quelqu’un !' } },
       sbMasterSoulwarden: { help: { 1: 'On nous a enlevés !' } },
       sbMasterIronmonk: { help: { 1: 'Des monstres ! Au secours !' } },
@@ -7637,6 +7639,7 @@ export default {
     goblinSlinger: 'Gobelin frondeur',
     bandit: 'Bandit',
     banditArcher: 'Archer bandit',
+    banditRaider: 'Bandit pillard',
     wolf: 'Loup',
     banditChief: 'Chef des bandits',
     gnome: 'Gnome',

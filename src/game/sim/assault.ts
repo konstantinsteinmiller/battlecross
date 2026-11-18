@@ -134,11 +134,12 @@ export const armAssault = (sim: Sim, o: { low?: boolean } = {}): void => {
   const rebels: RebelState[] = []
   const n = o.low ? 8 : 15
   for (let q = 0; q < n; q++) {
-    const who: 'goblin' | 'gnome' = q % 5 === 4 || q % 5 === 2 ? 'gnome' : 'goblin'
+    // Half the storming party are the freed gnomes (#215), the other half yellow-skinned goblins.
+    const who: 'goblin' | 'gnome' = q % 2 === 1 ? 'gnome' : 'goblin'
     const spot = q % L.storm.length
     const home = L.rally[q % L.rally.length]!
     const u = sim.addUnit({
-      kind: who, team: 0, rank: 'npc', level: 1, x: home.x + (rng() - 0.5) * 2, z: home.z + rng() * 2, r: who === 'gnome' ? 0.28 : 0.38,
+      kind: who === 'gnome' ? 'rebelGnome' : 'siegeGoblin', team: 0, rank: 'npc', level: 1, x: home.x + (rng() - 0.5) * 2, z: home.z + rng() * 2, r: who === 'gnome' ? 0.28 : 0.38,
       h: who === 'gnome' ? 0.85 : 1.15, s: { ...rebelStats }, facing: Math.PI
     })
     rebels.push({ unit: u.id, who, mode: 'run', t: rng() * 1.2, spot, swing: rng() })

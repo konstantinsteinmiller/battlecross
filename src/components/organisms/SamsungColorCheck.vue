@@ -27,6 +27,7 @@ import { samsungCheckDue, setSamsungFixChoice } from '@/use/useSamsungFix'
 import { isForcedDarkBlocking } from '@/use/useForcedDarkModeGuard'
 import { acquireModalOpen, isAnyModalOpen } from '@/use/useModalState'
 import { isAdShowing } from '@/use/useGamePause'
+import { introBoot, introPlaying } from '@/game/intro/state'
 
 const { t } = useI18n()
 
@@ -39,10 +40,12 @@ const CALM_MS = 2500
 // The game's own state, imported lazily so this always-mounted component does not pull the game chunk in at boot.
 const flowRef = shallowRef<null | { screen: string; loading: boolean; modal: string; talk: string; encounter: unknown }>(null)
 const runsRef = shallowRef<null | { stats: { runs: number } }>(null)
+let needsHero: () => boolean = () => true
 const loadGame = async (): Promise<void> => {
   if (flowRef.value) return
   const [flow, profile] = await Promise.all([import('@/game/flow'), import('@/game/state/profile')])
   flowRef.value = flow.flow
+  needsHero = profile.needsHeroChoice
   runsRef.value = profile.profile
 }
 
@@ -50,6 +53,8 @@ const calm = computed(() => {
   const f = flowRef.value
   const p = runsRef.value
   if (!f || !p) return false
+  // Before the intro film (#213): the new save has picked its hero and the film is about to start, held for this card.
+  if (introBoot.value && !introPlaying.value && !needsHero() && !f.loading && f.modal === '' && !isAnyModalOpen.value && !isForcedDarkBlocking.value && !isAdShowing.value) return true
   return (
     (f.screen === 'map' || f.screen === 'town') &&
     !f.loading &&
@@ -73,7 +78,7 @@ watch([calm, samsungCheckDue], ([isCalm, due]) => {
     return
   }
   if (!isCalm) return // an open card stays open: the player is mid-answer
-  if (!open.value) timer = window.setTimeout(() => { open.value = true }, CALM_MS)
+  if (!open.value) timer = window.setTimeout(() => { open.value = true }, introBoot.value ? 400 : CALM_MS)
 }, { immediate: true })
 
 let release: (() => void) | null = null

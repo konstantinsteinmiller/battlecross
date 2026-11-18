@@ -25,5 +25,14 @@ export const INTRO_TIP = 'introSeen'
  */
 export const introBoot = ref(false)
 
+/** The player has the hero in the film's first part (#217): the gesture surface and the stick are live under the film. */
+export const introPlayable = ref(false)
+
+/**
+ * The film is over and the opening level takes the screen: the hero comes to on the ground and gets up before the player has him (one
+ * use: the level reads it as it opens, `ZoneMode.enter`).
+ */
+export const introWake = { pending: false }
+
 /** The intro is on screen: no HUD, no lessons, no gameplay bracket, no ad. */
 export const introPlaying = ref(false)

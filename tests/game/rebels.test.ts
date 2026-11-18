@@ -13,7 +13,7 @@ import { gnomeSpot } from '@/game/sim/rebelSite'
 import { spawnEnemy, spawnMinion } from '@/game/sim/spawn'
 import { ENEMY_BY_ID, MINIONS } from '@/game/data/enemies'
 import { CRIES, CRIER, cryKey } from '@/game/data/assault'
-import { KING_HP_MUL, LEAP_RUNNERS, REBEL_COUNT, REBEL_FLOOR, STAMPEDE_MAX, STAMPEDE_MIN, rebellionDue, stampedeShare } from '@/game/data/rebellion'
+import { KING_HP_MUL, LEAP_RUNNERS, REBEL_COUNT, REBEL_COUNT_MORE, REBEL_FLOOR, STAMPEDE_MAX, STAMPEDE_MIN, rebellionDue, stampedeShare } from '@/game/data/rebellion'
 import { TUSKER_SCRIPTS } from '@/game/sim/bosses/tusker'
 
 /**
@@ -50,12 +50,19 @@ const free = (sc: ReturnType<typeof scene>): void => {
 describe('where the gang stands', () => {
   it('while the King lives: a post and a gnome each, on open ground, a few steps from the overseers, reachable', () => {
     let laid = 0
+    let more = 0
     for (const seed of SEEDS) {
       const plan = generateZone(ZONES.hollows, seed, { rebels: true })
       if (!plan.rebels) continue
       laid++
       const r = plan.rebels
       expect(r.posts, `#${seed}`).toHaveLength(REBEL_COUNT)
+      // A second gang of three, well apart, on open ground too (#215).
+      if (r.more) {
+        expect(r.more.posts, `#${seed}`).toHaveLength(REBEL_COUNT_MORE)
+        expect(Math.hypot(r.more.x - r.x, r.more.z - r.z), `#${seed}`).toBeGreaterThanOrEqual(9)
+        more++
+      }
       const g = fillGrid(createGrid(plan.w, plan.h), plan)
       const path: number[] = []
       expect(findPath(g, plan.start.x, plan.start.z, r.x, r.z, path), `#${seed}`).toBeGreaterThan(0)
@@ -69,6 +76,7 @@ describe('where the gang stands', () => {
     }
     // Nearly every seed has room for it.
     expect(laid).toBeGreaterThanOrEqual(SEEDS.length - 1)
+    expect(more).toBeGreaterThanOrEqual(SEEDS.length - 2)
   })
 
   it('nothing of it once the King has fallen, nowhere else, and nothing else of the place moves', () => {
@@ -88,7 +96,8 @@ describe('the gnomes in chains', () => {
   it('chained at their posts, harmless and untargetable, until the overseers are down', () => {
     const { sim, plan } = scene()
     const r = sim.rebels!
-    expect(r.gnomes).toHaveLength(REBEL_COUNT)
+    // The second, smaller gang (#215) is chained too, and stays so while the first is freed.
+    expect(r.gnomes).toHaveLength(REBEL_COUNT + (r.site.more ? REBEL_COUNT_MORE : 0))
     for (const g of r.gnomes) {
       const u = sim.get(g.unit)!
       expect(u.rank).toBe('npc')
@@ -108,7 +117,7 @@ describe('the gnomes in chains', () => {
     for (const e of sim.units) if (e.team === 1) e.awake = false
     run(sim, plan, 3)
     expect(r.freed).toBe(REBEL_COUNT)
-    for (const g of r.gnomes) {
+    for (const g of r.gnomes.filter(q => (q.grp ?? 0) === 0)) {
       const u = sim.get(g.unit)!
       expect(g.mode).toBe('follow')
       expect(u.kind).toBe('rebelGnome')
@@ -120,7 +129,7 @@ describe('the gnomes in chains', () => {
   it('they do not count against the hero\'s own band of six', () => {
     const sc = scene()
     free(sc)
-    expect(sc.sim.countAlive(0, 'rebelGnome')).toBe(REBEL_COUNT)
+    expect(sc.sim.countAlive(0, 'rebelGnome')).toBe(REBEL_COUNT + (sc.plan.rebels?.more ? REBEL_COUNT_MORE : 0))
     const h = sc.sim.hero.unit
     for (let q = 0; q < 6; q++) expect(spawnMinion(sc.sim, 'guard', h.x + q * 0.1, h.z, -1), 'guard ' + q).not.toBeNull()
   })
@@ -215,7 +224,7 @@ describe('the King\'s fight', () => {
     expect(taken).toBeGreaterThan(boss.s.maxHp * STAMPEDE_MAX * 0.8)
     expect(taken).toBeLessThan(boss.s.maxHp * STAMPEDE_MAX * 1.25)
     // They ran off again, none hurt.
-    for (const g of sim.rebels!.gnomes) {
+    for (const g of sim.rebels!.gnomes.filter(q => (q.grp ?? 0) === 0)) {
       expect(sim.get(g.unit)!.alive).toBe(true)
       expect(['fled', 'stab']).toContain(g.mode)
     }

@@ -41,12 +41,19 @@ class FakeAudio {
   preload = ''
   currentTime = 0
   duration = 60
-  constructor (readonly src: string) { played.urls.push(src) }
+  dataset: Record<string, string> = {}
+  private url = ''
+  get src (): string { return this.url }
+  set src (u: string) { this.url = u; played.urls.push(u) }
+  constructor (src = '') { if (src) this.src = src }
   play (): Promise<void> { return Promise.resolve() }
   pause (): void {}
   addEventListener (): void {}
 }
 vi.stubGlobal('Audio', FakeAudio)
+// The song is fetched whole before it plays (#211): here the fetch fails, so it falls back to streaming its own URL.
+vi.stubGlobal('fetch', () => Promise.reject(new Error('offline')))
+const settle = (): Promise<void> => new Promise(r => setTimeout(r, 0))
 
 describe('a dropped-in music file', () => {
   it('replaces its composed piece: the void streams unmade.ogg and composes nothing', async () => {
@@ -56,6 +63,7 @@ describe('a dropped-in music file', () => {
     const { trackForTheme } = await import('@/game/audio/themes')
     played.oscs = 0
     playMusic(trackForTheme('void'))
+    await settle()
     expect(played.urls.some(u => u.endsWith('audio/music/unmade.ogg'))).toBe(true)
     expect(played.oscs).toBe(0)
     stopMusic(0)

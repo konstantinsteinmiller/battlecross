@@ -23,6 +23,8 @@ export type SfxName =
   | 'castEarthShift' | 'castBoulder' | 'castFrostShatter' | 'castAvalancheLeap' | 'castAbsoluteZero' | 'castSmokeBomb' | 'castShadowMark' | 'castOrbitalBeam' | 'castSpark'
   // The colosseum's crowd (#117)
   | 'crowdCheer' | 'crowdRoar'
+  // …and the heralds' brass: a wave announced, a wave won
+  | 'arenaCall' | 'arenaTriumph'
   // Abilities
   | 'summon' | 'heal' | 'shieldUp' | 'roar' | 'telegraph' | 'overheat'
   // Enemies
@@ -44,7 +46,7 @@ export const SFX_NAMES: readonly SfxName[] = [
   'castFire', 'castIce', 'castShock', 'castHoly', 'castShadow', 'castPoison', 'castBlood', 'castEarth', 'castWind', 'castNature', 'castArcane', 'castTime', 'castSpirit', 'castSong', 'castTech', 'castCommand',
   'impactFire', 'impactIce', 'impactShock', 'impactWind', 'impactNature', 'impactArcane', 'impactTime', 'impactSpirit', 'impactSong', 'impactTech',
   'castEarthShift', 'castBoulder', 'castFrostShatter', 'castAvalancheLeap', 'castAbsoluteZero', 'castSmokeBomb', 'castShadowMark', 'castOrbitalBeam', 'castSpark',
-  'crowdCheer', 'crowdRoar',
+  'crowdCheer', 'crowdRoar', 'arenaCall', 'arenaTriumph',
   'summon', 'heal', 'shieldUp', 'roar', 'telegraph',
   'overheat', 'alert', 'bossIntro', 'death', 'deathBig', 'coin', 'loot', 'lootRare', 'lootEpic', 'lootLegend', 'chest', 'levelUp', 'potion', 'denied', 'uiClick',
   'uiOpen', 'uiClose', 'uiEquip', 'uiBuy', 'uiLearn', 'uiPoint', 'uiChoice', 'mapMove',

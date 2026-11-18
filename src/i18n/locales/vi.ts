@@ -169,7 +169,7 @@ export default {
   intro: {
     narrator: 'Người Kể Chuyện',
     skip: 'Bỏ qua',
-    later: '1 tháng sau…',
+    later: 'Vài giờ sau…',
     holdKey: 'Giữ {key} để bỏ qua',
     holdTouch: 'Giữ để bỏ qua',
     replay: 'Xem đoạn mở đầu'
@@ -257,6 +257,8 @@ export default {
     potionStop: 'Uống bình máu để tiếp tục',
     rollStop: 'Lăn ra khỏi vùng nguy hiểm!',
     rollStopKey: 'Phím cách',
+    bagHint: 'Mở túi và trang bị từ chân dung của bạn, giống như trong thị trấn!',
+    bashStop: 'Chặn đòn tấn công bằng {skill}!',
     minimap: 'Bản đồ thị trấn: thầy dạy, thương nhân, thợ rèn và thầy thuốc',
     groups: 'Đã hạ {n} trên {total} nhóm địch',
     wave: 'Đợt {n} / {total}',
@@ -6247,7 +6249,7 @@ export default {
       }
     },
     bark: {
-      hero: { cage: { 1: 'Có ai đang kêu cứu không?' }, hunt: { 1: 'Còn có người khác đang săn con quái thú đó.' } },
+      hero: { cage: { 1: 'Có ai đang kêu cứu không?' }, hunt: { 1: 'Còn có người khác đang săn con quái thú đó.' }, levelUp: { 1: 'Mình mạnh hơn rồi!' } },
       trainerPyro: { help: { 1: 'Cứu với, có ai không!' } },
       sbMasterSoulwarden: { help: { 1: 'Chúng tôi bị bắt cóc!' } },
       sbMasterIronmonk: { help: { 1: 'Quái vật! Cứu với!' } },
@@ -7586,6 +7588,7 @@ export default {
     goblinSlinger: 'Goblin Ném Đá',
     bandit: 'Thổ Phỉ',
     banditArcher: 'Cung Thủ Thổ Phỉ',
+    banditRaider: 'Cướp tấn công',
     wolf: 'Sói',
     banditChief: 'Trùm Thổ Phỉ',
     gnome: 'Gnome',

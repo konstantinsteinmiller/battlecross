@@ -169,7 +169,7 @@ export default {
   intro: {
     narrator: 'Solnomachi',
     skip: 'Oʻtkazib yuborish',
-    later: '1 oydan keyin…',
+    later: 'Bir necha soatdan keyin…',
     holdKey: 'Oʻtkazib yuborish uchun {key} ni bosib turing',
     holdTouch: 'Oʻtkazib yuborish uchun bosib turing',
     replay: 'Kirishni koʻrish'
@@ -257,6 +257,8 @@ export default {
     potionStop: 'Davom etish uchun sog‘liq iksirini ich',
     rollStop: 'Xavfli zonadan yuvalanib chiq!',
     rollStopKey: 'Probel',
+    bagHint: 'Sumka va jihozingni portretingdan och, xuddi shahardagidek!',
+    bashStop: "Hujumni {skill} bilan to'xtat!",
     minimap: 'Shahar xaritasi: ustozlar, savdogarlar, temirchilar va tabiblar',
     groups: '{total} ta dushman guruhidan {n} tasi yengildi',
     wave: 'Toʻlqin {n} / {total}',
@@ -6247,7 +6249,7 @@ export default {
       }
     },
     bark: {
-      hero: { cage: { 1: 'Kimdir yordam so‘rab qichqiryaptimi?' }, hunt: { 1: 'U yirtqichni yana kimdir ham ovlayapti.' } },
+      hero: { cage: { 1: 'Kimdir yordam so‘rab qichqiryaptimi?' }, hunt: { 1: 'U yirtqichni yana kimdir ham ovlayapti.' }, levelUp: { 1: "Men kuchliroq bo'ldim!" } },
       trainerPyro: { help: { 1: 'Yordam bering, kimdir!' } },
       sbMasterSoulwarden: { help: { 1: 'Bizni o‘g‘irlab ketishdi!' } },
       sbMasterIronmonk: { help: { 1: 'Hayvonlar! Yordam bering!' } },
@@ -7586,6 +7588,7 @@ export default {
     goblinSlinger: 'Palaxmonchi goblin',
     bandit: 'Qaroqchi',
     banditArcher: 'Kamonchi qaroqchi',
+    banditRaider: 'Qaroqchi bosqinchi',
     wolf: 'Boʻri',
     banditChief: 'Qaroqchilar boshligʻi',
     gnome: 'Gnom',

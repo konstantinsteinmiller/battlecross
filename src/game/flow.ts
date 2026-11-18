@@ -21,8 +21,8 @@ import {
 import { overrunFlag, rebuiltFlag, rebuiltTiers } from './data/breaking'
 import { WANDERER_FLAG, trialFlag, visitTrialFlags } from './data/prestige'
 import { hud, pushHud } from './state/hud'
-import { freeCaptives, heroBuild } from './state/profile'
-import { refreshHeroStats } from './sim/hero'
+import { freeCaptives, heroBuild, loadoutActive } from './state/profile'
+import { refreshHeroStats, setHeroLoadout } from './sim/hero'
 import { cageOf } from './data/cages'
 import { addHerbs, addOres, addPieces, markTreasureDug, treasureFor, setElixirs, countContracts, countErrands, countTasks, finishEscortTasks, markChestsOpened, recordArenaWaves, recordMastery, setManaPotions } from './state/profile'
 import { zoneMastery, type Mastery } from './sim/route'
@@ -275,6 +275,7 @@ const setupFor = (node: NodeId): ZoneSetup => {
     difficulty: difficultyFactor(),
     // The very first visit of a new save opens gently.
     tutorial: node === 'plains' && isFreshProfile(),
+    ...(node === 'plains' && isFreshProfile() ? { altTutorial: true } : {}),
     ambush: hostile ? AMBUSH_KIND[hostile] : null,
     // A core sold to the Syndicate leaves the mines crawling.
     extra: node === 'mines' && hasFlag('coreSold') ? 1 : 0,
@@ -294,6 +295,9 @@ const setupFor = (node: NodeId): ZoneSetup => {
 /** What a visit earned, as the result screen and the save need it. */
 export interface VisitTally {
   xp: number
+  /** How much of `xp` already went into the profile during the visit (it is paid on every kill), and the level the hero began it at. */
+  xpBanked?: number
+  levelStart?: number
   gold: number
   /** How much of `gold` already went into the purse during the visit. */
   goldBanked?: number
@@ -343,6 +347,15 @@ export const setPrecompile = (fn: Precompile): void => { precompile = fn }
  * The attributes sheet, from anywhere (the portrait on the HUD, the points badge, C, the result window's button). In a level only
  * this page opens (the loadout is fixed once a fight is on) and the stats follow the points spent when it closes.
  */
+/** The hero's book on a page, in a level or a town (the portrait opens the bag, #221). */
+export const openBook = (panel: 'character' | 'skills' | 'inventory'): boolean => {
+  if (flow.loading || flow.talk || (flow.modal && flow.modal !== 'results')) return false
+  if (app.mode instanceof ZoneMode && app.mode.sim.siege) return false
+  flow.bookBack = flow.modal === 'results' ? 'results' : ''
+  flow.modal = panel
+  return true
+}
+
 export const openCharacter = (): boolean => {
   if (flow.loading || flow.talk || (flow.modal && flow.modal !== 'results')) return false
   if (app.mode instanceof ZoneMode && app.mode.sim.siege) return false
@@ -353,8 +366,8 @@ export const openCharacter = (): boolean => {
 
 const openPanel = (panel: 'map' | 'character' | 'inventory' | 'skills'): void => {
   if (flow.modal || flow.talk || flow.loading) return
-  // The loadout is fixed once a fight is on: the attributes sheet is the one menu that opens there.
-  if (flow.screen === 'zone') { if (panel === 'character') openCharacter(); return }
+  // In a level the book opens on any page (#221), not the map (it has its own way out).
+  if (flow.screen === 'zone') { if (panel !== 'map') openBook(panel); return }
   if (panel === 'map') { openMap(); return }
   flow.modal = panel
 }
@@ -873,8 +886,9 @@ export const finishVisit = async (outcome: 'victory' | 'defeat' | 'retreat'): Pr
   if (!mode || !node) return
   const h = mode.sim.hero
   mode.bankRunGold()
+  mode.bankRunXp()
   await bankVisit(outcome, node, {
-    xp: h.xp, gold: h.gold, goldBanked: mode.bankedGold, kills: h.kills, items: h.items, seconds: mode.sim.time, waves: mode.sim.wave.cleared,
+    xp: h.xp, xpBanked: h.xp, levelStart: mode.levelStart, gold: h.gold, goldBanked: mode.bankedGold, kills: h.kills, items: h.items, seconds: mode.sim.time, waves: mode.sim.wave.cleared,
     lost: h.lost, maxHp: h.unit.s.maxHp, invaded: !!mode.setup.invaded, falls: h.falls ?? 0,
     chests: mode.sim.chests.length ? { opened: h.chests, total: mode.sim.chests.length } : undefined,
     special: mode.sim.specialOpened, rested: h.rested, killKinds: h.killKinds, herbs: h.herbs, ores: h.ores, pieces: h.pieces,
@@ -895,7 +909,8 @@ export const bankVisit = async (outcome: 'victory' | 'defeat' | 'retreat', node:
   // no place and brings no decision.
   const encounter = !!flow.encounter
   measureEnd(encounter ? ENCOUNTER_LEVEL : node, outcome === 'victory')
-  const levelBefore = profile.level
+  // The level the visit began at (the profile has leveled on the way, XP being paid as it is earned).
+  const levelBefore = h.levelStart ?? profile.level
   // Read before the run counter moves: the first visit ever is the opening fight.
   const opening = profile.stats.runs === 0
   const items: ResultItem[] = []
@@ -905,10 +920,11 @@ export const bankVisit = async (outcome: 'victory' | 'defeat' | 'retreat', node:
   const carefulGold = Math.round(h.gold * (careful - 1))
   // The siege (afterplay §8): its Marks, a win's purse, XP and piece, its milestones.
   const sieged = h.siege ? bankSiege(h.siege, h) : null
-  grantXp(h.xp + carefulXp)
+  grantXp(h.xp - (h.xpBanked ?? 0) + carefulXp)
   profile.gold += h.gold - (h.goldBanked ?? 0) + carefulGold
   // The visit is decided: its coins are in the purse for good, nothing is owed to a reload any more (#196).
   profile.meta.visitGold = null
+  profile.meta.visitXp = null
   for (const id of h.items) {
     const r = gainItem(id)
     items.push({ id, added: r.added, gold: r.gold })
@@ -1431,10 +1447,10 @@ export const visitHiddenTrainer = (node: NodeId): void => {
 export const closeModal = (): void => {
   const back = flow.bookBack
   flow.bookBack = ''
-  // Points spent in a level count at once.
-  if (flow.modal === 'character' && flow.screen === 'zone') {
+  // Points spent, gear put on and skills set in a level count at once (#221).
+  if ((flow.modal === 'character' || flow.modal === 'skills' || flow.modal === 'inventory' || flow.modal === 'journal') && flow.screen === 'zone') {
     const z = liveZone()
-    if (z) refreshHeroStats(z.sim, heroBuild())
+    if (z) { refreshHeroStats(z.sim, heroBuild()); setHeroLoadout(z.sim, loadoutActive()) }
   }
   flow.modal = back
   if (back) return

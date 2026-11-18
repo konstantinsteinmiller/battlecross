@@ -17,6 +17,7 @@ import { celVC, celVCInst, glowVC, outlineMat, setCelMood } from './cel'
 import { cap, dome, merge, paint, paintBy, rbox, rcone, rcyl, rock, sph, torus, xform } from './kit'
 import { LIQUIDS, WATER_Y, wetCell, type Theme } from './terrain'
 import { groundAt } from './ground'
+import { TRAP_HOLD_OPEN, TRAP_HOLD_S, TRAP_SIZE } from '../data/altTutorial'
 import type { Vfx } from './vfx'
 import { DummyProp } from './dummyProp'
 import { PylonProps } from './pylonProp'
@@ -497,6 +498,10 @@ export class LevelProps {
   private ores: OreView[] = []
   /** Mist lying in patches (the Whisperwood, #120): each drifts and breathes. */
   private mists: Array<{ mesh: Mesh; spin: number; ph: number }> = []
+  /** The ambush's trapdoor (the stretched tutorial level, `sim/ambush.ts`): two leaves over a pit; `t` runs from the moment it is sprung (-1: shut). */
+  private trap: { leaves: Array<{ g: Group; dir: number }>; t: number; x: number; z: number; spikes: Group; walls: Group; crack: number; dust: number } | null = null
+  /** The ambush's cart on the left: whole until the hatch gives way, then it breaks into small pieces that fly apart and lie low (`buildCart`). */
+  private cart: { whole: Group; group: Group; bits: Array<{ m: Group; from: [number, number, number]; to: [number, number, number]; spin: number; rest: number }>; t: number; x: number; z: number } | null = null
   /** A cage's key lying in the place (#100). */
   private key: KeyView | null = null
   /** The first visit's silver key for the palisade gate (`sim/gate.ts`). */
@@ -557,8 +562,10 @@ export class LevelProps {
     // The place's set pieces (#120): beds and fires, mills, columns, timbers…
     if (plan.dressing?.length) {
       const pal = piecePalette(this.theme.ground[1], this.theme.rim)
+      const smash = plan.packs.find(q => q.ambush)?.ambush?.smash
       for (const { d, g } of piecesOf(plan, pal, walk)) {
         const y = groundAt(d.x, d.z)
+        if (smash && d.kind === 'wagon' && d.x === smash.x && d.z === smash.z) { this.buildCart(d, g.lit, y, plan.seed); continue }
         const l0 = lit.length
         const g0 = glow.length
         for (const x of g.lit) lit.push(xform(x, [d.x, y, d.z], [0, d.a, 0]))
@@ -593,6 +600,7 @@ export class LevelProps {
     this.buildPlates(plan)
     this.buildDoors(plan)
     this.buildGate(plan)
+    this.buildTrapdoor(plan)
     await slice()
     this.buildChests()
     this.buildDecals(plan)
@@ -1175,6 +1183,167 @@ export class LevelProps {
    * the gate piece: two tall posts, a lintel, and two plank leaves with iron bands and a lock between them. The fence's cells are
    * blocks for good; only the gate's cells open, when the silver key is carried to it, and the leaves swing in toward the boss.
    */
+  /**
+   * The ambush's trapdoor: a big plank hatch in the middle of the clearing, two leaves hinged at the outer edges that swing UP like
+   * cellar doors. Under them a pit: earth walls that rise round it as it opens, a dark floor and wooden stakes, their tips
+   * dark with blood (the ground itself cannot be cut, so the pit is built up out of it).
+   */
+  private buildTrapdoor(plan: ZonePlan): void {
+    const a = plan.packs.find(q => q.ambush)?.ambush
+    if (!a) return
+    const S = TRAP_SIZE
+    const half = S / 2
+    // The ground under it is the highest of its corners: the hatch lies on it, never sunk in it.
+    const base = Math.max(groundAt(a.x - half, a.z - half), groundAt(a.x + half, a.z - half), groundAt(a.x - half, a.z + half), groundAt(a.x + half, a.z + half), groundAt(a.x, a.z))
+    const root = new Group()
+    root.name = 'trapdoor'
+    // The pit's floor: dark earth, its top inside the shut leaves' thickness (so nothing is coplanar).
+    const pit = merge([P(rbox(S - 0.1, 0.1, S - 0.1, 0.3, 6, 3), '#33241a', [a.x, base + 0.02, a.z])])
+    this.owned.push(pit)
+    root.add(new Mesh(pit, celVC()))
+    // The dug-out edge: a low, lumpy bank of turned earth along the two sides the leaves do not lie on (the leaves fall outward flat on the
+    // other two). Hidden while shut; it heaves up as the hatch opens.
+    const T = 0.5
+    const WH = 0.26
+    const wl: BufferGeometry[] = []
+    const lrng = mulberry32((plan.seed ^ 0x3d17) >>> 0)
+    for (const sgn of [-1, 1]) {
+      const zc = sgn * (half + T / 2 - 0.05)
+      wl.push(P(rbox(S + 0.3, WH, T, 0.5, 10, 4), '#6b4f30', [0, WH / 2 - 0.06, zc]))
+      for (let i = 0; i < 9; i++) {
+        const lx = -half - 0.1 + (i / 8) * (S + 0.2)
+        const r = 0.16 + lrng() * 0.12
+        wl.push(P(sph(r, 7, 5), lrng() < 0.5 ? '#7d6040' : '#5a4228', [lx, WH * 0.6, zc + (lrng() - 0.5) * 0.3], [0, 0, 0], [1.3, 0.8, 1]))
+      }
+    }
+    const wallGeo = merge(wl)
+    this.owned.push(wallGeo)
+    const walls = new Group()
+    walls.position.set(a.x, base, a.z)
+    const wallMesh = new Mesh(wallGeo, celVC())
+    const wallLine = new Mesh(wallGeo, outlineMat())
+    wallLine.renderOrder = -1
+    walls.add(wallMesh, wallLine)
+    walls.visible = false
+    root.add(walls)
+    // The stakes: a band down the middle (clear of the leaves' underside as they lift), tilted a little, tips dark red.
+    const rng = mulberry32((plan.seed ^ 0x51ce) >>> 0)
+    const sp: BufferGeometry[] = []
+    const floorY = base + 0.07
+    for (let i = 0; i < 24; i++) {
+      const sx = (rng() - 0.5) * 2.0
+      const sz = (rng() - 0.5) * (S - 0.7)
+      const h = 0.34 + rng() * 0.22
+      const tilt: [number, number, number] = [(rng() - 0.5) * 0.26, 0, (rng() - 0.5) * 0.26]
+      sp.push(P(rcone(0.085, 0.012, h, 0.01, 6), '#a07c4a', [sx, floorY + h / 2 - 0.03, sz], tilt))
+      sp.push(P(rcone(0.055, 0.014, h * 0.45, 0.008, 6), '#8c1414', [sx - tilt[2] * h * 0.34, floorY + h * 0.78, sz + tilt[0] * h * 0.34], tilt))
+    }
+    for (let i = 0; i < 5; i++) sp.push(P(rcyl(0.28 + rng() * 0.22, 0.03, 0.012, 9, 1), '#6b0e10', [(rng() - 0.5) * 2.2, floorY + 0.03, (rng() - 0.5) * (S - 1)]))
+    const spikeGeo = merge(sp)
+    this.owned.push(spikeGeo)
+    const spikes = new Group()
+    spikes.position.set(a.x, 0, a.z)
+    const spikeLine = new Mesh(spikeGeo, outlineMat())
+    spikeLine.renderOrder = -1
+    spikes.add(new Mesh(spikeGeo, celVC()), spikeLine)
+    spikes.visible = false
+    root.add(spikes)
+    const W = half - 0.04
+    const leafGeo = (): BufferGeometry => {
+      const g: BufferGeometry[] = [P(rbox(W, 0.14, S - 0.1, 0.3, 8, 4), '#7a5230', [W / 2, 0, 0])]
+      for (let i = 1; i < 4; i++) g.push(P(rbox(0.04, 0.16, S - 0.12, 0.3, 4, 3), '#4f331b', [(W * i) / 4, 0.005, 0]))
+      for (const zz of [-S * 0.3, S * 0.3]) g.push(P(rbox(W, 0.17, 0.2, 0.3, 6, 3), '#4a4e58', [W / 2, 0.01, zz]))
+      g.push(P(torus(0.16, 0.04, 6, 12), '#b9c0cc', [W - 0.35, 0.09, 0], [Math.PI / 2, 0, 0]))
+      return merge(g)
+    }
+    const leaves: Array<{ g: Group; dir: number }> = []
+    for (const dir of [-1, 1]) {
+      const gm = leafGeo()
+      this.owned.push(gm)
+      const grp = new Group()
+      // The hinge is the outer edge; the leaf runs from it toward the middle.
+      grp.position.set(a.x + dir * half, base + 0.08, a.z)
+      grp.userData.y0 = base + 0.08
+      const inner = new Group()
+      inner.scale.x = -dir
+      const m = new Mesh(gm, celVC())
+      const ln = new Mesh(gm, outlineMat())
+      ln.renderOrder = -1
+      inner.add(m, ln)
+      grp.add(inner)
+      root.add(grp)
+      leaves.push({ g: grp, dir })
+    }
+    this.root.add(root)
+    this.trap = { leaves, t: this.plan && this.sim.groups.some(g => g.ambush?.sprung) ? 2 : -1, x: a.x, z: a.z, spikes, walls, crack: -1, dust: 0 }
+    if (this.trap.t >= 0) this.setTrap(1)
+  }
+
+  /** The leaves, u of the way open (0 shut, 1 standing up on end beside the pit; a little past it for the bounce). */
+  private setTrap(u: number): void {
+    const tp = this.trap
+    if (!tp) return
+    // Swing up and over: at the end they lie flat on the ground outside the hole, like cellar doors thrown open.
+    for (const l of tp.leaves) {
+      l.g.rotation.z = -l.dir * Math.PI * Math.min(1.05, u)
+      // Lying open they are thin and low on the ground: the hero walks over them, not into them.
+      l.g.position.y = l.g.userData.y0 as number
+      l.g.children[0]!.scale.y = 1 - 0.65 * Math.max(0, Math.min(1, (u - 0.6) / 0.4))
+    }
+    tp.walls.visible = u > 0.01
+    tp.walls.scale.y = Math.min(1, u * 3)
+    tp.spikes.visible = u > 0.01
+    tp.spikes.scale.y = Math.max(0.02, Math.min(1, u * 3))
+  }
+
+  /**
+   * The ambush's cart on the left, drawn on its own: whole until the hatch gives way, then it comes apart — planks, two
+   * wheels, a crate, a barrel and a scrap of canvas fly out and lie low on the ground (the cart's cells open for the same moment, `sim/ambush.ts`).
+   */
+  private buildCart(d: DressPlan, lit: BufferGeometry[], y: number, seed: number): void {
+    const whole = new Group()
+    const wg = merge(lit)
+    this.owned.push(wg)
+    const wm = new Mesh(wg, celVC())
+    const wl = new Mesh(wg, outlineMat())
+    wl.renderOrder = -1
+    whole.add(wm, wl)
+    whole.position.set(d.x, y, d.z)
+    whole.rotation.y = d.a
+    this.root.add(whole)
+    const rng = mulberry32((seed ^ 0xc477) >>> 0)
+    const specs: Array<{ g: BufferGeometry; rest: number }> = []
+    const add = (g: BufferGeometry, rest: number): void => { this.owned.push(g); specs.push({ g, rest }) }
+    for (let i = 0; i < 5; i++) add(merge([P(rbox(1.0 + rng() * 0.7, 0.07, 0.22, 0.3, 4, 2), i % 2 ? '#7a5634' : '#6a4a2c', [0, 0, 0])]), 0.05)
+    for (let i = 0; i < 2; i++) add(merge([P(rcyl(0.46, 0.1, 0.03, 12, 1), '#5a3e26', [0, 0, 0])]), 0.07)
+    add(merge([P(rbox(0.6, 0.28, 0.6, 0.3, 4, 4), '#a07444', [0, 0, 0])]), 0.16)
+    add(merge([P(rcyl(0.26, 0.5, 0.05, 9, 2), '#6a4428', [0, 0, 0], [0, 0, Math.PI / 2])]), 0.28)
+    add(merge([P(rbox(1.0, 0.04, 0.8, 0.3, 4, 2), '#d8ccae', [0, 0, 0])]), 0.04)
+    const group = new Group()
+    group.visible = false
+    const bits: NonNullable<LevelProps['cart']>['bits'] = []
+    specs.forEach((sp, i) => {
+      const m = new Group()
+      const mesh = new Mesh(sp.g, celVC())
+      const line = new Mesh(sp.g, outlineMat())
+      line.renderOrder = -1
+      m.add(mesh, line)
+      const ang = (i / specs.length) * Math.PI * 2 + rng()
+      const r = 0.7 + rng() * 1.3
+      const tx = d.x + Math.cos(ang) * r
+      const tz = d.z + Math.sin(ang) * r
+      m.position.set(d.x, y + 0.9, d.z)
+      m.rotation.y = rng() * 6
+      group.add(m)
+      bits.push({ m, from: [d.x, y + 0.9, d.z], to: [tx, groundAt(tx, tz) + sp.rest, tz], spin: 3 + rng() * 5, rest: sp.rest })
+      m.rotation.y = rng() * Math.PI * 2
+    })
+    this.root.add(group)
+    this.cart = { whole, group, bits, t: this.sim.groups.some(g => g.ambush?.sprung) ? 1 : -1, x: d.x, z: d.z }
+    if (this.cart.t >= 1) { whole.visible = false; group.visible = true; for (const b of bits) { b.m.position.set(b.to[0], b.to[1], b.to[2]) } }
+  }
+
+
   private buildGate(plan: ZonePlan): void {
     const gp = plan.gate
     const door = gp ? plan.doors.find(d => d.id === gp.door) : undefined
@@ -1698,6 +1867,31 @@ export class LevelProps {
         break
       }
       case 'plate': this.onPlate(e); break
+      case 'trapCrack': {
+        // The planks start to give: they shake, dust rises, the ground growls.
+        if (this.trap) this.trap.crack = 0
+        this.vfx.ring(e.x, e.z, 0.3, 2.6, '#8a6a46', 0.5)
+        sfx('quake', this.pan(e.x), 0.6)
+        this.shake(0.22)
+        break
+      }
+      case 'trapSprung': {
+        // The hatch gives way under the hero: dust and planks, a rumble, and the raiders jump out.
+        if (this.trap) { this.trap.t = 0; this.trap.crack = -1 }
+        if (this.cart && this.cart.t < 0) {
+          this.cart.t = 0
+          this.cart.whole.visible = false
+          this.cart.group.visible = true
+          this.vfx.ring(this.cart.x, this.cart.z, 0.3, 3.2, '#cdb48a', 0.5)
+          this.vfx.particles.riseRing(this.cart.x, 0.2, this.cart.z, '#bda27a', 1.6, this.low ? 8 : 18)
+        }
+        this.vfx.ring(e.x, e.z, 0.4, 4.5, '#cdb48a', 0.6)
+        this.vfx.ring(e.x, e.z, 0.2, 2.5, '#8a6a46', 0.45)
+        this.vfx.particles.riseRing(e.x, 0.1, e.z, '#bda27a', 1.1, 22)
+        sfx('quake', this.pan(e.x))
+        this.shake(0.5)
+        break
+      }
       case 'door': {
         // A light leaves the last plate for the wall; the wall gives way when it lands.
         const d = this.doors.find(v => v.id === e.id)
@@ -1966,6 +2160,34 @@ export class LevelProps {
       const plate = this.plates.find(p => p.id === g.plate)
       g.lit += ((plate?.aim ?? 0) - g.lit) * Math.min(1, dt * 10)
       g.mat.color.copy(g.color).multiplyScalar(0.72 + g.lit * 0.5)
+    }
+
+    // ── The ambush's trapdoor: the leaves drop open, a little overshoot ──
+    const tp = this.trap
+    if (tp && tp.crack >= 0 && tp.t < 0) {
+      tp.crack += dt
+      const k = Math.min(1, tp.crack / TRAP_HOLD_S)
+      this.setTrap(TRAP_HOLD_OPEN * (1 - (1 - k) * (1 - k)) + 0.012 * Math.sin(tp.crack * 50) * k)
+      tp.dust -= dt
+      if (tp.dust <= 0) { tp.dust = 0.14; this.vfx.particles.riseRing(tp.x, 0.1, tp.z, '#bda27a', 1.3, this.low ? 4 : 8) }
+    }
+    if (tp && tp.t >= 0 && tp.t < 1) {
+      tp.t += dt
+      const u = Math.min(1, tp.t / 0.35)
+      const f = u < 1 ? 1 - (1 - u) * (1 - u) * 1.15 + 0.15 * u : 1
+      this.setTrap(TRAP_HOLD_OPEN + (1 - TRAP_HOLD_OPEN) * f)
+      if (u >= 1) tp.t = 2
+    }
+    // The cart's pieces fly apart and settle.
+    const ct = this.cart
+    if (ct && ct.t >= 0 && ct.t < 1) {
+      ct.t = Math.min(1, ct.t + dt / 0.55)
+      const e = 1 - (1 - ct.t) * (1 - ct.t)
+      for (const b of ct.bits) {
+        b.m.position.set(b.from[0] + (b.to[0] - b.from[0]) * e, b.from[1] * (1 - e) + b.to[1] * e + Math.sin(ct.t * Math.PI) * 1.1, b.from[2] + (b.to[2] - b.from[2]) * e)
+        b.m.rotation.y = b.spin * (1 - e)
+        b.m.rotation.x = b.spin * 0.6 * (1 - e)
+      }
     }
 
     // ── The palisade gate: the key arrives, the leaves swing in ──

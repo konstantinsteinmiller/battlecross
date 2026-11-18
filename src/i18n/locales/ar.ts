@@ -169,7 +169,7 @@ export default {
   intro: {
     narrator: 'الراوي',
     skip: 'تخطٍّ',
-    later: 'بعد شهر…',
+    later: 'بعد بضع ساعات…',
     holdKey: 'اضغط مطولًا على {key} للتخطي',
     holdTouch: 'اضغط مطولًا للتخطي',
     replay: 'شاهد المقدمة'
@@ -264,6 +264,8 @@ export default {
     potionStop: 'اشرب جرعة صحة لتتابع',
     rollStop: 'تفادَ منطقة الخطر!',
     rollStopKey: 'مفتاح المسافة',
+    bagHint: 'افتح حقيبتك وعتادك من صورتك، تمامًا كما في البلدة!',
+    bashStop: 'أوقف الهجوم بـ {skill}!',
     minimap: 'خريطة البلدة: المعلمون والتجار والحدادون والمعالجون',
     groups: 'هُزمت {n} من {total} مجموعات أعداء',
     wave: 'الموجة {n} / {total}',
@@ -6588,7 +6590,7 @@ export default {
       }
     },
     bark: {
-      hero: { cage: { 1: 'هل هناك من يصرخ طالبًا النجدة؟' }, hunt: { 1: 'شخصٌ آخر يطارد ذلك الوحش.' } },
+      hero: { cage: { 1: 'هل هناك من يصرخ طالبًا النجدة؟' }, hunt: { 1: 'شخصٌ آخر يطارد ذلك الوحش.' }, levelUp: { 1: 'صرتُ أقوى!' } },
       trainerPyro: { help: { 1: 'النجدة، أيّ أحد!' } },
       sbMasterSoulwarden: { help: { 1: 'لقد اختُطفنا!' } },
       sbMasterIronmonk: { help: { 1: 'وحوش! النجدة!' } },
@@ -7933,6 +7935,7 @@ export default {
     goblinSlinger: 'غوبلن رامي المقلاع',
     bandit: 'قاطع طريق',
     banditArcher: 'قاطع طريق رامٍ',
+    banditRaider: 'مغير من قطاع الطرق',
     wolf: 'ذئب',
     banditChief: 'زعيم قطّاع الطرق',
     gnome: 'قزم',

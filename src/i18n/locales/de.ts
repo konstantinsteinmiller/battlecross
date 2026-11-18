@@ -169,7 +169,7 @@ export default {
   intro: {
     narrator: 'Der Chronist',
     skip: 'Überspringen',
-    later: '1 Monat später …',
+    later: 'Ein paar Stunden später …',
     holdKey: '{key} gedrückt halten zum Überspringen',
     holdTouch: 'Gedrückt halten zum Überspringen',
     replay: 'Intro ansehen'
@@ -257,6 +257,8 @@ export default {
     potionStop: 'Trink einen Heiltrank, um weiterzumachen',
     rollStop: 'Weiche aus der Gefahrenzone aus!',
     rollStopKey: 'Leertaste',
+    bagHint: 'Öffne Tasche und Ausrüstung über dein Porträt, genau wie in der Stadt!',
+    bashStop: 'Stoppe den Angriff mit {skill}!',
     minimap: 'Stadtplan: Lehrer, Händler, Schmiede und Heiler',
     groups: '{n} von {total} Gegnergruppen besiegt',
     wave: 'Welle {n} / {total}',
@@ -6267,7 +6269,7 @@ export default {
       }
     },
     bark: {
-      hero: { cage: { 1: 'Schreit da jemand um Hilfe?' }, hunt: { 1: 'Noch jemand jagt diese Bestie.' } },
+      hero: { cage: { 1: 'Schreit da jemand um Hilfe?' }, hunt: { 1: 'Noch jemand jagt diese Bestie.' }, levelUp: { 1: 'Ich bin stärker geworden!' } },
       trainerPyro: { help: { 1: 'Hilfe, ist da jemand?' } },
       sbMasterSoulwarden: { help: { 1: 'Wir wurden entführt!' } },
       sbMasterIronmonk: { help: { 1: 'Monster! Hilfe!' } },
@@ -7607,6 +7609,7 @@ export default {
     goblinSlinger: 'Goblin-Schleuderer',
     bandit: 'Bandit',
     banditArcher: 'Banditenschütze',
+    banditRaider: 'Banditen-Räuber',
     wolf: 'Wolf',
     banditChief: 'Banditenanführer',
     gnome: 'Gnom',

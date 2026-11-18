@@ -169,7 +169,7 @@ export default {
   intro: {
     narrator: 'Cronicarul',
     skip: 'Sari peste',
-    later: 'O lună mai târziu…',
+    later: 'Câteva ore mai târziu…',
     holdKey: 'Ține apăsat {key} pentru a sări',
     holdTouch: 'Ține apăsat pentru a sări',
     replay: 'Vezi introducerea'
@@ -257,6 +257,8 @@ export default {
     potionStop: 'Bea o poțiune de viață ca să continui',
     rollStop: 'Ferește-te din zona de pericol!',
     rollStopKey: 'Spațiu',
+    bagHint: 'Deschide rucsacul și echipamentul din portretul tău, ca în oraș!',
+    bashStop: 'Oprește atacul cu {skill}!',
     minimap: 'Harta orașului: maeștri, negustori, fierari și vindecători',
     groups: '{n} din {total} grupuri de inamici învinse',
     wave: 'Valul {n} / {total}',
@@ -6289,7 +6291,7 @@ export default {
       }
     },
     bark: {
-      hero: { cage: { 1: 'Strigă cineva după ajutor?' }, hunt: { 1: 'Mai vânează cineva fiara aceea.' } },
+      hero: { cage: { 1: 'Strigă cineva după ajutor?' }, hunt: { 1: 'Mai vânează cineva fiara aceea.' }, levelUp: { 1: 'M-am întărit!' } },
       trainerPyro: { help: { 1: 'Ajutor, cineva!' } },
       sbMasterSoulwarden: { help: { 1: 'Am fost răpiți!' } },
       sbMasterIronmonk: { help: { 1: 'Monștri! Ajutor!' } },
@@ -7630,6 +7632,7 @@ export default {
     goblinSlinger: 'Goblin Prăștiaș',
     bandit: 'Bandit',
     banditArcher: 'Bandit Arcaș',
+    banditRaider: 'Bandit jefuitor',
     wolf: 'Lup',
     banditChief: 'Șeful Bandiților',
     gnome: 'Gnom',

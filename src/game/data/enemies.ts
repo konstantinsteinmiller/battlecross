@@ -186,6 +186,16 @@ const BASE_ENEMIES: readonly EnemyDef[] = [
     aggro: 9, reward: 1, color: '#c96a4a',
     abilities: [{ kind: 'cone', cd: 7, first: 3, range: 2.6, windup: 0.6, recover: 0.45, dmg: 1.5, r: 3, w: 50, pose: 1 }]
   }),
+  // The ambush's raiders (#218, the stretched tutorial level): a bandit that also rushes down a lane, so the dodge roll is learned on the first fight.
+  D({
+    id: 'banditRaider', rank: 'normal', rig: 'humanoid', look: 'bandit', scale: 1.04, r: 0.48, h: 1.45,
+    hp: 1.1, dmg: 1, armor: 1.2, speed: 3.4, style: 'melee', type: 'physical', range: 1.9, interval: 1.3, windup: 0.36,
+    aggro: 9, reward: 1, color: '#c96a4a',
+    abilities: [
+      { kind: 'charge', cd: 10, first: 1.8, range: 9, min: 3.5, windup: 0.85, recover: 0.7, dmg: 1.3, r: 8, w: 0.9 },
+      { kind: 'cone', cd: 7, first: 4.5, range: 2.6, windup: 0.6, recover: 0.45, dmg: 1.5, r: 3, w: 50, pose: 1 }
+    ]
+  }),
   D({
     id: 'banditArcher', rank: 'normal', rig: 'humanoid', look: 'banditArcher', scale: 1, r: 0.44, h: 1.4,
     hp: 0.75, dmg: 1.05, armor: 0.6, speed: 3.1, style: 'ranged', type: 'pierce', range: 9.5, interval: 2, windup: 0.5,

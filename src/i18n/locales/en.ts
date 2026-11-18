@@ -176,7 +176,7 @@ export default {
   'intro': {
     'narrator': 'The Chronicler',
     'skip': 'Skip',
-    'later': '1 month later…',
+    'later': 'A few hours later…',
     'holdKey': 'Hold {key} to skip',
     'holdTouch': 'Hold to skip',
     'replay': 'Watch the intro'
@@ -216,6 +216,8 @@ export default {
     'potionStop': 'Drink a health potion to go on',
     'rollStop': 'Dodge out of the danger zone!',
     'rollStopKey': 'Space',
+    'bagHint': 'Open your bag and loadout from your portrait, just like in town!',
+    'bashStop': 'Stun the attack with {skill}!',
     'minimap': 'Town map: teachers, traders, smiths and healers',
     'elixir': '{name} ({n} left)',
     'elixirNext': 'Next elixir',
@@ -3822,7 +3824,7 @@ export default {
       }
     },
     'bark': {
-      'hero': { 'cage': { '1': 'Is there somebody screaming for help?' }, 'hunt': { '1': 'Someone else is hunting that beast.' } },
+      'hero': { 'cage': { '1': 'Is there somebody screaming for help?' }, 'hunt': { '1': 'Someone else is hunting that beast.' }, 'levelUp': { '1': 'I got stronger!' } },
       'trainerPyro': { 'help': { '1': 'Help! Anybody!' } },
       'sbMasterSoulwarden': { 'help': { '1': 'We were kidnapped!' } },
       'sbMasterIronmonk': { 'help': { '1': 'Monsters! Help!' } },
@@ -4050,6 +4052,7 @@ export default {
     'goblinSlinger': 'Goblin Slinger',
     'bandit': 'Bandit',
     'banditArcher': 'Bandit Archer',
+    'banditRaider': 'Bandit Raider',
     'wolf': 'Wolf',
     'banditChief': 'Bandit Chief',
     'gnome': 'Gnome',

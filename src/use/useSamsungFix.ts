@@ -76,6 +76,14 @@ export const samsungCheckDue = computed<boolean>(() => isSamsungBrowser && query
 
 export const samsungFixChoice = choice
 
+/** Resolves once the one-time colour check is no longer due (answered, or never due): the intro waits for it (#213). */
+export const whenSamsungCheckAnswered = (): Promise<void> => {
+  if (!samsungCheckDue.value) return Promise.resolve()
+  return new Promise((resolve) => {
+    const stop = watch(samsungCheckDue, (due) => { if (!due) { stop(); resolve() } })
+  })
+}
+
 /** Store the player's answer. */
 export const setSamsungFixChoice = (next: SamsungFixChoice): void => {
   choice.value = next

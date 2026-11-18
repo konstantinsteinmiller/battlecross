@@ -1,7 +1,6 @@
 import { shallowReactive } from 'vue'
 import { app, type GameMode } from '../engine/app'
-import { createInput } from '../engine/input'
-import { precompile } from '../boot'
+import { input as gameInput, precompile } from '../boot'
 import { ZoneMode, type ZoneCallbacks, type ZoneSetup } from '../modes/zoneMode'
 import { profile, saveProfile } from '../state/profile'
 import { hud } from '../state/hud'
@@ -24,12 +23,12 @@ import { trackForTheme } from '../audio/themes'
 import { setMusicTrack, startGameMusic, startIntroMusic, stopIntroMusic } from '@/use/useSound'
 import { INTRO_FIGHT_AT } from '../audio/songs'
 import { isGamePaused } from '@/use/useGamePause'
-import { INTRO_TIP, introBoot } from './state'
+import { INTRO_TIP, introBoot, introPlayable, introWake } from './state'
 import { setSfxGate } from '../audio/sfx'
 import { buildFirstLevel, enterFirstLevel, startFirstLevel } from '../flow'
 import {
   BUILD_CAP_S, INTRO_ACTS, INTRO_BEAST, INTRO_DRAGON, INTRO_FOE_LEVEL, INTRO_LENGTH, INTRO_MAGE, INTRO_PACK, INTRO_SEED, INTRO_ZONE,
-  ENTRY_AT, ENTRY_S, INTRO_ZOOMS, LABEL_AT, NO_SKIP_AT, SCENE_AT, createIntroClock, labelAt, veilAt, type IntroAct
+  ENTRY_AT, ENTRY_S, FIREBALLS, FIREBALL_FLIGHT, INTRO_ZOOMS, LABEL_AT, NO_SKIP_AT, PRE_S, SCENE_AT, createIntroClock, labelAt, veilAt, type IntroAct
 } from './script'
 
 /**
@@ -43,7 +42,9 @@ import {
  * (`unit.stunt` lifts and turns the drawn body), and the spells are the game's own effects, timed by the script
  * (`intro/script.ts`). Nothing is kept but the `introSeen` flag.
  *
- * Its input is a fresh one no key or finger reaches, its callbacks do nothing (no result screen, no reward, no funnel
+ * The film opens with the PLAYER's hero in the fight (#217): the game's own input walks him about and he may strike at the
+ * dragon, which is far too strong and knocks him out with its second fireball (`PRE_S`); only then do the two heroes come,
+ * with the camera on the dragon, and the dragon fights back. Its callbacks do nothing (no result screen, no reward, no funnel
  * event), its pack is never the finale, so there is no victory to report. The scene is built while the hero choice shows
  * (`prepareIntro`); when the film is over the opening level is built behind the last black (`startFirstLevel`).
  */
@@ -56,7 +57,7 @@ export const introView = shallowReactive({
   ready: false,
   /** 0..1: how black the screen is. */
   veil: 1,
-  /** 0..1: how visible "1 month later…" is. */
+  /** 0..1: how visible "A few hours later…" is. */
   label: 0,
   /** The skip button is up (until the label and the load). */
   canSkip: true
@@ -124,7 +125,9 @@ const setup = (): ZoneSetup => ({
 let prepared: { mode: ZoneMode; cast: Cast } | null = null
 
 const build = async (): Promise<ZoneMode> => {
-  const m = await ZoneMode.create(setup(), createInput(), NONE)
+  const m = await ZoneMode.create(setup(), gameInput, NONE)
+  // The film is no visit: nothing it earns reaches the save (the first level must still find a first-timer).
+  m.banksRun = false
   await precompile(m)
   await m.warmUp(async () => {})
   return m
@@ -159,6 +162,10 @@ interface Cast {
   /** Where each of the pack stood, relative to her, when she set off, and when that was. */
   packOff: Array<{ x: number; z: number }>
   fleeT: number
+  /** The dragon's fireballs thrown so far. */
+  fires: number
+  /** The two heroes have leapt in (before that `mage` and `beast` are placeholders). */
+  entered: boolean
 }
 
 /** How far (m) each walks off, sideways and toward the camera (the stage is cut clear along it). */
@@ -221,26 +228,33 @@ const stage = (m: ZoneMode): Cast | null => {
   // Its moves are the script's: it never decides anything for itself.
   dragon.aiT = 1e9
   dragon.rooted = true
-  // The player's hero: face down in the snow in front of it.
+  // The player's hero: standing before it, the player's to walk about (#217) until the second fireball.
   const hero = sim.hero.unit
   hero.x = hero.px = p.x
-  hero.z = hero.pz = p.z + 3.2
+  hero.z = hero.pz = p.z + 2.6
   hero.hasGoal = false
   hero.facing = Math.PI
   sim.hero.order = { kind: 'none', targetId: 0, x: hero.x, z: hero.z }
-  applyStatus(sim, hero, 'knockdown', 1e9, 1, null, { quiet: true })
-  // Lying down turns the body about its feet: lifted a little, it lies on the snow and not half in it.
-  hero.stunt = { lift: 0.42, flip: 0 }
   registerLooks()
   const land = { mage: { x: p.x - 4.4, z: p.z + 0.2 }, beast: { x: p.x + 4.4, z: p.z + 0.2 } }
-  const mage = person(sim, 'introMage', land.mage.x - ENTRY_RUN, land.mage.z + ENTRY_RUN * 0.45, -0.7)
-  const beast = person(sim, 'introBeast', land.beast.x + ENTRY_RUN, land.beast.z + ENTRY_RUN * 0.45, 0.7)
-  for (const u of [mage, beast]) u.stunt = { lift: ENTRY_HIGH, flip: 0 }
+  // The two are not there yet: they are made when they leap in (`enter`); until then the placeholders are the hero.
+  const mage = hero
+  const beast = hero
   m.hideBars = true
   // The haze is set for the usual view: with the camera pulled back it would swallow the dragon.
   setZoneFog(m.scene, m.terrainTheme(), m.cam.dist * INTRO_ZOOMS[0]!.to * 12)
+  m.camShot = frameBoth(hero, dragon)
   m.cam.snap()
-  return { hero, mage, beast, dragon, pack: [], leaps: [], land, packAt: -1, fled: false, bite: [], home: { x: dragon.x, z: dragon.z }, settle: 0, casts: 0, beastDir: { x: 1, z: 0.5 }, packOff: [], fleeT: 0 }
+  return { hero, mage, beast, dragon, pack: [], leaps: [], land, packAt: -1, fled: false, bite: [], home: { x: dragon.x, z: dragon.z }, settle: 0, casts: 0, beastDir: { x: 1, z: 0.5 }, packOff: [], fleeT: 0, fires: 0, entered: false }
+}
+
+/** The two heroes appear beyond the picture's edges, high up, ready to leap in. */
+const enter = (m: ZoneMode, c: Cast): void => {
+  const sim = m.sim
+  c.entered = true
+  c.mage = person(sim, 'introMage', c.land.mage.x - ENTRY_RUN, c.land.mage.z + ENTRY_RUN * 0.45, -0.7)
+  c.beast = person(sim, 'introBeast', c.land.beast.x + ENTRY_RUN, c.land.beast.z + ENTRY_RUN * 0.45, 0.7)
+  for (const u of [c.mage, c.beast]) u.stunt = { lift: ENTRY_HIGH, flip: 0 }
 }
 
 /** Start a leap: `high` metres at the top of the arc, `flips` forward turns on the way, a hero's landing at the end. */
@@ -282,16 +296,52 @@ const hit = (sim: Sim, c: Cast, dmg: number, type: DamageType, from: Unit = c.ma
 }
 
 const FIRE = '#ff7a1a'
+/** Where the dragon's fireball leaves it: its jaws, a stride in front of it. */
+const jaws = (d: Unit): { x: number; z: number } => ({ x: d.x + Math.sin(d.facing) * 1.9, z: d.z + Math.cos(d.facing) * 1.9 })
+
+/** A fireball lands: the ground burns, the picture shakes. `hero`: it is the player's hero it strikes. */
+const burn = (m: ZoneMode, x: number, z: number, trauma: number): void => {
+  m.sim.emit({ t: 'fx', id: 'impact:fireball', x, z, color: FIRE })
+  m.sim.emit({ t: 'fx', id: 'slam', x, z, r: 3.4, color: FIRE })
+  m.cam.addTrauma(trauma)
+}
+
+/**
+ * The dragon's fireball finds the player's hero (#217): thrown back, and down; the second one knocks him out for good. The
+ * hero's life is never touched (the film mends it), the blast is what the player sees.
+ */
+const strike = (m: ZoneMode, c: Cast, x: number, z: number, last: boolean): void => {
+  const sim = m.sim
+  const h = c.hero
+  const d = c.dragon
+  burn(m, x, z, last ? 0.95 : 0.6)
+  const a = Math.atan2(h.x - d.x, h.z - d.z)
+  const push = last ? 0.3 : 0.5
+  h.x = h.px = h.x + Math.sin(a) * push
+  h.z = h.pz = h.z + Math.cos(a) * push
+  h.hasGoal = false
+  sim.hero.order = { kind: 'none', targetId: 0, x: h.x, z: h.z }
+  sim.emit({ t: 'hit', src: d.id, tgt: h.id, x: h.x, z: h.z, h: h.h, amount: last ? 480 : 260, crit: false, type: 'fire', heavy: true, toHero: true, killed: false, dot: false })
+  if (!last) { applyStatus(sim, h, 'knockdown', 0.9, 1, null, { quiet: true }); return }
+  // Out cold: lying down turns the body about its feet; lifted a little, it lies on the snow and not half in it.
+  applyStatus(sim, h, 'knockdown', 1e9, 1, null, { quiet: true })
+  h.stunt = { lift: 0.42, flip: 0 }
+  introPlayable.value = false
+  // (The camera stays on the two of them: `frameBoth`, every frame.)
+}
 const FROST = '#a8d8ff'
 const BOLT = '#ffe14a'
 const HOLY = '#fff0a0'
+
+/** The view's middle: halfway between the hero and the dragon (a little toward the dragon, which is the taller), so both are in the frame. */
+const frameBoth = (hero: Unit, dragon: Unit): { x: number; z: number } => ({ x: (hero.x + dragon.x) / 2, z: (hero.z + dragon.z) / 2 - 0.4 })
 
 /** The opening level, once the film asks for it (it builds while the two walk away). */
 let building: ReturnType<typeof buildFirstLevel> | null = null
 let bootRun = false
 
 /** One beat of the film. */
-const play = (m: ZoneMode, c: Cast, t: number, act: IntroAct, who: 'beast' | 'mage' | 'both'): void => {
+const play = (m: ZoneMode, c: Cast, t: number, act: IntroAct, who: 'beast' | 'mage' | 'both' | 'dragon'): void => {
   const sim = m.sim
   const d = c.dragon
   const shake = (n: number): void => m.cam.addTrauma(n)
@@ -301,6 +351,40 @@ const play = (m: ZoneMode, c: Cast, t: number, act: IntroAct, who: 'beast' | 'ma
       pose(d, 'slam', c.hero)
       sim.emit({ t: 'fx', id: 'roar', x: d.x, z: d.z, r: 9, color: '#58e0d0' })
       shake(0.7)
+      break
+    case 'fire': {
+      // The dragon rears and spits a fireball at the hero, ahead of where he walks; it lands on him whatever he does.
+      const h = c.hero
+      pose(d, 'slam', h)
+      const from = jaws(d)
+      const tx = h.x + h.vx * FIREBALL_FLIGHT
+      const tz = h.z + h.vz * FIREBALL_FLIGHT
+      sim.emit({ t: 'fx', id: 'lob:fireball', x: from.x, z: from.z, x2: tx, z2: tz, dur: FIREBALL_FLIGHT, color: FIRE })
+      shake(0.25)
+      const n = ++c.fires
+      sim.after(FIREBALL_FLIGHT, () => strike(m, c, tx, tz, n >= FIREBALLS.length))
+      break
+    }
+    case 'counter': {
+      // The dragon answers whoever just struck it: a fireball at them, and they leap clear of it (to the side they came from).
+      const u = who === 'beast' ? c.beast : c.mage
+      const x0 = u.x
+      const z0 = u.z
+      pose(d, 'slam', u)
+      const from = jaws(d)
+      sim.emit({ t: 'fx', id: 'lob:fireball', x: from.x, z: from.z, x2: x0, z2: z0, dur: 0.6, color: FIRE })
+      shake(0.2)
+      leap(c, u, x0 + (who === 'beast' ? 3 : -3), z0 + 1.4, t, 0.55, 2.4, 1, false)
+      sim.after(0.6, () => burn(m, x0, z0, 0.5))
+      break
+    }
+    case 'stomp':
+      // It rears and brings both feet down: the ground jumps under the two of them.
+      d.anim = 'attack'
+      d.animT = 0
+      sim.emit({ t: 'fx', id: 'quake', x: d.x, z: d.z, r: 8, color: '#cfe8ff' })
+      sim.emit({ t: 'fx', id: 'slam', x: d.x, z: d.z, r: 6, color: '#e8f4ff' })
+      shake(0.9)
       break
     case 'summon': {
       // The pack, thrown in: three wolves, a bear and a hawk run at the drake and bite.
@@ -373,10 +457,7 @@ const play = (m: ZoneMode, c: Cast, t: number, act: IntroAct, who: 'beast' | 'ma
       // which starts when the black is whole (the frame loop below).
       break
     case 'rise':
-      // The one in the snow gets up, as the screen goes dark.
-      removeStatus(c.hero, 'knockdown')
-      c.hero.stunt = undefined
-      c.hero.anim = 'idle'
+      // The one in the snow stays down, out cold, to the last black: he comes to in the opening level (`ZoneMode.stepWake`).
       break
   }
 }
@@ -556,6 +637,8 @@ export const runIntro = (next: GameMode | null = null): Promise<void> => new Pro
     if (over) return
     over = true
     end = null
+    if (boot) introWake.pending = true
+    introPlayable.value = false
     cancelAnimationFrame(raf)
     stopSpeech()
     setSfxGate(null)
@@ -602,8 +685,9 @@ export const runIntro = (next: GameMode | null = null): Promise<void> => new Pro
   end = finish
 
   /** Where the picture is in the fight's cue (seconds; its first 16th is a little after the film's start). */
-  const cueTime = (): number => clock.t - INTRO_FIGHT_AT
-  if (pre) { startIntroMusic(cueTime); startGameMusic(); app.setWanted(true); introView.ready = true }
+  const cueTime = (): number => clock.t - PRE_S - INTRO_FIGHT_AT
+  let cueOn = false
+  if (pre) { startGameMusic(); app.setWanted(true); introView.ready = true; introPlayable.value = true }
   else {
     build().then((m) => {
       if (over) { m.dispose(); return }
@@ -619,9 +703,9 @@ export const runIntro = (next: GameMode | null = null): Promise<void> => new Pro
     app.resize()
     m.enter()
     app.setWanted(true)
-    startIntroMusic(cueTime)
     startGameMusic()
     introView.ready = true
+    introPlayable.value = true
   }
 
   const frame = (now: number): void => {
@@ -654,16 +738,23 @@ export const runIntro = (next: GameMode | null = null): Promise<void> => new Pro
         const z = INTRO_ZOOMS[zoom++]!
         m.cam.punchZoom(z.to, z.dur, z.hold)
       }
-      if (!started) {
+      if (!started && t >= ENTRY_AT) {
         started = true
         // The two leap in from beyond the picture's edges.
+        enter(m, cast)
+        // Where it stands now (the player's fight may have moved it) is its spot for the film, and the camera's.
+        cast.home = { x: cast.dragon.x, z: cast.dragon.z }
         leap(cast, cast.mage, cast.land.mage.x, cast.land.mage.z, ENTRY_AT, ENTRY_S, ENTRY_HIGH, 1)
         leap(cast, cast.beast, cast.land.beast.x, cast.land.beast.z, ENTRY_AT, ENTRY_S, ENTRY_HIGH, 1)
       }
+      // The fight's cue belongs to the film, which starts when the player's part is over.
+      if (!cueOn && t >= PRE_S) { cueOn = true; startIntroMusic(cueTime) }
       while (beat < INTRO_ACTS.length && t >= INTRO_ACTS[beat]!.at) {
         const b = INTRO_ACTS[beat++]!
         play(m, cast, t, b.act, b.who)
       }
+      // The picture holds the dragon and the hero on the ground, never one at the edge: no cut when the two arrive.
+      m.camShot = frameBoth(cast.hero, cast.dragon)
       stepLeaps(m, cast, t)
       stepPack(m, cast, t, dt)
       // …and the drake eases back to its place after a blow.
@@ -674,9 +765,12 @@ export const runIntro = (next: GameMode | null = null): Promise<void> => new Pro
         d.z = d.pz = d.z + (cast.home.z - d.z) * k
         cast.settle = Math.hypot(cast.home.x - d.x, cast.home.z - d.z) < 0.03 ? 0 : cast.settle
       }
-      tickPose(cast.mage, dt)
-      tickPose(cast.beast, dt)
+      // It stands its ground: the crowd round it (the pack, the heroes) never shoves it off the spot the camera is on (#217).
+      if (cast.dragon.alive && cast.settle === 0) { cast.dragon.x = cast.dragon.px = cast.home.x; cast.dragon.z = cast.dragon.pz = cast.home.z }
+      if (cast.entered) { tickPose(cast.mage, dt); tickPose(cast.beast, dt) }
       tickPose(cast.dragon, dt)
+      // The player cannot win: whatever he does to it, it stays whole until the film kills it.
+      if (t < PRE_S && cast.dragon.alive) cast.dragon.hp = cast.dragon.s.maxHp
       // Nobody in the picture is ever hurt: the hero on the ground and the pack are mended as they are struck.
       cast.hero.hp = cast.hero.s.maxHp
       for (const mn of cast.pack) if (mn.alive) mn.hp = mn.s.maxHp

@@ -17,6 +17,8 @@ export const rebellionDue = (has: (flag: string) => boolean): boolean => !has(KI
 
 /** Diggers in the chain gang. */
 export const REBEL_COUNT = 6
+/** A second, smaller group chained elsewhere in the Hollows (#215), freed on its own. */
+export const REBEL_COUNT_MORE = 3
 /** The share of its health a gnome keeps once it runs (a blow that would take it under `REBEL_FLEE` leaves it here). */
 export const REBEL_FLEE = 0.1
 export const REBEL_FLOOR = 0.09

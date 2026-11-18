@@ -1,8 +1,11 @@
 <template lang="pug">
-  div.intro(:class="{ 'is-touch': touch, 'is-ready': introView.ready }")
+  div.intro(:class="{ 'is-touch': touch, 'is-ready': introView.ready, 'is-playable': introPlayable }")
     div.intro__veil(:style="{ opacity: introView.veil }" aria-hidden="true")
-    //- "1 month later…" rides on the last fade to black.
+    //- "A few hours later…" rides on the last fade to black.
     p.intro__later(:style="{ opacity: introView.label }" aria-live="polite") {{ introView.label > 0.05 ? t('intro.later') : '' }}
+    //- The film's first part is the player's (#217): the stick on a touch screen; keys and the mouse reach the scene below.
+    div.intro__stick(v-if="introPlayable && touch")
+      TouchStick
     div.intro__skip(v-if="!introBoot && introView.canSkip")
       //- The game's own button (the same design as every other), a glyph and, on a keyboard, the key.
       FButton(
@@ -22,7 +25,7 @@
 /**
  * ─── The intro's overlay (roadmap #130, the film of #183) ────────────────────
  *
- * Over the running scene (`intro/runner.ts`): the black veil, "1 month later…"
+ * Over the running scene (`intro/runner.ts`): the black veil, "A few hours later…"
  * and the skip: one tap on the button, or Space (the key is nothing else's
  * while the film plays: the game's own handlers never see it). A lazy chunk,
  * mounted only while the intro plays.
@@ -32,7 +35,8 @@ import { useI18n } from 'vue-i18n'
 import KeyCap from '@/components/glyphs/KeyCap.vue'
 import FButton from '@/components/atoms/FButton.vue'
 import { introView, skipIntro } from '@/game/intro/runner'
-import { introBoot } from '@/game/intro/state'
+import { introBoot, introPlayable } from '@/game/intro/state'
+import TouchStick from '@/components/hud/TouchStick.vue'
 import { touchFirst } from '@/game/engine/input'
 
 const { t } = useI18n()
@@ -61,6 +65,16 @@ onUnmounted(() => window.removeEventListener('keydown', onDown, true))
   user-select: none
   -webkit-user-select: none
   touch-action: none
+  // While the player has the hero the layer lets every touch and click through to the scene's gesture surface.
+  &.is-playable
+    pointer-events: none
+    .intro__skip
+      pointer-events: auto
+.intro__stick
+  position: absolute
+  bottom: calc(env(safe-area-inset-bottom, 0px) + clamp(0.8rem, 4vmin, 1.8rem))
+  left: calc(env(safe-area-inset-left, 0px) + clamp(0.8rem, 4vmin, 1.8rem))
+  pointer-events: none
 .intro__veil
   position: absolute
   inset: 0

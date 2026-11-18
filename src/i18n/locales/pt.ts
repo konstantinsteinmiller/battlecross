@@ -169,7 +169,7 @@ export default {
   intro: {
     narrator: 'O Cronista',
     skip: 'Pular',
-    later: '1 mês depois…',
+    later: 'Algumas horas depois…',
     holdKey: 'Segure {key} para pular',
     holdTouch: 'Segure para pular',
     replay: 'Ver a introdução'
@@ -257,6 +257,8 @@ export default {
     potionStop: 'Beba uma poção de vida para continuar',
     rollStop: 'Role para fora da zona de perigo!',
     rollStopKey: 'Espaço',
+    bagHint: 'Abra sua mochila e seu equipamento pelo retrato, como na cidade!',
+    bashStop: 'Interrompa o ataque com {skill}!',
     minimap: 'Mapa da cidade: mestres, comerciantes, ferreiros e curandeiros',
     groups: '{n} de {total} grupos de inimigos derrotados',
     wave: 'Onda {n} / {total}',
@@ -6302,7 +6304,7 @@ export default {
       }
     },
     bark: {
-      hero: { cage: { 1: 'Alguém está gritando por ajuda?' }, hunt: { 1: 'Mais alguém está caçando aquela fera.' } },
+      hero: { cage: { 1: 'Alguém está gritando por ajuda?' }, hunt: { 1: 'Mais alguém está caçando aquela fera.' }, levelUp: { 1: 'Fiquei mais forte!' } },
       trainerPyro: { help: { 1: 'Socorro, alguém!' } },
       sbMasterSoulwarden: { help: { 1: 'Fomos sequestrados!' } },
       sbMasterIronmonk: { help: { 1: 'Monstros! Socorro!' } },
@@ -7643,6 +7645,7 @@ export default {
     goblinSlinger: 'Goblin fundeiro',
     bandit: 'Bandido',
     banditArcher: 'Arqueiro bandido',
+    banditRaider: 'Bandido assaltante',
     wolf: 'Lobo',
     banditChief: 'Chefe dos bandidos',
     gnome: 'Gnomo',

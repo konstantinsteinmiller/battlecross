@@ -311,7 +311,7 @@ export const installPreview = (): void => {
       const r = z?.sim.rebels
       if (!z || !r) return
       const sim = z.sim
-      if (what === 'free') r.freeing = Math.max(r.freeing, 0)
+      if (what === 'free') { r.freeing = Math.max(r.freeing, 0); if (r.extra) r.extra.freeing = Math.max(r.extra.freeing, 0) }
       else if (what === 'flee') { const u = sim.get(r.gnomes.find(g => g.mode === 'follow')?.unit ?? 0); if (u) dealDamage(sim, null, u, u.s.maxHp * 5, { type: 'true', canCrit: false }) }
       else {
         const boss = sim.units.find(e => e.team === 1 && e.alive && (e.kind === 'tusker' || e.kind === 'goblinKing'))

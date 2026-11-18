@@ -4,7 +4,8 @@ import {
   RUN_GAP, RUN_MAX, RUN_SPEED, STAB_REACH, STAB_S, stampedeShare
 } from '../data/rebellion'
 import { face, setGoal, stop, stride, walk } from './actors'
-import { dealDamage } from './combat'
+import { dealDamage, grantXp } from './combat'
+import { xpToNext } from '../data/progression'
 import { REBEL_KIND } from './rebelHurt'
 import { gnomeSpot, type RebelSite } from './rebelSite'
 import { spawnMinion } from './spawn'
@@ -28,8 +29,10 @@ export interface RebelGnome {
   /** The unit's id (it changes once, when the chains snap). */
   unit: number
   mode: RebelMode
-  /** Its post's index. */
+  /** Its post's index (over both gangs: the chains are laid in this order). */
   q: number
+  /** Which gang it is in: 0 the first, 1 the second, smaller one (#215). */
+  grp?: 0 | 1
   /** Where it stood in chains. */
   x0: number
   z0: number
@@ -41,8 +44,17 @@ export interface RebelGnome {
   share: number
 }
 
+/** A gang's own chains: where it stands, the seconds its freeing has run (-1: not started) and until the next "guarded" hint. */
+export interface RebelGang {
+  site: RebelSite
+  freeing: number
+  guardT: number
+}
+
 export interface RebelState {
   site: RebelSite
+  /** The second, smaller gang (#215), freed on its own. */
+  extra?: RebelGang | null
   gnomes: RebelGnome[]
   /** How many chains have snapped this visit (the stampede's size). */
   freed: number
@@ -57,16 +69,21 @@ export interface RebelState {
 export const populateRebels = (sim: Sim, site: RebelSite | undefined): void => {
   sim.rebels = null
   if (!site) return
-  const gnomes: RebelGnome[] = site.posts.map((p, q) => {
-    const at = gnomeSpot(site, q)
-    const u = sim.addUnit({
-      kind: REBEL_KIND, team: 0, rank: 'npc', level: 1, x: at.x, z: at.z, r: 0.3, h: 0.85,
-      s: plainStats({ hp: 1000, dmg: 0, speed: 4.2 }), facing: p.a + Math.PI
+  const gnomes: RebelGnome[] = []
+  const lay = (s: RebelSite, grp: 0 | 1): void => {
+    s.posts.forEach((p, k) => {
+      const at = gnomeSpot(s, k)
+      const u = sim.addUnit({
+        kind: REBEL_KIND, team: 0, rank: 'npc', level: 1, x: at.x, z: at.z, r: 0.3, h: 0.85,
+        s: plainStats({ hp: 1000, dmg: 0, speed: 4.2 }), facing: p.a + Math.PI
+      })
+      u.rooted = true
+      gnomes.push({ unit: u.id, mode: 'chained', q: gnomes.length, grp, x0: at.x, z0: at.z, t: 0, delay: 0, target: 0, share: 0 })
     })
-    u.rooted = true
-    return { unit: u.id, mode: 'chained' as const, q, x0: at.x, z0: at.z, t: 0, delay: 0, target: 0, share: 0 }
-  })
-  sim.rebels = { site, gnomes, freed: 0, freeing: -1, guardT: 0, stampedes: 0 }
+  }
+  lay(site, 0)
+  if (site.more) lay(site.more, 1)
+  sim.rebels = { site, extra: site.more ? { site: site.more, freeing: -1, guardT: 0 } : null, gnomes, freed: 0, freeing: -1, guardT: 0, stampedes: 0 }
 }
 
 /** An awake foe (not a statue, not out of reach) standing near the gang. */
@@ -92,6 +109,8 @@ const snap = (sim: Sim, r: RebelState, g: RebelGnome): void => {
   g.mode = 'follow'
   g.t = 0
   r.freed++
+  // Every gnome freed is worth a little experience, paid at once.
+  grantXp(sim, Math.max(1, Math.round(xpToNext(sim.hero.level) * 0.03)))
   sim.emit({ t: 'rebel', id: 'snap', n: g.q, x: at.x, z: at.z })
 }
 
@@ -199,16 +218,21 @@ export const stepRebels = (sim: Sim, dt: number): void => {
   if (!r || !sim.hero) return
   const hero = sim.hero.unit
   if (r.guardT > 0) r.guardT -= dt
+  if (r.extra && r.extra.guardT > 0) r.extra.guardT -= dt
   // The chains: the hero comes close and the overseers are down; the whole gang is let go, one after the other.
-  const chained = r.gnomes.filter(g => g.mode === 'chained')
-  if (chained.length) {
-    if (r.freeing < 0 && hero.alive && chained.some(g => Math.hypot(hero.x - g.x0, hero.z - g.z0) < FREE_REACH)) {
-      if (!guarded(sim, r.site)) r.freeing = 0
-      else if (r.guardT <= 0) { r.guardT = GUARD_HINT_GAP; sim.emit({ t: 'rebel', id: 'guarded', n: 0, x: r.site.x, z: r.site.z }) }
+  // Each gang is its own (#215): the small one is freed by standing at it.
+  const gangs: Array<[RebelGang, 0 | 1]> = [[r, 0]]
+  if (r.extra) gangs.push([r.extra, 1])
+  for (const [gang, grp] of gangs) {
+    const chained = r.gnomes.filter(g => g.mode === 'chained' && (g.grp ?? 0) === grp)
+    if (!chained.length) continue
+    if (gang.freeing < 0 && hero.alive && chained.some(g => Math.hypot(hero.x - g.x0, hero.z - g.z0) < FREE_REACH)) {
+      if (!guarded(sim, gang.site)) gang.freeing = 0
+      else if (gang.guardT <= 0) { gang.guardT = GUARD_HINT_GAP; sim.emit({ t: 'rebel', id: 'guarded', n: 0, x: gang.site.x, z: gang.site.z }) }
     }
-    if (r.freeing >= 0) {
-      r.freeing += dt
-      chained.forEach((g, i) => { if (r.freeing >= i * FREE_GAP) snap(sim, r, g) })
+    if (gang.freeing >= 0) {
+      gang.freeing += dt
+      chained.forEach((g, i) => { if (gang.freeing >= i * FREE_GAP) snap(sim, r, g) })
     }
   }
   for (const g of r.gnomes) {

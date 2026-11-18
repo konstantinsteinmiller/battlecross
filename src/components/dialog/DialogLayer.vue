@@ -81,7 +81,7 @@ import { talk, talkLeave, talkNext, talkPick } from '@/game/talk'
 import { currentZone } from '@/game/boot'
 import { hud } from '@/game/state/hud'
 import { isDense, TYPE_CPS, TYPE_CPS_DENSE, voiceSeed } from '@/game/dialog/pacing'
-import { speakLine, speechBlip, stopSpeech } from '@/game/audio/speech'
+import { lineIdsOf, prefetchVoices, speakLine, speechBlip, stopSpeech } from '@/game/audio/speech'
 import { isAnyModalOpen } from '@/use/useModalState'
 import FButton from '@/components/atoms/FButton.vue'
 import GameIcon from '@/components/icons/GameIcon.vue'
@@ -155,6 +155,9 @@ const finishTyping = (now: number): void => {
   doneAt = now
 }
 
+/** The conversation whose recordings were fetched ahead. */
+let prefetched: unknown = null
+
 /** A new line is up: type it, and speak it if it has a recording. */
 const begin = (): void => {
   const l = talk.line
@@ -172,6 +175,8 @@ const begin = (): void => {
   seed = voiceSeed(l.by === 'npc' ? talk.conv?.look ?? '' : l.by)
   b.reveal(0)
   if (talk.stage === 'world' && who.value !== 'narrator') currentZone()?.speakerBeat(who.value)
+  // The whole conversation's recordings are fetched and decoded now (the line in hand first), so no later line waits on the network.
+  if (talk.conv && talk.conv !== prefetched) { prefetched = talk.conv; prefetchVoices([l.id, ...lineIdsOf(talk.conv).slice(0, 120)], locale.value) }
   void speakLine(l.id, locale.value).then((sec) => {
     if (sec <= 0 || mine !== lineNo) return
     // Spoken: the text keeps pace with the voice, and the line moves on with it.

@@ -10,7 +10,8 @@ import { stepPressure } from './pressure'
 import { plainStats } from './stats'
 import { townSim } from './townHooks'
 import { fillGrid, type ZonePlan } from './zoneGen'
-import { SIDE_GROUP, type Sim } from './world'
+import { SIDE_GROUP, type GroupState, type Sim } from './world'
+import { stepAmbush } from './ambush'
 import { populateHerbs } from './herbs'
 import { populateOres } from './ores'
 import { populateCage } from './cages'
@@ -72,10 +73,12 @@ export const populateZone = (sim: Sim, plan: ZonePlan, zone: ZoneId, owned: Iter
     secret: itemsOfZone(zone, 'secret').map(i => i.id)
   }
   plan.packs.forEach((p, gi) => {
-    const group = { id: gi, x: p.x, z: p.z, members: [] as number[], awake: false, cleared: false, finale: p.finale, boss: p.boss }
+    const group: GroupState = { id: gi, x: p.x, z: p.z, members: [] as number[], awake: false, cleared: false, finale: p.finale, boss: p.boss }
     // A pack with its camp fire (the Hollows, #120) sits round it, warming itself.
     // (The first visit's camp fire is the teachers', not a fire the boss's pack sits round.)
     const fire = plan.dressing?.find(d => d.kind === 'fire' && Math.hypot(d.x - p.x, d.z - p.z) < p.r && !(plan.camp && d.x === plan.camp.fire.x && d.z === plan.camp.fire.z))
+    // The ambush (the stretched tutorial): nobody is spawned until the trapdoor is sprung (`ambush.ts`).
+    if (p.ambush) group.ambush = { kinds: [...p.ambush.kinds], x: p.ambush.x, z: p.ambush.z, carts: p.ambush.carts.map(q => ({ ...q })), sprung: false, ...(p.ambush.smash ? { smash: { ...p.ambush.smash, cells: [...p.ambush.smash.cells] } } : {}) }
     sim.groups.push(group)
     p.kinds.forEach((kind, k) => {
       const leader = p.finale && k === 0
@@ -335,8 +338,10 @@ export const stepDirector = (sim: Sim, plan: ZonePlan, dt: number): void => {
   counts.fill(0)
   for (const u of sim.units) if (u.alive && u.team === 1 && u.group >= 0 && u.group < SIDE_GROUP) counts[u.group]!++
   clearSideGroups(sim)
+  stepAmbush(sim)
   for (const g of sim.groups) {
     if (g.cleared || counts[g.id]! > 0) continue
+    if (g.ambush && !g.ambush.sprung) continue
     g.cleared = true
     sim.groupsDone++
     sim.emit({ t: 'groupDone', done: sim.groupsDone, total: sim.groups.length })

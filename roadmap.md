@@ -299,17 +299,23 @@ Build order and the decisions taken are in `game-implementation-plan.md`
   Distinct but quiet: give it its own sounds and visuals as the roadmap says,   
   but keep it lower in the mix than the player's own combat.
   play the intro epic battle music during this scenic battle.
-- [ ] #211
-- [ ] #212
-- [ ] #213
-- [ ] #214
-- [ ] #215
-- [ ] #216
-- [ ] #217
-- [ ] #218
-- [ ] #219
-- [ ] #220
-- [ ] #221
+- [x] #211 ✅ don't just stream audio files (like music and VOs), wait for the files to fully load(preload VOs needed in the next 10 seconds of gameplay and for the rest of the location, like e.g. all screams and VOs needed for the tutorial level are preloaded right after the loading screen is gone and the VOs are loaded in the background while the player plays, not just upon execution of the dialog Monolog), otherwise the sound files break up with a very unprofessionally sounding noise.
+- [x] #212 stretch the tutorial level with fun small gameplay.
+- [x] #213 ✅ show the color correction test before the intro instead of after the tutorial level exiting.
+- [x] #214 ✅ On the world map the enter button to a location can be below the modals content fold, which is bad UX.
+  Move the Button outside of the Location description card and anchor the button to enter the location below the description card, so .
+- [x] #215 ✅ make the attacking goblins in goblin hollow siege have yellowish skin, so they clearly differentiate from the "enemy"-goblins. and replace half of the yellowish goblins on the sieging side with gnomes like the chained on in goblin hollow. Add another group of 3 chained gnomes in the goblin hollow. 
+- [x] #216 ✅ teach the first shield skill in an early lecture in the tutorial level. maybe during a charge attack with a text saying §stun the enemy with shieldBashIcon", so that the player learns he can use the shield bash skill given at the start to interrupt strong attacks as a tactile move.
+- [x] #217 ✅ make the player actually start right into the dragon boss fight and the dragon knocking the player out with 2 attacks (player can move around and try to win, but the dragon is pretty much undefeatable and knocks the player out with 2 fireballs shot from his mouth) loose in the dragon fight and wake up in the tutorial level (change "1 month later..." to "A few hours later..." as the player wakes up after a few hours being unconcious.).
+  Center the intro cutscene onto the dragon, right now the player character is in the center, but the intro is actually about the heros showing off their skills and defeating the dragon.
+  During the scene with the heroes killing the dragon, the dragon should attack back and not just take the punches on him, make his feel strong and powerful, even though he looses to the 2 foreign heroes.
+- [x] #218 Add an ambush trap from 3 bandits hiding in broken down carts before the the puzzle room in the tutorial level. the player walks into the area without any clue, and as soon as he walks onto a huge trapdoor, that opens below the players character, the 3 bandits jump out of their hiding spot. The player get the same dodge lecture lightbox as with the boss attack, so the player dodges the ground trapdoor in time and survives the trap, but has to fight the 3 bandits now which scream (VO): "Get him!" / "Holt ihn euch!". 
+  The goal here is to make the start of the game as interesting as possible and teaching the player the core dodge skill early, include a lecture to teach the shield bash stun of his first skill here too.
+  BUILT (2026-11-16) in the stretched alternative tutorial only: `/#/alt-tutorial` (`data/altTutorial.ts`, `sim/ambush.ts`); the normal first level is unchanged. Playtest verdict: keep the stretched version after three fixes (trapdoor looks like a flat black box, dodge lesson not seen to trigger, dead walk after the ambush); then it can replace the original.
+- [x] #219 ✅ replace german voice over with elevenlabs version, choose a german voice in elevenlabs for all characters, so that the german word pronounciation is correct and not sound like a english speaker trying to speak german. use english voice-over as fallback when a VO file is missing.
+  DONE (2026-11-16): German is voiced by ElevenLabs native German library voices (`pnpm voice:gen --engine elevenlabs --lang de --takes 1`, cast in `tools/voice/engines/elevenlabs-cast.mjs`); all 1,612 lines are voiced (7 shipped with the read-back check off: it misheard names such as Chronoweber, or wanted a longer pause); the English recording stays the fallback for a missing file (`speech.ts`). Nothing listened to by ear yet.
+- [x] #220 ✅ There is no yellow chevron guiding to the silver key that opens the gate to the boss in the tutorial level. The enemy dropping the silver key, should drop it to the north side, as the player will go north next after the fight. If the player forgot to pickup the silver key, but all previous enemies before the boss gate are dead, then open the boss pallisade gate anyways automatically.
+- [x] #221 ✅ The player should be able to enter his inventory to equip new items gained or change his loadout, otherwise its only posisble on the world map and in towns. clicking on the player avatar icon/image opens the bag, teach this ~ 10 seconds after entering the goblin hollows by using a lightbox on the avatar icon and explaining with text that the player can open inventory and the same menues as in towns. 
 - [ ] #222
 - [ ] #223
 - [ ] #224

@@ -169,7 +169,7 @@ export default {
   intro: {
     narrator: 'Kronikář',
     skip: 'Přeskočit',
-    later: 'O měsíc později…',
+    later: 'O pár hodin později…',
     holdKey: 'Podrž {key} pro přeskočení',
     holdTouch: 'Podrž pro přeskočení',
     replay: 'Přehrát intro'
@@ -257,6 +257,8 @@ export default {
     potionStop: 'Vypij lektvar zdraví a pokračuj',
     rollStop: 'Uhni se z nebezpečné zóny!',
     rollStopKey: 'Mezerník',
+    bagHint: 'Otevři batoh a výbavu z portrétu, stejně jako ve městě!',
+    bashStop: 'Zastav útok pomocí {skill}!',
     minimap: 'Mapa města: učitelé, obchodníci, kováři a léčitelé',
     groups: 'Poražené skupiny nepřátel: {n} z {total}',
     wave: 'Vlna {n} / {total}',
@@ -6346,7 +6348,7 @@ export default {
       }
     },
     bark: {
-      hero: { cage: { 1: 'Volá tam někdo o pomoc?' }, hunt: { 1: 'Tu bestii loví ještě někdo jiný.' } },
+      hero: { cage: { 1: 'Volá tam někdo o pomoc?' }, hunt: { 1: 'Tu bestii loví ještě někdo jiný.' }, levelUp: { 1: 'Zesílil jsem!' } },
       trainerPyro: { help: { 1: 'Pomoc, je tu někdo!' } },
       sbMasterSoulwarden: { help: { 1: 'Byli jsme unesení!' } },
       sbMasterIronmonk: { help: { 1: 'Příšery! Pomoc!' } },
@@ -7687,6 +7689,7 @@ export default {
     goblinSlinger: 'Goblin prakovník',
     bandit: 'Bandita',
     banditArcher: 'Bandita lučištník',
+    banditRaider: 'Bandita nájezdník',
     wolf: 'Vlk',
     banditChief: 'Náčelník banditů',
     gnome: 'Trpaslík',

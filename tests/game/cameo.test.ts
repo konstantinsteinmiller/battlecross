@@ -10,8 +10,11 @@ import { CELL } from '@/game/sim/grid'
 import { ZONES, OPENING } from '@/game/data/zones'
 import { noGear } from '@/game/data/items'
 import { startAttrs } from '@/game/data/attributes'
-import { INTRO_ACTS } from '@/game/intro/script'
+import { INTRO_ACTS as ALL_ACTS, PRE_S } from '@/game/intro/script'
 import { INTRO_FIGHT_AT, getSong, stepSeconds } from '@/game/audio/songs'
+
+/** The film's own beats, counted from the second the two heroes arrive (the cue and the cameo are cut to that clock; the player's fight before it, #217, has its own). */
+const INTRO_ACTS = ALL_ACTS.filter(b => b.who !== 'dragon' && b.act !== 'counter' && b.act !== 'stomp').map(b => ({ ...b, at: b.at - PRE_S }))
 import { SFX_NAMES } from '@/game/audio/sfx'
 import { conversationOf } from '@/game/data/dialogs'
 import { CAPTIVE_BARKS } from '@/game/data/dialogs/captives'

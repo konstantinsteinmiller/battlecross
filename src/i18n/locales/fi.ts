@@ -169,7 +169,7 @@ export default {
   intro: {
     narrator: 'Kronikoitsija',
     skip: 'Ohita',
-    later: '1 kuukausi myöhemmin…',
+    later: 'Muutama tunti myöhemmin…',
     holdKey: 'Ohita pitämällä {key} pohjassa',
     holdTouch: 'Ohita pitämällä pohjassa',
     replay: 'Katso intro'
@@ -257,6 +257,8 @@ export default {
     potionStop: 'Juo terveysjuoma jatkaaksesi',
     rollStop: 'Väistä pois vaaravyöhykkeeltä!',
     rollStopKey: 'Välilyönti',
+    bagHint: 'Avaa laukkusi ja varusteesi muotokuvastasi, aivan kuten kaupungissa!',
+    bashStop: 'Pysäytä isku taidolla {skill}!',
     minimap: 'Kaupungin kartta: opettajat, kauppiaat, sepät ja parantajat',
     groups: '{n} / {total} vihollisryhmää voitettu',
     wave: 'Aalto {n} / {total}',
@@ -6247,7 +6249,7 @@ export default {
       }
     },
     bark: {
-      hero: { cage: { 1: 'Huutaako joku apua?' }, hunt: { 1: 'Joku muukin metsästää tuota petoa.' } },
+      hero: { cage: { 1: 'Huutaako joku apua?' }, hunt: { 1: 'Joku muukin metsästää tuota petoa.' }, levelUp: { 1: 'Vahvistuin!' } },
       trainerPyro: { help: { 1: 'Apua, joku!' } },
       sbMasterSoulwarden: { help: { 1: 'Meidät kidnapattiin!' } },
       sbMasterIronmonk: { help: { 1: 'Hirviöitä! Apua!' } },
@@ -7586,6 +7588,7 @@ export default {
     goblinSlinger: 'Linkohiisi',
     bandit: 'Rosvo',
     banditArcher: 'Rosvojousimies',
+    banditRaider: 'Rosvo-ryöstäjä',
     wolf: 'Susi',
     banditChief: 'Rosvopäällikkö',
     gnome: 'Tonttu',

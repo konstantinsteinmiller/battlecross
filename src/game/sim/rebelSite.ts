@@ -1,4 +1,4 @@
-import { REBEL_COUNT } from '../data/rebellion'
+import { REBEL_COUNT, REBEL_COUNT_MORE } from '../data/rebellion'
 import { CELL, centerOf } from './grid'
 import { mulberry32 } from './rng'
 import { walkableFrom, type SpotPlan } from './herbs'
@@ -20,6 +20,8 @@ export interface RebelSite {
   z: number
   /** One post per gnome, in a ring round the middle; the gnome stands just outside it. */
   posts: Array<{ x: number; z: number; a: number }>
+  /** A second, smaller gang of its own (#215): its own ring, freed on its own. */
+  more?: RebelSite
 }
 
 /** Radius of the post ring and how far outside it the gnome stands (m). */
@@ -35,13 +37,16 @@ export const gnomeSpot = (s: RebelSite, q: number): { x: number; z: number } => 
 export const placeRebels = (
   p: SpotPlan & { seed: number },
   pack: { x: number; z: number },
-  avoid: ReadonlyArray<{ x: number; z: number }>
+  avoid: ReadonlyArray<{ x: number; z: number }>,
+  /** The smaller second gang: its own count and stream, and at least `apart` metres from the first's middle. */
+  second?: { x: number; z: number; apart: number }
 ): RebelSite | null => {
-  const rng = mulberry32((p.seed ^ REBEL_SALT) >>> 0)
+  const count = second ? REBEL_COUNT_MORE : REBEL_COUNT
+  const rng = mulberry32(((p.seed ^ REBEL_SALT) + (second ? 0x9e3779b1 : 0)) >>> 0)
   const reach = walkableFrom(p.w, p.h, p.solid, p.sealed, p.start)
   // The ring's heading is drawn first, so each candidate is judged on the very posts and gnomes it would hold.
   const a0 = rng() * Math.PI * 2
-  const ang = (q: number): number => a0 + (q / REBEL_COUNT) * Math.PI * 2
+  const ang = (q: number): number => a0 + (q / count) * Math.PI * 2
   const cellOk = (x: number, z: number): boolean => {
     const i = Math.floor(x / CELL)
     const j = Math.floor(z / CELL)
@@ -51,7 +56,7 @@ export const placeRebels = (
   }
   const fits = (x: number, z: number): boolean => {
     if (!cellOk(x, z) || p.trail[Math.floor(z / CELL) * p.w + Math.floor(x / CELL)]) return false
-    for (let q = 0; q < REBEL_COUNT; q++) {
+    for (let q = 0; q < count; q++) {
       for (const r of [RING_R, RING_R + GNOME_OUT, RING_R + GNOME_OUT + 0.4]) {
         if (!cellOk(x + Math.sin(ang(q)) * r, z + Math.cos(ang(q)) * r)) return false
       }
@@ -67,6 +72,7 @@ export const placeRebels = (
       if (d < 5.5 || d > 12) continue
       if (p.chests.some(c => Math.hypot(c.x - x, c.z - z) < 5)) continue
       if (avoid.some(c => Math.hypot(c.x - x, c.z - z) < 4)) continue
+      if (second && Math.hypot(second.x - x, second.z - z) < second.apart) continue
       if (Math.hypot(x - p.start.x, z - p.start.z) < 12) continue
       if (!fits(x, z)) continue
       // Nearest to eight metres from the overseers, a little shuffled so two seeds differ.
@@ -75,7 +81,7 @@ export const placeRebels = (
     }
   }
   if (!best) return null
-  const posts = Array.from({ length: REBEL_COUNT }, (_, q) => ({
+  const posts = Array.from({ length: count }, (_, q) => ({
     x: best!.x + Math.sin(ang(q)) * RING_R,
     z: best!.z + Math.cos(ang(q)) * RING_R,
     a: ang(q)

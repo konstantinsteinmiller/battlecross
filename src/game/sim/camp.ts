@@ -281,8 +281,8 @@ export interface CampState {
 /**
  * Once the hero has opened the first chest of the first visit he says, to himself, "Is there somebody screaming for
  * help?", and the cage begins to call: each of three teachers in turn ("Help, anybody!", "We were kidnapped!", "Monsters,
- * help!"), a bubble over the one who calls with its recording, every 3 seconds until all three have been heard, then every
- * 5 seconds until all three have been heard again, then every 7 for the rest of the level, so it never grates. It
+ * help!"), a bubble over the one who calls with its recording, every 5 seconds until all three have been heard, then every
+ * 13 seconds until all three have been heard again, then every 20-25 for the rest of the level, so it never grates. It
  * stops when the cage opens. It is a pull toward the camp, not a fight timer: nothing here moves a unit.
  */
 export const HELP_MONOLOG = 'dlg.bark.hero.cage.1'
@@ -292,13 +292,13 @@ export const HELP_CALLS: ReadonlyArray<{ npc: string; key: string }> = [
   { npc: 'sbMasterIronmonk', key: 'dlg.bark.sbMasterIronmonk.help.1' }
 ]
 /**
- * Seconds between two calls, by how many have been made: 3 for the first three, 8 for the next three, then a different
- * wait of 12 to 15 s each time (#193: it grated). The third tier's wait is a fixed hash of the count, not a dice roll,
+ * Seconds between two calls, by how many have been made: 5 for the first three, 13 for the next three, then a different
+ * wait of 20 to 25 s each time (#193: it grated; spread out another 40 % after a playtest still found it too many). The third tier's wait is a fixed hash of the count, not a dice roll,
  * so a visit replays the same.
  */
-export const helpPeriod = (made: number): number => (made < 3 ? 3 : made < 6 ? 8 : 12 + (((made * 2654435761) >>> 0) % 3001) / 1000)
+export const helpPeriod = (made: number): number => (made < 3 ? 5 : made < 6 ? 13 : 20 + (((made * 2654435761) >>> 0) % 5001) / 1000)
 /** From the monologue to the first call. */
-export const HELP_FIRST_S = 3
+export const HELP_FIRST_S = 2.2
 
 /** Every step, in the first visit before the cage is open: the monologue, then the calls. */
 export const stepHelp = (sim: Sim, dt: number): void => {

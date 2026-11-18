@@ -442,6 +442,10 @@ export type SimEvent =
   | { t: 'plate'; id: number; x: number; z: number; ok: boolean; step: number; solved: boolean }
   /** A hidden passage opens for the rest of the visit. */
   | { t: 'door'; id: number; cells: number[]; x: number; z: number }
+  /** The ambush's trapdoor gives way under the hero; the raiders (`ids`) jump out of their wagons. */
+  | { t: 'trapSprung'; x: number; z: number; ids: number[] }
+  /** The hatch starts to crack under the hero's feet: the dodge roll is the way out (`dodge` = the way, a unit vector). */
+  | { t: 'trapCrack'; x: number; z: number; dx: number; dz: number }
   | { t: 'xp'; amount: number }
   | { t: 'levelUp'; level: number }
   | { t: 'awake'; group: number; boss: string }

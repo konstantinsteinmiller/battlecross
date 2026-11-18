@@ -396,8 +396,8 @@ class Coach {
     }
 
     // The opening fight (#155): out of a fight, once the dummy has had its
-    // turn, the chevrons lead up the road to the boss.
-    if (host.setup.kind === 'zone' && host.setup.tutorial && !foe && !dummy) {
+    // turn, the chevrons lead up the road to the boss (#220: until the palisade's silver key is in play: then it is the key's).
+    if (host.setup.kind === 'zone' && host.setup.tutorial && !foe && !dummy && !gateGoal(sim)) {
       const boss = openingBoss(sim)
       if (boss && !boss.awake) { findWay(sim, u, boss, dt); hintPath.lead = wayWorld.length > 0 }
     }

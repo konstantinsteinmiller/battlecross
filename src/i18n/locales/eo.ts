@@ -169,7 +169,7 @@ export default {
   intro: {
     narrator: 'La Kronikisto',
     skip: 'Preterlasi',
-    later: 'Monaton poste…',
+    later: 'Kelkajn horojn poste…',
     holdKey: 'Tenu {key} por preterlasi',
     holdTouch: 'Tenu premite por preterlasi',
     replay: 'Spekti la enkondukon'
@@ -257,6 +257,8 @@ export default {
     potionStop: 'Trinku sanigan eliksiron por daŭrigi',
     rollStop: 'Ruliĝu el la danĝera zono!',
     rollStopKey: 'Spaco',
+    bagHint: 'Malfermu vian sakon kaj ekipaĵon per via portreto, same kiel en la urbo!',
+    bashStop: 'Haltigu la atakon per {skill}!',
     minimap: 'Urbmapo: instruistoj, komercistoj, forĝistoj kaj resanigistoj',
     groups: '{n} el {total} malamikaj grupoj venkitaj',
     wave: 'Ondo {n} / {total}',
@@ -6247,7 +6249,7 @@ export default {
       }
     },
     bark: {
-      hero: { cage: { 1: 'Ĉu iu krias pri helpo?' }, hunt: { 1: 'Iu alia ankaŭ ĉasas tiun beston.' } },
+      hero: { cage: { 1: 'Ĉu iu krias pri helpo?' }, hunt: { 1: 'Iu alia ankaŭ ĉasas tiun beston.' }, levelUp: { 1: 'Mi plifortiĝis!' } },
       trainerPyro: { help: { 1: 'Helpon, ĉu iu!' } },
       sbMasterSoulwarden: { help: { 1: 'Ni estis kidnapitaj!' } },
       sbMasterIronmonk: { help: { 1: 'Monstroj! Helpon!' } },
@@ -7586,6 +7588,7 @@ export default {
     goblinSlinger: 'Kobolda Ŝtonĵetisto',
     bandit: 'Bandito',
     banditArcher: 'Bandita Pafarkisto',
+    banditRaider: 'Bandito-rabisto',
     wolf: 'Lupo',
     banditChief: 'Banditestro',
     gnome: 'Gnomo',

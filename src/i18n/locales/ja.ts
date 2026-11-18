@@ -169,7 +169,7 @@ export default {
   intro: {
     narrator: '語り部',
     skip: 'スキップ',
-    later: '1か月後…',
+    later: '数時間後…',
     holdKey: '{key}長押しでスキップ',
     holdTouch: '長押しでスキップ',
     replay: 'イントロを見る'
@@ -257,6 +257,8 @@ export default {
     potionStop: '回復薬を飲んで先へ進もう',
     rollStop: '危険ゾーンから回避しろ！',
     rollStopKey: 'スペース',
+    bagHint: '町と同じように、ポートレートからバッグと装備を開けるよ！',
+    bashStop: '{skill}で攻撃を止めろ！',
     minimap: '町の地図：師匠、商人、鍛冶屋、癒し手',
     groups: '敵グループ {n}/{total} 撃破',
     wave: 'ウェーブ {n} / {total}',
@@ -6247,7 +6249,7 @@ export default {
       }
     },
     bark: {
-      hero: { cage: { 1: '誰か助けを求めて叫んでいる？' }, hunt: { 1: 'あの獣を追っているのは、ほかにもいるんだ。' } },
+      hero: { cage: { 1: '誰か助けを求めて叫んでいる？' }, hunt: { 1: 'あの獣を追っているのは、ほかにもいるんだ。' }, levelUp: { 1: '強くなった！' } },
       trainerPyro: { help: { 1: '誰か、助けて！' } },
       sbMasterSoulwarden: { help: { 1: '私たちはさらわれたの！' } },
       sbMasterIronmonk: { help: { 1: 'モンスターよ！助けて！' } },
@@ -7586,6 +7588,7 @@ export default {
     goblinSlinger: 'ゴブリン投石兵',
     bandit: '山賊',
     banditArcher: '山賊の弓兵',
+    banditRaider: '山賊の襲撃者',
     wolf: '狼',
     banditChief: '山賊の頭',
     gnome: 'ノーム',

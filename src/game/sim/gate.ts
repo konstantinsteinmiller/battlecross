@@ -191,6 +191,15 @@ export const placeGate = (c: Cut, id: number, boss: { x: number; z: number; r: n
   return { door: { id, cells: gateCells, x: gx / gateCells.length, z: gz / gateCells.length, style: 'palisade' }, fence }
 }
 
+/** How far toward the gate the key lands from where the last of its pack fell, metres (#220). */
+const KEY_NORTH = 3
+
+/** Every pack up to and including the key's own is down: nothing left before the boss's floor. */
+const packsDown = (sim: Sim, g: GateState): boolean => {
+  for (let i = 0; i <= g.group; i++) if (sim.groups[i] && !sim.groups[i]!.cleared) return false
+  return true
+}
+
 /** Each step: the key falls when its pack is down, is picked up, and the gate opens for whoever carries it. */
 export const stepGate = (sim: Sim, dt: number): void => {
   const g = sim.gate
@@ -205,6 +214,11 @@ export const stepGate = (sim: Sim, dt: number): void => {
     let z = g.z
     let last = -1
     for (const q of sim.units) if (q.group === g.group && !q.alive && q.id > last) { last = q.id; x = q.x; z = q.z }
+    // It falls on the gate's side of the pack (#220): the hero goes on past the fallen toward the gate, never back.
+    const gd = Math.hypot(g.x - x, g.z - z) || 1
+    const step = Math.min(KEY_NORTH, Math.max(0, gd - 1.6))
+    x += ((g.x - x) / gd) * step
+    z += ((g.z - z) / gd) * step
     const out: [number, number] = [x, z]
     if (nearestOpen(sim.grid, x, z, out, 4)) { x = out[0]; z = out[1] }
     k.x = x
@@ -219,7 +233,9 @@ export const stepGate = (sim: Sim, dt: number): void => {
     k.taken = true
     sim.emit({ t: 'cageKey', x: k.x, z: k.z, gate: true })
   }
-  if (k.taken && Math.hypot(g.fx - u.x, g.fz - u.z) <= GATE_REACH) {
+  // The key forgotten (#220): every pack up to and including its own is down and the hero stands at the gate: it lowers anyway.
+  const atGate = Math.hypot(g.fx - u.x, g.fz - u.z) <= GATE_REACH
+  if ((k.taken || (k.drop >= KEY_DROP_T && packsDown(sim, g))) && atGate) {
     g.opened = true
     openDoor(sim, g.door)
   }

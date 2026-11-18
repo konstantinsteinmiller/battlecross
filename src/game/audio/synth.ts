@@ -315,7 +315,7 @@ const lastAt = new Map<string, number>()
 const GAP: Partial<Record<SfxName, number>> = {
   swing: 0.05, swingDagger: 0.04, swingHeavy: 0.08, swingBlunt: 0.07, shoot: 0.05, shootBow: 0.06, cast: 0.07, hit: 0.035, hitBlunt: 0.04, hitPierce: 0.035, hitHeavy: 0.06, crit: 0.06, hurt: 0.13,
   block: 0.08, dodge: 0.1, coin: 0.05, explode: 0.07, fire: 0.1, ice: 0.1, poison: 0.12, shadow: 0.1, quake: 0.12,
-  alert: 0.3, death: 0.05, telegraph: 0.25, uiClick: 0.03, summon: 0.1, heal: 0.15, teleport: 0.08,
+  alert: 0.3, arenaCall: 1.2, arenaTriumph: 1.2, death: 0.05, telegraph: 0.25, uiClick: 0.03, summon: 0.1, heal: 0.15, teleport: 0.08,
   // A skill's cast and impact (#101): a volley of hits is one sound, not twenty.
   castFire: 0.08, castIce: 0.08, castShock: 0.08, castHoly: 0.08, castShadow: 0.08, castPoison: 0.08, castBlood: 0.08, castEarth: 0.08, castWind: 0.08, castNature: 0.08, castArcane: 0.08, castTime: 0.08, castSpirit: 0.08, castSong: 0.08, castTech: 0.08, castCommand: 0.08,
   castEarthShift: 0.08, castBoulder: 0.08, castFrostShatter: 0.08, castAvalancheLeap: 0.08, castAbsoluteZero: 0.08, castSmokeBomb: 0.08, castShadowMark: 0.08, castOrbitalBeam: 0.08, castSpark: 0.08,
@@ -332,7 +332,7 @@ const VARY: ReadonlySet<SfxName> = new Set<SfxName>([
 ])
 
 /** The big stings: the music steps back under them (seconds). */
-const DUCK_FOR: Partial<Record<SfxName, number>> = { bossIntro: 1.8, levelUp: 1.6, chest: 1.2, deathBig: 1.2, lootEpic: 1.2, lootLegend: 1.9, crowdRoar: 2.2 }
+const DUCK_FOR: Partial<Record<SfxName, number>> = { bossIntro: 1.8, levelUp: 1.6, chest: 1.2, deathBig: 1.2, lootEpic: 1.2, lootLegend: 1.9, crowdRoar: 2.2, arenaCall: 1.5, arenaTriumph: 1.8 }
 
 /** The loudest hits, trimmed 2–3 dB under the frequent ones. */
 const TRIM: Partial<Record<SfxName, number>> = {
@@ -903,11 +903,66 @@ const RECIPES: Record<SfxName, (pan: number, g: number) => void> = {
     arp([D4, A4, D5, F5, A5, D6], 0.07, 'tri', 0.16 * g, 0.24, 0.1)
     bell(D6 + 12, 0.12 * g, 0.7, 0.55)
   },
+  // The level-up fanfare: a timpani roll-up, a harp running up the chord, a string pad blooming under it, glockenspiel and bells on top.
   levelUp: (_p, g) => {
-    arp([D4, A4, D5, F5, A5], 0.08, 'tri', 0.18 * g, 0.26)
-    arp([D4 - 12, A4 - 12, D4], 0.16, 'sine', 0.18 * g, 0.4)
-    bell(D6, 0.14 * g, 0.9, 0.42)
-    bell(A5 + 12, 0.1 * g, 0.9, 0.46)
+    space(0.35)
+    // Timpani: a low, round hit on the beat, a second one lifting into the chord.
+    boom(98, 52, 0.55, 0.22 * g, 0, 0)
+    boom(131, 70, 0.4, 0.16 * g, 0, 0.3)
+    // Harp: plucks up the chord, quick and bright, then a slower run back over the top.
+    arp([D4, A4, D5, F5, A5, D6, F5 + 12], 0.065, 'tri', 0.17 * g, 0.55, 0.05)
+    arp([A5, D6, F5 + 12, A5 + 12], 0.11, 'sine', 0.1 * g, 0.5, 0.55)
+    // Strings: a chord that swells in and sings (two voices a hair apart, a slow vibrato).
+    for (const n of [D4 - 12, A4 - 12, D4, F4]) {
+      tone({ wave: 'saw', f0: midiHz(n), dur: 1.7, vol: 0.035 * g, at: 0.28, attack: 0.32, vib: 4, vibRate: 5.2 })
+      tone({ wave: 'tri', f0: midiHz(n) * 1.004, dur: 1.7, vol: 0.06 * g, at: 0.28, attack: 0.32, vib: 4, vibRate: 5.6 })
+    }
+    // Glockenspiel and bells: the sparkle on the top of it.
+    for (let k = 0; k < 6; k++) bell([D6, A5 + 12, F5 + 12, D6 + 12, A5 + 12, D6 + 12][k]!, (0.1 - k * 0.01) * g, 0.7, 0.42 + k * 0.1)
+    bell(D6 + 12, 0.1 * g, 1.2, 1.0)
+    burst({ dur: 0.9, vol: 0.05 * g, type: 'highpass', f0: 6000, attack: 0.25, at: 0.35 })
+  },
+  // The heralds' brass over the sand: a call of three short notes and a held one, the answer, and the high note ringing on a snare roll and a cymbal.
+  arenaCall: (_p, g) => {
+    space(0.42)
+    boom(110, 58, 0.5, 0.2 * g, 0, 0)
+    for (let k = 0; k < 9; k++) burst({ dur: 0.05, vol: (0.03 + k * 0.006) * g, type: 'highpass', f0: 2600, at: 0.02 + k * 0.045 })
+    const horn = (n: number, at: number, dur: number, vol: number): void => {
+      tone({ wave: 'saw', f0: midiHz(n), dur, vol: vol * g, at, attack: 0.025, vib: 3, vibRate: 5.5 })
+      tone({ wave: 'saw', f0: midiHz(n) * 1.006, dur, vol: vol * 0.7 * g, at, attack: 0.03, vib: 3, vibRate: 5.9 })
+      tone({ wave: 'tri', f0: midiHz(n - 12), dur, vol: vol * 0.8 * g, at, attack: 0.03 })
+    }
+    for (const at of [0.42, 0.57, 0.72]) horn(D5, at, 0.12, 0.07)
+    horn(A5, 0.87, 0.6, 0.08)
+    horn(79, 1.5, 0.16, 0.065)
+    horn(78, 1.68, 0.16, 0.065)
+    horn(A5, 1.86, 0.16, 0.07)
+    horn(D6, 2.04, 1.0, 0.085)
+    horn(F5 + 1, 2.04, 1.0, 0.05)
+    boom(98, 52, 0.7, 0.18 * g, 0, 2.04)
+    burst({ dur: 1.2, vol: 0.06 * g, type: 'highpass', f0: 5500, f1: 3500, attack: 0.02, at: 2.04 })
+  },
+  // A wave won: the run up the chord, the held high note over a full chord, the cymbal and the drum, the bells on top.
+  arenaTriumph: (_p, g) => {
+    space(0.45)
+    const horn = (n: number, at: number, dur: number, vol: number): void => {
+      tone({ wave: 'saw', f0: midiHz(n), dur, vol: vol * g, at, attack: 0.02, vib: 3, vibRate: 5.5 })
+      tone({ wave: 'saw', f0: midiHz(n) * 1.006, dur, vol: vol * 0.7 * g, at, attack: 0.025, vib: 3, vibRate: 5.9 })
+    }
+    boom(131, 70, 0.4, 0.2 * g, 0, 0)
+    ;[D5, F5 + 1, A5, D6].forEach((n, i) => horn(n, i * 0.1, 0.16, 0.07))
+    ;[D5, F5 + 1, A5, D6].forEach((n, i) => horn(n, 0.45 + i * 0.1, 0.16, 0.07))
+    horn(D6, 0.95, 0.35, 0.085)
+    horn(D6 + 2, 1.32, 0.14, 0.07)
+    horn(D6, 1.48, 0.14, 0.07)
+    // The held chord: D major, wide.
+    for (const n of [D4 - 12, A4 - 12, D4, F4 + 1, A4, D5, F5 + 1, A5, D6]) {
+      tone({ wave: 'saw', f0: midiHz(n), dur: 1.5, vol: 0.04 * g, at: 1.62, attack: 0.04, vib: 3, vibRate: 5.3 })
+    }
+    tone({ wave: 'saw', f0: midiHz(D6 + 12), dur: 1.5, vol: 0.05 * g, at: 1.62, attack: 0.04, vib: 4, vibRate: 5.6 })
+    boom(98, 50, 0.8, 0.26 * g, 0, 1.62)
+    burst({ dur: 1.6, vol: 0.09 * g, type: 'highpass', f0: 5000, f1: 3000, attack: 0.01, at: 1.62 })
+    for (let k = 0; k < 8; k++) bell([D6, A5 + 12, F5 + 13, D6 + 12, A5 + 12, D6 + 12, F5 + 13, D6 + 24][k]!, (0.09 - k * 0.006) * g, 0.8, 1.7 + k * 0.09)
   },
   potion: (_p, g) => {
     for (let k = 0; k < 5; k++) tone({ wave: 'sine', f0: 300 + k * 70, f1: 620 + k * 90, dur: 0.06, vol: 0.14 * g, at: k * 0.055 })

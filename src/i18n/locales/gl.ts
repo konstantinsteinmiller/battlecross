@@ -169,7 +169,7 @@ export default {
   intro: {
     narrator: 'O Cronista',
     skip: 'Omitir',
-    later: '1 mes despois…',
+    later: 'Unhas horas despois…',
     holdKey: 'Mantén {key} para omitir',
     holdTouch: 'Mantén premido para omitir',
     replay: 'Ver a introdución'
@@ -257,6 +257,8 @@ export default {
     potionStop: 'Bebe unha poción de saúde para continuar',
     rollStop: 'Esquiva fóra da zona de perigo!',
     rollStopKey: 'Espazo',
+    bagHint: 'Abre a túa mochila e o teu equipamento desde o retrato, como na cidade!',
+    bashStop: 'Detén o ataque con {skill}!',
     minimap: 'Mapa da vila: mestres, comerciantes, ferreiros e curandeiros',
     groups: '{n} de {total} grupos inimigos derrotados',
     wave: 'Vaga {n} / {total}',
@@ -6297,7 +6299,7 @@ export default {
       }
     },
     bark: {
-      hero: { cage: { 1: 'Hai alguén berrando pedindo axuda?' }, hunt: { 1: 'Alguén máis está a cazar esa besta.' } },
+      hero: { cage: { 1: 'Hai alguén berrando pedindo axuda?' }, hunt: { 1: 'Alguén máis está a cazar esa besta.' }, levelUp: { 1: 'Fíxenme máis forte!' } },
       trainerPyro: { help: { 1: 'Axuda, alguén!' } },
       sbMasterSoulwarden: { help: { 1: 'Secuestráronnos!' } },
       sbMasterIronmonk: { help: { 1: 'Monstros! Axuda!' } },
@@ -7638,6 +7640,7 @@ export default {
     goblinSlinger: 'Trasno Fondeiro',
     bandit: 'Bandido',
     banditArcher: 'Bandido Arqueiro',
+    banditRaider: 'Bandido asaltante',
     wolf: 'Lobo',
     banditChief: 'Xefe dos Bandidos',
     gnome: 'Gnomo',

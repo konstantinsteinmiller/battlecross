@@ -5,27 +5,35 @@
  * it, the tests hold it to its limits (`tests/game/intro.test.ts`).
  *
  * A new save picks its hero first (the choice is also the click that gives the
- * page focus), then 12 seconds of film play and the game starts:
+ * page focus), then the film plays and the game starts (#217):
  *
- *   0.0  the field, a small dragon over a hero lying face down in the grass
- *   0.9  two heroes, far above this one's level, ride in on the fight: a beast
- *        caller (wolves, a bear, a hawk) and an elementalist (fire, frost,
- *        lightning, a storm of meteors)
- *   8.4  the dragon falls
- *   9.0  they leave, not once looking at the one in the grass
- *  10.4  black, and "1 month later…"
- *  12.0  the game
+ *   0.0  the field: the PLAYER's hero stands before a dragon he cannot beat
+ *        (he may walk about and strike at it)
+ *   2.0  its first fireball, from the jaws; 4.4 the second: he is knocked out
+ *        (`PRE_S`, the part the player plays, is over)
+ *  +0.4  two heroes, far above this one's level, ride in on the fight: a beast
+ *        caller (wolves, a bear, a hawk) and an elementalist. The camera is on
+ *        the dragon, which fights back (fire, a stomp) and loses
+ *  +8.4  the dragon falls
+ *  +9.0  they leave, not once looking at the one in the grass
+ * +10.4  black, and "A few hours later…"
+ * +12.0  the game (the opening level: he wakes up in it)
  *
  * The hero on the ground is never seen from the front, so the face the player
- * picked is the one that gets up a month later.
+ * picked is the one that gets up hours later.
  *
  * The scene's half waits for the place: if it is not built by `SCENE_AT` the
  * clock holds there (black) until it is, and gives up on a device that needs
  * longer than `BUILD_CAP_S` (the game just starts).
  */
 
-/** The whole intro, seconds (the roadmap's ceiling is 12). */
-export const INTRO_LENGTH = 12
+/** The part the player plays: the dragon's two fireballs, the second knocking him out; the two heroes come after. */
+export const PRE_S = 6.4
+/** The dragon's fireballs (launch times, seconds), and how long each flies. */
+export const FIREBALLS = [2.0, 4.4] as const
+export const FIREBALL_FLIGHT = 0.85
+/** The whole intro, seconds: the player's fight, then the film (12 s as it was before #217). */
+export const INTRO_LENGTH = PRE_S + 12
 /** The place is on screen from here; the clock holds here until it is built. */
 export const SCENE_AT = 0
 /** Wall seconds the build may take before the intro is dropped. */
@@ -45,33 +53,45 @@ export const INTRO_MAGE = 'sbMasterElementalist'
 export const INTRO_BEAST = 'sbMasterBeastcaller'
 
 /** The heroes' entrance (#188): a leap in from the picture's edge with a forward flip, landing as a hero lands. */
-export const ENTRY_AT = 0.4
+export const ENTRY_AT = PRE_S + 0.4
 export const ENTRY_S = 1.3
 
 /** What happens when: who does it and what. The runner plays them in order. */
-export type IntroAct = 'roar' | 'summon' | 'close' | 'slap' | 'slay' | 'flee' | 'rise' | 'load'
-export interface IntroBeat { at: number; who: 'beast' | 'mage' | 'both'; act: IntroAct }
+export type IntroAct = 'roar' | 'fire' | 'summon' | 'close' | 'slap' | 'counter' | 'stomp' | 'slay' | 'flee' | 'rise' | 'load'
+/** `who` is the one acting; for a `counter` the one the dragon strikes at (`dragon`: the dragon itself). */
+export interface IntroBeat { at: number; who: 'beast' | 'mage' | 'both' | 'dragon'; act: IntroAct }
+/** The film's beats, counted from the second the two heroes arrive. */
+const FILM: ReadonlyArray<[number, IntroBeat['who'], IntroAct]> = [
+  [0.15, 'both', 'roar'],
+  [1.9, 'beast', 'summon'],
+  [2.4, 'both', 'close'],
+  [3.7, 'mage', 'slap'],
+  // The dragon is no punching bag: it answers each of them (its fire, a leap away from it, its stomp).
+  [3.85, 'mage', 'counter'],
+  [4.15, 'beast', 'slap'],
+  [4.35, 'beast', 'counter'],
+  [4.6, 'mage', 'slap'],
+  [5.05, 'beast', 'slap'],
+  [5.5, 'mage', 'slap'],
+  [5.7, 'both', 'stomp'],
+  [5.95, 'beast', 'slap'],
+  [6.5, 'both', 'slay'],
+  [7.0, 'both', 'flee'],
+  [8.2, 'both', 'rise'],
+  [9.6, 'both', 'load']
+]
 export const INTRO_ACTS: readonly IntroBeat[] = [
-  { at: 0.15, who: 'both', act: 'roar' },
-  { at: 1.9, who: 'beast', act: 'summon' },
-  { at: 2.4, who: 'both', act: 'close' },
-  { at: 3.7, who: 'mage', act: 'slap' },
-  { at: 4.15, who: 'beast', act: 'slap' },
-  { at: 4.6, who: 'mage', act: 'slap' },
-  { at: 5.05, who: 'beast', act: 'slap' },
-  { at: 5.5, who: 'mage', act: 'slap' },
-  { at: 5.95, who: 'beast', act: 'slap' },
-  { at: 6.5, who: 'both', act: 'slay' },
-  { at: 7.0, who: 'both', act: 'flee' },
-  { at: 8.2, who: 'both', act: 'rise' },
-  { at: 9.6, who: 'both', act: 'load' }
+  // What the player plays: the dragon roars, then its two fireballs.
+  { at: 0.5, who: 'dragon', act: 'roar' },
+  ...FIREBALLS.map((at): IntroBeat => ({ at, who: 'dragon', act: 'fire' })),
+  ...FILM.map(([at, who, act]): IntroBeat => ({ at: PRE_S + at, who, act }))
 ]
 /** The camera: pulled well back (above 1 is farther), so the leaps, the flips and the dragon are all in the picture. */
-export const INTRO_ZOOMS = [{ at: 0, to: 1.3, dur: 0.01, hold: 12 }] as const
-/** "1 month later…" fades in over the dark from here. */
-export const LABEL_AT = 10.1
+export const INTRO_ZOOMS = [{ at: 0, to: 1.3, dur: 0.01, hold: 40 }] as const
+/** "A few hours later…" fades in over the dark from here. */
+export const LABEL_AT = PRE_S + 10.1
 /** The last fade to black (the label rides on it). */
-export const FADE_OUT_AT = 9.6
+export const FADE_OUT_AT = PRE_S + 9.6
 
 /** How black the screen is at `t` (0..1): black until the scene is built, the fade in, the fade to black. */
 export const veilAt = (t: number, sceneReady: boolean): number => {
@@ -116,4 +136,4 @@ export const INTRO_LINES = [
 export const INTRO_BEATS = INTRO_LINES.map(l => l.id.split('.')[2]!)
 
 /** From here the film can no longer be skipped: the opening level is building behind it (#189). */
-export const NO_SKIP_AT = 9.6
+export const NO_SKIP_AT = PRE_S + 9.6

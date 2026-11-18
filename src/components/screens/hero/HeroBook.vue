@@ -58,8 +58,8 @@ import JournalPage from './JournalPage.vue'
 import { openErrands } from '@/game/state/profile'
 
 type Page = 'character' | 'skills' | 'inventory' | 'journal'
-/** In a level only the attributes page opens: the loadout and the bag are fixed once a fight is on. */
-const pages = computed(() => (flow.screen === 'zone' ? PAGES.filter(p => p.id === 'character') : PAGES))
+/** Every page opens in a level too (#221): the bag, the skills and the journal, as in a town. */
+const pages = computed(() => PAGES)
 const PAGES: ReadonlyArray<{ id: Page; icon: GameIconName }> = [
   { id: 'character', icon: 'hero' },
   { id: 'skills', icon: 'book' },

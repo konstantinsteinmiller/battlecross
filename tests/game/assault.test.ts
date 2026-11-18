@@ -219,18 +219,18 @@ describe('the besieged gate', () => {
     for (const t of a.towers) for (const id of t.archers) expect(sim.get(id)!.stunt!.lift).toBeGreaterThan(3)
   })
 
-  it('the cries: three kinds, one rebel at a time, 3 s apart, then slower', () => {
+  it('the cries: three kinds, one rebel at a time, 5 s apart, then slower', () => {
     const { sim, plan } = scene()
     const keys: string[] = []
     const emit = sim.emit.bind(sim)
     sim.emit = ((e: { t: string; key?: string }) => { if (e.t === 'bark' && e.key) keys.push(e.key); emit(e as never) }) as never
-    run(sim, plan, PANORAMA_S + 14)
+    run(sim, plan, PANORAMA_S + 22)
     expect(keys.length).toBeGreaterThanOrEqual(4)
     const kinds = new Set(keys.map(k => k.split('.')[3]))
     expect([...kinds].sort()).toEqual([...CRIES].sort())
-    expect(cryPeriod(0)).toBe(3)
-    expect(cryPeriod(4)).toBe(8)
-    expect(cryPeriod(9)).toBeGreaterThanOrEqual(12)
+    expect(cryPeriod(0)).toBe(5)
+    expect(cryPeriod(4)).toBe(13)
+    expect(cryPeriod(9)).toBeGreaterThanOrEqual(20)
     expect(cryKey('goblin', 'down')).toBe(`dlg.bark.${CRIER.goblin}.down.1`)
   })
 
@@ -238,5 +238,17 @@ describe('the besieged gate', () => {
     expect(assaultDue(() => false)).toBe(true)
     expect(assaultDue(f => f === ASSAULT_FLAG)).toBe(false)
     expect(assaultDue(f => f === 'arenaOpen')).toBe(false)
+  })
+})
+
+describe('the ram and the dodge', () => {
+  it('under the ram he cannot roll', async () => {
+    const { rollHero } = await import('@/game/sim/hero')
+    const { sim } = scene()
+    sim.assault!.ram.riding = true
+    expect(rollHero(sim, 1, 0)).toBe(false)
+    sim.assault!.ram.riding = false
+    sim.hero.rollCd = 0
+    expect(rollHero(sim, 1, 0)).toBe(true)
   })
 })

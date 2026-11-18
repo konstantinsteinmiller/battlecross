@@ -9,6 +9,7 @@ import { OPENING, ZONES } from '@/game/data/zones'
 import { isSolidAt } from '@/game/sim/grid'
 import { gateGoal } from '@/game/sim/gate'
 import type { SimEvent } from '@/game/sim/types'
+import { coach, hintPath } from '@/game/coach'
 
 /**
  * The first level's palisade gate (#194): the pack before the boss is four; its last member to fall lets a silver key drop;
@@ -98,5 +99,64 @@ describe('the first level: four before the boss, and a palisade gate', () => {
     expect(alive).toHaveLength(4)
     for (let i = 0; i < 30; i++) { stepSim(sim, plan, 1 / 30); sim.events.length = 0 }
     expect(sim.gate!.key.drop).toBe(-1)
+  })
+  it('the key lands toward the gate, beyond the last foe (#220), and a forgotten key does not keep the gate shut', () => {
+    const { sim, plan } = start(5)
+    const g = sim.gate!
+    const grp = sim.groups[g.group]!
+    const pack = sim.units.filter(u => u.group === grp.id)
+    const hero = sim.hero.unit
+    // The hero is well away from the pack, so the key is not picked up by accident.
+    hero.x = plan.start.x
+    hero.z = plan.start.z
+    let last = pack[0]!
+    for (const u of pack) { u.alive = false; u.hp = 0; if (u.id > last.id) last = u }
+    grp.cleared = true
+    // The pack before it is down too (the rule counts every pack up to the key's own).
+    for (let i = 0; i < g.group; i++) {
+      for (const u of sim.units) if (u.group === i) { u.alive = false; u.hp = 0 }
+      sim.groups[i]!.cleared = true
+    }
+    for (let i = 0; i < 40 && g.key.drop < 0; i++) { stepSim(sim, plan, 1 / 30); sim.events.length = 0 }
+    expect(g.key.drop).toBeGreaterThanOrEqual(0)
+    const before = Math.hypot(g.x - last.x, g.z - last.z)
+    const after = Math.hypot(g.x - g.key.x, g.z - g.key.z)
+    expect(after, 'the key lies nearer the gate than the fallen did').toBeLessThan(before)
+    // Left lying, the key is forgotten: every pack before the boss is down, the hero reaches the gate, it opens.
+    g.key.x = plan.start.x
+    g.key.z = plan.start.z
+    g.key.drop = 1
+    hero.x = g.fx
+    hero.z = g.fz
+    stepSim(sim, plan, 1 / 30)
+    expect(g.key.taken).toBe(false)
+    expect(g.opened).toBe(true)
+  })
+
+  it('the gate stays shut for a hero without the key while a pack before it still stands', () => {
+    const { sim, plan } = start(5)
+    const g = sim.gate!
+    g.key.drop = 1
+    const hero = sim.hero.unit
+    hero.x = g.fx
+    hero.z = g.fz
+    stepSim(sim, plan, 1 / 30)
+    expect(g.opened).toBe(false)
+  })
+
+  it('the yellow chevrons lead to the silver key, then to the gate, not past it to the boss (#220)', () => {
+    const { sim } = start(5)
+    const g = sim.gate!
+    const host = { sim, setup: { kind: 'zone' as const, tutorial: true }, project: (x: number, _y: number, z: number, o: { x: number; y: number }) => { o.x = x * 10; o.y = z * 10; return true } }
+    for (const u of sim.units) if (u.team === 1 && u.group !== undefined && u.group <= g.group) { u.alive = false; u.hp = 0 }
+    for (let i = 0; i <= g.group; i++) sim.groups[i]!.cleared = true
+    // A foe still awake near him would put the chevrons away: the rest of the level sleeps far off.
+    g.key.x = sim.hero.unit.x + 6
+    g.key.z = sim.hero.unit.z
+    g.key.drop = 1
+    coach.step(host, 1 / 30)
+    expect(hintPath.lead).toBe(true)
+    const w = hintPath.world
+    expect(Math.hypot(w[w.length - 2]! - g.key.x, w[w.length - 1]! - g.key.z)).toBeLessThan(3)
   })
 })

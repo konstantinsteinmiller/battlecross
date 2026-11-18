@@ -16,6 +16,8 @@ import { placeCage } from './cages'
 import { placeRebels, type RebelSite } from './rebelSite'
 import { CAMP_ROOM, dressCamp, placeCamp, type CampPlan } from './camp'
 import { placeGate, type GatePlan } from './gate'
+import { ALT_AMBUSH_KINDS, ALT_AMBUSH_SECTION, ALT_PACKS, ALT_SECTIONS } from '../data/altTutorial'
+import { dressAmbush } from './ambush'
 import { LAID_SHAPES, carveDisc, carveLine, carveRect, layOut, layoutHeight, wallFace, type Chamber, type Fixture, type Guide, type Laid } from './layouts'
 import { dressPlace, makeDresser, type DressPlan } from './dressing'
 import { widenWays, type Target } from './widen'
@@ -54,6 +56,8 @@ export interface PackPlan {
   finale: boolean
   /** The finale's leader kind ('' for an ordinary pack). */
   boss: string
+  /** A pack lying in wait under a trapdoor (the stretched tutorial, `ambush.ts`): its kinds, the trapdoor, the wagons it hides in. */
+  ambush?: { kinds: string[]; x: number; z: number; carts: Array<{ x: number; z: number }>; smash?: { x: number; z: number; a: number; cells: number[] } }
 }
 
 export interface BuildingPlan {
@@ -269,6 +273,8 @@ const weighted = (rng: Rng, kinds: ZoneDef['kinds']): string => {
 export interface ZoneGenOpts {
   /** The very first visit: a soft opening pack close to the start. */
   tutorial?: boolean
+  /** The stretched first level (`data/altTutorial.ts`). */
+  alt?: boolean
   /** The opening fight's pack size after its first pack (`OPENING.pack`). */
   openingPack?: number
   /** A hostile faction's ambush pack (unit kind). */
@@ -293,12 +299,16 @@ export interface ZoneGenOpts {
 export const generateZone = (def: ZoneDef, seed: number, o: ZoneGenOpts = {}): ZonePlan => {
   const rng = mulberry32(seed)
   const boss = ENEMY_BY_ID[def.finale.leader]?.rank === 'boss'
-  const n = def.sections
+  const n = o.alt && o.tutorial ? ALT_SECTIONS : def.sections
+  // The stretched tutorial's goblins after the ambush lie closer (10 cells, not 11): the fights come one after the other. (Only that
+  // gap: the gate before the boss needs the road's usual neck between its clearings.)
   const step = 11
+  const stepAt = (k: number): number => (o.alt && o.tutorial && k === ALT_AMBUSH_SECTION + 1 ? 10 : step)
+  const altCut = o.alt && o.tutorial ? 11 - 10 : 0
   // The place's own layout (#103, #120); the first visit and a bare chain are always the chain.
   const shape: ZoneShape = o.tutorial || o.bare ? 'chain' : ZONE_SHAPE[def.id] ?? 'chain'
   // The first visit has room above its finale for the rescued teachers' camp (#156).
-  const h = layoutHeight(shape, n, boss) + (o.tutorial && !o.bare ? CAMP_ROOM : 0)
+  const h = layoutHeight(shape, n, boss) - altCut + (o.tutorial && !o.bare ? CAMP_ROOM : 0)
   // A zone with branches has rock either side of its chain for them to run
   // through; the tutorial's single road and the bare chain do not.
   const M = o.tutorial || o.bare || o.branches === false ? 0 : BRANCH_MARGIN
@@ -344,14 +354,14 @@ export const generateZone = (def: ZoneDef, seed: number, o: ZoneGenOpts = {}): Z
       if (shape === 'ring') {
         // Round the frozen lake: up its right shore, and over its head to the end.
         const r = last ? (boss ? 7.4 : 6.4) : 4.4 + rng() * 1
-        cj -= step + (last && boss ? 2 : 0) + Math.round(rng() * 1.5)
+        cj -= stepAt(k) + (last && boss ? 2 : 0) + Math.round(rng() * 1.5)
         ci = last ? W / 2 - 7 : W - Math.ceil(r) - 5 - Math.round(rng() * 2)
         cs.push({ i: ci + M, j: cj, r })
       } else if (shape === 'field') {
         // Wide fields of wheat, to one side and the other: the path zig-zags
         // from field to field.
         const r = last ? (boss ? 7.4 : 6.6) : 5.6 + rng() * 1.2
-        cj -= step + (last && boss ? 2 : 0) + Math.round(rng() * 1.5)
+        cj -= stepAt(k) + (last && boss ? 2 : 0) + Math.round(rng() * 1.5)
         const sideI = k % 2 ? W / 2 + 5 : W / 2 - 5
         ci = Math.max(Math.ceil(r) + 3, Math.min(W - Math.ceil(r) - 4, last ? W / 2 : sideI + Math.round((rng() - 0.5) * 4)))
         cs.push({ i: ci + M, j: cj, r })
@@ -359,14 +369,14 @@ export const generateZone = (def: ZoneDef, seed: number, o: ZoneGenOpts = {}): Z
         // Halls to one side and the other of the middle, the last the great hall.
         const hw = last ? (boss ? 8 : 7) : 4.5 + Math.round(rng() * 2)
         const hh = last ? (boss ? 6.5 : 5.5) : 3.5 + Math.round(rng() * 1.5)
-        cj -= step + (last && boss ? 2 : 0) + Math.round(rng() * 1.5)
+        cj -= stepAt(k) + (last && boss ? 2 : 0) + Math.round(rng() * 1.5)
         const sideI = k % 2 ? W / 2 + 2 : W / 2 - 2
         ci = Math.max(hw + 3, Math.min(W - hw - 4, last ? W / 2 : sideI + Math.round((rng() - 0.5) * 2)))
         cs.push({ i: ci + M, j: cj, r: Math.max(hw, hh) })
         rooms.push({ hw, hh })
       } else {
         const r = last ? (boss ? 7.4 : 6.4) : 4.6 + rng() * 1.4
-        cj -= step + (last && boss ? 2 : 0) + Math.round(rng() * 1.5)
+        cj -= stepAt(k) + (last && boss ? 2 : 0) + Math.round(rng() * 1.5)
         ci = Math.max(Math.ceil(r) + 3, Math.min(W - Math.ceil(r) - 4, ci + Math.round((rng() - 0.5) * 16)))
         cs.push({ i: ci + M, j: cj, r })
       }
@@ -417,7 +427,7 @@ export const generateZone = (def: ZoneDef, seed: number, o: ZoneGenOpts = {}): Z
   // The first visit's chain keeps the edge it had before the camp's rows were
   // added above it (#156): the boss's floor is the floor the opening fight was
   // tuned on; only the camp's own way opens it up (`carveCamp`).
-  if (h !== layoutHeight(shape, n, boss)) solid.fill(1, 0, (CAMP_ROOM + 2) * Wd)
+  if (h !== layoutHeight(shape, n, boss) - altCut) solid.fill(1, 0, (CAMP_ROOM + 2) * Wd)
 
   // A side pocket for a secret chest, off one of the middle clearings.
   let secret: { x: number; z: number } | null = null
@@ -479,6 +489,15 @@ export const generateZone = (def: ZoneDef, seed: number, o: ZoneGenOpts = {}): Z
     }
     let size = def.pack[0] + Math.floor(rng() * (def.pack[1] - def.pack[0] + 1)) + (o.extra ?? 0)
     const kinds: string[] = []
+    if (o.alt && o.tutorial && k === ALT_AMBUSH_SECTION) {
+      // The ambush: nobody stands here yet. The raiders wait in the wagons (set down after the dressing, below).
+      packs.push({ x: c.x, z: c.z, r: c.r, kinds: [], finale: false, boss: '', ambush: { kinds: [...ALT_AMBUSH_KINDS], x: c.x, z: c.z, carts: [] } })
+      continue
+    }
+    if (o.alt && o.tutorial && ALT_PACKS[k]) {
+      packs.push({ x: c.x, z: c.z, r: c.r, kinds: [...ALT_PACKS[k]!], finale: false, boss: '' })
+      continue
+    }
     if (o.tutorial && k === 1) {
       // Two plain goblins: something to learn the controls on.
       kinds.push(def.kinds[0]!.kind, def.kinds[0]!.kind)
@@ -507,6 +526,9 @@ export const generateZone = (def: ZoneDef, seed: number, o: ZoneGenOpts = {}): Z
     }
     packs.push({ x: c.x, z: c.z, r: c.r, kinds, finale: false, boss: '' })
   }
+  // The first level's opening pack stands a little further up its clearing: it sees the hero later, so the cry for help and the
+  // view of the cages come before the fight, not into it.
+  if (o.tutorial && packs[0] && !packs[0].ambush) packs[0].z -= Math.min(3, packs[0].r * 0.4)
   // A hostile faction lies in wait in one of the middle clearings.
   if (o.ambush && packs.length >= 2) {
     const p = packs[Math.floor(rng() * (packs.length - 1))]!
@@ -573,7 +595,14 @@ export const generateZone = (def: ZoneDef, seed: number, o: ZoneGenOpts = {}): Z
     : null
   // The second clearing's overseer: one goblin of that pack is bigger and in his own coat (#208). The Hollows' pack either way, gnomes or not.
   if (def.id === 'hollows' && !o.tutorial && !o.bare && gangPack && !gangPack.finale) { const q = gangPack.kinds.indexOf('goblin'); if (q >= 0) gangPack.kinds[q] = 'goblinOverseer' }
-  const gangKeep = rebels ? [{ x: rebels.x, z: rebels.z }] : []
+  // A second, smaller gang of three (#215), well apart from the first, near another pack of the place when there is one.
+  if (rebels) {
+    const pack2 = packs.find(q => q !== gangPack && !q.finale) ?? gangPack!
+    const more = placeRebels({ seed, w: Wd, h, solid, sealed, trail, kind, start: { x: clearings[0]!.x, z: clearings[0]!.z }, chests: features.chests }, pack2,
+      [...features.plates, ...features.caves.flatMap(c => [c, c.mouth]), ...(features.puzzle ? [features.puzzle.hint] : [])], { x: rebels.x, z: rebels.z, apart: 9 })
+    if (more) rebels.more = more
+  }
+  const gangKeep = rebels ? [{ x: rebels.x, z: rebels.z }, ...(rebels.more ? [{ x: rebels.more.x, z: rebels.more.z }] : [])] : []
   // The place's set pieces (#120), on their own stream, before the relief
   // (each blocking one stands on a level pad) and before the herbs and the
   // ore (which keep off them). Clear of every place one goes to.
@@ -583,6 +612,7 @@ export const generateZone = (def: ZoneDef, seed: number, o: ZoneGenOpts = {}): Z
   if (features.puzzle) keep.push({ x: features.puzzle.hint.x, z: features.puzzle.hint.z, r: 2 })
   for (const p of packs) keep.push({ x: p.x, z: p.z, r: p.finale ? 3 : 2.3, pack: true })
   if (rebels) keep.push({ x: rebels.x, z: rebels.z, r: 4.6 })
+  if (rebels?.more) keep.push({ x: rebels.more.x, z: rebels.more.z, r: 4.6 })
   for (const p of features.optionalPacks) keep.push({ x: p.x, z: p.z, r: 2.3, pack: true })
   for (const cv of features.caves) keep.push({ x: cv.mouth.x, z: cv.mouth.z, r: 2 })
   for (const f2 of [...features.forks, ...features.signs]) keep.push({ x: f2.x, z: f2.z, r: 1.4 })
@@ -599,6 +629,9 @@ export const generateZone = (def: ZoneDef, seed: number, o: ZoneGenOpts = {}): Z
   const dresser = makeDresser({ w: Wd, h, solid, trail, kind, sealed, side, start: { i: cs[0]!.i, j: cs[0]!.j }, keep, chests: features.chests })
   const invasion = def.invaded ? { ruins: INVASION[def.id].ruins, scars: INVASION[def.id].scars } : undefined
   if (!o.tutorial && !o.bare) dressPlace(dresser, { shape, rng: mulberry32((seed ^ DRESS_SALT) >>> 0), w: Wd, kind, cs, chambers, fixtures, ...(invasion ? { invasion } : {}) })
+  // (Before the camp: its room reshapes the ground the dresser has counted.)
+  // The stretched first level's ambush: the broken-down wagons the raiders hide in, round the trapdoor.
+  for (const p of packs) if (p.ambush) p.ambush.carts = dressAmbush(dresser, p, CELL)
   const camp = campCut ? dressCamp(dresser, { w: Wd, h, solid, kind, sealed, ...campCut }) : null
   for (const k of secretCells) masonry[k] = 0
   // The secret's pocket is a side place too: it lies a little above its clearing.
@@ -697,6 +730,15 @@ export const generateZone = (def: ZoneDef, seed: number, o: ZoneGenOpts = {}): Z
         ...(x ? [x] : []), ...(cage ? [cage.key] : []), ...dresser.pieces],
       mulberry32((seed ^ PYLON_SALT) >>> 0))
     : []
+  // A wagon the way-widening took down is no hiding place any more (the ambush keeps only those still standing).
+  for (const p of packs) {
+    if (!p.ambush) continue
+    p.ambush.carts = p.ambush.carts.filter(c => dresser.pieces.some(q => q.kind === 'wagon' && q.x === c.x && q.z === c.z))
+    // The cart on the left breaks up when the raiders jump out: its cells open and it lies about in small pieces.
+    const left = p.ambush.carts.slice().sort((a, b) => a.x - b.x)[0]
+    const wp = left ? dresser.pieces.find(q => q.kind === 'wagon' && q.x === left.x && q.z === left.z) : undefined
+    if (wp) p.ambush.smash = { x: wp.x, z: wp.z, a: wp.a, cells: [...wp.cells] }
+  }
   return {
     ...(pylons.length ? { pylons } : {}),
     ...(crop ? { crop } : {}),
@@ -840,6 +882,16 @@ export const generateEncounter = (packs: ReadonlyArray<readonly string[]>, seed:
 }
 
 /** The colosseum: one ring, gates all round it. */
+/**
+ * The colosseum's wall: every rock cell whose middle lies within `ARENA_BLOCK_R` cells of the centre is a cut block of the wall
+ * (`masonry`), so the sand is ringed by one even wall, and the stands (`gfx/arenaCrowd.ts`) rise from `ARENA_STANDS_R` metres, past
+ * the outermost corner of any of those blocks.
+ * (The stands' podium face stands just past the farthest point the hero can reach (a walkable cell's outer corner, 16.07 m); the cut
+ * blocks that lie in front of it are low, and the ones that poke through it vanish into its body.)
+ */
+export const ARENA_BLOCK_R = 11.6
+export const ARENA_STANDS_R = 16.3
+
 export const generateArena = (seed: number): ZonePlan => {
   const rng = mulberry32(seed)
   const w = 30
@@ -849,6 +901,8 @@ export const generateArena = (seed: number): ZonePlan => {
   const R = 10
   // A true circle here: an arena has walls, not a tree line.
   for (let j = 2; j < h - 2; j++) for (let i = 2; i < w - 2; i++) if (Math.hypot(i + 0.5 - w / 2, j + 0.5 - h / 2) <= R) solid[j * w + i] = 0
+  const masonry = new Uint8Array(w * h)
+  for (let j = 0; j < h; j++) for (let i = 0; i < w; i++) if (solid[j * w + i] && Math.hypot(i + 0.5 - w / 2, j + 0.5 - h / 2) <= ARENA_BLOCK_R) masonry[j * w + i] = 1
   const gates: Array<[number, number]> = []
   const off = rng() * Math.PI
   for (let k = 0; k < 6; k++) {
@@ -858,6 +912,7 @@ export const generateArena = (seed: number): ZonePlan => {
   return {
     seed, w, h, solid, trail, kind: new Uint8Array(w * h), cave: new Uint8Array(w * h), sealed: new Uint8Array(w * h),
     side: new Uint8Array(w * h),
+    masonry,
     // The colosseum's sand is raked flat.
     height: new Float32Array((w + 1) * (h + 1)),
     ...noFeatures(),

@@ -230,10 +230,32 @@ const FILE_GAIN = 0.35
 let fileEl: HTMLAudioElement | null = null
 let fileGain: GainNode | null = null
 
+// A file is fetched WHOLE before it plays (#211): streamed, a slow moment on the network or the main thread broke the
+// song up into noise. The bytes become an object URL the element plays from, so nothing is left to arrive. A file that
+// cannot be fetched falls back to streaming from its own URL.
+const wholeFiles = new Map<string, Promise<string>>()
+const wholeFile = (url: string): Promise<string> => {
+  let p = wholeFiles.get(url)
+  if (!p) {
+    p = typeof fetch !== 'function' || typeof URL.createObjectURL !== 'function'
+      ? Promise.resolve(url)
+      : fetch(url)
+        .then(r => (r.ok ? r.blob() : Promise.reject(new Error(`HTTP ${r.status}`))))
+        .then(b => URL.createObjectURL(b))
+        .catch(() => url)
+    wholeFiles.set(url, p)
+  }
+  return p
+}
+/** Fetch every music file ahead of its song (the boot, in an idle moment): a song never waits at its start. */
+export const preloadMusicFiles = (urls: Iterable<string>): void => { for (const u of urls) void wholeFile(u) }
+/** Every dropped-in song and jingle, fetched whole in the background. */
+export const warmMusicFiles = (): void => preloadMusicFiles(MUSIC_FILES.values())
+
 const startFile = (url: string, loop: boolean, fadeIn = 0.35): { el: HTMLAudioElement; gain: GainNode } | null => {
   const a = audio()
   if (!a) return null
-  const el = new Audio(url)
+  const el = new Audio()
   el.loop = loop
   el.preload = 'auto'
   const g = a.ctx.createGain()
@@ -241,7 +263,12 @@ const startFile = (url: string, loop: boolean, fadeIn = 0.35): { el: HTMLAudioEl
   g.gain.exponentialRampToValueAtTime(FILE_GAIN, a.ctx.currentTime + fadeIn)
   a.ctx.createMediaElementSource(el).connect(g).connect(a.music)
   registerHtmlAudio(el)
-  el.play().catch(() => { /* blocked or failed — the gates retry the start */ })
+  // Playing starts once the whole file is in (at once when it was fetched ahead).
+  void wholeFile(url).then((src) => {
+    if (el.dataset.stopped) return
+    el.src = src
+    el.play().catch(() => { /* blocked or failed — the gates retry the start */ })
+  })
   return { el, gain: g }
 }
 
@@ -252,6 +279,7 @@ const stopFile = (el: HTMLAudioElement, g: GainNode, fade: number): void => {
     g.gain.setValueAtTime(Math.max(0.0001, g.gain.value), a.ctx.currentTime)
     g.gain.exponentialRampToValueAtTime(0.0001, a.ctx.currentTime + fade)
   }
+  el.dataset.stopped = '1'
   setTimeout(() => {
     el.pause()
     unregisterHtmlAudio(el)

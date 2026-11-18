@@ -169,7 +169,7 @@ export default {
   intro: {
     narrator: 'Hronists',
     skip: 'Izlaist',
-    later: 'Pēc mēneša…',
+    later: 'Pēc dažām stundām…',
     holdKey: 'Turiet {key}, lai izlaistu',
     holdTouch: 'Turiet nospiestu, lai izlaistu',
     replay: 'Skatīt ievadu'
@@ -257,6 +257,8 @@ export default {
     potionStop: 'Izdzer veselības dziru, lai turpinātu',
     rollStop: 'Izvairies no bīstamās zonas!',
     rollStopKey: 'Atstarpe',
+    bagHint: 'Atver somu un ekipējumu no sava portreta, tāpat kā pilsētā!',
+    bashStop: 'Aptur uzbrukumu ar {skill}!',
     minimap: 'Pilsētas karte: skolotāji, tirgotāji, kalēji un dziednieki',
     groups: 'Sakautas ienaidnieku grupas: {n} no {total}',
     wave: 'Vilnis {n} / {total}',
@@ -6319,7 +6321,7 @@ export default {
       }
     },
     bark: {
-      hero: { cage: { 1: 'Vai kāds sauc palīgā?' }, hunt: { 1: 'Vēl kāds medī to zvēru.' } },
+      hero: { cage: { 1: 'Vai kāds sauc palīgā?' }, hunt: { 1: 'Vēl kāds medī to zvēru.' }, levelUp: { 1: 'Es kļuvu stiprāks!' } },
       trainerPyro: { help: { 1: 'Palīgā, vai kāds ir!' } },
       sbMasterSoulwarden: { help: { 1: 'Mūs nolaupīja!' } },
       sbMasterIronmonk: { help: { 1: 'Briesmoņi! Palīgā!' } },
@@ -7661,6 +7663,7 @@ export default {
     goblinSlinger: 'Goblins lingotājs',
     bandit: 'Laupītājs',
     banditArcher: 'Laupītājs loka šāvējs',
+    banditRaider: 'Bandīts laupītājs',
     wolf: 'Vilks',
     banditChief: 'Laupītāju vadonis',
     gnome: 'Gnoms',

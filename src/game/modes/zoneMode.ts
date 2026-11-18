@@ -1,4 +1,7 @@
 import { campPending, CAMP_NEXT, CAMP_NEXT_TIP, CAMP_SPEAKER, HELP_CALLS } from '../sim/camp'
+import { TRAP_HOLD_S } from '../data/altTutorial'
+import { applyStatus, removeStatus } from '../sim/combat'
+import { introWake } from '../intro/state'
 import { campLessonPending } from '../coach/campLesson'
 import { trackFtue } from '@/use/useAnalytics'
 import { AmbientLight, Color, Frustum, Matrix4, Scene, Sphere, Vector2, Vector3, Vector4, type Group, type InstancedMesh, type Line, type Material, type Mesh, type Object3D, type Points, type ShaderMaterial, type SkinnedMesh } from 'three'
@@ -81,7 +84,7 @@ import { POTION_CD, ROLL_CD, ROLL_DIST, cycleElixir, rollHero, useElixir, useMan
 import { nearChest, orderOpen, pickChest } from '../sim/interact'
 import { nearOre, orderMine, pickOre } from '../sim/ores'
 import { hud, hudLive, pushHud, sayBark, tickHud, type SkillSlotView, type TextKind } from '../state/hud'
-import { CAMEO_TIP, heroBuild, loadoutActive, markTip, profile, TUTORIAL_NODE, tutorialLevelOpen } from '../state/profile'
+import { CAMEO_TIP, grantXp as grantProfileXp, heroBuild, loadoutActive, markTip, profile, saveProfile, TUTORIAL_NODE, tutorialLevelOpen } from '../state/profile'
 import { coach, hintGeo, hintPath } from '../coach'
 import { emitCrumbs, findChest, finder, peekOffset } from '../coach/nudgeFx'
 import { BOARD, BOARD_REACH } from '../townTasks'
@@ -91,7 +94,7 @@ import { CAMEO_BEAST, CAMEO_HERO, CAMEO_TOWER, armCameo, cameoPlaying, clearCame
 import { INTRO_FIGHT_AT } from '../audio/songs'
 import { MENTOR_SKILL } from '../data/mentor'
 import { isKitLevel, kitEase } from '../coach/kitEase'
-import { grantMercy, stepRelief, TUTORIAL_CHARGED_CAP, potionStopDue, potionStopOver, stepMercy } from '../coach/tutorialAid'
+import { BASH_SKILL, grantMercy, stepRelief, TUTORIAL_CHARGED_CAP, potionStopDue, potionStopOver, stepMercy } from '../coach/tutorialAid'
 import { setTruce, watchTruce } from '../sim/truce'
 import { markRevealUsed } from '../coach/reveal'
 import { PREVIEW_FEED } from '../previewFlags'
@@ -126,6 +129,8 @@ export interface ZoneSetup {
   level: number
   difficulty: number
   tutorial?: boolean
+  /** The stretched first level (`data/altTutorial.ts`). */
+  altTutorial?: boolean
   /** A hook on the generated plan before anything is built from it (the intro cuts its stage clear). */
   carve?: (plan: ZonePlan) => void
   ambush?: string | null
@@ -240,6 +245,22 @@ const HOARD_AT = 2
 const WIND_AT = 1
 /** The tip that marks the dodge lesson as taught. */
 const DODGE_TIP = 'dodgeLesson'
+/** The bag lesson (#221): about ten seconds into the Goblin Hollows a lightbox on the portrait says it opens the bag and the loadout. */
+const BAG_TIP = 'bagLesson'
+const BAG_HINT_AT_S = 10
+const BAG_HINT_FOR_S = 14
+/** A foe awake this close (metres) is on the screen: the lesson waits for none. */
+const BAG_CLEAR_R = 22
+/** The hero waking on the level's ground: how long he lies, how long he takes to get up (seconds), and how far the lying body is lifted (metres). */
+const WAKE_LIE_S = 1.6
+const WAKE_RISE_S = 0.9
+const WAKE_LIFT = 0.42
+/** The shield-bash lesson (#216): the first telegraphed blow of a foe within reach stops the world this long into its wind-up, until the stun is cast. */
+const BASH_TIP = 'bashLesson'
+const BASH_STOP_AFTER_S = 0.35
+const BASH_REACH = 5
+/** A stop the player cannot answer (the skill denied again and again) lets go after this long. */
+const BASH_HOLD_MAX_S = 20
 /** The boss's first charge has wound up this long when the world stops for the dodge. */
 const DODGE_STOP_AFTER_S = 0.5
 /** The camera rests on the cages this long after the first cry for help, then flies back to the hero. */
@@ -281,6 +302,9 @@ const _view = new Vector4()
 /** How far (m) from the hero's start the scenery is warmed with the load; the rest streams in (#190). */
 const WARM_NEAR = 44
 /** Metres from (x, z) to the nearest edge of a mesh's bounds (0 when inside); a tile of instances or one drawn piece. */
+/** How much further back the colosseum's camera stands than the usual shot, to take the stands in. */
+const ARENA_VIEW_SCALE = 1.32
+
 const distanceTo = (m: Mesh, x: number, z: number): number => {
   const inst = m as InstancedMesh
   let s: Sphere | null
@@ -320,6 +344,8 @@ export class ZoneMode implements GameMode {
 
   /** No health bars over anyone (the intro's film, #189). */
   hideBars = false
+  /** A frame the camera holds instead of the hero (the intro's film is centred on its dragon, #217). */
+  camShot: { x: number; z: number } | null = null
   private walls = new WallRocks()
   /** The still world (scenery tiles, ground, props, houses), culled by its boxes. */
   private still = new StillCull()
@@ -409,6 +435,21 @@ export class ZoneMode implements GameMode {
   /** The lane the charge was aimed along (its start, its direction), for the way out. */
   private dodgeLane = { x: 0, z: 0, a: 0, src: 0 }
   private dodgeDone = !!profile.tips[DODGE_TIP]
+  /** The shield-bash lesson: seconds of the foe's wind-up left before the world stops (-1: not running), whose wind-up it is, and the stop itself. */
+  private bashT = -1
+  private bashFoe = 0
+  private bashStop = false
+  /** The trapdoor lesson (stretched level): seconds until the world stops, the hatch being open a third (-1: none). */
+  private trapT = -1
+  /** The bag lesson (#221), in the Goblin Hollows: seconds in the level (the hint comes at `BAG_HINT_AT_S`, goes at `BAG_HINT_END_S`; -1: taught or not here). */
+  private bagT = -1
+  private bagShown = false
+  private bagShownT = 0
+  /** The hero coming to after the film's faint: seconds since the level opened (-1: not waking). He lies, then gets up; no order is his until then. */
+  private wakeT = -1
+  private dodgeUp = false
+  private bashHeld = 0
+  private bashDone = !!profile.tips[BASH_TIP]
   /** The units as this visit was generated: what a saved game is told apart from. */
   private baseline: SimBaseline | null = null
   /** The share of the hero's run gold already paid into the purse (see `bankRunGold`). */
@@ -460,7 +501,7 @@ export class ZoneMode implements GameMode {
         : setup.encounter
           ? generateEncounter(setup.encounter, setup.seed, { escort: setup.escort })
           : generateZone(setup.invaded ? invadedZone(setup.zone!) : ZONES[setup.zone!], setup.seed, {
-            tutorial: setup.tutorial, openingPack: setup.tutorial ? OPENING.pack : undefined, ambush: setup.ambush, extra: setup.extra,
+            tutorial: setup.tutorial, alt: setup.altTutorial, openingPack: setup.tutorial ? OPENING.pack : undefined, ambush: setup.ambush, extra: setup.extra,
             pieces: setup.pieces, treasure: setup.treasure, cage: setup.cage, rebels: setup.rebels,
             // DEV: `?branches=0` plays the zone as one road (the perf A/B arm of roadmap #70).
             ...(import.meta.env.DEV && typeof location !== 'undefined' && new URLSearchParams(location.search).get('branches') === '0' ? { branches: false } : {})
@@ -472,7 +513,9 @@ export class ZoneMode implements GameMode {
     // The opening fight's own tuning (`OPENING`): harder blows, the level-up on the result screen.
     if (setup.kind === 'zone' && setup.tutorial) {
       sim.enemyDmgMul = OPENING.dmg
-      sim.holdLevelUp = true
+      // XP is paid into the profile on every kill and the hero levels on the spot, with a celebration (no banking for the result screen).
+      // The first level pays so that the boss's fall leaves the hero at level 2 and a half (the siege then takes him to 3, `siegeXp`).
+      sim.xpMul = OPENING.xpMul
       // A hero who already knows the teacher's skill meets foes that carry it in (a saved visit regenerates the same).
       if (profile.hero.learned.includes(MENTOR_SKILL)) sim.enemyHpMul = OPENING.skillHp
     }
@@ -542,6 +585,11 @@ export class ZoneMode implements GameMode {
     m.visitKey = `${setup.kind}:${setup.zone ?? setup.town ?? ''}:${setup.seed}:${setup.tutorial ? 1 : 0}:${setup.encounter ? 1 : 0}`
     const paid = profile.meta.visitGold
     m.goldCredit = !resume?.sim && paid && paid.key === m.visitKey ? paid.gold : 0
+    // Experience is paid as it is earned: what a reloaded visit paid before is not paid again (the same seed brings the same foes).
+    const paidXp = profile.meta.visitXp
+    m.xpCredit = !resume?.sim && paidXp && paidXp.key === m.visitKey ? paidXp.xp : 0
+    m.bankedXp = sim.hero.xp
+    m.levelStart = profile.level
     if (resume?.hero) {
       const h = sim.hero.unit
       h.x = h.px = h.homeX = resume.hero.x
@@ -569,6 +617,8 @@ export class ZoneMode implements GameMode {
     // The haze now, not at the first resize: every program is compiled with
     // it, so the first live frame does not recompile them all (a 0.6 s task
     // at 4× CPU, measured).
+    // The colosseum is drawn from a little further back: its stands, and the crowd in them, are in the picture.
+    if (setup.kind === 'arena' && !setup.siege) { m.cam.distScale = ARENA_VIEW_SCALE; m.cam.setViewport(m.cam.width, m.cam.height) }
     setZoneFog(m.scene, m.terrain.theme, m.cam.dist)
     onProgress(0.5)
 
@@ -905,6 +955,12 @@ export class ZoneMode implements GameMode {
     this.entered = true
     // The bake waits until the first frames are drawn, then runs in the background.
     window.setTimeout(() => { void this.bakeLater() }, 1200)
+    if (this.setup.kind === 'zone' && this.setup.zone === 'hollows' && !profile.tips[BAG_TIP]) this.bagT = 0
+    // The film's faint is over: the hero comes to on the ground and gets up (`stepWake`).
+    if (introWake.pending) {
+      introWake.pending = false
+      if (this.setup.kind === 'zone' && this.setup.tutorial) this.startWake()
+    }
     // The siege's buttons reach this scene while it is the live one.
     celebrateHud.active = !!this.sim.celebrate
     if (this.sim.celebrate) {
@@ -1232,9 +1288,13 @@ export class ZoneMode implements GameMode {
           this.fxSound(e.id, e.x)
           if (e.id.startsWith('burst:') || e.id === 'slam' || e.id === 'quake' || e.id === 'blast') this.cam.addTrauma(TRAUMA_HEAVY * (e.id === 'quake' ? 1 : 0.55))
           break
+        case 'trapCrack':
+          this.armTrapLesson(e)
+          break
         case 'tele':
           this.vfx.telegraph(e.tele, sim.get(e.tele.src ?? 0) ?? null, sim.time, e.tele.follow ? sim.get(e.tele.follow) ?? null : null)
           this.armDodgeLesson(e.tele)
+          this.armBashLesson(e.tele)
           break
         case 'death': {
           const def = ENEMY_BY_ID[e.kind]
@@ -1242,6 +1302,7 @@ export class ZoneMode implements GameMode {
           const u = sim.get(e.unit)
           if (e.team === 1) {
             this.vfx.death(e.x, e.z, u?.h ?? 1.2, def?.color ?? '#ffffff', big)
+            this.crowd?.react(e.x, e.z)
             sfx(e.rank === 'boss' ? 'deathBig' : 'death', this.pan(e.x))
           } else if (e.rank === 'hero') {
             this.vfx.death(e.x, e.z, 1.4, '#ff5a5a', 1.6)
@@ -1279,6 +1340,9 @@ export class ZoneMode implements GameMode {
           this.vfx.levelUp(hero.x, hero.z)
           pushHud({ t: 'toast', key: 'toast.levelUp', params: { level: e.level } })
           pushHud({ t: 'flash', color: '#ffe9a8', strength: 0.5 })
+          // The picture leans in a moment: the hero's moment.
+          this.cam.punchZoom(0.9, 0.18, 0.5)
+          this.cam.addTrauma(0.18)
           sfx('levelUp')
           // A second of slow motion — unless a boss has the stage, or the visit is over.
           if (this.beat <= 0 && !this.talkOn && !sim.ended) this.slowT = 0
@@ -1295,7 +1359,8 @@ export class ZoneMode implements GameMode {
           // and the next prize the ladder holds.
           const next = nextMilestone(id => profile.inv.items.includes(id) || sim.hero.items.includes(id))
           hud.arenaBanner = { id: (hud.arenaBanner?.id ?? 0) + 1, kind: 'wave', n: e.n, champion: e.n > ARENA_WAVES && (e.n - ARENA_WAVES) % 3 === 0, item: next?.item ?? '', at: next?.wave ?? 0 }
-          sfx('alert')
+          sfx('arenaCall')
+          this.crowd?.stir()
           break
         }
         case 'pylonsDown':
@@ -1396,19 +1461,22 @@ export class ZoneMode implements GameMode {
   update(dt: number, first: boolean): void {
     // A lesson that stops the world stops the cameo and its music with it (they go on together after).
     if (cameoPlaying(this.cameo)) {
-      holdSceneCue(this.potionStop || this.dodgeStop)
+      holdSceneCue(this.potionStop || this.dodgeStop || this.bashStop)
       // Stopped, its clock does not run either.
-      if (this.potionStop || this.dodgeStop) this.cameoWall = performance.now()
+      if (this.potionStop || this.dodgeStop || this.bashStop) this.cameoWall = performance.now()
     }
     if (this.potionStop) { this.holdForPotion(first); return }
     if (this.dodgeStop) { this.holdForDodge(first); return }
+    if (this.bashStop) { this.holdForBash(first, dt); return }
     // The cut to the cages and the way back: nobody fights or walks while the view is away from the fight.
     if (this.helpShotT >= 0 || this.helpBackT > 0) {
       if (this.helpShotT < 0) this.helpBackT -= dt
       this.holdForShot(first)
       return
     }
-    if (first) this.handleInput()
+    if (this.wakeT >= 0) this.stepWake(dt)
+    if (this.bagT >= 0) this.stepBagLesson(dt)
+    if (first && this.wakeT < 0) this.handleInput()
     if (this.talkOn) this.holdTalk()
     else if (this.talkHold > 0) this.talkHold -= dt
     // Hit-stop: the world all but freezes, for attacker and victim alike.
@@ -1431,6 +1499,15 @@ export class ZoneMode implements GameMode {
     if (this.dodgeT >= 0) {
       this.dodgeT -= simDt
       if (this.dodgeT <= 0) this.beginDodgeStop()
+    }
+    if (this.trapT >= 0) {
+      this.trapT -= simDt
+      if (this.trapT <= 0) this.beginTrapStop()
+    }
+    // The shield-bash lesson: a moment into the first foe's wind-up the world stops (`beginBashStop`).
+    if (this.bashT >= 0) {
+      this.bashT -= simDt
+      if (this.bashT <= 0) this.beginBashStop()
     }
     // The besieged gate is over: the Hollows follow (or the hero chose to skip).
     if (this.sim.assault?.phase === 'done' && !this.assaultFired) {
@@ -1513,6 +1590,40 @@ export class ZoneMode implements GameMode {
   private screenGround = (fx: number, fy: number): { x: number; z: number } | null =>
     this.cam.screenToGround(fx * this.cam.width, fy * this.cam.height, ground) ? { x: ground.x, z: ground.z } : null
 
+  /** The bag lesson's clock: the hint shows once, when nothing else holds the player's eye (no talk, no cut, no stop). */
+  private stepBagLesson(dt: number): void {
+    if (this.talkOn || this.potionStop || this.dodgeStop || this.bashStop) return
+    // The siege at the gate comes first: the lesson's ten seconds count from the Hollows themselves.
+    if (this.sim.siege || this.sim.celebrate || (this.sim.assault && this.sim.assault.phase !== 'done')) return
+    // Never over a fight: while any foe is awake and near (in the picture) the lesson waits, and a shown one goes when one comes.
+    const foes = this.sim.units.some(e => e.alive && e.team === 1 && e.rank !== 'npc' && e.awake && Math.hypot(e.x - this.sim.hero.unit.x, e.z - this.sim.hero.unit.z) < BAG_CLEAR_R)
+    if (foes) { hud.bagHint = false; if (this.bagShown) this.bagT = -1; return }
+    this.bagT += dt
+    if (this.bagT >= BAG_HINT_AT_S && !this.bagShown) { this.bagShown = true; this.bagShownT = this.bagT; hud.bagHint = true; markTip(BAG_TIP) }
+    if (this.bagShown && this.bagT >= this.bagShownT + BAG_HINT_FOR_S) { hud.bagHint = false; this.bagT = -1 }
+  }
+
+  /** The hero lies where the film left him: out cold, lifted a little so he lies on the snow and not in it. */
+  private startWake(): void {
+    const u = this.sim.hero.unit
+    applyStatus(this.sim, u, 'knockdown', 1e9, 1, null, { quiet: true })
+    u.stunt = { lift: WAKE_LIFT, flip: 0 }
+    u.hasGoal = false
+    this.wakeT = 0
+  }
+
+  /** He lies a moment, then the body rises (the knock-down lifts, the lift eases off) and only then is he the player's. */
+  private stepWake(dt: number): void {
+    this.wakeT += dt
+    const u = this.sim.hero.unit
+    u.hasGoal = false
+    if (this.wakeT < WAKE_LIE_S) return
+    removeStatus(u, 'knockdown')
+    const k = Math.min(1, (this.wakeT - WAKE_LIE_S) / WAKE_RISE_S)
+    u.stunt = k >= 1 ? undefined : { lift: WAKE_LIFT * (1 - k * k), flip: 0 }
+    if (k >= 1) this.wakeT = -1
+  }
+
   /** The first lane charge of the tutorial level's boss starts: the dodge lesson comes half a second into it. */
   private armDodgeLesson(t: { shape: string; x: number; z: number; a: number; src?: number }): void {
     if (!this.tutorialLevel || this.dodgeDone || this.dodgeT >= 0 || this.dodgeStop || t.shape !== 'line') return
@@ -1521,6 +1632,29 @@ export class ZoneMode implements GameMode {
     if (!src || src.team !== 1 || ab?.kind !== 'charge') return
     this.dodgeLane = { x: t.x, z: t.z, a: t.a, src: src.id }
     this.dodgeT = DODGE_STOP_AFTER_S
+  }
+
+  /**
+   * The stretched level's trapdoor starts to crack under the hero's feet: the world stops at once and the dodge roll is the only
+   * order taken, out of the pit, whichever way he stands (the lesson is mandatory: the roll is the one way off the hatch in time).
+   */
+  private armTrapLesson(e: { x: number; z: number; dx: number; dz: number }): void {
+    if (!this.tutorialLevel || this.dodgeDone || this.dodgeStop || this.trapT >= 0) return
+    const h = this.sim.hero
+    if (!h.unit.alive || this.sim.ended) return
+    this.dodgeLane = { x: e.x, z: e.z, a: Math.atan2(-e.dz, e.dx), src: -1 }
+    this.trapT = TRAP_HOLD_S
+  }
+
+  /** The hatch is open a third: the world stops and the dodge roll, up the screen and over the far edge, is the only order taken. */
+  private beginTrapStop(): void {
+    this.trapT = -1
+    const h = this.sim.hero
+    if (!h.unit.alive || this.sim.ended || this.dodgeStop) return
+    h.rollCd = 0
+    this.dodgeStop = true
+    hud.rollStop = true
+    this.dodgeUp = true
   }
 
   /** Half a second in: the world stops, the dodge is ready (its cooldown cleared if it was running) and its button is lit. */
@@ -1536,9 +1670,65 @@ export class ZoneMode implements GameMode {
     hud.rollStop = true
   }
 
+  /** The slot the stun skill sits in, ready to cast (-1: none). */
+  private bashSlotOf(): number {
+    for (let s = 0; s < ACTIVE_SLOTS; s++) {
+      const st = slotState(this.sim, s)
+      if (st.def?.id === BASH_SKILL && st.cd <= 0 && !st.locked && !st.noMana) return s
+    }
+    return -1
+  }
+
+  /** The first telegraphed melee blow (a cone: not the dodge's lane charge, not arrows from afar) of a foe the hero can reach: the shield-bash lesson comes a moment into it. */
+  private armBashLesson(t: { shape: string; src?: number }): void {
+    if (!this.tutorialLevel || this.bashDone || this.bashT >= 0 || this.bashStop || this.dodgeStop || this.dodgeT >= 0 || t.shape !== 'cone') return
+    const src = this.sim.get(t.src ?? 0)
+    const hero = this.sim.hero.unit
+    if (!src || src.team !== 1 || src.rank === 'npc' || !src.action) return
+    if (Math.hypot(src.x - hero.x, src.z - hero.z) - src.r > BASH_REACH || this.bashSlotOf() < 0) return
+    this.bashFoe = src.id
+    this.bashT = BASH_STOP_AFTER_S
+  }
+
+  /** A moment in: the world stops and the stun skill's button is lit. A foe that was stunned or struck down meanwhile: it waits for the next. */
+  private beginBashStop(): void {
+    this.bashT = -1
+    const sim = this.sim
+    const src = sim.get(this.bashFoe)
+    const slot = this.bashSlotOf()
+    if (!sim.hero.unit.alive || sim.ended || !src || !src.alive || !src.action || src.action.done || slot < 0) return
+    this.bashStop = true
+    this.bashHeld = 0
+    hud.bashSlot = slot
+    hud.bashStop = true
+  }
+
+  /** The bash stop: nothing moves; the pause still opens, and the stun skill (button or key) is the only order taken. */
+  private holdForBash(first: boolean, dt: number): void {
+    if (!first) return
+    this.bashHeld += dt
+    const i = this.input
+    hud.device = i.device
+    if (i.pauseQueued) this.cb.onPause()
+    let cast = false
+    if (i.skillTap === hud.bashSlot && castSkill(this.sim, hud.bashSlot, null)) { coach.use('skill'); cast = true }
+    if (cast || this.bashHeld > BASH_HOLD_MAX_S) {
+      this.bashStop = false
+      this.bashDone = true
+      hud.bashStop = false
+      hud.bashSlot = -1
+      markTip(BASH_TIP)
+    }
+    consumeEdges(i)
+  }
+
   /** The way out: sideways across the charge's lane, to the side the hero already stands on (the other if rock is there). */
   private dodgeWay(): { x: number; z: number } {
     const u = this.sim.hero.unit
+    // The trapdoor's: up the screen, over the hatch's far edge (away from the middle where the way up is rock).
+    if (this.dodgeUp) {
+      if (!isSolidAt(this.sim.grid, u.x, u.z - ROLL_DIST)) return { x: 0, z: -1 }
+    }
     const { a, x, z } = this.dodgeLane
     const px = Math.cos(a)
     const pz = -Math.sin(a)
@@ -1558,6 +1748,7 @@ export class ZoneMode implements GameMode {
       if (rollHero(this.sim, way.x, way.z)) {
         this.dodgeStop = false
         this.dodgeDone = true
+        this.dodgeUp = false
         hud.rollStop = false
         markTip(DODGE_TIP)
       }
@@ -1623,10 +1814,10 @@ export class ZoneMode implements GameMode {
     setGround(this.field)
     // A nudge may lean the view toward a chest nearby (`coach/nudgeFx.ts`).
     const peek = peekOffset(dt, hx, hz)
-    const shot = this.celebrateShot(dt) ?? this.assaultShot(hx, hz, dt) ?? this.helpShot(dt)
+    const shot = this.camShot ?? this.celebrateShot(dt) ?? this.assaultShot(hx, hz, dt) ?? this.helpShot(dt)
     if (shot) this.cam.follow(shot.x, shot.z, 0, 0, dt, groundAt(shot.x, shot.z))
     else this.cam.follow(hx + this.talkDx * tk + peek.x, hz + this.talkDz * tk + peek.z, hero.vx, hero.vz, dt, groundAt(hx, hz))
-    if (shot) this.cam.zoom = this.sim.celebrate ? this.celebrateZoom : this.helpShotT >= 0 ? HELP_SHOT_ZOOM : this.assaultZoom
+    if (shot && !this.camShot) this.cam.zoom = this.sim.celebrate ? this.celebrateZoom : this.helpShotT >= 0 ? HELP_SHOT_ZOOM : this.assaultZoom
     this.cam.update(dt)
     updateCelFrame(this.camera, this.cam.refDepth)
     // Scenery between the camera and the hero opens round them (a tall rock at a field's near edge).
@@ -1746,10 +1937,11 @@ export class ZoneMode implements GameMode {
       // A wave fought to its end: the crowd is on its feet (#117).
       if (sim.wave.cleared > this.crowdCleared) {
         this.crowdCleared = sim.wave.cleared
-        this.crowd.cheer(hx, hz)
+        this.crowd.cheer(hx, hz, true)
+        sfx('arenaTriumph')
         sfx('crowdCheer')
       }
-      this.crowd.update(fxDt)
+      this.crowd.update(fxDt, hx, hz, sim.wave.alive > 0)
     }
     emitCrumbs(sim, this.vfx.particles, fxDt, this.low || fxLevel() >= 1)
     if (this.chestOpen > 0 && this.chest) {
@@ -1831,7 +2023,32 @@ export class ZoneMode implements GameMode {
     sim.emit({ t: 'loot', x: h.unit.x, z: h.unit.z, gold: 0, item: id })
   }
 
+  /**
+   * Whether this scene pays the hero's XP and gold into the profile as they are earned. Off for the intro's film (a scene that is
+   * not a visit): its fight would level the new save to 4 and the opening level would no longer be the first-timer's tutorial.
+   */
+  banksRun = true
+  /** The level the hero was when the visit began (the result screen's "level up" counts from it, the profile having leveled on the way). */
+  levelStart = 1
+  /** XP of this run already paid into the profile, and what a reload's earlier run had paid (the first of it is not paid twice). */
+  bankedXp = 0
+  private xpCredit = 0
+
+  /** Pay the XP earned since the last time into the profile, now: a kill counts at once, in the hero screen too (the profile levels with it). */
+  bankRunXp(): void {
+    if (!this.banksRun) return
+    const xp = this.sim.hero.xp
+    const d = xp - this.bankedXp
+    if (d <= 0) return
+    const pay = Math.max(0, xp - Math.max(this.bankedXp, this.xpCredit))
+    this.bankedXp = xp
+    profile.meta.visitXp = { key: this.visitKey, xp: Math.max(xp, this.xpCredit) }
+    if (pay > 0) grantProfileXp(pay)
+    saveProfile()
+  }
+
   bankRunGold(): void {
+    if (!this.banksRun) return
     const gold = this.sim.hero.gold
     const d = gold - this.bankedGold
     if (!d) return
@@ -1845,6 +2062,7 @@ export class ZoneMode implements GameMode {
   /** Mirror the fight into the reactive HUD state. */
   private syncHud(force: boolean): void {
     this.bankRunGold()
+    this.bankRunXp()
     const sim = this.sim
     const h = sim.hero
     const u = h.unit
@@ -2265,6 +2483,9 @@ export class ZoneMode implements GameMode {
     if (cameoPlaying(this.cameo)) { endCameo(this.sim, this.cameo!); endSceneCue(0.4) }
     hud.potionStop = false
     hud.rollStop = false
+    hud.bashStop = false
+    hud.bashSlot = -1
+    hud.bagHint = false
     if (this.sim.siege) {
       siegeHud.active = false
       siegeActions.build = () => false

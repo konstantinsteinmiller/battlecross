@@ -46,6 +46,8 @@ export class FollowCam {
   dist = 20
   /** 1 = the fitted distance; below 1 is closer (a zoom punch, a town). */
   zoom = 1
+  /** The fitted distance, stretched for a place whose picture is the show (the colosseum's stands): 1 is the usual shot. */
+  distScale = 1
   trauma = 0
   width = 1
   height = 1
@@ -68,7 +70,7 @@ export class FollowCam {
     // stretched by the pitch.
     const forWidth = MIN_WIDTH / (2 * TAN_HALF * aspect)
     const forDepth = (MIN_DEPTH * SIN_P) / (2 * TAN_HALF)
-    this.dist = Math.max(forWidth, forDepth)
+    this.dist = Math.max(forWidth, forDepth) * this.distScale
     this.camera.far = this.dist * 2.6 + 60
     this.camera.near = Math.max(0.5, this.dist * 0.25)
     this.camera.updateProjectionMatrix()

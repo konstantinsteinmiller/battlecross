@@ -39,7 +39,8 @@ const heroThought: ConversationDef = {
   voice: 'hero',
   greet: [
     { id: 'cage', lines: [{ id: 'dlg.bark.hero.cage.1', by: 'hero', emotion: 'neutral' }] },
-    { id: 'hunt', lines: [{ id: 'dlg.bark.hero.hunt.1', by: 'hero', emotion: 'neutral' }] }
+    { id: 'hunt', lines: [{ id: 'dlg.bark.hero.hunt.1', by: 'hero', emotion: 'neutral' }] },
+    { id: 'levelUp', lines: [{ id: 'dlg.bark.hero.levelUp.1', by: 'hero', emotion: 'warm' }] }
   ],
   nodes: {},
   back: {},

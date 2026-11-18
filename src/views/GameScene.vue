@@ -1,7 +1,7 @@
 <template lang="pug">
   div.scene-root
     div.canvas-host(ref="canvasHost")
-    div.input-surface(v-show="!introOn && (flow.screen === 'zone' || flow.screen === 'town')" ref="surface")
+    div.input-surface(v-show="(!introOn || introPlayable) && (flow.screen === 'zone' || flow.screen === 'town')" ref="surface")
     GameHud(v-if="!introOn && !introBoot && (flow.screen === 'zone' || flow.screen === 'town')" @options="optionsOpen = true")
     WorldMap(v-if="flow.screen === 'map'" @options="optionsOpen = true")
     //- A conversation: bubbles over the running scene, never a window.
@@ -57,7 +57,8 @@ import LessonLayer from '@/components/onboarding/LessonLayer.vue'
 import HeroChoice from '@/components/screens/hero/HeroChoice.vue'
 import { recallHere } from '@/game/coach/onboarding'
 import { useHudScale } from '@/use/useHudScale'
-import { INTRO_ENABLED, INTRO_TIP, introBoot, introPlaying } from '@/game/intro/state'
+import { INTRO_ENABLED, INTRO_TIP, introBoot, introPlayable, introPlaying } from '@/game/intro/state'
+import { whenSamsungCheckAnswered } from '@/use/useSamsungFix'
 import { whenForcedDarkGuardClear } from '@/use/useForcedDarkModeGuard'
 
 // The world map is a chunk of its own (see `components/screens/chunks.ts`).
@@ -106,6 +107,9 @@ const introOn = computed(() => INTRO_ENABLED && introPlaying.value)
 /** Play the intro; `next`: the scene it hands over to (its music is restored). */
 const playIntro = async (next: Parameters<typeof app.setMode>[0] = null): Promise<void> => {
   if (!INTRO_ENABLED || introPlaying.value) return
+  // The colour check (Samsung dark mode) comes before the film, not after the opening level (#213).
+  await whenSamsungCheckAnswered()
+  if (introPlaying.value) return
   introPlaying.value = true
   try {
     const { runIntro } = await import('@/game/intro/runner')
@@ -193,6 +197,10 @@ onMounted(async () => {
   getAudioContext()
   await yieldToBrowser()
   startGameMusic()
+  // The songs are fetched whole before they are wanted, and the place's recordings (its cries, its people) are fetched and
+  // decoded in the background while the player plays, not when a line comes up (#211).
+  void import('@/game/audio/music').then(m => m.warmMusicFiles())
+  warmVoices()
   // What this place does not show yet (the screens' chunks, the town's code,
   // the English fallback), one at a time in idle periods, most likely first
   // (`utils/idleQueue.ts`, roadmap #142).
@@ -207,6 +215,15 @@ onMounted(async () => {
   startIdleQueue()
   exposePerf()
 })
+
+/** The recordings of the place on screen, fetched and decoded in the background (#211). Not under the intro or a build. */
+const warmVoices = (): void => {
+  if ((flow.screen !== 'zone' && flow.screen !== 'town') || flow.loading || introPlaying.value || introBoot.value) return
+  const node = flow.node
+  const lang = locale.value
+  void import('@/game/audio/voicePreload').then(m => m.preloadPlaceVoices(node, lang))
+}
+watch(() => [flow.screen, flow.node, flow.loading, locale.value, introPlaying.value, introBoot.value], warmVoices)
 
 // A new place re-ranks what is still waiting for its own likely next steps.
 watch(() => flow.screen, (s) => { if (s === 'zone' || s === 'town') queueScreens(s === 'town' ? 'town' : 'field') })

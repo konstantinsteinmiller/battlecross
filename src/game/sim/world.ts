@@ -141,6 +141,8 @@ export interface GroupState {
   optional?: boolean
   /** The over-levelled optional elite. */
   champion?: boolean
+  /** A pack lying in wait (the stretched tutorial's ambush, `ambush.ts`): nobody stands here until the trapdoor is sprung. */
+  ambush?: { kinds: string[]; x: number; z: number; carts: Array<{ x: number; z: number }>; sprung: boolean; /** Sim time the hatch started to crack (-1: not yet). */ crackAt?: number; /** The cart on the left: it breaks to small pieces when the hatch gives way (its cells open to walk). */ smash?: { x: number; z: number; a: number; cells: number[] } }
 }
 
 /** Side groups are numbered from here, so a unit's `group` tells which list it is in. */

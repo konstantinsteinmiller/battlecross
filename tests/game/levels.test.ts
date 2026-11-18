@@ -195,13 +195,14 @@ describe('the plan: everything a visit holds can be walked to', () => {
         }
       }
     }
+    // The first level's opening pack stands up to 3 m further north (the cry for help and the cages come before the fight).
     // #74: the Hollows' finale is the Goblin King on Tusker now, and the old
     // bosses lead the middle pack of four zones (D85).
     // #103: five zones are laid out in shapes of their own (gorge, halls,
     // fields, switchbacks, the lake), so their packs stand elsewhere.
     // #120: every zone has a layout of its own (lava tongues, the path round
     // the Peak, galleries, courts, the castle, the Rift's islands).
-    expect(h >>> 0).toBe(3121260310)
+    expect(h >>> 0).toBe(2692814372)
     expect(generateZone(ZONES.plains, 77).packs.map(p => p.kinds)).toEqual([
       ['goblinSlinger', 'goblin', 'goblin'], ['goblinSlinger', 'goblin'], ['banditChief', 'bandit', 'goblinSlinger']
     ])

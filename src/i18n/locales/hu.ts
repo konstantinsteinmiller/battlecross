@@ -169,7 +169,7 @@ export default {
   intro: {
     narrator: 'A Krónikás',
     skip: 'Kihagyás',
-    later: '1 hónappal később…',
+    later: 'Néhány órával később…',
     holdKey: 'A kihagyáshoz tartsd lenyomva: {key}',
     holdTouch: 'Tartsd lenyomva a kihagyáshoz',
     replay: 'Intró megtekintése'
@@ -257,6 +257,8 @@ export default {
     potionStop: 'Igyál egy gyógyitalt a folytatáshoz',
     rollStop: 'Gurulj ki a veszélyzónából!',
     rollStopKey: 'Szóköz',
+    bagHint: 'Nyisd meg a táskádat és a felszerelésedet a portrédról, akárcsak a városban!',
+    bashStop: 'Állítsd meg a támadást a(z) {skill} képességgel!',
     minimap: 'Városi térkép: tanítók, kereskedők, kovácsok és gyógyítók',
     groups: 'Legyőzött ellenséges csapatok: {n} / {total}',
     wave: 'Hullám: {n} / {total}',
@@ -6247,7 +6249,7 @@ export default {
       }
     },
     bark: {
-      hero: { cage: { 1: 'Valaki segítségért kiabál?' }, hunt: { 1: 'Valaki más is vadászik arra a fenevadra.' } },
+      hero: { cage: { 1: 'Valaki segítségért kiabál?' }, hunt: { 1: 'Valaki más is vadászik arra a fenevadra.' }, levelUp: { 1: 'Erősebb lettem!' } },
       trainerPyro: { help: { 1: 'Segítség, valaki!' } },
       sbMasterSoulwarden: { help: { 1: 'Elraboltak minket!' } },
       sbMasterIronmonk: { help: { 1: 'Szörnyek! Segítség!' } },
@@ -7586,6 +7588,7 @@ export default {
     goblinSlinger: 'Goblin parittyás',
     bandit: 'Bandita',
     banditArcher: 'Bandita íjász',
+    banditRaider: 'Banditarabló',
     wolf: 'Farkas',
     banditChief: 'Banditavezér',
     gnome: 'Gnóm',

@@ -80,12 +80,12 @@ describe('the intro scene stays a scene', () => {
 })
 
 describe('the cage cries are spread out (#193)', () => {
-  it('3 s for the first three, 8 s for the next three, then 12-15 s and not always the same', async () => {
+  it('5 s for the first three, 13 s for the next three, then 20-25 s and not always the same', async () => {
     const { helpPeriod } = await import('@/game/sim/camp')
-    expect([0, 1, 2].map(helpPeriod)).toEqual([3, 3, 3])
-    expect([3, 4, 5].map(helpPeriod)).toEqual([8, 8, 8])
+    expect([0, 1, 2].map(helpPeriod)).toEqual([5, 5, 5])
+    expect([3, 4, 5].map(helpPeriod)).toEqual([13, 13, 13])
     const later = Array.from({ length: 40 }, (_, i) => helpPeriod(6 + i))
-    for (const p of later) { expect(p).toBeGreaterThanOrEqual(12); expect(p).toBeLessThanOrEqual(15) }
+    for (const p of later) { expect(p).toBeGreaterThanOrEqual(20); expect(p).toBeLessThanOrEqual(25) }
     expect(new Set(later.map(p => p.toFixed(2))).size).toBeGreaterThan(5)
   })
 })

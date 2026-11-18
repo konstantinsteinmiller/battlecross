@@ -169,7 +169,7 @@ export default {
   intro: {
     narrator: 'Krønikeskriveren',
     skip: 'Spring over',
-    later: '1 måned senere…',
+    later: 'Et par timer senere…',
     holdKey: 'Hold {key} for at springe over',
     holdTouch: 'Hold nede for at springe over',
     replay: 'Se introen'
@@ -257,6 +257,8 @@ export default {
     potionStop: 'Drik en helbredseliksir for at fortsætte',
     rollStop: 'Rul ud af farezonen!',
     rollStopKey: 'Mellemrum',
+    bagHint: 'Åbn din taske og udrustning fra dit portræt, ligesom i byen!',
+    bashStop: 'Stop angrebet med {skill}!',
     minimap: 'Bykort: lærere, handlende, smede og healere',
     groups: '{n} af {total} fjendegrupper besejret',
     wave: 'Bølge {n} / {total}',
@@ -6247,7 +6249,7 @@ export default {
       }
     },
     bark: {
-      hero: { cage: { 1: 'Er der nogen, der råber om hjælp?' }, hunt: { 1: 'En anden jager også det udyr.' } },
+      hero: { cage: { 1: 'Er der nogen, der råber om hjælp?' }, hunt: { 1: 'En anden jager også det udyr.' }, levelUp: { 1: 'Jeg er blevet stærkere!' } },
       trainerPyro: { help: { 1: 'Hjælp, nogen!' } },
       sbMasterSoulwarden: { help: { 1: 'Vi blev kidnappet!' } },
       sbMasterIronmonk: { help: { 1: 'Monstre! Hjælp!' } },
@@ -7586,6 +7588,7 @@ export default {
     goblinSlinger: 'Goblinslynger',
     bandit: 'Bandit',
     banditArcher: 'Banditbueskytte',
+    banditRaider: 'Bandit-røver',
     wolf: 'Ulv',
     banditChief: 'Bandithøvding',
     gnome: 'Nisse',

@@ -25,6 +25,8 @@ export const LOOKS: Readonly<Record<string, Look>> = {
   gnome: L({ skin: '#e8b890', top: '#4f8a4a', bottom: '#6b4a2c', head: 'wizard', hair: '#d8483a', outfit: 'tunic', held: 'dagger', beard: '#f0ece4', trim: '#c9a24a', metal: '#b9c4d6' }),
   // A digger of the Hollows' chain gang (#205): a soot-brown tunic, a miner's pointed cap, a small pick.
   rebelGnome: L({ skin: '#d9a77c', top: '#7a5a3a', bottom: '#4a3a2a', head: 'wizard', hair: '#b8742e', outfit: 'tunic', held: 'hammer', beard: '#d8d0c0', trim: '#8a6a3a', metal: '#9aa4b8' }),
+  // A goblin storming the Hollows' gate (#215): yellowish hide, so it never reads as one of the King's green goblins.
+  siegeGoblin: L({ skin: '#d8cc4a', top: '#8a5a34', bottom: '#6b4a2c', head: 'bald', ears: 'goblin', outfit: 'rags', held: 'dagger', metal: '#b9c4d6' }),
   // A goblin at the Hollows' celebration (#206): the same green hide, a feast-day red scarf for a cap.
   celebGoblin: L({ skin: GOBLIN, top: '#9a5a34', bottom: '#6b4a2c', head: 'bandana', hair: '#d8483a', ears: 'goblin', outfit: 'rags', held: 'none', trim: '#e8b73a' }),
   // The Hollows' overseer (#208): a bigger goblin in a plate-trimmed leather coat, horned helm, pauldrons and a red cape, a hammer in hand.

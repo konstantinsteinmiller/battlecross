@@ -6,7 +6,7 @@
       :class="{ 'is-rested': hud.rested, 'is-open': canOpen }"
       :role="canOpen ? 'button' : undefined"
       :tabindex="canOpen ? 0 : undefined"
-      :aria-label="canOpen ? t('menu.character') : undefined"
+      :aria-label="canOpen ? t('menu.inventory') : undefined"
       data-hero-face
       @click="openSheet"
       @keydown.enter.prevent="openSheet"
@@ -40,6 +40,11 @@
       //- medallion until they are (the town's sheet button has its own).
       Transition(name="chip")
         FHudBadge.hero-frame__points(v-if="pending > 0" tone="red") +{{ pending }}
+    //- The bag lesson's lightbox (#221): a hole over the portrait, and what it opens.
+    Teleport(to="body")
+      div.bag-spot(v-if="hud.bagHint && spot" data-bag-spot aria-hidden="true")
+        span.bag-spot__hole(:style="spot")
+        span.bag-spot__text {{ t('hud.bagHint') }}
     div.hero-frame__bars
       FBar.hero-frame__hp(
         :value="hp01"
@@ -87,7 +92,7 @@
 import { computed, onUnmounted, ref, watch } from 'vue'
 import { useI18n } from 'vue-i18n'
 import { hud } from '@/game/state/hud'
-import { flow, openCharacter } from '@/game/flow'
+import { flow, openBook } from '@/game/flow'
 import { profile } from '@/game/state/profile'
 import { POINTS_PER_LEVEL } from '@/game/data/attributes'
 import FBar from '@/components/atoms/FBar.vue'
@@ -121,7 +126,29 @@ const pending = computed(() => flow.screen !== 'zone' ? 0 : profile.hero.points 
 
 /** The portrait (and its points badge) open the attributes sheet, in a level too. */
 const canOpen = computed(() => flow.screen === 'zone' && !flow.modal && !flow.talk && !flow.loading)
-const openSheet = (): void => { if (canOpen.value) openCharacter() }
+// The portrait opens the bag (and from it the rest of the book), in a level as in a town (#221).
+const openSheet = (): void => { if (canOpen.value) { hud.bagHint = false; openBook('inventory') } }
+
+/** The bag lesson's hole follows the portrait (the layout may move it) while the hint is up; opening any window ends the hint. */
+const spot = ref<Record<string, string> | null>(null)
+let spotRaf = 0
+const followSpot = (): void => {
+  const r = document.querySelector<HTMLElement>('[data-hero-face]')?.getBoundingClientRect()
+  if (r && r.width > 0) {
+    const pad = r.width * 0.12
+    const next = { left: `${r.left - pad}px`, top: `${r.top - pad}px`, width: `${r.width + pad * 2}px`, height: `${r.height + pad * 2}px` }
+    const s = spot.value
+    if (!s || s.left !== next.left || s.top !== next.top || s.width !== next.width || s.height !== next.height) spot.value = next
+  }
+  if (hud.bagHint) spotRaf = requestAnimationFrame(followSpot)
+}
+watch(() => hud.bagHint, (on) => {
+  cancelAnimationFrame(spotRaf)
+  if (on) followSpot()
+  else spot.value = null
+}, { immediate: true })
+watch(() => flow.modal, (m) => { if (m) hud.bagHint = false })
+onUnmounted(() => cancelAnimationFrame(spotRaf))
 
 /** A level gained mid-fight: the number on the rim pops (roadmap #6). Entering
  *  a zone only brings the HUD up to the saved level, which is not a level-up. */
@@ -151,6 +178,32 @@ onUnmounted(() => clearTimeout(popTimer))
   align-items: flex-start
   gap: calc(clamp(0.25rem, 1.2vmin, 0.5rem) * var(--hud-s, 1))
   pointer-events: none
+
+// The lightbox: one fixed layer under the modals; the hole's huge shadow is the dark, so the portrait shows untouched (it stays clickable).
+.bag-spot
+  position: fixed
+  inset: 0
+  z-index: calc(var(--bc-z-modal) - 1)
+  pointer-events: none
+  animation: bag-spot-in 0.25s ease-out both
+.bag-spot__hole
+  position: fixed
+  border-radius: 999px
+  box-shadow: 0 0 0 200vmax rgba(6, 8, 20, 0.74), inset 0 0 0 3px var(--bc-gold)
+.bag-spot__text
+  position: absolute
+  left: 50%
+  top: 38%
+  max-width: min(90vw, 28em)
+  transform: translate(-50%, -50%)
+  text-align: center
+  font-size: max(10px, calc(clamp(20px, 4.4vmin, 38px) * var(--hud-s, 1)))
+  font-weight: 800
+  color: var(--bc-gold)
+  text-shadow: 0 2px 0 var(--bc-ink), 0 -2px 0 var(--bc-ink), 2px 0 0 var(--bc-ink), -2px 0 0 var(--bc-ink), 0 4px 10px rgba(0, 0, 0, 0.6)
+@keyframes bag-spot-in
+  from
+    opacity: 0
 
 // ── The medallion ────────────────────────────────────────────────────────────
 .hero-frame__face

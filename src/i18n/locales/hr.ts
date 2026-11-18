@@ -169,7 +169,7 @@ export default {
   intro: {
     narrator: 'Kroničar',
     skip: 'Preskoči',
-    later: 'Mjesec dana kasnije…',
+    later: 'Nekoliko sati kasnije…',
     holdKey: 'Drži {key} za preskakanje',
     holdTouch: 'Drži za preskakanje',
     replay: 'Pogledaj uvod'
@@ -257,6 +257,8 @@ export default {
     potionStop: 'Popij napitak zdravlja za nastavak',
     rollStop: 'Izbjegni opasnu zonu!',
     rollStopKey: 'Razmaknica',
+    bagHint: 'Otvori torbu i opremu preko svog portreta, baš kao u gradu!',
+    bashStop: 'Zaustavi napad s {skill}!',
     minimap: 'Karta grada: učitelji, trgovci, kovači i iscjelitelji',
     groups: 'Poražene skupine neprijatelja: {n} od {total}',
     wave: 'Val {n} / {total}',
@@ -6360,7 +6362,7 @@ export default {
       }
     },
     bark: {
-      hero: { cage: { 1: 'Viče li netko upomoć?' }, hunt: { 1: 'Još netko lovi tu zvijer.' } },
+      hero: { cage: { 1: 'Viče li netko upomoć?' }, hunt: { 1: 'Još netko lovi tu zvijer.' }, levelUp: { 1: 'Ojačao sam!' } },
       trainerPyro: { help: { 1: 'Upomoć, ima li koga!' } },
       sbMasterSoulwarden: { help: { 1: 'Otete su nas!' } },
       sbMasterIronmonk: { help: { 1: 'Čudovišta! Upomoć!' } },
@@ -7701,6 +7703,7 @@ export default {
     goblinSlinger: 'Goblin praćkaš',
     bandit: 'Razbojnik',
     banditArcher: 'Razbojnik strijelac',
+    banditRaider: 'Razbojnik napadač',
     wolf: 'Vuk',
     banditChief: 'Razbojnički poglavica',
     gnome: 'Gnom',

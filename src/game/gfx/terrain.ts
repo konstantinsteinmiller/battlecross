@@ -242,7 +242,7 @@ export const THEMES: Readonly<Record<ThemeId, Theme>> = {
     decor: [{ kind: 'ember', build: ember('#ff9a5a'), w: 3, s: [0.8, 1.3] }, { kind: 'bones', build: bones, w: 2, s: [0.9, 1.3] }, { kind: 'pebble', build: pebble('#706a5e'), w: 4, s: [0.8, 1.5] }]
   },
   arena: {
-    ground: ['#d8c090', '#c8b080'], trail: '#e8d4a8', rim: '#7a6444', sky: '#ffcf8a', ambient: '#fff4e0', shadow: '#d8c0e8', mote: '#fff0c0',
+    ground: ['#d8c090', '#c8b080'], trail: '#e8d4a8', rim: '#a08a64', sky: '#ffcf8a', ambient: '#fff4e0', shadow: '#d8c0e8', mote: '#fff0c0',
     border: [{ kind: 'wallBlock', build: wallBlock('#b8a078', '#d0b890'), w: 6, s: [0.98, 1.05] }, { kind: 'column', build: column('#d0b890', false), w: 2, s: [0.95, 1.1] }, { kind: 'brazier', build: brazier('#8a7458', '#ffb02a'), w: 1, s: [0.9, 1.1] }],
     decor: [{ kind: 'pebble', build: pebble('#b8a078'), w: 4, s: [0.8, 1.4] }, { kind: 'bones', build: bones, w: 1, s: [0.9, 1.2] }]
   }
@@ -970,7 +970,8 @@ export const layScenery = (
       if (inside && plan.masonry?.[k] && d <= 2) {
         // A built wall: square to the grid, one block a cell. On a room's near
         // side (open ground just up-screen of it) it stays low.
-        let near = false
+        // The colosseum's wall is low all round: the stands above it are the show.
+        let near = themeId === 'arena'
         for (let dj = 1; dj <= 2 && !near; dj++) for (let di = -1; di <= 1; di++) if (j - dj >= 0 && !solid[(j - dj) * w + i + di]) { near = true; break }
         const ruin = plan.masonry[k] === 2
         const shape = ruin ? (near ? 4 : rng() < 0.55 ? 2 : 3) : near ? 1 : 0
@@ -988,6 +989,8 @@ export const layScenery = (
         if (fitPlace(walk, s, p, i, j)) lowPlaces[shape]!.push(p)
         continue
       }
+      // The colosseum's wall is the cut blocks above and the stands behind them: no lumps of rock, no trees.
+      if (themeId === 'arena') continue
       const facing = d <= (low ? 1 : 2)
       if (facing) {
         // The second ring is thinned: it only has to close the gaps of the first.

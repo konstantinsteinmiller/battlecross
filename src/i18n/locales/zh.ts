@@ -169,7 +169,7 @@ export default {
   intro: {
     narrator: '说书人',
     skip: '跳过',
-    later: '一个月后……',
+    later: '数小时后……',
     holdKey: '按住{key}跳过',
     holdTouch: '按住跳过',
     replay: '观看开场'
@@ -257,6 +257,8 @@ export default {
     potionStop: '喝下生命药水以继续',
     rollStop: '翻滚闪避，离开危险区域！',
     rollStopKey: '空格键',
+    bagHint: '像在城镇里一样，点击你的肖像就能打开背包和装备！',
+    bashStop: '用{skill}打断攻击！',
     minimap: '城镇地图：导师、商人、铁匠与治疗师',
     groups: '已击败 {n}/{total} 群敌人',
     wave: '第 {n} / {total} 波',
@@ -6247,7 +6249,7 @@ export default {
       }
     },
     bark: {
-      hero: { cage: { 1: '有人在喊救命吗？' }, hunt: { 1: '还有别人在猎那头野兽。' } },
+      hero: { cage: { 1: '有人在喊救命吗？' }, hunt: { 1: '还有别人在猎那头野兽。' }, levelUp: { 1: '我变强了！' } },
       trainerPyro: { help: { 1: '救命，有人吗！' } },
       sbMasterSoulwarden: { help: { 1: '我们被绑架了！' } },
       sbMasterIronmonk: { help: { 1: '有怪物！救命！' } },
@@ -7586,6 +7588,7 @@ export default {
     goblinSlinger: '哥布林投石手',
     bandit: '强盗',
     banditArcher: '强盗弓手',
+    banditRaider: '山贼袭击者',
     wolf: '野狼',
     banditChief: '强盗头目',
     gnome: '地精',

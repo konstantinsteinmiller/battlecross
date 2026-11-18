@@ -130,6 +130,13 @@ export class RebelProps {
   }
 
   build(scene: Scene, site: RebelSite): void {
+    this.buildRing(site)
+    if (site.more) this.buildRing(site.more)
+    scene.add(this.root)
+  }
+
+  /** One gang: its posts and chains (in the order the sim lays its gnomes), its dig and its cart. */
+  private buildRing(site: RebelSite): void {
     site.posts.forEach((p, q) => {
       const at = gnomeSpot(site, q)
       this.piece(post(), [p.x, groundAt(p.x, p.z), p.z])
@@ -142,7 +149,6 @@ export class RebelProps {
     const cx = site.x + Math.sin(site.posts[0]!.a + Math.PI / 6) * (RING_R + 2.6)
     const cz = site.z + Math.cos(site.posts[0]!.a + Math.PI / 6) * (RING_R + 2.6)
     this.piece(cart(), [cx, groundAt(cx, cz), cz], site.posts[0]!.a)
-    scene.add(this.root)
   }
 
   onEvent(e: SimEvent): void {

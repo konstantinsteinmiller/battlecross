@@ -169,7 +169,7 @@ export default {
   intro: {
     narrator: 'El Cronista',
     skip: 'Omet',
-    later: '1 mes després…',
+    later: 'Unes hores després…',
     holdKey: 'Mantén {key} per ometre',
     holdTouch: 'Mantén premut per ometre',
     replay: 'Mira la introducció'
@@ -257,6 +257,8 @@ export default {
     potionStop: 'Beu una poció de salut per continuar',
     rollStop: 'Esquiva fora de la zona de perill!',
     rollStopKey: 'Espai',
+    bagHint: "Obre la bossa i l'equipament des del teu retrat, com a la ciutat!",
+    bashStop: "Atura l'atac amb {skill}!",
     minimap: 'Mapa del poble: mestres, comerciants, ferrers i curanderes',
     groups: '{n} de {total} grups enemics derrotats',
     wave: 'Onada {n} / {total}',
@@ -6294,7 +6296,7 @@ export default {
       }
     },
     bark: {
-      hero: { cage: { 1: 'Algú crida demanant ajuda?' }, hunt: { 1: 'Algú altre també caça aquesta bèstia.' } },
+      hero: { cage: { 1: 'Algú crida demanant ajuda?' }, hunt: { 1: 'Algú altre també caça aquesta bèstia.' }, levelUp: { 1: "M'he fet més fort!" } },
       trainerPyro: { help: { 1: 'Ajuda, algú!' } },
       sbMasterSoulwarden: { help: { 1: 'Ens han segrestat!' } },
       sbMasterIronmonk: { help: { 1: 'Monstres! Ajuda!' } },
@@ -7635,6 +7637,7 @@ export default {
     goblinSlinger: 'Gòblin Foner',
     bandit: 'Bandit',
     banditArcher: 'Bandit Arquer',
+    banditRaider: 'Bandoler assaltant',
     wolf: 'Llop',
     banditChief: 'Cap dels Bandits',
     gnome: 'Gnom',

@@ -647,7 +647,8 @@ export const grantXp = (sim: Sim, amount: number): void => {
   h.xp += amount
   // The opening fight banks its level-up for the result screen (`holdLevelUp`).
   if (sim.holdLevelUp) {
-    h.xpInto = Math.min(h.xpInto + amount, Math.max(0, xpToNext(h.level) - 1))
+    // Banked whole (not capped at the bar): the boss's waking pays it out, level and the rest of the bar, so a first-timer meets the boss at level 2 with what he earned in hand.
+    h.xpInto += amount
     sim.emit({ t: 'xp', amount })
     return
   }
@@ -660,8 +661,13 @@ export const grantXp = (sim: Sim, amount: number): void => {
     // A level-up is a breather: back to full, with a burst of light.
     h.unit.hp = h.unit.s.maxHp
     h.unit.mana = h.unit.s.maxMana
+    // And the hero says so (his voice: `dlg.bark.hero.levelUp.1`, "I got stronger!").
+    if (h.unit.alive) sim.emit({ t: 'bark', unit: h.unit.id, key: LEVEL_UP_LINE })
   }
 }
+
+/** What the hero says on a level gained (a bubble and his voice, both sexes). */
+export const LEVEL_UP_LINE = 'dlg.bark.hero.levelUp.1'
 
 /** Tick every unit's statuses: clocks, damage over time, regeneration. */
 export const stepStatuses = (sim: Sim, u: Unit, dt: number): void => {

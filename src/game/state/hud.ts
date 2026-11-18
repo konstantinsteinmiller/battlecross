@@ -55,6 +55,11 @@ export const hud = shallowReactive({
   potionStop: false,
   /** The tutorial's dodge stop: the world waits for the dodge roll while the first charge winds up; its button is lit. */
   rollStop: false,
+  /** The tutorial's shield-bash stop (#216): the world waits for the stun skill while a foe winds up; the slot it sits in. */
+  bashStop: false,
+  bashSlot: -1,
+  /** The bag lesson (#221): a lightbox on the portrait says it opens the bag and the loadout, here too. */
+  bagHint: false,
   /** Mana potions in stock, how many the belt holds, and whether one can be drunk now. */
   manaPotions: 0,
   manaPotionMax: 0,

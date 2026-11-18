@@ -169,7 +169,7 @@ export default {
   intro: {
     narrator: 'Metraštininkas',
     skip: 'Praleisti',
-    later: 'Po mėnesio…',
+    later: 'Po kelių valandų…',
     holdKey: 'Laikykite {key}, kad praleistumėte',
     holdTouch: 'Laikykite, kad praleistumėte',
     replay: 'Žiūrėti įžangą'
@@ -257,6 +257,8 @@ export default {
     potionStop: 'Išgerk gyvybės eliksyrą, kad tęstum',
     rollStop: 'Išsisuk iš pavojaus zonos!',
     rollStopKey: 'Tarpas',
+    bagHint: 'Atidaryk kuprinę ir įrangą per savo portretą, kaip mieste!',
+    bashStop: 'Sustabdyk ataką su {skill}!',
     minimap: 'Miesto žemėlapis: mokytojai, pirkliai, kalviai ir gydytojai',
     groups: 'Įveikta priešų grupių: {n} iš {total}',
     wave: 'Banga {n} / {total}',
@@ -6306,7 +6308,7 @@ export default {
       }
     },
     bark: {
-      hero: { cage: { 1: 'Ar kažkas šaukia pagalbos?' }, hunt: { 1: 'Kažkas kitas taip pat medžioja tą žvėrį.' } },
+      hero: { cage: { 1: 'Ar kažkas šaukia pagalbos?' }, hunt: { 1: 'Kažkas kitas taip pat medžioja tą žvėrį.' }, levelUp: { 1: 'Sustiprėjau!' } },
       trainerPyro: { help: { 1: 'Padėkite, kas nors!' } },
       sbMasterSoulwarden: { help: { 1: 'Mus pagrobė!' } },
       sbMasterIronmonk: { help: { 1: 'Pabaisos! Padėkite!' } },
@@ -7648,6 +7650,7 @@ export default {
     goblinSlinger: 'Goblinas svaidytojas',
     bandit: 'Banditas',
     banditArcher: 'Banditas lankininkas',
+    banditRaider: 'Banditas plėšikas',
     wolf: 'Vilkas',
     banditChief: 'Banditų vadas',
     gnome: 'Gnomas',

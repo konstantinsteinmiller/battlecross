@@ -146,32 +146,33 @@
     Transition(name="card")
       //- Docked away from the picked place, so it never covers it.
       div.card(v-if="showCard && sel" :key="sel.id" data-map-card :class="{ 'card--top': !side && cardTop, 'card--side': side, 'card--left': side && sel.x > 50 }")
-        button.card__close(type="button" :aria-label="t('close')" @click="selected = ''")
-          GameIcon(name="close")
-        div.card__head
-          h2.card__name {{ t(`node.${sel.id}.name`) }}
-          span.card__meta(v-if="sel.zone") {{ t('map.levels', { min: sel.zone.min, max: sel.zone.max }) }}
-          span.card__meta.card__meta--invaded(v-if="sel.invaded") {{ t('map.invaded') }}
-          span.card__meta(v-else-if="sel.kind === 'arena'") {{ t('map.arenaBest', { n: profile.world.arenaBest }) }}
-          //- The ladder's week (#10): its modifier and this week's best.
-          span.card__meta(v-if="sel.kind === 'arena'" data-arena-week) {{ t('ladder.week', { mod: t(`ladder.mod.${arenaMod}`) }) }} · {{ t(`ladder.modDesc.${arenaMod}`) }}
-          span.card__meta(v-if="sel.kind === 'arena' && arenaWeekBest() > 0") {{ t('ladder.weekBest', { n: arenaWeekBest() }) }}
-          //- The ladder's next mythic prize (#117), or every one won.
-          span.card__meta(v-if="sel.kind === 'arena'" data-arena-prize) {{ arenaNext ? t('arena.next', { at: arenaNext.wave, item: t(`item.${arenaNext.item}.name`) }) : t('arena.allWon') }}
-          span.card__meta(v-if="sel.kind === 'town'") {{ t('map.town') }}
-        p.card__desc {{ t(`node.${sel.id}.desc`) }}
-        p.card__invaded(v-if="sel.invaded" data-invaded-desc) {{ t('map.invadedDesc') }}
-        //- The Oracle's Lens (B7, afterplay phase 8): an invaded zone's boss shows on its card.
-        p.card__invaded(v-if="lensBoss" data-lens) {{ t('relic.lens', { boss: t(`enemy.${lensBoss}`) }) }}
-        p.card__call(v-if="sel.kind === 'arena' && arenaCall" data-arena-call-text) {{ t('arena.call') }}
-        p.card__call(v-if="sel.id === 'bastion' && bellCall" data-siege-call-text) {{ t('siege.bell') }}
-        p.card__warn(v-if="sel.enterable && sel.danger > 0")
-          GameIcon.card__skull(v-for="k in sel.danger" :key="k" name="skull")
-          | {{ t(`map.danger.${sel.danger}`) }}
-        div.card__drops(v-if="drops.length")
-          span.card__drop(v-for="d in drops" :key="d.id" :class="{ owned: d.owned }" :title="t(`item.${d.id}.name`)")
-            ItemIcon(:id="d.id" :dim="!d.owned")
-        p.card__quest(v-if="questLine") {{ questLine }}
+        div.card__paper
+          button.card__close(type="button" :aria-label="t('close')" @click="selected = ''")
+            GameIcon(name="close")
+          div.card__head
+            h2.card__name {{ t(`node.${sel.id}.name`) }}
+            span.card__meta(v-if="sel.zone") {{ t('map.levels', { min: sel.zone.min, max: sel.zone.max }) }}
+            span.card__meta.card__meta--invaded(v-if="sel.invaded") {{ t('map.invaded') }}
+            span.card__meta(v-else-if="sel.kind === 'arena'") {{ t('map.arenaBest', { n: profile.world.arenaBest }) }}
+            //- The ladder's week (#10): its modifier and this week's best.
+            span.card__meta(v-if="sel.kind === 'arena'" data-arena-week) {{ t('ladder.week', { mod: t(`ladder.mod.${arenaMod}`) }) }} · {{ t(`ladder.modDesc.${arenaMod}`) }}
+            span.card__meta(v-if="sel.kind === 'arena' && arenaWeekBest() > 0") {{ t('ladder.weekBest', { n: arenaWeekBest() }) }}
+            //- The ladder's next mythic prize (#117), or every one won.
+            span.card__meta(v-if="sel.kind === 'arena'" data-arena-prize) {{ arenaNext ? t('arena.next', { at: arenaNext.wave, item: t(`item.${arenaNext.item}.name`) }) : t('arena.allWon') }}
+            span.card__meta(v-if="sel.kind === 'town'") {{ t('map.town') }}
+          p.card__desc {{ t(`node.${sel.id}.desc`) }}
+          p.card__invaded(v-if="sel.invaded" data-invaded-desc) {{ t('map.invadedDesc') }}
+          //- The Oracle's Lens (B7, afterplay phase 8): an invaded zone's boss shows on its card.
+          p.card__invaded(v-if="lensBoss" data-lens) {{ t('relic.lens', { boss: t(`enemy.${lensBoss}`) }) }}
+          p.card__call(v-if="sel.kind === 'arena' && arenaCall" data-arena-call-text) {{ t('arena.call') }}
+          p.card__call(v-if="sel.id === 'bastion' && bellCall" data-siege-call-text) {{ t('siege.bell') }}
+          p.card__warn(v-if="sel.enterable && sel.danger > 0")
+            GameIcon.card__skull(v-for="k in sel.danger" :key="k" name="skull")
+            | {{ t(`map.danger.${sel.danger}`) }}
+          div.card__drops(v-if="drops.length")
+            span.card__drop(v-for="d in drops" :key="d.id" :class="{ owned: d.owned }" :title="t(`item.${d.id}.name`)")
+              ItemIcon(:id="d.id" :dim="!d.owned")
+          p.card__quest(v-if="questLine") {{ questLine }}
         div.card__actions
           FButton(v-if="trainer" :label="t('map.trainer', { cls: t(`class.${trainer.cls}.name`) })" type="secondary" size="sm" icon="book" @click="visitHiddenTrainer(sel.id)")
           //- The iOS demo ends at the Goblin King: a place beyond it offers the unlock.
@@ -1958,6 +1959,8 @@ onBeforeUnmount(() => {
     background: linear-gradient(0deg, rgba(var(--bc-ink-rgb, 27, 22, 38), 0.42) 0%, rgba(var(--bc-ink-rgb, 27, 22, 38), 0.16) 62%, transparent 100%)
 
 // ── The picked place's card: a slip of parchment in a leather rim ────────────
+// The card is a dock: the parchment above, the button to go in BELOW it, outside the
+// parchment, so it can never scroll off the end of a long description (#214).
 .card
   --bc-on: var(--m-paper-ink)
   --bc-on-soft: var(--m-paper-ink-soft)
@@ -1966,7 +1969,15 @@ onBeforeUnmount(() => {
   bottom: calc(env(safe-area-inset-bottom, 0px) + var(--pad))
   transform: translateX(-50%)
   width: min(calc(100% - 2 * var(--pad)), 30rem)
-  max-height: 62%
+  max-height: 70%
+  display: flex
+  flex-direction: column
+  gap: clamp(0.4rem, 1.8vmin, 0.7rem)
+  z-index: 5
+.card__paper
+  position: relative
+  flex: 1 1 auto
+  min-height: 0
   overflow-y: auto
   padding: clamp(0.8rem, 3.2vmin, 1.2rem)
   border: var(--bc-ol-thick, 4px) solid var(--m-ink)
@@ -1977,7 +1988,6 @@ onBeforeUnmount(() => {
   display: flex
   flex-direction: column
   gap: clamp(0.3rem, 1.4vmin, 0.55rem)
-  z-index: 5
   +cel.scrollbar
 .card__close
   +cel.tone('red')
@@ -2042,21 +2052,24 @@ onBeforeUnmount(() => {
   display: flex
   flex-wrap: wrap
   align-items: center
-  justify-content: flex-end
+  justify-content: center
+  flex: 0 0 auto
   gap: 0.5rem
-  margin-top: 0.2rem
   // Room for the buttons' depth plates.
   padding-bottom: var(--bc-press, 4px)
 .card__locked
   display: flex
   align-items: center
   gap: 0.4em
+  padding: 0.4rem 0.8rem
+  border: var(--bc-ol, 3px) solid var(--m-ink)
+  border-radius: var(--bc-r-sm, 0.55rem)
+  background: var(--m-paper)
   color: var(--m-paper-ink-soft)
 .card--top
   top: max(calc(env(safe-area-inset-top, 0px) + var(--pad) + clamp(3rem, 13vmin, 4.4rem)), calc(var(--band-t, 0px) + var(--pad) * 0.5))
   bottom: auto
-  max-height: 46%
-// On a short, wide screen there is no room above or below the picked place:
+  max-height: 56%// On a short, wide screen there is no room above or below the picked place:
 // the card takes the half of the screen it is not in, top to bottom.
 .card--side
   left: auto
@@ -2069,8 +2082,8 @@ onBeforeUnmount(() => {
   &.card--left
     left: calc(env(safe-area-inset-left, 0px) + var(--pad))
     right: auto
-  .card__actions
-    margin-top: auto
+  .card__paper
+    flex: 1 1 auto
 .card-enter-active, .card-leave-active
   transition: opacity 180ms ease-out, transform 220ms cubic-bezier(0.2, 1.3, 0.4, 1)
 .card-enter-from, .card-leave-to

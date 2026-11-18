@@ -11,7 +11,7 @@ import type { Unit } from '@/game/sim/types'
 /** VITE_APP_WALK_ATTACK: the hero swings on the run; off, a swing is dropped the moment he moves. */
 
 const plan = generateArena(7)
-const scene = (walkAttack: boolean): { sim: Sim; foe: Unit } => {
+const scene = (walkAttack: boolean, at: [number, number] = [0.7, 2.2]): { sim: Sim; foe: Unit } => {
   const sim = new Sim({ seed: 7, w: plan.w, h: plan.h, level: 5, difficulty: 1, mode: 'zone', zone: 'hollows' })
   applyPlan(sim, plan)
   createHero(sim, {
@@ -21,7 +21,8 @@ const scene = (walkAttack: boolean): { sim: Sim; foe: Unit } => {
   sim.walkAttack = walkAttack
   const h = sim.hero.unit
   h.hp = h.s.maxHp = 1e6
-  const foe = spawnEnemy(sim, 'goblin', h.x + 1.6, h.z)!
+  h.facing = 0
+  const foe = spawnEnemy(sim, 'goblin', h.x + at[0], h.z + at[1])!
   foe.awake = true
   foe.s.baseDmg = 0
   foe.s.maxHp = foe.hp = 1e6
@@ -48,7 +49,7 @@ describe('the swing on the run', () => {
       stepSim(sim, plan, 1 / 30)
       if (h.action?.id === 'attack') {
         swung++
-        // The heading is the stick's (+Z); the chest points at the foe (+X of the hero).
+        // The heading is the stick's (+Z); the chest points at the foe (ahead and to the right, inside his view).
         expect(Math.abs(h.facing)).toBeLessThan(0.5)
         if (Math.abs(h.aim - Math.atan2(foe.x - h.x, foe.z - h.z)) < 0.2) chestOnFoe++
         expect(h.walkAtk).toBe(true)
@@ -66,7 +67,7 @@ describe('the swing on the run', () => {
   it('the red-marked foe is the one he faces, even when another stands nearer', () => {
     const { sim, foe } = scene(true)
     const h = sim.hero.unit
-    const near = spawnEnemy(sim, 'goblin', h.x + 0.6, h.z + 1.2)!
+    const near = spawnEnemy(sim, 'goblin', h.x + 0.2, h.z + 1.5)!
     near.awake = true; near.rooted = true; near.s.baseDmg = 0; near.s.maxHp = near.hp = 1e6
     h.targetId = foe.id
     sim.hero.order.targetId = foe.id
@@ -77,6 +78,21 @@ describe('the swing on the run', () => {
       stepSim(sim, plan, 1 / 30)
       if (h.action?.id === 'attack') expect(h.action.targetId).toBe(foe.id)
       sim.events.length = 0
+    }
+  })
+
+  it('on the run he strikes only what is in his view (135° about the way he runs): never a foe at his flank or his back', () => {
+    for (const at of [[1.6, 0], [-1.6, 0], [0, -1.6], [1.4, -0.8]] as Array<[number, number]>) {
+      const { sim, foe } = scene(true, at)
+      const h = sim.hero.unit
+      // A short run keeps the foe where it is relative to him (it stays beside or behind him).
+      for (let t = 0; t < 0.4; t += 1 / 30) {
+        setStick(sim, 0, 1)
+        stepSim(sim, plan, 1 / 30)
+        expect(h.action?.id, `foe at ${at}`).not.toBe('attack')
+        sim.events.length = 0
+      }
+      expect(foe.hp).toBe(1e6)
     }
   })
 

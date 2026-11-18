@@ -890,9 +890,22 @@ export class Vfx {
   /** A level gained (roadmap #6): a column of light, a flare round the hero,
    *  two rings and sparks spiralling up out of the ground. */
   levelUp(x: number, z: number): void {
-    this.pillar(x, z, 1, 8, '#ffe9a8', 1.1)
-    this.ring(x, z, 0.4, 4.5, '#ffd84a', 0.8)
-    this.ring(x, z, 0.2, 3, '#ffffff', 0.55)
+    // The column of light and rings spreading out, three of them one after the other (a ripple), and a second, wider glow behind.
+    this.pillar(x, z, 1, 9, '#ffe9a8', 1.4)
+    this.pillar(x, z, 2.2, 6, '#ffd84a', 1)
+    this.ring(x, z, 0.4, 6.5, '#ffd84a', 1)
+    this.ring(x, z, 0.2, 4.2, '#ffffff', 0.7)
+    this.ring(x, z, 0.1, 9, '#fff2b8', 1.3)
+    this.sprites.emit({ x, y: 0.12, z, color: '#ffd84a', size: 3, sizeEnd: 11, life: 1.1, shape: SHAPE.ring, hold: 0.1, aspect: 1 })
+    // A ring of stars thrown out and up, turning as they go.
+    for (let k = 0; k < this.n(14); k++) {
+      const a = (k / 14) * Math.PI * 2
+      this.sprites.emit({
+        x, y: 1, z, vx: Math.cos(a) * 3.4, vy: 2.6 + Math.random() * 2, vz: Math.sin(a) * 3.4,
+        color: k % 3 === 0 ? '#ffffff' : k % 3 === 1 ? '#ffe28a' : '#ffb84a', size: 0.7, sizeEnd: 0.1, life: 1.1 + Math.random() * 0.4,
+        shape: SHAPE.star, spin: 2.4, drag: 1.1, hold: 0.4
+      })
+    }
     this.particles.riseRing(x, 0.1, z, '#ffd84a', 1, this.n(24))
     this.particles.riseRing(x, 0.1, z, '#ffffff', 0.6, this.n(14))
     this.sprites.emit({ x, y: 1.1, z, color: '#fff2b8', size: 2.4, sizeEnd: 0.5, life: 0.4, shape: SHAPE.star, spin: 1.5, hold: 0.12 })

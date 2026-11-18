@@ -169,7 +169,7 @@ export default {
   intro: {
     narrator: 'Sang Pencerita',
     skip: 'Lewati',
-    later: '1 bulan kemudian…',
+    later: 'Beberapa jam kemudian…',
     holdKey: 'Tahan {key} untuk melewati',
     holdTouch: 'Tahan untuk melewati',
     replay: 'Tonton intro'
@@ -257,6 +257,8 @@ export default {
     potionStop: 'Minum ramuan kesehatan untuk lanjut',
     rollStop: 'Berguling keluar dari zona bahaya!',
     rollStopKey: 'Spasi',
+    bagHint: 'Buka tas dan perlengkapanmu dari potretmu, sama seperti di kota!',
+    bashStop: 'Hentikan serangan dengan {skill}!',
     minimap: 'Peta kota: guru, pedagang, pandai besi, dan tabib',
     groups: '{n} dari {total} kelompok musuh dikalahkan',
     wave: 'Gelombang {n} / {total}',
@@ -6247,7 +6249,7 @@ export default {
       }
     },
     bark: {
-      hero: { cage: { 1: 'Ada yang berteriak minta tolong?' }, hunt: { 1: 'Ada orang lain yang memburu binatang buas itu.' } },
+      hero: { cage: { 1: 'Ada yang berteriak minta tolong?' }, hunt: { 1: 'Ada orang lain yang memburu binatang buas itu.' }, levelUp: { 1: 'Aku jadi lebih kuat!' } },
       trainerPyro: { help: { 1: 'Tolong, siapa saja!' } },
       sbMasterSoulwarden: { help: { 1: 'Kami diculik!' } },
       sbMasterIronmonk: { help: { 1: 'Monster! Tolong!' } },
@@ -7586,6 +7588,7 @@ export default {
     goblinSlinger: 'Goblin Pengumban',
     bandit: 'Bandit',
     banditArcher: 'Bandit Pemanah',
+    banditRaider: 'Perampok Bandit',
     wolf: 'Serigala',
     banditChief: 'Kepala Bandit',
     gnome: 'Gnome',

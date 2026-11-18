@@ -57,6 +57,18 @@ export interface HeroInit {
  * The hero's build changed in the middle of a visit (points spent on the attributes sheet): his stats are worked out again
  * from it, keeping his health and mana as the share they were.
  */
+/** The loadout as the player set it in a menu mid-level: a slot that changed is the new skill, ready at once; the rest keep their cooldowns. */
+export const setHeroLoadout = (sim: Sim, ids: readonly string[]): void => {
+  const h = sim.hero
+  for (let i = 0; i < h.skills.length; i++) {
+    const id = ids[i] ?? ''
+    if (h.skills[i] === id) continue
+    h.skills[i] = id
+    h.cd[i] = 0
+    h.cdMax[i] = 1
+  }
+}
+
 export const refreshHeroStats = (sim: Sim, build: HeroBuild): void => {
   const h = sim.hero
   const u = h.unit
@@ -367,6 +379,8 @@ export const rollHero = (sim: Sim, dx: number, dz: number): boolean => {
   const h = sim.hero
   const u = h.unit
   // A chest's lid once lifting and the pickaxe once swinging are not given up (#99).
+  // Under the ram he pushes it: no dodge there.
+  if (sim.assault?.ram?.riding) { sim.emit({ t: 'denied', why: 'cooldown' }); return false }
   if (!u.alive || h.rollCd > 0 || isControlled(u) || u.action?.id === 'roll' || committed(sim) || sim.ended === 'defeat' || sim.leaving) {
     sim.emit({ t: 'denied', why: 'cooldown' })
     return false
@@ -639,20 +653,31 @@ const swingOnTheRun = (sim: Sim, u: Unit): void => {
     if (at) u.aim = Math.atan2(at.x - u.x, at.z - u.z)
     return
   }
+  // On the run he strikes only what is in front of him (a 135° view about the way he runs): never a foe at his back or his flank.
   let t: Unit | undefined = sim.live(u.targetId)
-  if (t && (t.team !== 1 || !t.awake || atPeace(sim, t))) t = undefined
+  if (t && (t.team !== 1 || !t.awake || atPeace(sim, t) || !inFront(u, t))) t = undefined
   // The marked foe wins while it is in reach; out of reach, the nearest one.
-  if (!t || !inAttackRange(sim, u, t, 0.4)) t = nearestAwake(sim, u, u.s.atkRange + 0.4)
+  if (!t || !inAttackRange(sim, u, t, 0.4)) t = nearestAwake(sim, u, u.s.atkRange + 0.4, u.facing)
   if (!t || !inAttackRange(sim, u, t, 0.4)) { if (!u.action) u.aim = u.facing; return }
   u.aim = Math.atan2(t.x - u.x, t.z - u.z)
   if (u.attackCd <= 0) startAttack(sim, u, t, u.s.atkInterval * WINDUP, true)
 }
 
-const nearestAwake = (sim: Sim, u: Unit, maxDist: number): Unit | undefined => {
+/** Half of the view a running hero strikes in: 135° in all. */
+const RUN_VIEW = (135 / 2) * (Math.PI / 180)
+const inFront = (u: Unit, e: Unit): boolean => {
+  let d = Math.atan2(e.x - u.x, e.z - u.z) - u.facing
+  while (d > Math.PI) d -= Math.PI * 2
+  while (d < -Math.PI) d += Math.PI * 2
+  return Math.abs(d) <= RUN_VIEW
+}
+
+const nearestAwake = (sim: Sim, u: Unit, maxDist: number, facing?: number): Unit | undefined => {
   let best: Unit | undefined
   let bd = maxDist
   for (const e of sim.units) {
     if (!e.alive || e.team !== 1 || !e.awake || atPeace(sim, e)) continue
+    if (facing !== undefined && !inFront(u, e)) continue
     const d = Math.hypot(e.x - u.x, e.z - u.z) - e.r
     if (d < bd) { bd = d; best = e }
   }

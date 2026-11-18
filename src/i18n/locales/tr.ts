@@ -169,7 +169,7 @@ export default {
   intro: {
     narrator: 'Vakanüvis',
     skip: 'Geç',
-    later: '1 ay sonra…',
+    later: 'Birkaç saat sonra…',
     holdKey: 'Geçmek için {key} tuşunu basılı tut',
     holdTouch: 'Geçmek için basılı tut',
     replay: 'Girişi izle'
@@ -257,6 +257,8 @@ export default {
     potionStop: 'Devam etmek için bir can iksiri iç',
     rollStop: 'Tehlike bölgesinden yuvarlanarak kaç!',
     rollStopKey: 'Boşluk',
+    bagHint: 'Çantanı ve teçhizatını portrenden aç, tıpkı şehirdeki gibi!',
+    bashStop: 'Saldırıyı {skill} ile durdur!',
     minimap: 'Kasaba haritası: ustalar, tüccarlar, demirciler ve şifacılar',
     groups: '{total} düşman grubundan {n} tanesi yenildi',
     wave: 'Dalga {n} / {total}',
@@ -6247,7 +6249,7 @@ export default {
       }
     },
     bark: {
-      hero: { cage: { 1: 'Biri yardım için mi bağırıyor?' }, hunt: { 1: 'O canavarı başka biri de avlıyor.' } },
+      hero: { cage: { 1: 'Biri yardım için mi bağırıyor?' }, hunt: { 1: 'O canavarı başka biri de avlıyor.' }, levelUp: { 1: 'Güçlendim!' } },
       trainerPyro: { help: { 1: 'İmdat, kimse yok mu!' } },
       sbMasterSoulwarden: { help: { 1: 'Kaçırıldık!' } },
       sbMasterIronmonk: { help: { 1: 'Canavarlar! İmdat!' } },
@@ -7586,6 +7588,7 @@ export default {
     goblinSlinger: 'Sapancı Goblin',
     bandit: 'Haydut',
     banditArcher: 'Okçu Haydut',
+    banditRaider: 'Haydut akıncı',
     wolf: 'Kurt',
     banditChief: 'Haydut Reisi',
     gnome: 'Cüce',

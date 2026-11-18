@@ -2,7 +2,7 @@ import { readFileSync, readdirSync } from 'node:fs'
 import { resolve } from 'node:path'
 import { afterEach, describe, expect, it, vi } from 'vitest'
 import {
-  BUILD_CAP_S, FADE_IN_S, FADE_OUT_AT, INTRO_ACTS, INTRO_BEAST, INTRO_DRAGON, INTRO_LENGTH, INTRO_MAGE, LABEL_AT, SCENE_AT,
+  BUILD_CAP_S, FADE_IN_S, FADE_OUT_AT, FIREBALLS, INTRO_ACTS, INTRO_BEAST, INTRO_DRAGON, INTRO_LENGTH, INTRO_MAGE, LABEL_AT, PRE_S, SCENE_AT,
   INTRO_ZOOMS, createIntroClock, labelAt, veilAt
 } from '@/game/intro/script'
 import { ENEMY_BY_ID, MINIONS } from '@/game/data/enemies'
@@ -12,9 +12,10 @@ import { LOOKS } from '@/game/gfx/rigs/looks'
 /**
  * ─── The intro (roadmap #130, the film of #183) ──────────────────────────────
  *
- * Behind a build flag, lazy, at most 12 seconds, after the hero choice (whose
- * click gives the page focus), skipped by one tap or Space, and over with
- * "1 month later…".
+ * Behind a build flag, lazy, after the hero choice (whose click gives the page
+ * focus), skipped by one tap or Space, and over with "A few hours later…". It
+ * opens with the player's own fight against the dragon (#217): two fireballs
+ * and he is out; then the two heroes, the camera on the dragon, which fights back.
  */
 
 const SRC = resolve(__dirname, '../../src')
@@ -131,10 +132,10 @@ describe('the music: the fight\'s own cue (#209)', () => {
   const runner = read('game/intro/runner.ts')
 
   it('starts with the film on both paths (the boot\'s scene, a replay\'s), cut to the film\'s clock', () => {
-    expect(runner).toMatch(/const cueTime = \(\): number => clock\.t - INTRO_FIGHT_AT/)
-    expect(runner).toMatch(/if \(pre\) \{ startIntroMusic\(cueTime\); startGameMusic\(\)/)
-    const show = runner.slice(runner.indexOf('const show = '), runner.indexOf('const frame = '))
-    expect(show).toMatch(/startIntroMusic\(cueTime\)\s*startGameMusic\(\)/)
+    // …which starts when the player's part is over (#217): the place's own music until then.
+    expect(runner).toMatch(/const cueTime = \(\): number => clock\.t - PRE_S - INTRO_FIGHT_AT/)
+    expect(runner).toMatch(/if \(pre\) \{ startGameMusic\(\)/)
+    expect(runner).toMatch(/if \(!cueOn && t >= PRE_S\) \{ cueOn = true; startIntroMusic\(cueTime\) \}/)
   })
 
   it('stops when the film ends or is skipped, and the place\'s music is named only once it is over', () => {
@@ -147,9 +148,36 @@ describe('the music: the fight\'s own cue (#209)', () => {
 })
 
 describe('the script', () => {
-  it('lasts at most 12 seconds', () => {
-    expect(INTRO_LENGTH).toBeLessThanOrEqual(12)
-    expect(INTRO_LENGTH).toBeGreaterThanOrEqual(10)
+  it('is the players fight and then a film of at most 12 seconds', () => {
+    expect(INTRO_LENGTH - PRE_S).toBeLessThanOrEqual(12)
+    expect(INTRO_LENGTH - PRE_S).toBeGreaterThanOrEqual(10)
+    expect(PRE_S).toBeLessThanOrEqual(8)
+  })
+
+  it('opens with the dragons two fireballs, the second knocking the player out, before the two heroes arrive (#217)', () => {
+    const fires = INTRO_ACTS.filter(b => b.act === 'fire')
+    expect(fires.map(b => b.at)).toEqual([...FIREBALLS])
+    expect(FIREBALLS).toHaveLength(2)
+    for (const b of fires) { expect(b.who).toBe('dragon'); expect(b.at).toBeLessThan(PRE_S) }
+    // Nothing of the two heroes happens until the player's part is over.
+    for (const b of INTRO_ACTS.filter(b => b.who !== 'dragon')) expect(b.at).toBeGreaterThanOrEqual(PRE_S)
+  })
+
+  it('the dragon fights back in the film: it answers both heroes and stomps, and falls only at the slay (#217)', () => {
+    const slay = INTRO_ACTS.find(b => b.act === 'slay')!
+    const counters = INTRO_ACTS.filter(b => b.act === 'counter')
+    expect(counters.map(b => b.who).sort()).toEqual(['beast', 'mage'])
+    for (const b of [...counters, INTRO_ACTS.find(b => b.act === 'stomp')!]) { expect(b).toBeTruthy(); expect(b.at).toBeLessThan(slay.at) }
+  })
+
+  it('the film frames the hero and the dragon together, and the player has the hero until the knock-out (#217)', () => {
+    const runner = read('game/intro/runner.ts')
+    expect(runner).toContain('m.camShot = frameBoth(cast.hero, cast.dragon)')
+    expect(read('game/modes/zoneMode.ts')).toContain('const shot = this.camShot ?? ')
+    // The game's own input walks him (not a fresh one nobody reaches), and the surface is live under the film until he is out.
+    expect(runner).toContain('ZoneMode.create(setup(), gameInput, NONE)')
+    expect(runner).toContain('introPlayable.value = false')
+    expect(read('views/GameScene.vue')).toContain('v-show="(!introOn || introPlayable)')
   })
 
   it('has its beats in order, inside the film, the dragon falling before they leave', () => {
@@ -187,7 +215,7 @@ describe('the script', () => {
     expect(veilAt(INTRO_LENGTH, true)).toBe(1)
   })
 
-  it('"1 month later…" appears on the dark and is fully up before the end', () => {
+  it('"A few hours later…" appears on the dark and is fully up before the end', () => {
     expect(labelAt(LABEL_AT - 0.01)).toBe(0)
     expect(labelAt(LABEL_AT + 0.25)).toBeGreaterThan(0)
     expect(labelAt(LABEL_AT + 0.5)).toBe(1)
@@ -232,16 +260,36 @@ describe('skipping', () => {
 })
 
 describe('the words', () => {
-  it('"1 month later…" and the skip are in every shipped locale', async () => {
+  it('"A few hours later…" and the skip are in every shipped locale', async () => {
     const dir = resolve(SRC, 'i18n/locales')
     const files = readdirSync(dir).filter(f => f.endsWith('.ts'))
     expect(files.length).toBeGreaterThan(30)
     for (const f of files) {
       const msgs = (await import(/* @vite-ignore */ resolve(dir, f))).default
       for (const k of ['intro.skip', 'intro.later']) {
+        // (He wakes a few hours later, not a month: no locale still says a month.)
         const v = k.split('.').reduce<any>((o, p) => o?.[p], msgs)
         expect(typeof v === 'string' && v.trim().length > 0, `${f}: ${k}`).toBe(true)
       }
     }
+  })
+})
+
+describe('the waking after the film', () => {
+  it('lays the hero on the opening level\'s ground and lets him get up before any order is his', () => {
+    const zone = read('game/modes/zoneMode.ts')
+    expect(read('game/intro/runner.ts')).toContain('introWake.pending = true')
+    expect(zone).toContain('if (first && this.wakeT < 0) this.handleInput()')
+    expect(zone).toContain("applyStatus(this.sim, u, 'knockdown', 1e9")
+    expect(zone).toContain("removeStatus(u, 'knockdown')")
+  })
+})
+
+describe('the film never touches the save', () => {
+  it("its scene banks no XP or gold: the save stays a first-timer's, so the opening level is the tutorial", () => {
+    const zone = read('game/modes/zoneMode.ts')
+    expect(zone).toMatch(/bankRunXp\(\): void \{\s*if \(!this\.banksRun\) return/)
+    expect(zone).toMatch(/bankRunGold\(\): void \{\s*if \(!this\.banksRun\) return/)
+    expect(read('game/intro/runner.ts')).toMatch(/ZoneMode\.create\(setup\(\), gameInput, NONE\)\s*[^\n]*\n\s*m\.banksRun = false/)
   })
 })

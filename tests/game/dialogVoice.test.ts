@@ -22,10 +22,11 @@ describe('a dialogue line\'s recording', () => {
     expect(voiceUrl('en', 'dlg.sunfordSmith.hello.1')).toMatch(/audio\/voice\/en\/dlg\.sunfordSmith\.hello\.1\.mp3$/)
   })
 
-  it('a voiced language never hears English; one with no recordings falls back to English; no file is a text-paced bubble', async () => {
+  it('a voiced language never hears English, German excepted (#219); one with no recordings falls back to English; no file is a text-paced bubble', async () => {
     const { voiceUrl, speakLine } = await import('@/game/audio/speech')
-    // German has recordings (just one here), so its other lines stay silent rather than switch to English.
-    expect(voiceUrl('de', 'dlg.hero.bye')).toBe('')
+    // German has recordings (just one here); a line it lacks plays the English recording (#219).
+    expect(voiceUrl('de', 'dlg.hero.bye')).toMatch(/audio\/voice\/en\/dlg\.hero\.bye\.ogg$/)
+    expect(voiceUrl('de', 'dlg.elderMara.hello.1')).toBe('')
     expect(voiceUrl('ja', 'dlg.hero.trade')).toMatch(/audio\/voice\/en\/dlg\.hero\.trade\.ogg$/)
     expect(voiceUrl('en', 'dlg.elderMara.hello.1')).toBe('')
     // No file: nothing is fetched, and the line is paced by its text.

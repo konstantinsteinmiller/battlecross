@@ -33,6 +33,7 @@ import { installPerfProbe } from '@/use/usePerfProbe'
 import { activeVariants } from '@/use/perfVariants'
 import { startForcedDarkModeGuard } from '@/use/useForcedDarkModeGuard'
 import { installSamsungFix } from '@/use/useSamsungFix'
+import { holdUiArt } from '@/game/assets/uiPreload'
 
 // Build-config self-check moved inline below — the previous top-level
 // `looksLikeCrazyGamesPortal` helper baked `crazygames.com` /
@@ -60,6 +61,7 @@ const bootstrap = async () => {
   // Samsung Internet's forced dark mode is invisible to JS, so its colour fix is opt-in: a one-time check card
   // (Samsung UA only) or the Options toggle. Idle everywhere else; `?samsungfix=1|0` forces it for testing.
   installSamsungFix()
+  holdUiArt()
 
   // Wire the universal pause gate → audio mute before anything can show an
   // ad. One subscriber, every build: rewarded / interstitial ads, tab-hide,

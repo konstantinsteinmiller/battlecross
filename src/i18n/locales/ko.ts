@@ -169,7 +169,7 @@ export default {
   intro: {
     narrator: '이야기꾼',
     skip: '건너뛰기',
-    later: '1개월 후…',
+    later: '몇 시간 후…',
     holdKey: '{key} 길게 눌러 건너뛰기',
     holdTouch: '길게 눌러 건너뛰기',
     replay: '인트로 보기'
@@ -257,6 +257,8 @@ export default {
     potionStop: '계속하려면 체력 물약을 마시세요',
     rollStop: '위험 구역에서 구르며 벗어나세요!',
     rollStopKey: '스페이스',
+    bagHint: '마을에서처럼 초상화로 가방과 장비를 열 수 있어요!',
+    bashStop: '{skill}(으)로 공격을 끊어라!',
     minimap: '마을 지도: 스승, 상인, 대장장이, 치유사',
     groups: '적 무리 {n}/{total} 처치',
     wave: '웨이브 {n} / {total}',
@@ -6247,7 +6249,7 @@ export default {
       }
     },
     bark: {
-      hero: { cage: { 1: '누가 도와달라고 소리치고 있나?' }, hunt: { 1: '저 짐승을 쫓는 사람이 또 있구나.' } },
+      hero: { cage: { 1: '누가 도와달라고 소리치고 있나?' }, hunt: { 1: '저 짐승을 쫓는 사람이 또 있구나.' }, levelUp: { 1: '더 강해졌어!' } },
       trainerPyro: { help: { 1: '도와주세요, 아무나!' } },
       sbMasterSoulwarden: { help: { 1: '우리는 납치당했어요!' } },
       sbMasterIronmonk: { help: { 1: '괴물이에요! 도와줘요!' } },
@@ -7586,6 +7588,7 @@ export default {
     goblinSlinger: '고블린 투석꾼',
     bandit: '도적',
     banditArcher: '도적 궁수',
+    banditRaider: '산적 약탈자',
     wolf: '늑대',
     banditChief: '도적 두목',
     gnome: '노움',
