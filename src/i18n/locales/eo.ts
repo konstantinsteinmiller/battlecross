@@ -7597,6 +7597,7 @@ export default {
     goblinShaman: "Koboldo-ŝamano",
     bombGoblin: "Bomba koboldo",
     shieldBrute: "Ŝilda brutulo",
+    mimic: "Mimiko",
     bandit: 'Bandito',
     banditArcher: 'Bandita Pafarkisto',
     banditRaider: 'Bandito-rabisto',

@@ -7597,6 +7597,7 @@ export default {
     goblinShaman: "Goblin Şaman",
     bombGoblin: "Bombacı Goblin",
     shieldBrute: "Kalkanlı Canavar",
+    mimic: "Mimik",
     bandit: 'Haydut',
     banditArcher: 'Okçu Haydut',
     banditRaider: 'Haydut akıncı',

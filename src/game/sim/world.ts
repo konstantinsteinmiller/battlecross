@@ -10,6 +10,7 @@ import type { CageKeyState, CaptiveState } from './cages'
 import type { CampState } from './camp'
 import type { AssaultState } from './assault'
 import type { TrickState } from './tricks'
+import type { MimicState } from './mimic'
 import type { RebelState } from './rebels'
 import type { CelebrationState } from './celebrate'
 import type { GateState } from './gate'
@@ -297,6 +298,9 @@ export class Sim {
   assault: AssaultState | null = null
   /** The Hollows' sections' tricks: the cook's stew pot and the boulder lane's lever (`tricks.ts`, roadmap #EXT-2); null elsewhere. */
   tricks: TrickState | null = null
+  /** The chests that turned out to be mimics (`mimic.ts`, roadmap #225), and how many are still owed this visit. */
+  mimics: MimicState[] = []
+  mimicLeft = 0
   /** The Hollows' chain gang of gnome diggers while the King lives (roadmap #205, `rebels.ts`); null elsewhere. */
   rebels: RebelState | null = null
   /** The celebration in the Hollows after the Goblin King's answer (roadmap #206, `celebrate.ts`); null elsewhere. */

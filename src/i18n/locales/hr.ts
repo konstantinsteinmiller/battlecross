@@ -7712,6 +7712,7 @@ export default {
     goblinShaman: "Goblinski šaman",
     bombGoblin: "Goblin bombaš",
     shieldBrute: "Štitonoša",
+    mimic: "Mimik",
     bandit: 'Razbojnik',
     banditArcher: 'Razbojnik strijelac',
     banditRaider: 'Razbojnik napadač',

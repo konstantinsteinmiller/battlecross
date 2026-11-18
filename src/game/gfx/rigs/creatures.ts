@@ -1048,3 +1048,37 @@ export const CREATURE_BUILDS: Record<string, () => Rig> = {
   gatling: () => buildTurret('gatling'),
   rocket: () => buildTurret('rocket')
 }
+
+/**
+ * The mimic (roadmap #225): a treasure chest that bites. Facing +Z, about a metre wide. Bones: `body` (the chest, it hops and
+ * squashes), `lid` (hinged at the back: it snaps open and shut like a jaw; thrown off when the mimic dies), `tongue` (it lolls).
+ * Teeth ring both rims, two yellow eyes glare from under the lid, and the lock is its nose.
+ */
+export const buildMimic = (): Rig => {
+  const wood = '#8a5a34'
+  const wood2 = '#6a4224'
+  const iron = '#4a4650'
+  const gold = '#e8b73a'
+  const b = new RigBuilder()
+  b.bone('root', null, [0, 0, 0])
+  b.bone('body', 'root', [0, 0.1, 0])
+  b.bone('lid', 'body', [0, 0.52, -0.34])
+  b.bone('tongue', 'body', [0, 0.46, -0.1])
+  b.part('body', rbox(1.0, 0.5, 0.72, 0.18, 10, 6), wood, { p: [0, 0.25, 0] })
+  for (const s of [-1, 1]) b.part('body', rbox(0.1, 0.52, 0.76, 0.3, 4, 4), iron, { p: [s * 0.34, 0.25, 0] })
+  for (const s of [-1, 1]) for (const t of [-1, 1]) b.part('body', rcyl(0.1, 0.14, 0.03, 8, 1), wood2, { p: [s * 0.38, -0.02, t * 0.24] })
+  // The dark inside, set a little proud of the rim so no two faces share a plane.
+  b.part('body', rbox(0.86, 0.04, 0.58, 0.3, 6, 4), '#2a0f18', { p: [0, 0.515, 0] })
+  b.part('tongue', rbox(0.3, 0.05, 0.5, 0.4, 6, 4), '#d8607a', { p: [0, 0.03, 0.26] })
+  for (let k = 0; k < 6; k++) b.part('body', rcone(0.07, 0.01, 0.2, 0.01, 6), BONE_WHITE, { p: [-0.4 + k * 0.16, 0.6, 0.3] })
+  for (const s of [-1, 1]) for (let k = 0; k < 2; k++) b.part('body', rcone(0.06, 0.01, 0.16, 0.01, 6), BONE_WHITE, { p: [s * 0.46, 0.58, -0.1 + k * 0.3] })
+  b.part('lid', rbox(1.0, 0.28, 0.72, 0.3, 10, 6), wood, { p: [0, 0.14, 0.34] })
+  for (const s of [-1, 1]) b.part('lid', rbox(0.1, 0.3, 0.76, 0.3, 4, 4), iron, { p: [s * 0.34, 0.14, 0.34] })
+  b.part('lid', rbox(0.2, 0.22, 0.06, 0.3, 4, 4), gold, { p: [0, 0.1, 0.72] })
+  for (let k = 0; k < 6; k++) b.part('lid', rcone(0.07, 0.01, 0.2, 0.01, 6), BONE_WHITE, { p: [-0.4 + k * 0.16, -0.08, 0.62], r: [Math.PI, 0, 0] })
+  for (const s of [-1, 1]) {
+    b.part('lid', sph(0.075, 8, 6), '#ffe04a', { p: [s * 0.22, 0.02, 0.5], glow: true, outline: false })
+    b.part('lid', rbox(0.22, 0.05, 0.08, 0.4, 4, 3), '#1b1626', { p: [s * 0.22, 0.09, 0.52], r: [0, 0, s * -0.4] })
+  }
+  return b.build({ height: 0.95 })
+}

@@ -7597,6 +7597,7 @@ export default {
     goblinShaman: "หมอผีก็อบลิน",
     bombGoblin: "ก็อบลินระเบิด",
     shieldBrute: "อสูรโล่",
+    mimic: "มิมิก",
     bandit: 'โจร',
     banditArcher: 'โจรพลธนู',
     banditRaider: 'โจรบุกปล้น',

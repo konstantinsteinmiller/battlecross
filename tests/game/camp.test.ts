@@ -78,7 +78,7 @@ const openCage = (sim: Sim, plan: ZonePlan): void => {
   expect(cage.state).toBe('open')
 }
 
-const barks = (sim: Sim): string[] => sim.events.filter(e => e.t === 'bark').map(e => (e as { key: string }).key)
+const barks = (sim: Sim): string[] => sim.events.filter(e => e.t === 'bark').map(e => (e as { key: string }).key).filter(k => !k.startsWith('dlg.bark.hero.'))
 
 describe('the camp on the boss floor (#182)', () => {
   it('on every seed: the cage right of the boss, the caravan left of it, the fire a little below it, the finale chest where it was', () => {

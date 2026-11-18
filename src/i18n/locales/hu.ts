@@ -7597,6 +7597,7 @@ export default {
     goblinShaman: "Goblin sámán",
     bombGoblin: "Bombagoblin",
     shieldBrute: "Pajzsos nyers",
+    mimic: "Mimik",
     bandit: 'Bandita',
     banditArcher: 'Bandita íjász',
     banditRaider: 'Banditarabló',

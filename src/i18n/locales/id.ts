@@ -7597,6 +7597,7 @@ export default {
     goblinShaman: "Dukun Goblin",
     bombGoblin: "Goblin Bom",
     shieldBrute: "Brutal Berperisai",
+    mimic: "Mimik",
     bandit: 'Bandit',
     banditArcher: 'Bandit Pemanah',
     banditRaider: 'Perampok Bandit',

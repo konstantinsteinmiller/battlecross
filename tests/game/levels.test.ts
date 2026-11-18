@@ -202,7 +202,8 @@ describe('the plan: everything a visit holds can be walked to', () => {
     // fields, switchbacks, the lake), so their packs stand elsewhere.
     // #120: every zone has a layout of its own (lava tongues, the path round
     // the Peak, galleries, courts, the castle, the Rift's islands).
-    expect(h >>> 0).toBe(2692814372)
+    // #EXT-3/#EXT-2: the Hollows' packs now hold the shaman, bomb goblin and shield brute (and set fights per section), so the hash moved.
+    expect(h >>> 0).toBe(444540260)
     expect(generateZone(ZONES.plains, 77).packs.map(p => p.kinds)).toEqual([
       ['goblinSlinger', 'goblin', 'goblin'], ['goblinSlinger', 'goblin'], ['banditChief', 'bandit', 'goblinSlinger']
     ])

@@ -7597,6 +7597,7 @@ export default {
     goblinShaman: "Goblin Şamanı",
     bombGoblin: "Bomba Qoblini",
     shieldBrute: "Qalxanlı Cəllad",
+    mimic: "Mimik",
     bandit: 'Quldur',
     banditArcher: 'Oxatan Quldur',
     banditRaider: 'Quldur basqınçı',

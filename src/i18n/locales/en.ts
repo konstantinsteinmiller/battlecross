@@ -4061,6 +4061,7 @@ export default {
     'goblinShaman': "Goblin Shaman",
     'bombGoblin': "Bomb Goblin",
     'shieldBrute': "Shield Brute",
+    'mimic': "Mimic",
     'bandit': 'Bandit',
     'banditArcher': 'Bandit Archer',
     'banditRaider': 'Bandit Raider',

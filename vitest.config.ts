@@ -53,7 +53,7 @@ export default defineConfig({
     // workers). Files that need the DOM opt in on their first line with
     // `// @vitest-environment jsdom`.
     environment: 'node',
-    setupFiles: ['./tests/save/setup.ts', './tests/setup.network.ts'],
+    setupFiles: ['./tests/save/setup.ts', './tests/setup.network.ts', './tests/setup.mimic.ts'],
     // `.env` holds the LIVE leaderboard Worker and its signing secret. Blank
     // both for the whole suite, or every test that ends a mission posts a real,
     // signed score to the production board (it happened once). The leaderboard

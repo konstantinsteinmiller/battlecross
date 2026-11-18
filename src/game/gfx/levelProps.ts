@@ -1824,6 +1824,7 @@ export class LevelProps {
     this.pylons?.onEvent(e)
     switch (e.t) {
       case 'chest': this.onChest(e); break
+      case 'mimic': this.onMimic(e); break
       case 'herb': this.onHerb(e); break
       case 'mine': this.onMine(e); break
       case 'cageKeyDrop': {
@@ -1916,9 +1917,35 @@ export class LevelProps {
     }
   }
 
+  /** A chest that was a mimic (#225): its own body is drawn by the mimic's rig from the moment it wakes, so the chest is hidden for good. */
+  private onMimic(e: Extract<SimEvent, { t: 'mimic' }>): void {
+    const v = this.chests.find(c => c.id === e.chest)
+    if (!v) return
+    if (e.id === 'wake') {
+      v.root.visible = false
+      v.glow.visible = false
+      const ps = this.vfx.particles
+      for (let k = 0; k < (this.low ? 8 : 18); k++) {
+        const a = Math.random() * Math.PI * 2
+        const sp = 1 + Math.random() * 2.4
+        ps.emit({ x: e.x, y: 0.6, z: e.z, vx: Math.cos(a) * sp, vy: 2 + Math.random() * 3, vz: Math.sin(a) * sp, color: k % 2 ? '#8a5a34' : '#ffe04a', size: 0.14, sizeEnd: 0.03, life: 0.6 + Math.random() * 0.4, gravity: 8, drag: 0.5 })
+      }
+      this.vfx.ring(e.x, e.z, 0.3, 3, '#ffe04a', 0.45)
+      sfx('alert', this.pan(e.x))
+      sfx('bossIntro', this.pan(e.x), 0.7)
+      this.shake(0.5)
+    } else {
+      this.vfx.ring(e.x, e.z, 0.3, 3.6, CHEST_RING[v.tier], 0.55)
+      this.vfx.particles.riseRing(e.x, 0.2, e.z, '#ffe9a8', 0.7, this.low ? 8 : 16)
+      sfx('chest', this.pan(e.x))
+    }
+  }
+
   private onChest(e: Extract<SimEvent, { t: 'chest' }>): void {
     const v = this.chests.find(c => c.id === e.id)
     if (!v) return
+    // A mimic's chest is drawn by the mimic (#225).
+    if (this.sim.mimics.some(m => m.chest === e.id)) return
     const p = this.pan(e.x)
     switch (e.state) {
       case 'reveal':

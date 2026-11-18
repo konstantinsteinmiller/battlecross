@@ -7654,6 +7654,7 @@ export default {
     goblinShaman: "Σαμάνος Γκόμπλιν",
     bombGoblin: "Γκόμπλιν με βόμβα",
     shieldBrute: "Ασπιδοφόρος Βάρβαρος",
+    mimic: "Μίμικ",
     bandit: 'Ληστής',
     banditArcher: 'Ληστής Τοξότης',
     banditRaider: 'Ληστής επιδρομέας',

@@ -58,6 +58,7 @@ const ELITE_EVERY = 3
 const ladderPurse = (sim: Sim, full: boolean): number => Math.round((20 + sim.level * 14) * (full ? 2.5 : 1))
 
 import { layTricks } from './tricks'
+import { rollMimics } from './mimic'
 
 export const applyPlan = (sim: Sim, plan: ZonePlan): void => {
   fillGrid(sim.grid, plan)
@@ -110,6 +111,8 @@ export const populateZone = (sim: Sim, plan: ZonePlan, zone: ZoneId, owned: Iter
   populateInvasion(sim, plan)
   // The Hollows' sections each have a trick (#EXT-2).
   layTricks(sim, plan, zone)
+  // Some chests are mimics (#225).
+  rollMimics(sim, zone)
   // An escort's caravan, at the start of its road (#85).
   if (plan.caravan) spawnCaravan(sim, plan.caravan.path)
 }

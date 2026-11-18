@@ -7641,6 +7641,7 @@ export default {
     goblinShaman: "Șamanul goblin",
     bombGoblin: "Goblin cu bombă",
     shieldBrute: "Brutul cu scut",
+    mimic: "Mimic",
     bandit: 'Bandit',
     banditArcher: 'Bandit Arcaș',
     banditRaider: 'Bandit jefuitor',

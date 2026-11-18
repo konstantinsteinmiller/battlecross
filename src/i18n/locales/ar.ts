@@ -7944,6 +7944,7 @@ export default {
     goblinShaman: "شامان الغوبلن",
     bombGoblin: "غوبلن القنابل",
     shieldBrute: "الوحش الحارس بالدرع",
+    mimic: "الصندوق المقلّد",
     bandit: 'قاطع طريق',
     banditArcher: 'قاطع طريق رامٍ',
     banditRaider: 'مغير من قطاع الطرق',

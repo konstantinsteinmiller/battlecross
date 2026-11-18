@@ -7597,6 +7597,7 @@ export default {
     goblinShaman: "Гоблин шаманы",
     bombGoblin: "Бомбалы гоблин",
     shieldBrute: "Қалқанды жабайы",
+    mimic: "Мимик",
     bandit: 'Қарақшы',
     banditArcher: 'Садақшы қарақшы',
     banditRaider: 'Қарақшы шабуылдаушы',

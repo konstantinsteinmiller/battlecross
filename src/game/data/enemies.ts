@@ -199,6 +199,13 @@ const BASE_ENEMIES: readonly EnemyDef[] = [
     hp: 1.7, dmg: 1.1, armor: 1.4, speed: 3.0, style: 'melee', type: 'physical', range: 1.9, interval: 1.5, windup: 0.45, heavy: true,
     aggro: 9, reward: 1.6, color: '#9aa4b8', abilities: []
   }),
+  // #225: a chest that bites. A champion: quick, leaps at the hero, and pays its chest's loot when it falls.
+  D({
+    id: 'mimic', rank: 'elite', rig: 'mimic', look: 'mimic', scale: 1, r: 0.55, h: 0.95,
+    hp: 2.2, dmg: 1.2, armor: 1.4, speed: 4.4, style: 'melee', type: 'physical', range: 1.5, interval: 0.95, windup: 0.28,
+    aggro: 30, reward: 0.4, color: '#c9a24a',
+    abilities: [{ kind: 'leap', cd: 4.5, first: 0.9, range: 7, min: 2.2, windup: 0.5, recover: 0.35, dmg: 1.5, r: 1.8 }]
+  }),
   D({
     id: 'bandit', rank: 'normal', rig: 'humanoid', look: 'bandit', scale: 1, r: 0.46, h: 1.4,
     hp: 1.05, dmg: 1, armor: 1.2, speed: 3.4, style: 'melee', type: 'physical', range: 1.9, interval: 1.3, windup: 0.36,

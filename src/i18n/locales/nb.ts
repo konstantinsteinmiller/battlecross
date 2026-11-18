@@ -7597,6 +7597,7 @@ export default {
     goblinShaman: "Goblinsjaman",
     bombGoblin: "Bombegoblin",
     shieldBrute: "Skjoldbrute",
+    mimic: "Mimic",
     bandit: 'Banditt',
     banditArcher: 'Bandittbueskytter',
     banditRaider: 'Banditt-røver',

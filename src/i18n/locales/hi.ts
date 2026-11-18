@@ -7689,6 +7689,7 @@ export default {
     goblinShaman: "गॉब्लिन ओझा",
     bombGoblin: "बम गॉब्लिन",
     shieldBrute: "ढाल वाला दैत्य",
+    mimic: "मिमिक",
     bandit: 'डाकू',
     banditArcher: 'डाकू तीरंदाज़',
     banditRaider: 'डाकू लुटेरा',

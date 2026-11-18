@@ -7597,6 +7597,7 @@ export default {
     goblinShaman: "ゴブリンシャーマン",
     bombGoblin: "爆弾ゴブリン",
     shieldBrute: "盾の大男",
+    mimic: "ミミック",
     bandit: '山賊',
     banditArcher: '山賊の弓兵',
     banditRaider: '山賊の襲撃者',

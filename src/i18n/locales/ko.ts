@@ -7597,6 +7597,7 @@ export default {
     goblinShaman: "고블린 주술사",
     bombGoblin: "폭탄 고블린",
     shieldBrute: "방패 투사",
+    mimic: "미믹",
     bandit: '도적',
     banditArcher: '도적 궁수',
     banditRaider: '산적 약탈자',

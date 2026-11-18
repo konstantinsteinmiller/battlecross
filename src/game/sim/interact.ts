@@ -1,3 +1,4 @@
+import { maybeMimic } from './mimic'
 import { ITEM_BY_ID, sellValue, type ZoneId } from '../data/items'
 import { freeCaptives } from './cages'
 import {
@@ -235,7 +236,8 @@ export const openChest = (sim: Sim, c: ChestState): void => {
 export const finishOpen = (sim: Sim): void => {
   const c = sim.chests[sim.hero.opening]
   sim.hero.opening = -1
-  if (c && c.state === 'opening') openChest(sim, c)
+  // A chest that was a mimic springs alive instead of paying (#225).
+  if (c && c.state === 'opening' && !maybeMimic(sim, c)) openChest(sim, c)
 }
 
 /** A hidden passage opens, for the rest of the visit. */

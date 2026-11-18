@@ -4,7 +4,7 @@ import { SPIRIT_COLOR } from '../../sim/spawn'
 import { setCelRim, setCelTint } from '../cel'
 import { INFERNAL_RIM, INFERNAL_TINT } from '../corruption'
 import { cloneRig, type Rig } from '../kit'
-import { buildBeast, buildBoar, buildCart, buildDragon, buildElemental, buildGolem, buildNaga, buildSpider, buildTreant, buildTurret, buildWyvern } from './creatures'
+import { buildBeast, buildBoar, buildCart, buildDragon, buildElemental, buildGolem, buildMimic, buildNaga, buildSpider, buildTreant, buildTurret, buildWyvern } from './creatures'
 import { clipSet, styleOf, type ClipSet } from './clips'
 import { buildHumanoid, WEAPON_EDGE, WEAPON_REACH, type Held, type Look, type OffHand } from './humanoid'
 import { LOOKS, lookKey } from './looks'
@@ -22,7 +22,7 @@ import type { Action, Unit } from '../../sim/types'
  * two skeletons mid-fight.
  */
 
-export type Family = 'humanoid' | 'beast' | 'spider' | 'naga' | 'wyvern' | 'dragon' | 'turret' | 'cart'
+export type Family = 'humanoid' | 'beast' | 'spider' | 'naga' | 'wyvern' | 'dragon' | 'turret' | 'cart' | 'mimic'
 
 export interface RigView {
   rig: Rig
@@ -211,6 +211,8 @@ const specFor = (rig: string, look: string, foe = false): Spec => {
     }
     case 'voidlord':
       return { ...humanoid({ ...VOID_LORD, fierce: foe }), float: 0.3 }
+    case 'mimic':
+      return { key: 'mimic', family: 'mimic', build: buildMimic, float: 0, held: 'none', ghost: false }
     case 'turret': {
       const v = look === 'rocket' ? 'rocket' : 'gatling'
       return { key: 'turret:' + v, family: 'turret', build: () => buildTurret(v), float: 0, held: 'gun', ghost: false }

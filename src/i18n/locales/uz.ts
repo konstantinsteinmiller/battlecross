@@ -7597,6 +7597,7 @@ export default {
     goblinShaman: "Goblin shamani",
     bombGoblin: "Bombali goblin",
     shieldBrute: "Qalqonli vahshiy",
+    mimic: "Mimik",
     bandit: 'Qaroqchi',
     banditArcher: 'Kamonchi qaroqchi',
     banditRaider: 'Qaroqchi bosqinchi',

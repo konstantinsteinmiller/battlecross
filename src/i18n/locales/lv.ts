@@ -7672,6 +7672,7 @@ export default {
     goblinShaman: "Goblinu šamanis",
     bombGoblin: "Bumbu goblins",
     shieldBrute: "Vairoga brutālis",
+    mimic: "Mimiks",
     bandit: 'Laupītājs',
     banditArcher: 'Laupītājs loka šāvējs',
     banditRaider: 'Bandīts laupītājs',

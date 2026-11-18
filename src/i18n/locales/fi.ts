@@ -7597,6 +7597,7 @@ export default {
     goblinShaman: "Hiisishamaani",
     bombGoblin: "Pommihiisi",
     shieldBrute: "Kilpiraakki",
+    mimic: "Jäljitelmä",
     bandit: 'Rosvo',
     banditArcher: 'Rosvojousimies',
     banditRaider: 'Rosvo-ryöstäjä',

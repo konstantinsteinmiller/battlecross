@@ -7698,6 +7698,7 @@ export default {
     goblinShaman: "Goblinia szamanka",
     bombGoblin: "Goblin bombowy",
     shieldBrute: "Tarczowy osiłek",
+    mimic: "Mimik",
     bandit: 'Bandyta',
     banditArcher: 'Bandyta łucznik',
     banditRaider: 'Bandyta najeźdźca',

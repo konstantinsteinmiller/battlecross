@@ -7597,6 +7597,7 @@ export default {
     goblinShaman: "Pháp sư Goblin",
     bombGoblin: "Goblin bom",
     shieldBrute: "Lực sĩ khiên",
+    mimic: "Mimic",
     bandit: 'Thổ Phỉ',
     banditArcher: 'Cung Thủ Thổ Phỉ',
     banditRaider: 'Cướp tấn công',

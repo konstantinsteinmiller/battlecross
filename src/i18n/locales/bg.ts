@@ -7671,6 +7671,7 @@ export default {
     goblinShaman: "Гоблински шаман",
     bombGoblin: "Гоблин с бомби",
     shieldBrute: "Щитоносен главорез",
+    mimic: "Мимик",
     bandit: 'Разбойник',
     banditArcher: 'Разбойник стрелец',
     banditRaider: 'Бандит-нападател',
