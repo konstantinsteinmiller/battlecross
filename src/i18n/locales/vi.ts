@@ -442,7 +442,7 @@ export default {
     }
   },
   wanted: { title: "Truy nã" },
-  tricks: { pot: "Nồi của đầu bếp chữa lành cả bầy. Hãy hạ đầu bếp trước!", lever: "Một cần gạt! Kéo nó để lăn những tảng đá vào bầy." },
+  tricks: { pot: "Nồi của đầu bếp chữa lành cả bầy. Hãy hạ đầu bếp trước!", lever: "Một cần gạt! Kéo nó để lăn những tảng đá vào bầy.", gallery: "Xạ thủ ná cao su trên giàn giáo, ngoài tầm với! Cắt dây ở cột để hạ họ xuống." },
   tusker: { hint: "Dụ cú húc của Tusker vào một cột mục!", crash: "Mái nhà sập xuống đầu Nhà Vua!" },
   assault: {
     title: 'Vây hãm cổng Hang động',

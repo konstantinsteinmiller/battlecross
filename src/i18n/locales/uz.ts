@@ -442,7 +442,7 @@ export default {
     }
   },
   wanted: { title: "Qidirilmoqda" },
-  tricks: { pot: "Oshpazning qozoni to‘dani davolaydi. Avval oshpazni jim qiling!", lever: "Dasta! Torting, toshlar to‘daning ustiga dumalaydi." },
+  tricks: { pot: "Oshpazning qozoni to‘dani davolaydi. Avval oshpazni jim qiling!", lever: "Dasta! Torting, toshlar to‘daning ustiga dumalaydi.", gallery: "Iskala ustidagi sopqonchilar yetib bo‘lmas! Ularni tushirish uchun arqon ustunini kesing." },
   tusker: { hint: "Tuskerning hujumini chirigan ustunga yo‘naltiring!", crash: "Shift Qirolning ustiga qulaydi!" },
   assault: {
     title: 'G\'orlar darvozasini qamal qilish',

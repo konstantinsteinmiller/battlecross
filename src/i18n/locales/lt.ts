@@ -442,7 +442,7 @@ export default {
     }
   },
   wanted: { title: "Ieškomas" },
-  tricks: { pot: "Virėjo puodas gydo gaują. Pirmiausia nutildyk virėją!", lever: "Svirtis! Patraukk, ir riedulių ritinys nusirita ant gaujos." },
+  tricks: { pot: "Virėjo puodas gydo gaują. Pirmiausia nutildyk virėją!", lever: "Svirtis! Patraukk, ir riedulių ritinys nusirita ant gaujos.", gallery: "Svaidytuvininkai ant pastolių, nepasiekiami! Perpjauk virvės stulpą, kad jie nukristų." },
   tusker: { hint: "Privilioti Tuskerio šuolį į supuvusį stulpą!", crash: "Lubos griūva ant Karaliaus!" },
   assault: {
     title: 'Urvų vartų apgultis',

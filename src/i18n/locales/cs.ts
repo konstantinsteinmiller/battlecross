@@ -445,7 +445,7 @@ export default {
     }
   },
   wanted: { title: "Hledá se" },
-  tricks: { pot: "Kuchařův hrnec léčí smečku. Nejdřív umlč kuchaře!", lever: "Páka! Zatáhni a valouny se skutálejí na smečku." },
+  tricks: { pot: "Kuchařův hrnec léčí smečku. Nejdřív umlč kuchaře!", lever: "Páka! Zatáhni a valouny se skutálejí na smečku.", gallery: "Prakovníci na lešení, mimo dosah! Přeřízni lano u sloupku a srazíš je dolů." },
   tusker: { hint: "Nalákej Tuskerův nájezd do shnilého sloupu!", crash: "Strop se zřítil na Krále!" },
   assault: {
     title: 'Obléhání brány Jeskyní',

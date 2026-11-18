@@ -442,7 +442,7 @@ export default {
     }
   },
   wanted: { title: "Körözött" },
-  tricks: { pot: "A szakács fazeka gyógyítja a bandát. Előbb a szakácsot hallgattasd el!", lever: "Egy kar! Húzd meg, és a sziklák a bandára gördülnek." },
+  tricks: { pot: "A szakács fazeka gyógyítja a bandát. Előbb a szakácsot hallgattasd el!", lever: "Egy kar! Húzd meg, és a sziklák a bandára gördülnek.", gallery: "Parittyások az állványon, elérhetetlenül! Vágd el a kötéloszlopot, hogy leessenek." },
   tusker: { hint: "Csalogasd Tusker rohamát egy korhadt oszlopnak!", crash: "A tető rázuhan a Királyra!" },
   assault: {
     title: 'A Barlangok kapujának ostroma',

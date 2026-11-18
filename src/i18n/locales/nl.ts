@@ -443,7 +443,7 @@ export default {
     }
   },
   wanted: { title: "Gezocht" },
-  tricks: { pot: "De pot van de kok geneest de bende. Breng eerst de kok tot zwijgen!", lever: "Een hendel! Trek eraan en de rotsblokken rollen op de bende af." },
+  tricks: { pot: "De pot van de kok geneest de bende. Breng eerst de kok tot zwijgen!", lever: "Een hendel! Trek eraan en de rotsblokken rollen op de bende af.", gallery: "Slingeraars op de steiger, buiten bereik! Kap de touwpaal door en ze storten neer." },
   tusker: { hint: "Lok Tuskers aanval in een verrotte pilaar!", crash: "Het plafond stort op de Koning neer!" },
   assault: {
     title: 'Belegering van de poort van de Holen',

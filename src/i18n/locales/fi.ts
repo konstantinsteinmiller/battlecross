@@ -442,7 +442,7 @@ export default {
     }
   },
   wanted: { title: "Etsintäkuulutettu" },
-  tricks: { pot: "Kokin pata parantaa lauman. Vaienna ensin kokki!", lever: "Vipu! Vedä siitä, niin kivenlohkareet vyöryvät lauman päälle." },
+  tricks: { pot: "Kokin pata parantaa lauman. Vaienna ensin kokki!", lever: "Vipu! Vedä siitä, niin kivenlohkareet vyöryvät lauman päälle.", gallery: "Linkoilijat rakennustelineillä, ulottumattomissa! Katkaise köysipylväs, niin he putoavat." },
   tusker: { hint: "Houkuttele Tuskerin rynnäkkö lahoon pylvääseen!", crash: "Katto romahtaa kuninkaan niskaan!" },
   assault: {
     title: 'Luolien portin piiritys',

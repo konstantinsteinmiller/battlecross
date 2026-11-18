@@ -443,7 +443,7 @@ export default {
     }
   },
   wanted: { title: "Ricercato" },
-  tricks: { pot: "Il pentolone del cuoco cura il branco. Zittisci prima il cuoco!", lever: "Una leva! Tirala per far rotolare i massi sul branco." },
+  tricks: { pot: "Il pentolone del cuoco cura il branco. Zittisci prima il cuoco!", lever: "Una leva! Tirala per far rotolare i massi sul branco.", gallery: "Frombolieri sull’impalcatura, fuori portata! Taglia la corda del palo per farli cadere." },
   tusker: { hint: "Attira la carica di Tusker contro un pilastro marcio!", crash: "Il soffitto crolla sul Re!" },
   assault: {
     title: 'Assedio alla porta delle Grotte',

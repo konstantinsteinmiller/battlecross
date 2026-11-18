@@ -443,7 +443,7 @@ export default {
     }
   },
   wanted: { title: "Gesucht" },
-  tricks: { pot: "Der Eintopf des Kochs heilt das Rudel. Erst den Koch zum Schweigen bringen!", lever: "Ein Hebel! Zieh ihn, und die Felsbrocken rollen ins Rudel." },
+  tricks: { pot: "Der Eintopf des Kochs heilt das Rudel. Erst den Koch zum Schweigen bringen!", lever: "Ein Hebel! Zieh ihn, und die Felsbrocken rollen ins Rudel.", gallery: "Schleuderer auf dem Gerüst, außer Reichweite! Kappe den Seilpfosten, dann stürzen sie ab." },
   tusker: { hint: "Lock Tuskers Ansturm in einen morschen Pfeiler!", crash: "Die Decke stürzt auf den König!" },
   assault: {
     title: 'Belagerung des Höhlentors',

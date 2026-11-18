@@ -443,7 +443,7 @@ export default {
     }
   },
   wanted: { title: "Se busca" },
-  tricks: { pot: "La olla del cocinero cura a la banda. ¡Acalla primero al cocinero!", lever: "¡Una palanca! Tira de ella para hacer rodar los peñascos sobre la banda." },
+  tricks: { pot: "La olla del cocinero cura a la banda. ¡Acalla primero al cocinero!", lever: "¡Una palanca! Tira de ella para hacer rodar los peñascos sobre la banda.", gallery: "¡Honderos en el andamio, fuera de alcance! Corta la cuerda del poste para derribarlos." },
   tusker: { hint: "¡Atrae la embestida de Tusker contra un pilar podrido!", crash: "¡El techo se desploma sobre el Rey!" },
   assault: {
     title: 'Asedio a la puerta de las Cuevas',

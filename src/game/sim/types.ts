@@ -465,7 +465,7 @@ export type SimEvent =
   /** The gnome rebellion (#205): a chain snaps, a gnome runs or stabs, the overseers still guard the gang. */
   /** The Goblin King's mount (#EXT-4): 'beams' when the rotten pillars stand and the first charge winds up, 'crash' when Tusker rams one. */
   /** The Hollows' section tricks (#EXT-2): the stew pot steams ('pot') or goes out ('potOut'), the lever is pulled, a boulder hits. */
-  | { t: 'trick'; id: 'pot' | 'potOut' | 'lever' | 'boulderHit' | 'potHint' | 'leverHint'; x: number; z: number }
+  | { t: 'trick'; id: 'pot' | 'potOut' | 'lever' | 'boulderHit' | 'potHint' | 'leverHint' | 'galleryHint' | 'galleryDown' | 'galleryLand' | 'trapCrack' | 'trapFall'; x: number; z: number }
   /** A chest comes alive ('wake') or its mimic falls ('fall') (#225). */
   | { t: 'mimic'; id: 'wake' | 'fall'; chest: number; unit: number; x: number; z: number; tier?: string }
   | { t: 'tusker'; id: 'beams' | 'crash'; x: number; z: number }

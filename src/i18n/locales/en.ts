@@ -413,7 +413,7 @@ export default {
     }
   },
   'wanted': { 'title': "Wanted" },
-  'tricks': { 'pot': "The cook's stew pot mends the pack. Silence the cook first!", 'lever': "A lever! Pull it to roll the boulders onto the pack." },
+  'tricks': { 'pot': "The cook's stew pot mends the pack. Silence the cook first!", 'lever': "A lever! Pull it to roll the boulders onto the pack.", 'gallery': "Slingers on the scaffold, out of reach! Cut its rope post to bring them down." },
   'tusker': { 'hint': "Lure Tusker's charge into a rotten pillar!", 'crash': "The roof falls on the King!" },
   'assault': {
     'title': 'Siege of the Hollows\' Gate',

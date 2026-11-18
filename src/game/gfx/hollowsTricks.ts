@@ -1,9 +1,9 @@
-import { Group, Mesh, type BufferGeometry, type Scene } from 'three'
+import { DoubleSide, Group, Mesh, MeshBasicMaterial, type BufferGeometry, type Scene } from 'three'
 import { sfx } from '../audio/sfx'
 import { sceneQuality } from '../engine/quality'
 import type { SimEvent } from '../sim/types'
 import type { Sim } from '../sim/world'
-import { boulderAt, LANE_OFFSETS } from '../sim/tricks'
+import { boulderAt, GALLERY_LIFT, LANE_OFFSETS } from '../sim/tricks'
 import { celVC, glowVC, outlineMat } from './cel'
 import { groundAt } from './ground'
 import { merge, paint, rbox, rcyl, sph, xform } from './kit'
@@ -31,6 +31,15 @@ const potGeo = (): BufferGeometry => merge([
 ])
 /** The brew: a green disc a hand's breadth below the rim, lit. */
 const brewGeo = (): BufferGeometry => P(rcyl(0.5, 0.05, 0.02, 12, 1), '#7dff8a', [0, 1.18, 0])
+/** The slingers' scaffold: four posts, a plank deck and a rail, standing GALLERY_LIFT high. */
+const scaffoldGeo = (): BufferGeometry => merge([
+  ...[-1, 1].flatMap(sx => [-1, 1].map(sz => P(rcyl(0.11, GALLERY_LIFT - 0.3, 0.03, 8, 1), OAK2, [sx * 1.05, (GALLERY_LIFT - 0.3) / 2, sz * 0.75]))),
+  P(rbox(2.5, 0.18, 1.95, 0.25, 8, 4), OAK, [0, GALLERY_LIFT - 0.09 - 0.1, 0]),
+  P(rbox(2.4, 0.5, 0.1, 0.3, 6, 3), OAK2, [0, GALLERY_LIFT + 0.3, 0.9]),
+  P(rbox(0.1, 0.5, 1.8, 0.3, 3, 6), OAK2, [-1.15, GALLERY_LIFT + 0.3, 0]),
+  P(rbox(0.1, 0.5, 1.8, 0.3, 3, 6), OAK2, [1.15, GALLERY_LIFT + 0.3, 0]),
+  P(rbox(0.12, 1.5, 0.1, 0.3, 3, 3), IRON, [0.0, 0.8, -0.9], [0.6, 0, 0])
+])
 const leverGeo = (): BufferGeometry => merge([
   P(rbox(0.5, 0.3, 0.5, 0.2, 4, 4), ROCK, [0, 0.15, 0]),
   P(rcyl(0.1, 1.3, 0.03, 8, 1), OAK2, [0, 0.9, 0]),
@@ -43,9 +52,14 @@ export class HollowsTricks {
   private geos: BufferGeometry[] = []
   private low = sceneQuality() === 'low'
   private pots: Array<{ g: Group; brew: Mesh }> = []
+  private scaffolds: Group[] = []
+  private posts: Group[] = []
+  private floors: Mesh[] = []
+  private floorMats: MeshBasicMaterial[] = []
   private levers: Group[] = []
   private boulders: Mesh[][] = []
   private ringT = 0
+  private pulse = 0
   private at: [number, number] = [0, 0]
 
   constructor(private sim: Sim, private vfx: Vfx, private trauma: (n: number) => void) {}
@@ -99,6 +113,41 @@ export class HollowsTricks {
       }
       this.boulders.push(row)
     }
+    const sg = scaffoldGeo()
+    this.geos.push(sg)
+    for (const gl of tr.galleries) {
+      const g = new Group()
+      const body = new Mesh(sg, celVC())
+      const line = new Mesh(sg, outlineMat())
+      line.renderOrder = -1
+      body.frustumCulled = line.frustumCulled = false
+      g.add(body, line)
+      g.position.set(gl.x, groundAt(gl.x, gl.z), gl.z)
+      this.root.add(g)
+      this.scaffolds.push(g)
+      // The rope post.
+      const pg = new Group()
+      const pb = new Mesh(lg, celVC())
+      const pl = new Mesh(lg, outlineMat())
+      pl.renderOrder = -1
+      pb.frustumCulled = pl.frustumCulled = false
+      pg.add(pb, pl)
+      pg.position.set(gl.px, groundAt(gl.px, gl.pz), gl.pz)
+      this.root.add(pg)
+      this.posts.push(pg)
+    }
+    // The false floor: a dark, cracked disc laid on the ground (a decal: no depth write, pulled toward the camera).
+    for (const tp of tr.traps) {
+      const mat = new MeshBasicMaterial({ color: '#14100c', transparent: true, opacity: 0, depthWrite: false, polygonOffset: true, polygonOffsetFactor: -4, polygonOffsetUnits: -4, side: DoubleSide })
+      const geo = rcyl(tp.r, 0.02, 0.01, 18, 1)
+      this.geos.push(geo)
+      const m = new Mesh(geo, mat)
+      m.position.set(tp.x, groundAt(tp.x, tp.z) + 0.04, tp.z)
+      m.frustumCulled = false
+      this.root.add(m)
+      this.floors.push(m)
+      this.floorMats.push(mat)
+    }
     scene.add(this.root)
   }
 
@@ -125,6 +174,33 @@ export class HollowsTricks {
         this.trauma(0.3)
         this.vfx.ring(e.x, e.z, 0.3, 1.8, '#ffd24a', 0.4)
         break
+      case 'galleryDown':
+        sfx('quake', 0, 0.9)
+        sfx('hitHeavy', 0, 0.8)
+        this.trauma(0.5)
+        this.vfx.ring(e.x, e.z, 0.4, 3.4, '#e8d9b0', 0.5)
+        for (let q = 0; q < (this.low ? 6 : 16); q++) {
+          const a = Math.random() * Math.PI * 2
+          this.vfx.particles.emit({ x: e.x + Math.cos(a) * 1, y: 0.4 + Math.random() * 1.5, z: e.z + Math.sin(a) * 1, vx: Math.cos(a) * 2, vy: 1 + Math.random() * 2, vz: Math.sin(a) * 2, color: q % 2 ? '#b3a48c' : '#7a5434', size: 0.3, sizeEnd: 0.06, life: 0.9, gravity: 4, drag: 0.8 })
+        }
+        break
+      case 'galleryLand':
+        sfx('hitHeavy', 0, 0.6)
+        this.vfx.ring(e.x, e.z, 0.3, 2.2, '#e8d9b0', 0.4)
+        break
+      case 'trapCrack':
+        sfx('quake', 0, 0.6)
+        this.trauma(0.2)
+        break
+      case 'trapFall':
+        sfx('hitHeavy', 0, 0.8)
+        this.trauma(0.45)
+        this.vfx.ring(e.x, e.z, 0.4, 3, '#8a6a4a', 0.5)
+        for (let q = 0; q < (this.low ? 6 : 14); q++) {
+          const a = Math.random() * Math.PI * 2
+          this.vfx.particles.emit({ x: e.x + Math.cos(a) * 1.2, y: 0.2, z: e.z + Math.sin(a) * 1.2, vx: Math.cos(a) * 1.5, vy: 2.5 + Math.random() * 2, vz: Math.sin(a) * 1.5, color: '#8a6a4a', size: 0.25, sizeEnd: 0.05, life: 0.8, gravity: 8, drag: 0.6 })
+        }
+        break
       case 'boulderHit':
         sfx('hitHeavy', 0, 0.7)
         this.trauma(0.25)
@@ -136,9 +212,31 @@ export class HollowsTricks {
   update(dt: number): void {
     const tr = this.sim.tricks
     if (!tr) return
+    this.pulse += dt
     tr.pots.forEach((p, q) => {
       const v = this.pots[q]
       if (v) v.brew.visible = p.lit
+    })
+    tr.galleries.forEach((gl, q) => {
+      const sc = this.scaffolds[q]
+      const po = this.posts[q]
+      if (sc) {
+        // The scaffold comes down with its rope: it tilts and drops to the ground, and stays a wreck.
+        const k = gl.state === 'down' ? Math.min(1, gl.t / 0.6) : 0
+        sc.rotation.z = -0.5 * k * k
+        sc.position.y = groundAt(gl.x, gl.z) - GALLERY_LIFT * 0.75 * k * k
+      }
+      if (po) po.rotation.z = gl.state === 'up' ? 0 : -0.5
+      if (gl.state === 'up' && this.ringT <= 0 && po) this.vfx.ring(gl.px, gl.pz, 0.25, 1.7, '#ffd24a', 0.8, 0.07)
+    })
+    tr.traps.forEach((tp, q) => {
+      const mat = this.floorMats[q]
+      if (!mat) return
+      // Cracks darken the floor during the warning, then it is a hole.
+      mat.opacity = tp.state === 'armed' ? 0 : tp.state === 'cracking' ? 0.15 + 0.35 * Math.min(1, tp.t) + Math.sin(this.pulse * 40) * 0.05 : 0.92
+      if (tp.state === 'cracking' && !this.low && Math.random() < dt * 12) {
+        this.vfx.particles.emit({ x: tp.x + (Math.random() - 0.5) * tp.r * 1.6, y: 0.1, z: tp.z + (Math.random() - 0.5) * tp.r * 1.6, vx: 0, vy: 0.8, vz: 0, color: '#b3a48c', size: 0.2, sizeEnd: 0.05, life: 0.5, gravity: 2 })
+      }
     })
     this.ringT -= dt
     tr.lanes.forEach((ln, q) => {
@@ -171,5 +269,5 @@ export class HollowsTricks {
 }
 
 /** The pot and the lever as the poke-through audit reads them. */
-export const hollowsTrickParts = (): Record<'pot' | 'lever', { lit: BufferGeometry[]; glow: BufferGeometry[] }> =>
-  ({ pot: { lit: [potGeo()], glow: [brewGeo()] }, lever: { lit: [leverGeo()], glow: [] } })
+export const hollowsTrickParts = (): Record<'pot' | 'lever' | 'scaffold', { lit: BufferGeometry[]; glow: BufferGeometry[] }> =>
+  ({ pot: { lit: [potGeo()], glow: [brewGeo()] }, lever: { lit: [leverGeo()], glow: [] }, scaffold: { lit: [scaffoldGeo()], glow: [] } })

@@ -74,3 +74,63 @@ describe('the Hollows\' section tricks (#EXT-2)', () => {
     expect(foe.hp).toBeLessThan(foe.s.maxHp)
   })
 })
+
+describe('the slinger gallery and the false floor (#EXT-2)', () => {
+  it('lays a gallery with two slingers up out of reach, and a false floor by a side chest', () => {
+    const { sim } = scene()
+    const g = sim.tricks!.galleries[0]!
+    expect(g.units).toHaveLength(2)
+    for (const id of g.units) {
+      const u = sim.get(id)!
+      expect(u.stunt?.lift).toBeGreaterThan(2)
+      // Out of reach while up.
+      expect(u.boss!.alt).toBeGreaterThan(1.2)
+    }
+    expect(sim.tricks!.traps).toHaveLength(1)
+  })
+
+  it('cutting the rope brings the scaffold down: the slingers fall hurt, stunned and within reach', () => {
+    const { sim, plan } = scene()
+    const g = sim.tricks!.galleries[0]!
+    const u = sim.hero.unit
+    u.x = u.px = g.px
+    u.z = u.pz = g.pz
+    const hp = g.units.map(id => sim.get(id)!.hp)
+    run(sim, plan, 1.6)
+    expect(g.state).toBe('down')
+    g.units.forEach((id, i) => {
+      const s = sim.get(id)!
+      expect(s.stunt).toBeUndefined()
+      expect(s.hp).toBeLessThan(hp[i]!)
+      expect(s.boss).toBeUndefined()
+    })
+  })
+
+  it('the false floor cracks, then gives way: a share of health and a fall, unless the hero is out of it', () => {
+    const a = scene()
+    for (const u of a.sim.units) if (u.team === 1) { u.x = u.px = 5; u.z = u.pz = 5; u.awake = false }
+    const tp = a.sim.tricks!.traps[0]!
+    const h = a.sim.hero.unit
+    h.s.maxHp = h.hp = 1000
+    h.x = h.px = tp.x
+    h.z = h.pz = tp.z
+    run(a.sim, a.plan, 0.4)
+    expect(tp.state).toBe('cracking')
+    run(a.sim, a.plan, 1.1)
+    expect(tp.state).toBe('gone')
+    expect(h.hp).toBeLessThan(1000)
+    // Out of it in time: nothing.
+    const b = scene()
+    for (const u of b.sim.units) if (u.team === 1) { u.x = u.px = 5; u.z = u.pz = 5; u.awake = false }
+    const tq = b.sim.tricks!.traps[0]!
+    const hb = b.sim.hero.unit
+    hb.s.maxHp = hb.hp = 1000
+    hb.x = hb.px = tq.x
+    hb.z = hb.pz = tq.z
+    run(b.sim, b.plan, 0.4)
+    hb.x = hb.px = tq.x + 8
+    run(b.sim, b.plan, 1.2)
+    expect(tq.state).toBe('gone')
+    expect(hb.hp).toBe(1000)
+  })
+})

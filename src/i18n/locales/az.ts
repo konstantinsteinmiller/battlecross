@@ -442,7 +442,7 @@ export default {
     }
   },
   wanted: { title: "Axtarılır" },
-  tricks: { pot: "Aşpazın qazanı dəstəni sağaldır. Əvvəlcə aşpazı susdur!", lever: "Qol! Onu çək, qayalar dəstənin üstünə yuvarlansın." },
+  tricks: { pot: "Aşpazın qazanı dəstəni sağaldır. Əvvəlcə aşpazı susdur!", lever: "Qol! Onu çək, qayalar dəstənin üstünə yuvarlansın.", gallery: "Sapançılar iskelədə, əlçatmazdır! Onları endirmək üçün ip dirəyini kəs." },
   tusker: { hint: "Tuskerin hücumunu çürük sütuna yönəlt!", crash: "Tavan Kralın üstünə çökür!" },
   assault: {
     title: 'Mağaralar qapısının mühasirəsi',

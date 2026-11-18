@@ -442,7 +442,7 @@ export default {
     }
   },
   wanted: { title: "Dicari" },
-  tricks: { pot: "Panci sang juru masak menyembuhkan gerombolan. Bungkam dulu juru masaknya!", lever: "Tuas! Tarik agar batu-batu besar menggelinding ke gerombolan." },
+  tricks: { pot: "Panci sang juru masak menyembuhkan gerombolan. Bungkam dulu juru masaknya!", lever: "Tuas! Tarik agar batu-batu besar menggelinding ke gerombolan.", gallery: "Penembak ketapel di perancah, di luar jangkauan! Putuskan tiang talinya agar mereka jatuh." },
   tusker: { hint: "Pancing serudukan Tusker ke tiang yang lapuk!", crash: "Atap runtuh menimpa Sang Raja!" },
   assault: {
     title: 'Pengepungan gerbang Gua',

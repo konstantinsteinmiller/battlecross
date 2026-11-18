@@ -1,5 +1,8 @@
 import { applyStatus, dealDamage, heal } from './combat'
 import { nearestOpen } from './grid'
+import { spawnEnemy } from './spawn'
+import { newBossState } from './bosses/kit'
+import { hasStatus } from './world'
 import type { ZonePlan } from './zoneGen'
 import type { Sim } from './world'
 
@@ -10,6 +13,10 @@ import type { Sim } from './world'
  *              lives. Kill the cook first and the pot goes cold.
  *   section 2  the boulder lane: a lever at the edge of the clearing. Stood at, it rolls three boulders down the lane through
  *              the pack (a share of their health and a knockdown). Once.
+ *   section 3  the slinger gallery: a scaffold over the clearing with two slingers up on it, out of reach and pelting the hero. A rope
+ *              post stands at its foot: stood at, it cuts the rope, the scaffold comes down and the slingers fall hurt and stunned.
+ *   section 4  the false floor: by the first side chest, a patch of floor that gives way. The ground cracks for a second, then falls
+ *              in: roll away or drop (a share of health, a knockdown). Once.
  *
  * Laid after the packs on no dice of the sim's own; the view (`gfx/hollowsTricks.ts`) draws what it finds in `sim.tricks`.
  */
@@ -36,7 +43,33 @@ export interface LaneState {
   hit: number[]
   told?: boolean
 }
-export interface TrickState { pots: PotState[]; lanes: LaneState[] }
+export interface GalleryState {
+  x: number; z: number
+  /** The rope post. */
+  px: number; pz: number
+  units: number[]
+  state: 'up' | 'down'
+  /** Seconds since the rope was cut. */
+  t: number
+  dwell: number
+  shot: number
+  told?: boolean
+}
+export interface TrapState {
+  x: number; z: number; r: number
+  state: 'armed' | 'cracking' | 'gone'
+  t: number
+  dwell: number
+}
+export interface TrickState { pots: PotState[]; lanes: LaneState[]; galleries: GalleryState[]; traps: TrapState[] }
+
+export const GALLERY_LIFT = 2.3
+export const GALLERY_SHOT_GAP = 2.4
+export const GALLERY_RANGE = 14
+export const GALLERY_FALL_HIT = 0.35
+export const TRAP_R = 2.1
+export const TRAP_CRACK_S = 1
+export const TRAP_HIT = 0.12
 
 const snap = (sim: Sim, x: number, z: number): [number, number] => {
   const o: [number, number] = [x, z]
@@ -48,7 +81,7 @@ const snap = (sim: Sim, x: number, z: number): [number, number] => {
 export const layTricks = (sim: Sim, plan: ZonePlan, zone: string): void => {
   sim.tricks = null
   if (zone !== 'hollows' || plan.camp || plan.chests.some(c => c.role === 'cage')) return
-  const t: TrickState = { pots: [], lanes: [] }
+  const t: TrickState = { pots: [], lanes: [], galleries: [], traps: [] }
   const p0 = plan.packs[0]
   const cook = p0 ? sim.units.find(u => u.alive && u.kind === 'goblinShaman' && u.group === 0) : undefined
   if (p0 && cook) {
@@ -71,7 +104,32 @@ export const layTricks = (sim: Sim, plan: ZonePlan, zone: string): void => {
     const [lx, lz] = snap(sim, p1.x - dz * p1.r * 0.8 - dx * R * 0.5, p1.z + dx * p1.r * 0.8 - dz * R * 0.5)
     t.lanes.push({ lx, lz, x0, z0, x1, z1, state: 'ready', t: 0, dwell: 0, hit: [] })
   }
-  if (t.pots.length || t.lanes.length) sim.tricks = t
+  const p2 = plan.packs[2]
+  if (p2 && !p2.finale) {
+    const [x, z] = snap(sim, p2.x, p2.z - p2.r * 0.45)
+    const [px, pz] = snap(sim, x + 3.4, z + 1.2)
+    const g: GalleryState = { x, z, px, pz, units: [], state: 'up', t: 0, dwell: 0, shot: 1.5 }
+    for (const side of [-1, 1]) {
+      const u = spawnEnemy(sim, 'goblinSlinger', x + side * 0.6, z + 0.1, 2)
+      if (!u) continue
+      u.rooted = true
+      u.stunt = { lift: GALLERY_LIFT, flip: 0 }
+      // On the scaffold they are out of reach of everything, like a boss in the air.
+      u.boss = newBossState('gallery')
+      u.boss.alt = GALLERY_LIFT
+      u.facing = Math.PI
+      g.units.push(u.id)
+      sim.groupById(2)?.members.push(u.id)
+    }
+    if (g.units.length) t.galleries.push(g)
+  }
+  // The false floor, by the first chest off the road.
+  const side = plan.chests.find(c => ['nook', 'guard', 'cave', 'bypass', 'ledge'].includes(c.role))
+  if (side) {
+    const [x, z] = snap(sim, (side.x + side.sx) / 2, (side.z + side.sz) / 2)
+    t.traps.push({ x, z, r: TRAP_R, state: 'armed', t: 0, dwell: 0 })
+  }
+  if (t.pots.length || t.lanes.length || t.galleries.length || t.traps.length) sim.tricks = t
 }
 
 /** Where boulder `k` is at lane time `t` (false: not rolling then). */
@@ -88,10 +146,81 @@ export const boulderAt = (ln: LaneState, k: number, t: number, out: [number, num
 
 const at: [number, number] = [0, 0]
 
+/** The gallery's slingers: pelt the hero from the scaffold; the rope cut brings it all down. */
+const stepGallery = (sim: Sim, g: GalleryState, dt: number): void => {
+  const h = sim.hero.unit
+  if (g.state === 'up') {
+    if (!g.told && h.alive && Math.hypot(h.x - g.x, h.z - g.z) < 13) { g.told = true; sim.emit({ t: 'trick', id: 'galleryHint', x: g.x, z: g.z }) }
+    const near = h.alive && Math.hypot(g.px - h.x, g.pz - h.z) <= LEVER_REACH
+    g.dwell = near ? g.dwell + dt : 0
+    if (g.dwell >= LEVER_DWELL) {
+      g.state = 'down'
+      g.t = 0
+      sim.emit({ t: 'trick', id: 'galleryDown', x: g.x, z: g.z })
+      return
+    }
+    g.shot -= dt
+    if (g.shot > 0 || !h.alive || Math.hypot(h.x - g.x, h.z - g.z) > GALLERY_RANGE) return
+    g.shot = GALLERY_SHOT_GAP
+    for (const id of g.units) {
+      const u = sim.get(id)
+      if (!u?.alive) continue
+      sim.emit({ t: 'fx', id: 'dash', x: u.x, z: u.z, x2: h.x, z2: h.z, color: '#9bd45a' })
+      dealDamage(sim, u, h, u.s.baseDmg * 0.9, { type: 'pierce', canCrit: false })
+    }
+    return
+  }
+  g.t += dt
+  for (const id of g.units) {
+    const u = sim.get(id)
+    if (!u?.alive) continue
+    if (g.t < 0.6) {
+      // Falling with the scaffold.
+      if (u.stunt) u.stunt = { lift: GALLERY_LIFT * (1 - Math.min(1, g.t / 0.6) ** 2), flip: 0 }
+      continue
+    }
+    if (u.stunt) {
+      u.stunt = undefined
+      u.rooted = false
+      u.boss = undefined
+      u.awake = true
+      dealDamage(sim, null, u, u.s.maxHp * GALLERY_FALL_HIT, { type: 'true', canCrit: false, echo: true })
+      applyStatus(sim, u, 'stun', 3, 1, null, { quiet: true })
+      sim.emit({ t: 'trick', id: 'galleryLand', x: u.x, z: u.z })
+    }
+  }
+}
+
+/** The false floor: cracks while the hero stands on it, then gives way. */
+const stepTrap = (sim: Sim, p: TrapState, dt: number): void => {
+  const h = sim.hero.unit
+  const on = h.alive && Math.hypot(h.x - p.x, h.z - p.z) <= p.r - 0.3
+  if (p.state === 'armed') {
+    p.dwell = on ? p.dwell + dt : 0
+    if (p.dwell < 0.25) return
+    p.state = 'cracking'
+    p.t = 0
+    sim.emit({ t: 'tele', tele: { team: 1, src: h.id, shape: 'circle', x: p.x, z: p.z, r: p.r, w: 0, a: 0, dur: TRAP_CRACK_S } })
+    sim.emit({ t: 'trick', id: 'trapCrack', x: p.x, z: p.z })
+  } else if (p.state === 'cracking') {
+    p.t += dt
+    if (p.t < TRAP_CRACK_S) return
+    p.state = 'gone'
+    sim.emit({ t: 'trick', id: 'trapFall', x: p.x, z: p.z })
+    const rolling = h.action?.id === 'roll' || hasStatus(h, 'invulnerable')
+    if (h.alive && !rolling && Math.hypot(h.x - p.x, h.z - p.z) <= p.r) {
+      dealDamage(sim, null, h, h.s.maxHp * TRAP_HIT, { type: 'true', canCrit: false, echo: true })
+      applyStatus(sim, h, 'knockdown', 1.2, 1, null, { quiet: true })
+    }
+  }
+}
+
 export const stepTricks = (sim: Sim, dt: number): void => {
   const tr = sim.tricks
   if (!tr || !sim.hero) return
   const h = sim.hero.unit
+  for (const g of tr.galleries) stepGallery(sim, g, dt)
+  for (const p of tr.traps) stepTrap(sim, p, dt)
   for (const p of tr.pots) {
     const cook = sim.get(p.cook)
     const was = p.lit

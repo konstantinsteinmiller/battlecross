@@ -1199,7 +1199,7 @@ export class ZoneMode implements GameMode {
       this.siegeProps?.onEvent(e)
       this.assaultProps?.onEvent(e)
       this.tricksFx?.onEvent(e)
-      if (e.t === 'trick' && (e.id === 'potHint' || e.id === 'leverHint')) pushHud({ t: 'toast', key: e.id === 'potHint' ? 'tricks.pot' : 'tricks.lever' })
+      if (e.t === 'trick' && (e.id === 'potHint' || e.id === 'leverHint' || e.id === 'galleryHint')) pushHud({ t: 'toast', key: e.id === 'potHint' ? 'tricks.pot' : e.id === 'leverHint' ? 'tricks.lever' : 'tricks.gallery' })
       this.rebelProps?.onEvent(e)
       switch (e.t) {
         case 'rebel':

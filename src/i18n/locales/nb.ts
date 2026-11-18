@@ -442,7 +442,7 @@ export default {
     }
   },
   wanted: { title: "Etterlyst" },
-  tricks: { pot: "Kokkens gryte leger flokken. Ta kokken først!", lever: "En spak! Trekk i den, så ruller steinblokkene ned på flokken." },
+  tricks: { pot: "Kokkens gryte leger flokken. Ta kokken først!", lever: "En spak! Trekk i den, så ruller steinblokkene ned på flokken.", gallery: "Slyngekastere på stillaset, utenfor rekkevidde! Kutt tauet ved stolpen, så faller de ned." },
   tusker: { hint: "Lokk Tuskers anløp inn i en råtten påle!", crash: "Taket styrter ned over Kongen!" },
   assault: {
     title: 'Beleiringen av Hulenes port',

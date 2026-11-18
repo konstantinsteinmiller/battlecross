@@ -443,7 +443,7 @@ export default {
     }
   },
   wanted: { title: "Procurado" },
-  tricks: { pot: "A panela do cozinheiro cura o bando. Cale primeiro o cozinheiro!", lever: "Uma alavanca! Puxe-a para rolar os rochedos sobre o bando." },
+  tricks: { pot: "A panela do cozinheiro cura o bando. Cale primeiro o cozinheiro!", lever: "Uma alavanca! Puxe-a para rolar os rochedos sobre o bando.", gallery: "Fundeiros no andaime, fora de alcance! Corte a corda do poste para derrubá-los." },
   tusker: { hint: "Atraia a investida de Tusker para um pilar podre!", crash: "O teto desaba sobre o Rei!" },
   assault: {
     title: 'Cerco ao portão das Cavernas',
