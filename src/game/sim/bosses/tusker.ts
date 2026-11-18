@@ -1,11 +1,11 @@
 import { hasLineOfSight, isSolidAt, nearestOpen } from '../grid'
-import { knockback } from '../combat'
+import { dealDamage, knockback } from '../combat'
 import { spawnEnemy } from '../spawn'
 import type { Sim } from '../world'
 import type { Unit } from '../types'
 import type { BossScript } from './index'
 import { startStampede } from '../rebels'
-import { bark, daze, exitField, move, other, warn, windCharge, type ChargeOpts } from './kit'
+import { bark, daze, exitField, move, other, raiseProps, shatterWallAt, warn, windCharge, type ChargeOpts } from './kit'
 
 /**
  * ─── The Goblin King on Tusker (Goldfield Hollows) ──────────────────────────
@@ -24,7 +24,27 @@ import { bark, daze, exitField, move, other, warn, windCharge, type ChargeOpts }
  *             charging back in once, then leaves for good.
  */
 
-const GORE: ChargeOpts = { speed: 11, max: 20, dmg: 1.2, pinDmg: 2.6, pinStun: 2, daze: 3.5, carry: true }
+/** The rotten pillars (#EXT-4): how many stand, a share of the King's health the roof takes off him, and how long Tusker is stunned in the rubble. */
+const PILLARS = 3
+const CRUSH = 0.1
+const BEAM_DAZE = 5
+
+/** Tusker rams a rotten pillar: it breaks, the roof drops rock on the King, and the freed gnomes charge in. Plain rock only dazes him. */
+const GORE: ChargeOpts = {
+  speed: 11, max: 20, dmg: 1.2, pinDmg: 2.6, pinStun: 2, daze: 3.5, carry: true,
+  wallDaze: (sim, x, z) => {
+    if (shatterWallAt(sim, x, z) !== 'beam') return 3.5
+    sim.emit({ t: 'fx', id: 'burst:rock', x, z, r: 2.6, color: '#8a6a4a' })
+    sim.emit({ t: 'fx', id: 'quake', x, z, r: 3, color: '#8a6a4a' })
+    sim.emit({ t: 'tusker', id: 'crash', x, z })
+    const victim = sim.units.find(q => q.alive && q.boss && Math.hypot(q.x - x, q.z - z) < 4.5)
+    if (victim) {
+      dealDamage(sim, null, victim, victim.s.maxHp * CRUSH, { type: 'true', canCrit: false, echo: true })
+      startStampede(sim, 'second', victim)
+    }
+    return BEAM_DAZE
+  }
+}
 const DASH: ChargeOpts = { speed: 15, max: 6.5, dmg: 1.3, pinDmg: 0, pinStun: 0, daze: 0, carry: false }
 const out2: [number, number] = [0, 0]
 
@@ -43,6 +63,10 @@ const awayFromHero = (sim: Sim, x: number, z: number, d: number): [number, numbe
 
 const tusker: BossScript = {
   phases: [0.5],
+  // Three rotten pillars hold up the roof round the boar's home: lure his charge into one.
+  arena(sim, u) {
+    raiseProps(sim, u, 'beam', PILLARS, 4.5, 8)
+  },
   // The King's first worry is the boar, not the hero; and when Tusker rams the wall he asks if he is all right.
   tick(sim, u) {
     if (u.boss!.mode === 'dazed') bark(sim, u, 'goblinKing', 'dazed')
@@ -63,6 +87,8 @@ const tusker: BossScript = {
     if (b.next <= 0 && d >= 3.2 && hasLineOfSight(sim.grid, u.x, u.z, tgt.x, tgt.z)) {
       b.next = 7 + sim.rng() * 2.5
       windCharge(sim, u, tgt, 1.2, GORE)
+      // The first time: the toast that shows the way to hurt him (the pillars stand in the hall).
+      if (!b.marks.includes('beamsHint')) { b.marks.push('beamsHint'); sim.emit({ t: 'tusker', id: 'beams', x: u.x, z: u.z }) }
       bark(sim, u, 'goblinKing', 'charge')
       return true
     }
@@ -149,7 +175,7 @@ const tuskerCameo: BossScript = {
       return true
     }
     b.marks.push('charged')
-    windCharge(sim, u, tgt, 1.2, { ...GORE, daze: 0 })
+    windCharge(sim, u, tgt, 1.2, { ...GORE, daze: 0, wallDaze: undefined })
     warn(sim, u, { shape: 'circle', x: u.x, z: u.z, r: 1.6, w: 0, a: 0, dur: 1.2 })
     return true
   }

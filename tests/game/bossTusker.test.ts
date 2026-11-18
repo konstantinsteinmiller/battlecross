@@ -7,6 +7,7 @@ import { generateArena } from '@/game/sim/zoneGen'
 import { applyPlan } from '@/game/sim/director'
 import { startAttrs } from '@/game/data/attributes'
 import { laneLength } from '@/game/sim/bosses/kit'
+import { TUSKER_TUNING } from '@/game/sim/bosses/tusker'
 import type { Unit } from '@/game/sim/types'
 
 /**
@@ -131,6 +132,36 @@ describe('Tusker the war boar (#74)', () => {
     expect(t.boss!.mode).toBe('gone')
     expect(t.alive).toBe(false)
     expect(outOfReach(t)).toBe(true)
+  })
+
+  it('three rotten pillars stand in his hall (#EXT-4)', () => {
+    const sim = arena()
+    const t = boar(sim)
+    step(sim, 0.2)
+    expect(sim.walls.filter(w => w.fx === 'beam').length).toBeGreaterThanOrEqual(1)
+    expect(t.alive).toBe(true)
+  })
+
+  it('ramming a rotten pillar brings the roof down on him: the pillar breaks, he is hurt and stunned longer', () => {
+    const sim = arena()
+    const h = sim.hero.unit
+    h.s.maxHp = h.hp = 1e6
+    const t = boar(sim)
+    step(sim, 0.2)
+    const wall = sim.walls.find(w => w.fx === 'beam')!
+    const k = wall.cells[0]!
+    const x = ((k % sim.grid.w) + 0.5) * 1.5
+    const z = (Math.floor(k / sim.grid.w) + 0.5) * 1.5
+    t.x = x
+    t.z = z + 1.2
+    const hp0 = t.hp
+    const d = TUSKER_TUNING.GORE.wallDaze!(sim, x, z)
+    expect(d).toBe(5)
+    expect(t.hp).toBeLessThan(hp0)
+    expect(hp0 - t.hp).toBeGreaterThanOrEqual(t.s.maxHp * 0.05)
+    expect(sim.events.some(e => e.t === 'tusker' && e.id === 'crash')).toBe(true)
+    // Plain rock is only the old daze.
+    expect(TUSKER_TUNING.GORE.wallDaze!(sim, x + 40, z + 40)).toBe(3.5)
   })
 
   it('the King on foot dashes three times, then stands panting', () => {
