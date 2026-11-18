@@ -413,6 +413,7 @@ export default {
     }
   },
   'wanted': { 'title': "Wanted" },
+  'tricks': { 'pot': "The cook's stew pot mends the pack. Silence the cook first!", 'lever': "A lever! Pull it to roll the boulders onto the pack." },
   'tusker': { 'hint': "Lure Tusker's charge into a rotten pillar!", 'crash': "The roof falls on the King!" },
   'assault': {
     'title': 'Siege of the Hollows\' Gate',

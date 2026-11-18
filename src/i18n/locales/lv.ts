@@ -442,6 +442,7 @@ export default {
     }
   },
   wanted: { title: "Meklēts" },
+  tricks: { pot: "Pavāra katls dziedē bariņu. Vispirms apklusini pavāru!", lever: "Svira! Pavelc to, lai laukakmeņi ripo bariņam virsū." },
   tusker: { hint: "Ievilini Taskera triecienu satrunējušā stabā!", crash: "Griesti sabrūk uz Karali!" },
   assault: {
     title: 'Alu vārtu aplenkums',

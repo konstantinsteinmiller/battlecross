@@ -442,6 +442,7 @@ export default {
     }
   },
   wanted: { title: "Eftersøgt" },
+  tricks: { pot: "Kokkens gryde heler flokken. Tag kokken først!", lever: "En arm! Træk i den, så vælter klipperne ned over flokken." },
   tusker: { hint: "Lok Tuskers anstormning ind i en rådden pille!", crash: "Loftet styrter ned over Kongen!" },
   assault: {
     title: 'Belejringen af Hulernes port',

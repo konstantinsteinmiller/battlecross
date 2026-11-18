@@ -442,6 +442,7 @@ export default {
     }
   },
   wanted: { title: "Căutat" },
+  tricks: { pot: "Oala bucătarului vindecă ceata. Redu mai întâi bucătarul la tăcere!", lever: "O pârghie! Trage-o ca să rostogolești bolovanii peste ceată." },
   tusker: { hint: "Atrage atacul lui Tusker într-un stâlp putred!", crash: "Tavanul se prăbușește peste Rege!" },
   assault: {
     title: 'Asediul porții Peșterilor',

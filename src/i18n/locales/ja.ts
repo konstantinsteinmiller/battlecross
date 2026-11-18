@@ -442,6 +442,7 @@ export default {
     }
   },
   wanted: { title: "お尋ね者" },
+  tricks: { pot: "料理人の鍋が群れを癒やしている。まず料理人を黙らせろ！", lever: "レバーだ！ 引いて、岩を群れの上に転がせ。" },
   tusker: { hint: "タスカーの突進を、腐った柱へ誘い込め！", crash: "天井が王の上に崩れ落ちる！" },
   assault: {
     title: '洞窟の門の攻城戦',

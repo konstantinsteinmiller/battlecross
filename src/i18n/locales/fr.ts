@@ -443,6 +443,7 @@ export default {
     }
   },
   wanted: { title: "Recherché" },
+  tricks: { pot: "La marmite du cuisinier soigne la bande. Fais d’abord taire le cuisinier !", lever: "Un levier ! Tire-le pour faire rouler les rochers sur la bande." },
   tusker: { hint: "Attire la charge de Tusker dans un pilier pourri !", crash: "Le plafond s’effondre sur le Roi !" },
   assault: {
     title: 'Siège de la porte des Cavernes',

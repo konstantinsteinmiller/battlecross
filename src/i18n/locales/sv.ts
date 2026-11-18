@@ -442,6 +442,7 @@ export default {
     }
   },
   wanted: { title: "Efterlyst" },
+  tricks: { pot: "Kockens gryta läker gänget. Tysta kocken först!", lever: "En spak! Dra i den så rullar stenblocken ner över gänget." },
   tusker: { hint: "Locka Tuskers anfall in i en murken pelare!", crash: "Taket störtar ner över kungen!" },
   assault: {
     title: 'Belägringen av Grottornas port',

@@ -443,6 +443,7 @@ export default {
     }
   },
   wanted: { title: "Búscase" },
+  tricks: { pot: "A pota do cociñeiro cura a manda. Cala primeiro o cociñeiro!", lever: "Unha panca! Tira dela para rolar as penas sobre a manda." },
   tusker: { hint: "Atrae a carga de Tusker cara a un piar podre!", crash: "O teito desprómase sobre o Rei!" },
   assault: {
     title: 'Cerco á porta das Covas',

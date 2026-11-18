@@ -55,6 +55,7 @@ import { armSiege, buildBlock, buildDefence, skipBuild } from '../sim/siege'
 import { SIEGE_PROP_KINDS, SiegeProps } from '../gfx/siegeProps'
 import { siegeActions, siegeHud } from '../state/siegeHud'
 import { AssaultProps } from '../gfx/assaultProps'
+import { HollowsTricks } from '../gfx/hollowsTricks'
 import { RebelProps } from '../gfx/rebelProps'
 import { CelebrateProps } from '../gfx/celebrateProps'
 import { armCelebration, skipCelebration } from '../sim/celebrate'
@@ -377,6 +378,7 @@ export class ZoneMode implements GameMode {
   private siegeProps: SiegeProps | null = null
   /** The Hollows' besieged gate (#204): its props, whether the hand-over was made, and the camera's zoom while it frames the scene. */
   private assaultProps: AssaultProps | null = null
+  private tricksFx: HollowsTricks | null = null
   private rebelProps: RebelProps | null = null
   private celebrateProps: CelebrateProps | null = null
   private celebrateFired = false
@@ -690,6 +692,10 @@ export class ZoneMode implements GameMode {
     if (setup.celebrate) {
       m.celebrateProps = new CelebrateProps(sim, m.vfx)
       m.celebrateProps.build(m.scene)
+    }
+    if (sim.tricks) {
+      m.tricksFx = new HollowsTricks(sim, m.vfx, n => m.cam.addTrauma(n))
+      m.tricksFx.build(m.scene)
     }
     if (setup.assault) {
       m.assaultProps = new AssaultProps(sim, m.vfx, n => m.cam.addTrauma(n))
@@ -1190,6 +1196,8 @@ export class ZoneMode implements GameMode {
       this.props?.onEvent(e)
       this.siegeProps?.onEvent(e)
       this.assaultProps?.onEvent(e)
+      this.tricksFx?.onEvent(e)
+      if (e.t === 'trick' && (e.id === 'potHint' || e.id === 'leverHint')) pushHud({ t: 'toast', key: e.id === 'potHint' ? 'tricks.pot' : 'tricks.lever' })
       this.rebelProps?.onEvent(e)
       switch (e.t) {
         case 'rebel':
@@ -2006,6 +2014,7 @@ export class ZoneMode implements GameMode {
     this.props?.update(fxDt, hx, hz)
     this.siegeProps?.update(fxDt)
     this.assaultProps?.update(fxDt)
+    this.tricksFx?.update(fxDt)
     this.celebrateProps?.update(fxDt)
     this.rebelProps?.update(fxDt)
     if (this.crowd) {
@@ -2580,6 +2589,7 @@ export class ZoneMode implements GameMode {
       assaultActions.skipSiege = () => {}
     }
     this.assaultProps?.dispose()
+    this.tricksFx?.dispose()
     this.rebelProps?.dispose()
     for (const id of [...this.views.keys()]) this.dropView(id)
     this.vfx.dispose()

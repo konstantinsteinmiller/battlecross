@@ -443,6 +443,7 @@ export default {
     }
   },
   wanted: { title: "Poszukiwany" },
+  tricks: { pot: "Garnek kucharza leczy bandę. Najpierw uciszaj kucharza!", lever: "Dźwignia! Pociągnij, a głazy stoczą się na bandę." },
   tusker: { hint: "Zwab szarżę Tuskera na zbutwiały filar!", crash: "Strop wali się na Króla!" },
   assault: {
     title: 'Oblężenie bramy Jaskiń',

@@ -443,6 +443,7 @@ export default {
     }
   },
   wanted: { title: "Es busca" },
+  tricks: { pot: "L’olla del cuiner cura la colla. Fes callar primer el cuiner!", lever: "Una palanca! Tira-hi per fer rodar els pedrusquets sobre la colla." },
   tusker: { hint: "Atrau la càrrega de Tusker cap a un pilar podrit!", crash: "El sostre s’enfonsa sobre el Rei!" },
   assault: {
     title: 'Setge de la porta dels Caus',

@@ -442,6 +442,7 @@ export default {
     }
   },
   wanted: { title: "通緝" },
+  tricks: { pot: "廚子的湯鍋會替整群怪物療傷。先讓廚子閉嘴！", lever: "有個拉桿！拉下去，讓巨石滾向怪群。" },
   tusker: { hint: "引誘塔斯克的衝撞撞上腐朽的柱子！", crash: "屋頂砸在國王身上！" },
   assault: {
     title: '洞窟城門攻防戰',

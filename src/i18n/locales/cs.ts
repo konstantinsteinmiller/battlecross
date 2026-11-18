@@ -445,6 +445,7 @@ export default {
     }
   },
   wanted: { title: "Hledá se" },
+  tricks: { pot: "Kuchařův hrnec léčí smečku. Nejdřív umlč kuchaře!", lever: "Páka! Zatáhni a valouny se skutálejí na smečku." },
   tusker: { hint: "Nalákej Tuskerův nájezd do shnilého sloupu!", crash: "Strop se zřítil na Krále!" },
   assault: {
     title: 'Obléhání brány Jeskyní',

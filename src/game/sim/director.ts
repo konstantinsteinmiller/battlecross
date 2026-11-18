@@ -57,6 +57,8 @@ const ELITE_EVERY = 3
 /** The colosseum's purse at a milestone (wave 8 pays the full prize, every fifth after it gold). */
 const ladderPurse = (sim: Sim, full: boolean): number => Math.round((20 + sim.level * 14) * (full ? 2.5 : 1))
 
+import { layTricks } from './tricks'
+
 export const applyPlan = (sim: Sim, plan: ZonePlan): void => {
   fillGrid(sim.grid, plan)
   sim.spawnPoints = plan.gates.slice()
@@ -106,6 +108,8 @@ export const populateZone = (sim: Sim, plan: ZonePlan, zone: ZoneId, owned: Iter
   sim.gate = armGate(plan.gate, plan.gate ? plan.packs[plan.gate.pack] : undefined, sim.grid)
   // An invaded zone (the afterplay): its pylons and rift scars.
   populateInvasion(sim, plan)
+  // The Hollows' sections each have a trick (#EXT-2).
+  layTricks(sim, plan, zone)
   // An escort's caravan, at the start of its road (#85).
   if (plan.caravan) spawnCaravan(sim, plan.caravan.path)
 }

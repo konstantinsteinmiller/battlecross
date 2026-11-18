@@ -16,6 +16,7 @@ import { stepRescue } from './rescue'
 import { stepWalk } from './autowalk'
 import { stepGate } from './gate'
 import { stepAssault } from './assault'
+import { stepTricks } from './tricks'
 import { stepRebels } from './rebels'
 import { stepCelebration } from './celebrate'
 import { HERO_SKILLS } from './heroSkills'
@@ -82,6 +83,7 @@ export const stepSim = (sim: Sim, plan: ZonePlan, dt: number): void => {
   if (sim.gate) stepGate(sim, dt)
   // The besieged gate before the Hollows (#204): the catapults, the ram, the storming rebels.
   if (sim.assault) stepAssault(sim, dt)
+  if (sim.tricks) stepTricks(sim, dt)
   // The Hollows' chain gang (#205): the chains, the freed gnomes that ran, the King's stampedes.
   if (sim.rebels) stepRebels(sim, dt)
   // The celebration after the King (#206): the crowd round the fire.

@@ -442,6 +442,7 @@ export default {
     }
   },
   wanted: { title: "Aranıyor" },
+  tricks: { pot: "Aşçının kazanı çeteyi iyileştiriyor. Önce aşçıyı sustur!", lever: "Bir kol! Çek, kayalar çetenin üstüne yuvarlansın." },
   tusker: { hint: "Tusker’ın hücumunu çürük bir direğe çek!", crash: "Tavan Kral’ın üstüne çöküyor!" },
   assault: {
     title: 'Mağaraların kapısının kuşatması',

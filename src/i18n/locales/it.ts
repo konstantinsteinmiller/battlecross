@@ -443,6 +443,7 @@ export default {
     }
   },
   wanted: { title: "Ricercato" },
+  tricks: { pot: "Il pentolone del cuoco cura il branco. Zittisci prima il cuoco!", lever: "Una leva! Tirala per far rotolare i massi sul branco." },
   tusker: { hint: "Attira la carica di Tusker contro un pilastro marcio!", crash: "Il soffitto crolla sul Re!" },
   assault: {
     title: 'Assedio alla porta delle Grotte',

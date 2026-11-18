@@ -443,6 +443,7 @@ export default {
     }
   },
   wanted: { title: "Procurado" },
+  tricks: { pot: "O tacho do cozinheiro cura o bando. Cala primeiro o cozinheiro!", lever: "Uma alavanca! Puxa-a para rolar os rochedos sobre o bando." },
   tusker: { hint: "Atrai a investida de Tusker para um pilar podre!", crash: "O teto desaba sobre o Rei!" },
   assault: {
     title: 'Cerco ao portão das Grutas',

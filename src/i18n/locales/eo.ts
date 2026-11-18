@@ -442,6 +442,7 @@ export default {
     }
   },
   wanted: { title: "Serĉata" },
+  tricks: { pot: "La poto de la kuiristo resanigas la bandon. Unue silentigu la kuiriston!", lever: "Levilo! Tiru ĝin por ruli la rokojn sur la bandon." },
   tusker: { hint: "Logu la ŝargon de Tusker en putran kolonon!", crash: "La plafono falas sur la Reĝon!" },
   assault: {
     title: 'Sieĝo de la pordego de la Kavernoj',

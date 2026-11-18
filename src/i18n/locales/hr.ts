@@ -445,6 +445,7 @@ export default {
     }
   },
   wanted: { title: "Traži se" },
+  tricks: { pot: "Kuharov kotao liječi skupinu. Prvo ušutkaj kuhara!", lever: "Poluga! Povuci je da se gromade otkotrljaju na skupinu." },
   tusker: { hint: "Namami Tuskerov juriš u trulo stupište!", crash: "Strop se ruši na Kralja!" },
   assault: {
     title: 'Opsada vrata Špilja',

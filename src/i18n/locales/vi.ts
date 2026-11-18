@@ -442,6 +442,7 @@ export default {
     }
   },
   wanted: { title: "Truy nã" },
+  tricks: { pot: "Nồi của đầu bếp chữa lành cả bầy. Hãy hạ đầu bếp trước!", lever: "Một cần gạt! Kéo nó để lăn những tảng đá vào bầy." },
   tusker: { hint: "Dụ cú húc của Tusker vào một cột mục!", crash: "Mái nhà sập xuống đầu Nhà Vua!" },
   assault: {
     title: 'Vây hãm cổng Hang động',

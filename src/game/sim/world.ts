@@ -9,6 +9,7 @@ import type { OreState } from './ores'
 import type { CageKeyState, CaptiveState } from './cages'
 import type { CampState } from './camp'
 import type { AssaultState } from './assault'
+import type { TrickState } from './tricks'
 import type { RebelState } from './rebels'
 import type { CelebrationState } from './celebrate'
 import type { GateState } from './gate'
@@ -294,6 +295,8 @@ export class Sim {
   camp: CampState | null = null
   /** The siege of the Hollows' gate before the first entry (roadmap #204, `assault.ts`); null elsewhere. */
   assault: AssaultState | null = null
+  /** The Hollows' sections' tricks: the cook's stew pot and the boulder lane's lever (`tricks.ts`, roadmap #EXT-2); null elsewhere. */
+  tricks: TrickState | null = null
   /** The Hollows' chain gang of gnome diggers while the King lives (roadmap #205, `rebels.ts`); null elsewhere. */
   rebels: RebelState | null = null
   /** The celebration in the Hollows after the Goblin King's answer (roadmap #206, `celebrate.ts`); null elsewhere. */

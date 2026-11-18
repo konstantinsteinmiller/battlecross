@@ -442,6 +442,7 @@ export default {
     }
   },
   wanted: { title: "Qidirilmoqda" },
+  tricks: { pot: "Oshpazning qozoni to‘dani davolaydi. Avval oshpazni jim qiling!", lever: "Dasta! Torting, toshlar to‘daning ustiga dumalaydi." },
   tusker: { hint: "Tuskerning hujumini chirigan ustunga yo‘naltiring!", crash: "Shift Qirolning ustiga qulaydi!" },
   assault: {
     title: 'G\'orlar darvozasini qamal qilish',
