@@ -379,6 +379,8 @@ export class ZoneMode implements GameMode {
   /** The Hollows' besieged gate (#204): its props, whether the hand-over was made, and the camera's zoom while it frames the scene. */
   private assaultProps: AssaultProps | null = null
   private tricksFx: HollowsTricks | null = null
+  /** The last hop beat sounded for each mimic (unit id). */
+  private mimicBeat = new Map<number, number>()
   private rebelProps: RebelProps | null = null
   private celebrateProps: CelebrateProps | null = null
   private celebrateFired = false
@@ -1207,7 +1209,7 @@ export class ZoneMode implements GameMode {
           break
         case 'mimic':
           // The first mimic the hero meets opens the boards' mimic hunts (#225).
-          if (e.id === 'wake') { meetMimic(); this.cam.addTrauma(TRAUMA_HEAVY); this.hitStop(HIT_STOP_HEAVY) }
+          if (e.id === 'wake') { meetMimic(); this.cam.addTrauma(TRAUMA_HEAVY); this.hitStop(HIT_STOP_BOSS * 0.6); this.cam.punchZoom(0.82, 0.1, 0.35) }
           break
         case 'tusker':
           // The King's mount: the way to hurt him is shown once, and the crash gets its own line (#EXT-4).
@@ -1317,9 +1319,11 @@ export class ZoneMode implements GameMode {
           pushHud({ t: 'word', x: e.x, y: e.h + 0.55, z: e.z, key: 'status.' + e.id, kind: 'status' })
           break
         case 'swing':
+          if (sim.get(e.src)?.kind === 'mimic') { sfx('mimicChomp', this.pan(sim.get(e.src)?.x ?? 0)); break }
           sfx(swingSound(e.style, e.heavy, this.views.get(e.src)?.v), this.pan(sim.get(e.src)?.x ?? 0), e.src === hero.id ? 1 : 0.55)
           break
         case 'cast': {
+          if (e.skill === 'enemy:leap' && sim.get(e.src)?.kind === 'mimic') { sfx('mimicLeap', this.pan(e.x)); break }
           const def = SKILL_BY_ID[e.skill]
           // Each skill gathers in its element's own sound (#101).
           if (def) sfx(castSoundOf(def), this.pan(e.x))
@@ -2019,6 +2023,13 @@ export class ZoneMode implements GameMode {
     this.siegeProps?.update(fxDt)
     this.assaultProps?.update(fxDt)
     this.tricksFx?.update(fxDt)
+    // The mimic's hop: a thud for every landing, at the beat of its stride.
+    for (const m of this.sim.mimics) {
+      const u = this.sim.get(m.unit)
+      if (!u || !u.alive || u.anim !== 'walk') continue
+      const beat = Math.floor(this.sim.time / 0.349)
+      if (beat !== this.mimicBeat.get(m.unit)) { this.mimicBeat.set(m.unit, beat); sfx('mimicHop', this.pan(u.x), 0.9) }
+    }
     this.celebrateProps?.update(fxDt)
     this.rebelProps?.update(fxDt)
     if (this.crowd) {

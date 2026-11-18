@@ -7,6 +7,7 @@ import { stepSim } from '@/game/sim/step'
 import { startAttrs } from '@/game/data/attributes'
 import { ZONES } from '@/game/data/zones'
 import { finishOpen } from '@/game/sim/interact'
+import { spawnEnemy } from '@/game/sim/spawn'
 import { mimicCount, mimicable } from '@/game/sim/mimic'
 
 /** #225: the first ordinary chest opened is a mimic; it pays the chest's loot when it falls. */
@@ -70,5 +71,39 @@ describe('the mimic (#225)', () => {
   it('the cage, the finale and the tutorial chests are never mimics', () => {
     const { sim } = scene()
     for (const c of sim.chests) if (['cage', 'finale', 'tutorial'].includes(c.role)) expect(mimicable(c)).toBe(false)
+  })
+})
+
+describe('the mimic\'s three bounces', () => {
+  it('lands three times, each ring wider and each blow a bigger share of the hero\'s health, the last one high in the air', () => {
+    const { sim, plan } = scene()
+    const h = sim.hero.unit
+    h.s.maxHp = h.hp = 1000
+    const m = spawnEnemy(sim, 'mimic', h.x + 6, h.z)!
+    m.awake = true
+    m.targetId = h.id
+    m.s.baseDmg = 0
+    m.boss!.cd.jumps = 0
+    m.aiT = 0
+    let peak3 = 0
+    const drops: number[] = []
+    let last = h.hp
+    for (let t = 0; t < 12 && drops.length < 3; t += DT) {
+      // The hero holds his ground, so every ring is on him.
+      h.x = h.px = h.x
+      stepSim(sim, plan, DT)
+      sim.events.length = 0
+      if (m.boss!.sub === '2' && m.action?.id === 'jump') peak3 = Math.max(peak3, m.boss!.alt)
+      if (h.hp < last - 1) { drops.push((last - h.hp) / 1000); last = h.hp }
+      if (h.hp < 500) h.hp = 1000, last = 1000
+    }
+    expect(drops).toHaveLength(3)
+    expect(drops[0]!).toBeGreaterThan(0.04)
+    expect(drops[0]!).toBeLessThan(0.07)
+    expect(drops[1]!).toBeGreaterThan(0.07)
+    expect(drops[1]!).toBeLessThan(0.1)
+    expect(drops[2]!).toBeGreaterThan(0.15)
+    expect(drops[2]!).toBeLessThan(0.2)
+    expect(peak3).toBeGreaterThan(2)
   })
 })

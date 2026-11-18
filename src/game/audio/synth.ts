@@ -357,7 +357,9 @@ const NEVER_DROP: ReadonlySet<SfxName> = new Set<SfxName>([
   'hurt', 'bossIntro', 'levelUp', 'denied', 'uiClick', 'uiOpen', 'uiClose', 'uiEquip', 'uiBuy', 'uiLearn', 'uiPoint',
   'uiChoice', 'forgeStrike', 'forgePerfect', 'forgeMiss', 'potion', 'chest', 'loot', 'lootRare', 'lootEpic', 'lootLegend', 'deathBig', 'overheat',
   // The cameo's few story beats (#210): rare, one of each, and the scene reads by them.
-  'cameoLand', 'cameoRoar', 'cameoTower', 'cameoShield', 'cameoBreath'
+  'cameoLand', 'cameoRoar', 'cameoTower', 'cameoShield', 'cameoBreath',
+  // The mimic's reveal is the beat of the fight (#225).
+  'mimicBurst'
 ])
 
 /** Open (a muffle of 0 has no filter at all) and fully muffled cutoffs (Hz). */
@@ -379,6 +381,55 @@ const A5 = 81
 const D6 = 86
 
 const RECIPES: Record<SfxName, (pan: number, g: number) => void> = {
+  // The mimic's reveal (#225): the lid's iron straps shriek and snap, planks splinter and scatter, a low beast's roar comes up out
+  // of the chest, and the first chomp lands on the last splinter.
+  mimicBurst: (p, g) => {
+    space(0.4)
+    crack(0.5 * g, p, 0, 1800, 0.03)
+    metal(1250, 0.5, 0.16 * g, p, 0.004, 0.8)
+    metal(2100, 0.4, 0.09 * g, p, 0.02, 1.2)
+    burst({ dur: 0.34, vol: 0.34 * g, type: 'bandpass', f0: 2600, f1: 700, q: 1.2, pan: p, dirt: true })
+    crackle(9, 0.34, 0.12 * g, p, 0.03, 2400)
+    boom(96, 40, 0.55, 0.4 * g, p, 0.02)
+    growl(150, 70, 0.8, 0.22 * g, p, 0.08, 30)
+    // The first clack of the teeth.
+    crack(0.3 * g, p, 0.42, 3200, 0.012)
+    crack(0.24 * g, p, 0.5, 2800, 0.012)
+  },
+  // One landing of its hop: a wooden thud on the ground and the clank of the loose lock.
+  mimicHop: (p, g) => {
+    space(0.1)
+    boom(150, 64, 0.14, 0.2 * g, p)
+    burst({ dur: 0.07, vol: 0.14 * g, type: 'bandpass', f0: 900, f1: 520, q: 2, pan: p, dirt: true })
+    metal(1500, 0.14, 0.035 * g, p, 0.012)
+  },
+  // The bite: a lid slammed down on the teeth, twice as hard as it sounds, and a wet snarl under it.
+  mimicChomp: (p, g) => {
+    space(0.12)
+    crack(0.38 * g, p, 0, 2600, 0.012)
+    burst({ dur: 0.1, vol: 0.3 * g, type: 'bandpass', f0: 1200, f1: 700, q: 2.4, pan: p, dirt: true })
+    crack(0.3 * g, p, 0.07, 3000, 0.01)
+    growl(180, 110, 0.18, 0.12 * g, p, 0.01, 26)
+    metal(1700, 0.2, 0.05 * g, p, 0.005)
+  },
+  // The leap: the jaws open on a rising snarl, then a heavy whoosh of the box through the air.
+  mimicLeap: (p, g) => {
+    space(0.14)
+    growl(120, 260, 0.34, 0.2 * g, p, 0, 28)
+    burst({ dur: 0.32, vol: 0.3 * g, type: 'bandpass', f0: 500, fmid: 2400, fmidAt: 0.55, f1: 800, q: 3.4, attack: 0.18, at: 0.1, pan: p - 0.3, panTo: p + 0.3 })
+    boom(90, 50, 0.2, 0.18 * g, p, 0.36)
+  },
+  // The end: the lid torn off and clattering away over the stones, its straps ringing, a last wooden groan.
+  mimicLid: (p, g) => {
+    space(0.3)
+    crack(0.4 * g, p, 0, 1600, 0.03)
+    boom(110, 40, 0.3, 0.3 * g, p)
+    for (const [at, f] of [[0.1, 1300], [0.26, 1700], [0.4, 2200], [0.5, 1500]] as const) {
+      metal(f, 0.3, 0.06 * g, p, at, 0.9)
+      burst({ dur: 0.06, vol: 0.2 * g, type: 'bandpass', f0: 900, f1: 500, q: 2.4, at, pan: p, dirt: true })
+    }
+    growl(110, 52, 0.7, 0.14 * g, p, 0.05, 20)
+  },
   // ── Weapons ──
   // A sword through the air: a NARROW band of air swept high and fast (rising
   // slowly, cut off sharply, as a blade passes the ear), the edge's own whistle

@@ -1054,11 +1054,17 @@ export const CREATURE_BUILDS: Record<string, () => Rig> = {
  * squashes), `lid` (hinged at the back: it snaps open and shut like a jaw; thrown off when the mimic dies), `tongue` (it lolls).
  * Teeth ring both rims, two yellow eyes glare from under the lid, and the lock is its nose.
  */
-export const buildMimic = (): Rig => {
-  const wood = '#8a5a34'
-  const wood2 = '#6a4224'
-  const iron = '#4a4650'
-  const gold = '#e8b73a'
+export const MIMIC_TIERS: Record<string, { body: string; body2: string; trim: string; lock: string; scale: number }> = {
+  wood: { body: '#7a4424', body2: '#925428', trim: '#ffc83a', lock: '#fff0a0', scale: 1.25 },
+  iron: { body: '#46566a', body2: '#5a6e88', trim: '#e6edf6', lock: '#ffd24a', scale: 1.32 },
+  gold: { body: '#d48a14', body2: '#f0a81e', trim: '#fff6c0', lock: '#ffffff', scale: 1.42 }
+}
+export const buildMimic = (tier = 'iron'): Rig => {
+  const k = MIMIC_TIERS[tier] ?? MIMIC_TIERS.iron!
+  const wood = k.body
+  const wood2 = k.body2
+  const iron = k.trim
+  const gold = k.lock
   const b = new RigBuilder()
   b.bone('root', null, [0, 0, 0])
   b.bone('body', 'root', [0, 0.1, 0])

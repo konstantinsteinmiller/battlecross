@@ -485,6 +485,9 @@ export class LevelProps {
   private dark = 0
   private darkSet = -1
   private low = sceneQuality() === 'low'
+  /** The pieces of a chest a mimic burst out of (#225): flying, tumbling, then sinking away. */
+  private debris: Array<{ m: Mesh; vx: number; vy: number; vz: number; wx: number; wy: number; wz: number; t: number; rest: number }> = []
+  private debrisGeos: BufferGeometry[] = []
   private ambient = new Color()
   private sky = new Color()
   private caveAmbient = new Color(CAVE_AMBIENT)
@@ -1924,6 +1927,7 @@ export class LevelProps {
     if (e.id === 'wake') {
       v.root.visible = false
       v.glow.visible = false
+      this.burstChest(e.x, e.z, v.tier)
       const ps = this.vfx.particles
       for (let k = 0; k < (this.low ? 8 : 18); k++) {
         const a = Math.random() * Math.PI * 2
@@ -1931,13 +1935,76 @@ export class LevelProps {
         ps.emit({ x: e.x, y: 0.6, z: e.z, vx: Math.cos(a) * sp, vy: 2 + Math.random() * 3, vz: Math.sin(a) * sp, color: k % 2 ? '#8a5a34' : '#ffe04a', size: 0.14, sizeEnd: 0.03, life: 0.6 + Math.random() * 0.4, gravity: 8, drag: 0.5 })
       }
       this.vfx.ring(e.x, e.z, 0.3, 3, '#ffe04a', 0.45)
-      sfx('alert', this.pan(e.x))
-      sfx('bossIntro', this.pan(e.x), 0.7)
-      this.shake(0.5)
+      sfx('mimicBurst', this.pan(e.x))
+      this.shake(0.7)
     } else {
       this.vfx.ring(e.x, e.z, 0.3, 3.6, CHEST_RING[v.tier], 0.55)
       this.vfx.particles.riseRing(e.x, 0.2, e.z, '#ffe9a8', 0.7, this.low ? 8 : 16)
-      sfx('chest', this.pan(e.x))
+      sfx('mimicLid', this.pan(e.x))
+      sfx('chest', this.pan(e.x), 0.8)
+    }
+  }
+
+  /**
+   * The chest the mimic hid in comes apart (#225): its own planks, straps, lid halves and lock, in the chest's own colours, thrown
+   * out from where it stood, tumbling to the ground, and sinking into it.
+   */
+  private burstChest(x: number, z: number, tier: ChestTier): void {
+    const k = CHEST_LOOK[tier]
+    const y0 = groundAt(x, z)
+    const parts: Array<[BufferGeometry, string, number]> = [
+      [rbox(0.46, 0.2, 0.16, 0.3, 4, 3), k.body, 0.4], [rbox(0.4, 0.18, 0.16, 0.3, 4, 3), k.body, 0.35], [rbox(0.34, 0.2, 0.16, 0.3, 4, 3), k.body2, 0.3],
+      [rbox(0.5, 0.16, 0.16, 0.3, 4, 3), k.body2, 0.5], [rbox(0.3, 0.22, 0.18, 0.3, 4, 3), k.body, 0.3], [rbox(0.44, 0.2, 0.16, 0.3, 4, 3), k.body2, 0.45],
+      [rbox(0.6, 0.1, 0.12, 0.4, 4, 3), k.trim, 0.55], [rbox(0.1, 0.5, 0.12, 0.4, 3, 3), k.trim, 0.6],
+      [rbox(0.52, 0.24, 0.62, 0.34, 6, 5), k.body, 0.7], [rbox(0.5, 0.22, 0.6, 0.34, 6, 5), k.body2, 0.65],
+      [sph(0.1, 6, 5), k.lock, 0.3]
+    ]
+    const n = this.low ? 6 : parts.length
+    for (let q = 0; q < n; q++) {
+      const [g, hex, big] = parts[q]!
+      paint(g, hex)
+      this.debrisGeos.push(g)
+      const m = new Mesh(g, celVC())
+      m.frustumCulled = false
+      const a = (q / n) * Math.PI * 2 + Math.random() * 0.8
+      const sp = 2.2 + Math.random() * 2.6 + big
+      m.position.set(x, y0 + 0.5 + Math.random() * 0.3, z)
+      m.scale.setScalar(k.scale)
+      m.rotation.set(Math.random() * 3, Math.random() * 3, Math.random() * 3)
+      this.root.add(m)
+      this.debris.push({ m, vx: Math.cos(a) * sp, vy: 4 + Math.random() * 3.5 + big * 2, vz: Math.sin(a) * sp, wx: (Math.random() - 0.5) * 14, wy: (Math.random() - 0.5) * 10, wz: (Math.random() - 0.5) * 14, t: 0, rest: y0 + 0.08 })
+    }
+  }
+
+  private stepDebris(dt: number): void {
+    for (let i = this.debris.length - 1; i >= 0; i--) {
+      const d = this.debris[i]!
+      d.t += dt
+      const p = d.m.position
+      if (d.t < 1.6 || p.y > d.rest) {
+        d.vy -= 18 * dt
+        p.x += d.vx * dt
+        p.y += d.vy * dt
+        p.z += d.vz * dt
+        d.m.rotation.x += d.wx * dt
+        d.m.rotation.y += d.wy * dt
+        d.m.rotation.z += d.wz * dt
+        if (p.y <= d.rest) {
+          p.y = d.rest
+          d.vy = Math.abs(d.vy) > 2.5 ? -d.vy * 0.35 : 0
+          d.vx *= 0.6
+          d.vz *= 0.6
+          d.wx *= 0.5
+          d.wy *= 0.5
+          d.wz *= 0.5
+        }
+      }
+      // After a few seconds it sinks into the ground and is gone.
+      if (d.t > 5) p.y -= (d.t - 5) * 0.5 * dt * 4
+      if (d.t > 7) {
+        this.root.remove(d.m)
+        this.debris.splice(i, 1)
+      }
     }
   }
 
@@ -2028,6 +2095,7 @@ export class LevelProps {
 
   update(dt: number, heroX: number, heroZ: number): void {
     this.time += dt
+    if (this.debris.length) this.stepDebris(dt)
     this.heroX = heroX
     this.heroZ = heroZ
     const plan = this.plan
@@ -2312,6 +2380,9 @@ export class LevelProps {
   }
 
   dispose(): void {
+    for (const g of this.debrisGeos) g.dispose()
+    this.debrisGeos.length = 0
+    this.debris.length = 0
     // The next place sets its own mood; leave this one's as it found it.
     if (this.darkSet > 0) {
       this.dark = 0

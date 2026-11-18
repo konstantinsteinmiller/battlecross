@@ -38,6 +38,8 @@ export type SfxName =
   | 'cameoLand' | 'cameoShot' | 'cameoTower' | 'cameoTowerOut' | 'cameoShield' | 'cameoRoar' | 'cameoLeap' | 'cameoClaw' | 'cameoStep'
   // …and the chimera fighting back: its breath of fire on the shield, its serpent tail's lash
   | 'cameoBreath' | 'cameoLash'
+  // The mimic (#225): the chest bursting open, its hop, its teeth, its leap, and its lid clattering off when it dies
+  | 'mimicBurst' | 'mimicHop' | 'mimicChomp' | 'mimicLeap' | 'mimicLid'
   | 'denied' | 'uiClick' | 'uiOpen' | 'uiClose' | 'uiEquip' | 'uiBuy' | 'uiLearn' | 'uiPoint' | 'uiChoice' | 'mapMove'
 
 export const SFX_NAMES: readonly SfxName[] = [
@@ -52,7 +54,8 @@ export const SFX_NAMES: readonly SfxName[] = [
   'uiOpen', 'uiClose', 'uiEquip', 'uiBuy', 'uiLearn', 'uiPoint', 'uiChoice', 'mapMove',
   'forgeStrike', 'forgePerfect', 'forgeMiss',
   'cameoLand', 'cameoShot', 'cameoTower', 'cameoTowerOut', 'cameoShield', 'cameoRoar', 'cameoLeap', 'cameoClaw', 'cameoStep',
-  'cameoBreath', 'cameoLash'
+  'cameoBreath', 'cameoLash',
+  'mimicBurst', 'mimicHop', 'mimicChomp', 'mimicLeap', 'mimicLid'
 ]
 
 type Player = (name: SfxName, pan: number, gain: number, muffle: number) => void

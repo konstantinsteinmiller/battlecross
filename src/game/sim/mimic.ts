@@ -1,5 +1,5 @@
 import { mulberry32 } from './rng'
-import { knockback } from './combat'
+import { applyStatus, knockback } from './combat'
 import { openChest } from './interact'
 import { spawnEnemy } from './spawn'
 import type { Sim, ChestState } from './world'
@@ -56,13 +56,21 @@ export const maybeMimic = (sim: Sim, c: ChestState): boolean => {
   u.champion = true
   u.targetId = hero.id
   // A beat to throw its lid open and show its teeth before the first lunge.
-  u.aiT = 0.7
+  u.aiT = 0.8
+  // It wears the look of the chest it hid in, and bursts out of it.
+  u.variant = c.tier
+  // The first three bounces come a couple of seconds after it has bitten once or twice.
+  if (u.boss) u.boss.cd.jumps = 2.5
+  u.anim = 'spawn'
+  u.animT = 0
   u.facing = Math.atan2(hero.x - u.x, hero.z - u.z)
   sim.mimics.push({ chest: c.id, unit: u.id, paid: false })
   c.state = 'opening'
   // It springs at him: he is thrown back a step.
-  knockback(hero, c.x, c.z, 5)
-  sim.emit({ t: 'mimic', id: 'wake', chest: c.id, unit: u.id, x: c.x, z: c.z })
+  knockback(hero, c.x, c.z, 9)
+  // A beat of shock before he can move: the scare.
+  applyStatus(sim, hero, 'stun', 0.3, 1, u, { quiet: true })
+  sim.emit({ t: 'mimic', id: 'wake', chest: c.id, unit: u.id, x: c.x, z: c.z, tier: c.tier })
   return true
 }
 

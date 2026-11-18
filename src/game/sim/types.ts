@@ -216,6 +216,8 @@ export interface Unit {
   champion?: boolean
   /** Stands where it was put whatever pushes it (a demon pylon): bodies walk round it. */
   rooted?: boolean
+  /** Which look of a kind it wears (a mimic: the tier of the chest it hid in). */
+  variant?: string
   /** Hands full (the siege's lever and ram): no swing, no cast, no auto-engage while it is set. */
   noFight?: boolean
   /** An NPC that moves in a crowd (the siege's storming party): it is a body like any other in the separation pass, not a fixed one. */
@@ -465,7 +467,7 @@ export type SimEvent =
   /** The Hollows' section tricks (#EXT-2): the stew pot steams ('pot') or goes out ('potOut'), the lever is pulled, a boulder hits. */
   | { t: 'trick'; id: 'pot' | 'potOut' | 'lever' | 'boulderHit' | 'potHint' | 'leverHint'; x: number; z: number }
   /** A chest comes alive ('wake') or its mimic falls ('fall') (#225). */
-  | { t: 'mimic'; id: 'wake' | 'fall'; chest: number; unit: number; x: number; z: number }
+  | { t: 'mimic'; id: 'wake' | 'fall'; chest: number; unit: number; x: number; z: number; tier?: string }
   | { t: 'tusker'; id: 'beams' | 'crash'; x: number; z: number }
   | { t: 'rebel'; id: 'snap' | 'flee' | 'stab' | 'guarded'; n: number; x: number; z: number }
   | { t: 'overheat'; on: boolean }

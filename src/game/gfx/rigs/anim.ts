@@ -1024,22 +1024,23 @@ const cart = (v: RigView, u: Unit, time: number): void => {
 const mimic = (v: RigView, u: Unit, time: number): void => {
   const r = v.rig
   const a = u.action
-  const hunting = u.anim === 'walk' || (a && a.id === 'leap')
+  const air = !!a && (a.id === 'leap' || a.id === 'jump')
+  const hunting = u.anim === 'walk' || air
   // The hop: a short cycle of crouch and spring.
   const hop = hunting ? Math.abs(Math.sin(time * 9 + v.phase)) : 0
   const lunge = a ? clamp01(a.t / Math.max(0.05, a.hitAt)) : 0
-  const bite = a && a.id !== 'leap' ? (a.t < a.hitAt ? lunge : 1 - clamp01((a.t - a.hitAt) / 0.18)) : 0
-  const leaping = a && a.id === 'leap' ? (a.t < a.hitAt ? lunge : 1) : 0
+  const bite = a && !air ? (a.t < a.hitAt ? lunge : 1 - clamp01((a.t - a.hitAt) / 0.18)) : 0
+  const leaping = air ? (a!.t < a!.hitAt ? lunge : 1) : 0
   // Jaws: clack on the hop, wide before a bite, held open in a leap, a tremble when still.
-  const clack = hunting ? Math.max(0, Math.sin(time * 18 + v.phase)) * 0.55 : 0
+  const clack = hunting ? Math.max(0, Math.sin(time * 20 + v.phase)) * 0.95 : 0
   const still = !hunting && !a ? 0.03 + Math.max(0, Math.sin(time * 31)) * 0.04 : 0
-  const open = Math.min(1.5, clack + bite * 1.1 + leaping * 1.0 + still + (u.flinch > 0 ? u.flinch * 0.5 : 0))
+  const open = Math.min(1.9, clack + bite * 1.5 + leaping * 1.4 + still + (u.flinch > 0 ? u.flinch * 0.5 : 0))
   pose(r, 'lid', -open, 0, 0)
   pose(r, 'tongue', -open * 0.3 + Math.sin(time * 11) * 0.12, 0, 0)
   pose(r, 'body', hunting ? -0.12 + hop * 0.2 : 0, Math.sin(time * 40 + v.phase) * 0.02 * (still > 0 ? 1 : 0), Math.sin(time * 9 + v.phase) * 0.05 * (hunting ? 1 : 0))
   v.rootZ = bite * 0.25 - lunge * (a && a.id === 'leap' ? 0.0 : 0)
   v.hopY = hunting ? hop * 0.28 : 0
-  v.leapK = a && a.id === 'leap' && !a.done ? clamp01(a.t / Math.max(0.05, a.hitAt + 0.4)) : 0
+  v.leapK = a && a.id === 'leap' && !a.done ? clamp01(a.t / Math.max(0.05, a.hitAt + 0.4)) : a && a.id === 'jump' && !a.done ? clamp01(a.t / Math.max(0.05, a.hitAt)) : 0
   v.pitch = 0
   v.roll = 0
   v.trail = 0
@@ -1197,7 +1198,7 @@ export const animate = (v: RigView, u: Unit, x: number, z: number, time: number,
   if (u.stunt) y += u.stunt.lift
   // A leap is drawn travelling: the sim moves the body at the landing.
   const a = u.action
-  if (v.leapK > 0 && a && a.id === 'leap' && !a.done) {
+  if (v.leapK > 0 && a && (a.id === 'leap' || a.id === 'jump') && !a.done) {
     px += (a.x - u.x) * v.leapK
     pz += (a.z - u.z) * v.leapK
   }

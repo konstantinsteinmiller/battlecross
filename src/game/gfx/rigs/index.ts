@@ -4,7 +4,7 @@ import { SPIRIT_COLOR } from '../../sim/spawn'
 import { setCelRim, setCelTint } from '../cel'
 import { INFERNAL_RIM, INFERNAL_TINT } from '../corruption'
 import { cloneRig, type Rig } from '../kit'
-import { buildBeast, buildBoar, buildCart, buildDragon, buildElemental, buildGolem, buildMimic, buildNaga, buildSpider, buildTreant, buildTurret, buildWyvern } from './creatures'
+import { buildBeast, buildBoar, buildCart, buildDragon, buildElemental, buildGolem, buildMimic, buildNaga, MIMIC_TIERS, buildSpider, buildTreant, buildTurret, buildWyvern } from './creatures'
 import { clipSet, styleOf, type ClipSet } from './clips'
 import { buildHumanoid, WEAPON_EDGE, WEAPON_REACH, type Held, type Look, type OffHand } from './humanoid'
 import { LOOKS, lookKey } from './looks'
@@ -212,7 +212,7 @@ const specFor = (rig: string, look: string, foe = false): Spec => {
     case 'voidlord':
       return { ...humanoid({ ...VOID_LORD, fierce: foe }), float: 0.3 }
     case 'mimic':
-      return { key: 'mimic', family: 'mimic', build: buildMimic, float: 0, held: 'none', ghost: false }
+      return { key: 'mimic:' + look, family: 'mimic', build: () => buildMimic(look),  float: 0, held: 'none', ghost: false }
     case 'turret': {
       const v = look === 'rocket' ? 'rocket' : 'gatling'
       return { key: 'turret:' + v, family: 'turret', build: () => buildTurret(v), float: 0, held: 'gun', ghost: false }
@@ -247,6 +247,12 @@ export const makeRigView = (u: Unit, heroLook?: Look): RigView => {
     scale = NPC_SCALE[u.kind] ?? MINIONS[u.kind]?.scale ?? 1
     // A hero of another league (the intro's, the cameo's gunslinger) shoots and swings in their own light.
     if (look.hero && look.glow) color = look.glow
+  } else if (u.kind === 'mimic') {
+    // The mimic wears the chest it hid in (#225): the same colours, a touch bigger than the chest was.
+    const tier = u.variant ?? 'iron'
+    spec = specFor('mimic', tier, true)
+    scale = (MIMIC_TIERS[tier] ?? MIMIC_TIERS.iron!).scale * 1.1
+    color = ENEMY_BY_ID.mimic!.color
   } else if (u.kind === 'caravan') {
     // The escort's cart (#85).
     spec = { key: 'cart', family: 'cart', build: buildCart, float: 0, held: 'none', ghost: false }

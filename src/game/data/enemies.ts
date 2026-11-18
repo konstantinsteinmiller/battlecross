@@ -201,10 +201,11 @@ const BASE_ENEMIES: readonly EnemyDef[] = [
   }),
   // #225: a chest that bites. A champion: quick, leaps at the hero, and pays its chest's loot when it falls.
   D({
-    id: 'mimic', rank: 'elite', rig: 'mimic', look: 'mimic', scale: 1, r: 0.55, h: 0.95,
-    hp: 2.2, dmg: 1.2, armor: 1.4, speed: 4.4, style: 'melee', type: 'physical', range: 1.5, interval: 0.95, windup: 0.28,
+    id: 'mimic', rank: 'elite', rig: 'mimic', look: 'mimic', scale: 1.4, r: 0.8, h: 1.3,
+    hp: 3.8, dmg: 1.5, armor: 1.4, speed: 4.4, style: 'melee', type: 'physical', range: 1.9, interval: 0.9, windup: 0.28,
     aggro: 30, reward: 0.4, color: '#c9a24a',
-    abilities: [{ kind: 'leap', cd: 4.5, first: 0.9, range: 7, min: 2.2, windup: 0.5, recover: 0.35, dmg: 1.5, r: 1.8 }]
+    // Its charged attack is the three bounces of `sim/bosses/mimic.ts`.
+    script: 'mimic', abilities: []
   }),
   D({
     id: 'bandit', rank: 'normal', rig: 'humanoid', look: 'bandit', scale: 1, r: 0.46, h: 1.4,
