@@ -60,6 +60,11 @@ export const CAMP_SPEAKER = 'trainerAegis'
 export const CAMP_NEXT = 'dlg.bark.trainerAegis.next.1'
 /** The tip that marks those words as said (and the "go to Mara or beat the Goblin King" objective as given). */
 export const CAMP_NEXT_TIP = 'campNext'
+/** The knight points out the Goblin King's bounty a few seconds after the cage opens (#EXT-8): his line, and the tip that marks it seen. */
+export const CAMP_WANTED = 'dlg.bark.trainerAegis.wanted.1'
+export const CAMP_WANTED_TIP = 'campWanted'
+/** Seconds after the cage opens (his thanks first) before the poster goes up. */
+export const CAMP_WANTED_AT = 4.5
 
 export interface CampPlan {
   /** The camp's middle (metres). */
@@ -272,14 +277,14 @@ export interface CampState {
   /** Seconds into her walk. */
   t: number
   /** The cage's cries for help (#187): armed by the first chest the hero opens, over when the cage is. */
-  help?: { armed: boolean; t: number; n: number }
+  help?: { armed: boolean; t: number; n: number; x0?: number; z0?: number }
   /** The goal's "Free the caged teachers" was tapped: the hero walks to the key, then to the cage (`rescue.ts`). */
   auto?: { kind: '' | 'move' | 'chest' }
 }
 
 // ─── The cries for help (#187) ───────────────────────────────────────────────
 /**
- * Once the hero has opened the first chest of the first visit he says, to himself, "Is there somebody screaming for
+ * Once the hero has taken his first steps in the first visit (or opened a chest) he says, to himself, "Is there somebody screaming for
  * help?", and the cage begins to call: each of three teachers in turn ("Help, anybody!", "We were kidnapped!", "Monsters,
  * help!"), a bubble over the one who calls with its recording, every 5 seconds until all three have been heard, then every
  * 13 seconds until all three have been heard again, then every 20-25 for the rest of the level, so it never grates. It
@@ -299,6 +304,8 @@ export const HELP_CALLS: ReadonlyArray<{ npc: string; key: string }> = [
 export const helpPeriod = (made: number): number => (made < 3 ? 5 : made < 6 ? 13 : 20 + (((made * 2654435761) >>> 0) % 5001) / 1000)
 /** From the monologue to the first call. */
 export const HELP_FIRST_S = 2.2
+/** How far the hero walks from where the level began before the cage first calls (#223). */
+export const HELP_MOVE_M = 1.5
 
 /** Every step, in the first visit before the cage is open: the monologue, then the calls. */
 export const stepHelp = (sim: Sim, dt: number): void => {
@@ -309,7 +316,9 @@ export const stepHelp = (sim: Sim, dt: number): void => {
   if (!cage || cage.state === 'open' || !h.unit.alive) return
   const s = (c.help ??= { armed: false, t: 0, n: 0 })
   if (!s.armed) {
-    if (h.chests <= 0) return
+    // #223: the call starts with the hero's first steps (not only once a chest is open).
+    if (s.x0 === undefined) { s.x0 = h.unit.x; s.z0 = h.unit.z }
+    if (h.chests <= 0 && Math.hypot(h.unit.x - s.x0, h.unit.z - (s.z0 ?? 0)) < HELP_MOVE_M) return
     s.armed = true
     s.t = 0
     s.n = 0

@@ -444,11 +444,14 @@ export default {
       freed: 'Kopači su slobodni!'
     }
   },
+  wanted: { title: "Traži se" },
+  tusker: { hint: "Namami Tuskerov juriš u trulo stupište!", crash: "Strop se ruši na Kralja!" },
   assault: {
     title: 'Opsada vrata Špilja',
     skipCut: 'Preskoči scenu',
     skip: 'Preskoči opsadu',
     goal: 'Probij vrata: sruši oba tornja',
+    sally: "Držite liniju! Preostalo stražara: {n}",
     breach: 'Vrata su otvorena!',
     towers: '{n} od {total} tornjeva palo',
     hint: {
@@ -459,7 +462,10 @@ export default {
     },
     toast: {
       tower: 'Toranj pada!',
-      breach: 'Palisada je pala. U Špilje!'
+      breach: 'Palisada je pala. U Špilje!',
+      sally: "Vrata se otvaraju: stražari jurišaju!",
+      held: "Linija drži! Stražari su pobijeđeni.",
+      purse: "Škrinja stražara: +{gold} zlata"
     }
   },
   hoard: {
@@ -6362,7 +6368,7 @@ export default {
       }
     },
     bark: {
-      hero: { cage: { 1: 'Viče li netko upomoć?' }, hunt: { 1: 'Još netko lovi tu zvijer.' }, levelUp: { 1: 'Ojačao sam!' } },
+      hero: { cage: { 1: 'Viče li netko upomoć?' }, hunt: { 1: 'Još netko lovi tu zvijer.' }, levelUp: { 1: 'Ojačao sam!' }, king: { 1: "Goblinski kralj mora se negdje ovdje skrivati!" }, gnomes: { 1: "Možda mogu pomoći nekima od pobunjenih gnomova." } },
       trainerPyro: { help: { 1: 'Upomoć, ima li koga!' } },
       sbMasterSoulwarden: { help: { 1: 'Otete su nas!' } },
       sbMasterIronmonk: { help: { 1: 'Čudovišta! Upomoć!' } },
@@ -6440,7 +6446,8 @@ export default {
           '1': 'Hvala što si nas oslobodio od razbojnika! Dođi do vatre: svi ćemo te učiti, prva lekcija je besplatna.'
         },
         road: { '1': 'Pronašao si nas! Demoni su nas uhvatili na cesti za Sunford. Idemo u Bastionski prijelaz: nađi nas u utvrdi.' },
-        next: { '1': 'Mara u Sunfordu nagradit će te za naše spašavanje. Kralja goblina također treba zaustaviti. Izbor je tvoj.' }
+        next: { '1': 'Mara u Sunfordu nagradit će te za naše spašavanje. Kralja goblina također treba zaustaviti. Izbor je tvoj.' },
+        wanted: { 1: "Gle, nagrada na glavu Goblinskog kralja! Tko ga sruši, zadržava njegovo blago." }
       },
       sfShadow: {
         road: { '1': 'Bilo je vrijeme da netko dođe. Krećemo u Bastionski prijelaz. Potraži nas u utvrdi.' }
@@ -7701,6 +7708,9 @@ export default {
     goblin: 'Goblin',
     goblinOverseer: 'Goblinski nadglednik',
     goblinSlinger: 'Goblin praćkaš',
+    goblinShaman: "Goblinski šaman",
+    bombGoblin: "Goblin bombaš",
+    shieldBrute: "Štitonoša",
     bandit: 'Razbojnik',
     banditArcher: 'Razbojnik strijelac',
     banditRaider: 'Razbojnik napadač',

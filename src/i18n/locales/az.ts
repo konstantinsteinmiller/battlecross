@@ -441,11 +441,14 @@ export default {
       freed: 'Qazıcılar azaddır!'
     }
   },
+  wanted: { title: "Axtarılır" },
+  tusker: { hint: "Tuskerin hücumunu çürük sütuna yönəlt!", crash: "Tavan Kralın üstünə çökür!" },
   assault: {
     title: 'Mağaralar qapısının mühasirəsi',
     skipCut: 'Kəsmə səhnəni keç',
     skip: 'Mühasirəni keç',
     goal: 'Qapını sındır: hər iki qülləni yıx',
+    sally: "Xətti saxla! Qalan keşikçilər: {n}",
     breach: 'Qapı açıqdır!',
     towers: '{total} qüllədən {n} dənəsi yıxıldı',
     hint: {
@@ -456,7 +459,10 @@ export default {
     },
     toast: {
       tower: 'Qüllə yıxıldı!',
-      breach: 'Hasar yıxıldı. Mağaralara!'
+      breach: 'Hasar yıxıldı. Mağaralara!',
+      sally: "Qapı açılır: keşikçilər hücuma keçir!",
+      held: "Xətt davam gətirdi! Keşikçilər məğlub oldu.",
+      purse: "Keşikçilərin sandığı: +{gold} qızıl"
     }
   },
   hoard: {
@@ -6249,7 +6255,7 @@ export default {
       }
     },
     bark: {
-      hero: { cage: { 1: 'Kimsə kömək üçün qışqırır?' }, hunt: { 1: 'O vəhşini başqa biri də ovlayır.' }, levelUp: { 1: 'Güclənmişəm!' } },
+      hero: { cage: { 1: 'Kimsə kömək üçün qışqırır?' }, hunt: { 1: 'O vəhşini başqa biri də ovlayır.' }, levelUp: { 1: 'Güclənmişəm!' }, king: { 1: "Goblin Kralı burada hardasa gizlənməlidir!" }, gnomes: { 1: "Bəlkə üsyançı gnomlardan bəzilərinə kömək edə bilərəm." } },
       trainerPyro: { help: { 1: 'Kömək, kimsə!' } },
       sbMasterSoulwarden: { help: { 1: 'Bizi qaçırdılar!' } },
       sbMasterIronmonk: { help: { 1: 'Canavarlar! Kömək!' } },
@@ -6327,7 +6333,8 @@ export default {
           '1': 'Bizi quldurlardan xilas etdiyin üçün sağ ol! Ocağa gəl: hamımız sənə öyrədəcəyik, ilk dərs pulsuzdur.'
         },
         road: { '1': 'Bizi tapdın! İblislər bizi Sanford yolunda tutdular. Qala Keçidinə gedirik: bizi qalada axtar.' },
-        next: { '1': 'Sunforddakı Mara bizi xilas etdiyinə görə səni mükafatlandıracaq. Qoblin Kralı da dayandırılmalıdır. Seçim səninkidir.' }
+        next: { '1': 'Sunforddakı Mara bizi xilas etdiyinə görə səni mükafatlandıracaq. Qoblin Kralı da dayandırılmalıdır. Seçim səninkidir.' },
+        wanted: { 1: "Bax, Goblin Kralının başına mükafat qoyulub! Onu yıxan xəzinəsini götürür." }
       },
       sfShadow: {
         road: { '1': 'Nəhayət kimsə gəldi. Qala Keçidinə yollanırıq. Bizi qalada axtar.' }
@@ -7586,6 +7593,9 @@ export default {
     goblin: 'Qoblin',
     goblinOverseer: 'Qoblin nəzarətçisi',
     goblinSlinger: 'Sapandçı Qoblin',
+    goblinShaman: "Goblin Şamanı",
+    bombGoblin: "Bomba Qoblini",
+    shieldBrute: "Qalxanlı Cəllad",
     bandit: 'Quldur',
     banditArcher: 'Oxatan Quldur',
     banditRaider: 'Quldur basqınçı',

@@ -442,11 +442,14 @@ export default {
       freed: 'Kopacze są wolni!'
     }
   },
+  wanted: { title: "Poszukiwany" },
+  tusker: { hint: "Zwab szarżę Tuskera na zbutwiały filar!", crash: "Strop wali się na Króla!" },
   assault: {
     title: 'Oblężenie bramy Jaskiń',
     skipCut: 'Pomiń scenę',
     skip: 'Pomiń oblężenie',
     goal: 'Wyłam bramę: zwal obie wieże',
+    sally: "Utrzymajcie linię! Pozostało strażników: {n}",
     breach: 'Brama stoi otworem!',
     towers: 'Upadło {n} z {total} wież',
     hint: {
@@ -457,7 +460,10 @@ export default {
     },
     toast: {
       tower: 'Wieża pada!',
-      breach: 'Palisada runęła. Do Jaskiń!'
+      breach: 'Palisada runęła. Do Jaskiń!',
+      sally: "Brama się otwiera: strażnicy szarżują!",
+      held: "Linia wytrzymała! Strażnicy pokonani.",
+      purse: "Skrzynia strażników: +{gold} złota"
     }
   },
   hoard: {
@@ -6348,7 +6354,7 @@ export default {
       }
     },
     bark: {
-      hero: { cage: { 1: 'Czy ktoś woła o pomoc?' }, hunt: { 1: 'Ktoś jeszcze poluje na tę bestię.' }, levelUp: { 1: 'Jestem silniejszy!' } },
+      hero: { cage: { 1: 'Czy ktoś woła o pomoc?' }, hunt: { 1: 'Ktoś jeszcze poluje na tę bestię.' }, levelUp: { 1: 'Jestem silniejszy!' }, king: { 1: "Król Goblinów musi się tu gdzieś ukrywać!" }, gnomes: { 1: "Może uda mi się pomóc niektórym z buntujących się gnomów." } },
       trainerPyro: { help: { 1: 'Pomocy, ktokolwiek!' } },
       sbMasterSoulwarden: { help: { 1: 'Porwano nas!' } },
       sbMasterIronmonk: { help: { 1: 'Potwory! Pomocy!' } },
@@ -6426,7 +6432,8 @@ export default {
           '1': 'Dzięki, że uwolniłeś nas od bandytów! Chodź do ogniska: wszyscy będziemy cię uczyć, pierwsza lekcja za darmo.'
         },
         road: { '1': 'Znalazłeś nas! Demony złapały nas na drodze do Sunford. Idziemy do Przeprawy Bastionu: szukaj nas w forcie.' },
-        next: { '1': 'Mara w Sunford nagrodzi cię za nasze ocalenie. Króla Goblinów też trzeba powstrzymać. Wybór należy do ciebie.' }
+        next: { '1': 'Mara w Sunford nagrodzi cię za nasze ocalenie. Króla Goblinów też trzeba powstrzymać. Wybór należy do ciebie.' },
+        wanted: { 1: "Patrz, nagroda za głowę Króla Goblinów! Kto go powali, zatrzyma jego skarb." }
       },
       sfShadow: {
         road: { '1': 'Najwyższy czas, żeby ktoś przyszedł. Ruszamy do Przeprawy Bastionu. Szukaj nas w forcie.' }
@@ -7687,6 +7694,9 @@ export default {
     goblin: 'Goblin',
     goblinOverseer: 'Goblinski nadzorca',
     goblinSlinger: 'Goblin procarz',
+    goblinShaman: "Goblinia szamanka",
+    bombGoblin: "Goblin bombowy",
+    shieldBrute: "Tarczowy osiłek",
     bandit: 'Bandyta',
     banditArcher: 'Bandyta łucznik',
     banditRaider: 'Bandyta najeźdźca',

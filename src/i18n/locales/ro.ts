@@ -441,11 +441,14 @@ export default {
       freed: 'Săpătorii sunt liberi!'
     }
   },
+  wanted: { title: "Căutat" },
+  tusker: { hint: "Atrage atacul lui Tusker într-un stâlp putred!", crash: "Tavanul se prăbușește peste Rege!" },
   assault: {
     title: 'Asediul porții Peșterilor',
     skipCut: 'Sari peste scenă',
     skip: 'Sari peste asediu',
     goal: 'Sparge poarta: dărâmă ambele turnuri',
+    sally: "Țineți linia! Gărzi rămase: {n}",
     breach: 'Poarta e deschisă!',
     towers: '{n} din {total} turnuri au căzut',
     hint: {
@@ -456,7 +459,10 @@ export default {
     },
     toast: {
       tower: 'Un turn cade!',
-      breach: 'Palisada a căzut. În Peșteri!'
+      breach: 'Palisada a căzut. În Peșteri!',
+      sally: "Poarta se deschide: gărzile atacă!",
+      held: "Linia rezistă! Gărzile sunt înfrânte.",
+      purse: "Lada gărzilor: +{gold} aur"
     }
   },
   hoard: {
@@ -6291,7 +6297,7 @@ export default {
       }
     },
     bark: {
-      hero: { cage: { 1: 'Strigă cineva după ajutor?' }, hunt: { 1: 'Mai vânează cineva fiara aceea.' }, levelUp: { 1: 'M-am întărit!' } },
+      hero: { cage: { 1: 'Strigă cineva după ajutor?' }, hunt: { 1: 'Mai vânează cineva fiara aceea.' }, levelUp: { 1: 'M-am întărit!' }, king: { 1: "Regele Goblinilor trebuie să se ascundă pe aici pe undeva!" }, gnomes: { 1: "Poate pot ajuta câțiva dintre gnomii rebeli." } },
       trainerPyro: { help: { 1: 'Ajutor, cineva!' } },
       sbMasterSoulwarden: { help: { 1: 'Am fost răpiți!' } },
       sbMasterIronmonk: { help: { 1: 'Monștri! Ajutor!' } },
@@ -6369,7 +6375,8 @@ export default {
           '1': 'Mulțumim că ne-ai scăpat de bandiți! Vino la foc: te vom învăța toți, prima lecție e gratuită.'
         },
         road: { '1': 'Ne-ai găsit! Demonii ne-au prins pe drumul spre Sunford. Mergem la Vadul Bastionului: caută-ne în fort.' },
-        next: { '1': 'Mara din Sunford te va răsplăti pentru salvarea noastră. Și Regele Goblin trebuie oprit. Alegerea e a ta.' }
+        next: { '1': 'Mara din Sunford te va răsplăti pentru salvarea noastră. Și Regele Goblin trebuie oprit. Alegerea e a ta.' },
+        wanted: { 1: "Uite, o recompensă pe capul Regelui Goblin! Cine îl doboară își păstrează comoara." }
       },
       sfShadow: {
         road: { '1': 'Era și timpul să vină cineva. Plecăm spre Vadul Bastionului. Caută-ne în fort.' }
@@ -7630,6 +7637,9 @@ export default {
     goblin: 'Goblin',
     goblinOverseer: 'Supraveghetor goblin',
     goblinSlinger: 'Goblin Prăștiaș',
+    goblinShaman: "Șamanul goblin",
+    bombGoblin: "Goblin cu bombă",
+    shieldBrute: "Brutul cu scut",
     bandit: 'Bandit',
     banditArcher: 'Bandit Arcaș',
     banditRaider: 'Bandit jefuitor',

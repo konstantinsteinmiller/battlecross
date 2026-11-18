@@ -442,11 +442,14 @@ export default {
       freed: 'De graafsters zijn vrij!'
     }
   },
+  wanted: { title: "Gezocht" },
+  tusker: { hint: "Lok Tuskers aanval in een verrotte pilaar!", crash: "Het plafond stort op de Koning neer!" },
   assault: {
     title: 'Belegering van de poort van de Holen',
     skipCut: 'Scène overslaan',
     skip: 'Belegering overslaan',
     goal: 'Breek de poort: sloop beide torens',
+    sally: "Houd de linie! Wachters over: {n}",
     breach: 'De poort staat open!',
     towers: '{n} van {total} torens gevallen',
     hint: {
@@ -457,7 +460,10 @@ export default {
     },
     toast: {
       tower: 'Een toren valt!',
-      breach: 'De palissade is gevallen. De Holen in!'
+      breach: 'De palissade is gevallen. De Holen in!',
+      sally: "De poort zwaait open: de wachters stormen naar buiten!",
+      held: "De linie houdt stand! De wachters zijn verslagen.",
+      purse: "De kist van de wachters: +{gold} goud"
     }
   },
   hoard: {
@@ -6260,7 +6266,7 @@ export default {
       }
     },
     bark: {
-      hero: { cage: { 1: 'Schreeuwt daar iemand om hulp?' }, hunt: { 1: 'Iemand anders jaagt ook op dat beest.' }, levelUp: { 1: 'Ik ben sterker geworden!' } },
+      hero: { cage: { 1: 'Schreeuwt daar iemand om hulp?' }, hunt: { 1: 'Iemand anders jaagt ook op dat beest.' }, levelUp: { 1: 'Ik ben sterker geworden!' }, king: { 1: "De Goblinkoning moet zich hier ergens verstoppen!" }, gnomes: { 1: "Misschien kan ik een paar van de opstandige gnomen helpen." } },
       trainerPyro: { help: { 1: 'Help, is daar iemand!' } },
       sbMasterSoulwarden: { help: { 1: 'We zijn ontvoerd!' } },
       sbMasterIronmonk: { help: { 1: 'Monsters! Help!' } },
@@ -6338,7 +6344,8 @@ export default {
           '1': 'Bedankt dat je ons van de bandieten hebt bevrijd! Kom bij het vuur: we leren je allemaal, eerste les gratis.'
         },
         road: { '1': 'Je hebt ons gevonden! De demonen grepen ons op de weg naar Sunford. We gaan naar de Bastionsoversteek: zoek ons in het fort.' },
-        next: { '1': 'Mara in Sunford beloont je omdat je ons gered hebt. De Goblinkoning moet ook worden gestopt. Jij kiest.' }
+        next: { '1': 'Mara in Sunford beloont je omdat je ons gered hebt. De Goblinkoning moet ook worden gestopt. Jij kiest.' },
+        wanted: { 1: "Kijk, een premie op de Goblinkoning! Wie hem velt, houdt zijn schat." }
       },
       sfShadow: {
         road: { '1': 'Werd tijd dat er iemand kwam. We vertrekken naar de Bastionsoversteek. Zoek ons in het fort.' }
@@ -7597,6 +7604,9 @@ export default {
     goblin: 'Goblin',
     goblinOverseer: 'Goblin-opzichter',
     goblinSlinger: 'Goblin-slingeraar',
+    goblinShaman: "Goblinsjamaan",
+    bombGoblin: "Bomgoblin",
+    shieldBrute: "Schildbeul",
     bandit: 'Bandiet',
     banditArcher: 'Bandiet-boogschutter',
     banditRaider: 'Bandiet-plunderaar',

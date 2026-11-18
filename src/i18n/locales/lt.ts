@@ -441,11 +441,14 @@ export default {
       freed: 'Kasėjai laisvi!'
     }
   },
+  wanted: { title: "Ieškomas" },
+  tusker: { hint: "Privilioti Tuskerio šuolį į supuvusį stulpą!", crash: "Lubos griūva ant Karaliaus!" },
   assault: {
     title: 'Urvų vartų apgultis',
     skipCut: 'Praleisti sceną',
     skip: 'Praleisti apgultį',
     goal: 'Išlaužk vartus: sugriauk abu bokštus',
+    sally: "Laikykite liniją! Likę sargybiniai: {n}",
     breach: 'Vartai atviri!',
     towers: 'Nugriauta {n} iš {total} bokštų',
     hint: {
@@ -456,7 +459,10 @@ export default {
     },
     toast: {
       tower: 'Bokštas griūva!',
-      breach: 'Palisadas nugriautas. Į Urvus!'
+      breach: 'Palisadas nugriautas. Į Urvus!',
+      sally: "Vartai atsiveria: sargybiniai šturmuoja!",
+      held: "Linija išlaikyta! Sargybiniai nugalėti.",
+      purse: "Sargybinių skrynia: +{gold} aukso"
     }
   },
   hoard: {
@@ -6308,7 +6314,7 @@ export default {
       }
     },
     bark: {
-      hero: { cage: { 1: 'Ar kažkas šaukia pagalbos?' }, hunt: { 1: 'Kažkas kitas taip pat medžioja tą žvėrį.' }, levelUp: { 1: 'Sustiprėjau!' } },
+      hero: { cage: { 1: 'Ar kažkas šaukia pagalbos?' }, hunt: { 1: 'Kažkas kitas taip pat medžioja tą žvėrį.' }, levelUp: { 1: 'Sustiprėjau!' }, king: { 1: "Goblinų karalius turi slėptis kažkur čia!" }, gnomes: { 1: "Gal galėčiau padėti kai kuriems sukilėlių gnomams." } },
       trainerPyro: { help: { 1: 'Padėkite, kas nors!' } },
       sbMasterSoulwarden: { help: { 1: 'Mus pagrobė!' } },
       sbMasterIronmonk: { help: { 1: 'Pabaisos! Padėkite!' } },
@@ -6386,7 +6392,8 @@ export default {
           '1': 'Ačiū, kad išlaisvinai mus iš banditų! Ateik prie laužo: mokysime tave visi, pirmoji pamoka nemokama.'
         },
         road: { '1': 'Tu mus radai! Demonai sugavo mus kelyje į Sanfordą. Keliaujame į Bastiono brastą: ieškok mūsų tvirtovėje.' },
-        next: { '1': 'Mara Sunforde apdovanos tave už mūsų išgelbėjimą. Goblinų karalių taip pat reikia sustabdyti. Pasirinkimas tavo.' }
+        next: { '1': 'Mara Sunforde apdovanos tave už mūsų išgelbėjimą. Goblinų karalių taip pat reikia sustabdyti. Pasirinkimas tavo.' },
+        wanted: { 1: "Žiūrėk, premija už Goblinų karalių! Kas jį nugalės, pasiims jo lobį." }
       },
       sfShadow: {
         road: { '1': 'Pagaliau kažkas atėjo. Išeiname į Bastiono brastą. Ieškok mūsų tvirtovėje.' }
@@ -7648,6 +7655,9 @@ export default {
     goblin: 'Goblinas',
     goblinOverseer: 'Goblinų prižiūrėtojas',
     goblinSlinger: 'Goblinas svaidytojas',
+    goblinShaman: "Goblinų šamanas",
+    bombGoblin: "Goblinas bombonešis",
+    shieldBrute: "Skydo brutas",
     bandit: 'Banditas',
     banditArcher: 'Banditas lankininkas',
     banditRaider: 'Banditas plėšikas',

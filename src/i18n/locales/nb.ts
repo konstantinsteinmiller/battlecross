@@ -441,11 +441,14 @@ export default {
       freed: 'Graverne er fri!'
     }
   },
+  wanted: { title: "Etterlyst" },
+  tusker: { hint: "Lokk Tuskers anløp inn i en råtten påle!", crash: "Taket styrter ned over Kongen!" },
   assault: {
     title: 'Beleiringen av Hulenes port',
     skipCut: 'Hopp over scenen',
     skip: 'Hopp over beleiringen',
     goal: 'Bryt porten: velt begge tårnene',
+    sally: "Hold linjen! Vakter igjen: {n}",
     breach: 'Porten er åpen!',
     towers: '{n} av {total} tårn har falt',
     hint: {
@@ -456,7 +459,10 @@ export default {
     },
     toast: {
       tower: 'Et tårn faller!',
-      breach: 'Palisaden har falt. Inn i Hulene!'
+      breach: 'Palisaden har falt. Inn i Hulene!',
+      sally: "Porten svinger opp: vaktene stormer ut!",
+      held: "Linjen holder! Vaktene er slått.",
+      purse: "Vaktenes kiste: +{gold} gull"
     }
   },
   hoard: {
@@ -6249,7 +6255,7 @@ export default {
       }
     },
     bark: {
-      hero: { cage: { 1: 'Er det noen som roper om hjelp?' }, hunt: { 1: 'Noen andre jakter også på det udyret.' }, levelUp: { 1: 'Jeg ble sterkere!' } },
+      hero: { cage: { 1: 'Er det noen som roper om hjelp?' }, hunt: { 1: 'Noen andre jakter også på det udyret.' }, levelUp: { 1: 'Jeg ble sterkere!' }, king: { 1: "Goblinkongen må gjemme seg her et sted!" }, gnomes: { 1: "Kanskje jeg kan hjelpe noen av de opprørske gnomene." } },
       trainerPyro: { help: { 1: 'Hjelp, noen!' } },
       sbMasterSoulwarden: { help: { 1: 'Vi ble kidnappet!' } },
       sbMasterIronmonk: { help: { 1: 'Monstre! Hjelp!' } },
@@ -6327,7 +6333,8 @@ export default {
           '1': 'Takk for at du befridde oss fra bandittene! Kom til bålet: vi lærer deg alle, første leksjon er gratis.'
         },
         road: { '1': 'Du fant oss! Demonene fanget oss på veien til Sunford. Vi drar til Bastionsvadet: finn oss i fortet.' },
-        next: { '1': 'Mara i Sunford belønner deg for at du reddet oss. Goblinkongen må også stoppes. Valget er ditt.' }
+        next: { '1': 'Mara i Sunford belønner deg for at du reddet oss. Goblinkongen må også stoppes. Valget er ditt.' },
+        wanted: { 1: "Se, en dusør på Goblinkongen! Den som feller ham, beholder skatten hans." }
       },
       sfShadow: {
         road: { '1': 'På tide at noen kom. Vi drar til Bastionsvadet. Se etter oss i fortet.' }
@@ -7586,6 +7593,9 @@ export default {
     goblin: 'Goblin',
     goblinOverseer: 'Goblin-oppsynsmann',
     goblinSlinger: 'Goblinslynger',
+    goblinShaman: "Goblinsjaman",
+    bombGoblin: "Bombegoblin",
+    shieldBrute: "Skjoldbrute",
     bandit: 'Banditt',
     banditArcher: 'Bandittbueskytter',
     banditRaider: 'Banditt-røver',

@@ -174,6 +174,16 @@
     "at": "2026-11-16",
     "hash": "5276e02418"
   },
+  "de/dlg.bark.hero.gnomes.1": {
+    "engine": "elevenlabs",
+    "at": "2026-11-18",
+    "hash": "ae0ee72af3"
+  },
+  "de/dlg.bark.hero.gnomes.1__f": {
+    "engine": "elevenlabs",
+    "at": "2026-11-18",
+    "hash": "ae0ee72af3"
+  },
   "de/dlg.bark.hero.hunt.1": {
     "engine": "elevenlabs",
     "at": "2026-11-16",
@@ -183,6 +193,16 @@
     "engine": "elevenlabs",
     "at": "2026-11-16",
     "hash": "6d31d66b61"
+  },
+  "de/dlg.bark.hero.king.1": {
+    "engine": "elevenlabs",
+    "at": "2026-11-18",
+    "hash": "66cd841690"
+  },
+  "de/dlg.bark.hero.king.1__f": {
+    "engine": "elevenlabs",
+    "at": "2026-11-18",
+    "hash": "66cd841690"
   },
   "de/dlg.bark.hero.levelUp.1": {
     "engine": "elevenlabs",
@@ -373,6 +393,11 @@
     "engine": "elevenlabs",
     "at": "2026-11-16",
     "hash": "c62e18257c"
+  },
+  "de/dlg.bark.trainerAegis.wanted.1": {
+    "engine": "chatterbox",
+    "at": "2026-11-18",
+    "hash": "a897af3e1b"
   },
   "de/dlg.bark.trainerPyro.help.1": {
     "engine": "elevenlabs",
@@ -8244,6 +8269,16 @@
     "at": "2026-11-04",
     "hash": "a2edb8af74"
   },
+  "en/dlg.bark.hero.gnomes.1": {
+    "engine": "chatterbox",
+    "at": "2026-11-18",
+    "hash": "d8287a3786"
+  },
+  "en/dlg.bark.hero.gnomes.1__f": {
+    "engine": "chatterbox",
+    "at": "2026-11-18",
+    "hash": "d8287a3786"
+  },
   "en/dlg.bark.hero.hunt.1": {
     "engine": "chatterbox",
     "at": "2026-11-11",
@@ -8253,6 +8288,16 @@
     "engine": "chatterbox",
     "at": "2026-11-11",
     "hash": "24e8a8d86b"
+  },
+  "en/dlg.bark.hero.king.1": {
+    "engine": "chatterbox",
+    "at": "2026-11-18",
+    "hash": "03014bc987"
+  },
+  "en/dlg.bark.hero.king.1__f": {
+    "engine": "chatterbox",
+    "at": "2026-11-18",
+    "hash": "03014bc987"
   },
   "en/dlg.bark.hero.levelUp.1": {
     "engine": "chatterbox",
@@ -8443,6 +8488,11 @@
     "engine": "chatterbox",
     "at": "2026-10-25",
     "hash": "d6735549d5"
+  },
+  "en/dlg.bark.trainerAegis.wanted.1": {
+    "engine": "chatterbox",
+    "at": "2026-11-18",
+    "hash": "d893152550"
   },
   "en/dlg.bark.trainerPyro.help.1": {
     "engine": "chatterbox",
@@ -16314,6 +16364,16 @@
     "at": "2026-11-02",
     "hash": "6396c48239"
   },
+  "es/dlg.bark.hero.gnomes.1": {
+    "engine": "chatterbox",
+    "at": "2026-11-18",
+    "hash": "88c4f51a90"
+  },
+  "es/dlg.bark.hero.gnomes.1__f": {
+    "engine": "chatterbox",
+    "at": "2026-11-18",
+    "hash": "88c4f51a90"
+  },
   "es/dlg.bark.hero.hunt.1": {
     "engine": "chatterbox",
     "at": "2026-11-11",
@@ -16323,6 +16383,16 @@
     "engine": "chatterbox",
     "at": "2026-11-11",
     "hash": "3dfbf55e63"
+  },
+  "es/dlg.bark.hero.king.1": {
+    "engine": "chatterbox",
+    "at": "2026-11-18",
+    "hash": "ba8108328a"
+  },
+  "es/dlg.bark.hero.king.1__f": {
+    "engine": "chatterbox",
+    "at": "2026-11-18",
+    "hash": "ba8108328a"
   },
   "es/dlg.bark.hero.levelUp.1": {
     "engine": "chatterbox",
@@ -16513,6 +16583,11 @@
     "engine": "chatterbox",
     "at": "2026-10-25",
     "hash": "3fc3766f37"
+  },
+  "es/dlg.bark.trainerAegis.wanted.1": {
+    "engine": "chatterbox",
+    "at": "2026-11-18",
+    "hash": "0f120df8e5"
   },
   "es/dlg.bark.trainerPyro.help.1": {
     "engine": "chatterbox",
@@ -18144,6 +18219,16 @@
     "at": "2026-11-02",
     "hash": "d65ecaa0a4"
   },
+  "fr/dlg.bark.hero.gnomes.1": {
+    "engine": "chatterbox",
+    "at": "2026-11-18",
+    "hash": "7174e33d31"
+  },
+  "fr/dlg.bark.hero.gnomes.1__f": {
+    "engine": "chatterbox",
+    "at": "2026-11-18",
+    "hash": "7174e33d31"
+  },
   "fr/dlg.bark.hero.hunt.1": {
     "engine": "chatterbox",
     "at": "2026-11-11",
@@ -18153,6 +18238,16 @@
     "engine": "chatterbox",
     "at": "2026-11-11",
     "hash": "9163c89ec7"
+  },
+  "fr/dlg.bark.hero.king.1": {
+    "engine": "chatterbox",
+    "at": "2026-11-18",
+    "hash": "cd069fa8e7"
+  },
+  "fr/dlg.bark.hero.king.1__f": {
+    "engine": "chatterbox",
+    "at": "2026-11-18",
+    "hash": "cd069fa8e7"
   },
   "fr/dlg.bark.hero.levelUp.1": {
     "engine": "chatterbox",
@@ -18338,6 +18433,11 @@
     "engine": "chatterbox",
     "at": "2026-10-25",
     "hash": "cf67eb0a94"
+  },
+  "fr/dlg.bark.trainerAegis.wanted.1": {
+    "engine": "chatterbox",
+    "at": "2026-11-18",
+    "hash": "640e32fa07"
   },
   "fr/dlg.bark.trainerPyro.help.1": {
     "engine": "chatterbox",
@@ -24194,6 +24294,16 @@
     "at": "2026-11-02",
     "hash": "43ff5af57c"
   },
+  "ja/dlg.bark.hero.gnomes.1": {
+    "engine": "chatterbox",
+    "at": "2026-11-18",
+    "hash": "aee9670396"
+  },
+  "ja/dlg.bark.hero.gnomes.1__f": {
+    "engine": "chatterbox",
+    "at": "2026-11-18",
+    "hash": "aee9670396"
+  },
   "ja/dlg.bark.hero.hunt.1": {
     "engine": "chatterbox",
     "at": "2026-11-11",
@@ -24203,6 +24313,16 @@
     "engine": "chatterbox",
     "at": "2026-11-11",
     "hash": "efd43c649e"
+  },
+  "ja/dlg.bark.hero.king.1": {
+    "engine": "chatterbox",
+    "at": "2026-11-18",
+    "hash": "1e089282f5"
+  },
+  "ja/dlg.bark.hero.king.1__f": {
+    "engine": "chatterbox",
+    "at": "2026-11-18",
+    "hash": "1e089282f5"
   },
   "ja/dlg.bark.hero.levelUp.1": {
     "engine": "chatterbox",
@@ -24393,6 +24513,11 @@
     "engine": "chatterbox",
     "at": "2026-10-25",
     "hash": "98ab914b43"
+  },
+  "ja/dlg.bark.trainerAegis.wanted.1": {
+    "engine": "chatterbox",
+    "at": "2026-11-18",
+    "hash": "15d97e9f96"
   },
   "ja/dlg.bark.trainerPyro.help.1": {
     "engine": "chatterbox",
@@ -26039,6 +26164,16 @@
     "at": "2026-11-02",
     "hash": "628db83059"
   },
+  "pt/dlg.bark.hero.gnomes.1": {
+    "engine": "chatterbox",
+    "at": "2026-11-18",
+    "hash": "2dbeba82d4"
+  },
+  "pt/dlg.bark.hero.gnomes.1__f": {
+    "engine": "chatterbox",
+    "at": "2026-11-18",
+    "hash": "2dbeba82d4"
+  },
   "pt/dlg.bark.hero.hunt.1": {
     "engine": "chatterbox",
     "at": "2026-11-11",
@@ -26048,6 +26183,16 @@
     "engine": "chatterbox",
     "at": "2026-11-11",
     "hash": "4e4ef52239"
+  },
+  "pt/dlg.bark.hero.king.1": {
+    "engine": "chatterbox",
+    "at": "2026-11-18",
+    "hash": "ef20fc23da"
+  },
+  "pt/dlg.bark.hero.king.1__f": {
+    "engine": "chatterbox",
+    "at": "2026-11-18",
+    "hash": "ef20fc23da"
   },
   "pt/dlg.bark.hero.levelUp.1": {
     "engine": "chatterbox",
@@ -26233,6 +26378,11 @@
     "engine": "chatterbox",
     "at": "2026-10-25",
     "hash": "9caf72a2e3"
+  },
+  "pt/dlg.bark.trainerAegis.wanted.1": {
+    "engine": "chatterbox",
+    "at": "2026-11-18",
+    "hash": "bdb5421212"
   },
   "pt/dlg.bark.trainerPyro.help.1": {
     "engine": "chatterbox",
@@ -27859,6 +28009,16 @@
     "at": "2026-11-02",
     "hash": "2eb196667b"
   },
+  "ru/dlg.bark.hero.gnomes.1": {
+    "engine": "chatterbox",
+    "at": "2026-11-18",
+    "hash": "327f1b4444"
+  },
+  "ru/dlg.bark.hero.gnomes.1__f": {
+    "engine": "chatterbox",
+    "at": "2026-11-18",
+    "hash": "327f1b4444"
+  },
   "ru/dlg.bark.hero.hunt.1": {
     "engine": "chatterbox",
     "at": "2026-11-11",
@@ -27868,6 +28028,16 @@
     "engine": "chatterbox",
     "at": "2026-11-11",
     "hash": "b32eb90ef4"
+  },
+  "ru/dlg.bark.hero.king.1": {
+    "engine": "chatterbox",
+    "at": "2026-11-18",
+    "hash": "b7351dde5a"
+  },
+  "ru/dlg.bark.hero.king.1__f": {
+    "engine": "chatterbox",
+    "at": "2026-11-18",
+    "hash": "b7351dde5a"
   },
   "ru/dlg.bark.hero.levelUp.1": {
     "engine": "chatterbox",
@@ -28058,6 +28228,11 @@
     "engine": "chatterbox",
     "at": "2026-10-25",
     "hash": "c277836bc2"
+  },
+  "ru/dlg.bark.trainerAegis.wanted.1": {
+    "engine": "chatterbox",
+    "at": "2026-11-18",
+    "hash": "adad19175c"
   },
   "ru/dlg.bark.trainerPyro.help.1": {
     "engine": "chatterbox",
@@ -29684,6 +29859,16 @@
     "at": "2026-11-02",
     "hash": "53bf330cad"
   },
+  "zh/dlg.bark.hero.gnomes.1": {
+    "engine": "chatterbox",
+    "at": "2026-11-18",
+    "hash": "31f91d9b46"
+  },
+  "zh/dlg.bark.hero.gnomes.1__f": {
+    "engine": "chatterbox",
+    "at": "2026-11-18",
+    "hash": "31f91d9b46"
+  },
   "zh/dlg.bark.hero.hunt.1": {
     "engine": "chatterbox",
     "at": "2026-11-11",
@@ -29693,6 +29878,16 @@
     "engine": "chatterbox",
     "at": "2026-11-11",
     "hash": "816f7f5d28"
+  },
+  "zh/dlg.bark.hero.king.1": {
+    "engine": "chatterbox",
+    "at": "2026-11-18",
+    "hash": "07f51f07f2"
+  },
+  "zh/dlg.bark.hero.king.1__f": {
+    "engine": "chatterbox",
+    "at": "2026-11-18",
+    "hash": "07f51f07f2"
   },
   "zh/dlg.bark.hero.levelUp.1": {
     "engine": "chatterbox",
@@ -29883,6 +30078,11 @@
     "engine": "chatterbox",
     "at": "2026-10-25",
     "hash": "c94385974c"
+  },
+  "zh/dlg.bark.trainerAegis.wanted.1": {
+    "engine": "chatterbox",
+    "at": "2026-11-18",
+    "hash": "f41819d1a7"
   },
   "zh/dlg.bark.trainerPyro.help.1": {
     "engine": "chatterbox",

@@ -1,4 +1,4 @@
-import { campPending, CAMP_NEXT, CAMP_NEXT_TIP, CAMP_SPEAKER, HELP_CALLS } from '../sim/camp'
+import { campPending, CAMP_NEXT, CAMP_NEXT_TIP, CAMP_SPEAKER, CAMP_WANTED, CAMP_WANTED_AT, CAMP_WANTED_TIP, HELP_CALLS } from '../sim/camp'
 import { TRAP_HOLD_S } from '../data/altTutorial'
 import { applyStatus, removeStatus } from '../sim/combat'
 import { introWake } from '../intro/state'
@@ -62,13 +62,14 @@ import { PARTY_LAYOUT, generateCelebration } from '../sim/celebrateMap'
 import { PARTY_S, PARTY_TITLE_AT } from '../data/celebrate'
 import { celebrateHud, celebrateActions } from '../state/celebrateHud'
 import { assaultActions, assaultHud } from '../state/assaultHud'
-import { armAssault, assaultHint, skipAssault, skipPanorama } from '../sim/assault'
+import { armAssault, assaultHint, sallyFoes, skipAssault, skipPanorama } from '../sim/assault'
 import { ASSAULT_LAYOUT, generateAssault } from '../sim/assaultMap'
-import { PANORAMA_S } from '../data/assault'
+import { PANORAMA_S, SALLY_KINDS } from '../data/assault'
 
 import { Vfx } from '../gfx/vfx'
 import { NO_STATUSES, StackOrbs } from '../gfx/stackOrbs'
-import { SLOW_MO, slowMoScale } from '../gfx/slowMo'
+import { FINISHER_S, SLOW_MO, finisherScale, slowMoScale } from '../gfx/slowMo'
+import { lastOfPack } from '../gfx/finisher'
 import { LevelProps } from '../gfx/levelProps'
 import type { TownView } from '../gfx/townView'
 import { loadTownView } from '../gfx/townLoader'
@@ -194,7 +195,7 @@ export interface ZoneCallbacks {
    *  True: handled (laid out, or not due); false: something else is on screen, ask again. */
   onFinaleWon?(): boolean
   /** The besieged gate is over: won (both towers down) or skipped (#204). */
-  onAssaultEnd?(how: 'won' | 'skipped'): void
+  onAssaultEnd?(how: 'won' | 'skipped', held?: boolean): void
   /** The celebration is over (watched to its end, or skipped). */
   onCelebrateEnd?(how: 'watched' | 'skipped'): void
 }
@@ -247,6 +248,11 @@ const WIND_AT = 1
 const DODGE_TIP = 'dodgeLesson'
 /** The bag lesson (#221): about ten seconds into the Goblin Hollows a lightbox on the portrait says it opens the bag and the loadout. */
 const BAG_TIP = 'bagLesson'
+/** #224: after the bag lesson, walking the Hollows, the hero thinks aloud twice (once per save). */
+const MONO_TIP = 'hollowsMonologue'
+const MONO_LINES = ['dlg.bark.hero.king.1', 'dlg.bark.hero.gnomes.1'] as const
+const MONO_FIRST_S = 2
+const MONO_GAP_S = 5.5
 const BAG_HINT_AT_S = 10
 const BAG_HINT_FOR_S = 14
 /** A foe awake this close (metres) is on the screen: the lesson waits for none. */
@@ -386,6 +392,10 @@ export class ZoneMode implements GameMode {
   /** The level-up slow-motion: seconds into it (`SLOW_MO` = off), and how long
    *  a boss's own beat (its entrance, a phase) still holds the stage. */
   private slowT = SLOW_MO
+  /** Seconds into the finisher's slow motion (#EXT-10); FINISHER_S: none running. */
+  private finT = FINISHER_S
+  /** Sim time of the last pack finisher (they are at least 3 s apart). */
+  private finAt = -99
   private beat = 0
   private hudT = 0
   private dragT = 0
@@ -444,6 +454,9 @@ export class ZoneMode implements GameMode {
   /** The bag lesson (#221), in the Goblin Hollows: seconds in the level (the hint comes at `BAG_HINT_AT_S`, goes at `BAG_HINT_END_S`; -1: taught or not here). */
   private bagT = -1
   private bagShown = false
+  /** The Hollows monologue: seconds of walking since the bag lesson ended (-1: not running), and the lines said. */
+  private monoT = -1
+  private monoN = 0
   private bagShownT = 0
   /** The hero coming to after the film's faint: seconds since the level opened (-1: not waking). He lies, then gets up; no order is his until then. */
   private wakeT = -1
@@ -632,6 +645,7 @@ export class ZoneMode implements GameMode {
     if (skills.includes('deployTurret')) { kinds.add('turret'); kinds.add('rocketTurret') }
     // The cameo's three rigs are built now, not on the frame they leap in.
     if (m.cameo) for (const k of [CAMEO_HERO, CAMEO_BEAST, CAMEO_TOWER]) kinds.add(k)
+    if (setup.kind === 'zone' && setup.assault) for (const id of SALLY_KINDS) kinds.add(id)
     if (setup.siege) for (const id of [...siegeKinds(setup.siege.tier), 'guard']) kinds.add(id)
     else if (setup.kind === 'arena') for (const id of arenaKinds(setup.level)) kinds.add(id)
     const jobs = prewarmKinds(kinds)
@@ -1156,6 +1170,13 @@ export class ZoneMode implements GameMode {
     this.stop = Math.max(this.stop, sec)
   }
 
+  /** A finisher (#EXT-10): half a second of slow motion once the freeze ends, and a burst of gold where it fell. */
+  private finisher(x: number, z: number, coins: number): void {
+    this.finT = 0
+    this.vfx.coins(x, z, coins)
+    sfx('coin', this.pan(x), 0.6)
+  }
+
   private pan(x: number): number {
     return Math.max(-1, Math.min(1, (x - this.cam.target.x) / 9))
   }
@@ -1176,10 +1197,17 @@ export class ZoneMode implements GameMode {
           if (e.id === 'guarded') pushHud({ t: 'toast', key: 'rebels.toast.guarded' })
           else if (e.id === 'snap' && sim.rebels && sim.rebels.freed === 1) pushHud({ t: 'toast', key: 'rebels.toast.freed' })
           break
+        case 'tusker':
+          // The King's mount: the way to hurt him is shown once, and the crash gets its own line (#EXT-4).
+          pushHud({ t: 'toast', key: e.id === 'beams' ? 'tusker.hint' : 'tusker.crash' })
+          if (e.id === 'crash') { this.cam.addTrauma(TRAUMA_HEAVY); this.hitStop(HIT_STOP_HEAVY) }
+          break
         case 'assault':
           // The two news of the siege that get a line of their own.
           if (e.id === 'tower') pushHud({ t: 'toast', key: 'assault.toast.tower' })
           else if (e.id === 'breach') pushHud({ t: 'toast', key: 'assault.toast.breach' })
+          else if (e.id === 'sally') pushHud({ t: 'toast', key: 'assault.toast.sally' })
+          else if (e.id === 'held') pushHud({ t: 'toast', key: 'assault.toast.held' })
           break
         case 'hit': {
           const y = e.h * 0.6
@@ -1223,6 +1251,13 @@ export class ZoneMode implements GameMode {
               this.hitStop(HIT_STOP_BOSS)
               this.cam.punchZoom(0.78, 0.12, 0.3)
               this.cam.addTrauma(TRAUMA_HEAVY)
+              this.finisher(e.x, e.z, 18)
+            } else if (e.killed && sim.time - this.finAt > 3 && lastOfPack(sim, hit)) {
+              // The last foe of a fight (#EXT-10), in the tutorial and every zone, siege and arena alike: a freeze, half a second of slow motion and a burst of gold.
+              this.finAt = sim.time
+              this.hitStop(HIT_STOP_HEAVY)
+              this.cam.addTrauma(TRAUMA_LIGHT * 1.6)
+              this.finisher(e.x, e.z, 9)
             } else if (e.crit || e.heavy) {
               this.hitStop(HIT_STOP_HEAVY)
               // A crit shakes at half strength and only a few times per 5 s (#140).
@@ -1247,6 +1282,12 @@ export class ZoneMode implements GameMode {
               const elem = HIT_ELEMENT[e.type]
               if (elem) sfx(elem, this.pan(e.x), 0.45)
             }
+          } else if (e.killed && sim.time - this.finAt > 3 && from?.team === 0 && lastOfPack(sim, hit)) {
+            // The party's blow takes the last guard of a sally (or of any fight beside the hero): the same finisher.
+            this.finAt = sim.time
+            this.hitStop(HIT_STOP_HEAVY)
+            this.cam.addTrauma(TRAUMA_LIGHT * 1.6)
+            this.finisher(e.x, e.z, 9)
           }
           break
         }
@@ -1476,6 +1517,7 @@ export class ZoneMode implements GameMode {
     }
     if (this.wakeT >= 0) this.stepWake(dt)
     if (this.bagT >= 0) this.stepBagLesson(dt)
+    else this.stepMonologue(dt)
     if (first && this.wakeT < 0) this.handleInput()
     if (this.talkOn) this.holdTalk()
     else if (this.talkHold > 0) this.talkHold -= dt
@@ -1484,7 +1526,12 @@ export class ZoneMode implements GameMode {
     if (this.stop > 0) {
       this.stop -= dt
       simDt = dt * HIT_STOP_SCALE
-    } else if (this.slowT < SLOW_MO) simDt = dt * slowMoScale(this.slowT)
+    } else {
+      let sc = 1
+      if (this.slowT < SLOW_MO) sc = slowMoScale(this.slowT)
+      if (this.finT < FINISHER_S) { sc = Math.min(sc, finisherScale(this.finT)); this.finT += dt }
+      simDt = dt * sc
+    }
     if (this.slowT < SLOW_MO) this.slowT += dt
     if (this.beat > 0) this.beat -= dt
     stepSim(this.sim, this.plan, simDt)
@@ -1512,7 +1559,7 @@ export class ZoneMode implements GameMode {
     // The besieged gate is over: the Hollows follow (or the hero chose to skip).
     if (this.sim.assault?.phase === 'done' && !this.assaultFired) {
       this.assaultFired = true
-      this.cb.onAssaultEnd?.(this.sim.assault.outcome === 'won' ? 'won' : 'skipped')
+      this.cb.onAssaultEnd?.(this.sim.assault.outcome === 'won' ? 'won' : 'skipped', this.sim.assault.sally.held)
     }
     // The celebration is over: the story goes on (or the hero skipped it).
     if (this.sim.celebrate?.phase === 'done' && !this.celebrateFired) {
@@ -1531,6 +1578,19 @@ export class ZoneMode implements GameMode {
       syncHeroSkills(this.sim, loadoutActive())
       // Learned mid-fight in the opening: the foes still standing toughen to match.
       if (this.setup.kind === 'zone' && this.setup.tutorial && profile.hero.learned.includes(MENTOR_SKILL)) boostOpeningFoes(this.sim, OPENING.skillHp)
+    }
+    // The bounty (#EXT-8): a few seconds after the cage opens the knight pins up the Goblin King's poster, once.
+    if (this.sim.camp && !profile.tips[CAMP_WANTED_TIP] && this.setup.kind === 'zone' && this.setup.tutorial) {
+      const cage = this.sim.chests.find(q => q.role === 'cage')
+      if (cage?.state === 'open' && this.sim.time - cage.openedAt >= CAMP_WANTED_AT) {
+        const knight = this.sim.units.find(q => q.alive && q.npc === CAMP_SPEAKER)
+        if (knight) {
+          this.sim.emit({ t: 'bark', unit: knight.id, key: CAMP_WANTED })
+          hud.wanted++
+          markTip(CAMP_WANTED_TIP)
+          sfx('chest', 0, 0.5)
+        }
+      }
     }
     // The camp's last words: once the free lesson is taken the knight sends the hero on (Mara, or the Goblin King), and the objective follows.
     if (this.sim.ended === 'victory' && this.sim.camp && !profile.tips[CAMP_NEXT_TIP] && !campPending(this.sim) && !campLessonPending(this.sim)) {
@@ -1589,6 +1649,21 @@ export class ZoneMode implements GameMode {
   /** The ground under a point of the view (fractions of its width and height), for the cameo's stage. */
   private screenGround = (fx: number, fy: number): { x: number; z: number } | null =>
     this.cam.screenToGround(fx * this.cam.width, fy * this.cam.height, ground) ? { x: ground.x, z: ground.z } : null
+
+  /** #224: once the bag lesson is done, two thoughts while he walks: where the King hides, and the gnomes. */
+  private stepMonologue(dt: number): void {
+    if (this.setup.kind !== 'zone' || this.setup.zone !== 'hollows' || this.setup.tutorial || profile.tips[MONO_TIP] || !profile.tips[BAG_TIP]) return
+    if (hud.bagHint || this.talkOn || this.sim.siege || this.sim.celebrate || (this.sim.assault && this.sim.assault.phase !== 'done')) return
+    const h = this.sim.hero.unit
+    if (!h.alive || h.anim !== 'walk') return
+    // Not over a fight.
+    if (this.sim.units.some(e => e.alive && e.team === 1 && e.rank !== 'npc' && e.awake && Math.hypot(e.x - h.x, e.z - h.z) < BAG_CLEAR_R)) return
+    this.monoT = Math.max(0, this.monoT) + dt
+    if (this.monoT < MONO_FIRST_S + this.monoN * MONO_GAP_S) return
+    this.sim.emit({ t: 'bark', unit: h.id, key: MONO_LINES[this.monoN]! })
+    this.monoN++
+    if (this.monoN >= MONO_LINES.length) markTip(MONO_TIP)
+  }
 
   /** The bag lesson's clock: the hint shows once, when nothing else holds the player's eye (no talk, no cut, no stop). */
   private stepBagLesson(dt: number): void {
@@ -1802,7 +1877,7 @@ export class ZoneMode implements GameMode {
     const sim = this.sim
     const hero = sim.hero.unit
     // Effects slow with the hit-stop (so the frozen frame reads) but never stop.
-    const fxDt = this.stop > 0 ? dt * 0.2 : dt * slowMoScale(this.slowT)
+    const fxDt = this.stop > 0 ? dt * 0.2 : dt * Math.min(slowMoScale(this.slowT), this.finT < FINISHER_S ? finisherScale(this.finT) : 1)
     this.time += fxDt
     const a = this.stop > 0 ? 1 : alpha
 
@@ -2289,6 +2364,8 @@ export class ZoneMode implements GameMode {
     v.phase = a.phase === 'panorama' ? 'panorama' : a.phase === 'play' ? 'play' : 'breach'
     v.towers = a.towers.filter(t => !t.down).length
     v.hint = assaultHint(a)
+    v.sally = a.sally.state === 'on'
+    v.foes = sallyFoes(this.sim, a)
     v.cut01 = a.phase === 'panorama' ? Math.min(1, a.t / PANORAMA_S) : 1
     // The ram's direction on the screen: a chevron over the ram, pointing to the tower it rolls to (the nearest still standing).
     // Over the ram, pointing to its tower; while the hero is still far from a ram that waits, over the hero, pointing to the ram (the second one stands almost at the wall).

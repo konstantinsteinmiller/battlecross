@@ -442,11 +442,14 @@ export default {
       freed: 'Die Gräber sind frei!'
     }
   },
+  wanted: { title: "Gesucht" },
+  tusker: { hint: "Lock Tuskers Ansturm in einen morschen Pfeiler!", crash: "Die Decke stürzt auf den König!" },
   assault: {
     title: 'Belagerung des Höhlentors',
     skipCut: 'Zwischensequenz überspringen',
     skip: 'Belagerung überspringen',
     goal: 'Brich das Tor: stürze beide Türme',
+    sally: "Haltet die Linie! Wachen übrig: {n}",
     breach: 'Das Tor ist offen!',
     towers: '{n} von {total} Türmen gefallen',
     hint: {
@@ -457,7 +460,10 @@ export default {
     },
     toast: {
       tower: 'Ein Turm fällt!',
-      breach: 'Die Palisade ist gefallen. In die Höhlen!'
+      breach: 'Die Palisade ist gefallen. In die Höhlen!',
+      sally: "Das Tor schwingt auf: die Wachen stürmen heraus!",
+      held: "Die Linie hält! Die Wachen sind besiegt.",
+      purse: "Die Truhe der Wachen: +{gold} Gold"
     }
   },
   hoard: {
@@ -6269,7 +6275,7 @@ export default {
       }
     },
     bark: {
-      hero: { cage: { 1: 'Schreit da jemand um Hilfe?' }, hunt: { 1: 'Noch jemand jagt diese Bestie.' }, levelUp: { 1: 'Ich bin stärker geworden!' } },
+      hero: { cage: { 1: 'Schreit da jemand um Hilfe?' }, hunt: { 1: 'Noch jemand jagt diese Bestie.' }, levelUp: { 1: 'Ich bin stärker geworden!' }, king: { 1: "Der Goblinkönig muss sich hier irgendwo verstecken!" }, gnomes: { 1: "Vielleicht kann ich einigen der rebellierenden Gnome helfen." } },
       trainerPyro: { help: { 1: 'Hilfe, ist da jemand?' } },
       sbMasterSoulwarden: { help: { 1: 'Wir wurden entführt!' } },
       sbMasterIronmonk: { help: { 1: 'Monster! Hilfe!' } },
@@ -6347,7 +6353,8 @@ export default {
           '1': 'Danke, dass du uns von den Banditen befreit hast! Komm ans Feuer: Wir alle lehren dich, die erste Lektion umsonst.'
         },
         road: { '1': 'Du hast uns gefunden! Die Dämonen haben uns auf der Straße nach Sunford erwischt. Wir gehen nach Bastionsfurt: Such uns in der Festung.' },
-        next: { '1': 'Mara in Sunford belohnt deine Güte, uns zu retten. Der Goblinkönig muss auch aufgehalten werden. Du hast die Wahl.' }
+        next: { '1': 'Mara in Sunford belohnt deine Güte, uns zu retten. Der Goblinkönig muss auch aufgehalten werden. Du hast die Wahl.' },
+        wanted: { 1: "Seht nur, ein Kopfgeld auf den Goblinkönig! Wer ihn erledigt, behält seinen Hort." }
       },
       sfShadow: {
         road: { '1': 'Wurde auch Zeit, dass jemand kommt. Wir machen uns auf nach Bastionsfurt. Such uns in der Festung.' }
@@ -7607,6 +7614,9 @@ export default {
     goblin: 'Goblin',
     goblinOverseer: 'Goblin-Aufseher',
     goblinSlinger: 'Goblin-Schleuderer',
+    goblinShaman: "Goblin-Schamane",
+    bombGoblin: "Bombengoblin",
+    shieldBrute: "Schildbrecher-Brocken",
     bandit: 'Bandit',
     banditArcher: 'Banditenschütze',
     banditRaider: 'Banditen-Räuber',

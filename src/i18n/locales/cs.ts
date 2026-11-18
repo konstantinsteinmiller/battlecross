@@ -444,11 +444,14 @@ export default {
       freed: 'Kopáči jsou volní!'
     }
   },
+  wanted: { title: "Hledá se" },
+  tusker: { hint: "Nalákej Tuskerův nájezd do shnilého sloupu!", crash: "Strop se zřítil na Krále!" },
   assault: {
     title: 'Obléhání brány Jeskyní',
     skipCut: 'Přeskočit scénu',
     skip: 'Přeskočit obléhání',
     goal: 'Prorazte bránu: zbořte obě věže',
+    sally: "Držte linii! Zbývající stráže: {n}",
     breach: 'Brána je otevřená!',
     towers: '{n} z {total} věží padlo',
     hint: {
@@ -459,7 +462,10 @@ export default {
     },
     toast: {
       tower: 'Věž padá!',
-      breach: 'Palisáda padla. Do Jeskyní!'
+      breach: 'Palisáda padla. Do Jeskyní!',
+      sally: "Brána se otevírá: stráže vyrážejí do útoku!",
+      held: "Linie vydržela! Stráže jsou poraženy.",
+      purse: "Pokladnice stráží: +{gold} zlata"
     }
   },
   hoard: {
@@ -6348,7 +6354,7 @@ export default {
       }
     },
     bark: {
-      hero: { cage: { 1: 'Volá tam někdo o pomoc?' }, hunt: { 1: 'Tu bestii loví ještě někdo jiný.' }, levelUp: { 1: 'Zesílil jsem!' } },
+      hero: { cage: { 1: 'Volá tam někdo o pomoc?' }, hunt: { 1: 'Tu bestii loví ještě někdo jiný.' }, levelUp: { 1: 'Zesílil jsem!' }, king: { 1: "Goblinský král se tu musí někde skrývat!" }, gnomes: { 1: "Možná můžu pomoct některým vzbouřeným skřítkům." } },
       trainerPyro: { help: { 1: 'Pomoc, je tu někdo!' } },
       sbMasterSoulwarden: { help: { 1: 'Byli jsme unesení!' } },
       sbMasterIronmonk: { help: { 1: 'Příšery! Pomoc!' } },
@@ -6426,7 +6432,8 @@ export default {
           '1': 'Díky, žes nás vysvobodil od banditů! Pojď k ohni: všichni tě budeme učit, první lekce zdarma.'
         },
         road: { '1': 'Našel jsi nás! Démoni nás chytili na cestě do Sunfordu. Míříme do Baštového brodu: najdi nás v pevnosti.' },
-        next: { '1': 'Mara v Sunfordu tě odmění za naši záchranu. Krále goblinů je také třeba zastavit. Volba je na tobě.' }
+        next: { '1': 'Mara v Sunfordu tě odmění za naši záchranu. Krále goblinů je také třeba zastavit. Volba je na tobě.' },
+        wanted: { 1: "Podívej, odměna za hlavu Goblinského krále! Kdo ho porazí, získá jeho poklad." }
       },
       sfShadow: {
         road: { '1': 'Bylo načase, že někdo přišel. Jdeme do Baštového brodu. Hledej nás v pevnosti.' }
@@ -7687,6 +7694,9 @@ export default {
     goblin: 'Goblin',
     goblinOverseer: 'Goblinský dozorce',
     goblinSlinger: 'Goblin prakovník',
+    goblinShaman: "Goblinský šaman",
+    bombGoblin: "Goblin s bombou",
+    shieldBrute: "Štítový surovec",
     bandit: 'Bandita',
     banditArcher: 'Bandita lučištník',
     banditRaider: 'Bandita nájezdník',

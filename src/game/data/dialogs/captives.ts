@@ -40,6 +40,8 @@ const heroThought: ConversationDef = {
   greet: [
     { id: 'cage', lines: [{ id: 'dlg.bark.hero.cage.1', by: 'hero', emotion: 'neutral' }] },
     { id: 'hunt', lines: [{ id: 'dlg.bark.hero.hunt.1', by: 'hero', emotion: 'neutral' }] },
+    { id: 'king', lines: [{ id: 'dlg.bark.hero.king.1', by: 'hero', emotion: 'neutral' }] },
+    { id: 'gnomes', lines: [{ id: 'dlg.bark.hero.gnomes.1', by: 'hero', emotion: 'warm' }] },
     { id: 'levelUp', lines: [{ id: 'dlg.bark.hero.levelUp.1', by: 'hero', emotion: 'warm' }] }
   ],
   nodes: {},
@@ -63,6 +65,6 @@ export const CAPTIVE_BARKS: readonly ConversationDef[] = [
   // The first visit's camp (#156): Ser Aldric thanks the hero for the three of them
   // and offers their lessons (`sim/camp.ts`, CAMP_THANKS); freed on the burned road in
   // the afterplay (#164), he sends the hero to the fort.
-  freed('trainerAegis', 'trainerAegis', 'proud', ['freed', 'road', 'next']),
+  freed('trainerAegis', 'trainerAegis', 'proud', ['freed', 'road', 'next', 'wanted']),
   freed('sfShadow', 'sfShadow', 'warm', ['road'])
 ]

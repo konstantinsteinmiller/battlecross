@@ -441,11 +441,14 @@ export default {
       freed: 'Kazıcılar özgür!'
     }
   },
+  wanted: { title: "Aranıyor" },
+  tusker: { hint: "Tusker’ın hücumunu çürük bir direğe çek!", crash: "Tavan Kral’ın üstüne çöküyor!" },
   assault: {
     title: 'Mağaraların kapısının kuşatması',
     skipCut: 'Sahneyi atla',
     skip: 'Kuşatmayı atla',
     goal: 'Kapıyı kır: iki kuleyi de yık',
+    sally: "Hattı koruyun! Kalan muhafızlar: {n}",
     breach: 'Kapı açık!',
     towers: '{total} kuleden {n} tanesi yıkıldı',
     hint: {
@@ -456,7 +459,10 @@ export default {
     },
     toast: {
       tower: 'Bir kule yıkılıyor!',
-      breach: 'Çit yıkıldı. Mağaralara!'
+      breach: 'Çit yıkıldı. Mağaralara!',
+      sally: "Kapı açılıyor: muhafızlar saldırıya geçiyor!",
+      held: "Hat tuttu! Muhafızlar yenildi.",
+      purse: "Muhafızların sandığı: +{gold} altın"
     }
   },
   hoard: {
@@ -6249,7 +6255,7 @@ export default {
       }
     },
     bark: {
-      hero: { cage: { 1: 'Biri yardım için mi bağırıyor?' }, hunt: { 1: 'O canavarı başka biri de avlıyor.' }, levelUp: { 1: 'Güçlendim!' } },
+      hero: { cage: { 1: 'Biri yardım için mi bağırıyor?' }, hunt: { 1: 'O canavarı başka biri de avlıyor.' }, levelUp: { 1: 'Güçlendim!' }, king: { 1: "Goblin Kral burada bir yerlerde saklanıyor olmalı!" }, gnomes: { 1: "Belki isyan eden cücelerden bazılarına yardım edebilirim." } },
       trainerPyro: { help: { 1: 'İmdat, kimse yok mu!' } },
       sbMasterSoulwarden: { help: { 1: 'Kaçırıldık!' } },
       sbMasterIronmonk: { help: { 1: 'Canavarlar! İmdat!' } },
@@ -6327,7 +6333,8 @@ export default {
           '1': 'Bizi haydutlardan kurtardığın için teşekkürler! Ateşin başına gel: hepimiz öğreteceğiz, ilk ders bedava.'
         },
         road: { '1': 'Bizi buldun! İblisler bizi Sunford yolunda yakaladı. Burç Geçidi’ne gidiyoruz: bizi kalede bul.' },
-        next: { '1': 'Sunford’daki Mara, bizi kurtardığın için seni ödüllendirecek. Goblin Kralı da durdurulmalı. Seçim senin.' }
+        next: { '1': 'Sunford’daki Mara, bizi kurtardığın için seni ödüllendirecek. Goblin Kralı da durdurulmalı. Seçim senin.' },
+        wanted: { 1: "Bak, Goblin Kralı için ödül konmuş! Onu devirenin hazinesi kendisinin olur." }
       },
       sfShadow: {
         road: { '1': 'Sonunda biri geldi. Burç Geçidi’ne yola çıkıyoruz. Bizi kalede ara.' }
@@ -7586,6 +7593,9 @@ export default {
     goblin: 'Goblin',
     goblinOverseer: 'Goblin Gözetmeni',
     goblinSlinger: 'Sapancı Goblin',
+    goblinShaman: "Goblin Şaman",
+    bombGoblin: "Bombacı Goblin",
+    shieldBrute: "Kalkanlı Canavar",
     bandit: 'Haydut',
     banditArcher: 'Okçu Haydut',
     banditRaider: 'Haydut akıncı',

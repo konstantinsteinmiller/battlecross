@@ -216,6 +216,10 @@ export interface Unit {
   champion?: boolean
   /** Stands where it was put whatever pushes it (a demon pylon): bodies walk round it. */
   rooted?: boolean
+  /** Hands full (the siege's lever and ram): no swing, no cast, no auto-engage while it is set. */
+  noFight?: boolean
+  /** An NPC that moves in a crowd (the siege's storming party): it is a body like any other in the separation pass, not a fixed one. */
+  crowd?: boolean
   /** Of the Breaking's hordes (an invaded zone, the afterplay): drawn tinted red. */
   infernal?: boolean
   /** A piece of a split (the hydra spawn's): it never splits again. */
@@ -455,8 +459,10 @@ export type SimEvent =
   /** A boss shouts a line at a beat of its fight (an i18n key = its recording). */
   | { t: 'bark'; unit: number; key: string }
   /** The Hollows' besieged gate (#204): an arrow, a lever pulled, a stone thrown or landing, the ram rolling or striking, a tower falling, the breach. */
-  | { t: 'assault'; id: 'arrow' | 'pull' | 'stone' | 'impact' | 'roll' | 'ram' | 'tower' | 'breach'; n: number; x: number; z: number; tx?: number; tz?: number }
+  | { t: 'assault'; id: 'arrow' | 'pull' | 'stone' | 'impact' | 'roll' | 'ram' | 'tower' | 'breach' | 'sally' | 'held'; n: number; x: number; z: number; tx?: number; tz?: number }
   /** The gnome rebellion (#205): a chain snaps, a gnome runs or stabs, the overseers still guard the gang. */
+  /** The Goblin King's mount (#EXT-4): 'beams' when the rotten pillars stand and the first charge winds up, 'crash' when Tusker rams one. */
+  | { t: 'tusker'; id: 'beams' | 'crash'; x: number; z: number }
   | { t: 'rebel'; id: 'snap' | 'flee' | 'stab' | 'guarded'; n: number; x: number; z: number }
   | { t: 'overheat'; on: boolean }
   | { t: 'denied'; why: 'mana' | 'cooldown' | 'range' | 'target' | 'locked' | 'hp' }

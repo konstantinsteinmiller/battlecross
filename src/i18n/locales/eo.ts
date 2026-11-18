@@ -441,11 +441,14 @@ export default {
       freed: 'La fosistoj estas liberaj!'
     }
   },
+  wanted: { title: "Serĉata" },
+  tusker: { hint: "Logu la ŝargon de Tusker en putran kolonon!", crash: "La plafono falas sur la Reĝon!" },
   assault: {
     title: 'Sieĝo de la pordego de la Kavernoj',
     skipCut: 'Preterlasi scenon',
     skip: 'Preterlasi sieĝon',
     goal: 'Rompu la pordegon: faligu ambaŭ turojn',
+    sally: "Tenu la linion! Restantaj gardistoj: {n}",
     breach: 'La pordego estas malfermita!',
     towers: '{n} el {total} turoj falis',
     hint: {
@@ -456,7 +459,10 @@ export default {
     },
     toast: {
       tower: 'Turo falas!',
-      breach: 'La palisaro falis. En la Kavernojn!'
+      breach: 'La palisaro falis. En la Kavernojn!',
+      sally: "La pordego malfermiĝas: la gardistoj ŝargas eksteren!",
+      held: "La linio tenas! La gardistoj estas venkitaj.",
+      purse: "La monkesto de la gardistoj: +{gold} oro"
     }
   },
   hoard: {
@@ -6249,7 +6255,7 @@ export default {
       }
     },
     bark: {
-      hero: { cage: { 1: 'Ĉu iu krias pri helpo?' }, hunt: { 1: 'Iu alia ankaŭ ĉasas tiun beston.' }, levelUp: { 1: 'Mi plifortiĝis!' } },
+      hero: { cage: { 1: 'Ĉu iu krias pri helpo?' }, hunt: { 1: 'Iu alia ankaŭ ĉasas tiun beston.' }, levelUp: { 1: 'Mi plifortiĝis!' }, king: { 1: "La Koboldreĝo certe kaŝas sin ie ĉi tie!" }, gnomes: { 1: "Eble mi povas helpi kelkajn el la ribelantaj gnomoj." } },
       trainerPyro: { help: { 1: 'Helpon, ĉu iu!' } },
       sbMasterSoulwarden: { help: { 1: 'Ni estis kidnapitaj!' } },
       sbMasterIronmonk: { help: { 1: 'Monstroj! Helpon!' } },
@@ -6327,7 +6333,8 @@ export default {
           '1': 'Dankon, ke vi liberigis nin de la banditoj! Venu al la fajro: ni ĉiuj instruos vin, la unua leciono senpaga.'
         },
         road: { '1': 'Vi trovis nin! La demonoj kaptis nin sur la vojo al Sunford. Ni iros al Bastiona Transirejo: trovu nin en la fortikaĵo.' },
-        next: { '1': 'Mara en Sunford rekompencos vin pro nia savo. Ankaŭ la Kobolda Reĝo devas esti haltigita. La elekto estas via.' }
+        next: { '1': 'Mara en Sunford rekompencos vin pro nia savo. Ankaŭ la Kobolda Reĝo devas esti haltigita. La elekto estas via.' },
+        wanted: { 1: "Rigardu, premio por la Koboldreĝo! Kiu faligas lin, tiu konservas lian trezoron." }
       },
       sfShadow: {
         road: { '1': 'Jam estis tempo, ke iu venu. Ni foriras al Bastiona Transirejo. Serĉu nin en la fortikaĵo.' }
@@ -7586,6 +7593,9 @@ export default {
     goblin: 'Koboldo',
     goblinOverseer: 'Goblina kontrolisto',
     goblinSlinger: 'Kobolda Ŝtonĵetisto',
+    goblinShaman: "Koboldo-ŝamano",
+    bombGoblin: "Bomba koboldo",
+    shieldBrute: "Ŝilda brutulo",
     bandit: 'Bandito',
     banditArcher: 'Bandita Pafarkisto',
     banditRaider: 'Bandito-rabisto',

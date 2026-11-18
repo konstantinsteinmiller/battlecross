@@ -1,4 +1,7 @@
 import { HEAT_MAX, SKILL_BY_ID } from '../data/skills'
+import { SALLY_FOE_MUL } from '../data/assault'
+/** What lands of a blow on the shield brute's raised shield (#EXT-3). */
+export const SHIELD_GUARD = 0.2
 import { DEATH_BARKS, barkKey } from '../data/dialogs/bosses'
 import { ENEMY_BY_ID, RANK_REWARD } from '../data/enemies'
 import { SOUL_RISE_LIFE, isSpirit, spawnEnemy, spawnSpirit } from './spawn'
@@ -253,6 +256,8 @@ export const dealDamage = (sim: Sim, src: Unit | null, tgt: Unit, base: number, 
   if (!tgt.alive || base <= 0) return 0
   // The opening boss's mercy (#155): every enemy blow lands lighter.
   if (src && src.team === 1 && tgt.team !== 1) base *= sim.foeHitMul * sim.reliefMul
+  // The siege's sally (#EXT-7): the gate guards hit the hero lighter.
+  if (sim.assault?.sally.state === 'on' && src && src.team === 1 && tgt.team !== 1) base *= SALLY_FOE_MUL
   // The colosseum's week (#10): Glass makes every blow harder; All fire turns
   // every enemy blow to fire.
   if (sim.arenaMod === 'glass') base *= GLASS_DAMAGE
@@ -328,6 +333,12 @@ export const dealDamage = (sim: Sim, src: Unit | null, tgt: Unit, base: number, 
     const hasteV = tgt.s.mods.evasionHaste ?? 0
     if (hasteV > 0) applyStatus(sim, tgt, 'haste', 2, hasteV, tgt, { quiet: true })
     return 0
+  }
+  // The shield brute's guard (#EXT-3): blows from the front glance off its shield (a fifth lands) unless it is stunned or
+  // knocked down (the first skill's shield bash does it) or the blow comes from behind.
+  if (tgt.kind === 'shieldBrute' && src && src.team === 0 && !o.dot && !o.echo && !isControlled(tgt) && !isBehind(src, tgt)) {
+    amount *= SHIELD_GUARD
+    sim.emit({ t: 'miss', tgt: tgt.id, x: tgt.x, z: tgt.z, h: tgt.h, why: 'block' })
   }
   // A hero at his pickaxe takes no harm (#99): the swing is his whole world.
   const invulnerable = hasStatus(tgt, 'invulnerable') || tgt.action?.id === 'mine'

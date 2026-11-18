@@ -441,11 +441,14 @@ export default {
       freed: 'Kovlovchilar ozod!'
     }
   },
+  wanted: { title: "Qidirilmoqda" },
+  tusker: { hint: "Tuskerning hujumini chirigan ustunga yo‘naltiring!", crash: "Shift Qirolning ustiga qulaydi!" },
   assault: {
     title: 'G\'orlar darvozasini qamal qilish',
     skipCut: 'Sahnani o\'tkazib yuborish',
     skip: 'Qamalni o\'tkazib yuborish',
     goal: 'Darvozani sindir: ikkala minorani yiqit',
+    sally: "Saflarni saqlang! Qolgan qorovullar: {n}",
     breach: 'Darvoza ochiq!',
     towers: '{total} minoradan {n} tasi qulagan',
     hint: {
@@ -456,7 +459,10 @@ export default {
     },
     toast: {
       tower: 'Minora qulaydi!',
-      breach: 'Qo\'rg\'on qulagan. G\'orlarga!'
+      breach: 'Qo\'rg\'on qulagan. G\'orlarga!',
+      sally: "Darvoza ochildi: qorovullar hujumga otildi!",
+      held: "Saf bardosh berdi! Qorovullar yengildi.",
+      purse: "Qorovullar sandig‘i: +{gold} tilla"
     }
   },
   hoard: {
@@ -6249,7 +6255,7 @@ export default {
       }
     },
     bark: {
-      hero: { cage: { 1: 'Kimdir yordam so‘rab qichqiryaptimi?' }, hunt: { 1: 'U yirtqichni yana kimdir ham ovlayapti.' }, levelUp: { 1: "Men kuchliroq bo'ldim!" } },
+      hero: { cage: { 1: 'Kimdir yordam so‘rab qichqiryaptimi?' }, hunt: { 1: 'U yirtqichni yana kimdir ham ovlayapti.' }, levelUp: { 1: "Men kuchliroq bo'ldim!" }, king: { 1: "Goblinlar qiroli shu yerlarda biror joyda yashiringan bo‘lsa kerak!" }, gnomes: { 1: "Balki isyonkor gnomlarning ba’zilariga yordam bera olarman." } },
       trainerPyro: { help: { 1: 'Yordam bering, kimdir!' } },
       sbMasterSoulwarden: { help: { 1: 'Bizni o‘g‘irlab ketishdi!' } },
       sbMasterIronmonk: { help: { 1: 'Hayvonlar! Yordam bering!' } },
@@ -6327,7 +6333,8 @@ export default {
           '1': 'Bizni qaroqchilardan qutqarganing uchun rahmat! Gulxanga kel: hammamiz o\'rgatamiz, birinchi dars bepul.'
         },
         road: { '1': 'Bizni topding! Iblislar bizni Sanford yoʻlida tutib olishdi. Qalʼa kechuviga ketyapmiz: bizni qalʼadan izla.' },
-        next: { '1': 'Sunforddagi Mara bizni qutqarganing uchun seni mukofotlaydi. Goblinlar qirolini ham to‘xtatish kerak. Tanlov — sening qo‘lingda.' }
+        next: { '1': 'Sunforddagi Mara bizni qutqarganing uchun seni mukofotlaydi. Goblinlar qirolini ham to‘xtatish kerak. Tanlov — sening qo‘lingda.' },
+        wanted: { 1: "Qarang, Goblin shohiga mukofot e’lon qilingan! Uni yiqitgan xazinasini oladi." }
       },
       sfShadow: {
         road: { '1': 'Nihoyat kimdir keldi. Qalʼa kechuviga yoʻl olamiz. Bizni qalʼadan izla.' }
@@ -7586,6 +7593,9 @@ export default {
     goblin: 'Goblin',
     goblinOverseer: 'Goblin nazoratchisi',
     goblinSlinger: 'Palaxmonchi goblin',
+    goblinShaman: "Goblin shamani",
+    bombGoblin: "Bombali goblin",
+    shieldBrute: "Qalqonli vahshiy",
     bandit: 'Qaroqchi',
     banditArcher: 'Kamonchi qaroqchi',
     banditRaider: 'Qaroqchi bosqinchi',

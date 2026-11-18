@@ -442,11 +442,14 @@ export default {
       freed: 'Els cavadors són lliures!'
     }
   },
+  wanted: { title: "Es busca" },
+  tusker: { hint: "Atrau la càrrega de Tusker cap a un pilar podrit!", crash: "El sostre s’enfonsa sobre el Rei!" },
   assault: {
     title: 'Setge de la porta dels Caus',
     skipCut: 'Salta l\'escena',
     skip: 'Salta el setge',
     goal: 'Trenca la porta: tomba les dues torres',
+    sally: "Manteniu la línia! Guàrdies que queden: {n}",
     breach: 'La porta és oberta!',
     towers: '{n} de {total} torres caigudes',
     hint: {
@@ -457,7 +460,10 @@ export default {
     },
     toast: {
       tower: 'Cau una torre!',
-      breach: 'La palissada ha caigut. Als Caus!'
+      breach: 'La palissada ha caigut. Als Caus!',
+      sally: "La porta s'obre: els guàrdies carreguen!",
+      held: "La línia aguanta! Els guàrdies són derrotats.",
+      purse: "El cofre dels guàrdies: +{gold} d'or"
     }
   },
   hoard: {
@@ -6296,7 +6302,7 @@ export default {
       }
     },
     bark: {
-      hero: { cage: { 1: 'Algú crida demanant ajuda?' }, hunt: { 1: 'Algú altre també caça aquesta bèstia.' }, levelUp: { 1: "M'he fet més fort!" } },
+      hero: { cage: { 1: 'Algú crida demanant ajuda?' }, hunt: { 1: 'Algú altre també caça aquesta bèstia.' }, levelUp: { 1: "M'he fet més fort!" }, king: { 1: "El Rei Goblin deu estar amagat per aquí!" }, gnomes: { 1: "Potser puc ajudar alguns dels gnoms rebels." } },
       trainerPyro: { help: { 1: 'Ajuda, algú!' } },
       sbMasterSoulwarden: { help: { 1: 'Ens han segrestat!' } },
       sbMasterIronmonk: { help: { 1: 'Monstres! Ajuda!' } },
@@ -6374,7 +6380,8 @@ export default {
           '1': 'Gràcies per alliberar-nos dels bandits! Vine al foc: t\'ensenyarem tots, i la primera lliçó és gratis.'
         },
         road: { '1': 'Ens has trobat! Els dimonis ens van atrapar al camí de Sunford. Anirem al Gual del Bastió: busca’ns al fort.' },
-        next: { '1': 'La Mara, a Sunford, et recompensarà per salvar-nos. Cal aturar també el Rei Gòblin. Tu tries.' }
+        next: { '1': 'La Mara, a Sunford, et recompensarà per salvar-nos. Cal aturar també el Rei Gòblin. Tu tries.' },
+        wanted: { 1: "Mira, una recompensa pel Rei Goblin! Qui l'abati es queda el seu tresor." }
       },
       sfShadow: {
         road: { '1': 'Ja era hora que vingués algú. Marxem cap al Gual del Bastió. Busca’ns al fort.' }
@@ -7635,6 +7642,9 @@ export default {
     goblin: 'Gòblin',
     goblinOverseer: 'Capatàs goblin',
     goblinSlinger: 'Gòblin Foner',
+    goblinShaman: "Xaman goblin",
+    bombGoblin: "Goblin bomba",
+    shieldBrute: "Bruta escut",
     bandit: 'Bandit',
     banditArcher: 'Bandit Arquer',
     banditRaider: 'Bandoler assaltant',

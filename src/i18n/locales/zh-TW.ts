@@ -441,11 +441,14 @@ export default {
       freed: '挖掘工自由了!'
     }
   },
+  wanted: { title: "通緝" },
+  tusker: { hint: "引誘塔斯克的衝撞撞上腐朽的柱子！", crash: "屋頂砸在國王身上！" },
   assault: {
     title: '洞窟城門攻防戰',
     skipCut: '略過動畫',
     skip: '略過攻城',
     goal: '攻破城門:推倒兩座塔樓',
+    sally: "守住防線！剩餘衛兵：{n}",
     breach: '城門開了!',
     towers: '已倒塌 {n}/{total} 座塔樓',
     hint: {
@@ -456,7 +459,10 @@ export default {
     },
     toast: {
       tower: '一座塔樓倒下了!',
-      breach: '柵欄倒了。衝進洞窟!'
+      breach: '柵欄倒了。衝進洞窟!',
+      sally: "大門敞開：衛兵衝了出來！",
+      held: "防線守住了！衛兵已被擊敗。",
+      purse: "衛兵的寶箱：+{gold} 金幣"
     }
   },
   hoard: {
@@ -6249,7 +6255,7 @@ export default {
       }
     },
     bark: {
-      hero: { cage: { 1: '有人在喊救命嗎？' }, hunt: { 1: '還有別人在獵那頭野獸。' }, levelUp: { 1: '我變強了！' } },
+      hero: { cage: { 1: '有人在喊救命嗎？' }, hunt: { 1: '還有別人在獵那頭野獸。' }, levelUp: { 1: '我變強了！' }, king: { 1: "哥布林國王一定就藏在這附近的某處！" }, gnomes: { 1: "也許我能幫幫那些造反的地精。" } },
       trainerPyro: { help: { 1: '救命，有人嗎！' } },
       sbMasterSoulwarden: { help: { 1: '我們被綁架了！' } },
       sbMasterIronmonk: { help: { 1: '有怪物！救命！' } },
@@ -6327,7 +6333,8 @@ export default {
           '1': '謝謝你把我們從強盜手裡救出來！到火堆旁來吧：我們都會教你，第一堂課免費。'
         },
         road: { '1': '你找到我們了！惡魔在通往桑福德的路上抓住了我們。我們要去堡壘渡口，到要塞來找我們吧。' },
-        next: { '1': '桑佛德的瑪拉會獎賞你救下我們的善舉。哥布林王也必須被阻止。接下來由你自己選擇。' }
+        next: { '1': '桑佛德的瑪拉會獎賞你救下我們的善舉。哥布林王也必須被阻止。接下來由你自己選擇。' },
+        wanted: { 1: "看，哥布林王被懸賞了！誰打倒他，就能得到他的寶藏。" }
       },
       sfShadow: {
         road: { '1': '總算有人來了。我們這就去堡壘渡口，到要塞來找我們。' }
@@ -7586,6 +7593,9 @@ export default {
     goblin: '哥布林',
     goblinOverseer: '哥布林監工',
     goblinSlinger: '哥布林投石手',
+    goblinShaman: "哥布林薩滿",
+    bombGoblin: "炸彈哥布林",
+    shieldBrute: "盾牌蠻漢",
     bandit: '盜賊',
     banditArcher: '盜賊弓手',
     banditRaider: '山賊襲擊者',

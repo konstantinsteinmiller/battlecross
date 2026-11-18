@@ -442,11 +442,14 @@ export default {
       freed: 'Os escavadores son libres!'
     }
   },
+  wanted: { title: "Búscase" },
+  tusker: { hint: "Atrae a carga de Tusker cara a un piar podre!", crash: "O teito desprómase sobre o Rei!" },
   assault: {
     title: 'Cerco á porta das Covas',
     skipCut: 'Saltar escena',
     skip: 'Saltar cerco',
     goal: 'Rompe a porta: derruba as dúas torres',
+    sally: "Manteñan a liña! Gardas que quedan: {n}",
     breach: 'A porta está aberta!',
     towers: '{n} de {total} torres caeron',
     hint: {
@@ -457,7 +460,10 @@ export default {
     },
     toast: {
       tower: 'Cae unha torre!',
-      breach: 'A empalizada caeu. Ás Covas!'
+      breach: 'A empalizada caeu. Ás Covas!',
+      sally: "A porta ábrese: os gardas cargan!",
+      held: "A liña aguanta! Os gardas están vencidos.",
+      purse: "O cofre dos gardas: +{gold} de ouro"
     }
   },
   hoard: {
@@ -6299,7 +6305,7 @@ export default {
       }
     },
     bark: {
-      hero: { cage: { 1: 'Hai alguén berrando pedindo axuda?' }, hunt: { 1: 'Alguén máis está a cazar esa besta.' }, levelUp: { 1: 'Fíxenme máis forte!' } },
+      hero: { cage: { 1: 'Hai alguén berrando pedindo axuda?' }, hunt: { 1: 'Alguén máis está a cazar esa besta.' }, levelUp: { 1: 'Fíxenme máis forte!' }, king: { 1: "O Rei Goblin debe de estar agochado por aquí!" }, gnomes: { 1: "Quizais poida axudar a algúns dos gnomos rebeldes." } },
       trainerPyro: { help: { 1: 'Axuda, alguén!' } },
       sbMasterSoulwarden: { help: { 1: 'Secuestráronnos!' } },
       sbMasterIronmonk: { help: { 1: 'Monstros! Axuda!' } },
@@ -6377,7 +6383,8 @@ export default {
           '1': 'Grazas por liberarnos dos bandidos! Ven ao lume: ensinarémosche todos, e a primeira lección é de balde.'
         },
         road: { '1': 'Atopáchesnos! Os demos collérannos no camiño de Sunford. Imos ao Vao do Bastión: búscanos no forte.' },
-        next: { '1': 'A Mara, en Sunford, recompensarate por salvarnos. Tamén hai que deter o Rei Trasno. A escolla é túa.' }
+        next: { '1': 'A Mara, en Sunford, recompensarate por salvarnos. Tamén hai que deter o Rei Trasno. A escolla é túa.' },
+        wanted: { 1: "Mira, unha recompensa polo Rei Goblin! Quen o derrube queda co seu tesouro." }
       },
       sfShadow: {
         road: { '1': 'Xa era hora de que viñese alguén. Marchamos ao Vao do Bastión. Búscanos no forte.' }
@@ -7638,6 +7645,9 @@ export default {
     goblin: 'Trasno',
     goblinOverseer: 'Capataz goblin',
     goblinSlinger: 'Trasno Fondeiro',
+    goblinShaman: "Xamán goblin",
+    bombGoblin: "Goblin bomba",
+    shieldBrute: "Bruto do escudo",
     bandit: 'Bandido',
     banditArcher: 'Bandido Arqueiro',
     banditRaider: 'Bandido asaltante',

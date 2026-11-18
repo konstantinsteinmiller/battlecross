@@ -441,11 +441,14 @@ export default {
       freed: 'Những người đào đã được tự do!'
     }
   },
+  wanted: { title: "Truy nã" },
+  tusker: { hint: "Dụ cú húc của Tusker vào một cột mục!", crash: "Mái nhà sập xuống đầu Nhà Vua!" },
   assault: {
     title: 'Vây hãm cổng Hang động',
     skipCut: 'Bỏ qua cảnh',
     skip: 'Bỏ qua cuộc vây hãm',
     goal: 'Phá cổng: hạ cả hai tháp',
+    sally: "Giữ vững phòng tuyến! Lính canh còn lại: {n}",
     breach: 'Cổng đã mở!',
     towers: 'Đã đổ {n}/{total} tháp',
     hint: {
@@ -456,7 +459,10 @@ export default {
     },
     toast: {
       tower: 'Một tháp đổ!',
-      breach: 'Hàng rào đã đổ. Vào Hang động!'
+      breach: 'Hàng rào đã đổ. Vào Hang động!',
+      sally: "Cổng mở ra: lính canh xông ra!",
+      held: "Phòng tuyến vững vàng! Lính canh đã bị đánh bại.",
+      purse: "Rương của lính canh: +{gold} vàng"
     }
   },
   hoard: {
@@ -6249,7 +6255,7 @@ export default {
       }
     },
     bark: {
-      hero: { cage: { 1: 'Có ai đang kêu cứu không?' }, hunt: { 1: 'Còn có người khác đang săn con quái thú đó.' }, levelUp: { 1: 'Mình mạnh hơn rồi!' } },
+      hero: { cage: { 1: 'Có ai đang kêu cứu không?' }, hunt: { 1: 'Còn có người khác đang săn con quái thú đó.' }, levelUp: { 1: 'Mình mạnh hơn rồi!' }, king: { 1: "Vua Goblin hẳn đang trốn ở đâu đó quanh đây!" }, gnomes: { 1: "Có lẽ mình giúp được vài người gnome nổi loạn." } },
       trainerPyro: { help: { 1: 'Cứu với, có ai không!' } },
       sbMasterSoulwarden: { help: { 1: 'Chúng tôi bị bắt cóc!' } },
       sbMasterIronmonk: { help: { 1: 'Quái vật! Cứu với!' } },
@@ -6327,7 +6333,8 @@ export default {
           '1': 'Cảm ơn đã cứu chúng ta khỏi lũ cướp! Lại bên đống lửa: tất cả sẽ dạy ngươi, bài học đầu miễn phí.'
         },
         road: { '1': 'Ngươi tìm thấy chúng ta rồi! Lũ quỷ bắt chúng ta trên đường tới Sunford. Chúng ta sẽ tới Ải Thành Lũy: hãy tìm chúng ta ở pháo đài.' },
-        next: { '1': 'Mara ở Sunford sẽ thưởng cho bạn vì đã cứu chúng tôi. Vua Goblin cũng phải bị ngăn chặn. Lựa chọn là của bạn.' }
+        next: { '1': 'Mara ở Sunford sẽ thưởng cho bạn vì đã cứu chúng tôi. Vua Goblin cũng phải bị ngăn chặn. Lựa chọn là của bạn.' },
+        wanted: { 1: "Nhìn kìa, có tiền thưởng cho Vua Goblin! Ai hạ được hắn sẽ giữ kho báu của hắn." }
       },
       sfShadow: {
         road: { '1': 'Cuối cùng cũng có người tới. Chúng ta đi Ải Thành Lũy đây. Tìm chúng ta ở pháo đài nhé.' }
@@ -7586,6 +7593,9 @@ export default {
     goblin: 'Goblin',
     goblinOverseer: 'Quản đốc Goblin',
     goblinSlinger: 'Goblin Ném Đá',
+    goblinShaman: "Pháp sư Goblin",
+    bombGoblin: "Goblin bom",
+    shieldBrute: "Lực sĩ khiên",
     bandit: 'Thổ Phỉ',
     banditArcher: 'Cung Thủ Thổ Phỉ',
     banditRaider: 'Cướp tấn công',

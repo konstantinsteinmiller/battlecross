@@ -412,11 +412,14 @@ export default {
       'freed': 'The diggers are free!'
     }
   },
+  'wanted': { 'title': "Wanted" },
+  'tusker': { 'hint': "Lure Tusker's charge into a rotten pillar!", 'crash': "The roof falls on the King!" },
   'assault': {
     'title': 'Siege of the Hollows\' Gate',
     'skipCut': 'Skip cutscene',
     'skip': 'Skip Siege',
     'goal': 'Break the gate: topple both towers',
+    'sally': "Hold the line! Guards left: {n}",
     'breach': 'The gate is open!',
     'towers': '{n} of {total} towers down',
     'hint': {
@@ -427,7 +430,10 @@ export default {
     },
     'toast': {
       'tower': 'A tower falls!',
-      'breach': 'The palisade is down. Into the Hollows!'
+      'breach': 'The palisade is down. Into the Hollows!',
+      'sally': "The gate swings open: the guards charge out!",
+      'held': "The line holds! The guards are beaten.",
+      'purse': "The guards' strongbox: +{gold} gold"
     }
   },
   'hoard': {
@@ -3824,7 +3830,7 @@ export default {
       }
     },
     'bark': {
-      'hero': { 'cage': { '1': 'Is there somebody screaming for help?' }, 'hunt': { '1': 'Someone else is hunting that beast.' }, 'levelUp': { '1': 'I got stronger!' } },
+      'hero': { 'cage': { '1': 'Is there somebody screaming for help?' }, 'hunt': { '1': 'Someone else is hunting that beast.' }, 'levelUp': { '1': 'I got stronger!' }, 'king': { '1': "The Goblin King must be hiding here somewhere!" }, 'gnomes': { '1': "Maybe I can help some of the rebelling gnomes." } },
       'trainerPyro': { 'help': { '1': 'Help! Anybody!' } },
       'sbMasterSoulwarden': { 'help': { '1': 'We were kidnapped!' } },
       'sbMasterIronmonk': { 'help': { '1': 'Monsters! Help!' } },
@@ -4023,7 +4029,8 @@ export default {
           '1': 'Thank you for freeing us from the bandits! Come to the fire: we\'ll all teach you, first lesson free.'
         },
         'road': { '1': 'You found us! The demons caught us on the Sunford road. We will make for Bastion Crossing: find us at the fort.' },
-        'next': { '1': 'Mara in Sunford will reward your kindness in saving us. The Goblin King must be stopped too. The choice is yours.' }
+        'next': { '1': 'Mara in Sunford will reward your kindness in saving us. The Goblin King must be stopped too. The choice is yours.' },
+        'wanted': { '1': "Look, a bounty on the Goblin King! Whoever brings him down keeps his hoard." }
       },
       'sfShadow': {
         'road': { '1': 'About time someone came. We are off to Bastion Crossing. Look for us at the fort.' }
@@ -4050,6 +4057,9 @@ export default {
     'goblin': 'Goblin',
     'goblinOverseer': 'Goblin Overseer',
     'goblinSlinger': 'Goblin Slinger',
+    'goblinShaman': "Goblin Shaman",
+    'bombGoblin': "Bomb Goblin",
+    'shieldBrute': "Shield Brute",
     'bandit': 'Bandit',
     'banditArcher': 'Bandit Archer',
     'banditRaider': 'Bandit Raider',

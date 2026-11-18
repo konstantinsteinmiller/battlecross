@@ -441,11 +441,14 @@ export default {
       freed: 'Az ásók szabadok!'
     }
   },
+  wanted: { title: "Körözött" },
+  tusker: { hint: "Csalogasd Tusker rohamát egy korhadt oszlopnak!", crash: "A tető rázuhan a Királyra!" },
   assault: {
     title: 'A Barlangok kapujának ostroma',
     skipCut: 'Jelenet kihagyása',
     skip: 'Ostrom kihagyása',
     goal: 'Törd be a kaput: döntsd le mindkét tornyot',
+    sally: "Tartsátok a vonalat! Hátralévő őrök: {n}",
     breach: 'A kapu nyitva áll!',
     towers: '{total} toronyból {n} ledőlt',
     hint: {
@@ -456,7 +459,10 @@ export default {
     },
     toast: {
       tower: 'Ledől egy torony!',
-      breach: 'A cölöpfal ledőlt. A Barlangokba!'
+      breach: 'A cölöpfal ledőlt. A Barlangokba!',
+      sally: "A kapu kitárul: az őrök rohamoznak!",
+      held: "A vonal kitart! Az őrök vereséget szenvedtek.",
+      purse: "Az őrök kincsesládája: +{gold} arany"
     }
   },
   hoard: {
@@ -6249,7 +6255,7 @@ export default {
       }
     },
     bark: {
-      hero: { cage: { 1: 'Valaki segítségért kiabál?' }, hunt: { 1: 'Valaki más is vadászik arra a fenevadra.' }, levelUp: { 1: 'Erősebb lettem!' } },
+      hero: { cage: { 1: 'Valaki segítségért kiabál?' }, hunt: { 1: 'Valaki más is vadászik arra a fenevadra.' }, levelUp: { 1: 'Erősebb lettem!' }, king: { 1: "A Goblinkirály itt bujkálhat valahol!" }, gnomes: { 1: "Talán segíthetek néhány lázadó gnómnak." } },
       trainerPyro: { help: { 1: 'Segítség, valaki!' } },
       sbMasterSoulwarden: { help: { 1: 'Elraboltak minket!' } },
       sbMasterIronmonk: { help: { 1: 'Szörnyek! Segítség!' } },
@@ -6327,7 +6333,8 @@ export default {
           '1': 'Köszönjük, hogy kiszabadítottál a banditáktól! Gyere a tűzhöz: mind tanítunk, az első lecke ingyenes.'
         },
         road: { '1': 'Megtaláltál minket! A démonok elkaptak a sunfordi úton. A Bástyagázlóhoz megyünk: keress minket az erődben.' },
-        next: { '1': 'Mara Sunfordban megjutalmaz a megmentésünkért. A Goblinkirályt is meg kell állítani. A döntés a tiéd.' }
+        next: { '1': 'Mara Sunfordban megjutalmaz a megmentésünkért. A Goblinkirályt is meg kell állítani. A döntés a tiéd.' },
+        wanted: { 1: "Nézd, vérdíj a Goblinkirályra! Aki leteríti, azé a kincse." }
       },
       sfShadow: {
         road: { '1': 'Ideje volt, hogy jöjjön valaki. Indulunk a Bástyagázlóhoz. Az erődben keress minket.' }
@@ -7586,6 +7593,9 @@ export default {
     goblin: 'Goblin',
     goblinOverseer: 'Goblin felügyelő',
     goblinSlinger: 'Goblin parittyás',
+    goblinShaman: "Goblin sámán",
+    bombGoblin: "Bombagoblin",
+    shieldBrute: "Pajzsos nyers",
     bandit: 'Bandita',
     banditArcher: 'Bandita íjász',
     banditRaider: 'Banditarabló',

@@ -441,11 +441,14 @@ export default {
       freed: 'Racēji ir brīvi!'
     }
   },
+  wanted: { title: "Meklēts" },
+  tusker: { hint: "Ievilini Taskera triecienu satrunējušā stabā!", crash: "Griesti sabrūk uz Karali!" },
   assault: {
     title: 'Alu vārtu aplenkums',
     skipCut: 'Izlaist ainu',
     skip: 'Izlaist aplenkumu',
     goal: 'Salauz vārtus: nogāz abus torņus',
+    sally: "Turiet līniju! Atlikušie sargi: {n}",
     breach: 'Vārti ir vaļā!',
     towers: 'Nogāzti {n} no {total} torņiem',
     hint: {
@@ -456,7 +459,10 @@ export default {
     },
     toast: {
       tower: 'Tornis krīt!',
-      breach: 'Palisāde ir kritusi. Alās iekšā!'
+      breach: 'Palisāde ir kritusi. Alās iekšā!',
+      sally: "Vārti atveras: sargi metas uzbrukumā!",
+      held: "Līnija izturēja! Sargi ir uzvarēti.",
+      purse: "Sargu lāde: +{gold} zelta"
     }
   },
   hoard: {
@@ -6321,7 +6327,7 @@ export default {
       }
     },
     bark: {
-      hero: { cage: { 1: 'Vai kāds sauc palīgā?' }, hunt: { 1: 'Vēl kāds medī to zvēru.' }, levelUp: { 1: 'Es kļuvu stiprāks!' } },
+      hero: { cage: { 1: 'Vai kāds sauc palīgā?' }, hunt: { 1: 'Vēl kāds medī to zvēru.' }, levelUp: { 1: 'Es kļuvu stiprāks!' }, king: { 1: "Goblinu karalim jābūt paslēpušamies kaut kur šeit!" }, gnomes: { 1: "Varbūt es varu palīdzēt dažiem dumpīgajiem rūķiem." } },
       trainerPyro: { help: { 1: 'Palīgā, vai kāds ir!' } },
       sbMasterSoulwarden: { help: { 1: 'Mūs nolaupīja!' } },
       sbMasterIronmonk: { help: { 1: 'Briesmoņi! Palīgā!' } },
@@ -6399,7 +6405,8 @@ export default {
           '1': 'Paldies, ka atbrīvoji mūs no laupītājiem! Nāc pie ugunskura: mēs visi tevi mācīsim, pirmā nodarbība par brīvu.'
         },
         road: { '1': 'Tu mūs atradi! Dēmoni mūs noķēra ceļā uz Sanfordu. Dodamies uz Bastiona braslu: meklē mūs cietoksnī.' },
-        next: { '1': 'Mara Sanfordā tevi apbalvos par mūsu glābšanu. Goblinu karali arī jāapturē. Izvēle ir tava.' }
+        next: { '1': 'Mara Sanfordā tevi apbalvos par mūsu glābšanu. Goblinu karali arī jāapturē. Izvēle ir tava.' },
+        wanted: { 1: "Paskaties, par Goblinu karali izsludināta balva! Kas viņu notriektu, paturēs viņa krājumu." }
       },
       sfShadow: {
         road: { '1': 'Beidzot kāds atnāca. Mēs dodamies uz Bastiona braslu. Meklē mūs cietoksnī.' }
@@ -7661,6 +7668,9 @@ export default {
     goblin: 'Goblins',
     goblinOverseer: 'Goblinu uzraugs',
     goblinSlinger: 'Goblins lingotājs',
+    goblinShaman: "Goblinu šamanis",
+    bombGoblin: "Bumbu goblins",
+    shieldBrute: "Vairoga brutālis",
     bandit: 'Laupītājs',
     banditArcher: 'Laupītājs loka šāvējs',
     banditRaider: 'Bandīts laupītājs',

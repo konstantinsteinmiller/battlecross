@@ -441,11 +441,14 @@ export default {
       freed: 'Para penggali sudah bebas!'
     }
   },
+  wanted: { title: "Dicari" },
+  tusker: { hint: "Pancing serudukan Tusker ke tiang yang lapuk!", crash: "Atap runtuh menimpa Sang Raja!" },
   assault: {
     title: 'Pengepungan gerbang Gua',
     skipCut: 'Lewati adegan',
     skip: 'Lewati pengepungan',
     goal: 'Hancurkan gerbang: robohkan kedua menara',
+    sally: "Tahan barisan! Penjaga tersisa: {n}",
     breach: 'Gerbang terbuka!',
     towers: '{n} dari {total} menara runtuh',
     hint: {
@@ -456,7 +459,10 @@ export default {
     },
     toast: {
       tower: 'Sebuah menara runtuh!',
-      breach: 'Pagar kayu roboh. Masuk ke Gua!'
+      breach: 'Pagar kayu roboh. Masuk ke Gua!',
+      sally: "Gerbang terbuka: para penjaga menyerbu keluar!",
+      held: "Barisan bertahan! Para penjaga dikalahkan.",
+      purse: "Peti para penjaga: +{gold} emas"
     }
   },
   hoard: {
@@ -6249,7 +6255,7 @@ export default {
       }
     },
     bark: {
-      hero: { cage: { 1: 'Ada yang berteriak minta tolong?' }, hunt: { 1: 'Ada orang lain yang memburu binatang buas itu.' }, levelUp: { 1: 'Aku jadi lebih kuat!' } },
+      hero: { cage: { 1: 'Ada yang berteriak minta tolong?' }, hunt: { 1: 'Ada orang lain yang memburu binatang buas itu.' }, levelUp: { 1: 'Aku jadi lebih kuat!' }, king: { 1: "Raja Goblin pasti bersembunyi di sekitar sini!" }, gnomes: { 1: "Mungkin aku bisa membantu beberapa gnome yang memberontak." } },
       trainerPyro: { help: { 1: 'Tolong, siapa saja!' } },
       sbMasterSoulwarden: { help: { 1: 'Kami diculik!' } },
       sbMasterIronmonk: { help: { 1: 'Monster! Tolong!' } },
@@ -6327,7 +6333,8 @@ export default {
           '1': 'Terima kasih telah membebaskan kami dari bandit! Ke api unggun: kami semua mengajarimu, pelajaran pertama gratis.'
         },
         road: { '1': 'Kau menemukan kami! Para iblis menangkap kami di jalan ke Sunford. Kami akan pergi ke Penyeberangan Benteng: temui kami di benteng.' },
-        next: { '1': 'Mara di Sunford akan memberimu hadiah karena menyelamatkan kami. Raja Goblin juga harus dihentikan. Pilihan ada di tanganmu.' }
+        next: { '1': 'Mara di Sunford akan memberimu hadiah karena menyelamatkan kami. Raja Goblin juga harus dihentikan. Pilihan ada di tanganmu.' },
+        wanted: { 1: "Lihat, ada sayembara untuk Raja Goblin! Siapa yang menjatuhkannya, menyimpan hartanya." }
       },
       sfShadow: {
         road: { '1': 'Akhirnya ada yang datang. Kami berangkat ke Penyeberangan Benteng. Cari kami di benteng.' }
@@ -7586,6 +7593,9 @@ export default {
     goblin: 'Goblin',
     goblinOverseer: 'Mandor Goblin',
     goblinSlinger: 'Goblin Pengumban',
+    goblinShaman: "Dukun Goblin",
+    bombGoblin: "Goblin Bom",
+    shieldBrute: "Brutal Berperisai",
     bandit: 'Bandit',
     banditArcher: 'Bandit Pemanah',
     banditRaider: 'Perampok Bandit',

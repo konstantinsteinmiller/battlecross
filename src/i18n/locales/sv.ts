@@ -441,11 +441,14 @@ export default {
       freed: 'Grävarna är fria!'
     }
   },
+  wanted: { title: "Efterlyst" },
+  tusker: { hint: "Locka Tuskers anfall in i en murken pelare!", crash: "Taket störtar ner över kungen!" },
   assault: {
     title: 'Belägringen av Grottornas port',
     skipCut: 'Hoppa över scenen',
     skip: 'Hoppa över belägringen',
     goal: 'Bryt porten: fäll båda tornen',
+    sally: "Håll linjen! Vakter kvar: {n}",
     breach: 'Porten är öppen!',
     towers: '{n} av {total} torn har fallit',
     hint: {
@@ -456,7 +459,10 @@ export default {
     },
     toast: {
       tower: 'Ett torn faller!',
-      breach: 'Palissaden har fallit. In i Grottorna!'
+      breach: 'Palissaden har fallit. In i Grottorna!',
+      sally: "Porten svänger upp: vakterna stormar ut!",
+      held: "Linjen håller! Vakterna är slagna.",
+      purse: "Vakternas kista: +{gold} guld"
     }
   },
   hoard: {
@@ -6249,7 +6255,7 @@ export default {
       }
     },
     bark: {
-      hero: { cage: { 1: 'Är det någon som skriker på hjälp?' }, hunt: { 1: 'Någon annan jagar också det odjuret.' }, levelUp: { 1: 'Jag blev starkare!' } },
+      hero: { cage: { 1: 'Är det någon som skriker på hjälp?' }, hunt: { 1: 'Någon annan jagar också det odjuret.' }, levelUp: { 1: 'Jag blev starkare!' }, king: { 1: "Goblinkungen måste gömma sig här någonstans!" }, gnomes: { 1: "Kanske kan jag hjälpa några av de upproriska gnomerna." } },
       trainerPyro: { help: { 1: 'Hjälp, någon!' } },
       sbMasterSoulwarden: { help: { 1: 'Vi blev kidnappade!' } },
       sbMasterIronmonk: { help: { 1: 'Monster! Hjälp!' } },
@@ -6327,7 +6333,8 @@ export default {
           '1': 'Tack för att du befriade oss från banditerna! Kom till elden: vi lär dig alla, första lektionen är gratis.'
         },
         road: { '1': 'Du hittade oss! Demonerna fångade oss på vägen till Sunford. Vi beger oss till Bastionsvadet: hitta oss i fortet.' },
-        next: { '1': 'Mara i Sunford belönar dig för att du räddade oss. Goblinkungen måste också stoppas. Valet är ditt.' }
+        next: { '1': 'Mara i Sunford belönar dig för att du räddade oss. Goblinkungen måste också stoppas. Valet är ditt.' },
+        wanted: { 1: "Titta, en dusör på Goblinkungen! Den som fäller honom behåller hans skatt." }
       },
       sfShadow: {
         road: { '1': 'Det var på tiden att någon kom. Vi drar till Bastionsvadet. Leta efter oss i fortet.' }
@@ -7586,6 +7593,9 @@ export default {
     goblin: 'Goblin',
     goblinOverseer: 'Goblinuppsyningsman',
     goblinSlinger: 'Goblinslungare',
+    goblinShaman: "Goblinshaman",
+    bombGoblin: "Bombgoblin",
+    shieldBrute: "Sköldbrutus",
     bandit: 'Bandit',
     banditArcher: 'Banditbågskytt',
     banditRaider: 'Banditplundrare',

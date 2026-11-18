@@ -441,11 +441,14 @@ export default {
       freed: 'Kaivajat ovat vapaita!'
     }
   },
+  wanted: { title: "Etsintäkuulutettu" },
+  tusker: { hint: "Houkuttele Tuskerin rynnäkkö lahoon pylvääseen!", crash: "Katto romahtaa kuninkaan niskaan!" },
   assault: {
     title: 'Luolien portin piiritys',
     skipCut: 'Ohita kohtaus',
     skip: 'Ohita piiritys',
     goal: 'Murra portti: kaada molemmat tornit',
+    sally: "Pitäkää linja! Vartijoita jäljellä: {n}",
     breach: 'Portti on auki!',
     towers: '{n}/{total} tornia kaatunut',
     hint: {
@@ -456,7 +459,10 @@ export default {
     },
     toast: {
       tower: 'Torni kaatuu!',
-      breach: 'Paalutus on kaatunut. Luoliin!'
+      breach: 'Paalutus on kaatunut. Luoliin!',
+      sally: "Portti aukeaa: vartijat syöksyvät ulos!",
+      held: "Linja pitää! Vartijat on lyöty.",
+      purse: "Vartijoiden aarrearkku: +{gold} kultaa"
     }
   },
   hoard: {
@@ -6249,7 +6255,7 @@ export default {
       }
     },
     bark: {
-      hero: { cage: { 1: 'Huutaako joku apua?' }, hunt: { 1: 'Joku muukin metsästää tuota petoa.' }, levelUp: { 1: 'Vahvistuin!' } },
+      hero: { cage: { 1: 'Huutaako joku apua?' }, hunt: { 1: 'Joku muukin metsästää tuota petoa.' }, levelUp: { 1: 'Vahvistuin!' }, king: { 1: "Hiisikuninkaan täytyy piileskellä täällä jossakin!" }, gnomes: { 1: "Ehkä voin auttaa joitakin kapinoivista kääpiöistä." } },
       trainerPyro: { help: { 1: 'Apua, joku!' } },
       sbMasterSoulwarden: { help: { 1: 'Meidät kidnapattiin!' } },
       sbMasterIronmonk: { help: { 1: 'Hirviöitä! Apua!' } },
@@ -6327,7 +6333,8 @@ export default {
           '1': 'Kiitos, että vapautit meidät rosvoilta! Tule nuotiolle: opetamme sinua kaikki, ensimmäinen oppitunti ilmaiseksi.'
         },
         road: { '1': 'Löysit meidät! Demonit nappasivat meidät Sunfordin tiellä. Lähdemme Bastionin ylityspaikalle: etsi meidät linnakkeesta.' },
-        next: { '1': 'Mara Sunfordissa palkitsee sinut pelastuksestamme. Hiisikuningas on myös pysäytettävä. Valinta on sinun.' }
+        next: { '1': 'Mara Sunfordissa palkitsee sinut pelastuksestamme. Hiisikuningas on myös pysäytettävä. Valinta on sinun.' },
+        wanted: { 1: "Katso, Hiisikuninkaasta on luvattu palkkio! Se, joka kaataa hänet, saa pitää hänen aarteensa." }
       },
       sfShadow: {
         road: { '1': 'Olipa jo aikakin, että joku tuli. Lähdemme Bastionin ylityspaikalle. Etsi meitä linnakkeesta.' }
@@ -7586,6 +7593,9 @@ export default {
     goblin: 'Hiisi',
     goblinOverseer: 'Maahisen valvoja',
     goblinSlinger: 'Linkohiisi',
+    goblinShaman: "Hiisishamaani",
+    bombGoblin: "Pommihiisi",
+    shieldBrute: "Kilpiraakki",
     bandit: 'Rosvo',
     banditArcher: 'Rosvojousimies',
     banditRaider: 'Rosvo-ryöstäjä',

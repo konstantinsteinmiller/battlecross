@@ -859,3 +859,11 @@ The demo/unlock is built (`app-store-submission.md`, "In-App Purchase") but was 
 ### German ElevenLabs voice-over (#219)
 
 All 1,612 German lines are voiced with ElevenLabs. Seven of them (frostDisciple.hello.2, the two class.say lines, windrunner bye, wanderer trial, Silverbridge bridge.2, Aether fight) shipped with the Whisper read-back switched off: it misheard names or wanted a longer pause. Nothing was listened to by ear: please listen to a few German scenes, and to those seven.
+
+### Voice core cap raised to 369 (#EXT-8)
+
+The knight's new line ("Look, a bounty on the Goblin King…", `dlg.bark.trainerAegis.wanted.1`) is a `dlg.bark.` line, so it is on the core list and voiced in all eight languages. That took the core list from 366 to 369; `max` in `data/voice-core.json` was raised to match. Decide whether to keep it or trim another bark.
+
+### Voice core cap raised to 373 (#224)
+
+The hero's two Hollows thoughts (`dlg.bark.hero.king.1`, `dlg.bark.hero.gnomes.1`, hero and heroine twins) are `dlg.bark.` lines, so they join the core list: 369 to 373, and `max` in `data/voice-core.json` follows. Keep it or trim a bark.

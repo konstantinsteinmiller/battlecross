@@ -442,11 +442,14 @@ export default {
       freed: 'Gli scavatori sono liberi!'
     }
   },
+  wanted: { title: "Ricercato" },
+  tusker: { hint: "Attira la carica di Tusker contro un pilastro marcio!", crash: "Il soffitto crolla sul Re!" },
   assault: {
     title: 'Assedio alla porta delle Grotte',
     skipCut: 'Salta la scena',
     skip: 'Salta l\'assedio',
     goal: 'Sfonda la porta: abbatti entrambe le torri',
+    sally: "Tenete la linea! Guardie rimaste: {n}",
     breach: 'La porta è aperta!',
     towers: '{n} torri su {total} abbattute',
     hint: {
@@ -457,7 +460,10 @@ export default {
     },
     toast: {
       tower: 'Una torre crolla!',
-      breach: 'La palizzata è caduta. Nelle Grotte!'
+      breach: 'La palizzata è caduta. Nelle Grotte!',
+      sally: "Il cancello si apre: le guardie caricano!",
+      held: "La linea tiene! Le guardie sono sconfitte.",
+      purse: "Lo scrigno delle guardie: +{gold} oro"
     }
   },
   hoard: {
@@ -6329,7 +6335,7 @@ export default {
       }
     },
     bark: {
-      hero: { cage: { 1: 'Qualcuno sta gridando aiuto?' }, hunt: { 1: 'Qualcun altro sta dando la caccia a quella bestia.' }, levelUp: { 1: 'Sono diventato più forte!' } },
+      hero: { cage: { 1: 'Qualcuno sta gridando aiuto?' }, hunt: { 1: 'Qualcun altro sta dando la caccia a quella bestia.' }, levelUp: { 1: 'Sono diventato più forte!' }, king: { 1: "Il Re dei Goblin deve nascondersi qui da qualche parte!" }, gnomes: { 1: "Forse posso aiutare alcuni dei gnomi ribelli." } },
       trainerPyro: { help: { 1: 'Aiuto, c’è qualcuno?' } },
       sbMasterSoulwarden: { help: { 1: 'Siamo stati rapiti!' } },
       sbMasterIronmonk: { help: { 1: 'Mostri! Aiuto!' } },
@@ -6407,7 +6413,8 @@ export default {
           '1': 'Grazie per averci liberati dai banditi! Vieni accanto al fuoco: ti insegneremo tutti, la prima lezione è gratis.'
         },
         road: { '1': 'Ci hai trovati! I demoni ci hanno presi sulla strada per Sunford. Andiamo al Guado del Bastione: cercaci al forte.' },
-        next: { '1': 'Mara, a Sunford, ti ricompenserà per averci salvati. Anche il Re Goblin va fermato. La scelta è tua.' }
+        next: { '1': 'Mara, a Sunford, ti ricompenserà per averci salvati. Anche il Re Goblin va fermato. La scelta è tua.' },
+        wanted: { 1: "Guarda, una taglia sul Re dei Goblin! Chi lo abbatte si tiene il suo tesoro." }
       },
       sfShadow: {
         road: { '1': 'Era ora che arrivasse qualcuno. Partiamo per il Guado del Bastione. Cercaci al forte.' }
@@ -7668,6 +7675,9 @@ export default {
     goblin: 'Goblin',
     goblinOverseer: 'Sorvegliante goblin',
     goblinSlinger: 'Goblin fromboliere',
+    goblinShaman: "Sciamano goblin",
+    bombGoblin: "Goblin bomba",
+    shieldBrute: "Bruto scudato",
     bandit: 'Bandito',
     banditArcher: 'Arciere bandito',
     banditRaider: 'Bandito predone',

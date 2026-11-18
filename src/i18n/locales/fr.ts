@@ -442,11 +442,14 @@ export default {
       freed: 'Les mineurs sont libres !'
     }
   },
+  wanted: { title: "Recherché" },
+  tusker: { hint: "Attire la charge de Tusker dans un pilier pourri !", crash: "Le plafond s’effondre sur le Roi !" },
   assault: {
     title: 'Siège de la porte des Cavernes',
     skipCut: 'Passer la scène',
     skip: 'Passer le siège',
     goal: 'Brise la porte : abats les deux tours',
+    sally: "Tenez la ligne ! Gardes restants : {n}",
     breach: 'La porte est ouverte !',
     towers: '{n} tour(s) sur {total} abattue(s)',
     hint: {
@@ -457,7 +460,10 @@ export default {
     },
     toast: {
       tower: 'Une tour s\'effondre !',
-      breach: 'La palissade est tombée. Dans les Cavernes !'
+      breach: 'La palissade est tombée. Dans les Cavernes !',
+      sally: "La porte s’ouvre : les gardes chargent !",
+      held: "La ligne tient ! Les gardes sont vaincus.",
+      purse: "Le coffre des gardes : +{gold} or"
     }
   },
   hoard: {
@@ -6298,7 +6304,7 @@ export default {
       }
     },
     bark: {
-      hero: { cage: { 1: 'Quelqu’un crie à l’aide ?' }, hunt: { 1: 'Quelqu’un d’autre traque cette bête.' }, levelUp: { 1: 'Je suis devenu plus fort !' } },
+      hero: { cage: { 1: 'Quelqu’un crie à l’aide ?' }, hunt: { 1: 'Quelqu’un d’autre traque cette bête.' }, levelUp: { 1: 'Je suis devenu plus fort !' }, king: { 1: "Le Roi Gobelin doit se cacher quelque part par ici !" }, gnomes: { 1: "Je peux peut-être aider quelques-uns des gnomes rebelles." } },
       trainerPyro: { help: { 1: 'À l’aide, quelqu’un !' } },
       sbMasterSoulwarden: { help: { 1: 'On nous a enlevés !' } },
       sbMasterIronmonk: { help: { 1: 'Des monstres ! Au secours !' } },
@@ -6376,7 +6382,8 @@ export default {
           '1': 'Merci de nous avoir délivrés des bandits ! Viens près du feu : nous t\'apprendrons tous, première leçon offerte.'
         },
         road: { '1': 'Tu nous as trouvés ! Les démons nous ont pris sur la route de Sunford. Nous partons pour Gué-du-Bastion : retrouve-nous au fort.' },
-        next: { '1': 'Mara, à Sunford, te récompensera de nous avoir sauvés. Le Roi gobelin doit aussi être arrêté. À toi de choisir.' }
+        next: { '1': 'Mara, à Sunford, te récompensera de nous avoir sauvés. Le Roi gobelin doit aussi être arrêté. À toi de choisir.' },
+        wanted: { 1: "Regarde, une prime sur le Roi Gobelin ! Celui qui l’abat garde son trésor." }
       },
       sfShadow: {
         road: { '1': 'Il était temps que quelqu’un vienne. Nous filons à Gué-du-Bastion. Cherche-nous au fort.' }
@@ -7637,6 +7644,9 @@ export default {
     goblin: 'Gobelin',
     goblinOverseer: 'Contremaître gobelin',
     goblinSlinger: 'Gobelin frondeur',
+    goblinShaman: "Chaman gobelin",
+    bombGoblin: "Gobelin bombe",
+    shieldBrute: "Brute au bouclier",
     bandit: 'Bandit',
     banditArcher: 'Archer bandit',
     banditRaider: 'Bandit pillard',

@@ -442,11 +442,14 @@ export default {
       freed: 'Os escavadores estão livres!'
     }
   },
+  wanted: { title: "Procurado" },
+  tusker: { hint: "Atraia a investida de Tusker para um pilar podre!", crash: "O teto desaba sobre o Rei!" },
   assault: {
     title: 'Cerco ao portão das Cavernas',
     skipCut: 'Pular cena',
     skip: 'Pular cerco',
     goal: 'Arrebente o portão: derrube as duas torres',
+    sally: "Segurem a linha! Guardas restantes: {n}",
     breach: 'O portão está aberto!',
     towers: '{n} de {total} torres caíram',
     hint: {
@@ -457,7 +460,10 @@ export default {
     },
     toast: {
       tower: 'Uma torre cai!',
-      breach: 'A paliçada caiu. Para as Cavernas!'
+      breach: 'A paliçada caiu. Para as Cavernas!',
+      sally: "O portão se abre: os guardas atacam!",
+      held: "A linha resiste! Os guardas foram derrotados.",
+      purse: "O baú dos guardas: +{gold} de ouro"
     }
   },
   hoard: {
@@ -6304,7 +6310,7 @@ export default {
       }
     },
     bark: {
-      hero: { cage: { 1: 'Alguém está gritando por ajuda?' }, hunt: { 1: 'Mais alguém está caçando aquela fera.' }, levelUp: { 1: 'Fiquei mais forte!' } },
+      hero: { cage: { 1: 'Alguém está gritando por ajuda?' }, hunt: { 1: 'Mais alguém está caçando aquela fera.' }, levelUp: { 1: 'Fiquei mais forte!' }, king: { 1: "O Rei Goblin deve estar escondido por aqui!" }, gnomes: { 1: "Talvez eu possa ajudar alguns dos gnomos rebeldes." } },
       trainerPyro: { help: { 1: 'Socorro, alguém!' } },
       sbMasterSoulwarden: { help: { 1: 'Fomos sequestrados!' } },
       sbMasterIronmonk: { help: { 1: 'Monstros! Socorro!' } },
@@ -6382,7 +6388,8 @@ export default {
           '1': 'Obrigado por nos libertar dos bandidos! Venha para a fogueira: todos vamos te ensinar, a primeira lição é grátis.'
         },
         road: { '1': 'Você nos encontrou! Os demônios nos pegaram na estrada de Sunford. Vamos para o Passo do Bastião: procure-nos no forte.' },
-        next: { '1': 'A Mara, em Sunford, vai te recompensar por nos salvar. O Rei Goblin também precisa ser detido. A escolha é sua.' }
+        next: { '1': 'A Mara, em Sunford, vai te recompensar por nos salvar. O Rei Goblin também precisa ser detido. A escolha é sua.' },
+        wanted: { 1: "Olha, uma recompensa pelo Rei Goblin! Quem derrubá-lo fica com o tesouro dele." }
       },
       sfShadow: {
         road: { '1': 'Já não era sem tempo. Estamos indo para o Passo do Bastião. Procure-nos no forte.' }
@@ -7643,6 +7650,9 @@ export default {
     goblin: 'Goblin',
     goblinOverseer: 'Capataz goblin',
     goblinSlinger: 'Goblin fundeiro',
+    goblinShaman: "Xamã goblin",
+    bombGoblin: "Goblin bomba",
+    shieldBrute: "Bruto do escudo",
     bandit: 'Bandido',
     banditArcher: 'Arqueiro bandido',
     banditRaider: 'Bandido assaltante',
