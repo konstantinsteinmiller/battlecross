@@ -21797,6 +21797,40 @@
       ]
     },
     {
+      "id": "single-ui-wanted",
+      "kind": "single",
+      "title": "UI: the Goblin King wanted poster",
+      "files": {
+        "clean": "single-ui-wanted.png",
+        "key": "single-ui-wanted-key.png"
+      },
+      "width": 256,
+      "height": 256,
+      "cols": 1,
+      "rows": 1,
+      "maxEdge": 384,
+      "crop": 1,
+      "anchor": "centre",
+      "cells": [
+        {
+          "id": "wanted",
+          "label": "Wanted poster",
+          "variant": "ui",
+          "x": 0,
+          "y": 0,
+          "w": 256,
+          "h": 256,
+          "target": "images/ui/wanted.webp",
+          "fit": {
+            "h": 0.84,
+            "w": 0.617,
+            "bottom": 0.918,
+            "cx": 0.5
+          }
+        }
+      ]
+    },
+    {
       "id": "single-logo-emblem",
       "kind": "single",
       "title": "Logo: the badge (swords behind a shield)",

@@ -10,6 +10,8 @@
     CoachLayer(v-if="(flow.screen === 'zone' || flow.screen === 'town') && !flow.modal && !flow.talk && !isAnyModalOpen && !celebrateHud.active")
     //- The colosseum's announcement: the wave, the next prize, a milestone (#117).
     ArenaBanner(v-if="flow.screen === 'zone' && flow.node === 'arena' && !flow.modal")
+    //- The Goblin King's wanted poster, pinned up in the teachers' camp (#EXT-8).
+    WantedPoster(v-if="flow.screen === 'zone'")
     //- The siege (afterplay §8): the gate, the wave, the build phase's defences.
     SiegeHud(v-if="flow.screen === 'zone' && siegeHud.active")
     //- The besieged gate before the Hollows (roadmap #204): the cutscene's bars and skip, the goal, the hints, Skip Siege.
@@ -78,6 +80,7 @@ import { isAnyModalOpen } from '@/use/useModalState'
 const OverheardLayer = defineAsyncComponent(SCREEN_CHUNKS.overheard)
 import ChestPrompt from './ChestPrompt.vue'
 import ArenaBanner from './ArenaBanner.vue'
+import WantedPoster from './WantedPoster.vue'
 import SiegeHud from './SiegeHud.vue'
 import AssaultHud from './AssaultHud.vue'
 import CelebrateHud from './CelebrateHud.vue'

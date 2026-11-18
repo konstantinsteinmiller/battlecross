@@ -4,7 +4,7 @@ A report, not a contract: it is a picture of `art-sheets/painted/` and the
 slicer's receipt at the moment it was written. Re-run `pnpm art:prompts`
 after painting or slicing anything.
 
-**157 sliced · 1 need a repaint · 2 painted, unreceipted · 1 outstanding**
+**157 sliced · 1 need a repaint · 2 painted, unreceipted · 2 outstanding**
 
 | | Sheet | Prompt block in | Reference | State |
 | --- | --- | --- | --- | --- |
@@ -150,6 +150,7 @@ after painting or slicing anything.
 | · | **Map landmarks: the burned towns** | `PROMPTS-MAP.md` | `sheet-landmarks-ruins.png` (rev `a493b7d264ce`) | not painted yet |
 | ✓ | **UI: the gold coin** | `PROMPTS-UI.md` | `single-ui-coin.png` (rev `f360573d2c98`) | sliced 2026-10-18 |
 | ✓ | **UI: the wooden cup** | `PROMPTS-UI.md` | `single-ui-cup.png` (rev `39883c69d4e5`) | sliced 2026-10-18 |
+| · | **UI: the Goblin King wanted poster** | `PROMPTS-UI.md` | `single-ui-wanted.png` (rev `527ae12ab72c`) | not painted yet |
 | ✓ | **Logo: the badge (swords behind a shield)** | `PROMPTS-UI.md` | `single-logo-emblem.png` (rev `36585e1bbec8`) | sliced 2026-10-18 |
 | ✓ | **Logo: the mascot (the hero)** | `PROMPTS-UI.md` | `single-logo-mascot.png` (rev `4924603fb50a`) | sliced 2026-10-18 |
 | ✓ | **Logo: the wordmark (the pick)** | `PROMPTS-UI.md` | `single-logo-wordmark.png` (rev `3c04e7ce9c37`) | sliced 2026-10-18 |

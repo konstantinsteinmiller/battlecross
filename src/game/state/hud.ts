@@ -51,6 +51,8 @@ export const hud = shallowReactive({
   potions: 0,
   potionsMax: 0,
   potionReady: true,
+  /** The Goblin King's wanted poster (#EXT-8): its id changes each time it is pinned up (0: none yet). */
+  wanted: 0,
   /** The opening fight's potion stop (#154): the world waits for a drink; an arrow bounces on the flask. */
   potionStop: false,
   /** The tutorial's dodge stop: the world waits for the dodge roll while the first charge winds up; its button is lit. */

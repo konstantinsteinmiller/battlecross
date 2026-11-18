@@ -358,7 +358,7 @@ describe('the manifest covers the game', () => {
       const bars = s.id.startsWith('sheet-ui-bar-frame-') ? 1024 : null
       // The map's landmarks are shown over 1.25 x a 120-unit box, up to ~190 css px: 384 (`exact`), still a downsample of a 4:3 return.
       const landmark = s.id.startsWith('sheet-landmarks-') ? 384 : null
-      expect(s.maxEdge, s.id).toBe(landmark ?? brand ?? bars ?? icon ?? (s.id.startsWith('sheet-portraits') ? 256 : s.id === 'single-ui-coin' ? 64 : s.id === 'single-ui-cup' ? 256 : 192))
+      expect(s.maxEdge, s.id).toBe(landmark ?? brand ?? bars ?? icon ?? (s.id.startsWith('sheet-portraits') ? 256 : s.id === 'single-ui-coin' ? 64 : s.id === 'single-ui-cup' ? 256 : s.id === 'single-ui-wanted' ? 384 : 192))
       expect(!!s.exact, s.id).toBe(brand !== null || bars !== null || landmark !== null)
     }
   })

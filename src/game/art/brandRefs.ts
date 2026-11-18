@@ -126,5 +126,39 @@ export const CUP_SVG = [
   '</svg>'
 ].join('')
 
+// ─── The wanted poster (#EXT-8) ───────────────────────────────────────────
+//
+// The Goblin King's bounty, pinned up in the teachers' camp: a tall sheet of parchment, a nail at each top corner, two
+// empty bands (the title above and the reward below, written over it in code, so the painting leaves them blank) and, in a
+// frame between them, the King's grinning green face under a jagged gold crown, a boar's tusks curling up beside him.
+// It is also the drawing the camp's card shows until `images/ui/wanted.webp` is painted.
+
+const WANTED_INK = '#2a1a0c'
+export const WANTED_SVG = [
+  '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" stroke-linejoin="round" stroke-linecap="round">',
+  // The sheet, a little torn along the foot.
+  `<path d="M19 6H81L83 20L81 36L83 52L81 68L83 84L80 96L70 92L60 97L50 92L40 97L30 92L20 96L17 84L19 68L17 52L19 36L17 20Z" fill="#ead6a2" stroke="${WANTED_INK}" stroke-width="3"/>`,
+  '<path d="M23 10H77" stroke="#c9ad6e" stroke-width="1.2" fill="none"/>',
+  // Two nails.
+  `<circle cx="25" cy="12" r="2.6" fill="#8f98a8" stroke="${WANTED_INK}" stroke-width="1.6"/><circle cx="75" cy="12" r="2.6" fill="#8f98a8" stroke="${WANTED_INK}" stroke-width="1.6"/>`,
+  // The title's band (blank) and the reward's band (blank).
+  `<rect x="27" y="17" width="46" height="11" rx="2" fill="#d9bd82" stroke="${WANTED_INK}" stroke-width="1.6"/>`,
+  `<rect x="27" y="77" width="46" height="11" rx="2" fill="#d9bd82" stroke="${WANTED_INK}" stroke-width="1.6"/>`,
+  // The picture's frame, and its dusty ground.
+  `<rect x="27" y="31" width="46" height="43" rx="2" fill="#f4e6bd" stroke="${WANTED_INK}" stroke-width="2.2"/>`,
+  // The King: a broad green head with a heavy brow, two yellow eyes, a wide grin of teeth.
+  `<path d="M50 38C61 38 66 46 65 55C64 64 58 70 50 70C42 70 36 64 35 55C34 46 39 38 50 38Z" fill="#6fae3c" stroke="${WANTED_INK}" stroke-width="2.4"/>`,
+  `<path d="M38 46Q44 42 49 47M62 46Q56 42 51 47" stroke="${WANTED_INK}" stroke-width="2.2" fill="none"/>`,
+  `<circle cx="44" cy="50" r="2.6" fill="#ffd84a" stroke="${WANTED_INK}" stroke-width="1.2"/><circle cx="56" cy="50" r="2.6" fill="#ffd84a" stroke="${WANTED_INK}" stroke-width="1.2"/>`,
+  `<path d="M40 60Q50 68 60 60" fill="#fff6dc" stroke="${WANTED_INK}" stroke-width="2"/>`,
+  '<path d="M44 62L45 65M48 63.500L48.500 66.500M52 63.500L51.500 66.500M56 62L55 65" stroke="#2a1a0c" stroke-width="1.2" fill="none"/>',
+  // The jagged gold crown.
+  `<path d="M38 40L40 31L45 37L50 29L55 37L60 31L62 40Z" fill="#ffd84a" stroke="${WANTED_INK}" stroke-width="2.2"/>`,
+  '<circle cx="50" cy="35" r="1.800" fill="#d6452a"/>',
+  // The boar's tusks, one each side of the King.
+  `<path d="M31 70Q27 60 33 54Q31 62 36 68Z" fill="#fff6dc" stroke="${WANTED_INK}" stroke-width="1.800"/><path d="M69 70Q73 60 67 54Q69 62 64 68Z" fill="#fff6dc" stroke="${WANTED_INK}" stroke-width="1.800"/>`,
+  '</svg>'
+].join('')
+
 /** By the id the manifest names in a panel's `glyph`. */
-export const BRAND_REFS: Readonly<Record<string, string>> = { emblem: EMBLEM_SVG, mascot: MASCOT_POSE_SVG, 'logo-d': LOGO_D_SVG, cup: CUP_SVG, ...ORNAMENT_REFS, ...BAR_FRAME_REFS }
+export const BRAND_REFS: Readonly<Record<string, string>> = { emblem: EMBLEM_SVG, mascot: MASCOT_POSE_SVG, 'logo-d': LOGO_D_SVG, cup: CUP_SVG, wanted: WANTED_SVG, ...ORNAMENT_REFS, ...BAR_FRAME_REFS }

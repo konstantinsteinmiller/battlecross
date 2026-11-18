@@ -102,7 +102,7 @@ export const ART_CATALOGUE: Readonly<Record<ArtKind, readonly string[]>> = {
   skills: CLASS_IDS.flatMap(c => [...skillsOf(c), ...endgameOf(c)].map(s => s.id)),
   portraits: [...TOWN_LOOKS, ...TRAINER_LOOKS, ...MASTER_LOOKS_A, ...MASTER_LOOKS_B, ...SPEAKER_LOOKS, ...PEOPLE_LOOKS_A, ...PEOPLE_LOOKS_B, ...PEOPLE_LOOKS_C, ...PEOPLE_LOOKS_D, ...PEOPLE_LOOKS_E, ...PEOPLE_LOOKS_F, ...HERO_LOOKS, ...HERO_F_LOOKS],
   // ... and the border-inset ornaments of the cel interface (`ORNAMENTS`).
-  ui: ['coin', 'cup', 'map', 'bg-trade', 'bg-inventory', 'bg-skills', 'bg-forge', 'bg-alchemy', 'bg-ore', ...ORNAMENTS.map(o => o.id), ...Object.keys(BAR_FRAME_REFS)],
+  ui: ['coin', 'cup', 'wanted', 'map', 'bg-trade', 'bg-inventory', 'bg-skills', 'bg-forge', 'bg-alchemy', 'bg-ore', ...ORNAMENTS.map(o => o.id), ...Object.keys(BAR_FRAME_REFS)],
   textures: ['ground'],
   // Defined below with their sheets (`ICON_CELLS`); a getter, because the
   // cells are built after this table.
@@ -1411,6 +1411,11 @@ export const SINGLES: readonly ArtSet[] = [
   {
     stem: 'single-ui-cup', title: 'UI: the wooden cup', kind: 'ui', doc: 'PROMPTS-UI.md', cols: 1, rows: 1, maxEdge: 256, crop: 1, anchor: 'centre',
     cells: [{ id: 'cup', draw: 'svg', glyph: 'cup', label: 'Wooden cup', target: artTarget('ui', 'cup'), tint: '#b9793a', tintName: 'warm wood brown', blurb: 'a wooden shell-game cup seen from the side, standing upside down on the table: a tapered tumbler, narrow flat closed base on top and the wide open rim at the bottom, built of vertical wooden staves with visible wood grain and plank seams, two dark grey iron hoop bands around it and a lighter turned wooden disc on top; the broad middle between the hoops is plain wood with NO number, NO letters and NO marking' }]
+  },
+  // The Goblin King's wanted poster (#EXT-8): the card in the teachers' camp. The title and the reward are the card's own text.
+  {
+    stem: 'single-ui-wanted', title: 'UI: the Goblin King wanted poster', kind: 'ui', doc: 'PROMPTS-UI.md', cols: 1, rows: 1, maxEdge: 384, crop: 1, anchor: 'centre',
+    cells: [{ id: 'wanted', draw: 'svg', glyph: 'wanted', label: 'Wanted poster', target: artTarget('ui', 'wanted'), tint: '#6fae3c', tintName: 'goblin green', blurb: 'a tall WANTED poster painted like the rest of the game: aged cream parchment with visible paper fibre, soft brown stains, scuffed and slightly ragged edges and a nail through each top corner; an empty darker parchment band across the top and another across the bottom (NO letters, NO numbers, NO writing anywhere, both bands completely plain), and between them a dark-inked frame holding the painted portrait of the Goblin King exactly as the reference shows him: a broad green face with a heavy scowling brow, yellow eyes, big pointed ears, a jagged gold crown with one red ruby, a purple-and-red cloak collar, drawn in the same bold cartoon outline and flat cel colours as the reference portrait, slightly sepia-toned as if printed on the poster' }]
   },
   // ── The brand (roadmap #65): the logo's badge and the loader's mascot ──
   // Written at 512 (`exact`): the splash shows them large, the store art and

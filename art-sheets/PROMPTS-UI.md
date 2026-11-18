@@ -577,6 +577,62 @@ BEFORE YOU CALL IT FINISHED, check:
 OUTPUT: one square image (1:1), 1024 x 1024 pixels or larger. If your tool has an aspect-ratio control, set it to 1:1. PNG. No labels, captions, numbers or watermarks.
 ```
 
+## UI: the Goblin King wanted poster  (single-ui-wanted.png → images/ui/wanted.webp)
+
+```text
+WHAT COMES BACK IS ONE OBJECT ON A FLAT MAGENTA GROUND.
+One square image holding one object, at the size and in the spot the attached reference shows it.
+· ONE object. Not a pile, not a row, not a scene.
+
+WHAT IT IS: a tall WANTED poster painted like the rest of the game: aged cream parchment with visible paper fibre, soft brown stains, scuffed and slightly ragged edges and a nail through each top corner; an empty darker parchment band across the top and another across the bottom (NO letters, NO numbers, NO writing anywhere, both bands completely plain), and between them a dark-inked frame holding the painted portrait of the Goblin King exactly as the reference shows him: a broad green face with a heavy scowling brow, yellow eyes, big pointed ears, a jagged gold crown with one red ruby, a purple-and-red cloak collar, drawn in the same bold cartoon outline and flat cel colours as the reference portrait, slightly sepia-toned as if printed on the poster. NOTHING else: no hand, no sparkle, no ground, no shadow.
+
+COLOUR — the colours the reference shows. Take the HUES from it, not the flatness.
+
+THE VIEW — flat and front-on, the way the reference shows it. No tilt, no perspective, no edge-on thickness.
+
+STYLE — the same hand as every other picture in this game.
+· Chunky, rounded, toy-like forms. Simplify: few large shapes, no fine detail that vanishes at thumbnail size.
+· ONE dark outline around every shape, in deep charcoal-violet (about #0F0C19, never pure black), brush-pen weight: at its heaviest about 2.5% of the panel's shorter side. Hold the picture at thumbnail size; if the outline has thinned to a hairline it is several times too thin.
+· Cel shading in hard steps, no blending: a base tone, ONE shadow step (the base darkened by about a third and pushed toward blue-violet) and ONE lighter step. No airbrush, no smooth gradients, no photographic texture, no noise.
+· Bright, saturated candy colours (saturation 60-85%, brightness 75-100%). Nothing muddy, grey or desaturated.
+· One small, hard-edged white glint on anything metal, glass, gem or liquid.
+· Light and energy are painted as SOLID shapes: a white-hot core, the colour, a darker edge. Nothing is ever see-through, hazy or ghostly.
+· People are squat chibi: the head is nearly half the figure, large oval eyes with one white glint, tiny nose or none, mitten hands, no fingers.
+· AN OBJECT WITH NO FACE IS NOT AN EXCEPTION TO ANY OF THIS. A sword, a ring, a flask or a rock gets the same outline, the same two-step shading and the same glint as a character.
+· The attached reference is a flat stand-in. Follow its SHAPE, its SIZE in the panel and its POSITION; take nothing else from it — not its line weight, flat fills or lack of shading. Its plain shapes are notation, and a sheet that comes back as the same flat shapes neatly repainted is unusable.
+AVOID: three-quarter or perspective views, realism, pixel art, thin technical line, soft glow around a shape, drop shadows, text, numbers, frames, badges or cards behind the object.
+· Each object floats in its own panel at the size the reference shows. It does NOT fill its panel; do not invent anything for a panel that is blank in the reference — flat magenta and nothing else.
+
+READABLE AT 40 PIXELS — each of these is shown about 40 pixels wide in the game, and it has to be recognised at a glance.
+· Bold, chunky shapes and a thick outline. Few parts, each one large.
+· No thin lines, no hairline detail, no fine texture, no small engraving: anything thinner than the outline disappears at that size.
+· Where a description above names a small detail, paint it as one or two large, simple marks, or leave it out.
+· The game shows it on a DARK ground (deep violet-navy). Its big areas are light or bright: a thing painted dark grey, navy or black disappears there, so give a dark thing a lighter body colour, bright accents and a clear rim light.
+· Hold each panel at thumbnail size: if it is not instantly recognisable as a silhouette with two or three big areas of colour, simplify it.
+
+SIZE AND PLACE — measure against the image, not against a guess.
+· In the reference the object is about 62% of the image's width and 84% of its height, centred, with a clear magenta margin on all four sides. Keep it there.
+· In the game it is shown smaller still, at the size of a single letter: the simplest version of itself.
+
+BACKGROUND — this matters more than the style.
+Fill every pixel that is not an object with solid, flat, pure magenta #FF00FF. Treat it as a green-screen: one flat chroma-key colour, edge to edge.
+· EXACTLY #FF00FF — red 255, green 0, blue 255. Not pink, not rose, not mauve, not a soft or tinted version of it. Only the true colour can be cut away cleanly.
+· NOT transparent. Transparency gets exported as a grey-and-white CHECKERBOARD and then baked into the artwork as though the squares were paint.
+· NOT white, cream, parchment, paper, or any tinted or textured ground.
+· Nothing sits on a card, panel, tile, badge, frame, ring or rectangle of any kind. The magenta must touch the outline of each object on every side.
+· No drop shadow onto the background, and no vignette.
+· No object contains magenta or hot pink.
+· The candy palette above is for the OBJECTS. The ground is not part of the painting: it stays a vivid, eye-hurting #FF00FF.
+
+KEEP ANY GLOW TIGHT. A halo, aura or bloom spreading out into the background is measured as part of the object when the return is fitted back onto the reference, so a wide aura comes back as a tiny object inside a huge smear. It also cannot be keyed: soft light over magenta turns pink rather than transparent. Any glow belongs inside the shape's own outline.
+
+BEFORE YOU CALL IT FINISHED, check:
+· There is exactly one object, and it does not reach the edge of the image.
+· Every pixel that is not the object is flat, vivid #FF00FF.
+
+OUTPUT: one square image (1:1), 1024 x 1024 pixels or larger. If your tool has an aspect-ratio control, set it to 1:1. PNG. No labels, captions, numbers or watermarks.
+```
+
 ## Logo: the badge (swords behind a shield)  (single-logo-emblem.png → images/logo/emblem.webp)
 
 ```text
