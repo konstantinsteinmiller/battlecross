@@ -685,12 +685,6 @@
       "painting": "52b8d99d161f",
       "at": "2026-10-18T12:26:54.369Z"
     },
-    "sheet-ui-bar-frame-champion.jpg": {
-      "sheet": "sheet-ui-bar-frame-champion",
-      "rev": "fc0eab9dfb39",
-      "painting": "13728f5557f6",
-      "at": "2026-10-18T12:27:32.585Z"
-    },
     "sheet-items-smith-aetherite.jpg": {
       "sheet": "sheet-items-smith-aetherite",
       "rev": "0b03c0bec245",
@@ -1074,6 +1068,18 @@
       "rev": "a493b7d264ce",
       "painting": "ece53b76f0e2",
       "at": "2026-11-19T20:31:14.895Z"
+    },
+    "sheet-items-oracle.jpg": {
+      "sheet": "sheet-items-oracle",
+      "rev": "ae1b4bcc5323",
+      "painting": "c93144418e51",
+      "at": "2026-11-19T22:48:34.980Z"
+    },
+    "sheet-ui-bar-frame-champion.jpg": {
+      "sheet": "sheet-ui-bar-frame-champion",
+      "rev": "aaac7de4d733",
+      "painting": "d97d7d969419",
+      "at": "2026-11-19T22:51:20.076Z"
     }
   }
 }

@@ -24,8 +24,7 @@ const tint = computed(() => TIER_COLOR[item.value?.tier ?? 1] ?? '#c9d2e3')
 /** An Infernal twin with a painting of its own is shown as painted; one without wears its original's, tinted. */
 const own = computed(() => !props.drawn && !!ITEM_ART.get(props.id))
 /** Pieces that wear another's painting until their own is painted (the Oracle's hourglass: the Timekeeper's). */
-const TWIN: Readonly<Record<string, string>> = { oraclesHourglass: 'timekeepersHourglass' }
-const src = computed(() => (props.drawn ? '' : ITEM_ART.get(props.id) ?? (base.value ? ITEM_ART.get(base.value) : TWIN[props.id] ? ITEM_ART.get(TWIN[props.id]!) : '') ?? ''))
+const src = computed(() => (props.drawn ? '' : ITEM_ART.get(props.id) ?? (base.value ? ITEM_ART.get(base.value) : '') ?? ''))
 </script>
 
 <style scoped lang="sass">
