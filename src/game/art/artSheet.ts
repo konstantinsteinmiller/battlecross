@@ -1,4 +1,4 @@
-import { AFTER_ITEMS, CHARISMA_ITEMS, DEXTERITY_ITEMS, GAPFILL_ITEMS, ITEMS, MYTHICS, SMITHED, SMITH_LINES, SMITH_METAL, SMITH_PIECES, smithItemId, TIER_COLOR, type ItemDef, type SmithLine, type SmithMetal, type SmithPiece } from '../data/items'
+import { AFTER_ITEMS, CHARISMA_ITEMS, DEXTERITY_ITEMS, GAPFILL_ITEMS, INFERNALS, ITEMS, MYTHICS, SMITHED, SMITH_LINES, SMITH_METAL, SMITH_PIECES, smithItemId, TIER_COLOR, type ItemDef, type SmithLine, type SmithMetal, type SmithPiece } from '../data/items'
 import { CLASSES, CLASS_IDS, PRESTIGE_IDS, endgameOf, skillsOf, type ClassId } from '../data/skills'
 import { HERO_OUTFITS, heroPortraitId } from './heroPortrait'
 import { BRAND_REFS } from './brandRefs'
@@ -98,7 +98,7 @@ const HERO_F_LOOKS: readonly string[] = HERO_OUTFITS.map(o => heroPortraitId(o, 
 
 /** Every drop-in the pipeline paints, by the folder the build scans. */
 export const ART_CATALOGUE: Readonly<Record<ArtKind, readonly string[]>> = {
-  items: [...ITEMS, ...SMITHED, ...MYTHICS, ...AFTER_ITEMS].map(i => i.id),
+  items: [...ITEMS, ...SMITHED, ...MYTHICS, ...AFTER_ITEMS, ...INFERNALS].map(i => i.id),
   skills: CLASS_IDS.flatMap(c => [...skillsOf(c), ...endgameOf(c)].map(s => s.id)),
   portraits: [...TOWN_LOOKS, ...TRAINER_LOOKS, ...MASTER_LOOKS_A, ...MASTER_LOOKS_B, ...SPEAKER_LOOKS, ...PEOPLE_LOOKS_A, ...PEOPLE_LOOKS_B, ...PEOPLE_LOOKS_C, ...PEOPLE_LOOKS_D, ...PEOPLE_LOOKS_E, ...PEOPLE_LOOKS_F, ...HERO_LOOKS, ...HERO_F_LOOKS],
   // ... and the border-inset ornaments of the cel interface (`ORNAMENTS`).
@@ -426,6 +426,7 @@ const GAPFILL_BLURBS: Readonly<Record<string, string>> = {
 }
 /** The afterplay's boss pairs and the siege's prizes (`AFTER_ITEMS`): the legendary and mythic pieces a level 35+ hero wears. */
 const AFTER_BLURBS: Readonly<Record<string, string>> = {
+  oraclesHourglass: 'a legendary hourglass: two glass bulbs holding glowing gold sand, half in the top and half in the bottom, between two ornate gold end plates with small blue gems and a faint ring of light around it',
   chimeraMane: 'a fierce helm crowned with a thick tawny lion mane, a snarling goat horn curling up each side and a green-scaled brow plate',
   triFang: 'a short dagger whose blade is three curved, tooth-like fangs of pale bone joined at one steel guard, with a dark scaled grip',
   warchiefsLongbowGun: 'a long hybrid of a bow and a rifle: a curved wooden bow limb on each end of a long steel gun barrel with a bowstring drawn across it and a brass-banded stock',
@@ -446,7 +447,17 @@ const AFTER_BLURBS: Readonly<Record<string, string>> = {
   crownOfTheLastBastion: 'a heavy greathelm with a castle-battlement crest on top, a narrow visor slit, thick gold trim and a small white-blue banner flying from the crest'
 }
 
-const ALL_ITEM_BLURBS: Readonly<Record<string, string>> = { ...ITEM_BLURBS, ...GAPFILL_BLURBS, ...SMITH_BLURBS, ...AFTER_BLURBS }
+/**
+ * An Infernal twin (afterplay §2.4) is painted as its own icon, not its original's tinted: the same object, remade by the
+ * demons. The blurb is the original's with what changed: charred black metal, glowing cracks, horns and spikes.
+ */
+const INFERNAL_TWIST = 'Remade as its Infernal twin: the same object and the same shape and pose, but forged by demons: every metal part blackened to dark charred iron with a dull red edge, glowing red-orange cracks and small runes running through it, a few small horns or spikes added, an ember-red glow around it and two or three floating embers.'
+const BASE_BLURBS: Readonly<Record<string, string>> = { ...ITEM_BLURBS, ...GAPFILL_BLURBS, ...SMITH_BLURBS, ...AFTER_BLURBS }
+const INFERNAL_BLURBS: Readonly<Record<string, string>> = Object.fromEntries(INFERNALS.map(i => {
+  const base = i.infernal ? BASE_BLURBS[i.infernal] : undefined
+  return [i.id, base ? `${base.replace(/\.$/, '')}. ${INFERNAL_TWIST}` : '']
+}).filter(([, b]) => b))
+const ALL_ITEM_BLURBS: Readonly<Record<string, string>> = { ...BASE_BLURBS, ...INFERNAL_BLURBS }
 
 const SKILL_BLURBS: Readonly<Record<string, string>> = {
   // The endgame (#168), wave 1
@@ -1030,6 +1041,10 @@ const dexterity = ITEMS.filter(i => DEXTERITY_ITEMS.has(i.id))
 // The gap-fill set: a hundred and five pieces on nine sheets of twelve (three panels blank), in the audit's order (line, slot, quality).
 const gapfill = ITEMS.filter(i => GAPFILL_ITEMS.has(i.id))
 const GAPFILL_SHEETS = Math.ceil(gapfill.length / 12)
+// The Infernal twins, twelve to a sheet in the catalogue's order.
+const INFERNAL_SHEETS = Math.ceil(INFERNALS.length / 12)
+const infernalSet = (n: number): ArtSet =>
+  itemSet(`sheet-items-infernal-${n + 1}`, `Item icons: the Infernal twins, ${n + 1} of ${INFERNAL_SHEETS}`, INFERNALS.slice(n * 12, n * 12 + 12))
 const gapfillSet = (n: number): ArtSet =>
   itemSet(`sheet-items-fill-${n + 1}`, `Item icons: the gap-fill set, ${n + 1} of ${GAPFILL_SHEETS}`, gapfill.slice(n * 12, n * 12 + 12))
 const dexOf = (...slots: string[]): ItemDef[] => slots.flatMap(sl => dexterity.filter(i => i.slot === sl))
@@ -1341,7 +1356,9 @@ export const SETS: readonly ArtSet[] = [
   ...Array.from({ length: GAPFILL_SHEETS }, (_, n) => gapfillSet(n)),
   itemSet('sheet-items-mythic', 'Item icons: the colosseum prizes', [...MYTHICS]),
   itemSet('sheet-items-after-1', 'Item icons: the afterplay bosses and the siege, 1 of 2', AFTER_ITEMS.slice(0, 12)),
-  itemSet('sheet-items-after-2', 'Item icons: the afterplay bosses and the siege, 2 of 2', AFTER_ITEMS.slice(12)),
+  itemSet('sheet-items-after-2', 'Item icons: the afterplay bosses and the siege, 2 of 2', AFTER_ITEMS.slice(12).filter(i => i.id !== 'oraclesHourglass')),
+  itemSet('sheet-items-oracle', 'Item icons: the Oracle hourglass', AFTER_ITEMS.filter(i => i.id === 'oraclesHourglass')),
+  ...Array.from({ length: INFERNAL_SHEETS }, (_, n) => infernalSet(n)),
   // The strength line keeps its sheets' names; every other build's (#148) carries the attribute.
   ...SMITH_LINES.flatMap(line => (Object.keys(SMITH_METAL) as SmithMetal[]).map(metal => line === 'str'
     ? itemSet(`sheet-items-smith-${metal}`, `Item icons: smithed ${metal}`, smithedOf(metal, line))

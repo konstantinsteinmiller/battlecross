@@ -1026,6 +1026,54 @@
       "rev": "a135a8c1d7e5",
       "painting": "623b0b55278d",
       "at": "2026-11-12T22:00:25.650Z"
+    },
+    "sheet-items-infernal-1.jpg": {
+      "sheet": "sheet-items-infernal-1",
+      "rev": "45add20224b2",
+      "painting": "d934cf602f25",
+      "at": "2026-11-19T19:54:30.637Z"
+    },
+    "sheet-items-infernal-2.jpg": {
+      "sheet": "sheet-items-infernal-2",
+      "rev": "a37ea2015bf2",
+      "painting": "90ac874a0df5",
+      "at": "2026-11-19T19:55:42.597Z"
+    },
+    "sheet-items-infernal-3.jpg": {
+      "sheet": "sheet-items-infernal-3",
+      "rev": "5995051a30a2",
+      "painting": "279de6dc1875",
+      "at": "2026-11-19T19:58:29.122Z"
+    },
+    "sheet-items-infernal-4.jpg": {
+      "sheet": "sheet-items-infernal-4",
+      "rev": "f917a76fd971",
+      "painting": "6731cdafe91c",
+      "at": "2026-11-19T20:01:38.398Z"
+    },
+    "sheet-items-infernal-5.jpg": {
+      "sheet": "sheet-items-infernal-5",
+      "rev": "a4b21361a62b",
+      "painting": "dbf1ca712437",
+      "at": "2026-11-19T20:04:18.858Z"
+    },
+    "sheet-items-infernal-6.jpg": {
+      "sheet": "sheet-items-infernal-6",
+      "rev": "83e8c5ac9233",
+      "painting": "210182410bcb",
+      "at": "2026-11-19T20:07:23.464Z"
+    },
+    "single-ui-wanted.jpg": {
+      "sheet": "single-ui-wanted",
+      "rev": "527ae12ab72c",
+      "painting": "ee8ac768cf8e",
+      "at": "2026-11-19T20:28:28.373Z"
+    },
+    "sheet-landmarks-ruins.jpg": {
+      "sheet": "sheet-landmarks-ruins",
+      "rev": "a493b7d264ce",
+      "painting": "ece53b76f0e2",
+      "at": "2026-11-19T20:31:14.895Z"
     }
   }
 }

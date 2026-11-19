@@ -4,7 +4,7 @@ A report, not a contract: it is a picture of `art-sheets/painted/` and the
 slicer's receipt at the moment it was written. Re-run `pnpm art:prompts`
 after painting or slicing anything.
 
-**157 sliced · 1 need a repaint · 2 painted, unreceipted · 2 outstanding**
+**165 sliced · 1 need a repaint · 2 painted, unreceipted · 1 outstanding**
 
 | | Sheet | Prompt block in | Reference | State |
 | --- | --- | --- | --- | --- |
@@ -30,6 +30,13 @@ after painting or slicing anything.
 | ✓ | **Item icons: the colosseum prizes** | `PROMPTS-ITEMS.md` | `sheet-items-mythic.png` (rev `7e0751c191de`) | sliced 2026-10-18 |
 | ✓ | **Item icons: the afterplay bosses and the siege, 1 of 2** | `PROMPTS-ITEMS.md` | `sheet-items-after-1.png` (rev `d740c33af4f7`) | sliced 2026-11-03 |
 | ✓ | **Item icons: the afterplay bosses and the siege, 2 of 2** | `PROMPTS-ITEMS.md` | `sheet-items-after-2.png` (rev `79d7d9b3c1ea`) | sliced 2026-11-03 |
+| · | **Item icons: the Oracle hourglass** | `PROMPTS-ITEMS.md` | `sheet-items-oracle.png` (rev `ae1b4bcc5323`) | not painted yet |
+| ✓ | **Item icons: the Infernal twins, 1 of 6** | `PROMPTS-ITEMS.md` | `sheet-items-infernal-1.png` (rev `45add20224b2`) | sliced 2026-11-19 |
+| ✓ | **Item icons: the Infernal twins, 2 of 6** | `PROMPTS-ITEMS.md` | `sheet-items-infernal-2.png` (rev `a37ea2015bf2`) | sliced 2026-11-19 |
+| ✓ | **Item icons: the Infernal twins, 3 of 6** | `PROMPTS-ITEMS.md` | `sheet-items-infernal-3.png` (rev `5995051a30a2`) | sliced 2026-11-19 |
+| ✓ | **Item icons: the Infernal twins, 4 of 6** | `PROMPTS-ITEMS.md` | `sheet-items-infernal-4.png` (rev `f917a76fd971`) | sliced 2026-11-19 |
+| ✓ | **Item icons: the Infernal twins, 5 of 6** | `PROMPTS-ITEMS.md` | `sheet-items-infernal-5.png` (rev `a4b21361a62b`) | sliced 2026-11-19 |
+| ✓ | **Item icons: the Infernal twins, 6 of 6** | `PROMPTS-ITEMS.md` | `sheet-items-infernal-6.png` (rev `83e8c5ac9233`) | sliced 2026-11-19 |
 | ✓ | **Item icons: smithed iron** | `PROMPTS-ITEMS.md` | `sheet-items-smith-iron.png` (rev `ce537d394bfe`) | sliced 2026-10-18 |
 | ✓ | **Item icons: smithed silver** | `PROMPTS-ITEMS.md` | `sheet-items-smith-silver.png` (rev `516da39d0173`) | sliced 2026-10-18 |
 | ✓ | **Item icons: smithed gold** | `PROMPTS-ITEMS.md` | `sheet-items-smith-gold.png` (rev `60c4f9d0be35`) | sliced 2026-10-18 |
@@ -147,10 +154,10 @@ after painting or slicing anything.
 | ✓ | **Map landmarks: the towns and the colosseum** | `PROMPTS-MAP.md` | `sheet-landmarks-towns.png` (rev `289a81aba1b7`) | sliced 2026-11-12 |
 | ✓ | **Map landmarks: the early wilds** | `PROMPTS-MAP.md` | `sheet-landmarks-wilds-1.png` (rev `296734f8c7ac`) | sliced 2026-11-12 |
 | ✓ | **Map landmarks: the far wilds** | `PROMPTS-MAP.md` | `sheet-landmarks-wilds-2.png` (rev `a135a8c1d7e5`) | sliced 2026-11-12 |
-| · | **Map landmarks: the burned towns** | `PROMPTS-MAP.md` | `sheet-landmarks-ruins.png` (rev `a493b7d264ce`) | not painted yet |
+| ✓ | **Map landmarks: the burned towns** | `PROMPTS-MAP.md` | `sheet-landmarks-ruins.png` (rev `a493b7d264ce`) | sliced 2026-11-19 |
 | ✓ | **UI: the gold coin** | `PROMPTS-UI.md` | `single-ui-coin.png` (rev `f360573d2c98`) | sliced 2026-10-18 |
 | ✓ | **UI: the wooden cup** | `PROMPTS-UI.md` | `single-ui-cup.png` (rev `39883c69d4e5`) | sliced 2026-10-18 |
-| · | **UI: the Goblin King wanted poster** | `PROMPTS-UI.md` | `single-ui-wanted.png` (rev `527ae12ab72c`) | not painted yet |
+| ✓ | **UI: the Goblin King wanted poster** | `PROMPTS-UI.md` | `single-ui-wanted.png` (rev `527ae12ab72c`) | sliced 2026-11-19 |
 | ✓ | **Logo: the badge (swords behind a shield)** | `PROMPTS-UI.md` | `single-logo-emblem.png` (rev `36585e1bbec8`) | sliced 2026-10-18 |
 | ✓ | **Logo: the mascot (the hero)** | `PROMPTS-UI.md` | `single-logo-mascot.png` (rev `4924603fb50a`) | sliced 2026-10-18 |
 | ✓ | **Logo: the wordmark (the pick)** | `PROMPTS-UI.md` | `single-logo-wordmark.png` (rev `3c04e7ce9c37`) | sliced 2026-10-18 |

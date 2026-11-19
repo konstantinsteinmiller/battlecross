@@ -1,11 +1,12 @@
 <template lang="pug">
-  ArtIcon(:class="{ 'is-infernal': !!base }" :glyph="item ? item.kind : 'unknown'" :tint="tint" :src="src" :dim="dim")
+  ArtIcon(:class="{ 'is-infernal': !!base && !own }" :glyph="item ? item.kind : 'unknown'" :tint="tint" :src="src" :dim="dim")
 </template>
 
 <script setup lang="ts">
 /** An item's icon: its kind's drawing in its tier's colour, or the painted
  *  file `public/images/items/<id>.webp` when one exists. An Infernal twin
- *  (afterplay §2.4) is its original's icon in a red-black tint. */
+ *  (afterplay §2.4) has its own painting; until it does it is its original's
+ *  icon in a red-black tint. */
 import { computed } from 'vue'
 import ArtIcon from './ArtIcon.vue'
 import { ITEM_BY_ID, TIER_COLOR } from '@/game/data/items'
@@ -20,7 +21,11 @@ const props = withDefaults(defineProps<{
 const item = computed(() => ITEM_BY_ID[props.id])
 const base = computed(() => item.value?.infernal ?? '')
 const tint = computed(() => TIER_COLOR[item.value?.tier ?? 1] ?? '#c9d2e3')
-const src = computed(() => (props.drawn ? '' : ITEM_ART.get(props.id) ?? (base.value ? ITEM_ART.get(base.value) : '') ?? ''))
+/** An Infernal twin with a painting of its own is shown as painted; one without wears its original's, tinted. */
+const own = computed(() => !props.drawn && !!ITEM_ART.get(props.id))
+/** Pieces that wear another's painting until their own is painted (the Oracle's hourglass: the Timekeeper's). */
+const TWIN: Readonly<Record<string, string>> = { oraclesHourglass: 'timekeepersHourglass' }
+const src = computed(() => (props.drawn ? '' : ITEM_ART.get(props.id) ?? (base.value ? ITEM_ART.get(base.value) : TWIN[props.id] ? ITEM_ART.get(TWIN[props.id]!) : '') ?? ''))
 </script>
 
 <style scoped lang="sass">

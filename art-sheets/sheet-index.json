@@ -4143,6 +4143,1156 @@
       ]
     },
     {
+      "id": "sheet-items-oracle",
+      "kind": "set",
+      "title": "Item icons: the Oracle hourglass",
+      "files": {
+        "clean": "sheet-items-oracle.png",
+        "key": "sheet-items-oracle-key.png"
+      },
+      "width": 1024,
+      "height": 768,
+      "cols": 4,
+      "rows": 3,
+      "maxEdge": 192,
+      "crop": 1,
+      "anchor": "centre",
+      "cells": [
+        {
+          "id": "oraclesHourglass",
+          "label": "Oracles Hourglass",
+          "variant": "items",
+          "x": 0,
+          "y": 0,
+          "w": 256,
+          "h": 256,
+          "target": "images/items/oraclesHourglass.webp",
+          "fit": {
+            "h": 0.844,
+            "w": 0.594,
+            "bottom": 0.922,
+            "cx": 0.5
+          }
+        }
+      ]
+    },
+    {
+      "id": "sheet-items-infernal-1",
+      "kind": "set",
+      "title": "Item icons: the Infernal twins, 1 of 6",
+      "files": {
+        "clean": "sheet-items-infernal-1.png",
+        "key": "sheet-items-infernal-1-key.png"
+      },
+      "width": 1024,
+      "height": 768,
+      "cols": 4,
+      "rows": 3,
+      "maxEdge": 192,
+      "crop": 1,
+      "anchor": "centre",
+      "cells": [
+        {
+          "id": "apprenticeStaffInfernal",
+          "label": "Apprentice Staff Infernal",
+          "variant": "items",
+          "x": 0,
+          "y": 0,
+          "w": 256,
+          "h": 256,
+          "target": "images/items/apprenticeStaffInfernal.webp",
+          "fit": {
+            "h": 0.844,
+            "w": 0.555,
+            "bottom": 0.922,
+            "cx": 0.5
+          }
+        },
+        {
+          "id": "scoutsHandgunInfernal",
+          "label": "Scouts Handgun Infernal",
+          "variant": "items",
+          "x": 256,
+          "y": 0,
+          "w": 256,
+          "h": 256,
+          "target": "images/items/scoutsHandgunInfernal.webp",
+          "fit": {
+            "h": 0.691,
+            "w": 0.84,
+            "bottom": 0.844,
+            "cx": 0.498
+          }
+        },
+        {
+          "id": "ironBroadswordInfernal",
+          "label": "Iron Broadsword Infernal",
+          "variant": "items",
+          "x": 512,
+          "y": 0,
+          "w": 256,
+          "h": 256,
+          "target": "images/items/ironBroadswordInfernal.webp",
+          "fit": {
+            "h": 0.84,
+            "w": 0.723,
+            "bottom": 0.918,
+            "cx": 0.502
+          }
+        },
+        {
+          "id": "vipinsStilettoInfernal",
+          "label": "Vipins Stiletto Infernal",
+          "variant": "items",
+          "x": 768,
+          "y": 0,
+          "w": 256,
+          "h": 256,
+          "target": "images/items/vipinsStilettoInfernal.webp",
+          "fit": {
+            "h": 0.836,
+            "w": 0.742,
+            "bottom": 0.918,
+            "cx": 0.5
+          }
+        },
+        {
+          "id": "aetherCarbineInfernal",
+          "label": "Aether Carbine Infernal",
+          "variant": "items",
+          "x": 0,
+          "y": 256,
+          "w": 256,
+          "h": 256,
+          "target": "images/items/aetherCarbineInfernal.webp",
+          "fit": {
+            "h": 0.691,
+            "w": 0.84,
+            "bottom": 0.844,
+            "cx": 0.498
+          }
+        },
+        {
+          "id": "ashenGreatswordInfernal",
+          "label": "Ashen Greatsword Infernal",
+          "variant": "items",
+          "x": 256,
+          "y": 256,
+          "w": 256,
+          "h": 256,
+          "target": "images/items/ashenGreatswordInfernal.webp",
+          "fit": {
+            "h": 0.84,
+            "w": 0.727,
+            "bottom": 0.918,
+            "cx": 0.5
+          }
+        },
+        {
+          "id": "archmageWandInfernal",
+          "label": "Archmage Wand Infernal",
+          "variant": "items",
+          "x": 512,
+          "y": 256,
+          "w": 256,
+          "h": 256,
+          "target": "images/items/archmageWandInfernal.webp",
+          "fit": {
+            "h": 0.844,
+            "w": 0.68,
+            "bottom": 0.922,
+            "cx": 0.5
+          }
+        },
+        {
+          "id": "chronoBladeInfernal",
+          "label": "Chrono Blade Infernal",
+          "variant": "items",
+          "x": 768,
+          "y": 256,
+          "w": 256,
+          "h": 256,
+          "target": "images/items/chronoBladeInfernal.webp",
+          "fit": {
+            "h": 0.84,
+            "w": 0.723,
+            "bottom": 0.918,
+            "cx": 0.502
+          }
+        },
+        {
+          "id": "bloodForgedAxeInfernal",
+          "label": "Blood Forged Axe Infernal",
+          "variant": "items",
+          "x": 0,
+          "y": 512,
+          "w": 256,
+          "h": 256,
+          "target": "images/items/bloodForgedAxeInfernal.webp",
+          "fit": {
+            "h": 0.844,
+            "w": 0.684,
+            "bottom": 0.922,
+            "cx": 0.502
+          }
+        },
+        {
+          "id": "voidCannonInfernal",
+          "label": "Void Cannon Infernal",
+          "variant": "items",
+          "x": 256,
+          "y": 512,
+          "w": 256,
+          "h": 256,
+          "target": "images/items/voidCannonInfernal.webp",
+          "fit": {
+            "h": 0.75,
+            "w": 0.84,
+            "bottom": 0.875,
+            "cx": 0.502
+          }
+        },
+        {
+          "id": "dragonSmasherInfernal",
+          "label": "Dragon Smasher Infernal",
+          "variant": "items",
+          "x": 512,
+          "y": 512,
+          "w": 256,
+          "h": 256,
+          "target": "images/items/dragonSmasherInfernal.webp",
+          "fit": {
+            "h": 0.84,
+            "w": 0.664,
+            "bottom": 0.922,
+            "cx": 0.5
+          }
+        },
+        {
+          "id": "bladeOfTheUnboundInfernal",
+          "label": "Blade Of The Unbound Infernal",
+          "variant": "items",
+          "x": 768,
+          "y": 512,
+          "w": 256,
+          "h": 256,
+          "target": "images/items/bladeOfTheUnboundInfernal.webp",
+          "fit": {
+            "h": 0.84,
+            "w": 0.723,
+            "bottom": 0.918,
+            "cx": 0.502
+          }
+        }
+      ]
+    },
+    {
+      "id": "sheet-items-infernal-2",
+      "kind": "set",
+      "title": "Item icons: the Infernal twins, 2 of 6",
+      "files": {
+        "clean": "sheet-items-infernal-2.png",
+        "key": "sheet-items-infernal-2-key.png"
+      },
+      "width": 1024,
+      "height": 768,
+      "cols": 4,
+      "rows": 3,
+      "maxEdge": 192,
+      "crop": 1,
+      "anchor": "centre",
+      "cells": [
+        {
+          "id": "aetheriumDestroyerInfernal",
+          "label": "Aetherium Destroyer Infernal",
+          "variant": "items",
+          "x": 0,
+          "y": 0,
+          "w": 256,
+          "h": 256,
+          "target": "images/items/aetheriumDestroyerInfernal.webp",
+          "fit": {
+            "h": 0.691,
+            "w": 0.84,
+            "bottom": 0.844,
+            "cx": 0.498
+          }
+        },
+        {
+          "id": "woodenBucklerInfernal",
+          "label": "Wooden Buckler Infernal",
+          "variant": "items",
+          "x": 256,
+          "y": 0,
+          "w": 256,
+          "h": 256,
+          "target": "images/items/woodenBucklerInfernal.webp",
+          "fit": {
+            "h": 0.844,
+            "w": 0.672,
+            "bottom": 0.922,
+            "cx": 0.5
+          }
+        },
+        {
+          "id": "tomeOfNovicesInfernal",
+          "label": "Tome Of Novices Infernal",
+          "variant": "items",
+          "x": 512,
+          "y": 0,
+          "w": 256,
+          "h": 256,
+          "target": "images/items/tomeOfNovicesInfernal.webp",
+          "fit": {
+            "h": 0.84,
+            "w": 0.773,
+            "bottom": 0.918,
+            "cx": 0.5
+          }
+        },
+        {
+          "id": "ironShieldInfernal",
+          "label": "Iron Shield Infernal",
+          "variant": "items",
+          "x": 768,
+          "y": 0,
+          "w": 256,
+          "h": 256,
+          "target": "images/items/ironShieldInfernal.webp",
+          "fit": {
+            "h": 0.844,
+            "w": 0.672,
+            "bottom": 0.922,
+            "cx": 0.5
+          }
+        },
+        {
+          "id": "syringeOfTheAdeptInfernal",
+          "label": "Syringe Of The Adept Infernal",
+          "variant": "items",
+          "x": 0,
+          "y": 256,
+          "w": 256,
+          "h": 256,
+          "target": "images/items/syringeOfTheAdeptInfernal.webp",
+          "fit": {
+            "h": 0.844,
+            "w": 0.84,
+            "bottom": 0.922,
+            "cx": 0.498
+          }
+        },
+        {
+          "id": "aethericBatteryInfernal",
+          "label": "Aetheric Battery Infernal",
+          "variant": "items",
+          "x": 256,
+          "y": 256,
+          "w": 256,
+          "h": 256,
+          "target": "images/items/aethericBatteryInfernal.webp",
+          "fit": {
+            "h": 0.836,
+            "w": 0.695,
+            "bottom": 0.918,
+            "cx": 0.5
+          }
+        },
+        {
+          "id": "aegisTowerShieldInfernal",
+          "label": "Aegis Tower Shield Infernal",
+          "variant": "items",
+          "x": 512,
+          "y": 256,
+          "w": 256,
+          "h": 256,
+          "target": "images/items/aegisTowerShieldInfernal.webp",
+          "fit": {
+            "h": 0.844,
+            "w": 0.672,
+            "bottom": 0.922,
+            "cx": 0.5
+          }
+        },
+        {
+          "id": "orbOfEternalFlameInfernal",
+          "label": "Orb Of Eternal Flame Infernal",
+          "variant": "items",
+          "x": 768,
+          "y": 256,
+          "w": 256,
+          "h": 256,
+          "target": "images/items/orbOfEternalFlameInfernal.webp",
+          "fit": {
+            "h": 0.84,
+            "w": 0.805,
+            "bottom": 0.918,
+            "cx": 0.5
+          }
+        },
+        {
+          "id": "shieldOfTheFallenInfernal",
+          "label": "Shield Of The Fallen Infernal",
+          "variant": "items",
+          "x": 0,
+          "y": 512,
+          "w": 256,
+          "h": 256,
+          "target": "images/items/shieldOfTheFallenInfernal.webp",
+          "fit": {
+            "h": 0.844,
+            "w": 0.672,
+            "bottom": 0.922,
+            "cx": 0.5
+          }
+        },
+        {
+          "id": "stalkersHoodInfernal",
+          "label": "Stalkers Hood Infernal",
+          "variant": "items",
+          "x": 256,
+          "y": 512,
+          "w": 256,
+          "h": 256,
+          "target": "images/items/stalkersHoodInfernal.webp",
+          "fit": {
+            "h": 0.84,
+            "w": 0.773,
+            "bottom": 0.918,
+            "cx": 0.5
+          }
+        },
+        {
+          "id": "seersCircletInfernal",
+          "label": "Seers Circlet Infernal",
+          "variant": "items",
+          "x": 512,
+          "y": 512,
+          "w": 256,
+          "h": 256,
+          "target": "images/items/seersCircletInfernal.webp",
+          "fit": {
+            "h": 0.66,
+            "w": 0.836,
+            "bottom": 0.832,
+            "cx": 0.5
+          }
+        },
+        {
+          "id": "hatOfTheStarweaverInfernal",
+          "label": "Hat Of The Starweaver Infernal",
+          "variant": "items",
+          "x": 768,
+          "y": 512,
+          "w": 256,
+          "h": 256,
+          "target": "images/items/hatOfTheStarweaverInfernal.webp",
+          "fit": {
+            "h": 0.82,
+            "w": 0.844,
+            "bottom": 0.91,
+            "cx": 0.5
+          }
+        }
+      ]
+    },
+    {
+      "id": "sheet-items-infernal-3",
+      "kind": "set",
+      "title": "Item icons: the Infernal twins, 3 of 6",
+      "files": {
+        "clean": "sheet-items-infernal-3.png",
+        "key": "sheet-items-infernal-3-key.png"
+      },
+      "width": 1024,
+      "height": 768,
+      "cols": 4,
+      "rows": 3,
+      "maxEdge": 192,
+      "crop": 1,
+      "anchor": "centre",
+      "cells": [
+        {
+          "id": "hideGlovesInfernal",
+          "label": "Hide Gloves Infernal",
+          "variant": "items",
+          "x": 0,
+          "y": 0,
+          "w": 256,
+          "h": 256,
+          "target": "images/items/hideGlovesInfernal.webp",
+          "fit": {
+            "h": 0.84,
+            "w": 0.656,
+            "bottom": 0.918,
+            "cx": 0.5
+          }
+        },
+        {
+          "id": "emberweaveGlovesInfernal",
+          "label": "Emberweave Gloves Infernal",
+          "variant": "items",
+          "x": 256,
+          "y": 0,
+          "w": 256,
+          "h": 256,
+          "target": "images/items/emberweaveGlovesInfernal.webp",
+          "fit": {
+            "h": 0.84,
+            "w": 0.656,
+            "bottom": 0.918,
+            "cx": 0.5
+          }
+        },
+        {
+          "id": "duelistsGripsInfernal",
+          "label": "Duelists Grips Infernal",
+          "variant": "items",
+          "x": 512,
+          "y": 0,
+          "w": 256,
+          "h": 256,
+          "target": "images/items/duelistsGripsInfernal.webp",
+          "fit": {
+            "h": 0.84,
+            "w": 0.656,
+            "bottom": 0.918,
+            "cx": 0.5
+          }
+        },
+        {
+          "id": "voidforgedGauntletsInfernal",
+          "label": "Voidforged Gauntlets Infernal",
+          "variant": "items",
+          "x": 768,
+          "y": 0,
+          "w": 256,
+          "h": 256,
+          "target": "images/items/voidforgedGauntletsInfernal.webp",
+          "fit": {
+            "h": 0.844,
+            "w": 0.641,
+            "bottom": 0.922,
+            "cx": 0.5
+          }
+        },
+        {
+          "id": "gripsOfTheTempestInfernal",
+          "label": "Grips Of The Tempest Infernal",
+          "variant": "items",
+          "x": 0,
+          "y": 256,
+          "w": 256,
+          "h": 256,
+          "target": "images/items/gripsOfTheTempestInfernal.webp",
+          "fit": {
+            "h": 0.84,
+            "w": 0.656,
+            "bottom": 0.918,
+            "cx": 0.5
+          }
+        },
+        {
+          "id": "trailBootsInfernal",
+          "label": "Trail Boots Infernal",
+          "variant": "items",
+          "x": 256,
+          "y": 256,
+          "w": 256,
+          "h": 256,
+          "target": "images/items/trailBootsInfernal.webp",
+          "fit": {
+            "h": 0.844,
+            "w": 0.688,
+            "bottom": 0.922,
+            "cx": 0.5
+          }
+        },
+        {
+          "id": "pathfindersBootsInfernal",
+          "label": "Pathfinders Boots Infernal",
+          "variant": "items",
+          "x": 512,
+          "y": 256,
+          "w": 256,
+          "h": 256,
+          "target": "images/items/pathfindersBootsInfernal.webp",
+          "fit": {
+            "h": 0.844,
+            "w": 0.688,
+            "bottom": 0.922,
+            "cx": 0.5
+          }
+        },
+        {
+          "id": "forgeplateGreavesInfernal",
+          "label": "Forgeplate Greaves Infernal",
+          "variant": "items",
+          "x": 768,
+          "y": 256,
+          "w": 256,
+          "h": 256,
+          "target": "images/items/forgeplateGreavesInfernal.webp",
+          "fit": {
+            "h": 0.844,
+            "w": 0.688,
+            "bottom": 0.922,
+            "cx": 0.5
+          }
+        },
+        {
+          "id": "mistwalkerBootsInfernal",
+          "label": "Mistwalker Boots Infernal",
+          "variant": "items",
+          "x": 0,
+          "y": 512,
+          "w": 256,
+          "h": 256,
+          "target": "images/items/mistwalkerBootsInfernal.webp",
+          "fit": {
+            "h": 0.844,
+            "w": 0.688,
+            "bottom": 0.922,
+            "cx": 0.5
+          }
+        },
+        {
+          "id": "stormstrideGreavesInfernal",
+          "label": "Stormstride Greaves Infernal",
+          "variant": "items",
+          "x": 256,
+          "y": 512,
+          "w": 256,
+          "h": 256,
+          "target": "images/items/stormstrideGreavesInfernal.webp",
+          "fit": {
+            "h": 0.844,
+            "w": 0.688,
+            "bottom": 0.922,
+            "cx": 0.5
+          }
+        },
+        {
+          "id": "treadsOfTheHorizonInfernal",
+          "label": "Treads Of The Horizon Infernal",
+          "variant": "items",
+          "x": 512,
+          "y": 512,
+          "w": 256,
+          "h": 256,
+          "target": "images/items/treadsOfTheHorizonInfernal.webp",
+          "fit": {
+            "h": 0.844,
+            "w": 0.688,
+            "bottom": 0.922,
+            "cx": 0.5
+          }
+        },
+        {
+          "id": "copperBandInfernal",
+          "label": "Copper Band Infernal",
+          "variant": "items",
+          "x": 768,
+          "y": 512,
+          "w": 256,
+          "h": 256,
+          "target": "images/items/copperBandInfernal.webp",
+          "fit": {
+            "h": 0.84,
+            "w": 0.68,
+            "bottom": 0.918,
+            "cx": 0.5
+          }
+        }
+      ]
+    },
+    {
+      "id": "sheet-items-infernal-4",
+      "kind": "set",
+      "title": "Item icons: the Infernal twins, 4 of 6",
+      "files": {
+        "clean": "sheet-items-infernal-4.png",
+        "key": "sheet-items-infernal-4-key.png"
+      },
+      "width": 1024,
+      "height": 768,
+      "cols": 4,
+      "rows": 3,
+      "maxEdge": 192,
+      "crop": 1,
+      "anchor": "centre",
+      "cells": [
+        {
+          "id": "ringOfMendingInfernal",
+          "label": "Ring Of Mending Infernal",
+          "variant": "items",
+          "x": 0,
+          "y": 0,
+          "w": 256,
+          "h": 256,
+          "target": "images/items/ringOfMendingInfernal.webp",
+          "fit": {
+            "h": 0.84,
+            "w": 0.68,
+            "bottom": 0.918,
+            "cx": 0.5
+          }
+        },
+        {
+          "id": "bandOfSwiftnessInfernal",
+          "label": "Band Of Swiftness Infernal",
+          "variant": "items",
+          "x": 256,
+          "y": 0,
+          "w": 256,
+          "h": 256,
+          "target": "images/items/bandOfSwiftnessInfernal.webp",
+          "fit": {
+            "h": 0.84,
+            "w": 0.68,
+            "bottom": 0.918,
+            "cx": 0.5
+          }
+        },
+        {
+          "id": "castersEmblemInfernal",
+          "label": "Casters Emblem Infernal",
+          "variant": "items",
+          "x": 512,
+          "y": 0,
+          "w": 256,
+          "h": 256,
+          "target": "images/items/castersEmblemInfernal.webp",
+          "fit": {
+            "h": 0.844,
+            "w": 0.492,
+            "bottom": 0.922,
+            "cx": 0.5
+          }
+        },
+        {
+          "id": "infiltratorsCharmInfernal",
+          "label": "Infiltrators Charm Infernal",
+          "variant": "items",
+          "x": 768,
+          "y": 0,
+          "w": 256,
+          "h": 256,
+          "target": "images/items/infiltratorsCharmInfernal.webp",
+          "fit": {
+            "h": 0.844,
+            "w": 0.492,
+            "bottom": 0.922,
+            "cx": 0.5
+          }
+        },
+        {
+          "id": "timekeepersHourglassInfernal",
+          "label": "Timekeepers Hourglass Infernal",
+          "variant": "items",
+          "x": 0,
+          "y": 256,
+          "w": 256,
+          "h": 256,
+          "target": "images/items/timekeepersHourglassInfernal.webp",
+          "fit": {
+            "h": 0.844,
+            "w": 0.594,
+            "bottom": 0.922,
+            "cx": 0.5
+          }
+        },
+        {
+          "id": "ringOfTheVampyreInfernal",
+          "label": "Ring Of The Vampyre Infernal",
+          "variant": "items",
+          "x": 256,
+          "y": 256,
+          "w": 256,
+          "h": 256,
+          "target": "images/items/ringOfTheVampyreInfernal.webp",
+          "fit": {
+            "h": 0.84,
+            "w": 0.68,
+            "bottom": 0.918,
+            "cx": 0.5
+          }
+        },
+        {
+          "id": "sovereignsSignetInfernal",
+          "label": "Sovereigns Signet Infernal",
+          "variant": "items",
+          "x": 512,
+          "y": 256,
+          "w": 256,
+          "h": 256,
+          "target": "images/items/sovereignsSignetInfernal.webp",
+          "fit": {
+            "h": 0.84,
+            "w": 0.68,
+            "bottom": 0.918,
+            "cx": 0.5
+          }
+        },
+        {
+          "id": "heartOfTheMountainInfernal",
+          "label": "Heart Of The Mountain Infernal",
+          "variant": "items",
+          "x": 768,
+          "y": 256,
+          "w": 256,
+          "h": 256,
+          "target": "images/items/heartOfTheMountainInfernal.webp",
+          "fit": {
+            "h": 0.789,
+            "w": 0.844,
+            "bottom": 0.895,
+            "cx": 0.5
+          }
+        },
+        {
+          "id": "ringOfAbsolutePowerInfernal",
+          "label": "Ring Of Absolute Power Infernal",
+          "variant": "items",
+          "x": 0,
+          "y": 512,
+          "w": 256,
+          "h": 256,
+          "target": "images/items/ringOfAbsolutePowerInfernal.webp",
+          "fit": {
+            "h": 0.84,
+            "w": 0.68,
+            "bottom": 0.918,
+            "cx": 0.5
+          }
+        },
+        {
+          "id": "vestmentsOfSovereignInfernal",
+          "label": "Vestments Of Sovereign Infernal",
+          "variant": "items",
+          "x": 256,
+          "y": 512,
+          "w": 256,
+          "h": 256,
+          "target": "images/items/vestmentsOfSovereignInfernal.webp",
+          "fit": {
+            "h": 0.836,
+            "w": 0.766,
+            "bottom": 0.918,
+            "cx": 0.5
+          }
+        },
+        {
+          "id": "shepherdsCrookInfernal",
+          "label": "Shepherds Crook Infernal",
+          "variant": "items",
+          "x": 512,
+          "y": 512,
+          "w": 256,
+          "h": 256,
+          "target": "images/items/shepherdsCrookInfernal.webp",
+          "fit": {
+            "h": 0.844,
+            "w": 0.555,
+            "bottom": 0.922,
+            "cx": 0.5
+          }
+        },
+        {
+          "id": "bannerOfTheHostInfernal",
+          "label": "Banner Of The Host Infernal",
+          "variant": "items",
+          "x": 768,
+          "y": 512,
+          "w": 256,
+          "h": 256,
+          "target": "images/items/bannerOfTheHostInfernal.webp",
+          "fit": {
+            "h": 0.844,
+            "w": 0.555,
+            "bottom": 0.922,
+            "cx": 0.5
+          }
+        }
+      ]
+    },
+    {
+      "id": "sheet-items-infernal-5",
+      "kind": "set",
+      "title": "Item icons: the Infernal twins, 5 of 6",
+      "files": {
+        "clean": "sheet-items-infernal-5.png",
+        "key": "sheet-items-infernal-5-key.png"
+      },
+      "width": 1024,
+      "height": 768,
+      "cols": 4,
+      "rows": 3,
+      "maxEdge": 192,
+      "crop": 1,
+      "anchor": "centre",
+      "cells": [
+        {
+          "id": "scepterOfTheFirstKingInfernal",
+          "label": "Scepter Of The First King Infernal",
+          "variant": "items",
+          "x": 0,
+          "y": 0,
+          "w": 256,
+          "h": 256,
+          "target": "images/items/scepterOfTheFirstKingInfernal.webp",
+          "fit": {
+            "h": 0.844,
+            "w": 0.68,
+            "bottom": 0.922,
+            "cx": 0.5
+          }
+        },
+        {
+          "id": "shadowdancersBucklerInfernal",
+          "label": "Shadowdancers Buckler Infernal",
+          "variant": "items",
+          "x": 256,
+          "y": 0,
+          "w": 256,
+          "h": 256,
+          "target": "images/items/shadowdancersBucklerInfernal.webp",
+          "fit": {
+            "h": 0.844,
+            "w": 0.672,
+            "bottom": 0.922,
+            "cx": 0.5
+          }
+        },
+        {
+          "id": "mantleOfTheShadowDancerInfernal",
+          "label": "Mantle Of The Shadow Dancer Infernal",
+          "variant": "items",
+          "x": 512,
+          "y": 0,
+          "w": 256,
+          "h": 256,
+          "target": "images/items/mantleOfTheShadowDancerInfernal.webp",
+          "fit": {
+            "h": 0.836,
+            "w": 0.797,
+            "bottom": 0.918,
+            "cx": 0.5
+          }
+        },
+        {
+          "id": "watchmansCudgelInfernal",
+          "label": "Watchmans Cudgel Infernal",
+          "variant": "items",
+          "x": 768,
+          "y": 0,
+          "w": 256,
+          "h": 256,
+          "target": "images/items/watchmansCudgelInfernal.webp",
+          "fit": {
+            "h": 0.84,
+            "w": 0.664,
+            "bottom": 0.922,
+            "cx": 0.5
+          }
+        },
+        {
+          "id": "ironboundMaceInfernal",
+          "label": "Ironbound Mace Infernal",
+          "variant": "items",
+          "x": 0,
+          "y": 256,
+          "w": 256,
+          "h": 256,
+          "target": "images/items/ironboundMaceInfernal.webp",
+          "fit": {
+            "h": 0.84,
+            "w": 0.664,
+            "bottom": 0.922,
+            "cx": 0.5
+          }
+        },
+        {
+          "id": "stonehideCleaverInfernal",
+          "label": "Stonehide Cleaver Infernal",
+          "variant": "items",
+          "x": 256,
+          "y": 256,
+          "w": 256,
+          "h": 256,
+          "target": "images/items/stonehideCleaverInfernal.webp",
+          "fit": {
+            "h": 0.844,
+            "w": 0.684,
+            "bottom": 0.922,
+            "cx": 0.502
+          }
+        },
+        {
+          "id": "bulwarkMaulInfernal",
+          "label": "Bulwark Maul Infernal",
+          "variant": "items",
+          "x": 512,
+          "y": 256,
+          "w": 256,
+          "h": 256,
+          "target": "images/items/bulwarkMaulInfernal.webp",
+          "fit": {
+            "h": 0.84,
+            "w": 0.664,
+            "bottom": 0.922,
+            "cx": 0.5
+          }
+        },
+        {
+          "id": "mountainsplitterAxeInfernal",
+          "label": "Mountainsplitter Axe Infernal",
+          "variant": "items",
+          "x": 768,
+          "y": 256,
+          "w": 256,
+          "h": 256,
+          "target": "images/items/mountainsplitterAxeInfernal.webp",
+          "fit": {
+            "h": 0.844,
+            "w": 0.684,
+            "bottom": 0.922,
+            "cx": 0.502
+          }
+        },
+        {
+          "id": "everstandWarmaceInfernal",
+          "label": "Everstand Warmace Infernal",
+          "variant": "items",
+          "x": 0,
+          "y": 512,
+          "w": 256,
+          "h": 256,
+          "target": "images/items/everstandWarmaceInfernal.webp",
+          "fit": {
+            "h": 0.84,
+            "w": 0.664,
+            "bottom": 0.922,
+            "cx": 0.5
+          }
+        },
+        {
+          "id": "bootsOfTheLastShotInfernal",
+          "label": "Boots Of The Last Shot Infernal",
+          "variant": "items",
+          "x": 256,
+          "y": 512,
+          "w": 256,
+          "h": 256,
+          "target": "images/items/bootsOfTheLastShotInfernal.webp",
+          "fit": {
+            "h": 0.844,
+            "w": 0.688,
+            "bottom": 0.922,
+            "cx": 0.5
+          }
+        },
+        {
+          "id": "criersBatonInfernal",
+          "label": "Criers Baton Infernal",
+          "variant": "items",
+          "x": 512,
+          "y": 512,
+          "w": 256,
+          "h": 256,
+          "target": "images/items/criersBatonInfernal.webp",
+          "fit": {
+            "h": 0.844,
+            "w": 0.68,
+            "bottom": 0.922,
+            "cx": 0.5
+          }
+        },
+        {
+          "id": "droversStandardInfernal",
+          "label": "Drovers Standard Infernal",
+          "variant": "items",
+          "x": 768,
+          "y": 512,
+          "w": 256,
+          "h": 256,
+          "target": "images/items/droversStandardInfernal.webp",
+          "fit": {
+            "h": 0.844,
+            "w": 0.555,
+            "bottom": 0.922,
+            "cx": 0.5
+          }
+        }
+      ]
+    },
+    {
+      "id": "sheet-items-infernal-6",
+      "kind": "set",
+      "title": "Item icons: the Infernal twins, 6 of 6",
+      "files": {
+        "clean": "sheet-items-infernal-6.png",
+        "key": "sheet-items-infernal-6-key.png"
+      },
+      "width": 1024,
+      "height": 768,
+      "cols": 4,
+      "rows": 3,
+      "maxEdge": 192,
+      "crop": 1,
+      "anchor": "centre",
+      "cells": [
+        {
+          "id": "marshalsSceptreInfernal",
+          "label": "Marshals Sceptre Infernal",
+          "variant": "items",
+          "x": 0,
+          "y": 0,
+          "w": 256,
+          "h": 256,
+          "target": "images/items/marshalsSceptreInfernal.webp",
+          "fit": {
+            "h": 0.844,
+            "w": 0.68,
+            "bottom": 0.922,
+            "cx": 0.5
+          }
+        },
+        {
+          "id": "glovesOfTheCrownedHandInfernal",
+          "label": "Gloves Of The Crowned Hand Infernal",
+          "variant": "items",
+          "x": 256,
+          "y": 0,
+          "w": 256,
+          "h": 256,
+          "target": "images/items/glovesOfTheCrownedHandInfernal.webp",
+          "fit": {
+            "h": 0.84,
+            "w": 0.656,
+            "bottom": 0.918,
+            "cx": 0.5
+          }
+        },
+        {
+          "id": "bootsOfTheLongProcessionInfernal",
+          "label": "Boots Of The Long Procession Infernal",
+          "variant": "items",
+          "x": 512,
+          "y": 0,
+          "w": 256,
+          "h": 256,
+          "target": "images/items/bootsOfTheLongProcessionInfernal.webp",
+          "fit": {
+            "h": 0.844,
+            "w": 0.688,
+            "bottom": 0.922,
+            "cx": 0.5
+          }
+        }
+      ]
+    },
+    {
       "id": "sheet-items-smith-iron",
       "kind": "set",
       "title": "Item icons: smithed iron",
