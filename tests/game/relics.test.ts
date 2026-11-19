@@ -2,7 +2,7 @@
 import { afterEach, beforeEach, describe, expect, it } from 'vitest'
 import { drainAndResetModules, drainPersist, holdGameState } from '../stubs/drainPersist'
 import {
-  AFTER_BOSS_DROPS, AFTER_ITEMS, INFERNALS, ITEMS, ITEM_BY_ID, infernalId, noGear, priceOf, setPartner, type ZoneId
+  AFTER_BOSS_DROPS, AFTER_ITEMS, INFERNAL_EXTRA, INFERNALS, ITEMS, ITEM_BY_ID, infernalId, noGear, priceOf, setPartner, type ZoneId
 } from '@/game/data/items'
 import { DEMON_AFFIXES, HEROIC, HEROIC_MAX, INFERNAL_MUL, INFERNAL_MYTHIC_MUL, INFERNAL_MYTHIC_ZONES, SET_BONUS, heroicCost, heroicScale } from '@/game/data/relics'
 import { forgedArmor, forgedMods } from '@/game/data/forge'
@@ -63,7 +63,7 @@ describe('the afterplay item tables', () => {
   })
 
   it('every named unique of the campaign has an Infernal twin: +30 levels, attributes ×1.9, one demon affix, tinted not redrawn', () => {
-    const uniques = ITEMS.filter(i => i.unique)
+    const uniques = ITEMS.filter(i => i.unique || INFERNAL_EXTRA.has(i.id))
     expect(INFERNALS).toHaveLength(uniques.length)
     const affixKeys = DEMON_AFFIXES.map(a => Object.keys(a)[0]!)
     for (const it of uniques) {

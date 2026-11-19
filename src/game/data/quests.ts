@@ -98,7 +98,7 @@ export const QUESTS: readonly QuestDef[] = [
     id: 'oracle', node: 'temple', speaker: 'oracle',
     choices: [
       { id: 'free', flags: ['oracleFreed'], rep: { circle: 2 }, tone: 'noble' },
-      { id: 'slay', flags: ['oracleSlain'], rep: { order: 1, circle: -2 }, item: 'timekeepersHourglass', gold: 800, tone: 'ruthless' }
+      { id: 'slay', flags: ['oracleSlain'], rep: { order: 1, circle: -2 }, item: 'oraclesHourglass', gold: 800, tone: 'ruthless' }
     ]
   },
   {

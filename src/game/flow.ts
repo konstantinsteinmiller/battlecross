@@ -5,7 +5,9 @@ import { afterPaint } from './engine/slicer'
 import { createInput, type Input } from './engine/input'
 import { AMBUSH_KIND, FACTIONS, REP_HOSTILE, questOfNode, type FactionId } from './data/quests'
 import { NODE_BY_ID, TOWNS, ZONES, foundFlag, hiddenTrainerOf, visitLevel, type NodeId, type NpcDef, type ThemeId, type TownId } from './data/zones'
-import type { ClassId } from './data/skills'
+import { SKILL_BY_ID, type ClassId } from './data/skills'
+import { ATTRS } from './data/attributes'
+import { ARENA_HIGH_SKILL, arenaStartWave, type ArenaPower } from './data/arenaStart'
 import type { ZoneId } from './data/items'
 import { invadedFlag, invasionLetsIn, zoneOf } from './data/invasion'
 import { ZoneMode, type VisitResume, type ZoneSetup } from './modes/zoneMode'
@@ -79,7 +81,7 @@ import { countFairClear } from './state/fair'
 
 export type Screen = 'boot' | 'zone' | 'town' | 'map'
 export type Modal =
-  | '' | 'results' | 'secondWind' | 'contracts' | 'siege' | 'pause' | 'character' | 'skills' | 'inventory' | 'journal' | 'shop' | 'trainer' | 'healer' | 'alchemy' | 'smithing' | 'sellOre' | 'memory' | 'itemBattle' | 'cups' | 'whack' | 'ring' | 'arm' | 'ending' | 'help' | 'unlock' | 'campPick' | 'arenaUnlock' | 'kingHoard' | 'cheat'
+  | '' | 'results' | 'secondWind' | 'contracts' | 'siege' | 'pause' | 'character' | 'skills' | 'inventory' | 'journal' | 'shop' | 'trainer' | 'healer' | 'alchemy' | 'smithing' | 'sellOre' | 'memory' | 'itemBattle' | 'cups' | 'whack' | 'ring' | 'arm' | 'ending' | 'help' | 'unlock' | 'campPick' | 'arenaUnlock' | 'kingHoard' | 'cheat' | 'arenaStart'
 /** A conversation in progress (`talk.ts`, drawn by `DialogLayer`): with a
  *  townsperson in the scene, with a trainer met on the map, or a quest's
  *  decision. It is not a window — the world keeps running under it — and it
@@ -152,6 +154,8 @@ export const flow = reactive({
   loading: false,
   loadProgress: 0,
   loadingNode: '' as NodeId | '',
+  /** The colosseum's start-wave offer (#230): the best wave, and the wave its power warrants. */
+  arenaOffer: { best: 0, rec: 1 },
   /** The townsperson a shop / trainer / talk modal belongs to. */
   npc: null as NpcDef | null,
   /** A trainer opened from the map (a hidden one found in a cleared zone). */
@@ -325,7 +329,10 @@ const setupFor = (node: NodeId): ZoneSetup => {
     return { kind: 'town', town, theme: townTheme(town), seed: hashSeed(node, 7), level: profile.level, difficulty: 1, flags }
   }
   if (def.kind === 'arena') {
-    return { kind: 'arena', theme: 'arena', seed: hashSeed(node, visits), level: profile.level, difficulty: difficultyFactor(), flags, arenaMod: arenaModOf() }
+    // The wave chosen at the gate is spent on this one build; the next visit asks again.
+    const start = arenaStartPick
+    arenaStartPick = 0
+    return { kind: 'arena', theme: 'arena', seed: hashSeed(node, visits), level: profile.level, difficulty: difficultyFactor(), flags, arenaMod: arenaModOf(), ...(start > 1 ? { arenaStart: start } : {}) }
   }
   // The afterplay: every zone is its invaded self (`data/invasion.ts`).
   const invaded = profile.world.afterplay
@@ -691,11 +698,37 @@ export const startFirstLevel = async (): Promise<void> => {
  * the veil's bar keeps moving, and only takes over once it is complete,
  * shaders included.
  */
+/** The wave the colosseum begins at this visit (1: the beginning), once chosen; read when the arena is built. */
+let arenaStartPick = 0
+const arenaPower = (): ArenaPower => ({
+  attrs: ATTRS.reduce((n, a) => n + totalAttrs()[a], 0),
+  highSkills: profile.hero.learned.filter(id => (SKILL_BY_ID[id]?.level ?? 0) >= ARENA_HIGH_SKILL).length,
+  passives: profile.hero.passive.filter(Boolean).length
+})
+/** The offer, when there is one: from the second visit, and only when the power-warranted start is past wave 1. */
+export const arenaStartOffer = (): { best: number; rec: number } | null => {
+  const best = profile.world.arenaBest
+  const rec = arenaStartWave(best, arenaPower())
+  return best > 0 && rec > 1 ? { best, rec } : null
+}
+/** The choice made at the gate: wave `n` (1 from the beginning) and in. */
+export const chooseArenaStart = (n: number): void => {
+  flow.modal = ''
+  arenaStartPick = Math.max(1, Math.round(n))
+  void travel('arena')
+}
+
 export const travel = async (node: NodeId): Promise<void> => {
   // Any place without a story lock: too strong is the player's own risk (#72).
   if (flow.loading || booting || !NODE_BY_ID[node] || !isNodeReachable(node) || !invasionLetsIn(node, profile.world.afterplay, flagSet())) return
   // The iOS demo ends at the Goblin King: beyond it the unlock is offered instead (a no-op elsewhere).
   if (isNodeLockedByDemo(node)) { openUnlock('map'); return }
+  // The colosseum from the second visit asks where to begin (#230); the answer comes back through `chooseArenaStart`.
+  if (node === 'arena' && arenaStartPick === 0) {
+    const offer = arenaStartOffer()
+    if (offer) { flow.arenaOffer = offer; flow.modal = 'arenaStart'; return }
+  }
+  if (node === 'arena' && arenaStartPick === 0) arenaStartPick = 1
   flow.loading = true
   flow.loadProgress = 0
   flow.loadingNode = node

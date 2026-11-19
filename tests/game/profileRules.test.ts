@@ -344,7 +344,7 @@ describe('decisions (GDD §3.2)', () => {
 
   it('a quest can hand over a named item', () => {
     p.decideQuest('oracle', 'slay')
-    expect(p.owns('timekeepersHourglass')).toBe(true)
+    expect(p.owns('oraclesHourglass')).toBe(true)
   })
 
   it('clearing a zone counts once', () => {

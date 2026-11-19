@@ -593,7 +593,9 @@ export const AFTER_ITEMS: readonly ItemDef[] = ([
   { id: 'bastionBanner', slot: 'off', kind: 'tome', tier: 6, level: 38, mods: { cha: 100, end: 60, minionDamage: 0.05, minionHp: 0.05, minionAttackSpeed: 0.05 }, unique: true, drop: { zone: 'outskirts', src: 'siege' } },
   { id: 'wallwardensPlate', slot: 'body', kind: 'plate', tier: 6, level: 42, mods: { end: 170, str: 95, damageReduction: 0.08 }, armor: 320, unique: true, drop: { zone: 'outskirts', src: 'siege' } },
   { id: 'gatebreaker', slot: 'main', kind: 'hammer', tier: 7, level: 45, mods: { str: 270, end: 120, bossDamage: 0.3, pylonBreaker: 1 }, weapon: melee('str', 1.25, true), unique: true, drop: { zone: 'outskirts', src: 'siege' } },
-  { id: 'crownOfTheLastBastion', slot: 'head', kind: 'greathelm', tier: 7, level: 50, mods: { allAttrs: 70, armor: 100, damageReduction: 0.08, lastStand: 0.2 }, unique: true, drop: { zone: 'outskirts', src: 'siege' } }
+  { id: 'crownOfTheLastBastion', slot: 'head', kind: 'greathelm', tier: 7, level: 50, mods: { allAttrs: 70, armor: 100, damageReduction: 0.08, lastStand: 0.2 }, unique: true, drop: { zone: 'outskirts', src: 'siege' } },
+  // The Drowned Oracle's hourglass, the prize of robbing her (#232): a legendary trinket, +6 to every attribute. Not found anywhere else.
+  { id: 'oraclesHourglass', slot: 'trinket', kind: 'hourglass', tier: 6, level: 18, mods: { allAttrs: 25, cdr: 0.1 }, unique: true, drop: { zone: 'temple', src: 'secret' } }
 ] as ItemDef[]).map(scaled).map(i => (i.level >= 45 && i.tier === 6 ? { ...i, tier: 7 as const } : i))
 
 /** The partner of a set piece ('' none). */
@@ -621,7 +623,22 @@ export const infernalId = (id: string): string => `${id}${INFERNAL_SUFFIX}`
  * is its original's, tinted red-black. Named "<name> · Infernal" by the
  * locale loader, from the original's own name.
  */
-export const INFERNALS: readonly ItemDef[] = ITEMS.filter(i => i.unique).map((it, n) => {
+/**
+ * Pieces that are not named uniques but get an Infernal twin too (#227). The second arc drops Infernal twins and the
+ * afterplay's set pieces only, and the twins came from the named uniques alone, which left whole builds with nothing to find
+ * there: not one endurance or charisma weapon, and no body, hand or foot piece for the charisma, dexterity, intelligence
+ * and skill lines. These are those builds' weapons (the six of each) and the best piece of each empty slot.
+ */
+export const INFERNAL_EXTRA: ReadonlySet<string> = new Set([
+  // Endurance weapons: maces, cleavers and warmaces
+  'watchmansCudgel', 'ironboundMace', 'stonehideCleaver', 'bulwarkMaul', 'mountainsplitterAxe', 'everstandWarmace',
+  // Charisma weapons: batons, crooks, standards and sceptres
+  'criersBaton', 'shepherdsCrook', 'droversStandard', 'bannerOfTheHost', 'marshalsSceptre', 'scepterOfTheFirstKing',
+  // The empty slots of the other lines
+  'shadowdancersBuckler', 'mantleOfTheShadowDancer', 'vestmentsOfSovereign', 'bootsOfTheLastShot', 'glovesOfTheCrownedHand', 'bootsOfTheLongProcession'
+])
+
+export const INFERNALS: readonly ItemDef[] = [...ITEMS.filter(i => i.unique), ...ITEMS.filter(i => !i.unique && INFERNAL_EXTRA.has(i.id))].map((it, n) => {
   const mods: Mods = {}
   // From the Ashen Crags on: mythic, and a third stronger (the hero at level 40+ needs it to keep up with the bosses).
   const mythic = INFERNAL_MYTHIC_ZONES.has(it.drop.zone)
