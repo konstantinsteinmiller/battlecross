@@ -16,7 +16,11 @@ import { move, raiseProps, shatterWallAt, warn, windCharge, type ChargeOpts } fr
 const DRILL: ChargeOpts = {
   speed: 13, max: 18, dmg: 1.4, pinDmg: 2, pinStun: 1.6, daze: 2, carry: true,
   wallDaze: (sim, x, z) => {
-    if (shatterWallAt(sim, x, z) !== 'beam') return 2
+    if (shatterWallAt(sim, x, z) !== 'beam') {
+      // The drill bores into the rock: dust and splinters, a short daze.
+      sim.emit({ t: 'fx', id: 'burst:rock', x, z, r: 2, color: '#8a6a4a' })
+      return 2
+    }
     sim.emit({ t: 'fx', id: 'burst:rock', x, z, r: 2.6, color: '#8a6a4a' })
     sim.emit({ t: 'fx', id: 'quake', x, z, r: 3, color: '#8a6a4a' })
     sim.emit({ t: 'tusker', id: 'crash', x, z })
@@ -30,6 +34,13 @@ const warden: BossScript = {
   phases: [0.5],
   arena(sim, u) {
     raiseProps(sim, u, 'beam', WARDEN_PILLARS, 4.5, 8)
+  },
+  // Half way, the roof lets go: the hall shakes, rock comes down and two more rotten pillars stand ready.
+  onPhase(sim, u, phase) {
+    if (phase !== 2) return
+    sim.emit({ t: 'fx', id: 'quake', x: u.x, z: u.z, r: 9, color: '#8a6a4a' })
+    sim.emit({ t: 'tusker', id: 'crash', x: u.x, z: u.z })
+    raiseProps(sim, u, 'beam', 2, 3, 9)
   },
   think(sim, u, tgt) {
     const b = u.boss!

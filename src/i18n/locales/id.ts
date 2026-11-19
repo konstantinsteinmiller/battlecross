@@ -443,7 +443,7 @@ export default {
   },
   wanted: { title: "Dicari" },
   tricks: { pot: "Panci sang juru masak menyembuhkan gerombolan. Bungkam dulu juru masaknya!", lever: "Tuas! Tarik agar batu-batu besar menggelinding ke gerombolan.", gallery: "Penembak ketapel di perancah, di luar jangkauan! Putuskan tiang talinya agar mereka jatuh." },
-  under: { goal: { corridor: "Ikuti terowongan dan nyalakan tungku api.", cart: "Berpeganglah! Belok kiri dan kanan, berguling melewati tong dan celah rel.", stash: "Gudang rahasia para penyelundup. Awas pelat tekan!", warden: "Penjaga Terowongan! Pancing bornya ke tiang yang lapuk.", done: "Jalan keluar terbuka." }, skip: "Lewati", toast: { purse: "Kantong para penyelundup: +{gold} emas", out: "Terowongan keluar di bawah pandai besi Sunford." } },
+  under: { goal: { corridor: "Ikuti terowongan dan nyalakan tungku api.", cart: "Berpeganglah! Belok kiri dan kanan, berguling melewati tong dan celah rel.", stash: "Gudang rahasia para penyelundup. Awas pelat tekan!", warden: "Penjaga Terowongan! Pancing bornya ke tiang yang lapuk.", done: "Jalan keluar terbuka." }, skip: "Lewati", toast: { drop: "Lantai sangkar runtuh: pintu jebakan kedua!", purse: "Kantong para penyelundup: +{gold} emas", out: "Terowongan keluar di bawah pandai besi Sunford." } },
   tusker: { hint: "Pancing serudukan Tusker ke tiang yang lapuk!", crash: "Atap runtuh menimpa Sang Raja!" },
   assault: {
     title: 'Pengepungan gerbang Gua',
@@ -6258,9 +6258,9 @@ export default {
     },
     bark: {
       hero: { cage: { 1: 'Ada yang berteriak minta tolong?' }, hunt: { 1: 'Ada orang lain yang memburu binatang buas itu.' }, levelUp: { 1: 'Aku jadi lebih kuat!' }, king: { 1: "Raja Goblin pasti bersembunyi di sekitar sini!" }, gnomes: { 1: "Mungkin aku bisa membantu beberapa gnome yang memberontak." } },
-      trainerPyro: { help: { 1: 'Tolong, siapa saja!' } },
-      sbMasterSoulwarden: { help: { 1: 'Kami diculik!' } },
-      sbMasterIronmonk: { help: { 1: 'Monster! Tolong!' } },
+      trainerPyro: { help: { 1: 'Tolong, siapa saja!' }, clean: { 1: "Tak tergores sedikit pun! Sombong." } },
+      sbMasterSoulwarden: { help: { 1: 'Kami diculik!' }, hit: { 1: "Aduh! Awas tong-tongnya!" } },
+      sbMasterIronmonk: { help: { 1: 'Monster! Tolong!' }, cart: { 1: "Pegangan yang erat!" } },
       sbMasterAether: { fight: { 1: 'Lawan aku, Mimpi Buruk!' } },
       sphinx: {
         intro: { '1': "Jawab aku, kecil, atau terkuburlah dalam pasirku." },
@@ -6336,7 +6336,7 @@ export default {
         },
         road: { '1': 'Kau menemukan kami! Para iblis menangkap kami di jalan ke Sunford. Kami akan pergi ke Penyeberangan Benteng: temui kami di benteng.' },
         next: { '1': 'Mara di Sunford akan memberimu hadiah karena menyelamatkan kami. Raja Goblin juga harus dihentikan. Pilihan ada di tanganmu.' },
-        wanted: { 1: "Lihat, ada sayembara untuk Raja Goblin! Siapa yang menjatuhkannya, menyimpan hartanya." }
+        wanted: { 1: "Lihat, ada sayembara untuk Raja Goblin! Siapa yang menjatuhkannya, menyimpan hartanya." }, under: { 1: "Kami tak pergi tanpa si pembawa lentera. Ayo!" }, won: { 1: "Sunford tepat di atas kita. Kerja bagus, pahlawan!" }
       },
       sfShadow: {
         road: { '1': 'Akhirnya ada yang datang. Kami berangkat ke Penyeberangan Benteng. Cari kami di benteng.' }

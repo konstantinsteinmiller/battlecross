@@ -819,6 +819,18 @@ export const learnBlock = (id: string): LearnBlock => {
   return ''
 }
 
+/** A skill given for nothing (the Undercroft's teachers, #EXT-1): learned and slotted, whatever it costs and asks. */
+export const giftSkill = (id: string): boolean => {
+  const s = SKILL_BY_ID[id]
+  if (!s || profile.hero.learned.includes(id)) return false
+  profile.hero.learned.push(id)
+  const slots = s.kind === 'active' ? profile.hero.active : profile.hero.passive
+  const free = slots.indexOf('')
+  if (free >= 0) slots[free] = id
+  saveProfile()
+  return true
+}
+
 export const learnSkill = (id: string): boolean => {
   if (learnBlock(id) !== '') return false
   const s = SKILL_BY_ID[id]!

@@ -443,7 +443,7 @@ export default {
   },
   wanted: { title: "Etsintäkuulutettu" },
   tricks: { pot: "Kokin pata parantaa lauman. Vaienna ensin kokki!", lever: "Vipu! Vedä siitä, niin kivenlohkareet vyöryvät lauman päälle.", gallery: "Linkoilijat rakennustelineillä, ulottumattomissa! Katkaise köysipylväs, niin he putoavat." },
-  under: { goal: { corridor: "Seuraa tunnelia ja sytytä hiillokset.", cart: "Pidä kiinni! Ohjaa vasemmalle ja oikealle, kierrä tynnyrien ja raideaukkojen yli.", stash: "Salakuljettajien kätkö. Varo painelaattaa!", warden: "Tunnelinvartija! Houkuttele hänen poransa lahoon pylvääseen.", done: "Ulospääsy on auki." }, skip: "Ohita", toast: { purse: "Salakuljettajien kukkaro: +{gold} kultaa", out: "Tunneli tulee ulos Sunfordin sepän alta." } },
+  under: { goal: { corridor: "Seuraa tunnelia ja sytytä hiillokset.", cart: "Pidä kiinni! Ohjaa vasemmalle ja oikealle, kierrä tynnyrien ja raideaukkojen yli.", stash: "Salakuljettajien kätkö. Varo painelaattaa!", warden: "Tunnelinvartija! Houkuttele hänen poransa lahoon pylvääseen.", done: "Ulospääsy on auki." }, skip: "Ohita", toast: { drop: "Häkin lattia pettää: toinen luukku!", purse: "Salakuljettajien kukkaro: +{gold} kultaa", out: "Tunneli tulee ulos Sunfordin sepän alta." } },
   tusker: { hint: "Houkuttele Tuskerin rynnäkkö lahoon pylvääseen!", crash: "Katto romahtaa kuninkaan niskaan!" },
   assault: {
     title: 'Luolien portin piiritys',
@@ -6258,9 +6258,9 @@ export default {
     },
     bark: {
       hero: { cage: { 1: 'Huutaako joku apua?' }, hunt: { 1: 'Joku muukin metsästää tuota petoa.' }, levelUp: { 1: 'Vahvistuin!' }, king: { 1: "Hiisikuninkaan täytyy piileskellä täällä jossakin!" }, gnomes: { 1: "Ehkä voin auttaa joitakin kapinoivista kääpiöistä." } },
-      trainerPyro: { help: { 1: 'Apua, joku!' } },
-      sbMasterSoulwarden: { help: { 1: 'Meidät kidnapattiin!' } },
-      sbMasterIronmonk: { help: { 1: 'Hirviöitä! Apua!' } },
+      trainerPyro: { help: { 1: 'Apua, joku!' }, clean: { 1: "Ei naarmuakaan! Ylpistelijä." } },
+      sbMasterSoulwarden: { help: { 1: 'Meidät kidnapattiin!' }, hit: { 1: "Au! Varo tynnyreitä!" } },
+      sbMasterIronmonk: { help: { 1: 'Hirviöitä! Apua!' }, cart: { 1: "Pidä kiinni!" } },
       sbMasterAether: { fight: { 1: 'Taistele minua vastaan, Painajainen!' } },
       sphinx: {
         intro: { '1': "Vastaa minulle, pienokainen, tai hiekkani hautaa sinut." },
@@ -6336,7 +6336,7 @@ export default {
         },
         road: { '1': 'Löysit meidät! Demonit nappasivat meidät Sunfordin tiellä. Lähdemme Bastionin ylityspaikalle: etsi meidät linnakkeesta.' },
         next: { '1': 'Mara Sunfordissa palkitsee sinut pelastuksestamme. Hiisikuningas on myös pysäytettävä. Valinta on sinun.' },
-        wanted: { 1: "Katso, Hiisikuninkaasta on luvattu palkkio! Se, joka kaataa hänet, saa pitää hänen aarteensa." }
+        wanted: { 1: "Katso, Hiisikuninkaasta on luvattu palkkio! Se, joka kaataa hänet, saa pitää hänen aarteensa." }, under: { 1: "Emme lähde ilman lyhdynkantajaa. Tule!" }, won: { 1: "Sunford on suoraan yläpuolellamme. Hyvin tehty, sankari!" }
       },
       sfShadow: {
         road: { '1': 'Olipa jo aikakin, että joku tuli. Lähdemme Bastionin ylityspaikalle. Etsi meitä linnakkeesta.' }

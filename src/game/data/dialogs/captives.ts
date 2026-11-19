@@ -58,13 +58,13 @@ const gunslinger = freed('sbMasterAether', 'cameoGunslinger', 'shout', ['fight']
 export const CAPTIVE_BARKS: readonly ConversationDef[] = [
   heroThought,
   gunslinger,
-  freed('trainerPyro', 'trainerPyro', 'excited', ['help'], 'pyroCry'),
-  freed('sbMasterSoulwarden', 'sbMasterSoulwarden', 'grave', ['help']),
-  freed('sbMasterIronmonk', 'sbMasterIronmonk', 'excited', ['help']),
+  freed('trainerPyro', 'trainerPyro', 'excited', ['help', 'clean'], 'pyroCry'),
+  freed('sbMasterSoulwarden', 'sbMasterSoulwarden', 'grave', ['help', 'hit']),
+  freed('sbMasterIronmonk', 'sbMasterIronmonk', 'excited', ['help', 'cart']),
   ...CAGES.filter(c => !c.afterplay).map(c => freed(c.npc, c.look, FEEL[c.npc] ?? 'warm')),
   // The first visit's camp (#156): Ser Aldric thanks the hero for the three of them
   // and offers their lessons (`sim/camp.ts`, CAMP_THANKS); freed on the burned road in
   // the afterplay (#164), he sends the hero to the fort.
-  freed('trainerAegis', 'trainerAegis', 'proud', ['freed', 'road', 'next', 'wanted']),
+  freed('trainerAegis', 'trainerAegis', 'proud', ['freed', 'road', 'next', 'wanted', 'under', 'won']),
   freed('sfShadow', 'sfShadow', 'warm', ['road'])
 ]

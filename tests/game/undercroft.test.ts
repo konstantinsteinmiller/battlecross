@@ -3,6 +3,7 @@ import { Sim } from '@/game/sim/world'
 import { applyPlan } from '@/game/sim/director'
 import { createHero } from '@/game/sim/hero'
 import { stepSim } from '@/game/sim/step'
+import { spawnEnemy } from '@/game/sim/spawn'
 import { startAttrs } from '@/game/data/attributes'
 import { noGear } from '@/game/data/items'
 import { generateUndercroft, UNDER_LAYOUT, CART_END_Z, CART_START_Z, LANE_X } from '@/game/sim/undercroftMap'
@@ -73,7 +74,7 @@ describe('the Undercroft (#EXT-1)', () => {
     const h = sim.hero.unit
     h.x = h.px = UNDER_LAYOUT.warden.x
     h.z = h.pz = UNDER_LAYOUT.warden.z + 12
-    run(sim, plan, 0.3)
+    run(sim, plan, 1.6)
     expect(u.phase).toBe('warden')
     const w = sim.get(u.warden)!
     expect(w.kind).toBe('tunnelWarden')
@@ -84,6 +85,36 @@ describe('the Undercroft (#EXT-1)', () => {
     run(sim, plan, 3.4)
     expect(u.phase).toBe('done')
     expect(u.outcome).toBe('won')
+  })
+
+  it('four freed teachers fall in with him and comment: arriving, the cart, a hit, a clean ride, the win (#EXT-12)', () => {
+    const { sim, plan } = scene()
+    const u = sim.under!
+    expect(u.teachers).toHaveLength(4)
+    const keys: string[] = []
+    const watch = (): void => { for (const e of sim.events) if (e.t === 'bark') keys.push(e.key) }
+    // The fall: nobody acts until they land.
+    expect(sim.hero.unit.stunt?.lift).toBeGreaterThan(5)
+    for (let t = 0; t < 4; t += DT) { stepSim(sim, plan, DT); watch(); sim.events.length = 0 }
+    expect(sim.hero.unit.stunt).toBeUndefined()
+    expect(keys).toContain('dlg.bark.trainerAegis.under.1')
+    // The cart, ridden badly: the barb; ridden clean afterwards (a fresh run): the praise.
+    const h = sim.hero.unit
+    h.s.maxHp = h.hp = 1000
+    h.x = h.px = LANE_X
+    h.z = h.pz = CART_START_Z + 5
+    for (let t = 0; t < 40; t += DT) { stepSim(sim, plan, DT); watch(); sim.events.length = 0 }
+    expect(keys).toContain('dlg.bark.sbMasterIronmonk.cart.1')
+    expect(keys).toContain('dlg.bark.sbMasterSoulwarden.hit.1')
+    expect(keys).not.toContain('dlg.bark.trainerPyro.clean.1')
+    // The warden falls.
+    u.phase = 'warden'
+    const w = spawnEnemy(sim, 'tunnelWarden', UNDER_LAYOUT.warden.x, UNDER_LAYOUT.warden.z)!
+    u.warden = w.id
+    w.hp = 0
+    w.alive = false
+    for (let t = 0; t < 1; t += DT) { stepSim(sim, plan, DT); watch(); sim.events.length = 0 }
+    expect(keys).toContain('dlg.bark.trainerAegis.won.1')
   })
 
   it('can be skipped', () => {

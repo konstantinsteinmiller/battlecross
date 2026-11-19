@@ -294,6 +294,11 @@
     "at": "2026-11-16",
     "hash": "9a07d502a2"
   },
+  "de/dlg.bark.sbMasterIronmonk.cart.1": {
+    "engine": "elevenlabs",
+    "at": "2026-11-18",
+    "hash": "e26733a4b5"
+  },
   "de/dlg.bark.sbMasterIronmonk.help.1": {
     "engine": "elevenlabs",
     "at": "2026-11-16",
@@ -303,6 +308,11 @@
     "engine": "elevenlabs",
     "at": "2026-11-16",
     "hash": "737550629f"
+  },
+  "de/dlg.bark.sbMasterSoulwarden.hit.1": {
+    "engine": "elevenlabs",
+    "at": "2026-11-18",
+    "hash": "0a85e81010"
   },
   "de/dlg.bark.sfShadow.road.1": {
     "engine": "elevenlabs",
@@ -394,10 +404,25 @@
     "at": "2026-11-16",
     "hash": "c62e18257c"
   },
+  "de/dlg.bark.trainerAegis.under.1": {
+    "engine": "elevenlabs",
+    "at": "2026-11-18",
+    "hash": "c1647d385a"
+  },
   "de/dlg.bark.trainerAegis.wanted.1": {
     "engine": "chatterbox",
     "at": "2026-11-18",
     "hash": "a897af3e1b"
+  },
+  "de/dlg.bark.trainerAegis.won.1": {
+    "engine": "elevenlabs",
+    "at": "2026-11-18",
+    "hash": "73503df640"
+  },
+  "de/dlg.bark.trainerPyro.clean.1": {
+    "engine": "elevenlabs",
+    "at": "2026-11-18",
+    "hash": "7898522edf"
   },
   "de/dlg.bark.trainerPyro.help.1": {
     "engine": "elevenlabs",
@@ -8389,6 +8414,11 @@
     "at": "2026-11-13",
     "hash": "90be7031a7"
   },
+  "en/dlg.bark.sbMasterIronmonk.cart.1": {
+    "engine": "chatterbox",
+    "at": "2026-11-18",
+    "hash": "317ab79e10"
+  },
   "en/dlg.bark.sbMasterIronmonk.help.1": {
     "engine": "chatterbox",
     "at": "2026-11-04",
@@ -8398,6 +8428,11 @@
     "engine": "chatterbox",
     "at": "2026-11-04",
     "hash": "87f06c7958"
+  },
+  "en/dlg.bark.sbMasterSoulwarden.hit.1": {
+    "engine": "chatterbox",
+    "at": "2026-11-18",
+    "hash": "08ae1f286a"
   },
   "en/dlg.bark.sfShadow.road.1": {
     "engine": "chatterbox",
@@ -8489,10 +8524,25 @@
     "at": "2026-10-25",
     "hash": "d6735549d5"
   },
+  "en/dlg.bark.trainerAegis.under.1": {
+    "engine": "chatterbox",
+    "at": "2026-11-18",
+    "hash": "899e636aef"
+  },
   "en/dlg.bark.trainerAegis.wanted.1": {
     "engine": "chatterbox",
     "at": "2026-11-18",
     "hash": "d893152550"
+  },
+  "en/dlg.bark.trainerAegis.won.1": {
+    "engine": "chatterbox",
+    "at": "2026-11-18",
+    "hash": "eed743a80e"
+  },
+  "en/dlg.bark.trainerPyro.clean.1": {
+    "engine": "chatterbox",
+    "at": "2026-11-18",
+    "hash": "6654b11dae"
   },
   "en/dlg.bark.trainerPyro.help.1": {
     "engine": "chatterbox",
@@ -16484,6 +16534,11 @@
     "at": "2026-11-13",
     "hash": "7423c25ee8"
   },
+  "es/dlg.bark.sbMasterIronmonk.cart.1": {
+    "engine": "chatterbox",
+    "at": "2026-11-18",
+    "hash": "cbed6d8396"
+  },
   "es/dlg.bark.sbMasterIronmonk.help.1": {
     "engine": "chatterbox",
     "at": "2026-11-02",
@@ -16493,6 +16548,11 @@
     "engine": "chatterbox",
     "at": "2026-11-02",
     "hash": "393fa4bb0e"
+  },
+  "es/dlg.bark.sbMasterSoulwarden.hit.1": {
+    "engine": "chatterbox",
+    "at": "2026-11-18",
+    "hash": "8adc1862a6"
   },
   "es/dlg.bark.sfShadow.road.1": {
     "engine": "chatterbox",
@@ -16584,10 +16644,25 @@
     "at": "2026-10-25",
     "hash": "3fc3766f37"
   },
+  "es/dlg.bark.trainerAegis.under.1": {
+    "engine": "chatterbox",
+    "at": "2026-11-18",
+    "hash": "e68069b9f0"
+  },
   "es/dlg.bark.trainerAegis.wanted.1": {
     "engine": "chatterbox",
     "at": "2026-11-18",
     "hash": "0f120df8e5"
+  },
+  "es/dlg.bark.trainerAegis.won.1": {
+    "engine": "chatterbox",
+    "at": "2026-11-18",
+    "hash": "2c4a69a527"
+  },
+  "es/dlg.bark.trainerPyro.clean.1": {
+    "engine": "chatterbox",
+    "at": "2026-11-18",
+    "hash": "c5f6aea3ae"
   },
   "es/dlg.bark.trainerPyro.help.1": {
     "engine": "chatterbox",
@@ -18334,6 +18409,11 @@
     "at": "2026-11-13",
     "hash": "1294e3d0b6"
   },
+  "fr/dlg.bark.sbMasterIronmonk.cart.1": {
+    "engine": "chatterbox",
+    "at": "2026-11-19",
+    "hash": "219228537e"
+  },
   "fr/dlg.bark.sbMasterIronmonk.help.1": {
     "engine": "chatterbox",
     "at": "2026-11-02",
@@ -18343,6 +18423,11 @@
     "engine": "chatterbox",
     "at": "2026-11-02",
     "hash": "2c29bf2828"
+  },
+  "fr/dlg.bark.sbMasterSoulwarden.hit.1": {
+    "engine": "chatterbox",
+    "at": "2026-11-18",
+    "hash": "0fe09f8077"
   },
   "fr/dlg.bark.sfShadow.road.1": {
     "engine": "chatterbox",
@@ -18434,10 +18519,25 @@
     "at": "2026-10-25",
     "hash": "cf67eb0a94"
   },
+  "fr/dlg.bark.trainerAegis.under.1": {
+    "engine": "chatterbox",
+    "at": "2026-11-18",
+    "hash": "c002fe0225"
+  },
   "fr/dlg.bark.trainerAegis.wanted.1": {
     "engine": "chatterbox",
     "at": "2026-11-18",
     "hash": "640e32fa07"
+  },
+  "fr/dlg.bark.trainerAegis.won.1": {
+    "engine": "chatterbox",
+    "at": "2026-11-18",
+    "hash": "06c06eee2a"
+  },
+  "fr/dlg.bark.trainerPyro.clean.1": {
+    "engine": "chatterbox",
+    "at": "2026-11-18",
+    "hash": "a022a84317"
   },
   "fr/dlg.bark.trainerPyro.help.1": {
     "engine": "chatterbox",
@@ -28129,6 +28229,11 @@
     "at": "2026-11-13",
     "hash": "fffe4eee0f"
   },
+  "ru/dlg.bark.sbMasterIronmonk.cart.1": {
+    "engine": "chatterbox",
+    "at": "2026-11-18",
+    "hash": "9be9171555"
+  },
   "ru/dlg.bark.sbMasterIronmonk.help.1": {
     "engine": "chatterbox",
     "at": "2026-11-02",
@@ -28138,6 +28243,11 @@
     "engine": "chatterbox",
     "at": "2026-11-02",
     "hash": "29dccd5d4b"
+  },
+  "ru/dlg.bark.sbMasterSoulwarden.hit.1": {
+    "engine": "chatterbox",
+    "at": "2026-11-18",
+    "hash": "52da5176c6"
   },
   "ru/dlg.bark.sfShadow.road.1": {
     "engine": "chatterbox",
@@ -28229,10 +28339,25 @@
     "at": "2026-10-25",
     "hash": "c277836bc2"
   },
+  "ru/dlg.bark.trainerAegis.under.1": {
+    "engine": "chatterbox",
+    "at": "2026-11-18",
+    "hash": "a02ea7daa1"
+  },
   "ru/dlg.bark.trainerAegis.wanted.1": {
     "engine": "chatterbox",
     "at": "2026-11-18",
     "hash": "adad19175c"
+  },
+  "ru/dlg.bark.trainerAegis.won.1": {
+    "engine": "chatterbox",
+    "at": "2026-11-18",
+    "hash": "05b195eff4"
+  },
+  "ru/dlg.bark.trainerPyro.clean.1": {
+    "engine": "chatterbox",
+    "at": "2026-11-18",
+    "hash": "2e8003eab1"
   },
   "ru/dlg.bark.trainerPyro.help.1": {
     "engine": "chatterbox",
@@ -29979,6 +30104,11 @@
     "at": "2026-11-13",
     "hash": "1902de62b5"
   },
+  "zh/dlg.bark.sbMasterIronmonk.cart.1": {
+    "engine": "chatterbox",
+    "at": "2026-11-18",
+    "hash": "7a37ffaecc"
+  },
   "zh/dlg.bark.sbMasterIronmonk.help.1": {
     "engine": "chatterbox",
     "at": "2026-11-02",
@@ -29988,6 +30118,11 @@
     "engine": "chatterbox",
     "at": "2026-11-02",
     "hash": "521baa211a"
+  },
+  "zh/dlg.bark.sbMasterSoulwarden.hit.1": {
+    "engine": "chatterbox",
+    "at": "2026-11-18",
+    "hash": "99b75db2e9"
   },
   "zh/dlg.bark.sfShadow.road.1": {
     "engine": "chatterbox",
@@ -30079,10 +30214,25 @@
     "at": "2026-10-25",
     "hash": "c94385974c"
   },
+  "zh/dlg.bark.trainerAegis.under.1": {
+    "engine": "chatterbox",
+    "at": "2026-11-18",
+    "hash": "f7a1b76417"
+  },
   "zh/dlg.bark.trainerAegis.wanted.1": {
     "engine": "chatterbox",
     "at": "2026-11-18",
     "hash": "f41819d1a7"
+  },
+  "zh/dlg.bark.trainerAegis.won.1": {
+    "engine": "chatterbox",
+    "at": "2026-11-18",
+    "hash": "cd80f0d46d"
+  },
+  "zh/dlg.bark.trainerPyro.clean.1": {
+    "engine": "chatterbox",
+    "at": "2026-11-18",
+    "hash": "0e9b047d19"
   },
   "zh/dlg.bark.trainerPyro.help.1": {
     "engine": "chatterbox",

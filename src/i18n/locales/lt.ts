@@ -443,7 +443,7 @@ export default {
   },
   wanted: { title: "Ieškomas" },
   tricks: { pot: "Virėjo puodas gydo gaują. Pirmiausia nutildyk virėją!", lever: "Svirtis! Patraukk, ir riedulių ritinys nusirita ant gaujos.", gallery: "Svaidytuvininkai ant pastolių, nepasiekiami! Perpjauk virvės stulpą, kad jie nukristų." },
-  under: { goal: { corridor: "Sek tunelį ir uždek žarijų dubenis.", cart: "Laikykis! Sukis kairėn ir dešinėn, perriedėk statines ir bėgių tarpus.", stash: "Kontrabandininkų slėptuvė. Saugokis spaudimo plokštės!", warden: "Tunelio sargas! Privilioti jo grąžtą į supuvusį stulpą.", done: "Kelias laukan atviras." }, skip: "Praleisti", toast: { purse: "Kontrabandininkų piniginė: +{gold} aukso", out: "Tunelis išeina po Sunfordo kalve." } },
+  under: { goal: { corridor: "Sek tunelį ir uždek žarijų dubenis.", cart: "Laikykis! Sukis kairėn ir dešinėn, perriedėk statines ir bėgių tarpus.", stash: "Kontrabandininkų slėptuvė. Saugokis spaudimo plokštės!", warden: "Tunelio sargas! Privilioti jo grąžtą į supuvusį stulpą.", done: "Kelias laukan atviras." }, skip: "Praleisti", toast: { drop: "Narvo grindys įlūžta: antras liukas!", purse: "Kontrabandininkų piniginė: +{gold} aukso", out: "Tunelis išeina po Sunfordo kalve." } },
   tusker: { hint: "Privilioti Tuskerio šuolį į supuvusį stulpą!", crash: "Lubos griūva ant Karaliaus!" },
   assault: {
     title: 'Urvų vartų apgultis',
@@ -6317,9 +6317,9 @@ export default {
     },
     bark: {
       hero: { cage: { 1: 'Ar kažkas šaukia pagalbos?' }, hunt: { 1: 'Kažkas kitas taip pat medžioja tą žvėrį.' }, levelUp: { 1: 'Sustiprėjau!' }, king: { 1: "Goblinų karalius turi slėptis kažkur čia!" }, gnomes: { 1: "Gal galėčiau padėti kai kuriems sukilėlių gnomams." } },
-      trainerPyro: { help: { 1: 'Padėkite, kas nors!' } },
-      sbMasterSoulwarden: { help: { 1: 'Mus pagrobė!' } },
-      sbMasterIronmonk: { help: { 1: 'Pabaisos! Padėkite!' } },
+      trainerPyro: { help: { 1: 'Padėkite, kas nors!' }, clean: { 1: "Nė įbrėžimo! Puikuolis." } },
+      sbMasterSoulwarden: { help: { 1: 'Mus pagrobė!' }, hit: { 1: "Au! Saugokis statinių!" } },
+      sbMasterIronmonk: { help: { 1: 'Pabaisos! Padėkite!' }, cart: { 1: "Tvirtai laikykis!" } },
       sbMasterAether: { fight: { 1: 'Kovok su manimi, Košmare!' } },
       sphinx: {
         intro: { '1': "Atsakyk man, mažyli, arba palaidos tave mano smėlis." },
@@ -6395,7 +6395,7 @@ export default {
         },
         road: { '1': 'Tu mus radai! Demonai sugavo mus kelyje į Sanfordą. Keliaujame į Bastiono brastą: ieškok mūsų tvirtovėje.' },
         next: { '1': 'Mara Sunforde apdovanos tave už mūsų išgelbėjimą. Goblinų karalių taip pat reikia sustabdyti. Pasirinkimas tavo.' },
-        wanted: { 1: "Žiūrėk, premija už Goblinų karalių! Kas jį nugalės, pasiims jo lobį." }
+        wanted: { 1: "Žiūrėk, premija už Goblinų karalių! Kas jį nugalės, pasiims jo lobį." }, under: { 1: "Be žibintininko neišeisime. Eime!" }, won: { 1: "Sunfordas tiesiai virš mūsų. Šaunuolis, didvyri!" }
       },
       sfShadow: {
         road: { '1': 'Pagaliau kažkas atėjo. Išeiname į Bastiono brastą. Ieškok mūsų tvirtovėje.' }

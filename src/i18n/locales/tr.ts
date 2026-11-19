@@ -443,7 +443,7 @@ export default {
   },
   wanted: { title: "Aranıyor" },
   tricks: { pot: "Aşçının kazanı çeteyi iyileştiriyor. Önce aşçıyı sustur!", lever: "Bir kol! Çek, kayalar çetenin üstüne yuvarlansın.", gallery: "Askıdaki sapancılar ulaşılmaz! Onları düşürmek için ip direğini kes." },
-  under: { goal: { corridor: "Tüneli izle ve mangalları yak.", cart: "Tutun! Sağa sola yönlendir, fıçıların ve ray boşluklarının üstünden yuvarlan.", stash: "Kaçakçıların deposu. Basınç plakasına dikkat!", warden: "Tünel Bekçisi! Matkabını çürük bir direğe çek.", done: "Çıkış yolu açık." }, skip: "Atla", toast: { purse: "Kaçakçıların kesesi: +{gold} altın", out: "Tünel, Sunford'daki demirci dükkânının altından çıkıyor." } },
+  under: { goal: { corridor: "Tüneli izle ve mangalları yak.", cart: "Tutun! Sağa sola yönlendir, fıçıların ve ray boşluklarının üstünden yuvarlan.", stash: "Kaçakçıların deposu. Basınç plakasına dikkat!", warden: "Tünel Bekçisi! Matkabını çürük bir direğe çek.", done: "Çıkış yolu açık." }, skip: "Atla", toast: { drop: "Kafesin zemini çöküyor: ikinci tuzak kapağı!", purse: "Kaçakçıların kesesi: +{gold} altın", out: "Tünel, Sunford'daki demirci dükkânının altından çıkıyor." } },
   tusker: { hint: "Tusker’ın hücumunu çürük bir direğe çek!", crash: "Tavan Kral’ın üstüne çöküyor!" },
   assault: {
     title: 'Mağaraların kapısının kuşatması',
@@ -6258,9 +6258,9 @@ export default {
     },
     bark: {
       hero: { cage: { 1: 'Biri yardım için mi bağırıyor?' }, hunt: { 1: 'O canavarı başka biri de avlıyor.' }, levelUp: { 1: 'Güçlendim!' }, king: { 1: "Goblin Kral burada bir yerlerde saklanıyor olmalı!" }, gnomes: { 1: "Belki isyan eden cücelerden bazılarına yardım edebilirim." } },
-      trainerPyro: { help: { 1: 'İmdat, kimse yok mu!' } },
-      sbMasterSoulwarden: { help: { 1: 'Kaçırıldık!' } },
-      sbMasterIronmonk: { help: { 1: 'Canavarlar! İmdat!' } },
+      trainerPyro: { help: { 1: 'İmdat, kimse yok mu!' }, clean: { 1: "Bir çizik bile yok! Gösteriş meraklısı." } },
+      sbMasterSoulwarden: { help: { 1: 'Kaçırıldık!' }, hit: { 1: "Ay! Fıçılara dikkat!" } },
+      sbMasterIronmonk: { help: { 1: 'Canavarlar! İmdat!' }, cart: { 1: "Sıkı tutun!" } },
       sbMasterAether: { fight: { 1: 'Benimle dövüş, Kâbus!' } },
       sphinx: {
         intro: { '1': "Cevap ver bana küçük şey, yoksa kumuma gömülürsün." },
@@ -6336,7 +6336,7 @@ export default {
         },
         road: { '1': 'Bizi buldun! İblisler bizi Sunford yolunda yakaladı. Burç Geçidi’ne gidiyoruz: bizi kalede bul.' },
         next: { '1': 'Sunford’daki Mara, bizi kurtardığın için seni ödüllendirecek. Goblin Kralı da durdurulmalı. Seçim senin.' },
-        wanted: { 1: "Bak, Goblin Kralı için ödül konmuş! Onu devirenin hazinesi kendisinin olur." }
+        wanted: { 1: "Bak, Goblin Kralı için ödül konmuş! Onu devirenin hazinesi kendisinin olur." }, under: { 1: "Fenerci olmadan gitmeyiz. Hadi!" }, won: { 1: "Sunford tam üstümüzde. Aferin, kahraman!" }
       },
       sfShadow: {
         road: { '1': 'Sonunda biri geldi. Burç Geçidi’ne yola çıkıyoruz. Bizi kalede ara.' }

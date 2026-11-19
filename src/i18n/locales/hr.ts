@@ -446,7 +446,7 @@ export default {
   },
   wanted: { title: "Traži se" },
   tricks: { pot: "Kuharov kotao liječi skupinu. Prvo ušutkaj kuhara!", lever: "Poluga! Povuci je da se gromade otkotrljaju na skupinu.", gallery: "Praćkaši na skeli, izvan dosega! Prereži uže na stupu da ih srušiš." },
-  under: { goal: { corridor: "Slijedi tunel i zapali žarišta.", cart: "Drži se! Skreći lijevo i desno, preskoči bačve i praznine u tračnicama.", stash: "Krijumčarska skrovišta. Pazi na tlačnu ploču!", warden: "Čuvar tunela! Namami njegovu bušilicu na trulo stupište.", done: "Izlaz je otvoren." }, skip: "Preskoči", toast: { purse: "Krijumčarska kesa: +{gold} zlata", out: "Tunel izlazi ispod kovačnice u Sunfordu." } },
+  under: { goal: { corridor: "Slijedi tunel i zapali žarišta.", cart: "Drži se! Skreći lijevo i desno, preskoči bačve i praznine u tračnicama.", stash: "Krijumčarska skrovišta. Pazi na tlačnu ploču!", warden: "Čuvar tunela! Namami njegovu bušilicu na trulo stupište.", done: "Izlaz je otvoren." }, skip: "Preskoči", toast: { drop: "Pod kaveza popušta: druga zamka!", purse: "Krijumčarska kesa: +{gold} zlata", out: "Tunel izlazi ispod kovačnice u Sunfordu." } },
   tusker: { hint: "Namami Tuskerov juriš u trulo stupište!", crash: "Strop se ruši na Kralja!" },
   assault: {
     title: 'Opsada vrata Špilja',
@@ -6371,9 +6371,9 @@ export default {
     },
     bark: {
       hero: { cage: { 1: 'Viče li netko upomoć?' }, hunt: { 1: 'Još netko lovi tu zvijer.' }, levelUp: { 1: 'Ojačao sam!' }, king: { 1: "Goblinski kralj mora se negdje ovdje skrivati!" }, gnomes: { 1: "Možda mogu pomoći nekima od pobunjenih gnomova." } },
-      trainerPyro: { help: { 1: 'Upomoć, ima li koga!' } },
-      sbMasterSoulwarden: { help: { 1: 'Otete su nas!' } },
-      sbMasterIronmonk: { help: { 1: 'Čudovišta! Upomoć!' } },
+      trainerPyro: { help: { 1: 'Upomoć, ima li koga!' }, clean: { 1: "Ni ogrebotine! Hvalisavče." } },
+      sbMasterSoulwarden: { help: { 1: 'Otete su nas!' }, hit: { 1: "Au! Pazi na bačve!" } },
+      sbMasterIronmonk: { help: { 1: 'Čudovišta! Upomoć!' }, cart: { 1: "Čvrsto se drži!" } },
       sbMasterAether: { fight: { 1: 'Bori se sa mnom, Noćna moro!' } },
       sphinx: {
         intro: { '1': "Odgovori mi, mališa, ili će te zakopati moj pijesak." },
@@ -6449,7 +6449,7 @@ export default {
         },
         road: { '1': 'Pronašao si nas! Demoni su nas uhvatili na cesti za Sunford. Idemo u Bastionski prijelaz: nađi nas u utvrdi.' },
         next: { '1': 'Mara u Sunfordu nagradit će te za naše spašavanje. Kralja goblina također treba zaustaviti. Izbor je tvoj.' },
-        wanted: { 1: "Gle, nagrada na glavu Goblinskog kralja! Tko ga sruši, zadržava njegovo blago." }
+        wanted: { 1: "Gle, nagrada na glavu Goblinskog kralja! Tko ga sruši, zadržava njegovo blago." }, under: { 1: "Bez nositelja fenjera ne idemo. Hajde!" }, won: { 1: "Sunford je točno iznad nas. Bravo, junače!" }
       },
       sfShadow: {
         road: { '1': 'Bilo je vrijeme da netko dođe. Krećemo u Bastionski prijelaz. Potraži nas u utvrdi.' }

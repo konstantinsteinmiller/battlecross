@@ -443,7 +443,7 @@ export default {
   },
   wanted: { title: "Körözött" },
   tricks: { pot: "A szakács fazeka gyógyítja a bandát. Előbb a szakácsot hallgattasd el!", lever: "Egy kar! Húzd meg, és a sziklák a bandára gördülnek.", gallery: "Parittyások az állványon, elérhetetlenül! Vágd el a kötéloszlopot, hogy leessenek." },
-  under: { goal: { corridor: "Kövesd az alagutat, és gyújtsd meg a parázstartókat.", cart: "Kapaszkodj! Kormányozz jobbra-balra, gurulj át a hordókon és a sínhézagokon.", stash: "A csempészek rejtekhelye. Vigyázz a nyomólapra!", warden: "Az Alagútőr! Csalogasd fúróját egy korhadt oszlopba.", done: "A kijárat nyitva áll." }, skip: "Kihagyás", toast: { purse: "A csempészek erszénye: +{gold} arany", out: "Az alagút a sunfordi kovácsműhely alatt jön fel." } },
+  under: { goal: { corridor: "Kövesd az alagutat, és gyújtsd meg a parázstartókat.", cart: "Kapaszkodj! Kormányozz jobbra-balra, gurulj át a hordókon és a sínhézagokon.", stash: "A csempészek rejtekhelye. Vigyázz a nyomólapra!", warden: "Az Alagútőr! Csalogasd fúróját egy korhadt oszlopba.", done: "A kijárat nyitva áll." }, skip: "Kihagyás", toast: { drop: "A kalitka padlója beszakad: egy második csapóajtó!", purse: "A csempészek erszénye: +{gold} arany", out: "Az alagút a sunfordi kovácsműhely alatt jön fel." } },
   tusker: { hint: "Csalogasd Tusker rohamát egy korhadt oszlopnak!", crash: "A tető rázuhan a Királyra!" },
   assault: {
     title: 'A Barlangok kapujának ostroma',
@@ -6258,9 +6258,9 @@ export default {
     },
     bark: {
       hero: { cage: { 1: 'Valaki segítségért kiabál?' }, hunt: { 1: 'Valaki más is vadászik arra a fenevadra.' }, levelUp: { 1: 'Erősebb lettem!' }, king: { 1: "A Goblinkirály itt bujkálhat valahol!" }, gnomes: { 1: "Talán segíthetek néhány lázadó gnómnak." } },
-      trainerPyro: { help: { 1: 'Segítség, valaki!' } },
-      sbMasterSoulwarden: { help: { 1: 'Elraboltak minket!' } },
-      sbMasterIronmonk: { help: { 1: 'Szörnyek! Segítség!' } },
+      trainerPyro: { help: { 1: 'Segítség, valaki!' }, clean: { 1: "Egy karcolás sincs! Dicsekvő." } },
+      sbMasterSoulwarden: { help: { 1: 'Elraboltak minket!' }, hit: { 1: "Au! Vigyázz a hordókra!" } },
+      sbMasterIronmonk: { help: { 1: 'Szörnyek! Segítség!' }, cart: { 1: "Kapaszkodj!" } },
       sbMasterAether: { fight: { 1: 'Harcolj velem, Rémálom!' } },
       sphinx: {
         intro: { '1': "Felelj, kicsikém, vagy eltemet a homokom." },
@@ -6336,7 +6336,7 @@ export default {
         },
         road: { '1': 'Megtaláltál minket! A démonok elkaptak a sunfordi úton. A Bástyagázlóhoz megyünk: keress minket az erődben.' },
         next: { '1': 'Mara Sunfordban megjutalmaz a megmentésünkért. A Goblinkirályt is meg kell állítani. A döntés a tiéd.' },
-        wanted: { 1: "Nézd, vérdíj a Goblinkirályra! Aki leteríti, azé a kincse." }
+        wanted: { 1: "Nézd, vérdíj a Goblinkirályra! Aki leteríti, azé a kincse." }, under: { 1: "A lámpásvivő nélkül nem megyünk. Gyere!" }, won: { 1: "Sunford közvetlenül felettünk van. Szép munka, hős!" }
       },
       sfShadow: {
         road: { '1': 'Ideje volt, hogy jöjjön valaki. Indulunk a Bástyagázlóhoz. Az erődben keress minket.' }

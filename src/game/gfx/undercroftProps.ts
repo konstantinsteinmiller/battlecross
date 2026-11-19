@@ -140,6 +140,19 @@ export class UndercroftProps {
   onEvent(e: SimEvent): void {
     if (e.t !== 'under') return
     switch (e.id) {
+      case 'drop':
+        sfx('swingHeavy', 0, 0.6)
+        break
+      case 'land':
+        sfx('quake', 0, 0.9)
+        sfx('hitHeavy', 0, 0.7)
+        this.trauma(0.8)
+        this.vfx.ring(e.x, e.z, 0.4, 4.2, '#b3a48c', 0.6)
+        for (let q = 0; q < (this.low ? 10 : 26); q++) {
+          const a = Math.random() * Math.PI * 2
+          this.vfx.particles.emit({ x: e.x + Math.cos(a) * 0.8, y: 0.2, z: e.z + Math.sin(a) * 0.8, vx: Math.cos(a) * (2 + Math.random() * 2), vy: 1 + Math.random() * 2, vz: Math.sin(a) * (2 + Math.random() * 2), color: q % 2 ? '#b3a48c' : '#7a5a3a', size: 0.35, sizeEnd: 0.08, life: 1, gravity: 3, drag: 1 })
+        }
+        break
       case 'brazier':
         sfx('castFire', 0, 0.5)
         this.vfx.ring(e.x, e.z, 0.3, 2.6, '#ffb02a', 0.5)

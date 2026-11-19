@@ -443,7 +443,7 @@ export default {
   },
   wanted: { title: "Serĉata" },
   tricks: { pot: "La poto de la kuiristo resanigas la bandon. Unue silentigu la kuiriston!", lever: "Levilo! Tiru ĝin por ruli la rokojn sur la bandon.", gallery: "Ĵetistoj sur la fasto, ekster atingo! Distranĉu la ŝnurpoŝton por faligi ilin." },
-  under: { goal: { corridor: "Sekvu la tunelon kaj ŝaltu la fajrujojn.", cart: "Tenu vin! Stiru maldekstren kaj dekstren, rulu super bareloj kaj relaj interspacoj.", stash: "La kaŝejo de la kontrabandistoj. Atentu la premplaton!", warden: "La Gardisto de la Tunelo! Logu lian boron en putran kolonon.", done: "La elirejo estas libera." }, skip: "Preterpasi", toast: { purse: "La monujo de la kontrabandistoj: +{gold} oro", out: "La tunelo eliras sub la forĝejo en Sunford." } },
+  under: { goal: { corridor: "Sekvu la tunelon kaj ŝaltu la fajrujojn.", cart: "Tenu vin! Stiru maldekstren kaj dekstren, rulu super bareloj kaj relaj interspacoj.", stash: "La kaŝejo de la kontrabandistoj. Atentu la premplaton!", warden: "La Gardisto de la Tunelo! Logu lian boron en putran kolonon.", done: "La elirejo estas libera." }, skip: "Preterpasi", toast: { drop: "La planko de la kaĝo cedas: dua klapo!", purse: "La monujo de la kontrabandistoj: +{gold} oro", out: "La tunelo eliras sub la forĝejo en Sunford." } },
   tusker: { hint: "Logu la ŝargon de Tusker en putran kolonon!", crash: "La plafono falas sur la Reĝon!" },
   assault: {
     title: 'Sieĝo de la pordego de la Kavernoj',
@@ -6258,9 +6258,9 @@ export default {
     },
     bark: {
       hero: { cage: { 1: 'Ĉu iu krias pri helpo?' }, hunt: { 1: 'Iu alia ankaŭ ĉasas tiun beston.' }, levelUp: { 1: 'Mi plifortiĝis!' }, king: { 1: "La Koboldreĝo certe kaŝas sin ie ĉi tie!" }, gnomes: { 1: "Eble mi povas helpi kelkajn el la ribelantaj gnomoj." } },
-      trainerPyro: { help: { 1: 'Helpon, ĉu iu!' } },
-      sbMasterSoulwarden: { help: { 1: 'Ni estis kidnapitaj!' } },
-      sbMasterIronmonk: { help: { 1: 'Monstroj! Helpon!' } },
+      trainerPyro: { help: { 1: 'Helpon, ĉu iu!' }, clean: { 1: "Eĉ ne grataĵo! Fanfaronulo." } },
+      sbMasterSoulwarden: { help: { 1: 'Ni estis kidnapitaj!' }, hit: { 1: "Aj! Atentu la barelojn!" } },
+      sbMasterIronmonk: { help: { 1: 'Monstroj! Helpon!' }, cart: { 1: "Tenu vin forte!" } },
       sbMasterAether: { fight: { 1: 'Batalu kontraŭ mi, Koŝmaro!' } },
       sphinx: {
         intro: { '1': "Respondu al mi, etulo, aŭ mia sablo entombigos vin." },
@@ -6336,7 +6336,7 @@ export default {
         },
         road: { '1': 'Vi trovis nin! La demonoj kaptis nin sur la vojo al Sunford. Ni iros al Bastiona Transirejo: trovu nin en la fortikaĵo.' },
         next: { '1': 'Mara en Sunford rekompencos vin pro nia savo. Ankaŭ la Kobolda Reĝo devas esti haltigita. La elekto estas via.' },
-        wanted: { 1: "Rigardu, premio por la Koboldreĝo! Kiu faligas lin, tiu konservas lian trezoron." }
+        wanted: { 1: "Rigardu, premio por la Koboldreĝo! Kiu faligas lin, tiu konservas lian trezoron." }, under: { 1: "Ni ne povas foriri sen la lanternportanto. Venu!" }, won: { 1: "Sunford estas tuj super ni. Bone farite, heroo!" }
       },
       sfShadow: {
         road: { '1': 'Jam estis tempo, ke iu venu. Ni foriras al Bastiona Transirejo. Serĉu nin en la fortikaĵo.' }

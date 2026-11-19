@@ -443,7 +443,7 @@ export default {
   },
   wanted: { title: "Qidirilmoqda" },
   tricks: { pot: "Oshpazning qozoni to‘dani davolaydi. Avval oshpazni jim qiling!", lever: "Dasta! Torting, toshlar to‘daning ustiga dumalaydi.", gallery: "Iskala ustidagi sopqonchilar yetib bo‘lmas! Ularni tushirish uchun arqon ustunini kesing." },
-  under: { goal: { corridor: "Tunnel bo‘ylab yuring va mash‘al qozonlarini yoqing.", cart: "Mahkam ushlang! Chapga-o‘ngga buring, bochkalar va relslar oralig‘i ustidan dumalab o‘ting.", stash: "Kontrabandachilar yashirinma joyi. Bosim plitasidan ehtiyot bo‘ling!", warden: "Tunnel qo‘riqchisi! Uning parmasini chirigan ustunga yo‘naltiring.", done: "Chiqish yo‘li ochiq." }, skip: "O‘tkazib yuborish", toast: { purse: "Kontrabandachilar hamyoni: +{gold} oltin", out: "Tunnel Sanfordning temirchilik ustaxonasi ostidan chiqadi." } },
+  under: { goal: { corridor: "Tunnel bo‘ylab yuring va mash‘al qozonlarini yoqing.", cart: "Mahkam ushlang! Chapga-o‘ngga buring, bochkalar va relslar oralig‘i ustidan dumalab o‘ting.", stash: "Kontrabandachilar yashirinma joyi. Bosim plitasidan ehtiyot bo‘ling!", warden: "Tunnel qo‘riqchisi! Uning parmasini chirigan ustunga yo‘naltiring.", done: "Chiqish yo‘li ochiq." }, skip: "O‘tkazib yuborish", toast: { drop: "Qafasning poli qulaydi: ikkinchi lyuk!", purse: "Kontrabandachilar hamyoni: +{gold} oltin", out: "Tunnel Sanfordning temirchilik ustaxonasi ostidan chiqadi." } },
   tusker: { hint: "Tuskerning hujumini chirigan ustunga yo‘naltiring!", crash: "Shift Qirolning ustiga qulaydi!" },
   assault: {
     title: 'G\'orlar darvozasini qamal qilish',
@@ -6258,9 +6258,9 @@ export default {
     },
     bark: {
       hero: { cage: { 1: 'Kimdir yordam so‘rab qichqiryaptimi?' }, hunt: { 1: 'U yirtqichni yana kimdir ham ovlayapti.' }, levelUp: { 1: "Men kuchliroq bo'ldim!" }, king: { 1: "Goblinlar qiroli shu yerlarda biror joyda yashiringan bo‘lsa kerak!" }, gnomes: { 1: "Balki isyonkor gnomlarning ba’zilariga yordam bera olarman." } },
-      trainerPyro: { help: { 1: 'Yordam bering, kimdir!' } },
-      sbMasterSoulwarden: { help: { 1: 'Bizni o‘g‘irlab ketishdi!' } },
-      sbMasterIronmonk: { help: { 1: 'Hayvonlar! Yordam bering!' } },
+      trainerPyro: { help: { 1: 'Yordam bering, kimdir!' }, clean: { 1: "Bitta chiziq ham yo‘q! Maqtanchoq." } },
+      sbMasterSoulwarden: { help: { 1: 'Bizni o‘g‘irlab ketishdi!' }, hit: { 1: "Voy! Bochkalardan ehtiyot bo‘ling!" } },
+      sbMasterIronmonk: { help: { 1: 'Hayvonlar! Yordam bering!' }, cart: { 1: "Mahkam ushlang!" } },
       sbMasterAether: { fight: { 1: 'Men bilan jang qil, Qorabosti!' } },
       sphinx: {
         intro: { '1': "Javob ber, kichkintoy, aks holda qumim seni ko‘mib yuboradi." },
@@ -6336,7 +6336,7 @@ export default {
         },
         road: { '1': 'Bizni topding! Iblislar bizni Sanford yoʻlida tutib olishdi. Qalʼa kechuviga ketyapmiz: bizni qalʼadan izla.' },
         next: { '1': 'Sunforddagi Mara bizni qutqarganing uchun seni mukofotlaydi. Goblinlar qirolini ham to‘xtatish kerak. Tanlov — sening qo‘lingda.' },
-        wanted: { 1: "Qarang, Goblin shohiga mukofot e’lon qilingan! Uni yiqitgan xazinasini oladi." }
+        wanted: { 1: "Qarang, Goblin shohiga mukofot e’lon qilingan! Uni yiqitgan xazinasini oladi." }, under: { 1: "Chiroqchisiz ketmaymiz. Yur!" }, won: { 1: "Sanford aynan tepamizda. Barakalla, qahramon!" }
       },
       sfShadow: {
         road: { '1': 'Nihoyat kimdir keldi. Qalʼa kechuviga yoʻl olamiz. Bizni qalʼadan izla.' }

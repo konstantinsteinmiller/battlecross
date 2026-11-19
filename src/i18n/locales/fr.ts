@@ -444,7 +444,7 @@ export default {
   },
   wanted: { title: "Recherché" },
   tricks: { pot: "La marmite du cuisinier soigne la bande. Fais d’abord taire le cuisinier !", lever: "Un levier ! Tire-le pour faire rouler les rochers sur la bande.", gallery: "Frondeurs sur l’échafaudage, hors de portée ! Coupe la corde du poteau pour les faire tomber." },
-  under: { goal: { corridor: "Suis le tunnel et allume les braseros.", cart: "Accroche-toi ! Dirige à gauche et à droite, roule par-dessus les tonneaux et les trous de rail.", stash: "La planque des contrebandiers. Attention à la plaque de pression !", warden: "Le Gardien du Tunnel ! Attire sa foreuse dans un pilier pourri.", done: "La sortie est ouverte." }, skip: "Passer", toast: { purse: "La bourse des contrebandiers : +{gold} or", out: "Le tunnel débouche sous la forge de Sunford." } },
+  under: { goal: { corridor: "Suis le tunnel et allume les braseros.", cart: "Accroche-toi ! Dirige à gauche et à droite, roule par-dessus les tonneaux et les trous de rail.", stash: "La planque des contrebandiers. Attention à la plaque de pression !", warden: "Le Gardien du Tunnel ! Attire sa foreuse dans un pilier pourri.", done: "La sortie est ouverte." }, skip: "Passer", toast: { drop: "Le sol de la cage cède : une seconde trappe !", purse: "La bourse des contrebandiers : +{gold} or", out: "Le tunnel débouche sous la forge de Sunford." } },
   tusker: { hint: "Attire la charge de Tusker dans un pilier pourri !", crash: "Le plafond s’effondre sur le Roi !" },
   assault: {
     title: 'Siège de la porte des Cavernes',
@@ -6307,9 +6307,9 @@ export default {
     },
     bark: {
       hero: { cage: { 1: 'Quelqu’un crie à l’aide ?' }, hunt: { 1: 'Quelqu’un d’autre traque cette bête.' }, levelUp: { 1: 'Je suis devenu plus fort !' }, king: { 1: "Le Roi Gobelin doit se cacher quelque part par ici !" }, gnomes: { 1: "Je peux peut-être aider quelques-uns des gnomes rebelles." } },
-      trainerPyro: { help: { 1: 'À l’aide, quelqu’un !' } },
-      sbMasterSoulwarden: { help: { 1: 'On nous a enlevés !' } },
-      sbMasterIronmonk: { help: { 1: 'Des monstres ! Au secours !' } },
+      trainerPyro: { help: { 1: 'À l’aide, quelqu’un !' }, clean: { 1: "Pas une égratignure ! Frimeur." } },
+      sbMasterSoulwarden: { help: { 1: 'On nous a enlevés !' }, hit: { 1: "Aïe ! Attention aux tonneaux !" } },
+      sbMasterIronmonk: { help: { 1: 'Des monstres ! Au secours !' }, cart: { 1: "Accroche-toi !" } },
       sbMasterAether: { fight: { 1: 'Affronte-moi, Cauchemar !' } },
       sphinx: {
         intro: { '1': "Réponds-moi, petit, ou sois enseveli sous mon sable." },
@@ -6385,7 +6385,7 @@ export default {
         },
         road: { '1': 'Tu nous as trouvés ! Les démons nous ont pris sur la route de Sunford. Nous partons pour Gué-du-Bastion : retrouve-nous au fort.' },
         next: { '1': 'Mara, à Sunford, te récompensera de nous avoir sauvés. Le Roi gobelin doit aussi être arrêté. À toi de choisir.' },
-        wanted: { 1: "Regarde, une prime sur le Roi Gobelin ! Celui qui l’abat garde son trésor." }
+        wanted: { 1: "Regarde, une prime sur le Roi Gobelin ! Celui qui l’abat garde son trésor." }, under: { 1: "On ne part pas sans le porteur de lanterne. Viens !" }, won: { 1: "Sunford est juste au-dessus de nous. Bien joué, héros !" }
       },
       sfShadow: {
         road: { '1': 'Il était temps que quelqu’un vienne. Nous filons à Gué-du-Bastion. Cherche-nous au fort.' }

@@ -55,10 +55,10 @@ import { chestReward, escortPacks, merchantTiers, type EncounterSpec } from './d
 import { dayKey } from './rareShelf'
 import { carefulMult } from './careful'
 import { BOARD } from './townTasks'
-import { lesson, mapSpot, markMet, markTip, setMapPos, TUTORIAL_NODE } from './state/profile'
+import { lesson, mapSpot, markMet, markTip, setMapPos, TUTORIAL_NODE, giftSkill } from './state/profile'
 import { kingHoardPicks, type HoardPick } from './data/hoard'
 import { ASSAULT_FLAG, assaultDue, sallyPurse } from './data/assault'
-import { UNDER_FLAG, UNDER_XP, underDue, underPurse } from './data/undercroft'
+import { UNDER_FLAG, UNDER_GIFT_SKILL, UNDER_XP, underDue, underPurse } from './data/undercroft'
 import { rebellionDue } from './data/rebellion'
 import { PARTY_TIP, partyDue } from './data/celebrate'
 import { SIEGE_LORD, siegeEnemyLevel, type SiegeTier } from './data/siege'
@@ -298,6 +298,8 @@ export const finishUndercroft = async (how: 'won' | 'skipped'): Promise<void> =>
     grantXp(Math.round(xpToNext(profile.level) * UNDER_XP))
     saveProfile()
     pushHud({ t: 'toast', key: 'under.toast.purse', params: { gold } })
+    // The teachers' thanks: a skill of the pyromancer's school, free.
+    if (giftSkill(UNDER_GIFT_SKILL)) pushHud({ t: 'toast', key: 'dlg.ui.gotItem', params: { item: `skill.${UNDER_GIFT_SKILL}.name` } })
     const picks = kingHoardPicks({ level: profile.level, attrs: totalAttrs(), equipped: profile.inv.equipped, owned: [...profile.inv.items], ups: profile.inv.upgrades })
     if (picks.length) {
       hoard.picks = picks
@@ -1253,7 +1255,7 @@ const afterKing = (kingAnswered: boolean): void => {
     return
   }
   // The first level's exit: the cage's floor gives way (#EXT-1), and the tunnel comes out in Sunford (#EXT-9): no map.
-  if (underOnExit()) { flow.modal = ''; void startUndercroft(); return }
+  if (underOnExit()) { flow.modal = ''; pushHud({ t: 'toast', key: 'under.toast.drop' }); void startUndercroft(); return }
   flow.modal = ''
   openMap()
   startGameMusic()

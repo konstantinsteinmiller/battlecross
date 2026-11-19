@@ -867,3 +867,7 @@ The knight's new line ("Look, a bounty on the Goblin King…", `dlg.bark.trainer
 ### Voice core cap raised to 373 (#224)
 
 The hero's two Hollows thoughts (`dlg.bark.hero.king.1`, `dlg.bark.hero.gnomes.1`, hero and heroine twins) are `dlg.bark.` lines, so they join the core list: 369 to 373, and `max` in `data/voice-core.json` follows. Keep it or trim a bark.
+
+### Voice core cap raised to 378 (#EXT-12)
+
+The teachers' five comments in the Undercroft (`trainerAegis.under` / `.won`, `trainerPyro.clean`, `sbMasterSoulwarden.hit`, `sbMasterIronmonk.cart`) are `dlg.bark.` lines, so they are on the core list: 373 to 378, and `max` in `data/voice-core.json` follows. Keep it or trim a bark. German is voiced with ElevenLabs, the other seven with Chatterbox; nothing was listened to by ear.

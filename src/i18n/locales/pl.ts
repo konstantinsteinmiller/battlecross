@@ -444,7 +444,7 @@ export default {
   },
   wanted: { title: "Poszukiwany" },
   tricks: { pot: "Garnek kucharza leczy bandę. Najpierw uciszaj kucharza!", lever: "Dźwignia! Pociągnij, a głazy stoczą się na bandę.", gallery: "Procarze na rusztowaniu, poza zasięgiem! Przetnij linę przy słupie, a spadną." },
-  under: { goal: { corridor: "Idź tunelem i rozpal kosze z ogniem.", cart: "Trzymaj się! Skręcaj w lewo i w prawo, przetaczaj się nad beczkami i lukami w torach.", stash: "Kryjówka przemytników. Uważaj na płytę naciskową!", warden: "Strażnik tunelu! Zwab jego wiertło na zbutwiały filar.", done: "Droga na zewnątrz jest wolna." }, skip: "Pomiń", toast: { purse: "Sakiewka przemytników: +{gold} złota", out: "Tunel wychodzi pod kuźnią w Sunford." } },
+  under: { goal: { corridor: "Idź tunelem i rozpal kosze z ogniem.", cart: "Trzymaj się! Skręcaj w lewo i w prawo, przetaczaj się nad beczkami i lukami w torach.", stash: "Kryjówka przemytników. Uważaj na płytę naciskową!", warden: "Strażnik tunelu! Zwab jego wiertło na zbutwiały filar.", done: "Droga na zewnątrz jest wolna." }, skip: "Pomiń", toast: { drop: "Podłoga klatki się zapada: drugi właz!", purse: "Sakiewka przemytników: +{gold} złota", out: "Tunel wychodzi pod kuźnią w Sunford." } },
   tusker: { hint: "Zwab szarżę Tuskera na zbutwiały filar!", crash: "Strop wali się na Króla!" },
   assault: {
     title: 'Oblężenie bramy Jaskiń',
@@ -6357,9 +6357,9 @@ export default {
     },
     bark: {
       hero: { cage: { 1: 'Czy ktoś woła o pomoc?' }, hunt: { 1: 'Ktoś jeszcze poluje na tę bestię.' }, levelUp: { 1: 'Jestem silniejszy!' }, king: { 1: "Król Goblinów musi się tu gdzieś ukrywać!" }, gnomes: { 1: "Może uda mi się pomóc niektórym z buntujących się gnomów." } },
-      trainerPyro: { help: { 1: 'Pomocy, ktokolwiek!' } },
-      sbMasterSoulwarden: { help: { 1: 'Porwano nas!' } },
-      sbMasterIronmonk: { help: { 1: 'Potwory! Pomocy!' } },
+      trainerPyro: { help: { 1: 'Pomocy, ktokolwiek!' }, clean: { 1: "Ani draśnięcia! Pyszałek." } },
+      sbMasterSoulwarden: { help: { 1: 'Porwano nas!' }, hit: { 1: "Au! Uważaj na beczki!" } },
+      sbMasterIronmonk: { help: { 1: 'Potwory! Pomocy!' }, cart: { 1: "Trzymaj się mocno!" } },
       sbMasterAether: { fight: { 1: 'Walcz ze mną, Koszmarze!' } },
       sphinx: {
         intro: { '1': "Odpowiedz mi, maleństwo, albo pogrzebie cię mój piasek." },
@@ -6435,7 +6435,7 @@ export default {
         },
         road: { '1': 'Znalazłeś nas! Demony złapały nas na drodze do Sunford. Idziemy do Przeprawy Bastionu: szukaj nas w forcie.' },
         next: { '1': 'Mara w Sunford nagrodzi cię za nasze ocalenie. Króla Goblinów też trzeba powstrzymać. Wybór należy do ciebie.' },
-        wanted: { 1: "Patrz, nagroda za głowę Króla Goblinów! Kto go powali, zatrzyma jego skarb." }
+        wanted: { 1: "Patrz, nagroda za głowę Króla Goblinów! Kto go powali, zatrzyma jego skarb." }, under: { 1: "Bez latarnika nie odchodzimy. Chodź!" }, won: { 1: "Sunford jest tuż nad nami. Dobra robota, bohaterze!" }
       },
       sfShadow: {
         road: { '1': 'Najwyższy czas, żeby ktoś przyszedł. Ruszamy do Przeprawy Bastionu. Szukaj nas w forcie.' }

@@ -444,7 +444,7 @@ export default {
   },
   wanted: { title: "Procurado" },
   tricks: { pot: "A panela do cozinheiro cura o bando. Cale primeiro o cozinheiro!", lever: "Uma alavanca! Puxe-a para rolar os rochedos sobre o bando.", gallery: "Fundeiros no andaime, fora de alcance! Corte a corda do poste para derrubá-los." },
-  under: { goal: { corridor: "Siga o túnel e acenda os braseiros.", cart: "Segure firme! Vire para a esquerda e para a direita, role por cima de barris e vãos nos trilhos.", stash: "O esconderijo dos contrabandistas. Cuidado com a placa de pressão!", warden: "O Guarda do Túnel! Atraia a broca dele para um pilar podre.", done: "A saída está aberta." }, skip: "Pular", toast: { purse: "A bolsa dos contrabandistas: +{gold} de ouro", out: "O túnel sai debaixo da forja de Sunford." } },
+  under: { goal: { corridor: "Siga o túnel e acenda os braseiros.", cart: "Segure firme! Vire para a esquerda e para a direita, role por cima de barris e vãos nos trilhos.", stash: "O esconderijo dos contrabandistas. Cuidado com a placa de pressão!", warden: "O Guarda do Túnel! Atraia a broca dele para um pilar podre.", done: "A saída está aberta." }, skip: "Pular", toast: { drop: "O chão da jaula cede: um segundo alçapão!", purse: "A bolsa dos contrabandistas: +{gold} de ouro", out: "O túnel sai debaixo da forja de Sunford." } },
   tusker: { hint: "Atraia a investida de Tusker para um pilar podre!", crash: "O teto desaba sobre o Rei!" },
   assault: {
     title: 'Cerco ao portão das Cavernas',
@@ -6313,9 +6313,9 @@ export default {
     },
     bark: {
       hero: { cage: { 1: 'Alguém está gritando por ajuda?' }, hunt: { 1: 'Mais alguém está caçando aquela fera.' }, levelUp: { 1: 'Fiquei mais forte!' }, king: { 1: "O Rei Goblin deve estar escondido por aqui!" }, gnomes: { 1: "Talvez eu possa ajudar alguns dos gnomos rebeldes." } },
-      trainerPyro: { help: { 1: 'Socorro, alguém!' } },
-      sbMasterSoulwarden: { help: { 1: 'Fomos sequestrados!' } },
-      sbMasterIronmonk: { help: { 1: 'Monstros! Socorro!' } },
+      trainerPyro: { help: { 1: 'Socorro, alguém!' }, clean: { 1: "Nem um arranhão! Exibido." } },
+      sbMasterSoulwarden: { help: { 1: 'Fomos sequestrados!' }, hit: { 1: "Ai! Cuidado com os barris!" } },
+      sbMasterIronmonk: { help: { 1: 'Monstros! Socorro!' }, cart: { 1: "Segure firme!" } },
       sbMasterAether: { fight: { 1: 'Lute comigo, Pesadelo!' } },
       sphinx: {
         intro: { '1': "Responda-me, pequenino, ou seja enterrado na minha areia." },
@@ -6391,7 +6391,7 @@ export default {
         },
         road: { '1': 'Você nos encontrou! Os demônios nos pegaram na estrada de Sunford. Vamos para o Passo do Bastião: procure-nos no forte.' },
         next: { '1': 'A Mara, em Sunford, vai te recompensar por nos salvar. O Rei Goblin também precisa ser detido. A escolha é sua.' },
-        wanted: { 1: "Olha, uma recompensa pelo Rei Goblin! Quem derrubá-lo fica com o tesouro dele." }
+        wanted: { 1: "Olha, uma recompensa pelo Rei Goblin! Quem derrubá-lo fica com o tesouro dele." }, under: { 1: "Não vamos sem o portador da lanterna. Vamos!" }, won: { 1: "Sunford fica logo acima. Muito bem, herói!" }
       },
       sfShadow: {
         road: { '1': 'Já não era sem tempo. Estamos indo para o Passo do Bastião. Procure-nos no forte.' }

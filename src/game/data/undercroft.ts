@@ -41,6 +41,8 @@ export const PLATE_HIT = 0.12
 /** The smugglers' purse paid at the end, and the experience (a share of the level's bar). */
 export const underPurse = (level: number): number => 220 + level * 55
 export const UNDER_XP = 0.45
+/** The skill the teachers give the hero for freeing them: the pyromancer's first, a fire he can throw (#EXT-1). */
+export const UNDER_GIFT_SKILL = 'fireball'
 
 /** The Tunnel Warden's charged pillar blow: a share of his health the roof takes off him, and the stun. */
 export const WARDEN_CRUSH = 0.1

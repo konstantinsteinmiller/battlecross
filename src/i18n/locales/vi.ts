@@ -443,7 +443,7 @@ export default {
   },
   wanted: { title: "Truy nã" },
   tricks: { pot: "Nồi của đầu bếp chữa lành cả bầy. Hãy hạ đầu bếp trước!", lever: "Một cần gạt! Kéo nó để lăn những tảng đá vào bầy.", gallery: "Xạ thủ ná cao su trên giàn giáo, ngoài tầm với! Cắt dây ở cột để hạ họ xuống." },
-  under: { goal: { corridor: "Đi theo đường hầm và thắp các chậu lửa.", cart: "Bám chặt! Lái sang trái phải, lăn qua thùng và khoảng trống trên đường ray.", stash: "Kho giấu của bọn buôn lậu. Coi chừng tấm áp lực!", warden: "Người Gác Hầm! Dụ mũi khoan của hắn vào một cột mục.", done: "Lối ra đã mở." }, skip: "Bỏ qua", toast: { purse: "Túi tiền của bọn buôn lậu: +{gold} vàng", out: "Đường hầm thông ra dưới lò rèn ở Sunford." } },
+  under: { goal: { corridor: "Đi theo đường hầm và thắp các chậu lửa.", cart: "Bám chặt! Lái sang trái phải, lăn qua thùng và khoảng trống trên đường ray.", stash: "Kho giấu của bọn buôn lậu. Coi chừng tấm áp lực!", warden: "Người Gác Hầm! Dụ mũi khoan của hắn vào một cột mục.", done: "Lối ra đã mở." }, skip: "Bỏ qua", toast: { drop: "Sàn lồng sập xuống: cửa sập thứ hai!", purse: "Túi tiền của bọn buôn lậu: +{gold} vàng", out: "Đường hầm thông ra dưới lò rèn ở Sunford." } },
   tusker: { hint: "Dụ cú húc của Tusker vào một cột mục!", crash: "Mái nhà sập xuống đầu Nhà Vua!" },
   assault: {
     title: 'Vây hãm cổng Hang động',
@@ -6258,9 +6258,9 @@ export default {
     },
     bark: {
       hero: { cage: { 1: 'Có ai đang kêu cứu không?' }, hunt: { 1: 'Còn có người khác đang săn con quái thú đó.' }, levelUp: { 1: 'Mình mạnh hơn rồi!' }, king: { 1: "Vua Goblin hẳn đang trốn ở đâu đó quanh đây!" }, gnomes: { 1: "Có lẽ mình giúp được vài người gnome nổi loạn." } },
-      trainerPyro: { help: { 1: 'Cứu với, có ai không!' } },
-      sbMasterSoulwarden: { help: { 1: 'Chúng tôi bị bắt cóc!' } },
-      sbMasterIronmonk: { help: { 1: 'Quái vật! Cứu với!' } },
+      trainerPyro: { help: { 1: 'Cứu với, có ai không!' }, clean: { 1: "Không một vết xước! Khoe mẽ." } },
+      sbMasterSoulwarden: { help: { 1: 'Chúng tôi bị bắt cóc!' }, hit: { 1: "Ối! Coi chừng mấy cái thùng!" } },
+      sbMasterIronmonk: { help: { 1: 'Quái vật! Cứu với!' }, cart: { 1: "Bám chắc vào!" } },
       sbMasterAether: { fight: { 1: 'Đấu với ta đi, Ác Mộng!' } },
       sphinx: {
         intro: { '1': "Trả lời ta đi, nhóc con, nếu không cát của ta sẽ chôn vùi ngươi." },
@@ -6336,7 +6336,7 @@ export default {
         },
         road: { '1': 'Ngươi tìm thấy chúng ta rồi! Lũ quỷ bắt chúng ta trên đường tới Sunford. Chúng ta sẽ tới Ải Thành Lũy: hãy tìm chúng ta ở pháo đài.' },
         next: { '1': 'Mara ở Sunford sẽ thưởng cho bạn vì đã cứu chúng tôi. Vua Goblin cũng phải bị ngăn chặn. Lựa chọn là của bạn.' },
-        wanted: { 1: "Nhìn kìa, có tiền thưởng cho Vua Goblin! Ai hạ được hắn sẽ giữ kho báu của hắn." }
+        wanted: { 1: "Nhìn kìa, có tiền thưởng cho Vua Goblin! Ai hạ được hắn sẽ giữ kho báu của hắn." }, under: { 1: "Không có người cầm đèn thì chúng ta không đi. Nào!" }, won: { 1: "Sunford ngay phía trên chúng ta. Làm tốt lắm, anh hùng!" }
       },
       sfShadow: {
         road: { '1': 'Cuối cùng cũng có người tới. Chúng ta đi Ải Thành Lũy đây. Tìm chúng ta ở pháo đài nhé.' }

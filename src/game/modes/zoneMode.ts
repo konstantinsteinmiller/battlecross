@@ -1718,7 +1718,8 @@ export class ZoneMode implements GameMode {
     v.hits = u.cart.hits + u.cart.falls
     v.chests = u.stash.opened
     const h = this.sim.hero.unit
-    h.stunt = u.cart.on ? { lift: 0.55, flip: 0 } : undefined
+    // The fall in is the sim's own (`sim/undercroft.ts`); on the cart he stands on the cart.
+    if (u.arrive >= 1) h.stunt = u.cart.on ? { lift: 0.55, flip: 0 } : undefined
   }
 
   /** The bag lesson's clock: the hint shows once, when nothing else holds the player's eye (no talk, no cut, no stop). */

@@ -444,7 +444,7 @@ export default {
   },
   wanted: { title: "Gesucht" },
   tricks: { pot: "Der Eintopf des Kochs heilt das Rudel. Erst den Koch zum Schweigen bringen!", lever: "Ein Hebel! Zieh ihn, und die Felsbrocken rollen ins Rudel.", gallery: "Schleuderer auf dem Gerüst, außer Reichweite! Kappe den Seilpfosten, dann stürzen sie ab." },
-  under: { goal: { corridor: "Folge dem Tunnel und entzünde die Feuerschalen.", cart: "Festhalten! Lenke nach links und rechts, rolle über Fässer und Schienenlücken.", stash: "Das Schmugglerlager. Vorsicht vor der Druckplatte!", warden: "Der Tunnelwächter! Lock seinen Bohrer in einen morschen Pfeiler.", done: "Der Weg nach draußen ist frei." }, skip: "Überspringen", toast: { purse: "Die Schmugglerbeute: +{gold} Gold", out: "Der Tunnel kommt unter der Schmiede in Sunford heraus." } },
+  under: { goal: { corridor: "Folge dem Tunnel und entzünde die Feuerschalen.", cart: "Festhalten! Lenke nach links und rechts, rolle über Fässer und Schienenlücken.", stash: "Das Schmugglerlager. Vorsicht vor der Druckplatte!", warden: "Der Tunnelwächter! Lock seinen Bohrer in einen morschen Pfeiler.", done: "Der Weg nach draußen ist frei." }, skip: "Überspringen", toast: { drop: "Der Käfigboden gibt nach: eine zweite Falltür!", purse: "Die Schmugglerbeute: +{gold} Gold", out: "Der Tunnel kommt unter der Schmiede in Sunford heraus." } },
   tusker: { hint: "Lock Tuskers Ansturm in einen morschen Pfeiler!", crash: "Die Decke stürzt auf den König!" },
   assault: {
     title: 'Belagerung des Höhlentors',
@@ -6278,9 +6278,9 @@ export default {
     },
     bark: {
       hero: { cage: { 1: 'Schreit da jemand um Hilfe?' }, hunt: { 1: 'Noch jemand jagt diese Bestie.' }, levelUp: { 1: 'Ich bin stärker geworden!' }, king: { 1: "Der Goblinkönig muss sich hier irgendwo verstecken!" }, gnomes: { 1: "Vielleicht kann ich einigen der rebellierenden Gnome helfen." } },
-      trainerPyro: { help: { 1: 'Hilfe, ist da jemand?' } },
-      sbMasterSoulwarden: { help: { 1: 'Wir wurden entführt!' } },
-      sbMasterIronmonk: { help: { 1: 'Monster! Hilfe!' } },
+      trainerPyro: { help: { 1: 'Hilfe, ist da jemand?' }, clean: { 1: "Kein Kratzer! Angeber." } },
+      sbMasterSoulwarden: { help: { 1: 'Wir wurden entführt!' }, hit: { 1: "Autsch! Pass auf die Fässer auf!" } },
+      sbMasterIronmonk: { help: { 1: 'Monster! Hilfe!' }, cart: { 1: "Halt dich fest!" } },
       sbMasterAether: { fight: { 1: 'Kämpf gegen mich, Albtraum!' } },
       sphinx: {
         intro: { '1': "Antworte mir, Kleines, oder mein Sand begräbt dich." },
@@ -6356,7 +6356,7 @@ export default {
         },
         road: { '1': 'Du hast uns gefunden! Die Dämonen haben uns auf der Straße nach Sunford erwischt. Wir gehen nach Bastionsfurt: Such uns in der Festung.' },
         next: { '1': 'Mara in Sunford belohnt deine Güte, uns zu retten. Der Goblinkönig muss auch aufgehalten werden. Du hast die Wahl.' },
-        wanted: { 1: "Seht nur, ein Kopfgeld auf den Goblinkönig! Wer ihn erledigt, behält seinen Hort." }
+        wanted: { 1: "Seht nur, ein Kopfgeld auf den Goblinkönig! Wer ihn erledigt, behält seinen Hort." }, under: { 1: "Ohne den Laternenträger gehen wir nicht. Komm!" }, won: { 1: "Sunford liegt direkt über uns. Gut gemacht, Held!" }
       },
       sfShadow: {
         road: { '1': 'Wurde auch Zeit, dass jemand kommt. Wir machen uns auf nach Bastionsfurt. Such uns in der Festung.' }

@@ -444,7 +444,7 @@ export default {
   },
   wanted: { title: "Es busca" },
   tricks: { pot: "L’olla del cuiner cura la colla. Fes callar primer el cuiner!", lever: "Una palanca! Tira-hi per fer rodar els pedrusquets sobre la colla.", gallery: "Fonyadors a la bastida, fora d’abast! Talla la corda del pal per fer-los caure." },
-  under: { goal: { corridor: "Segueix el túnel i encén els braser.", cart: "Agafa't fort! Gira a esquerra i dreta, rodola sobre barrils i buits de via.", stash: "L'amagatall dels contrabandistes. Compte amb la placa de pressió!", warden: "El Guardià del Túnel! Fes que el seu trepant xoqui contra un pilar podrit.", done: "La sortida és oberta." }, skip: "Omet", toast: { purse: "La bossa dels contrabandistes: +{gold} d'or", out: "El túnel surt sota la farreria de Sunford." } },
+  under: { goal: { corridor: "Segueix el túnel i encén els braser.", cart: "Agafa't fort! Gira a esquerra i dreta, rodola sobre barrils i buits de via.", stash: "L'amagatall dels contrabandistes. Compte amb la placa de pressió!", warden: "El Guardià del Túnel! Fes que el seu trepant xoqui contra un pilar podrit.", done: "La sortida és oberta." }, skip: "Omet", toast: { drop: "El terra de la gàbia cedeix: una segona trapa!", purse: "La bossa dels contrabandistes: +{gold} d'or", out: "El túnel surt sota la farreria de Sunford." } },
   tusker: { hint: "Atrau la càrrega de Tusker cap a un pilar podrit!", crash: "El sostre s’enfonsa sobre el Rei!" },
   assault: {
     title: 'Setge de la porta dels Caus',
@@ -6305,9 +6305,9 @@ export default {
     },
     bark: {
       hero: { cage: { 1: 'Algú crida demanant ajuda?' }, hunt: { 1: 'Algú altre també caça aquesta bèstia.' }, levelUp: { 1: "M'he fet més fort!" }, king: { 1: "El Rei Goblin deu estar amagat per aquí!" }, gnomes: { 1: "Potser puc ajudar alguns dels gnoms rebels." } },
-      trainerPyro: { help: { 1: 'Ajuda, algú!' } },
-      sbMasterSoulwarden: { help: { 1: 'Ens han segrestat!' } },
-      sbMasterIronmonk: { help: { 1: 'Monstres! Ajuda!' } },
+      trainerPyro: { help: { 1: 'Ajuda, algú!' }, clean: { 1: "Ni una rascada! Presumit." } },
+      sbMasterSoulwarden: { help: { 1: 'Ens han segrestat!' }, hit: { 1: "Ai! Compte amb els barrils!" } },
+      sbMasterIronmonk: { help: { 1: 'Monstres! Ajuda!' }, cart: { 1: "Agafa't fort!" } },
       sbMasterAether: { fight: { 1: 'Lluita amb mi, Malson!' } },
       sphinx: {
         intro: { '1': "Respon-me, petit, o la meva sorra t'enterrarà." },
@@ -6383,7 +6383,7 @@ export default {
         },
         road: { '1': 'Ens has trobat! Els dimonis ens van atrapar al camí de Sunford. Anirem al Gual del Bastió: busca’ns al fort.' },
         next: { '1': 'La Mara, a Sunford, et recompensarà per salvar-nos. Cal aturar també el Rei Gòblin. Tu tries.' },
-        wanted: { 1: "Mira, una recompensa pel Rei Goblin! Qui l'abati es queda el seu tresor." }
+        wanted: { 1: "Mira, una recompensa pel Rei Goblin! Qui l'abati es queda el seu tresor." }, under: { 1: "No podem marxar sense el portador del fanal. Vinga!" }, won: { 1: "Sunford és just a sobre nostre. Ben fet, heroi!" }
       },
       sfShadow: {
         road: { '1': 'Ja era hora que vingués algú. Marxem cap al Gual del Bastió. Busca’ns al fort.' }

@@ -444,7 +444,7 @@ export default {
   },
   wanted: { title: "Gezocht" },
   tricks: { pot: "De pot van de kok geneest de bende. Breng eerst de kok tot zwijgen!", lever: "Een hendel! Trek eraan en de rotsblokken rollen op de bende af.", gallery: "Slingeraars op de steiger, buiten bereik! Kap de touwpaal door en ze storten neer." },
-  under: { goal: { corridor: "Volg de tunnel en steek de vuurschalen aan.", cart: "Hou je vast! Stuur links en rechts, rol over vaten en gaten in de rails.", stash: "De schuilplaats van de smokkelaars. Pas op voor de drukplaat!", warden: "De Tunnelwachter! Lok zijn boor in een verrotte pilaar.", done: "De uitgang is open." }, skip: "Overslaan", toast: { purse: "De buidel van de smokkelaars: +{gold} goud", out: "De tunnel komt uit onder de smederij in Sunford." } },
+  under: { goal: { corridor: "Volg de tunnel en steek de vuurschalen aan.", cart: "Hou je vast! Stuur links en rechts, rol over vaten en gaten in de rails.", stash: "De schuilplaats van de smokkelaars. Pas op voor de drukplaat!", warden: "De Tunnelwachter! Lok zijn boor in een verrotte pilaar.", done: "De uitgang is open." }, skip: "Overslaan", toast: { drop: "De vloer van de kooi geeft mee: een tweede valluik!", purse: "De buidel van de smokkelaars: +{gold} goud", out: "De tunnel komt uit onder de smederij in Sunford." } },
   tusker: { hint: "Lok Tuskers aanval in een verrotte pilaar!", crash: "Het plafond stort op de Koning neer!" },
   assault: {
     title: 'Belegering van de poort van de Holen',
@@ -6269,9 +6269,9 @@ export default {
     },
     bark: {
       hero: { cage: { 1: 'Schreeuwt daar iemand om hulp?' }, hunt: { 1: 'Iemand anders jaagt ook op dat beest.' }, levelUp: { 1: 'Ik ben sterker geworden!' }, king: { 1: "De Goblinkoning moet zich hier ergens verstoppen!" }, gnomes: { 1: "Misschien kan ik een paar van de opstandige gnomen helpen." } },
-      trainerPyro: { help: { 1: 'Help, is daar iemand!' } },
-      sbMasterSoulwarden: { help: { 1: 'We zijn ontvoerd!' } },
-      sbMasterIronmonk: { help: { 1: 'Monsters! Help!' } },
+      trainerPyro: { help: { 1: 'Help, is daar iemand!' }, clean: { 1: "Geen schrammetje! Opschepper." } },
+      sbMasterSoulwarden: { help: { 1: 'We zijn ontvoerd!' }, hit: { 1: "Au! Pas op voor de vaten!" } },
+      sbMasterIronmonk: { help: { 1: 'Monsters! Help!' }, cart: { 1: "Hou je vast!" } },
       sbMasterAether: { fight: { 1: 'Vecht tegen me, Nachtmerrie!' } },
       sphinx: {
         intro: { '1': "Antwoord me, kleintje, of word begraven in mijn zand." },
@@ -6347,7 +6347,7 @@ export default {
         },
         road: { '1': 'Je hebt ons gevonden! De demonen grepen ons op de weg naar Sunford. We gaan naar de Bastionsoversteek: zoek ons in het fort.' },
         next: { '1': 'Mara in Sunford beloont je omdat je ons gered hebt. De Goblinkoning moet ook worden gestopt. Jij kiest.' },
-        wanted: { 1: "Kijk, een premie op de Goblinkoning! Wie hem velt, houdt zijn schat." }
+        wanted: { 1: "Kijk, een premie op de Goblinkoning! Wie hem velt, houdt zijn schat." }, under: { 1: "We gaan niet weg zonder de lantaarndrager. Kom!" }, won: { 1: "Sunford ligt recht boven ons. Goed gedaan, held!" }
       },
       sfShadow: {
         road: { '1': 'Werd tijd dat er iemand kwam. We vertrekken naar de Bastionsoversteek. Zoek ons in het fort.' }

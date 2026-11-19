@@ -443,7 +443,7 @@ export default {
   },
   wanted: { title: "Căutat" },
   tricks: { pot: "Oala bucătarului vindecă ceata. Redu mai întâi bucătarul la tăcere!", lever: "O pârghie! Trage-o ca să rostogolești bolovanii peste ceată.", gallery: "Praștieri pe schelă, la distanță! Taie coarda stâlpului ca să cadă." },
-  under: { goal: { corridor: "Urmează tunelul și aprinde jarurile.", cart: "Ține-te bine! Virează stânga și dreapta, rostogolește-te peste butoaie și goluri în șine.", stash: "Ascunzătoarea contrabandiștilor. Atenție la placa de presiune!", warden: "Paznicul Tunelului! Atrage burghiul lui într-un stâlp putred.", done: "Calea afară este deschisă." }, skip: "Sari peste", toast: { purse: "Punga contrabandiștilor: +{gold} aur", out: "Tunelul iese sub fierăria din Sunford." } },
+  under: { goal: { corridor: "Urmează tunelul și aprinde jarurile.", cart: "Ține-te bine! Virează stânga și dreapta, rostogolește-te peste butoaie și goluri în șine.", stash: "Ascunzătoarea contrabandiștilor. Atenție la placa de presiune!", warden: "Paznicul Tunelului! Atrage burghiul lui într-un stâlp putred.", done: "Calea afară este deschisă." }, skip: "Sari peste", toast: { drop: "Podeaua cuștii cedează: a doua trapă!", purse: "Punga contrabandiștilor: +{gold} aur", out: "Tunelul iese sub fierăria din Sunford." } },
   tusker: { hint: "Atrage atacul lui Tusker într-un stâlp putred!", crash: "Tavanul se prăbușește peste Rege!" },
   assault: {
     title: 'Asediul porții Peșterilor',
@@ -6300,9 +6300,9 @@ export default {
     },
     bark: {
       hero: { cage: { 1: 'Strigă cineva după ajutor?' }, hunt: { 1: 'Mai vânează cineva fiara aceea.' }, levelUp: { 1: 'M-am întărit!' }, king: { 1: "Regele Goblinilor trebuie să se ascundă pe aici pe undeva!" }, gnomes: { 1: "Poate pot ajuta câțiva dintre gnomii rebeli." } },
-      trainerPyro: { help: { 1: 'Ajutor, cineva!' } },
-      sbMasterSoulwarden: { help: { 1: 'Am fost răpiți!' } },
-      sbMasterIronmonk: { help: { 1: 'Monștri! Ajutor!' } },
+      trainerPyro: { help: { 1: 'Ajutor, cineva!' }, clean: { 1: "Nici o zgârietură! Fălosule." } },
+      sbMasterSoulwarden: { help: { 1: 'Am fost răpiți!' }, hit: { 1: "Au! Ai grijă la butoaie!" } },
+      sbMasterIronmonk: { help: { 1: 'Monștri! Ajutor!' }, cart: { 1: "Ține-te bine!" } },
       sbMasterAether: { fight: { 1: 'Luptă-te cu mine, Coșmarule!' } },
       sphinx: {
         intro: { '1': "Răspunde-mi, micuțule, sau fii îngropat în nisipul meu." },
@@ -6378,7 +6378,7 @@ export default {
         },
         road: { '1': 'Ne-ai găsit! Demonii ne-au prins pe drumul spre Sunford. Mergem la Vadul Bastionului: caută-ne în fort.' },
         next: { '1': 'Mara din Sunford te va răsplăti pentru salvarea noastră. Și Regele Goblin trebuie oprit. Alegerea e a ta.' },
-        wanted: { 1: "Uite, o recompensă pe capul Regelui Goblin! Cine îl doboară își păstrează comoara." }
+        wanted: { 1: "Uite, o recompensă pe capul Regelui Goblin! Cine îl doboară își păstrează comoara." }, under: { 1: "Nu plecăm fără purtătorul de felinar. Haide!" }, won: { 1: "Sunford e chiar deasupra noastră. Bravo, eroule!" }
       },
       sfShadow: {
         road: { '1': 'Era și timpul să vină cineva. Plecăm spre Vadul Bastionului. Caută-ne în fort.' }

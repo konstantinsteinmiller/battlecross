@@ -443,7 +443,7 @@ export default {
   },
   wanted: { title: "Efterlyst" },
   tricks: { pot: "Kockens gryta läker gänget. Tysta kocken först!", lever: "En spak! Dra i den så rullar stenblocken ner över gänget.", gallery: "Slungare på ställningen, utom räckhåll! Kapa repstolpen så faller de ner." },
-  under: { goal: { corridor: "Följ tunneln och tänd eldskålarna.", cart: "Håll i dig! Styr åt vänster och höger, rulla över tunnor och hål i rälsen.", stash: "Smugglarnas gömställe. Se upp för tryckplattan!", warden: "Tunnelvakten! Locka hans borr in i en murken pelare.", done: "Vägen ut är öppen." }, skip: "Hoppa över", toast: { purse: "Smugglarnas pung: +{gold} guld", out: "Tunneln kommer upp under smedjan i Sunford." } },
+  under: { goal: { corridor: "Följ tunneln och tänd eldskålarna.", cart: "Håll i dig! Styr åt vänster och höger, rulla över tunnor och hål i rälsen.", stash: "Smugglarnas gömställe. Se upp för tryckplattan!", warden: "Tunnelvakten! Locka hans borr in i en murken pelare.", done: "Vägen ut är öppen." }, skip: "Hoppa över", toast: { drop: "Burens golv ger vika: en andra lucka!", purse: "Smugglarnas pung: +{gold} guld", out: "Tunneln kommer upp under smedjan i Sunford." } },
   tusker: { hint: "Locka Tuskers anfall in i en murken pelare!", crash: "Taket störtar ner över kungen!" },
   assault: {
     title: 'Belägringen av Grottornas port',
@@ -6258,9 +6258,9 @@ export default {
     },
     bark: {
       hero: { cage: { 1: 'Är det någon som skriker på hjälp?' }, hunt: { 1: 'Någon annan jagar också det odjuret.' }, levelUp: { 1: 'Jag blev starkare!' }, king: { 1: "Goblinkungen måste gömma sig här någonstans!" }, gnomes: { 1: "Kanske kan jag hjälpa några av de upproriska gnomerna." } },
-      trainerPyro: { help: { 1: 'Hjälp, någon!' } },
-      sbMasterSoulwarden: { help: { 1: 'Vi blev kidnappade!' } },
-      sbMasterIronmonk: { help: { 1: 'Monster! Hjälp!' } },
+      trainerPyro: { help: { 1: 'Hjälp, någon!' }, clean: { 1: "Inte en skråma! Skrytmåns." } },
+      sbMasterSoulwarden: { help: { 1: 'Vi blev kidnappade!' }, hit: { 1: "Aj! Se upp för tunnorna!" } },
+      sbMasterIronmonk: { help: { 1: 'Monster! Hjälp!' }, cart: { 1: "Håll i dig!" } },
       sbMasterAether: { fight: { 1: 'Slåss mot mig, Mardröm!' } },
       sphinx: {
         intro: { '1': "Svara mig, lilla du, eller begravs i min sand." },
@@ -6336,7 +6336,7 @@ export default {
         },
         road: { '1': 'Du hittade oss! Demonerna fångade oss på vägen till Sunford. Vi beger oss till Bastionsvadet: hitta oss i fortet.' },
         next: { '1': 'Mara i Sunford belönar dig för att du räddade oss. Goblinkungen måste också stoppas. Valet är ditt.' },
-        wanted: { 1: "Titta, en dusör på Goblinkungen! Den som fäller honom behåller hans skatt." }
+        wanted: { 1: "Titta, en dusör på Goblinkungen! Den som fäller honom behåller hans skatt." }, under: { 1: "Vi går inte utan lyktbäraren. Kom!" }, won: { 1: "Sunford ligger rakt ovanför oss. Bra jobbat, hjälte!" }
       },
       sfShadow: {
         road: { '1': 'Det var på tiden att någon kom. Vi drar till Bastionsvadet. Leta efter oss i fortet.' }

@@ -443,7 +443,7 @@ export default {
   },
   wanted: { title: "Meklēts" },
   tricks: { pot: "Pavāra katls dziedē bariņu. Vispirms apklusini pavāru!", lever: "Svira! Pavelc to, lai laukakmeņi ripo bariņam virsū.", gallery: "Katapultētāji uz sastatnēm, nesasniedzami! Pārgriez virves stabu, lai viņi nokristu." },
-  under: { goal: { corridor: "Seko tunelim un aizdedzini ugunskurus.", cart: "Turies! Grozi pa kreisi un pa labi, ripo pāri mucām un sliežu spraugām.", stash: "Kontrabandistu slēptuve. Uzmanies no spiediena plātnes!", warden: "Tuneļa sargs! Pievilini viņa urbi pie satrunējuša staba.", done: "Izeja ir vaļā." }, skip: "Izlaist", toast: { purse: "Kontrabandistu maks: +{gold} zelta", out: "Tunelis iznāk zem Sanfordas kalēja darbnīcas." } },
+  under: { goal: { corridor: "Seko tunelim un aizdedzini ugunskurus.", cart: "Turies! Grozi pa kreisi un pa labi, ripo pāri mucām un sliežu spraugām.", stash: "Kontrabandistu slēptuve. Uzmanies no spiediena plātnes!", warden: "Tuneļa sargs! Pievilini viņa urbi pie satrunējuša staba.", done: "Izeja ir vaļā." }, skip: "Izlaist", toast: { drop: "Būra grīda iebrūk: otrs lūkas!", purse: "Kontrabandistu maks: +{gold} zelta", out: "Tunelis iznāk zem Sanfordas kalēja darbnīcas." } },
   tusker: { hint: "Ievilini Taskera triecienu satrunējušā stabā!", crash: "Griesti sabrūk uz Karali!" },
   assault: {
     title: 'Alu vārtu aplenkums',
@@ -6330,9 +6330,9 @@ export default {
     },
     bark: {
       hero: { cage: { 1: 'Vai kāds sauc palīgā?' }, hunt: { 1: 'Vēl kāds medī to zvēru.' }, levelUp: { 1: 'Es kļuvu stiprāks!' }, king: { 1: "Goblinu karalim jābūt paslēpušamies kaut kur šeit!" }, gnomes: { 1: "Varbūt es varu palīdzēt dažiem dumpīgajiem rūķiem." } },
-      trainerPyro: { help: { 1: 'Palīgā, vai kāds ir!' } },
-      sbMasterSoulwarden: { help: { 1: 'Mūs nolaupīja!' } },
-      sbMasterIronmonk: { help: { 1: 'Briesmoņi! Palīgā!' } },
+      trainerPyro: { help: { 1: 'Palīgā, vai kāds ir!' }, clean: { 1: "Ne skrāpējuma! Plātīgais." } },
+      sbMasterSoulwarden: { help: { 1: 'Mūs nolaupīja!' }, hit: { 1: "Au! Uzmanies no mucām!" } },
+      sbMasterIronmonk: { help: { 1: 'Briesmoņi! Palīgā!' }, cart: { 1: "Turies cieši!" } },
       sbMasterAether: { fight: { 1: 'Cīnies ar mani, Murg!' } },
       sphinx: {
         intro: { '1': "Atbildi man, mazulīt, vai tevi apraks manas smiltis." },
@@ -6408,7 +6408,7 @@ export default {
         },
         road: { '1': 'Tu mūs atradi! Dēmoni mūs noķēra ceļā uz Sanfordu. Dodamies uz Bastiona braslu: meklē mūs cietoksnī.' },
         next: { '1': 'Mara Sanfordā tevi apbalvos par mūsu glābšanu. Goblinu karali arī jāapturē. Izvēle ir tava.' },
-        wanted: { 1: "Paskaties, par Goblinu karali izsludināta balva! Kas viņu notriektu, paturēs viņa krājumu." }
+        wanted: { 1: "Paskaties, par Goblinu karali izsludināta balva! Kas viņu notriektu, paturēs viņa krājumu." }, under: { 1: "Bez laternas nesēja neiesim. Nāc!" }, won: { 1: "Sanforda ir tieši virs mums. Labi darīts, varoni!" }
       },
       sfShadow: {
         road: { '1': 'Beidzot kāds atnāca. Mēs dodamies uz Bastiona braslu. Meklē mūs cietoksnī.' }

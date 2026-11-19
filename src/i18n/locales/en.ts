@@ -414,7 +414,7 @@ export default {
   },
   'wanted': { 'title': "Wanted" },
   'tricks': { 'pot': "The cook's stew pot mends the pack. Silence the cook first!", 'lever': "A lever! Pull it to roll the boulders onto the pack.", 'gallery': "Slingers on the scaffold, out of reach! Cut its rope post to bring them down." },
-  'under': { 'goal': { 'corridor': "Follow the tunnel and light the braziers.", 'cart': "Hold on! Steer left and right, roll over barrels and rail gaps.", 'stash': "The smugglers' stash. Mind the pressure plate!", 'warden': "The Tunnel Warden! Lure his drill into a rotten pillar.", 'done': "The way out is open." }, 'skip': "Skip", 'toast': { 'purse': "The smugglers' purse: +{gold} gold", 'out': "The tunnel comes out under the smithy in Sunford." } },
+  'under': { 'goal': { 'corridor': "Follow the tunnel and light the braziers.", 'cart': "Hold on! Steer left and right, roll over barrels and rail gaps.", 'stash': "The smugglers' stash. Mind the pressure plate!", 'warden': "The Tunnel Warden! Lure his drill into a rotten pillar.", 'done': "The way out is open." }, 'skip': "Skip", 'toast': { 'drop': "The cage's floor gives way: a second trapdoor!", 'purse': "The smugglers' purse: +{gold} gold", 'out': "The tunnel comes out under the smithy in Sunford." } },
   'tusker': { 'hint': "Lure Tusker's charge into a rotten pillar!", 'crash': "The roof falls on the King!" },
   'assault': {
     'title': 'Siege of the Hollows\' Gate',
@@ -3833,9 +3833,9 @@ export default {
     },
     'bark': {
       'hero': { 'cage': { '1': 'Is there somebody screaming for help?' }, 'hunt': { '1': 'Someone else is hunting that beast.' }, 'levelUp': { '1': 'I got stronger!' }, 'king': { '1': "The Goblin King must be hiding here somewhere!" }, 'gnomes': { '1': "Maybe I can help some of the rebelling gnomes." } },
-      'trainerPyro': { 'help': { '1': 'Help! Anybody!' } },
-      'sbMasterSoulwarden': { 'help': { '1': 'We were kidnapped!' } },
-      'sbMasterIronmonk': { 'help': { '1': 'Monsters! Help!' } },
+      'trainerPyro': { 'help': { '1': 'Help! Anybody!' }, 'clean': { '1': "Not a scratch! Show-off." } },
+      'sbMasterSoulwarden': { 'help': { '1': 'We were kidnapped!' }, 'hit': { '1': "Ouch! Watch the barrels!" } },
+      'sbMasterIronmonk': { 'help': { '1': 'Monsters! Help!' }, 'cart': { '1': "Hold on tight!" } },
       'sbMasterAether': { 'fight': { '1': 'Fight me, Nightmare!' } },
       sphinx: {
         intro: { '1': "Answer me, little one, or be buried in my sand." },
@@ -4032,7 +4032,7 @@ export default {
         },
         'road': { '1': 'You found us! The demons caught us on the Sunford road. We will make for Bastion Crossing: find us at the fort.' },
         'next': { '1': 'Mara in Sunford will reward your kindness in saving us. The Goblin King must be stopped too. The choice is yours.' },
-        'wanted': { '1': "Look, a bounty on the Goblin King! Whoever brings him down keeps his hoard." }
+        'wanted': { '1': "Look, a bounty on the Goblin King! Whoever brings him down keeps his hoard." }, 'under': { '1': "We can't leave without the lantern-bearer. Come on!" }, 'won': { '1': "Sunford is right above us. Well done, hero!" }
       },
       'sfShadow': {
         'road': { '1': 'About time someone came. We are off to Bastion Crossing. Look for us at the fort.' }

@@ -446,7 +446,7 @@ export default {
   },
   wanted: { title: "Hledá se" },
   tricks: { pot: "Kuchařův hrnec léčí smečku. Nejdřív umlč kuchaře!", lever: "Páka! Zatáhni a valouny se skutálejí na smečku.", gallery: "Prakovníci na lešení, mimo dosah! Přeřízni lano u sloupku a srazíš je dolů." },
-  under: { goal: { corridor: "Následuj tunel a zapal ohniště.", cart: "Drž se! Zatáčej vlevo a vpravo, přeskoč sudy a mezery v kolejích.", stash: "Pašerácká skrýš. Pozor na tlakovou desku!", warden: "Strážce tunelu! Nalákej jeho vrták do shnilého sloupu.", done: "Cesta ven je volná." }, skip: "Přeskočit", toast: { purse: "Pašerácká měna: +{gold} zlata", out: "Tunel ústí pod kovárnou v Sunfordu." } },
+  under: { goal: { corridor: "Následuj tunel a zapal ohniště.", cart: "Drž se! Zatáčej vlevo a vpravo, přeskoč sudy a mezery v kolejích.", stash: "Pašerácká skrýš. Pozor na tlakovou desku!", warden: "Strážce tunelu! Nalákej jeho vrták do shnilého sloupu.", done: "Cesta ven je volná." }, skip: "Přeskočit", toast: { drop: "Podlaha klece se propadá: druhý padací poklop!", purse: "Pašerácká měna: +{gold} zlata", out: "Tunel ústí pod kovárnou v Sunfordu." } },
   tusker: { hint: "Nalákej Tuskerův nájezd do shnilého sloupu!", crash: "Strop se zřítil na Krále!" },
   assault: {
     title: 'Obléhání brány Jeskyní',
@@ -6357,9 +6357,9 @@ export default {
     },
     bark: {
       hero: { cage: { 1: 'Volá tam někdo o pomoc?' }, hunt: { 1: 'Tu bestii loví ještě někdo jiný.' }, levelUp: { 1: 'Zesílil jsem!' }, king: { 1: "Goblinský král se tu musí někde skrývat!" }, gnomes: { 1: "Možná můžu pomoct některým vzbouřeným skřítkům." } },
-      trainerPyro: { help: { 1: 'Pomoc, je tu někdo!' } },
-      sbMasterSoulwarden: { help: { 1: 'Byli jsme unesení!' } },
-      sbMasterIronmonk: { help: { 1: 'Příšery! Pomoc!' } },
+      trainerPyro: { help: { 1: 'Pomoc, je tu někdo!' }, clean: { 1: "Ani škrábnutí! Chvástal." } },
+      sbMasterSoulwarden: { help: { 1: 'Byli jsme unesení!' }, hit: { 1: "Au! Pozor na sudy!" } },
+      sbMasterIronmonk: { help: { 1: 'Příšery! Pomoc!' }, cart: { 1: "Drž se pevně!" } },
       sbMasterAether: { fight: { 1: 'Bojuj se mnou, Noční můro!' } },
       sphinx: {
         intro: { '1': "Odpověz mi, maličký, nebo tě pohřbí můj písek." },
@@ -6435,7 +6435,7 @@ export default {
         },
         road: { '1': 'Našel jsi nás! Démoni nás chytili na cestě do Sunfordu. Míříme do Baštového brodu: najdi nás v pevnosti.' },
         next: { '1': 'Mara v Sunfordu tě odmění za naši záchranu. Krále goblinů je také třeba zastavit. Volba je na tobě.' },
-        wanted: { 1: "Podívej, odměna za hlavu Goblinského krále! Kdo ho porazí, získá jeho poklad." }
+        wanted: { 1: "Podívej, odměna za hlavu Goblinského krále! Kdo ho porazí, získá jeho poklad." }, under: { 1: "Bez nositele lucerny neodejdeme. Pojď!" }, won: { 1: "Sunford je přímo nad námi. Dobrá práce, hrdino!" }
       },
       sfShadow: {
         road: { '1': 'Bylo načase, že někdo přišel. Jdeme do Baštového brodu. Hledej nás v pevnosti.' }

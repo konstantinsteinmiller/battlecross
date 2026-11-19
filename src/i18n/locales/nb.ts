@@ -443,7 +443,7 @@ export default {
   },
   wanted: { title: "Etterlyst" },
   tricks: { pot: "Kokkens gryte leger flokken. Ta kokken først!", lever: "En spak! Trekk i den, så ruller steinblokkene ned på flokken.", gallery: "Slyngekastere på stillaset, utenfor rekkevidde! Kutt tauet ved stolpen, så faller de ned." },
-  under: { goal: { corridor: "Følg tunnelen og tenn kullbekkene.", cart: "Hold deg fast! Styr til sidene, rull over tønner og hull i skinnene.", stash: "Smuglernes gjemmested. Pass deg for trykkplaten!", warden: "Tunnelvokteren! Lokk boret hans inn i en råtten påle.", done: "Veien ut er åpen." }, skip: "Hopp over", toast: { purse: "Smuglernes pung: +{gold} gull", out: "Tunnelen kommer opp under smia i Sunford." } },
+  under: { goal: { corridor: "Følg tunnelen og tenn kullbekkene.", cart: "Hold deg fast! Styr til sidene, rull over tønner og hull i skinnene.", stash: "Smuglernes gjemmested. Pass deg for trykkplaten!", warden: "Tunnelvokteren! Lokk boret hans inn i en råtten påle.", done: "Veien ut er åpen." }, skip: "Hopp over", toast: { drop: "Burets gulv gir etter: en andre fallem!", purse: "Smuglernes pung: +{gold} gull", out: "Tunnelen kommer opp under smia i Sunford." } },
   tusker: { hint: "Lokk Tuskers anløp inn i en råtten påle!", crash: "Taket styrter ned over Kongen!" },
   assault: {
     title: 'Beleiringen av Hulenes port',
@@ -6258,9 +6258,9 @@ export default {
     },
     bark: {
       hero: { cage: { 1: 'Er det noen som roper om hjelp?' }, hunt: { 1: 'Noen andre jakter også på det udyret.' }, levelUp: { 1: 'Jeg ble sterkere!' }, king: { 1: "Goblinkongen må gjemme seg her et sted!" }, gnomes: { 1: "Kanskje jeg kan hjelpe noen av de opprørske gnomene." } },
-      trainerPyro: { help: { 1: 'Hjelp, noen!' } },
-      sbMasterSoulwarden: { help: { 1: 'Vi ble kidnappet!' } },
-      sbMasterIronmonk: { help: { 1: 'Monstre! Hjelp!' } },
+      trainerPyro: { help: { 1: 'Hjelp, noen!' }, clean: { 1: "Ikke en skramme! Skrytepave." } },
+      sbMasterSoulwarden: { help: { 1: 'Vi ble kidnappet!' }, hit: { 1: "Au! Pass på tønnene!" } },
+      sbMasterIronmonk: { help: { 1: 'Monstre! Hjelp!' }, cart: { 1: "Hold deg fast!" } },
       sbMasterAether: { fight: { 1: 'Kjemp mot meg, Mareritt!' } },
       sphinx: {
         intro: { '1': "Svar meg, lille venn, eller bli begravd i sanden min." },
@@ -6336,7 +6336,7 @@ export default {
         },
         road: { '1': 'Du fant oss! Demonene fanget oss på veien til Sunford. Vi drar til Bastionsvadet: finn oss i fortet.' },
         next: { '1': 'Mara i Sunford belønner deg for at du reddet oss. Goblinkongen må også stoppes. Valget er ditt.' },
-        wanted: { 1: "Se, en dusør på Goblinkongen! Den som feller ham, beholder skatten hans." }
+        wanted: { 1: "Se, en dusør på Goblinkongen! Den som feller ham, beholder skatten hans." }, under: { 1: "Vi går ikke uten lykteberen. Kom!" }, won: { 1: "Sunford er rett over oss. Godt jobbet, helt!" }
       },
       sfShadow: {
         road: { '1': 'På tide at noen kom. Vi drar til Bastionsvadet. Se etter oss i fortet.' }

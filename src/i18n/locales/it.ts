@@ -444,7 +444,7 @@ export default {
   },
   wanted: { title: "Ricercato" },
   tricks: { pot: "Il pentolone del cuoco cura il branco. Zittisci prima il cuoco!", lever: "Una leva! Tirala per far rotolare i massi sul branco.", gallery: "Frombolieri sull’impalcatura, fuori portata! Taglia la corda del palo per farli cadere." },
-  under: { goal: { corridor: "Segui il tunnel e accendi i bracieri.", cart: "Tieniti forte! Sterza a sinistra e a destra, rotola sopra barili e buchi nei binari.", stash: "Il nascondiglio dei contrabbandieri. Attento alla placca a pressione!", warden: "Il Guardiano del Tunnel! Attira il suo trapano contro un pilastro marcio.", done: "La via d'uscita è aperta." }, skip: "Salta", toast: { purse: "La borsa dei contrabbandieri: +{gold} oro", out: "Il tunnel esce sotto la fucina di Sunford." } },
+  under: { goal: { corridor: "Segui il tunnel e accendi i bracieri.", cart: "Tieniti forte! Sterza a sinistra e a destra, rotola sopra barili e buchi nei binari.", stash: "Il nascondiglio dei contrabbandieri. Attento alla placca a pressione!", warden: "Il Guardiano del Tunnel! Attira il suo trapano contro un pilastro marcio.", done: "La via d'uscita è aperta." }, skip: "Salta", toast: { drop: "Il pavimento della gabbia cede: una seconda botola!", purse: "La borsa dei contrabbandieri: +{gold} oro", out: "Il tunnel esce sotto la fucina di Sunford." } },
   tusker: { hint: "Attira la carica di Tusker contro un pilastro marcio!", crash: "Il soffitto crolla sul Re!" },
   assault: {
     title: 'Assedio alla porta delle Grotte',
@@ -6338,9 +6338,9 @@ export default {
     },
     bark: {
       hero: { cage: { 1: 'Qualcuno sta gridando aiuto?' }, hunt: { 1: 'Qualcun altro sta dando la caccia a quella bestia.' }, levelUp: { 1: 'Sono diventato più forte!' }, king: { 1: "Il Re dei Goblin deve nascondersi qui da qualche parte!" }, gnomes: { 1: "Forse posso aiutare alcuni dei gnomi ribelli." } },
-      trainerPyro: { help: { 1: 'Aiuto, c’è qualcuno?' } },
-      sbMasterSoulwarden: { help: { 1: 'Siamo stati rapiti!' } },
-      sbMasterIronmonk: { help: { 1: 'Mostri! Aiuto!' } },
+      trainerPyro: { help: { 1: 'Aiuto, c’è qualcuno?' }, clean: { 1: "Nemmeno un graffio! Sbruffone." } },
+      sbMasterSoulwarden: { help: { 1: 'Siamo stati rapiti!' }, hit: { 1: "Ahi! Attento ai barili!" } },
+      sbMasterIronmonk: { help: { 1: 'Mostri! Aiuto!' }, cart: { 1: "Tieniti forte!" } },
       sbMasterAether: { fight: { 1: 'Affrontami, Incubo!' } },
       sphinx: {
         intro: { '1': "Rispondimi, piccolo, o sarai sepolto nella mia sabbia." },
@@ -6416,7 +6416,7 @@ export default {
         },
         road: { '1': 'Ci hai trovati! I demoni ci hanno presi sulla strada per Sunford. Andiamo al Guado del Bastione: cercaci al forte.' },
         next: { '1': 'Mara, a Sunford, ti ricompenserà per averci salvati. Anche il Re Goblin va fermato. La scelta è tua.' },
-        wanted: { 1: "Guarda, una taglia sul Re dei Goblin! Chi lo abbatte si tiene il suo tesoro." }
+        wanted: { 1: "Guarda, una taglia sul Re dei Goblin! Chi lo abbatte si tiene il suo tesoro." }, under: { 1: "Non ce ne andiamo senza il portatore di lanterna. Vieni!" }, won: { 1: "Sunford è proprio sopra di noi. Ben fatto, eroe!" }
       },
       sfShadow: {
         road: { '1': 'Era ora che arrivasse qualcuno. Partiamo per il Guado del Bastione. Cercaci al forte.' }

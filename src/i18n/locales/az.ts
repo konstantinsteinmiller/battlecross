@@ -443,7 +443,7 @@ export default {
   },
   wanted: { title: "Axtarılır" },
   tricks: { pot: "Aşpazın qazanı dəstəni sağaldır. Əvvəlcə aşpazı susdur!", lever: "Qol! Onu çək, qayalar dəstənin üstünə yuvarlansın.", gallery: "Sapançılar iskelədə, əlçatmazdır! Onları endirmək üçün ip dirəyini kəs." },
-  under: { goal: { corridor: "Tuneli izlə və manqalları yandır.", cart: "Yapış! Sola-sağa yönəlt, çəlləklərin və rels boşluqlarının üstündən yuvarlan.", stash: "Qaçaqmalçıların gizlətməsi. Təzyiq lövhəsinə diqqət!", warden: "Tunel Gözətçisi! Onun buruğunu çürük sütuna yönəlt.", done: "Çıxış açıqdır." }, skip: "Keç", toast: { purse: "Qaçaqmalçıların kisəsi: +{gold} qızıl", out: "Tunel Sanfordun dəmirçixanasının altından çıxır." } },
+  under: { goal: { corridor: "Tuneli izlə və manqalları yandır.", cart: "Yapış! Sola-sağa yönəlt, çəlləklərin və rels boşluqlarının üstündən yuvarlan.", stash: "Qaçaqmalçıların gizlətməsi. Təzyiq lövhəsinə diqqət!", warden: "Tunel Gözətçisi! Onun buruğunu çürük sütuna yönəlt.", done: "Çıxış açıqdır." }, skip: "Keç", toast: { drop: "Qəfəsin döşəməsi çökür: ikinci lyuk!", purse: "Qaçaqmalçıların kisəsi: +{gold} qızıl", out: "Tunel Sanfordun dəmirçixanasının altından çıxır." } },
   tusker: { hint: "Tuskerin hücumunu çürük sütuna yönəlt!", crash: "Tavan Kralın üstünə çökür!" },
   assault: {
     title: 'Mağaralar qapısının mühasirəsi',
@@ -6258,9 +6258,9 @@ export default {
     },
     bark: {
       hero: { cage: { 1: 'Kimsə kömək üçün qışqırır?' }, hunt: { 1: 'O vəhşini başqa biri də ovlayır.' }, levelUp: { 1: 'Güclənmişəm!' }, king: { 1: "Goblin Kralı burada hardasa gizlənməlidir!" }, gnomes: { 1: "Bəlkə üsyançı gnomlardan bəzilərinə kömək edə bilərəm." } },
-      trainerPyro: { help: { 1: 'Kömək, kimsə!' } },
-      sbMasterSoulwarden: { help: { 1: 'Bizi qaçırdılar!' } },
-      sbMasterIronmonk: { help: { 1: 'Canavarlar! Kömək!' } },
+      trainerPyro: { help: { 1: 'Kömək, kimsə!' }, clean: { 1: "Cızıq belə yoxdur! Öyünən." } },
+      sbMasterSoulwarden: { help: { 1: 'Bizi qaçırdılar!' }, hit: { 1: "Ay! Çəlləklərə diqqət!" } },
+      sbMasterIronmonk: { help: { 1: 'Canavarlar! Kömək!' }, cart: { 1: "Bərk yapış!" } },
       sbMasterAether: { fight: { 1: 'Mənimlə döyüş, Kabus!' } },
       sphinx: {
         intro: { '1': "Cavab ver mənə, balaca, yoxsa qumum səni basdıracaq." },
@@ -6336,7 +6336,7 @@ export default {
         },
         road: { '1': 'Bizi tapdın! İblislər bizi Sanford yolunda tutdular. Qala Keçidinə gedirik: bizi qalada axtar.' },
         next: { '1': 'Sunforddakı Mara bizi xilas etdiyinə görə səni mükafatlandıracaq. Qoblin Kralı da dayandırılmalıdır. Seçim səninkidir.' },
-        wanted: { 1: "Bax, Goblin Kralının başına mükafat qoyulub! Onu yıxan xəzinəsini götürür." }
+        wanted: { 1: "Bax, Goblin Kralının başına mükafat qoyulub! Onu yıxan xəzinəsini götürür." }, under: { 1: "Fənərdarsız çıxa bilmərik. Gəl!" }, won: { 1: "Sanford düz üstümüzdədir. Afərin, qəhrəman!" }
       },
       sfShadow: {
         road: { '1': 'Nəhayət kimsə gəldi. Qala Keçidinə yollanırıq. Bizi qalada axtar.' }
