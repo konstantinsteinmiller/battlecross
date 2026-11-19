@@ -690,6 +690,32 @@ export default {
     dodge: 'Evito',
     hpRegen: 'Sano / s'
   },
+  statinfo: {
+    h: { does: 'Kion ĝi faras', fights: 'En batalo', source: 'De kie ĝi venas', synergy: 'Sinergioj' },
+    cap: 'Preter 300 en unu eco, ĉiu plia punkto valoras duonon.',
+    src: { points: 'Ecpunktoj', level: 'Niveloj', gear: 'Ekipaĵo', passive: 'Pasivaj kapabloj', forge: 'Forĝado', blessing: 'Beno de frakcio', elixir: 'Eliksiroj', weapon: 'Elekto de armilo' },
+    str: { does: 'La forto de via brako. Glavoj, hakiloj, marteloj kaj nudaj pugnoj frapas per 6 + 1,6 × FOR, kaj FOR-kapabloj kreskas same.', fights: 'Ĉiu punkto donas {block}% da ŝanco bloki (blokita frapo faras nur 40%) kaj {plate}% de via plata kiraso kiel plian kirason.', synergy: 'Plej bona kun plata kiraso, ŝildoj kaj ELT por tanko. Unu stoko de punktoj nutras kaj bazajn atakojn kaj FOR-kapablojn.' },
+    dex: { does: 'Rapideco kaj precizeco. Altigas ŝancon de kritiko, atakrapidon kaj movrapidon; ponardoj skaliĝas per LER.', fights: 'Po punkto: +{crit}% da kritika ŝanco, +{as}% da atakrapido, +{ms}% da movrapido. Ponardo aŭ pistolo kun libera dua mano aldonas sekvan frapon valoran 10% + {dual}% po punkto de frapo.', synergy: 'Kritikoj bezonas MAJ por sia damaĝo. Pli da frapoj signifas pli da kritikaj ĵetoj kaj pli da vivŝtelo, kaj rapido portas vin malantaŭ malamikojn, kie frapoj faras 25% pli.' },
+    int: { does: 'Magio. Bastonoj kaj vergoj skaliĝas per INT, same kiel INT-kapabloj.', fights: 'Po punkto: +{mana} maks. mano, +{manaRegen} mano sekunde kaj +{res}% da rezisto kontraŭ elementa kaj magia damaĝo (maks. {capRes}%).', synergy: 'Mano nutras ĉiun aktivan kapablon, do parigu ĝin kun MAJ por malpli longa malvarmiĝo. Rezisto kovras tion, kion kiraso ne haltigas; aldonu ELT por plena defendo.' },
+    end: { does: 'Kiom da puno vi eltenas. La plej granda fonto de via sano.', fights: 'Po punkto: +{hp} maks. sano, +{hpRegen} sano sekunde, +{armor} kiraso kaj {stun}% pli mallongaj miregigoj kaj frostiĝoj (maks. {capStun}%).', synergy: 'Kiraso haltigas nur fizikajn frapojn, do aldonu INT kontraŭ magio. Procentaj sanbonusoj sur ekipaĵo multobligas tion, kion donas ELT.' },
+    skl: { does: 'Metio kaj delikateco. Altigas kritikan damaĝon kaj malvarmiĝan redukton; pafiloj kaj kanonoj skaliĝas per MAJ.', fights: 'Po punkto: +{cd}% da kritika damaĝo (maks. {capCritDmg}%) kaj {cdr}% da malvarmiĝa redukto (maks. {capCdr}%).', synergy: 'Kritika damaĝo bezonas kritikan ŝancon de LER. Pli mallonga malvarmiĝo pli rapide konsumas manon, do parigu kun INT aŭ mana ekipaĵo.' },
+    cha: { does: 'Influo preter la glavbrako. Servistoj frapas pli forte, vendejoj vendas pli malmultekoste kaj taskoj pagas pli.', fights: 'Po punkto: +{minion}% da damaĝo de servistoj, {disc}% da rabato en vendejoj (maks. {capDisc}%), +{reward}% da tasko-rekompenco kaj pli da dialogaj elektoj.', synergy: 'Alvokantaj kaj dorlotbestaj konstruoj prenas sian damaĝon de KAR. Oro ŝparita en vendejoj pagas forĝadon kaj kapablojn.' },
+    damage: { does: 'Unu baza atako antaŭ kritikoj kaj kiraso: 6 + 1,6 × la eco de via armilo, skalita per nivelo kaj ekipaĵo.', fights: 'Kapabloj aplikas sian propran procenton al la sama forto. Kiraso aŭ rezisto poste tranĉas ĝin; kritikoj kaj frapoj de malantaŭe (+25%) altigas ĝin.', synergy: 'Kongruigu armilon kaj econ: FOR por glavoj, hakiloj kaj marteloj, LER por ponardoj, INT por bastonoj kaj vergoj, MAJ por pafiloj kaj kanonoj.' },
+    health: { does: 'Kiom vi eltenas antaŭ ol fali: {hpBase} + {hpLevel} po nivelo + {hp} po ELT-punkto, plus ekipaĵo.', fights: 'Kiraso kaj rezisto malgrandigas ĉiun frapon; sano decidas kiom da frapoj vi postvivas. Ĉe 0 vi falas.', synergy: 'Regenerado kaj vivŝtelo valoras pli ĉe granda stoko, kaj kiraso igas ĉiun sanpunkton daŭri pli longe.' },
+    mana: { does: 'Pagas aktivajn kapablojn: 30 + {manaLevel} po nivelo + {mana} po INT-punkto, plus ekipaĵo.', fights: 'Sen mano funkcias nur bazaj atakoj. Ĝi replenigas sin mem, pli rapide kun nivelo kaj INT.', synergy: 'Malvarmiĝa redukto igas vin pli rapide konsumi ĝin; manaj rabatoj kaj INT-regenerado sekvas.' },
+    armor: { does: 'Malpliigas fizikan damaĝon je kiraso ÷ (kiraso + 60 + 12 × nivelo de la atakanto).', fights: 'Pli altnivelaj malamikoj pli facile trapasas kirason. Ĝi neniam malpliigas magian aŭ elementan damaĝon, kaj kirasrompaj efikoj malaltigas ĝin.', synergy: 'FOR igas platon pli valora, ELT aldonas fiksan kirason, kaj procentaj kirasbonusoj multobligas la sumon.' },
+    resist: { does: 'Malpliigas nefizikan damaĝon (fajro, froston, sanktan, magion) je ĉi tiu procento.', fights: 'Sorĉoj kaj elementaj eksplodoj ignoras kirason; nur rezisto kaj damaĝa redukto malgrandigas ilin. Ĝi neniam helpas kontraŭ armilfrapoj.', synergy: 'Parigu kun kiraso por plena kovro. Nur INT altigas ĝin: {res}% po punkto (maks. {capRes}%).' },
+    crit: { does: 'La ŝanco ke atako aŭ kapablo estu kritika kaj faru vian kritikan damaĝon: 5% + {crit}% po LER-punkto (maks. {capCrit}%).', fights: 'Damaĝo laŭlonge de tempo ne povas esti kritika. Frapo post fumbombo ĉiam estas kritika.', synergy: 'Plej valora kun alta kritika damaĝo (MAJ) kaj rapidaj atakoj (LER); iu ekipaĵo donas kritikan ŝancon nur al sorĉoj.' },
+    critDamage: { does: 'Kiom faras kritiko: 150% + {cd}% po MAJ-punkto (maks. {capCritDmg}%).', fights: 'Ĝi multobligas la tutan frapon, antaŭ ol kiraso kaj rezisto prenas sian parton.', synergy: 'Senutila sen kritika ŝanco (LER): la du multobliĝas.' },
+    attackSpeed: { does: 'Kiom rapide vi atakas: 100% + {as}% po LER-punkto (maks. {capAs}%), aldone al la propra ritmo de la armilo.', fights: 'Pli da frapoj signifas pli da damaĝo, pli da kritikaj ĵetoj kaj pli da trafaj efikoj kiel vivŝtelo. Pezaj armiloj svingiĝas pli malrapide.', synergy: 'Ponardoj kaj pistoloj gajnas plej multe; kritika ŝanco multobligas la aldonajn frapojn.' },
+    moveSpeed: { does: 'Kiom rapide vi kuras: 4,3 × (1 + {ms}% po LER-punkto), ĝis ×{capMs}.', fights: 'Evitu anoncitajn atakojn, tenu proksimbatalajn malamikojn for, atingu la dorson de malamiko (+25% damaĝo) kaj fuĝu. Malrapidigoj kaj miregigoj malaltigas ĝin.', synergy: 'Bonega kun for-armiloj kaj ponardoj; rapideca ekipaĵo kaj eliksiroj sumiĝas kun LER.' },
+    cdr: { does: 'Mallongigas la malvarmiĝon de ĉiu kapablo je ĉi tiu procento: {cdr}% po MAJ-punkto (maks. {capCdr}%).', fights: 'Pli da ĵetoj en batalo kaj pli rapidaj kombinoj. Ĝi ne malpliigas la koston de kapabloj: mano ankoraŭ devas pagi ilin.', synergy: 'Parigu kun INT por la mano. Fortfrapaj kapabloj kun longa malvarmiĝo gajnas plej multe.' },
+    block: { does: 'Ŝanco bloki fizikan armilfrapon: {block}% po FOR-punkto plus ekipaĵo (maks. {capBlock}%).', fights: 'Bloko reduktas tiun frapon al 40% da damaĝo, kaj kiraso ankoraŭ aplikiĝas poste. Kapabloj, damaĝo laŭlonge de tempo kaj magio ne blokeblas, kaj miregigita vi ankaŭ ne povas bloki.', synergy: 'Ŝildoj kaj FOR; iu ekipaĵo resendas damaĝon dum bloko. Ĝi sumiĝas kun evito kaj kiraso.' },
+    dodge: { does: 'Ŝanco tute eviti armilfrapon. Neniu eco altigas ĝin: nur ekipaĵo kaj pasivoj (maks. {capDodge}%).', fights: 'Evito faras neniun damaĝon, kaj iu ekipaĵo donas rapidon poste. Miregigita aŭ frostigita vi ne povas eviti.', synergy: 'Ĝi ĵetiĝas antaŭ la bloko, do la du sumiĝas; kiraso kovras tion, kio trapasas.' },
+    hpRegen: { does: 'Sano restarigata ĉiusekunde: {hpRegen} po ELT-punkto, plus ekipaĵo.', fights: 'Malrapida fadeno: ĝi gravas en longaj bataloj kaj kiam vi estas vundita kaj ankoraŭ ne resanigita.', synergy: 'Trinkaĵoj kaj vivŝtelo resanigas per ekfluoj; regenerado estas la stabila fundo sub ili.' },
+  },
+  quickSell: { title: 'Rapida vendo', lead: 'Ĉu vi malplenigas la sakon peco post peco? Vendu surloke:', click: 'Alklaku', shift: 'Vendu la pecon tuj, sen aldonaj paŝoj.', toggle: 'Ŝaltu ĝin super la sako, kaj ĉiu tuŝo sur peco vendas ĝin.', undo: 'Ĉu vi tro vendis? Reaĉetu el la reaĉeta vico ĝis vi forlasas la vendejon. Portata ekipaĵo neniam estas vendata.', space: 'Premu spacon por fermi', hint: 'Shift + alklako sur peco vendas ĝin tuj' },
+  arenaStart: { title: 'De kie vi komencas?', lead: 'Via plej bona rezulto en la koloseo estas ondo {best}. Ĉu komenci pli alte aŭ ekde la komenco?', why: 'La sugestita ondo venas de via plej bona ondo, viaj ecoj, viaj altnivelaj kapabloj kaj viaj pasivoj.', from: 'Komenci ĉe ondo {n}', fromOne: 'Ekde ondo 1' },
   sheet: {
     points: '{n} poentoj por elspezi',
     raise: 'Altigi: {attr}',
@@ -714,6 +740,7 @@ export default {
     how: 'Tuŝu kapablon, poste lokon, aŭ trenu ĝin tien. Trenu ĝin for de loko por forpreni ĝin.',
     howSlot: 'Nun tuŝu lokon por enmeti ĝin.',
     classCount: '{cls}: {n} el {total} lernitaj',
+    filter: { button: 'Filtrilo', title: 'Rezultoj de la filtrilo', found: 'Kongruoj: {n}', none: 'Neniu kapablo kongruas kun la filtrilo.', clear: 'Vakigi', type: 'Tipo', scales: 'Kreskas kun' },
     hint: {
       find: 'Trovi instruiston',
       met: 'Lernu ĝin de {name} en {place}.',
@@ -3323,6 +3350,7 @@ export default {
     timekeepersHourglass: {
       name: 'Sablohorloĝo de la Tempogardanto'
     },
+    oraclesHourglass: { name: 'Sablohorloĝo de la Orakolo' },
     ringOfTheVampyre: {
       name: 'Ringo de la Vampiro'
     },
@@ -7696,6 +7724,7 @@ export default {
     unlocked: 'Nova sur la mapo: {places}',
     equipped: 'Ekipita',
     better: 'Pli bona ol tio, kion vi portas',
+    inspect: 'Inspekti',
     retry: 'Reprovi',
     tip: 'Vi konservas la sperton kaj la predon. Elspezu viajn poentojn, vizitu trejniston, kaj revenu pli forta.'
   },
@@ -7817,6 +7846,7 @@ export default {
       medium: 'Meza',
       hard: 'Malfacila'
     },
+    difficultyCoins: 'Moneroj {pct}',
     difficultyHints: {
       easy: 'Malamikoj batas pli mole kaj falas pli rapide.',
       medium: 'La celita defio.',

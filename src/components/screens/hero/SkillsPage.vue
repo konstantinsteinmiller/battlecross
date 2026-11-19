@@ -45,16 +45,19 @@
           button.codex__up(v-show="away" type="button" :aria-label="t('ui.back')" @click="toClasses")
             GameIcon(name="up")
         //- The schools met so far (#181, D4): a count to fill, and the ones not met yet are a dark "?".
-        p.codex__met(data-met) {{ t('camp.met', { n: metCount, total: shownClasses.length }) }}
+        //- One row: the schools met, and the filter (a strip of chips when wide, one button when narrow).
+        div.codex__bar
+          p.codex__met(data-met) {{ t('camp.met', { n: metCount, total: shownClasses.length }) }}
+          SkillFilter(v-model:model="filter")
         div.codex__classes(ref="gridEl" role="tablist")
           button.emblem(
             v-for="c in shownClasses"
             :key="c"
             type="button"
             role="tab"
-            :aria-selected="cls === c"
+            :aria-selected="cls === c && !filtering"
             :aria-label="t('skills.classCount', { cls: t(`class.${c}.name`), n: learnedOf(c), total: skillsOf(c).length })"
-            :class="{ 'is-active': cls === c, 'is-bare': learnedOf(c) === 0, 'is-unmet': !metClass(c) }"
+            :class="{ 'is-active': cls === c && !filtering, 'is-bare': learnedOf(c) === 0, 'is-unmet': !metClass(c) }"
             :style="{ '--tint': CLASSES[c].color }"
             :data-cls="c"
             @click="pickClass(c, $event)"
@@ -65,12 +68,16 @@
             span.emblem__pips(aria-hidden="true")
               span.emblem__pip(v-for="s in skillsOf(c)" :key="s.id" :class="{ on: knows(s.id) }")
         header.codex__head(ref="headEl")
-          h3.codex__name {{ t(`class.${cls}.name`) }}
-          p.codex__desc {{ t(`class.${cls}.desc`) }}
+          template(v-if="filtering")
+            h3.codex__name(data-filter-title) {{ t('skills.filter.title') }}
+            p.codex__desc {{ listed.length ? t('skills.filter.found', { n: listed.length }) : t('skills.filter.none') }}
+          template(v-else)
+            h3.codex__name {{ t(`class.${cls}.name`) }}
+            p.codex__desc {{ t(`class.${cls}.desc`) }}
         //- The class's six skills as a path, in the order they are learned.
-        div.codex__path(ref="pathEl")
+        div.codex__path(ref="pathEl" :class="{ 'is-results': filtering }")
           button.node(
-            v-for="s in skillsOf(cls)"
+            v-for="s in listed"
             :key="s.id"
             type="button"
             :class="{ 'is-sel': picked === s.id, 'is-known': knows(s.id), 'is-open': !knows(s.id) && usable(s.id), 'is-locked': !knows(s.id) && !usable(s.id), 'is-round': s.kind === 'passive', 'is-used': slotted(s.id) }"
@@ -132,12 +139,13 @@
  */
 import { computed, nextTick, onBeforeUnmount, onMounted, reactive, ref } from 'vue'
 import { useI18n } from 'vue-i18n'
-import { CLASSES, CLASS_IDS, PRESTIGE_IDS, SKILL_BY_ID, meetsSkill, skillsOf, type ClassId } from '@/game/data/skills'
+import { CLASSES, CLASS_IDS, PRESTIGE_IDS, SKILL_BY_ID, meetsSkill, scalingOf, skillsOf, type ClassId, type SkillDef } from '@/game/data/skills'
 import { trialFlag } from '@/game/data/prestige'
 import { flagSet, knows, metClass, profile, setSlot, totalAttrs } from '@/game/state/profile'
 import { sfx } from '@/game/audio/sfx'
 import FButton from '@/components/atoms/FButton.vue'
 import PresetBar from './PresetBar.vue'
+import SkillFilter, { type SkillFilterState } from '@/components/game/SkillFilter.vue'
 import FSocket from '@/components/atoms/FSocket.vue'
 import ArtIcon from '@/components/art/ArtIcon.vue'
 import { ICON_ART } from '@/game/assets/overrides'
@@ -170,6 +178,21 @@ const shownClasses = computed<ClassId[]>(() => {
   const f = flagSet()
   return [...CLASS_IDS, ...PRESTIGE_IDS.filter(c => f.has(trialFlag(c)) || learnedOf(c) > 0)]
 })
+
+// ── The filter: across every school met, not just the open one ───────────────
+const filter = ref<SkillFilterState>({ kind: '', attrs: [], learned: false })
+const filtering = computed(() => !!filter.value.kind || filter.value.attrs.length > 0 || filter.value.learned)
+const matches = (s: SkillDef): boolean => {
+  const f = filter.value
+  if (f.kind && s.kind !== f.kind) return false
+  if (f.learned && !knows(s.id)) return false
+  if (f.attrs.length) { const a = scalingOf(s); if (!a || !f.attrs.includes(a)) return false }
+  return true
+}
+/** The skills on the path: the open class's six, or (filtering) every match in the schools the hero has met. */
+const listed = computed<SkillDef[]>(() => (filtering.value
+  ? shownClasses.value.filter(c => metClass(c)).flatMap(c => skillsOf(c)).filter(matches)
+  : skillsOf(cls.value)))
 
 // ── What is open and what is in hand ─────────────────────────────────────────
 /** The class the codex opens on: the one the hero knows most of. */
@@ -263,6 +286,7 @@ onBeforeUnmount(() => {
 })
 
 const pickClass = (c: ClassId, e?: MouseEvent): void => {
+  filter.value = { kind: '', attrs: [], learned: false }
   cls.value = c
   sfx('uiClick')
   // detail 0: a keyboard activation, which also moves on to the first skill.
@@ -560,9 +584,15 @@ const drag = useDrag<Held>({
   font-size: 1.4rem
   line-height: 1
   color: rgba(255, 255, 255, 0.55)
+.codex__bar
+  display: flex
+  align-items: center
+  justify-content: space-between
+  gap: 0.4rem
+  margin-bottom: 0.3rem
 .codex__met
-  margin: 0 0 0.3rem
-  text-align: center
+  margin: 0
+  min-width: 0
   font-size: 0.8rem
   color: var(--bc-paper-ink-soft)
 .emblem.is-active .emblem__disc
@@ -643,6 +673,9 @@ const drag = useDrag<Held>({
     display: none
 .node.is-known::before
   border-top: 4px solid var(--tint)
+// Filter results are not one path: no thread between them.
+.is-results .node::before
+  display: none !important
 .node__icon
   position: relative
   display: block
@@ -737,11 +770,13 @@ const drag = useDrag<Held>({
   top: 0
   z-index: var(--bc-z-veil)
   width: clamp(3.2rem, 15vmin, 4.6rem)
-  margin: calc(clamp(3.2rem, 15vmin, 4.6rem) * -0.62) 0 0 calc(clamp(3.2rem, 15vmin, 4.6rem) * -0.5)
+  margin: calc(clamp(3.2rem, 15vmin, 4.6rem) * -0.5) 0 0 calc(clamp(3.2rem, 15vmin, 4.6rem) * -0.5)
   pointer-events: none
   filter: drop-shadow(0 0.5rem 0 rgba(var(--bc-ink-rgb), 0.35))
-  rotate: -6deg
   will-change: transform
+  // The tilt is the icon's: a `rotate` on the ghost itself would swing its translation about the corner.
+  > *
+    rotate: -6deg
 
 // ── Portrait: the loadout above; the codex and the card scroll under it ──────
 @media (max-aspect-ratio: 1/1)

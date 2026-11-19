@@ -20,6 +20,9 @@ vi.mock('@/use/useAdGate', () => ({ canShowInterstitial: () => false, markInters
 vi.mock('@/utils/pokiPlugin', () => ({ pokiMeasure: () => {} }))
 vi.mock('@/use/useCrazyGames', () => ({ triggerHappytime: () => {} }))
 
+// The lightbox's modal measures its header; jsdom has no ResizeObserver.
+globalThis.ResizeObserver ??= class { observe(): void {} unobserve(): void {} disconnect(): void {} } as unknown as typeof ResizeObserver
+
 type P = typeof import('@/game/state/profile')
 type F = typeof import('@/game/flow')
 let p: P
@@ -200,5 +203,67 @@ describe('the healer\'s stall', () => {
     expect(p.profile.inv.manaPotions).toBe(4)
     expect($$('.heal__mana .flask.is-on')).toHaveLength(4)
     expect($('.heal__buy-mana')).toBeNull()
+  })
+})
+
+describe('quick sell', () => {
+  const shiftClick = async (el: Element | null): Promise<void> => {
+    expect(el).toBeTruthy()
+    el!.dispatchEvent(new MouseEvent('click', { bubbles: true, shiftKey: true }))
+    await nextTick()
+  }
+  const give = (...ids: string[]): void => { for (const id of ids) p.gainItem(id) }
+
+  it('Shift + click sells a bag piece on the spot, with no table and no second click', async () => {
+    p.profile.gold = 0
+    give('copperBand', 'ringOfMending')
+    await open('TradeScreen', 'sunfordSmith')
+    await shiftClick($('.trade__bag .cell[data-item="copperBand"]'))
+    expect(p.owns('copperBand')).toBe(false)
+    expect(p.profile.gold).toBeGreaterThan(0)
+    expect($('.trade__table .item-card')).toBeNull()
+    expect(p.profile.tips.quickSell).toBe(true)
+    // Worn gear is refused.
+    await shiftClick($('.trade__bag .cell[data-item="rustedShortsword"]'))
+    expect(p.owns('rustedShortsword')).toBe(true)
+  })
+
+  it('the switch above the bag makes every tap a sale', async () => {
+    give('copperBand', 'ringOfMending')
+    await open('TradeScreen', 'sunfordSmith')
+    await click($('[data-quick-sell]'))
+    await click($('.trade__bag .cell[data-item="copperBand"]'))
+    await click($('.trade__bag .cell[data-item="ringOfMending"]'))
+    expect(p.owns('copperBand')).toBe(false)
+    expect(p.owns('ringOfMending')).toBe(false)
+  })
+
+  it('three sales the slow way in a row bring up the lightbox, once; Space closes it', async () => {
+    give('copperBand', 'ringOfMending', 'bandOfSwiftness')
+    await open('TradeScreen', 'sunfordSmith')
+    for (const id of ['copperBand', 'ringOfMending', 'bandOfSwiftness']) {
+      expect($('[data-quick-sell-tip]'), `no tip before the third sale (${id})`).toBeNull()
+      await click($(`.trade__bag .cell[data-item="${id}"]`))
+      await click(act())
+    }
+    expect($('[data-quick-sell-tip]')).toBeTruthy()
+    expect(p.profile.tips.quickSell).toBe(true)
+    window.dispatchEvent(new KeyboardEvent('keydown', { code: 'Space', key: ' ' }))
+    await nextTick()
+    expect($('[data-quick-sell-tip]')).toBeNull()
+  })
+
+  it('the next trader after the Woods shows it once, with a close button', async () => {
+    vi.useFakeTimers()
+    try {
+      p.profile.world.cleared.push('woods')
+      give('copperBand', 'ringOfMending')
+      await open('TradeScreen', 'sunfordSmith')
+      vi.advanceTimersByTime(600)
+      await nextTick()
+      expect($('[data-quick-sell-tip]')).toBeTruthy()
+      await click($('[data-quick-sell-close]'))
+      expect($('[data-quick-sell-tip]')).toBeNull()
+    } finally { vi.useRealTimers() }
   })
 })

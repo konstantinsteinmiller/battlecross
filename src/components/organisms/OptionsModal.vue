@@ -8,6 +8,7 @@ import FButton from '@/components/atoms/FButton.vue'
 import FSlider from '@/components/atoms/FSlider.vue'
 import FSelect from '@/components/atoms/FSelect.vue'
 import { LANGUAGES, LANGUAGE_AUTONYMS, DIFFICULTY } from '@/utils/enums'
+import { COIN_MUL, coinPct } from '@/game/data/difficulty'
 import { bcp47For } from '@/i18n/localeTag'
 import { hapticsAvailable, hapticsEnabled, setHapticsEnabled } from '@/use/useHaptics'
 import { touchFirst } from '@/game/engine/input'
@@ -100,10 +101,15 @@ const languagesList = computed(() =>
   }))
 )
 
+/** What each difficulty pays, in its own list item: Medium is the base, Easy a tenth less coin, Hard 30% more. */
+const coinNote = (d: keyof typeof COIN_MUL): string => {
+  const p = coinPct(d)
+  return t('options.difficultyCoins', { pct: p === 0 ? '±0%' : `${p > 0 ? '+' : '−'}${Math.abs(p)}%` })
+}
 const difficultyList = computed(() => [
-  { value: DIFFICULTY.EASY, label: t('options.difficulties.easy') },
-  { value: DIFFICULTY.MEDIUM, label: t('options.difficulties.medium') },
-  { value: DIFFICULTY.HARD, label: t('options.difficulties.hard') }
+  { value: DIFFICULTY.EASY, label: `${t('options.difficulties.easy')} · ${coinNote('easy')}` },
+  { value: DIFFICULTY.MEDIUM, label: `${t('options.difficulties.medium')} · ${coinNote('medium')}` },
+  { value: DIFFICULTY.HARD, label: `${t('options.difficulties.hard')} · ${coinNote('hard')}` }
 ])
 
 const difficultyHint = computed(() => t('options.difficultyHints.' + userDifficulty.value))
@@ -219,7 +225,7 @@ onUnmounted(stopCapture)
           )
           p.opt-hint {{ t('samsungFix.optionHint') }}
           FButton(:label="t('samsungFix.recheck')" type="secondary" size="md" @click="rerunColourCheck")
-        div(v-if="canReplayIntro || (showPrivacyLinks && (privacyPolicyUrl || privacyOptionsRequired))" class="flex flex-col items-center gap-4 mt-4 pt-1" :class="isMobileLandscape ? 'col-span-2' : ''")
+        div(v-if="canReplayIntro || (showPrivacyLinks && (privacyPolicyUrl || privacyOptionsRequired))" .opt-actions :class="{ 'is-wide': isMobileLandscape }")
           FButton(v-if="canReplayIntro" :label="t('intro.replay')" type="secondary" size="md" data-intro-replay @click="emit('intro')")
           FButton(v-if="showPrivacyLinks && privacyPolicyUrl" :label="t('privacy.policy')" type="secondary" size="md" @click="openPrivacyPolicy")
           FButton(v-if="showPrivacyLinks && privacyOptionsRequired" :label="t('privacy.settings')" type="secondary" size="md" @click="showPrivacyOptions")
@@ -304,6 +310,16 @@ onUnmounted(stopCapture)
   font-size: clamp(0.66rem, 2.8vmin, 0.8rem)
   line-height: 1.25
   text-align: start
+// The intro and privacy buttons: a clear gap under the last control (a utility class did not reach here).
+.opt-actions
+  display: flex
+  flex-direction: column
+  align-items: center
+  gap: 1rem
+  margin-top: 1.25rem
+  padding-top: 0.25rem
+  &.is-wide
+    grid-column: 1 / -1
 .opt-rule
   width: 100%
   margin: 0.3rem 0

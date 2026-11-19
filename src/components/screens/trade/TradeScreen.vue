@@ -97,7 +97,20 @@
 
       //- ── The hero's bag ─────────────────────────────────────────────────────
       section.trade__side.trade__bag(data-drop="bag" :class="dropClass('bag')")
-        h3.trade__cap {{ t('menu.inventory') }}
+        div.trade__capbar
+          h3.trade__cap {{ t('menu.inventory') }}
+          //- Quick sell: a tap sells (a mouse can also hold Shift and click).
+          button.trade__quick(
+            v-if="bag.length"
+            type="button"
+            :class="{ 'is-on': quick }"
+            :aria-pressed="quick"
+            :title="t('quickSell.hint')"
+            data-quick-sell
+            @click="toggleQuick"
+          )
+            span.trade__quick-knob(aria-hidden="true")
+            | {{ t('quickSell.title') }}
         div.trade__scroll
           p.trade__empty(v-if="bag.length === 0") {{ t('bag.empty') }}
           div.trade__grid
@@ -109,7 +122,7 @@
               :worn="!!equippedIn(it.id)"
               :fresh="profile.inv.fresh.includes(it.id)"
               v-on="drag.handle({ id: it.id, from: 'bag' })"
-              @click="pick('bag', it.id)"
+              @click="bagClick(it.id, $event)"
             )
               template(#tag)
                 PriceTag(:n="sellValue(it)")
@@ -117,6 +130,8 @@
       //- The deal, stamped over the whole table.
       DealStamp(:n="stamps" :text="t('shop.deal')" :tone="stampTone")
 
+    //- How to quick sell: once, when the loot has piled up (after the Woods) or after three slow sales in a row.
+    QuickSellTip(v-if="tipOpen" @close="closeTip")
     Teleport(to="body")
       div.drag-ghost(v-if="drag.state.active && drag.state.payload" :ref="drag.ghost")
         ItemIcon(:id="drag.state.payload.id")
@@ -142,13 +157,13 @@
  * waits on the buy-back row at the price it fetched (`buyBackItem`) until the
  * conversation ends (`visit.ts`).
  */
-import { computed, ref } from 'vue'
+import { computed, onMounted, ref } from 'vue'
 import { useI18n } from 'vue-i18n'
 import { INFERNALS, ITEMS, ITEM_BY_ID, priceOf, sellValue, sellable, type ItemDef } from '@/game/data/items'
 import { FORT } from '@/game/data/breaking'
 import { INFERNAL_FORGE_FLAG } from '@/game/data/relics'
 import {
-  buyBack, buyBackItem, buyCost, buyItem, computeStats, equippedIn, markSeen, owns, profile, rareShelf, restockShelf, saveProfile,
+  buyBack, buyBackItem, buyCost, buyItem, computeStats, equippedIn, markSeen, markTip, owns, profile, rareShelf, restockShelf, saveProfile,
   sellItem, shelfRefreshesLeft, unequip
 } from '@/game/state/profile'
 import { adInFlight, canOfferReward, claimReward, isRewardGated } from '@/use/useAdGate'
@@ -167,6 +182,8 @@ import { KEY_STATS, bySlot, slotFor, statRows, statsWith, wornAgainst } from '@/
 import { shake } from '@/components/game/fx'
 import { useDrag } from '@/components/game/useDrag'
 import { useMedia } from '@/components/game/useMedia'
+import QuickSellTip from '@/components/modals/QuickSellTip.vue'
+import { QUICK_SELL_STREAK, QUICK_SELL_TIP, quickSellDue } from '@/game/data/quickSell'
 import TradeFrame from './TradeFrame.vue'
 import { trackVisit } from './visit'
 
@@ -261,12 +278,34 @@ const pick = (from: Side, id: string): void => {
   if (from === 'bag' && profile.inv.fresh.includes(id)) { markSeen(id); saveProfile() }
 }
 
+// ── Quick sell ───────────────────────────────────────────────────────────────
+/** The switch is on: a tap on a bag piece sells it at once. */
+const quick = ref(false)
+/** Sales in a row by the long way (tap the piece, tap Sell, or drag it): the lightbox shows at three. */
+const slowStreak = ref(0)
+const tipOpen = ref(false)
+const showTip = (): void => { if (!tipOpen.value && !profile.tips[QUICK_SELL_TIP]) { tipOpen.value = true; markTip(QUICK_SELL_TIP) } }
+const closeTip = (): void => { tipOpen.value = false; sfx('uiClose') }
+const toggleQuick = (): void => { quick.value = !quick.value; sfx('uiClick'); if (quick.value) markTip(QUICK_SELL_TIP) }
+/** A click on a bag piece: Shift or the switch sells it on the spot (worn gear is refused), else it goes on the table. */
+const bagClick = (id: string, e: MouseEvent): void => {
+  if (!(e.shiftKey || quick.value)) { pick('bag', id); return }
+  if (equippedIn(id)) { sfx('denied'); frame.value?.say(t('bag.worn')); return }
+  if (!tipOpen.value) markTip(QUICK_SELL_TIP)
+  if (sel.value?.id === id) sel.value = null
+  deal({ from: 'bag', id }, true)
+}
+onMounted(() => {
+  // The next trader after the Woods: the loot has piled up, and this is how to clear it.
+  if (quickSellDue(profile.tips, profile.world.cleared, profile.world.visits as Record<string, number>) && bag.value.length >= 2) window.setTimeout(showTip, 500)
+})
+
 // ── Striking the deal ────────────────────────────────────────────────────────
 const stamps = ref(0)
 const stampTone = ref<'green' | 'gold'>('green')
 const stamp = (tone: 'green' | 'gold'): void => { stampTone.value = tone; stamps.value++ }
 
-const deal = (p: Pick): boolean => {
+const deal = (p: Pick, quickly = false): boolean => {
   const gold = p.from === 'goods' ? buyCost(p.id) : p.from === 'bag' ? sellValue(ITEM_BY_ID[p.id]!) : buyBack.find(b => b.id === p.id)?.gold ?? 0
   const ok = p.from === 'goods' ? buyItem(p.id) : p.from === 'bag' ? sellItem(p.id) : buyBackItem(p.id)
   if (!ok) {
@@ -282,7 +321,11 @@ const deal = (p: Pick): boolean => {
     frame.value?.say(t('shop.say.sell'))
     stamp('gold')
     sel.value = null
+    // Three sales the slow way in a row: the shortcut is worth showing.
+    if (quickly) slowStreak.value = 0
+    else if (++slowStreak.value >= QUICK_SELL_STREAK) showTip()
   } else {
+    slowStreak.value = 0
     void frame.value?.pay(gold)
     frame.value?.say(t(p.from === 'goods' ? 'shop.say.buy' : 'shop.say.back'))
     stamp('green')
@@ -351,6 +394,40 @@ const dropClass = (zone: 'goods' | 'bag'): Record<string, boolean> => {
 .trade__rare-note
   color: var(--bc-text-soft)
   font-size: clamp(0.62rem, 2.5vmin, 0.78rem)
+.trade__capbar
+  display: flex
+  align-items: center
+  justify-content: space-between
+  gap: 0.5rem
+.trade__quick
+  display: inline-flex
+  align-items: center
+  gap: 0.35rem
+  min-height: 1.9rem
+  padding: 0.1rem 0.7rem 0.1rem 0.3rem
+  border: var(--bc-ol-thin) solid var(--bc-ink)
+  border-radius: 999px
+  background: var(--bc-paper)
+  color: var(--bc-ink)
+  +cel.label
+  font-size: 0.7rem
+  cursor: pointer
+  touch-action: manipulation
+  -webkit-tap-highlight-color: transparent
+  +cel.focus-ring
+  &.is-on
+    background: var(--bc-gold-hi)
+    box-shadow: 0 2px 0 var(--bc-ink)
+.trade__quick-knob
+  width: 0.95rem
+  height: 0.95rem
+  border: var(--bc-ol-thin) solid var(--bc-ink)
+  border-radius: 50%
+  background: var(--bc-paper-hi)
+  transition: transform 140ms var(--bc-ease-bounce)
+.trade__quick.is-on .trade__quick-knob
+  background: var(--bc-green)
+  transform: translateX(0.1rem)
 .ware.is-rare
   filter: drop-shadow(0 0 0.3rem color-mix(in srgb, var(--bc-gold) 70%, transparent))
 </style>

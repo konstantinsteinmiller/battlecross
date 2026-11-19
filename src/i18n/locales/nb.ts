@@ -690,6 +690,32 @@ export default {
     dodge: 'Unnvikelse',
     hpRegen: 'Liv / s'
   },
+  statinfo: {
+    h: { does: 'Hva den gjør', fights: 'I kamp', source: 'Hvor den kommer fra', synergy: 'Synergier' },
+    cap: 'Over 300 i én egenskap teller hvert ekstra poeng bare halvt.',
+    src: { points: 'Egenskapspoeng', level: 'Nivåer', gear: 'Utstyr', passive: 'Passive ferdigheter', forge: 'Smiing', blessing: 'Fraksjonens velsignelse', elixir: 'Eliksirer', weapon: 'Valg av våpen' },
+    str: { does: 'Kraften i armen din. Sverd, økser, hamre og bare never slår for 6 + 1,6 × STY, og STY-ferdigheter vokser på samme måte.', fights: 'Hvert poeng gir {block}% blokkeringssjanse (et blokkert treff gjør bare 40%) og {plate}% av platerustningen din som ekstra rustning.', synergy: 'Best med platerustning, skjold og UTH for en tank. Én pott med poeng driver både grunnangrepene og STY-ferdighetene dine.' },
+    dex: { does: 'Fart og presisjon. Øker kritisk sjanse, angrepshastighet og bevegelseshastighet; dolker skalerer med SMI.', fights: 'Per poeng: +{crit}% kritisk sjanse, +{as}% angrepshastighet, +{ms}% bevegelseshastighet. En dolk eller pistol med fri andre hånd gir et oppfølgingsslag verdt 10% + {dual}% per poeng av et treff.', synergy: 'Krit trenger TEK for skaden sin. Flere slag gir flere kritkast og mer livstyveri, og fart tar deg bak fiendene, der treff gjør 25% mer.' },
+    int: { does: 'Magi. Staver og tryllestaver skalerer med INT, og det gjør INT-ferdigheter også.', fights: 'Per poeng: +{mana} maks mana, +{manaRegen} mana per sekund og +{res}% motstand mot elementær- og magiskade (maks {capRes}%).', synergy: 'Mana driver hver aktive ferdighet, så par den med TEK for kortere nedkjøling. Motstand dekker det rustning ikke klarer; legg til UTH for fullt forsvar.' },
+    end: { does: 'Hvor mye juling du tåler. Den største kilden til helsen din.', fights: 'Per poeng: +{hp} maks helse, +{hpRegen} helse per sekund, +{armor} rustning og {stun}% kortere bedøvelser og frysinger (maks {capStun}%).', synergy: 'Rustning stopper bare fysiske treff, så legg til INT mot magi. Prosentvise helsebonuser på utstyr ganger det UTH gir.' },
+    skl: { does: 'Håndverk og finesse. Øker kritisk skade og nedkjølingsreduksjon; skytevåpen og kanoner skalerer med TEK.', fights: 'Per poeng: +{cd}% kritisk skade (maks {capCritDmg}%) og {cdr}% nedkjølingsreduksjon (maks {capCdr}%).', synergy: 'Kritisk skade trenger kritisk sjanse fra SMI. Kortere nedkjøling bruker opp mana raskere, så par med INT eller manautstyr.' },
+    cha: { does: 'Innflytelse utover sverdarmen. Håndlangere slår hardere, butikker selger billigere og oppdrag betaler mer.', fights: 'Per poeng: +{minion}% skade fra håndlangere, {disc}% rabatt i butikker (maks {capDisc}%), +{reward}% oppdragsbelønning og flere dialogvalg.', synergy: 'Tilkallings- og dyrebuilds henter skaden sin fra KAR. Gull spart i butikker betaler for smiing og ferdigheter.' },
+    damage: { does: 'Ett grunnangrep før krit og rustning: 6 + 1,6 × egenskapen våpenet ditt bruker, skalert av nivå og utstyr.', fights: 'Ferdigheter bruker sin egen prosent på den samme kraften. Rustning eller motstand skjærer den så ned; krit og treff bakfra (+25%) øker den.', synergy: 'Match våpen og egenskap: STY for sverd, økser og hamre, SMI for dolker, INT for staver og tryllestaver, TEK for skytevåpen og kanoner.' },
+    health: { does: 'Hvor mye du tåler før du faller: {hpBase} + {hpLevel} per nivå + {hp} per UTH-poeng, pluss utstyr.', fights: 'Rustning og motstand krymper hvert treff; helsen avgjør hvor mange treff du overlever. Ved 0 faller du.', synergy: 'Regenerering og livstyveri er verdt mer på en stor pott, og rustning får hvert helsepoeng til å vare lenger.' },
+    mana: { does: 'Betaler aktive ferdigheter: 30 + {manaLevel} per nivå + {mana} per INT-poeng, pluss utstyr.', fights: 'Uten mana fungerer bare grunnangrep. Den fylles opp av seg selv, raskere med nivå og INT.', synergy: 'Nedkjølingsreduksjon får deg til å bruke den raskere; manarabatter og INT-regenerering holder følge.' },
+    armor: { does: 'Kutter fysisk skade med rustning ÷ (rustning + 60 + 12 × angriperens nivå).', fights: 'Fiender på høyere nivå kommer lettere gjennom rustning. Den reduserer aldri magisk eller elementær skade, og rustningsbrytende effekter senker den.', synergy: 'STY gjør plate mer verdt, UTH gir fast rustning, og prosentvise rustningsbonuser ganger totalen.' },
+    resist: { does: 'Kutter ikke-fysisk skade (ild, frost, hellig, magi) med denne prosenten.', fights: 'Besvergelser og elementære utbrudd ignorerer rustning; bare motstand og skadereduksjon krymper dem. Den hjelper aldri mot våpentreff.', synergy: 'Par med rustning for full dekning. Bare INT øker den: {res}% per poeng (maks {capRes}%).' },
+    crit: { does: 'Sjansen for at et angrep eller en ferdighet blir kritisk og gjør den kritiske skaden din: 5% + {crit}% per SMI-poeng (maks {capCrit}%).', fights: 'Skade over tid kan ikke krite. Et slag fra en røykbombe er alltid kritisk.', synergy: 'Mest verdt med høy kritisk skade (TEK) og raske angrep (SMI); noe utstyr gir kritisk sjanse bare til besvergelser.' },
+    critDamage: { does: 'Hvor mye et krit gjør: 150% + {cd}% per TEK-poeng (maks {capCritDmg}%).', fights: 'Det ganger hele treffet, før rustning og motstand tar sin del.', synergy: 'Ubrukelig uten kritisk sjanse (SMI): de to ganges med hverandre.' },
+    attackSpeed: { does: 'Hvor raskt du angriper: 100% + {as}% per SMI-poeng (maks {capAs}%), på toppen av våpenets eget tempo.', fights: 'Flere treff gir mer skade, flere kritkast og flere treffeffekter som livstyveri. Tunge våpen svinges saktere.', synergy: 'Dolker og pistoler vinner mest; kritisk sjanse ganger de ekstra treffene.' },
+    moveSpeed: { does: 'Hvor raskt du løper: 4,3 × (1 + {ms}% per SMI-poeng), opptil ×{capMs}.', fights: 'Unngå varslede angrep, hold nærkampfiender på avstand, nå en fiendes rygg (+25% skade) og flykt. Nedsaktninger og bedøvelser senker den.', synergy: 'Flott med avstandsvåpen og dolker; hastighetsutstyr og eliksirer legges oppå SMI.' },
+    cdr: { does: 'Forkorter nedkjølingen til hver ferdighet med denne prosenten: {cdr}% per TEK-poeng (maks {capCdr}%).', fights: 'Flere kast per kamp og raskere kombinasjoner. Den gjør ikke ferdigheter billigere: mana må fortsatt betale for dem.', synergy: 'Par med INT for manaen. Hardtslående ferdigheter med lang nedkjøling vinner mest.' },
+    block: { does: 'Sjanse til å blokkere et fysisk våpentreff: {block}% per STY-poeng pluss utstyr (maks {capBlock}%).', fights: 'En blokkering senker treffet til 40% skade, og rustning gjelder fortsatt etterpå. Ferdigheter, skade over tid og magi kan ikke blokkeres, og bedøvet kan du heller ikke blokkere.', synergy: 'Skjold og STY; noe utstyr kaster skade tilbake ved blokkering. Den legges sammen med unnvikelse og rustning.' },
+    dodge: { does: 'Sjanse til å unngå et våpentreff helt. Ingen egenskap øker den: bare utstyr og passive (maks {capDodge}%).', fights: 'En unnvikelse gjør ingen skade i det hele tatt, og noe utstyr gir hast etterpå. Bedøvet eller frosset kan du ikke unnvike.', synergy: 'Den kastes før blokkeringen, så de legges sammen; rustning dekker det som kommer gjennom.' },
+    hpRegen: { does: 'Helse gjenopprettet hvert sekund: {hpRegen} per UTH-poeng, pluss utstyr.', fights: 'Et sakte drypp: det betyr noe i lange kamper og når du er skadet og ennå ikke helbredet.', synergy: 'Eliksirer og livstyveri leger i støt; regenerering er det jevne gulvet under dem.' },
+  },
+  quickSell: { title: 'Hurtigsalg', lead: 'Tømme sekken stykke for stykke? Selg på stedet i stedet:', click: 'Klikk', shift: 'Selg stykket med en gang, uten ekstra steg.', toggle: 'Slå den på over sekken, så selger hvert trykk på et stykke det.', undo: 'Solgt for mye? Kjøp det tilbake fra tilbakekjøpsraden til du forlater butikken. Båret utstyr selges aldri.', space: 'Trykk mellomrom for å lukke', hint: 'Skift + klikk på et stykke selger det med en gang' },
+  arenaStart: { title: 'Hvor starter du?', lead: 'Din beste i kolosseum er bølge {best}. Starte lenger opp eller fra begynnelsen?', why: 'Den foreslåtte bølgen kommer fra din beste bølge, egenskapene dine, høynivåferdighetene dine og de passive.', from: 'Start ved bølge {n}', fromOne: 'Fra bølge 1' },
   sheet: {
     points: '{n} poeng å fordele',
     raise: 'Øk {attr}',
@@ -714,6 +740,7 @@ export default {
     how: 'Trykk på en evne og så på en plass, eller dra den dit. Dra den vekk fra en plass for å ta den ut.',
     howSlot: 'Trykk nå på en plass for å sette den inn.',
     classCount: '{cls}: {n} av {total} lært',
+    filter: { button: 'Filter', title: 'Filterresultater', found: 'Treff: {n}', none: 'Ingen ferdighet passer til filteret.', clear: 'Tøm', type: 'Type', scales: 'Skalerer med' },
     hint: {
       find: 'Finn læreren',
       met: 'Lær den av {name} i {place}.',
@@ -3323,6 +3350,7 @@ export default {
     timekeepersHourglass: {
       name: 'Tidsvokterens timeglass'
     },
+    oraclesHourglass: { name: 'Orakelets timeglass' },
     ringOfTheVampyre: {
       name: 'Vampyrens ring'
     },
@@ -7696,6 +7724,7 @@ export default {
     unlocked: 'Nytt på kartet: {places}',
     equipped: 'Utstyrt',
     better: 'Bedre enn det du har på deg',
+    inspect: 'Undersøk',
     retry: 'Prøv igjen',
     tip: 'Du beholder erfaringen og byttet. Fordel poengene dine, besøk en læremester og kom sterkere tilbake.'
   },
@@ -7817,6 +7846,7 @@ export default {
       medium: 'Middels',
       hard: 'Vanskelig'
     },
+    difficultyCoins: 'Mynter {pct}',
     difficultyHints: {
       easy: 'Fiender slår svakere og faller raskere.',
       medium: 'Utfordringen slik den er ment.',

@@ -691,6 +691,32 @@ export default {
     dodge: 'Esquiva',
     hpRegen: 'Vida / s'
   },
+  statinfo: {
+    h: { does: 'O que faz', fights: 'Em combate', source: 'De onde vem', synergy: 'Sinergias' },
+    cap: 'Acima de 300 em um atributo, cada ponto extra conta pela metade.',
+    src: { points: 'Pontos de atributo', level: 'Níveis', gear: 'Equipamento', passive: 'Habilidades passivas', forge: 'Forja', blessing: 'Bênção de facção', elixir: 'Elixires', weapon: 'Escolha da arma' },
+    str: { does: 'A força do seu braço. Espadas, machados, martelos e punhos nus causam 6 + 1,6 × FOR, e as habilidades de FOR crescem do mesmo jeito.', fights: 'Cada ponto dá {block}% de chance de bloqueio (um golpe bloqueado causa só 40%) e {plate}% da sua armadura de placas como armadura extra.', synergy: 'Melhor com armadura de placas, escudos e VIG para um tanque. Um só conjunto de pontos alimenta seus ataques básicos e suas habilidades de FOR.' },
+    dex: { does: 'Velocidade e precisão. Aumenta a chance de crítico, a velocidade de ataque e de movimento; adagas escalam com DES.', fights: 'Por ponto: +{crit}% de chance de crítico, +{as}% de velocidade de ataque, +{ms}% de velocidade de movimento. Uma adaga ou pistola com a outra mão livre adiciona um golpe extra que vale 10% + {dual}% por ponto de um golpe.', synergy: 'Críticos precisam de TEC para o dano. Mais golpes significam mais testes de crítico e mais roubo de vida, e a velocidade leva você às costas do inimigo, onde os golpes causam 25% a mais.' },
+    int: { does: 'Magia. Cajados e varinhas escalam com INT, e as habilidades de INT também.', fights: 'Por ponto: +{mana} de mana máx., +{manaRegen} de mana por segundo e +{res}% de resistência a dano elemental e mágico (máx. {capRes}%).', synergy: 'A mana alimenta toda habilidade ativa, então combine com TEC para reduzir recargas. A resistência cobre o que a armadura não cobre; some VIG para defesa total.' },
+    end: { does: 'Quanto castigo você aguenta. É a maior fonte da sua vida.', fights: 'Por ponto: +{hp} de vida máx., +{hpRegen} de vida por segundo, +{armor} de armadura e atordoamentos e congelamentos {stun}% mais curtos (máx. {capStun}%).', synergy: 'A armadura só detém golpes físicos, então some INT contra magia. Bônus percentuais de vida no equipamento multiplicam o que o VIG dá.' },
+    skl: { does: 'Ofício e finesse. Aumenta o dano crítico e a redução de recarga; armas de fogo e canhões escalam com TEC.', fights: 'Por ponto: +{cd}% de dano crítico (máx. {capCritDmg}%) e {cdr}% de redução de recarga (máx. {capCdr}%).', synergy: 'O dano crítico precisa da chance de crítico de DES. Recargas menores gastam mana mais rápido, então combine com INT ou equipamento de mana.' },
+    cha: { does: 'Influência além do braço da espada. Asseclas batem mais forte, lojas vendem mais barato e missões pagam mais.', fights: 'Por ponto: +{minion}% de dano dos asseclas, {disc}% de desconto nas lojas (máx. {capDisc}%), +{reward}% de recompensa de missões e mais opções de diálogo.', synergy: 'Builds de invocador e de mascote tiram o dano de CAR. O ouro economizado nas lojas paga forja e habilidades.' },
+    damage: { does: 'Um ataque básico antes de críticos e armadura: 6 + 1,6 × o atributo da sua arma, escalado pelo nível e equipamento.', fights: 'As habilidades aplicam a própria porcentagem a esse mesmo poder. A armadura ou a resistência o reduz; críticos e golpes pelas costas (+25%) o aumentam.', synergy: 'Combine arma e atributo: FOR para espadas, machados e martelos, DES para adagas, INT para cajados e varinhas, TEC para armas de fogo e canhões.' },
+    health: { does: 'Quanto você aguenta antes de cair: {hpBase} + {hpLevel} por nível + {hp} por ponto de VIG, mais o equipamento.', fights: 'Armadura e resistência reduzem cada golpe; a vida decide quantos golpes você sobrevive. Com 0 você cai.', synergy: 'Regeneração e roubo de vida valem mais com uma reserva grande, e a armadura faz cada ponto de vida durar mais.' },
+    mana: { does: 'Paga as habilidades ativas: 30 + {manaLevel} por nível + {mana} por ponto de INT, mais o equipamento.', fights: 'Sem mana, só os ataques básicos funcionam. Ela se recupera sozinha, mais rápido com o nível e INT.', synergy: 'A redução de recarga faz você gastá-la mais rápido; descontos de mana e a regeneração de INT acompanham.' },
+    armor: { does: 'Reduz o dano físico em armadura ÷ (armadura + 60 + 12 × nível do atacante).', fights: 'Inimigos de nível mais alto atravessam a armadura com mais facilidade. Ela nunca reduz dano mágico ou elemental, e efeitos que quebram armadura a diminuem.', synergy: 'FOR faz a placa valer mais, VIG soma armadura fixa e bônus percentuais de armadura multiplicam o total.' },
+    resist: { does: 'Reduz o dano não físico (fogo, gelo, sagrado, magia) por essa porcentagem.', fights: 'Feitiços e explosões elementais ignoram a armadura; só a resistência e a redução de dano os reduzem. Nunca ajuda contra golpes de arma.', synergy: 'Combine com armadura para cobertura total. Só INT a aumenta: {res}% por ponto (máx. {capRes}%).' },
+    crit: { does: 'A chance de um ataque ou habilidade ser crítico e causar seu dano crítico: 5% + {crit}% por ponto de DES (máx. {capCrit}%).', fights: 'Dano ao longo do tempo não pode ser crítico. Um golpe depois da bomba de fumaça é sempre crítico.', synergy: 'Vale mais com muito dano crítico (TEC) e ataques rápidos (DES); alguns equipamentos dão chance de crítico só a feitiços.' },
+    critDamage: { does: 'Quanto um crítico causa: 150% + {cd}% por ponto de TEC (máx. {capCritDmg}%).', fights: 'Multiplica o golpe inteiro, antes de armadura e resistência pegarem sua parte.', synergy: 'Inútil sem chance de crítico (DES): os dois se multiplicam.' },
+    attackSpeed: { does: 'A rapidez do seu ataque: 100% + {as}% por ponto de DES (máx. {capAs}%), além do ritmo próprio da arma.', fights: 'Mais golpes significam mais dano, mais testes de crítico e mais efeitos ao acertar, como roubo de vida. Armas pesadas golpeiam mais devagar.', synergy: 'Adagas e pistolas ganham mais; a chance de crítico multiplica os golpes extras.' },
+    moveSpeed: { does: 'A rapidez da sua corrida: 4,3 × (1 + {ms}% por ponto de DES), até ×{capMs}.', fights: 'Desvie de ataques avisados, mantenha inimigos corpo a corpo à distância, chegue às costas do inimigo (+25% de dano) e fuja. Lentidão e atordoamento a reduzem.', synergy: 'Ótima com armas à distância e adagas; equipamento de velocidade e elixires se somam a DES.' },
+    cdr: { does: 'Encurta a recarga de toda habilidade por essa porcentagem: {cdr}% por ponto de TEC (máx. {capCdr}%).', fights: 'Mais lançamentos por luta e combos mais rápidos. Não barateia as habilidades: a mana ainda as paga.', synergy: 'Combine com INT para a mana. Habilidades fortes de recarga longa são as que mais ganham.' },
+    block: { does: 'Chance de bloquear um golpe físico de arma: {block}% por ponto de FOR mais equipamento (máx. {capBlock}%).', fights: 'Um bloqueio reduz esse golpe a 40% do dano, e a armadura ainda se aplica depois. Habilidades, dano ao longo do tempo e magia não podem ser bloqueados, nem se bloqueia atordoado.', synergy: 'Escudos e FOR; alguns equipamentos devolvem dano ao bloquear. Soma-se à esquiva e à armadura.' },
+    dodge: { does: 'Chance de evitar totalmente um golpe de arma. Nenhum atributo a aumenta: só equipamento e passivas (máx. {capDodge}%).', fights: 'Uma esquiva não causa dano nenhum, e alguns equipamentos dão pressa depois. Não dá para esquivar atordoado ou congelado.', synergy: 'É rolada antes do bloqueio, então os dois se somam; a armadura cobre o que passa.' },
+    hpRegen: { does: 'Vida recuperada a cada segundo: {hpRegen} por ponto de VIG, mais o equipamento.', fights: 'Um fio lento: importa em lutas longas e quando você está ferido e ainda não curado.', synergy: 'Poções e roubo de vida curam em rajadas; a regeneração é o piso constante por baixo.' },
+  },
+  quickSell: { title: 'Venda rápida', lead: 'Esvaziar a mochila peça por peça? Venda na hora:', click: 'Clique', shift: 'Venda a peça de uma vez, sem passos extras.', toggle: 'Ative acima da mochila, e cada toque em uma peça a vende.', undo: 'Vendeu demais? Recompre na fileira de recompra até sair da loja. Equipamento em uso nunca é vendido.', space: 'Aperte Espaço para fechar', hint: 'Shift + clique em uma peça para vendê-la na hora' },
+  arenaStart: { title: 'Por onde começar?', lead: 'Seu recorde no coliseu é a onda {best}. Começar mais adiante ou do início?', why: 'A onda sugerida vem da sua melhor onda, dos seus atributos, das suas habilidades de alto nível e das suas passivas.', from: 'Começar na onda {n}', fromOne: 'Desde a onda 1' },
   sheet: {
     points: '{n} pontos para gastar',
     raise: 'Aumentar {attr}',
@@ -715,6 +741,7 @@ export default {
     how: 'Toque em uma habilidade e depois em um espaço, ou arraste-a até lá. Arraste-a para fora de um espaço para removê-la.',
     howSlot: 'Agora toque em um espaço para colocá-la.',
     classCount: '{cls}: {n} de {total} aprendidas',
+    filter: { button: 'Filtro', title: 'Resultados do filtro', found: 'Correspondências: {n}', none: 'Nenhuma habilidade corresponde ao filtro.', clear: 'Limpar', type: 'Tipo', scales: 'Escala com' },
     hint: {
       find: 'Encontrar o mestre',
       met: 'Aprenda com {name} em {place}.',
@@ -3324,6 +3351,7 @@ export default {
     timekeepersHourglass: {
       name: 'Ampulheta do Guardião do tempo'
     },
+    oraclesHourglass: { name: 'Ampulheta do Oráculo' },
     ringOfTheVampyre: {
       name: 'Anel do Vampiro'
     },
@@ -7753,6 +7781,7 @@ export default {
     unlocked: 'Novo no mapa: {places}',
     equipped: 'Equipado',
     better: 'Melhor que o que você usa',
+    inspect: 'Inspecionar',
     retry: 'Tentar de novo',
     tip: 'Você fica com a experiência e o saque. Gaste seus pontos, visite um treinador e volte com mais força.'
   },
@@ -7874,6 +7903,7 @@ export default {
       medium: 'Médio',
       hard: 'Difícil'
     },
+    difficultyCoins: 'Moedas {pct}',
     difficultyHints: {
       easy: 'Os inimigos batem mais fraco e caem mais rápido.',
       medium: 'O desafio como foi planejado.',

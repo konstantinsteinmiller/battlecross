@@ -691,6 +691,32 @@ export default {
     dodge: 'Ontwijken',
     hpRegen: 'Leven / s'
   },
+  statinfo: {
+    h: { does: 'Wat het doet', fights: 'In een gevecht', source: 'Waar het vandaan komt', synergy: 'Synergieën' },
+    cap: 'Boven 300 in één attribuut telt elk extra punt voor de helft.',
+    src: { points: 'Attribuutpunten', level: 'Levels', gear: 'Uitrusting', passive: 'Passieve vaardigheden', forge: 'Smeden', blessing: 'Zegen van een factie', elixir: 'Elixers', weapon: 'Wapenkeuze' },
+    str: { does: 'De kracht van je arm. Zwaarden, bijlen, hamers en blote vuisten slaan voor 6 + 1,6 × KRA, en KRA-vaardigheden groeien op dezelfde manier.', fights: 'Elk punt geeft {block}% blokkans (een geblokkeerde treffer doet maar 40%) en {plate}% van je plaatpantser als extra pantser.', synergy: 'Het best met plaatpantser, schilden en UIT voor een tank. Eén pool van punten voedt zowel je basisaanvallen als je KRA-vaardigheden.' },
+    dex: { does: 'Snelheid en precisie. Verhoogt crit-kans, aanvalssnelheid en loopsnelheid; dolken schalen met BEH.', fights: 'Per punt: +{crit}% crit-kans, +{as}% aanvalssnelheid, +{ms}% loopsnelheid. Een dolk of pistool met een vrije tweede hand voegt een vervolgslag toe ter waarde van 10% + {dual}% per punt van een treffer.', synergy: 'Crits hebben TEC nodig voor hun schade. Meer slagen betekent meer crit-worpen en meer levensdiefstal, en snelheid brengt je achter vijanden, waar treffers 25% meer schade doen.' },
+    int: { does: 'Magie. Staven en toverstokken schalen met INT, net als INT-vaardigheden.', fights: 'Per punt: +{mana} max. mana, +{manaRegen} mana per seconde en +{res}% weerstand tegen elementaire en magische schade (max. {capRes}%).', synergy: 'Mana voedt elke actieve vaardigheid, dus combineer het met TEC voor cooldownverkorting. Weerstand dekt wat pantser niet kan; voeg UIT toe voor volledige verdediging.' },
+    end: { does: 'Hoeveel straf je incasseert. Het is de grootste bron van je gezondheid.', fights: 'Per punt: +{hp} max. gezondheid, +{hpRegen} gezondheid per seconde, +{armor} pantser en {stun}% kortere verdovingen en bevriezingen (max. {capStun}%).', synergy: 'Pantser stopt alleen fysieke treffers, dus voeg INT toe tegen magie. Procentuele gezondheidsbonussen op uitrusting vermenigvuldigen wat UIT geeft.' },
+    skl: { does: 'Vakmanschap en finesse. Verhoogt crit-schade en cooldownverkorting; geweren en kanonnen schalen met TEC.', fights: 'Per punt: +{cd}% crit-schade (max. {capCritDmg}%) en {cdr}% cooldownverkorting (max. {capCdr}%).', synergy: 'Crit-schade heeft crit-kans van BEH nodig. Kortere cooldowns verbruiken mana sneller, dus combineer met INT of mana-uitrusting.' },
+    cha: { does: 'Invloed voorbij de zwaardarm. Handlangers slaan harder, winkels verkopen goedkoper en opdrachten betalen meer.', fights: 'Per punt: +{minion}% schade van handlangers, {disc}% korting in winkels (max. {capDisc}%), +{reward}% opdrachtbeloning en meer gespreksopties.', synergy: 'Summoner- en huisdierbuilds halen hun schade uit CHA. Goud dat je in winkels bespaart betaalt smeden en vaardigheden.' },
+    damage: { does: 'Eén basisaanval vóór crits en pantser: 6 + 1,6 × het attribuut van je wapen, geschaald door level en uitrusting.', fights: 'Vaardigheden passen hun eigen percentage toe op dezelfde kracht. Pantser of weerstand snoeit het daarna; crits en treffers van achteren (+25%) verhogen het.', synergy: 'Match wapen en attribuut: KRA voor zwaarden, bijlen en hamers, BEH voor dolken, INT voor staven en toverstokken, TEC voor geweren en kanonnen.' },
+    health: { does: 'Hoeveel je incasseert voor je valt: {hpBase} + {hpLevel} per level + {hp} per UIT-punt, plus uitrusting.', fights: 'Pantser en weerstand verkleinen elke treffer; gezondheid bepaalt hoeveel treffers je overleeft. Bij 0 val je.', synergy: 'Regeneratie en levensdiefstal zijn meer waard bij een grote pool, en pantser laat elk punt gezondheid langer meegaan.' },
+    mana: { does: 'Betaalt actieve vaardigheden: 30 + {manaLevel} per level + {mana} per INT-punt, plus uitrusting.', fights: 'Zonder mana werken alleen basisaanvallen. Het vult zichzelf aan, sneller met level en INT.', synergy: 'Cooldownverkorting laat je het sneller verbruiken; manakortingen en INT-regeneratie houden dat bij.' },
+    armor: { does: 'Verlaagt fysieke schade met pantser ÷ (pantser + 60 + 12 × level van de aanvaller).', fights: 'Vijanden van een hoger level komen makkelijker door pantser heen. Het verlaagt nooit magische of elementaire schade, en pantserbrekende effecten verlagen het.', synergy: 'KRA maakt plaat meer waard, UIT voegt vast pantser toe, en procentuele pantserbonussen vermenigvuldigen het totaal.' },
+    resist: { does: 'Verlaagt niet-fysieke schade (vuur, vorst, heilig, magie) met dit percentage.', fights: 'Spreuken en elementaire uitbarstingen negeren pantser; alleen weerstand en schadevermindering verkleinen ze. Tegen wapentreffers helpt het nooit.', synergy: 'Combineer met pantser voor volledige dekking. Alleen INT verhoogt het: {res}% per punt (max. {capRes}%).' },
+    crit: { does: 'De kans dat een aanval of vaardigheid crit en je crit-schade doet: 5% + {crit}% per BEH-punt (max. {capCrit}%).', fights: 'Schade over tijd kan niet crit. Een slag na een rookbom is altijd een crit.', synergy: 'Het meest waard met hoge crit-schade (TEC) en snelle aanvallen (BEH); sommige uitrusting geeft crit-kans alleen aan spreuken.' },
+    critDamage: { does: 'Hoeveel een crit doet: 150% + {cd}% per TEC-punt (max. {capCritDmg}%).', fights: 'Het vermenigvuldigt de hele treffer, voordat pantser en weerstand hun deel nemen.', synergy: 'Nutteloos zonder crit-kans (BEH): de twee vermenigvuldigen met elkaar.' },
+    attackSpeed: { does: 'Hoe snel je aanvalt: 100% + {as}% per BEH-punt (max. {capAs}%), bovenop het eigen tempo van je wapen.', fights: 'Meer treffers betekent meer schade, meer crit-worpen en meer effecten bij raken, zoals levensdiefstal. Zware wapens zwaaien langzamer.', synergy: 'Dolken en pistolen profiteren het meest; crit-kans vermenigvuldigt de extra treffers.' },
+    moveSpeed: { does: 'Hoe snel je rent: 4,3 × (1 + {ms}% per BEH-punt), tot ×{capMs}.', fights: 'Ontwijk aangekondigde aanvallen, houd melee-vijanden op afstand, kom achter een vijand (+25% schade) en ontsnap. Vertragingen en verdovingen verlagen het.', synergy: 'Geweldig met afstandswapens en dolken; snelheidsuitrusting en elixers stapelen met BEH.' },
+    cdr: { does: 'Verkort de cooldown van elke vaardigheid met dit percentage: {cdr}% per TEC-punt (max. {capCdr}%).', fights: 'Meer casts per gevecht en snellere combo\'s. Het maakt vaardigheden niet goedkoper: mana moet ze nog steeds betalen.', synergy: 'Combineer met INT voor de mana. Zware vaardigheden met een lange cooldown winnen het meest.' },
+    block: { does: 'Kans om een fysieke wapentreffer te blokkeren: {block}% per KRA-punt plus uitrusting (max. {capBlock}%).', fights: 'Een blok verlaagt die treffer tot 40% schade, en pantser geldt daarna nog. Vaardigheden, schade over tijd en magie kunnen niet worden geblokkeerd, en verdoofd blokkeren kan ook niet.', synergy: 'Schilden en KRA; sommige uitrusting kaatst schade terug bij een blok. Stapelt met ontwijken en pantser.' },
+    dodge: { does: 'Kans om een wapentreffer helemaal te ontwijken. Geen attribuut verhoogt het: alleen uitrusting en passieven (max. {capDodge}%).', fights: 'Een ontwijking doet helemaal geen schade, en sommige uitrusting geeft daarna haast. Verdoofd of bevroren kun je niet ontwijken.', synergy: 'Het wordt voor het blok gegooid, dus beide stapelen; pantser dekt wat doorkomt.' },
+    hpRegen: { does: 'Elke seconde herstelde gezondheid: {hpRegen} per UIT-punt, plus uitrusting.', fights: 'Een langzaam straaltje: het telt in lange gevechten en als je gewond bent en nog niet genezen.', synergy: 'Drankjes en levensdiefstal genezen in uitbarstingen; regeneratie is de gestage bodem eronder.' },
+  },
+  quickSell: { title: 'Snel verkopen', lead: 'De tas stuk voor stuk leegmaken? Verkoop meteen:', click: 'Klik', shift: 'Verkoop het stuk direct, zonder extra stappen.', toggle: 'Zet het aan boven je tas, en elke tik op een stuk verkoopt het.', undo: 'Te veel verkocht? Koop het terug uit de terugkooprij tot je de winkel verlaat. Gedragen uitrusting wordt nooit verkocht.', space: 'Druk op Spatie om te sluiten', hint: 'Shift + klik op een stuk om het direct te verkopen' },
+  arenaStart: { title: 'Waar begin je?', lead: 'Je beste in het colosseum is golf {best}. Verder omhoog beginnen, of van het begin?', why: 'De voorgestelde golf komt uit je beste golf, je attributen, je vaardigheden van hoog niveau en je passieven.', from: 'Begin bij golf {n}', fromOne: 'Vanaf golf 1' },
   sheet: {
     points: '{n} punten te verdelen',
     raise: '{attr} verhogen',
@@ -715,6 +741,7 @@ export default {
     how: 'Tik op een vaardigheid en dan op een vak, of sleep haar erheen. Sleep haar uit een vak om haar te verwijderen.',
     howSlot: 'Tik nu op een vak om haar erin te zetten.',
     classCount: '{cls}: {n} van {total} geleerd',
+    filter: { button: 'Filter', title: 'Filterresultaten', found: 'Treffers: {n}', none: 'Geen vaardigheid past bij dit filter.', clear: 'Wissen', type: 'Soort', scales: 'Schaalt met' },
     hint: {
       find: 'Leraar zoeken',
       met: 'Leer haar van {name} in {place}.',
@@ -3324,6 +3351,7 @@ export default {
     timekeepersHourglass: {
       name: 'Zandloper van de Tijdhoeder'
     },
+    oraclesHourglass: { name: 'Zandloper van het Orakel' },
     ringOfTheVampyre: {
       name: 'Ring van de Vampier'
     },
@@ -7707,6 +7735,7 @@ export default {
     unlocked: 'Nieuw op de kaart: {places}',
     equipped: 'Aangetrokken',
     better: 'Beter dan wat je draagt',
+    inspect: 'Bekijk',
     retry: 'Nog eens',
     tip: 'Je houdt de ervaring en de buit. Verdeel je punten, ga langs bij een leermeester en kom sterker terug.'
   },
@@ -7828,6 +7857,7 @@ export default {
       medium: 'Gemiddeld',
       hard: 'Moeilijk'
     },
+    difficultyCoins: 'Munten {pct}',
     difficultyHints: {
       easy: 'Vijanden slaan zachter en gaan sneller neer.',
       medium: 'De uitdaging zoals bedoeld.',

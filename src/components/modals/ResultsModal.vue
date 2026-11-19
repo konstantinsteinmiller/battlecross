@@ -52,14 +52,24 @@
                 span.loot__tick
                   GameIcon(name="check")
                 | {{ t('results.equipped') }}
+              //- The card, enlarged, with every change against the worn piece (the equipment page's own card).
               FButton(
-                v-else
+                :label="t('results.inspect')"
+                type="secondary"
+                size="sm"
+                data-inspect
+                @click="inspected = inspected === i ? -1 : i"
+              )
+              FButton(
+                v-if="!equippedIn(it.id)"
                 :label="t('bag.equip')"
                 type="success"
                 size="sm"
                 :is-disabled="!canEquip(it.id)"
                 @click="wear(it.id)"
               )
+            div.loot__card(v-if="inspected === i && it.added" data-inspect-card)
+              ItemCard(:id="it.id" :against="equippedIn(it.id) ? null : wornAgainst(it.id)")
         p.results__open(v-if="r.unlocked.length") {{ t('results.unlocked', { places: r.unlocked.map(n => t(`node.${n}.name`)).join(', ') }) }}
         p.results__tip(v-if="r.outcome === 'defeat'") {{ t('results.tip') }}
         FButton.results__spend(v-if="profile.hero.points > 0" :label="t('results.spend', { n: profile.hero.points })" type="warning" :size="compact ? 'sm' : 'md'" icon="up" data-spend-points @click="openCharacter")
@@ -117,7 +127,9 @@
  * Continue closes it FIRST and only then lets an interstitial play (see
  * `flow.leaveResults`), so an ad never sits on top of the result.
  */
-import { computed } from 'vue'
+import { computed, ref } from 'vue'
+import ItemCard from '@/components/game/ItemCard.vue'
+import { wornAgainst } from '@/components/game/heroSheet'
 import { useI18n } from 'vue-i18n'
 import { ITEM_BY_ID, TIER_COLOR } from '@/game/data/items'
 import { POINTS_PER_LEVEL } from '@/game/data/attributes'
@@ -152,6 +164,8 @@ const tone = computed(() => (!r.value || r.value.outcome === 'victory' ? 'gold' 
 
 /** Put a find on straight from the result: the same rule as the bag. */
 const wear = (id: string): void => { sfx(equipItem(id) ? 'uiEquip' : 'denied') }
+/** The find whose enlarged card is open (an index into the loot; -1: none). */
+const inspected = ref(-1)
 const takePurse = async (): Promise<void> => { if (await triplePurse()) { sfx('coin'); sfx('uiBuy') } }
 </script>
 
@@ -325,6 +339,16 @@ const takePurse = async (): Promise<void> => { if (await triplePurse()) { sfx('c
   background: var(--bc-paper-hi)
   box-shadow: var(--bc-drop)
   animation: loot-in 380ms var(--bc-ease-pop) both
+.loot
+  flex-wrap: wrap
+.loot__act
+  gap: 0.35rem
+// The enlarged card under its slip.
+.loot__card
+  flex: 1 0 100%
+  min-width: 0
+  font-size: 1.12em
+  text-align: start
 .loot__icon
   width: clamp(2.2rem, 9.5vmin, 2.8rem)
   flex: 0 0 auto

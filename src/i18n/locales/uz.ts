@@ -690,6 +690,32 @@ export default {
     dodge: 'Chap berish',
     hpRegen: 'Jon / s'
   },
+  statinfo: {
+    h: { does: 'Nima qiladi', fights: 'Jangda', source: 'Qayerdan keladi', synergy: 'Sinergiyalar' },
+    cap: 'Bitta xususiyatda 300 dan oshgach, har bir qo\'shimcha ball yarim hisoblanadi.',
+    src: { points: 'Xususiyat ballari', level: 'Darajalar', gear: 'Jihozlar', passive: 'Passiv mahoratlar', forge: 'Temirchilik', blessing: 'Fraksiya duosi', elixir: 'Eliksirlar', weapon: 'Qurol tanlovi' },
+    str: { does: 'Qo\'lingning kuchi. Qilichlar, boltalar, bolg\'alar va yalang\'och mushtlar 6 + 1,6 × KCH bilan uradi, KCH mahoratlari ham shunday o\'sadi.', fights: 'Har bir ball {block}% blok ehtimolini beradi (bloklangan zarba faqat 40% zarar qiladi) va plastinali zirhingning {plate}% ini qo\'shimcha zirh qiladi.', synergy: 'Tank uchun plastinali zirh, qalqon va CHD bilan eng yaxshi. Bitta ball zaxirasi ham asosiy hujumlarni, ham KCH mahoratlarini kuchaytiradi.' },
+    dex: { does: 'Tezlik va aniqlik. Kritik ehtimolini, hujum va harakat tezligini oshiradi; xanjarlar CHQ bilan o\'sadi.', fights: 'Har bir ball uchun: +{crit}% kritik ehtimoli, +{as}% hujum tezligi, +{ms}% harakat tezligi. Bo\'sh ikkinchi qo\'l bilan xanjar yoki to\'pponcha zarbaning 10% + ball uchun {dual}% qiymatidagi qo\'shimcha zarba beradi.', synergy: 'Kritiklarning zarari uchun MHR kerak. Ko\'proq zarba — ko\'proq kritik tashlash va ko\'proq jon o\'g\'irlash, tezlik esa seni dushman orqasiga olib chiqadi, u yerda zarbalar 25% ko\'proq zarar qiladi.' },
+    int: { does: 'Sehr. Tayoqlar va hassalar AQL bilan o\'sadi, AQL mahoratlari ham.', fights: 'Har bir ball uchun: +{mana} maks. mana, soniyada +{manaRegen} mana va element hamda sehr zarariga +{res}% qarshilik (maks. {capRes}%).', synergy: 'Mana har bir faol mahoratni oziqlantiradi, shuning uchun sovishni qisqartirish uchun MHR bilan juftla. Qarshilik zirh to\'xtata olmaganini qoplaydi; to\'liq himoya uchun CHD qo\'sh.' },
+    end: { does: 'Qancha zarbaga bardosh berasan. Sog\'liging eng katta manbasi.', fights: 'Har bir ball uchun: +{hp} maks. salomatlik, soniyada +{hpRegen} salomatlik, +{armor} zirh va {stun}% qisqaroq karaxtlik va muzlash (maks. {capStun}%).', synergy: 'Zirh faqat jismoniy zarbalarni to\'xtatadi, sehrga qarshi AQL qo\'sh. Jihozlardagi foizli salomatlik bonuslari CHD bergan narsani ko\'paytiradi.' },
+    skl: { does: 'Mahorat va nozik ish. Kritik zarar va sovish qisqarishini oshiradi; o\'qotar qurollar va to\'plar MHR bilan o\'sadi.', fights: 'Har bir ball uchun: +{cd}% kritik zarar (maks. {capCritDmg}%) va {cdr}% sovish qisqarishi (maks. {capCdr}%).', synergy: 'Kritik zarar CHQ dan kritik ehtimolini talab qiladi. Qisqa sovish manani tezroq sarflaydi, AQL yoki mana jihozlari bilan juftla.' },
+    cha: { does: 'Qilich qo\'lidan tashqari ta\'sir. Yordamchilar qattiqroq uradi, do\'konlar arzonroq sotadi, topshiriqlar ko\'proq to\'laydi.', fights: 'Har bir ball uchun: +{minion}% yordamchi zarari, do\'konlarda {disc}% chegirma (maks. {capDisc}%), +{reward}% topshiriq mukofoti va ko\'proq suhbat tanlovlari.', synergy: 'Chaqiruvchi va uy hayvoni yig\'malari zararni XRZ dan oladi. Do\'konlarda tejalgan oltin temirchilik va mahoratlarni to\'laydi.' },
+    damage: { does: 'Kritik va zirhgacha bitta asosiy hujum: 6 + 1,6 × qurolingning xususiyati, daraja va jihozlar bilan o\'lchanadi.', fights: 'Mahoratlar o\'z foizini shu kuchga qo\'llaydi. Keyin zirh yoki qarshilik uni kesadi; kritiklar va orqadan zarbalar (+25%) oshiradi.', synergy: 'Qurol va xususiyatni moslashtir: qilich, bolta va bolg\'a uchun KCH, xanjar uchun CHQ, tayoq va hassa uchun AQL, o\'qotar qurol va to\'p uchun MHR.' },
+    health: { does: 'Yiqilishdan oldin qancha bardosh berasan: {hpBase} + har daraja uchun {hpLevel} + CHD bali uchun {hp}, qo\'shimcha jihozlar.', fights: 'Zirh va qarshilik har bir zarbani kichraytiradi; salomatlik nechta zarbadan omon qolishingni belgilaydi. 0 da yiqilasan.', synergy: 'Katta zaxirada tiklanish va jon o\'g\'irlash qimmatroq, zirh esa har bir salomatlik balini uzoqroq chidatadi.' },
+    mana: { does: 'Faol mahoratlarni to\'laydi: 30 + har daraja uchun {manaLevel} + AQL bali uchun {mana}, qo\'shimcha jihozlar.', fights: 'Mana bo\'lmasa faqat asosiy hujumlar ishlaydi. U o\'zi to\'ladi, daraja va AQL bilan tezroq.', synergy: 'Sovish qisqarishi uni tezroq sarflatadi; mana chegirmalari va AQL tiklanishi yetib boradi.' },
+    armor: { does: 'Jismoniy zararni zirh ÷ (zirh + 60 + 12 × hujum qiluvchi darajasi) qadar kamaytiradi.', fights: 'Yuqori darajali dushmanlar zirhdan osonroq o\'tadi. U sehr yoki element zararini hech qachon kamaytirmaydi, zirhni buzuvchi ta\'sirlar uni pasaytiradi.', synergy: 'KCH plastinani qimmatroq qiladi, CHD qat\'iy zirh qo\'shadi, foizli zirh bonuslari yig\'indini ko\'paytiradi.' },
+    resist: { does: 'Jismoniy bo\'lmagan zararni (olov, sovuq, muqaddas, sehr) shu foizga kamaytiradi.', fights: 'Sehrlar va element portlashlari zirhni hisobga olmaydi; ularni faqat qarshilik va zarar kamayishi kichraytiradi. Qurol zarbalariga qarshi hech qachon yordam bermaydi.', synergy: 'To\'liq qoplash uchun zirh bilan juftla. Uni faqat AQL oshiradi: ball uchun {res}% (maks. {capRes}%).' },
+    crit: { does: 'Hujum yoki mahorat kritik bo\'lib, kritik zararingni berish ehtimoli: 5% + CHQ bali uchun {crit}% (maks. {capCrit}%).', fights: 'Vaqt o\'tishi bilan zarar kritik bo\'la olmaydi. Tutun bombasidan keyingi zarba doim kritik.', synergy: 'Yuqori kritik zarar (MHR) va tez hujumlar (CHQ) bilan eng qimmat; ba\'zi jihozlar kritik ehtimolini faqat sehrlarga beradi.' },
+    critDamage: { does: 'Kritik qancha zarar beradi: 150% + MHR bali uchun {cd}% (maks. {capCritDmg}%).', fights: 'U zirh va qarshilik o\'z ulushini olishdan oldin butun zarbani ko\'paytiradi.', synergy: 'Kritik ehtimolisiz (CHQ) foydasiz: ikkalasi bir-biriga ko\'paytiriladi.' },
+    attackSpeed: { does: 'Qanchalik tez hujum qilasan: 100% + CHQ bali uchun {as}% (maks. {capAs}%), qurolning o\'z sur\'ati ustiga.', fights: 'Ko\'proq zarba ko\'proq zarar, ko\'proq kritik tashlash va jon o\'g\'irlash kabi ko\'proq ta\'sir demak. Og\'ir qurollar sekinroq yelkalanadi.', synergy: 'Xanjarlar va to\'pponchalar eng ko\'p yutadi; kritik ehtimoli qo\'shimcha zarbalarni ko\'paytiradi.' },
+    moveSpeed: { does: 'Qanchalik tez yugurasan: 4,3 × (1 + CHQ bali uchun {ms}%), ×{capMs} gacha.', fights: 'Ogohlantirilgan hujumlardan qoch, yaqin jang dushmanlarini uzoqda tut, dushman orqasiga o\'t (+25% zarar) va qoch. Sekinlatish va karaxtlik uni kamaytiradi.', synergy: 'Uzoq qurollar va xanjarlar bilan ajoyib; tezlik jihozlari va eliksirlar CHQ bilan qo\'shiladi.' },
+    cdr: { does: 'Har bir mahoratning sovishini shu foizga qisqartiradi: MHR bali uchun {cdr}% (maks. {capCdr}%).', fights: 'Jangda ko\'proq ishlatish va tezroq kombolar. U mahoratlarni arzonlashtirmaydi: mana baribir to\'lashi kerak.', synergy: 'Mana uchun AQL bilan juftla. Uzun sovishli qattiq mahoratlar eng ko\'p yutadi.' },
+    block: { does: 'Jismoniy qurol zarbasini bloklash ehtimoli: KCH bali uchun {block}% va jihozlar (maks. {capBlock}%).', fights: 'Blok o\'sha zarbani 40% zararga tushiradi, undan keyin ham zirh qo\'llanadi. Mahoratlar, vaqt o\'tishi bilan zarar va sehrni bloklab bo\'lmaydi, karaxt holda ham blok qilolmaysan.', synergy: 'Qalqonlar va KCH; ba\'zi jihozlar blokda zararni qaytaradi. Chetlanish va zirh bilan qo\'shiladi.' },
+    dodge: { does: 'Qurol zarbasidan butunlay chetlanish ehtimoli. Hech qanday xususiyat uni oshirmaydi: faqat jihozlar va passivlar (maks. {capDodge}%).', fights: 'Chetlanish umuman zarar bermaydi, ba\'zi jihozlar undan keyin tezlik beradi. Karaxt yoki muzlagan holda chetlana olmaysan.', synergy: 'U blokdan oldin tashlanadi, shuning uchun ikkalasi qo\'shiladi; zirh o\'tganini qoplaydi.' },
+    hpRegen: { does: 'Har soniyada tiklanadigan salomatlik: CHD bali uchun {hpRegen}, qo\'shimcha jihozlar.', fights: 'Sekin tomchi: uzoq janglarda va yaralanib, hali davolanmaganingda ahamiyatli.', synergy: 'Iksirlar va jon o\'g\'irlash dafʼatan davolaydi; tiklanish ularning ostidagi barqaror taglik.' },
+  },
+  quickSell: { title: 'Tezkor sotish', lead: 'Sumkani bir-bir bo\'shatayapsanmi? Joyida sot:', click: 'Bosish', shift: 'Buyumni qo\'shimcha qadamsiz darhol sot.', toggle: 'Sumka ustidagi tugmani yoq, buyumga har bir tegish uni sotadi.', undo: 'Ortiqcha sotdingmi? Do\'kondan chiqquningcha qayta sotib olish qatoridan qaytarib ol. Kiyilgan jihoz hech qachon sotilmaydi.', space: 'Yopish uchun Probelni bos', hint: 'Buyumga Shift + bosish uni darhol sotadi' },
+  arenaStart: { title: 'Qayerdan boshlaysan?', lead: 'Koliseydagi eng yaxshi natijang {best}-to\'lqin. Oldinroqdan boshlaysanmi yoki boshidan?', why: 'Tavsiya etilgan to\'lqin eng yaxshi to\'lqining, xususiyatlaring, yuqori darajali mahoratlaring va passivlaringdan kelib chiqadi.', from: '{n}-to\'lqindan boshlash', fromOne: '1-to\'lqindan' },
   sheet: {
     points: 'Sarflash uchun {n} ochko',
     raise: '{attr}: oshirish',
@@ -714,6 +740,7 @@ export default {
     how: 'Koʻnikmaga, keyin uyaga bosing yoki uni u yerga sudrang. Olib tashlash uchun uyadan tashqariga sudrang.',
     howSlot: 'Endi joylash uchun uyaga bosing.',
     classCount: '{cls}: {total} tadan {n} tasi oʻrganildi',
+    filter: { button: 'Filtr', title: 'Filtr natijalari', found: 'Mos kelgan: {n}', none: 'Filtrga mos mahorat yoʻq.', clear: 'Tozalash', type: 'Turi', scales: 'Bunga bogʻliq' },
     hint: {
       find: 'Ustozni topish',
       met: 'Buni {place} joyidagi {name} oʻrgatadi.',
@@ -3323,6 +3350,7 @@ export default {
     timekeepersHourglass: {
       name: 'Vaqt posbonining qum soati'
     },
+    oraclesHourglass: { name: 'Folbinning qum soati' },
     ringOfTheVampyre: {
       name: 'Vampir uzugi'
     },
@@ -7696,6 +7724,7 @@ export default {
     unlocked: 'Xaritada yangi: {places}',
     equipped: 'Jihozlangan',
     better: 'Kiyganingizdan yaxshiroq',
+    inspect: 'Koʻrish',
     retry: 'Qayta urinish',
     tip: 'Tajriba va oʻlja sizda qoladi. Ochkolaringizni sarflang, ustozga uchrang va kuchliroq boʻlib qayting.'
   },
@@ -7817,6 +7846,7 @@ export default {
       medium: 'Oʻrta',
       hard: 'Qiyin'
     },
+    difficultyCoins: 'Tangalar {pct}',
     difficultyHints: {
       easy: 'Dushmanlar kuchsizroq uradi va tezroq yiqiladi.',
       medium: 'Moʻljallangan qiyinlik.',

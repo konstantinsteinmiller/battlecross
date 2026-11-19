@@ -690,6 +690,32 @@ export default {
     dodge: 'Kaçınma',
     hpRegen: 'Can / sn'
   },
+  statinfo: {
+    h: { does: 'Ne işe yarar', fights: 'Savaşta', source: 'Nereden gelir', synergy: 'Sinerjiler' },
+    cap: 'Bir özellikte 300\'ü aşınca her ek puan yarım sayılır.',
+    src: { points: 'Özellik puanları', level: 'Seviyeler', gear: 'Ekipman', passive: 'Pasif yetenekler', forge: 'Demircilik', blessing: 'Hizip kutsaması', elixir: 'İksirler', weapon: 'Silah seçimi' },
+    str: { does: 'Kolunun gücü. Kılıçlar, baltalar, çekiçler ve çıplak yumruklar 6 + 1,6 × GÜÇ ile vurur; GÜÇ yetenekleri de aynı şekilde büyür.', fights: 'Her puan %{block} blok şansı verir (engellenen vuruş yalnızca %40 hasar verir) ve plaka zırhının %{plate} kadarını ek zırh olarak ekler.', synergy: 'Tank için plaka zırh, kalkan ve DAY ile en iyisi. Tek bir puan havuzu hem temel saldırıları hem GÜÇ yeteneklerini besler.' },
+    dex: { does: 'Hız ve hassasiyet. Kritik şansını, saldırı hızını ve hareket hızını artırır; hançerler ÇEV ile ölçeklenir.', fights: 'Puan başına: +%{crit} kritik şansı, +%{as} saldırı hızı, +%{ms} hareket hızı. Boş ikinci elle hançer ya da tabanca, bir vuruşun %10 + puan başına %{dual} değerinde ek bir darbe katar.', synergy: 'Kritiklerin hasarı için BEC gerekir. Daha çok vuruş daha çok kritik zarı ve daha çok can çalma demektir; hız seni düşmanların arkasına taşır, orada vuruşlar %25 daha çok hasar verir.' },
+    int: { does: 'Büyü. Asalar ve değnekler ZEK ile ölçeklenir, ZEK yetenekleri de öyle.', fights: 'Puan başına: +{mana} azami mana, saniyede +{manaRegen} mana ve element ile büyü hasarına +%{res} direnç (azami %{capRes}).', synergy: 'Mana her aktif yeteneği besler; bu yüzden bekleme süresi kısaltması için BEC ile eşle. Direnç zırhın tutamadığını karşılar; tam savunma için DAY ekle.' },
+    end: { does: 'Ne kadar dayak yiyebildiğin. Canının en büyük kaynağı.', fights: 'Puan başına: +{hp} azami can, saniyede +{hpRegen} can, +{armor} zırh ve %{stun} daha kısa sersemletme ve donma (azami %{capStun}).', synergy: 'Zırh yalnızca fiziksel vuruşları durdurur; büyüye karşı ZEK ekle. Ekipmandaki yüzdelik can bonusları DAY\'ın verdiğini çarpar.' },
+    skl: { does: 'Ustalık ve incelik. Kritik hasarı ve bekleme süresi kısaltmasını artırır; ateşli silahlar ve toplar BEC ile ölçeklenir.', fights: 'Puan başına: +%{cd} kritik hasar (azami %{capCritDmg}) ve %{cdr} bekleme süresi kısaltması (azami %{capCdr}).', synergy: 'Kritik hasar, ÇEV\'den gelen kritik şansı ister. Kısa beklemeler manayı daha hızlı yakar; ZEK ya da mana ekipmanıyla eşle.' },
+    cha: { does: 'Kılıç kolunun ötesinde etki. Yardakçılar daha sert vurur, dükkânlar daha ucuz satar, görevler daha çok öder.', fights: 'Puan başına: +%{minion} yardakçı hasarı, dükkânlarda %{disc} indirim (azami %{capDisc}), +%{reward} görev ödülü ve daha çok diyalog seçeneği.', synergy: 'Çağırıcı ve evcil hayvan kurulumları hasarını KAR\'dan alır. Dükkânlarda biriken altın demirciliği ve yetenekleri öder.' },
+    damage: { does: 'Kritik ve zırhtan önceki tek bir temel saldırı: 6 + 1,6 × silahının kullandığı özellik; seviye ve ekipmanla ölçeklenir.', fights: 'Yetenekler aynı güce kendi yüzdesini uygular. Sonra zırh ya da direnç onu kırpar; kritikler ve arkadan vuruşlar (+%25) artırır.', synergy: 'Silah ile özelliği eşle: kılıç, balta ve çekiç için GÜÇ, hançer için ÇEV, asa ve değnek için ZEK, ateşli silah ve top için BEC.' },
+    health: { does: 'Düşmeden önce dayandığın miktar: {hpBase} + seviye başına {hpLevel} + DAY puanı başına {hp}, artı ekipman.', fights: 'Zırh ve direnç her vuruşu küçültür; can kaç vuruş atlatacağını belirler. 0\'da düşersin.', synergy: 'Büyük bir havuzda yenilenme ve can çalma daha değerlidir; zırh her can puanını daha uzun dayandırır.' },
+    mana: { does: 'Aktif yetenekleri öder: 30 + seviye başına {manaLevel} + ZEK puanı başına {mana}, artı ekipman.', fights: 'Mana yokken yalnızca temel saldırılar çalışır. Kendiliğinden dolar; seviye ve ZEK ile daha hızlı.', synergy: 'Bekleme süresi kısaltması onu daha hızlı harcatır; mana indirimleri ve ZEK yenilenmesi buna yetişir.' },
+    armor: { does: 'Fiziksel hasarı zırh ÷ (zırh + 60 + 12 × saldıranın seviyesi) kadar azaltır.', fights: 'Yüksek seviyeli düşmanlar zırhı daha kolay aşar. Büyü ya da element hasarını asla azaltmaz; zırh kıran etkiler onu düşürür.', synergy: 'GÜÇ plakayı daha değerli yapar, DAY sabit zırh ekler, yüzdelik zırh bonusları toplamı çarpar.' },
+    resist: { does: 'Fiziksel olmayan hasarı (ateş, buz, kutsal, büyü) bu yüzde kadar azaltır.', fights: 'Büyüler ve element patlamaları zırhı yok sayar; onları yalnızca direnç ve hasar azaltma küçültür. Silah vuruşlarına karşı asla işe yaramaz.', synergy: 'Tam koruma için zırhla eşle. Yalnızca ZEK artırır: puan başına %{res} (azami %{capRes}).' },
+    crit: { does: 'Bir saldırının ya da yeteneğin kritik olup kritik hasarını vurma şansı: %5 + ÇEV puanı başına %{crit} (azami %{capCrit}).', fights: 'Zamanla hasar kritik olamaz. Duman bombasından sonraki vuruş her zaman kritiktir.', synergy: 'Yüksek kritik hasar (BEC) ve hızlı saldırılarla (ÇEV) en değerlidir; bazı ekipmanlar kritik şansını yalnızca büyülere verir.' },
+    critDamage: { does: 'Bir kritiğin vurduğu: %150 + BEC puanı başına %{cd} (azami %{capCritDmg}).', fights: 'Zırh ve direnç paylarını almadan önce tüm vuruşu çarpar.', synergy: 'Kritik şansı (ÇEV) olmadan işe yaramaz: ikisi birbiriyle çarpılır.' },
+    attackSpeed: { does: 'Ne kadar hızlı saldırdığın: %100 + ÇEV puanı başına %{as} (azami %{capAs}), silahın kendi temposunun üstüne.', fights: 'Daha çok vuruş daha çok hasar, daha çok kritik zarı ve can çalma gibi daha çok vuruş etkisi demektir. Ağır silahlar daha yavaş savrulur.', synergy: 'Hançerler ve tabancalar en çok kazanır; kritik şansı ek vuruşları çarpar.' },
+    moveSpeed: { does: 'Ne kadar hızlı koştuğun: 4,3 × (1 + ÇEV puanı başına %{ms}), en fazla ×{capMs}.', fights: 'Haber verilen saldırılardan kaç, yakın dövüş düşmanlarını oyala, düşmanın arkasına geç (+%25 hasar) ve sıyrıl. Yavaşlatmalar ve sersemletmeler onu düşürür.', synergy: 'Menzilli silahlar ve hançerlerle harika; hız ekipmanı ve iksirler ÇEV ile birikir.' },
+    cdr: { does: 'Her yeteneğin bekleme süresini bu yüzde kadar kısaltır: BEC puanı başına %{cdr} (azami %{capCdr}).', fights: 'Savaş başına daha çok kullanım ve daha hızlı kombolar. Yetenekleri ucuzlatmaz: manayı yine ödemek gerekir.', synergy: 'Mana için ZEK ile eşle. Uzun beklemeli sert vuruşlu yetenekler en çok kazanır.' },
+    block: { does: 'Fiziksel bir silah vuruşunu engelleme şansı: GÜÇ puanı başına %{block} artı ekipman (azami %{capBlock}).', fights: 'Blok o vuruşu %40 hasara düşürür, zırh bundan sonra da uygulanır. Yetenekler, zamanla hasar ve büyü engellenemez; sersemlemişken de engelleyemezsin.', synergy: 'Kalkanlar ve GÜÇ; bazı ekipmanlar blokta hasarı geri yansıtır. Kaçınma ve zırhla birikir.' },
+    dodge: { does: 'Bir silah vuruşundan tamamen kaçınma şansı. Hiçbir özellik artırmaz: yalnızca ekipman ve pasifler (azami %{capDodge}).', fights: 'Kaçınma hiç hasar vermez, bazı ekipmanlar sonrasında hız verir. Sersemlemişken ya da donmuşken kaçınamazsın.', synergy: 'Blokdan önce atılır, yani ikisi birikir; zırh geçeni karşılar.' },
+    hpRegen: { does: 'Her saniye geri gelen can: DAY puanı başına {hpRegen}, artı ekipman.', fights: 'Yavaş bir damlama: uzun savaşlarda ve yaralı olup henüz iyileşmediğinde önem kazanır.', synergy: 'İksirler ve can çalma ani iyileştirir; yenilenme onların altındaki sabit tabandır.' },
+  },
+  quickSell: { title: 'Hızlı satış', lead: 'Çantayı parça parça mı boşaltıyorsun? Hemen sat:', click: 'Tık', shift: 'Parçayı ek adım olmadan hemen sat.', toggle: 'Çantanın üstündeki anahtarı aç, parçaya her dokunuş onu satar.', undo: 'Fazla mı sattın? Dükkândan çıkana kadar geri alım sırasından geri al. Giyili ekipman asla satılmaz.', space: 'Kapatmak için Boşluk\'a bas', hint: 'Bir parçaya Shift + tık hemen satar' },
+  arenaStart: { title: 'Nereden başlıyorsun?', lead: 'Kolezyumdaki en iyin {best}. dalga. Daha ileriden mi, baştan mı başlayacaksın?', why: 'Önerilen dalga; en iyi dalgandan, özelliklerinden, yüksek seviye yeteneklerinden ve pasiflerinden gelir.', from: '{n}. dalgadan başla', fromOne: '1. dalgadan' },
   sheet: {
     points: 'Harcanacak {n} puan',
     raise: '{attr} artır',
@@ -714,6 +740,7 @@ export default {
     how: 'Bir yeteneğe, sonra bir yuvaya dokun ya da yeteneği oraya sürükle. Çıkarmak için yuvadan dışarı sürükle.',
     howSlot: 'Şimdi yerleştirmek için bir yuvaya dokun.',
     classCount: '{cls}: {total} yetenekten {n} öğrenildi',
+    filter: { button: 'Filtre', title: 'Filtre sonuçları', found: 'Eşleşme: {n}', none: 'Hiçbir yetenek bu filtreyle eşleşmiyor.', clear: 'Temizle', type: 'Tür', scales: 'Şununla artar' },
     hint: {
       find: 'Öğretmeni bul',
       met: 'Bunu {place} yerindeki {name} öğretir.',
@@ -3323,6 +3350,7 @@ export default {
     timekeepersHourglass: {
       name: 'Zaman Bekçisinin Kum Saati'
     },
+    oraclesHourglass: { name: 'Kâhinin Kum Saati' },
     ringOfTheVampyre: {
       name: 'Vampir Yüzüğü'
     },
@@ -7696,6 +7724,7 @@ export default {
     unlocked: 'Haritada yeni: {places}',
     equipped: 'Kuşanıldı',
     better: 'Üzerindekinden daha iyi',
+    inspect: 'İncele',
     retry: 'Tekrar dene',
     tip: 'Deneyim ve ganimet sende kalır. Puanlarını harca, bir eğitmene uğra ve daha güçlü dön.'
   },
@@ -7817,6 +7846,7 @@ export default {
       medium: 'Orta',
       hard: 'Zor'
     },
+    difficultyCoins: 'Sikkeler {pct}',
     difficultyHints: {
       easy: 'Düşmanlar daha hafif vurur ve daha çabuk düşer.',
       medium: 'Oyunun tasarlandığı zorluk.',

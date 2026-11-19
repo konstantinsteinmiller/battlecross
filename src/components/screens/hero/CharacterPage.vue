@@ -33,8 +33,8 @@
           :key="a"
           :class="{ 'is-peek': peek === a }"
           :style="{ '--c': ATTR_COLOR[a] }"
-          @pointerenter="onEnter($event, a)"
-          @pointerleave="onLeave($event, a)"
+          tabindex="0"
+          v-on="rowOn(a)"
         )
           span.attr__badge(:data-attr="a") {{ t(`attr.${a}.short`) }}
           span.attr__text
@@ -54,7 +54,7 @@
             :aria-label="t('sheet.raise', { attr: t(`attr.${a}.name`) })"
             @focus="peek = a"
             @blur="peek = ''"
-            @click="raise(a)"
+            @click.stop="raise(a)"
           )
             GameIcon(name="plus")
         //- Standing with the factions (#15), under the attributes.
@@ -64,7 +64,7 @@
 
       //- ── What it all adds up to ────────────────────────────────────────────
       section.sheet__stats
-        StatList(:rows="rows" layout="rows")
+        StatList(:rows="rows" layout="rows" info)
 </template>
 
 <script setup lang="ts">
@@ -90,6 +90,7 @@ import StatList from '@/components/game/StatList.vue'
 import RepTrack from '@/components/game/RepTrack.vue'
 import { statRows, statsWithAttrs, type StatRow } from '@/components/game/heroSheet'
 import { burst, shake } from '@/components/game/fx'
+import { statInfoOn } from '@/components/game/statInfoState'
 
 const { t } = useI18n()
 const total = computed(() => totalAttrs())
@@ -120,6 +121,16 @@ const gains = computed(() => {
 // also spends the point: the preview then shows what the NEXT one buys).
 const onEnter = (e: PointerEvent, a: Attr): void => { if (e.pointerType === 'mouse') peek.value = a }
 const onLeave = (e: PointerEvent, a: Attr): void => { if (e.pointerType === 'mouse' && peek.value === a) peek.value = '' }
+
+/** A row: it previews on a mouse's rest, and opens its info card (hover, or a tap). */
+const rowOn = (a: Attr): Record<string, (e: Event) => void> => {
+  const s = statInfoOn(a)
+  return {
+    ...s,
+    pointerenter: (e: Event) => { onEnter(e as PointerEvent, a); s.pointerenter!(e) },
+    pointerleave: (e: Event) => { onLeave(e as PointerEvent, a); s.pointerleave!(e) }
+  }
+}
 
 /** The other hero: saved at once; the bust, the turntable and the lines follow. */
 const switchHero = (g: HeroGender): void => {
@@ -246,6 +257,9 @@ const raise = (a: Attr): void => {
   +screen.page
   +screen.scroller
 .attr
+  cursor: help
+  touch-action: manipulation
+  -webkit-tap-highlight-color: transparent
   display: grid
   grid-template-columns: auto minmax(0, 1fr) auto auto
   align-items: center

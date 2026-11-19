@@ -690,6 +690,32 @@ export default {
     dodge: 'Né',
     hpRegen: 'Máu / giây'
   },
+  statinfo: {
+    h: { does: 'Tác dụng', fights: 'Trong chiến đấu', source: 'Lấy từ đâu', synergy: 'Phối hợp' },
+    cap: 'Vượt 300 ở một chỉ số, mỗi điểm thêm chỉ tính một nửa.',
+    src: { points: 'Điểm chỉ số', level: 'Cấp độ', gear: 'Trang bị', passive: 'Kỹ năng bị động', forge: 'Rèn', blessing: 'Phước lành phe phái', elixir: 'Thuốc tiên', weapon: 'Chọn vũ khí' },
+    str: { does: 'Sức mạnh cánh tay của bạn. Kiếm, rìu, búa và nắm đấm trần đánh với 6 + 1,6 × SM, và kỹ năng SM cũng tăng theo cách đó.', fights: 'Mỗi điểm cho {block}% cơ hội đỡ đòn (đòn bị đỡ chỉ gây 40%) và {plate}% giáp tấm của bạn thành giáp cộng thêm.', synergy: 'Tốt nhất với giáp tấm, khiên và SB cho vai trò đỡ đòn. Một kho điểm duy nhất nuôi cả đòn đánh cơ bản lẫn kỹ năng SM.' },
+    dex: { does: 'Tốc độ và độ chính xác. Tăng tỉ lệ chí mạng, tốc độ đánh và tốc độ chạy; dao găm tăng theo KL.', fights: 'Mỗi điểm: +{crit}% tỉ lệ chí mạng, +{as}% tốc độ đánh, +{ms}% tốc độ chạy. Dao găm hoặc súng lục với tay kia để trống thêm một đòn nối trị giá 10% + {dual}% mỗi điểm của một đòn.', synergy: 'Chí mạng cần KX để có sát thương. Nhiều đòn hơn nghĩa là nhiều lần tung chí mạng hơn và hút máu nhiều hơn, còn tốc độ đưa bạn ra sau lưng kẻ địch, nơi đòn đánh mạnh hơn 25%.' },
+    int: { does: 'Phép thuật. Gậy phép và đũa tăng theo TT, kỹ năng TT cũng vậy.', fights: 'Mỗi điểm: +{mana} mana tối đa, +{manaRegen} mana mỗi giây và +{res}% kháng sát thương nguyên tố và phép (tối đa {capRes}%).', synergy: 'Mana nuôi mọi kỹ năng chủ động, nên hãy ghép với KX để giảm hồi chiêu. Kháng phủ phần giáp không chặn được; thêm SB để phòng thủ trọn vẹn.' },
+    end: { does: 'Bạn chịu được bao nhiêu đòn. Nguồn máu lớn nhất của bạn.', fights: 'Mỗi điểm: +{hp} máu tối đa, +{hpRegen} máu mỗi giây, +{armor} giáp và choáng, đóng băng ngắn hơn {stun}% (tối đa {capStun}%).', synergy: 'Giáp chỉ chặn đòn vật lý, nên hãy thêm TT để chống phép. Thưởng máu theo phần trăm trên trang bị nhân lên những gì SB mang lại.' },
+    skl: { does: 'Tay nghề và sự tinh tế. Tăng sát thương chí mạng và giảm hồi chiêu; súng và đại bác tăng theo KX.', fights: 'Mỗi điểm: +{cd}% sát thương chí mạng (tối đa {capCritDmg}%) và giảm hồi chiêu {cdr}% (tối đa {capCdr}%).', synergy: 'Sát thương chí mạng cần tỉ lệ chí mạng từ KL. Hồi chiêu ngắn hơn đốt mana nhanh hơn, nên hãy ghép với TT hoặc trang bị mana.' },
+    cha: { does: 'Sức ảnh hưởng ngoài cánh tay cầm kiếm. Tay sai đánh mạnh hơn, cửa hàng bán rẻ hơn và nhiệm vụ trả nhiều hơn.', fights: 'Mỗi điểm: +{minion}% sát thương tay sai, giảm giá cửa hàng {disc}% (tối đa {capDisc}%), +{reward}% phần thưởng nhiệm vụ và thêm lựa chọn hội thoại.', synergy: 'Bản dựng triệu hồi và thú cưng lấy sát thương từ ML. Vàng tiết kiệm ở cửa hàng trả cho việc rèn và kỹ năng.' },
+    damage: { does: 'Một đòn đánh cơ bản trước chí mạng và giáp: 6 + 1,6 × chỉ số vũ khí của bạn dùng, nhân theo cấp độ và trang bị.', fights: 'Kỹ năng áp dụng phần trăm riêng lên cùng sức mạnh đó. Sau đó giáp hoặc kháng cắt giảm nó; chí mạng và đòn từ phía sau (+25%) làm tăng nó.', synergy: 'Ghép vũ khí và chỉ số: SM cho kiếm, rìu và búa, KL cho dao găm, TT cho gậy phép và đũa, KX cho súng và đại bác.' },
+    health: { does: 'Bạn chịu được bao nhiêu trước khi gục: {hpBase} + {hpLevel} mỗi cấp + {hp} mỗi điểm SB, cộng trang bị.', fights: 'Giáp và kháng làm nhỏ mỗi đòn; máu quyết định bạn sống sót qua bao nhiêu đòn. Về 0 bạn gục.', synergy: 'Hồi phục và hút máu đáng giá hơn khi kho máu lớn, và giáp khiến mỗi điểm máu trụ lâu hơn.' },
+    mana: { does: 'Trả cho kỹ năng chủ động: 30 + {manaLevel} mỗi cấp + {mana} mỗi điểm TT, cộng trang bị.', fights: 'Không có mana chỉ dùng được đòn đánh cơ bản. Nó tự hồi, nhanh hơn theo cấp độ và TT.', synergy: 'Giảm hồi chiêu khiến bạn tiêu mana nhanh hơn; giảm giá mana và hồi phục từ TT theo kịp.' },
+    armor: { does: 'Giảm sát thương vật lý theo giáp ÷ (giáp + 60 + 12 × cấp độ kẻ tấn công).', fights: 'Kẻ địch cấp cao hơn xuyên giáp dễ hơn. Nó không bao giờ giảm sát thương phép hay nguyên tố, và hiệu ứng phá giáp làm nó giảm đi.', synergy: 'SM làm giáp tấm đáng giá hơn, SB thêm giáp cố định, và thưởng giáp theo phần trăm nhân lên tổng.' },
+    resist: { does: 'Giảm sát thương phi vật lý (lửa, băng, thánh, phép) theo phần trăm này.', fights: 'Phép thuật và vụ nổ nguyên tố bỏ qua giáp; chỉ kháng và giảm sát thương mới thu nhỏ chúng. Nó không bao giờ giúp chống đòn vũ khí.', synergy: 'Ghép với giáp để che chắn toàn diện. Chỉ TT làm tăng nó: {res}% mỗi điểm (tối đa {capRes}%).' },
+    crit: { does: 'Cơ hội một đòn hoặc kỹ năng chí mạng và gây sát thương chí mạng của bạn: 5% + {crit}% mỗi điểm KL (tối đa {capCrit}%).', fights: 'Sát thương theo thời gian không thể chí mạng. Một đòn sau bom khói luôn chí mạng.', synergy: 'Đáng giá nhất khi có sát thương chí mạng cao (KX) và đòn đánh nhanh (KL); một số trang bị chỉ cho tỉ lệ chí mạng với phép.' },
+    critDamage: { does: 'Một đòn chí mạng gây bao nhiêu: 150% + {cd}% mỗi điểm KX (tối đa {capCritDmg}%).', fights: 'Nó nhân cả đòn đánh, trước khi giáp và kháng lấy phần của mình.', synergy: 'Vô dụng nếu thiếu tỉ lệ chí mạng (KL): hai thứ nhân với nhau.' },
+    attackSpeed: { does: 'Bạn đánh nhanh đến đâu: 100% + {as}% mỗi điểm KL (tối đa {capAs}%), cộng thêm nhịp của chính vũ khí.', fights: 'Nhiều đòn hơn nghĩa là nhiều sát thương hơn, nhiều lần tung chí mạng hơn và nhiều hiệu ứng khi trúng như hút máu. Vũ khí nặng vung chậm hơn.', synergy: 'Dao găm và súng lục hưởng lợi nhiều nhất; tỉ lệ chí mạng nhân lên các đòn thêm.' },
+    moveSpeed: { does: 'Bạn chạy nhanh đến đâu: 4,3 × (1 + {ms}% mỗi điểm KL), tối đa ×{capMs}.', fights: 'Né các đòn có báo trước, kéo giãn kẻ địch cận chiến, vòng ra sau lưng kẻ địch (+25% sát thương) và thoát thân. Làm chậm và choáng làm nó giảm.', synergy: 'Tuyệt với vũ khí tầm xa và dao găm; trang bị tốc độ và thuốc tiên cộng dồn với KL.' },
+    cdr: { does: 'Rút ngắn hồi chiêu của mọi kỹ năng theo phần trăm này: {cdr}% mỗi điểm KX (tối đa {capCdr}%).', fights: 'Nhiều lần tung hơn trong một trận và combo nhanh hơn. Nó không làm kỹ năng rẻ hơn: mana vẫn phải trả.', synergy: 'Ghép với TT để có mana. Kỹ năng đánh mạnh với hồi chiêu dài hưởng lợi nhiều nhất.' },
+    block: { does: 'Cơ hội đỡ một đòn vũ khí vật lý: {block}% mỗi điểm SM cộng trang bị (tối đa {capBlock}%).', fights: 'Đỡ đòn giảm đòn đó còn 40% sát thương, và giáp vẫn áp dụng sau đó. Kỹ năng, sát thương theo thời gian và phép không đỡ được, và khi bị choáng bạn cũng không đỡ được.', synergy: 'Khiên và SM; một số trang bị phản lại sát thương khi đỡ. Cộng dồn với né tránh và giáp.' },
+    dodge: { does: 'Cơ hội né hoàn toàn một đòn vũ khí. Không chỉ số nào làm tăng nó: chỉ trang bị và kỹ năng bị động (tối đa {capDodge}%).', fights: 'Né tránh không gây chút sát thương nào, và một số trang bị cho tăng tốc sau đó. Bị choáng hoặc đóng băng thì không né được.', synergy: 'Nó được tung trước khi đỡ, nên hai thứ cộng dồn; giáp che phần lọt qua.' },
+    hpRegen: { does: 'Máu hồi mỗi giây: {hpRegen} mỗi điểm SB, cộng trang bị.', fights: 'Một dòng chảy chậm: quan trọng trong trận dài và khi bạn bị thương mà chưa được chữa.', synergy: 'Thuốc và hút máu chữa theo từng đợt; hồi phục là nền ổn định bên dưới chúng.' },
+  },
+  quickSell: { title: 'Bán nhanh', lead: 'Dọn túi từng món một sao? Hãy bán ngay tại chỗ:', click: 'Nhấp', shift: 'Bán món đồ ngay, không cần thêm bước.', toggle: 'Bật công tắc phía trên túi, rồi mỗi lần chạm vào món đồ là bán nó.', undo: 'Lỡ bán nhiều? Mua lại từ hàng mua lại cho đến khi bạn rời cửa hàng. Trang bị đang mặc không bao giờ bị bán.', space: 'Nhấn Dấu cách để đóng', hint: 'Shift + nhấp vào món đồ để bán ngay' },
+  arenaStart: { title: 'Bạn bắt đầu từ đâu?', lead: 'Thành tích tốt nhất của bạn ở đấu trường là đợt {best}. Bắt đầu xa hơn hay từ đầu?', why: 'Đợt gợi ý dựa trên đợt tốt nhất, các chỉ số, kỹ năng cấp cao và kỹ năng bị động của bạn.', from: 'Bắt đầu từ đợt {n}', fromOne: 'Từ đợt 1' },
   sheet: {
     points: 'Còn {n} điểm để dùng',
     raise: 'Tăng {attr}',
@@ -714,6 +740,7 @@ export default {
     how: 'Chạm vào kỹ năng, rồi chạm vào ô, hoặc kéo nó vào đó. Kéo ra khỏi ô để gỡ xuống.',
     howSlot: 'Giờ chạm vào một ô để đặt nó vào.',
     classCount: '{cls}: đã học {n} trên {total}',
+    filter: { button: 'Bộ lọc', title: 'Kết quả lọc', found: 'Khớp: {n}', none: 'Không có kỹ năng nào khớp với bộ lọc.', clear: 'Xóa', type: 'Loại', scales: 'Tăng theo' },
     hint: {
       find: 'Tìm thầy dạy',
       met: 'Học từ {name} ở {place}.',
@@ -3323,6 +3350,7 @@ export default {
     timekeepersHourglass: {
       name: 'Đồng Hồ Cát của Người Giữ Giờ'
     },
+    oraclesHourglass: { name: 'Đồng hồ cát của Nhà tiên tri' },
     ringOfTheVampyre: {
       name: 'Nhẫn Ma Cà Rồng'
     },
@@ -7696,6 +7724,7 @@ export default {
     unlocked: 'Mới trên bản đồ: {places}',
     equipped: 'Đang trang bị',
     better: 'Tốt hơn đồ bạn đang dùng',
+    inspect: 'Xem kỹ',
     retry: 'Thử lại',
     tip: 'Bạn giữ lại kinh nghiệm và chiến lợi phẩm. Hãy dùng điểm, ghé người huấn luyện rồi quay lại mạnh mẽ hơn.'
   },
@@ -7817,6 +7846,7 @@ export default {
       medium: 'Trung bình',
       hard: 'Khó'
     },
+    difficultyCoins: 'Xu {pct}',
     difficultyHints: {
       easy: 'Kẻ địch đánh nhẹ hơn và gục nhanh hơn.',
       medium: 'Thử thách đúng như thiết kế.',

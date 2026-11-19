@@ -691,6 +691,32 @@ export default {
     dodge: 'Esquiva',
     hpRegen: 'Vida / s'
   },
+  statinfo: {
+    h: { does: 'O que faz', fights: 'Em combate', source: 'De onde vem', synergy: 'Sinergias' },
+    cap: 'Acima de 300 num atributo, cada ponto extra conta como metade.',
+    src: { points: 'Pontos de atributo', level: 'Níveis', gear: 'Equipamento', passive: 'Habilidades passivas', forge: 'Forja', blessing: 'Bênção de facção', elixir: 'Elixires', weapon: 'Escolha da arma' },
+    str: { does: 'A força do teu braço. Espadas, machados, martelos e punhos nus causam 6 + 1,6 × FOR, e as habilidades de FOR crescem da mesma forma.', fights: 'Cada ponto dá {block}% de hipótese de bloqueio (um golpe bloqueado causa apenas 40%) e {plate}% da tua armadura de placas como armadura extra.', synergy: 'Melhor com armadura de placas, escudos e VIG para um tanque. Um só conjunto de pontos alimenta os ataques básicos e as habilidades de FOR.' },
+    dex: { does: 'Velocidade e precisão. Aumenta a hipótese de crítico, a velocidade de ataque e de movimento; as adagas escalam com DES.', fights: 'Por ponto: +{crit}% de hipótese de crítico, +{as}% de velocidade de ataque, +{ms}% de velocidade de movimento. Uma adaga ou pistola com a outra mão livre acrescenta um golpe extra que vale 10% + {dual}% por ponto de um golpe.', synergy: 'Os críticos precisam de TEC para o dano. Mais golpes significam mais testes de crítico e mais roubo de vida, e a velocidade leva-te às costas do inimigo, onde os golpes causam mais 25%.' },
+    int: { does: 'Magia. Cajados e varinhas escalam com INT, tal como as habilidades de INT.', fights: 'Por ponto: +{mana} de mana máx., +{manaRegen} de mana por segundo e +{res}% de resistência a dano elemental e mágico (máx. {capRes}%).', synergy: 'A mana alimenta todas as habilidades ativas, por isso combina-a com TEC para reduzir recargas. A resistência cobre o que a armadura não cobre; junta VIG para defesa total.' },
+    end: { does: 'Quanto castigo aguentas. É a maior fonte da tua vida.', fights: 'Por ponto: +{hp} de vida máx., +{hpRegen} de vida por segundo, +{armor} de armadura e atordoamentos e congelamentos {stun}% mais curtos (máx. {capStun}%).', synergy: 'A armadura só trava golpes físicos, por isso junta INT contra magia. Bónus percentuais de vida no equipamento multiplicam o que o VIG dá.' },
+    skl: { does: 'Ofício e finura. Aumenta o dano crítico e a redução de recarga; armas de fogo e canhões escalam com TEC.', fights: 'Por ponto: +{cd}% de dano crítico (máx. {capCritDmg}%) e {cdr}% de redução de recarga (máx. {capCdr}%).', synergy: 'O dano crítico precisa da hipótese de crítico de DES. Recargas mais curtas gastam mana mais depressa, por isso combina com INT ou equipamento de mana.' },
+    cha: { does: 'Influência para lá do braço da espada. Os serviçais batem mais forte, as lojas vendem mais barato e as missões pagam mais.', fights: 'Por ponto: +{minion}% de dano dos serviçais, {disc}% de desconto nas lojas (máx. {capDisc}%), +{reward}% de recompensa de missões e mais opções de diálogo.', synergy: 'As builds de invocador e de mascote tiram o dano de CAR. O ouro poupado nas lojas paga forja e habilidades.' },
+    damage: { does: 'Um ataque básico antes de críticos e armadura: 6 + 1,6 × o atributo da tua arma, escalado pelo nível e equipamento.', fights: 'As habilidades aplicam a sua própria percentagem a esse mesmo poder. A armadura ou a resistência reduzem-no; críticos e golpes pelas costas (+25%) aumentam-no.', synergy: 'Combina arma e atributo: FOR para espadas, machados e martelos, DES para adagas, INT para cajados e varinhas, TEC para armas de fogo e canhões.' },
+    health: { does: 'Quanto aguentas antes de cair: {hpBase} + {hpLevel} por nível + {hp} por ponto de VIG, mais o equipamento.', fights: 'A armadura e a resistência reduzem cada golpe; a vida decide quantos golpes sobrevives. A 0 cais.', synergy: 'A regeneração e o roubo de vida valem mais com uma reserva grande, e a armadura faz cada ponto de vida durar mais.' },
+    mana: { does: 'Paga as habilidades ativas: 30 + {manaLevel} por nível + {mana} por ponto de INT, mais o equipamento.', fights: 'Sem mana, só os ataques básicos funcionam. Recupera sozinha, mais depressa com o nível e INT.', synergy: 'A redução de recarga faz-te gastá-la mais depressa; descontos de mana e a regeneração de INT acompanham.' },
+    armor: { does: 'Reduz o dano físico em armadura ÷ (armadura + 60 + 12 × nível do atacante).', fights: 'Inimigos de nível mais alto atravessam a armadura com mais facilidade. Nunca reduz dano mágico ou elemental, e efeitos que quebram armadura diminuem-na.', synergy: 'FOR faz a placa valer mais, VIG soma armadura fixa e bónus percentuais de armadura multiplicam o total.' },
+    resist: { does: 'Reduz o dano não físico (fogo, gelo, sagrado, magia) por esta percentagem.', fights: 'Feitiços e explosões elementais ignoram a armadura; só a resistência e a redução de dano os reduzem. Nunca ajuda contra golpes de arma.', synergy: 'Combina com armadura para cobertura total. Só INT a aumenta: {res}% por ponto (máx. {capRes}%).' },
+    crit: { does: 'A hipótese de um ataque ou habilidade ser crítico e causar o teu dano crítico: 5% + {crit}% por ponto de DES (máx. {capCrit}%).', fights: 'Dano ao longo do tempo não pode ser crítico. Um golpe depois da bomba de fumo é sempre crítico.', synergy: 'Vale mais com muito dano crítico (TEC) e ataques rápidos (DES); algum equipamento dá hipótese de crítico só a feitiços.' },
+    critDamage: { does: 'Quanto causa um crítico: 150% + {cd}% por ponto de TEC (máx. {capCritDmg}%).', fights: 'Multiplica o golpe inteiro, antes de a armadura e a resistência levarem a sua parte.', synergy: 'Inútil sem hipótese de crítico (DES): as duas multiplicam-se.' },
+    attackSpeed: { does: 'A rapidez com que atacas: 100% + {as}% por ponto de DES (máx. {capAs}%), além do ritmo próprio da arma.', fights: 'Mais golpes significam mais dano, mais testes de crítico e mais efeitos ao acertar, como o roubo de vida. As armas pesadas golpeiam mais devagar.', synergy: 'Adagas e pistolas ganham mais; a hipótese de crítico multiplica os golpes extra.' },
+    moveSpeed: { does: 'A rapidez com que corres: 4,3 × (1 + {ms}% por ponto de DES), até ×{capMs}.', fights: 'Desvia-te de ataques avisados, mantém inimigos corpo a corpo à distância, chega às costas do inimigo (+25% de dano) e foge. Lentidão e atordoamento reduzem-na.', synergy: 'Ótima com armas à distância e adagas; equipamento de velocidade e elixires somam-se a DES.' },
+    cdr: { does: 'Encurta a recarga de cada habilidade por esta percentagem: {cdr}% por ponto de TEC (máx. {capCdr}%).', fights: 'Mais lançamentos por luta e combos mais rápidos. Não torna as habilidades mais baratas: a mana continua a pagá-las.', synergy: 'Combina com INT para a mana. As habilidades fortes de recarga longa são as que mais ganham.' },
+    block: { does: 'Hipótese de bloquear um golpe físico de arma: {block}% por ponto de FOR mais equipamento (máx. {capBlock}%).', fights: 'Um bloqueio reduz esse golpe a 40% do dano, e a armadura ainda se aplica depois. Habilidades, dano ao longo do tempo e magia não se bloqueiam, nem se bloqueia atordoado.', synergy: 'Escudos e FOR; algum equipamento devolve dano ao bloquear. Soma-se à esquiva e à armadura.' },
+    dodge: { does: 'Hipótese de evitar totalmente um golpe de arma. Nenhum atributo a aumenta: só equipamento e passivas (máx. {capDodge}%).', fights: 'Uma esquiva não causa dano nenhum, e algum equipamento dá pressa depois. Não dá para esquivar atordoado ou congelado.', synergy: 'É lançada antes do bloqueio, por isso os dois somam-se; a armadura cobre o que passa.' },
+    hpRegen: { does: 'Vida recuperada a cada segundo: {hpRegen} por ponto de VIG, mais o equipamento.', fights: 'Um fio lento: conta em lutas longas e quando estás ferido e ainda sem cura.', synergy: 'Poções e roubo de vida curam em rajadas; a regeneração é o chão constante por baixo.' },
+  },
+  quickSell: { title: 'Venda rápida', lead: 'Esvaziar a mochila peça a peça? Vende na hora:', click: 'Clique', shift: 'Vende a peça de imediato, sem passos extra.', toggle: 'Ativa-o por cima da mochila, e cada toque numa peça vende-a.', undo: 'Vendeste demais? Recompra na fila de recompra até saíres da loja. O equipamento em uso nunca é vendido.', space: 'Prime Espaço para fechar', hint: 'Shift + clique numa peça para a vender de imediato' },
+  arenaStart: { title: 'Por onde começas?', lead: 'O teu recorde no coliseu é a vaga {best}. Começar mais à frente ou do início?', why: 'A vaga sugerida vem da tua melhor vaga, dos teus atributos, das tuas habilidades de nível alto e das tuas passivas.', from: 'Começar na vaga {n}', fromOne: 'Desde a vaga 1' },
   sheet: {
     points: '{n} pontos por gastar',
     raise: 'Aumentar {attr}',
@@ -715,6 +741,7 @@ export default {
     how: 'Toca numa habilidade e depois numa ranhura, ou arrasta-a até lá. Arrasta-a para fora de uma ranhura para a retirares.',
     howSlot: 'Agora toca numa ranhura para a colocares.',
     classCount: '{cls}: {n} de {total} aprendidas',
+    filter: { button: 'Filtro', title: 'Resultados do filtro', found: 'Correspondências: {n}', none: 'Nenhuma habilidade corresponde ao filtro.', clear: 'Limpar', type: 'Tipo', scales: 'Escala com' },
     hint: {
       find: 'Encontrar o mestre',
       met: 'Aprende-a com {name} em {place}.',
@@ -3324,6 +3351,7 @@ export default {
     timekeepersHourglass: {
       name: 'Ampulheta do Guardião do tempo'
     },
+    oraclesHourglass: { name: 'Ampulheta do Oráculo' },
     ringOfTheVampyre: {
       name: 'Anel do Vampiro'
     },
@@ -7751,6 +7779,7 @@ export default {
     unlocked: 'Novo no mapa: {places}',
     equipped: 'Equipado',
     better: 'Melhor do que usas',
+    inspect: 'Inspecionar',
     retry: 'Tentar de novo',
     tip: 'Ficas com a experiência e o saque. Gasta os teus pontos, visita um mestre e volta com mais força.'
   },
@@ -7872,6 +7901,7 @@ export default {
       medium: 'Médio',
       hard: 'Difícil'
     },
+    difficultyCoins: 'Moedas {pct}',
     difficultyHints: {
       easy: 'Os inimigos batem mais fraco e caem mais depressa.',
       medium: 'O desafio tal como foi planeado.',

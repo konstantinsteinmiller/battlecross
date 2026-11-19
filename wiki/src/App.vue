@@ -9,6 +9,7 @@ import Planner from './views/Planner.vue'
 import Classes from './views/Classes.vue'
 import ClassPage from './views/ClassPage.vue'
 import Skills from './views/Skills.vue'
+import Stats from './views/Stats.vue'
 import Combos from './views/Combos.vue'
 import Path from './views/Path.vue'
 import Items from './views/Items.vue'
@@ -24,6 +25,7 @@ const NAV = [
   { to: '/planner', label: 'Planner' },
   { to: '/classes', label: 'Classes' },
   { to: '/skills', label: 'Skills' },
+  { to: '/stats', label: 'Stats' },
   { to: '/combos', label: 'Combo Lab' },
   { to: '/path', label: 'Leveling' },
   { to: '/items', label: 'Items' },
@@ -41,6 +43,7 @@ const view = computed(() => {
     case 'planner': return Planner
     case 'classes': return b ? ClassPage : Classes
     case 'skills': return Skills
+    case 'stats': return Stats
     case 'combos': return Combos
     case 'path': return Path
     case 'items': return Items

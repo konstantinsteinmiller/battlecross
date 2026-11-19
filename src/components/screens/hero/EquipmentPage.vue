@@ -55,7 +55,7 @@
             GameIcon(name="up")
       //- The numbers the gear adds up to. A selection shows what it would
       //- change before anything is put on.
-      StatList.equip__stats(:rows="rows" layout="grid" data-coach="equip-stats")
+      StatList.equip__stats(:rows="rows" layout="grid" info data-coach="equip-stats")
 
     //- ── The bag ─────────────────────────────────────────────────────────────
     section.equip__bag.bag(data-drop="bag" :class="{ 'is-target': drag.state.active && drag.state.payload && drag.state.payload.from !== 'bag' }")
@@ -679,11 +679,13 @@ const portrait = useMedia('(max-aspect-ratio: 1/1)')
   top: 0
   z-index: var(--bc-z-veil)
   width: clamp(3.2rem, 15vmin, 4.6rem)
-  margin: calc(clamp(3.2rem, 15vmin, 4.6rem) * -0.62) 0 0 calc(clamp(3.2rem, 15vmin, 4.6rem) * -0.5)
+  margin: calc(clamp(3.2rem, 15vmin, 4.6rem) * -0.5) 0 0 calc(clamp(3.2rem, 15vmin, 4.6rem) * -0.5)
   pointer-events: none
   filter: drop-shadow(0 0.5rem 0 rgba(var(--bc-ink-rgb), 0.35))
-  rotate: -6deg
   will-change: transform
+  // The tilt is the icon's: a `rotate` on the ghost itself would swing its translation about the corner.
+  > *
+    rotate: -6deg
 
 // ── Portrait: the doll above, the bag below; the card on the plinth ──────────
 @media (max-aspect-ratio: 1/1)

@@ -46,7 +46,9 @@
         span.bag-spot__hole(:style="spot")
         span.bag-spot__text {{ t('hud.bagHint') }}
     div.hero-frame__bars
+      //- Fifty taps here inside forty seconds open the cheat menu (a phone's "cmonc": see `useCheatTap`). Silent on purpose.
       FBar.hero-frame__hp(
+        @pointerdown="registerCheatTap()"
         :value="hp01"
         :shield="shield01"
         tone="health"
@@ -101,6 +103,7 @@ import Portrait from '@/components/art/Portrait.vue'
 import IconCoin from '@/components/icons/IconCoin.vue'
 import StatusChipIcon from './StatusChipIcon.vue'
 import { registerQaAdTap } from '@/use/useQaAdTrigger'
+import { registerCheatTap } from '@/use/useCheatTap'
 import { fmt } from '@/utils/format'
 
 const { t } = useI18n()
@@ -331,6 +334,8 @@ onUnmounted(() => clearTimeout(popTimer))
   width: max(9.5rem, calc(clamp(6.2rem, 34vmin, 12.5rem) * var(--hud-s, 1)))
 .hero-frame__hp
   --fbar-h: var(--hp-h)
+  // Takes the tap of the cheat code (`useCheatTap`); the rest of the corner lets the game's own taps through.
+  pointer-events: auto
 // Mana is the slimmer of the two; its well starts where health's does.
 .hero-frame__mana
   --fbar-h: var(--mp-h)

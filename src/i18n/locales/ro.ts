@@ -690,6 +690,32 @@ export default {
     dodge: 'Eschivă',
     hpRegen: 'Viață / s'
   },
+  statinfo: {
+    h: { does: 'Ce face', fights: 'În luptă', source: 'De unde vine', synergy: 'Sinergii' },
+    cap: 'Peste 300 într-un atribut, fiecare punct în plus contează pe jumătate.',
+    src: { points: 'Puncte de atribut', level: 'Niveluri', gear: 'Echipament', passive: 'Abilități pasive', forge: 'Fierărie', blessing: 'Binecuvântarea unei facțiuni', elixir: 'Elixire', weapon: 'Alegerea armei' },
+    str: { does: 'Puterea brațului tău. Săbiile, topoarele, ciocanele și pumnii goi lovesc cu 6 + 1,6 × FOR, iar abilitățile FOR cresc la fel.', fights: 'Fiecare punct dă {block}% șansă de blocare (o lovitură blocată face doar 40%) și {plate}% din armura ta de plăci ca armură în plus.', synergy: 'Cel mai bun cu armură de plăci, scuturi și AND pentru un tanc. O singură rezervă de puncte alimentează atacurile de bază și abilitățile FOR.' },
+    dex: { does: 'Viteză și precizie. Crește șansa de critic, viteza de atac și de mișcare; pumnalele cresc cu DEX.', fights: 'Pe punct: +{crit}% șansă de critic, +{as}% viteză de atac, +{ms}% viteză de mișcare. Un pumnal sau un pistol cu mâna liberă adaugă o lovitură de urmărire care valorează 10% + {dual}% pe punct dintr-o lovitură.', synergy: 'Loviturile critice au nevoie de MĂI pentru daune. Mai multe lovituri înseamnă mai multe aruncări de critic și mai mult furt de viață, iar viteza te aduce în spatele dușmanilor, unde loviturile fac cu 25% mai mult.' },
+    int: { does: 'Magia. Toiegele și baghetele cresc cu INT, la fel și abilitățile INT.', fights: 'Pe punct: +{mana} mană max., +{manaRegen} mană pe secundă și +{res}% rezistență la daune elementare și magice (max. {capRes}%).', synergy: 'Mana alimentează fiecare abilitate activă, deci asociaz-o cu MĂI pentru reducerea reîncărcării. Rezistența acoperă ce nu oprește armura; adaugă AND pentru apărare completă.' },
+    end: { does: 'Cât de multă pedeapsă suporți. Este cea mai mare sursă a sănătății tale.', fights: 'Pe punct: +{hp} viață max., +{hpRegen} viață pe secundă, +{armor} armură și amețiri și înghețări cu {stun}% mai scurte (max. {capStun}%).', synergy: 'Armura oprește doar loviturile fizice, deci adaugă INT împotriva magiei. Bonusurile procentuale de viață de pe echipament înmulțesc ce dă AND.' },
+    skl: { does: 'Meșteșug și finețe. Crește daunele critice și reducerea reîncărcării; armele de foc și tunurile cresc cu MĂI.', fights: 'Pe punct: +{cd}% daune critice (max. {capCritDmg}%) și {cdr}% reducerea reîncărcării (max. {capCdr}%).', synergy: 'Daunele critice au nevoie de șansa de critic din DEX. Reîncărcările mai scurte consumă mana mai repede, deci asociază cu INT sau echipament de mană.' },
+    cha: { does: 'Influență dincolo de brațul sabiei. Slujitorii lovesc mai tare, magazinele vând mai ieftin, iar misiunile plătesc mai mult.', fights: 'Pe punct: +{minion}% daune slujitori, {disc}% reducere în magazine (max. {capDisc}%), +{reward}% recompensă de misiuni și mai multe opțiuni de dialog.', synergy: 'Build-urile de invocator și de companion își iau daunele din CAR. Aurul economisit în magazine plătește fierăria și abilitățile.' },
+    damage: { does: 'Un atac de bază înainte de critice și armură: 6 + 1,6 × atributul armei tale, scalat de nivel și echipament.', fights: 'Abilitățile aplică propriul procent aceleiași puteri. Armura sau rezistența o reduc apoi; criticele și loviturile din spate (+25%) o cresc.', synergy: 'Potrivește arma și atributul: FOR pentru săbii, topoare și ciocane, DEX pentru pumnale, INT pentru toiege și baghete, MĂI pentru arme de foc și tunuri.' },
+    health: { does: 'Cât suporți până cazi: {hpBase} + {hpLevel} pe nivel + {hp} pe punct de AND, plus echipament.', fights: 'Armura și rezistența micșorează fiecare lovitură; viața decide câte lovituri supraviețuiești. La 0 cazi.', synergy: 'Regenerarea și furtul de viață valorează mai mult pe o rezervă mare, iar armura face fiecare punct de viață să țină mai mult.' },
+    mana: { does: 'Plătește abilitățile active: 30 + {manaLevel} pe nivel + {mana} pe punct de INT, plus echipament.', fights: 'Fără mană funcționează doar atacurile de bază. Se reumple singură, mai repede cu nivelul și INT.', synergy: 'Reducerea reîncărcării te face să o consumi mai repede; reducerile de mană și regenerarea din INT țin pasul.' },
+    armor: { does: 'Reduce daunele fizice cu armură ÷ (armură + 60 + 12 × nivelul atacatorului).', fights: 'Dușmanii de nivel mai mare trec mai ușor de armură. Nu reduce niciodată daunele magice sau elementare, iar efectele care sparg armura o scad.', synergy: 'FOR face plăcile mai valoroase, AND adaugă armură fixă, iar bonusurile procentuale de armură înmulțesc totalul.' },
+    resist: { does: 'Reduce daunele nefizice (foc, îngheț, sfânt, magie) cu acest procent.', fights: 'Vrăjile și exploziile elementare ignoră armura; doar rezistența și reducerea daunelor le micșorează. Nu ajută niciodată împotriva loviturilor de armă.', synergy: 'Asociaz-o cu armura pentru acoperire completă. Doar INT o crește: {res}% pe punct (max. {capRes}%).' },
+    crit: { does: 'Șansa ca un atac sau o abilitate să fie critic și să facă daunele tale critice: 5% + {crit}% pe punct de DEX (max. {capCrit}%).', fights: 'Daunele în timp nu pot fi critice. O lovitură după bomba fumigenă este mereu critică.', synergy: 'Valorează cel mai mult cu daune critice mari (MĂI) și atacuri rapide (DEX); unele echipamente dau șansă de critic doar vrăjilor.' },
+    critDamage: { does: 'Cât face un critic: 150% + {cd}% pe punct de MĂI (max. {capCritDmg}%).', fights: 'Înmulțește toată lovitura, înainte ca armura și rezistența să-și ia partea.', synergy: 'Inutil fără șansă de critic (DEX): cele două se înmulțesc.' },
+    attackSpeed: { does: 'Cât de repede ataci: 100% + {as}% pe punct de DEX (max. {capAs}%), pe lângă ritmul propriu al armei.', fights: 'Mai multe lovituri înseamnă mai multe daune, mai multe aruncări de critic și mai multe efecte la lovire, precum furtul de viață. Armele grele lovesc mai încet.', synergy: 'Pumnalele și pistoalele câștigă cel mai mult; șansa de critic înmulțește loviturile în plus.' },
+    moveSpeed: { does: 'Cât de repede alergi: 4,3 × (1 + {ms}% pe punct de DEX), până la ×{capMs}.', fights: 'Ferește-te de atacurile anunțate, ține la distanță dușmanii de aproape, ajungi în spatele dușmanului (+25% daune) și fugi. Încetinirile și amețirile o reduc.', synergy: 'Excelent cu arme la distanță și pumnale; echipamentul de viteză și elixirele se adună cu DEX.' },
+    cdr: { does: 'Scurtează reîncărcarea fiecărei abilități cu acest procent: {cdr}% pe punct de MĂI (max. {capCdr}%).', fights: 'Mai multe lansări pe luptă și combo-uri mai rapide. Nu face abilitățile mai ieftine: mana tot trebuie să le plătească.', synergy: 'Asociaz-o cu INT pentru mană. Abilitățile puternice cu reîncărcare lungă câștigă cel mai mult.' },
+    block: { does: 'Șansa de a bloca o lovitură fizică de armă: {block}% pe punct de FOR plus echipament (max. {capBlock}%).', fights: 'O blocare reduce lovitura la 40% din daune, iar armura se aplică în continuare după aceea. Abilitățile, daunele în timp și magia nu pot fi blocate, nici amețit nu poți bloca.', synergy: 'Scuturi și FOR; unele echipamente întorc daunele la blocare. Se adună cu eschiva și armura.' },
+    dodge: { does: 'Șansa de a evita complet o lovitură de armă. Niciun atribut n-o crește: doar echipamentul și pasivele (max. {capDodge}%).', fights: 'O eschivă nu face deloc daune, iar unele echipamente dau grabă după ea. Nu poți eschiva amețit sau înghețat.', synergy: 'Se aruncă înainte de blocare, deci se adună; armura acoperă ce trece.' },
+    hpRegen: { does: 'Viață refăcută în fiecare secundă: {hpRegen} pe punct de AND, plus echipament.', fights: 'Un firicel lent: contează în luptele lungi și când ești rănit și încă nevindecat.', synergy: 'Poțiunile și furtul de viață vindecă în rafale; regenerarea este baza constantă de dedesubt.' },
+  },
+  quickSell: { title: 'Vânzare rapidă', lead: 'Golești geanta bucată cu bucată? Vinde pe loc:', click: 'Clic', shift: 'Vinde piesa pe loc, fără pași în plus.', toggle: 'Pornește-l deasupra genții, iar fiecare atingere a unei piese o vinde.', undo: 'Ai vândut prea mult? Cumpără înapoi din rândul de răscumpărare până ieși din magazin. Echipamentul purtat nu se vinde niciodată.', space: 'Apasă Spațiu pentru a închide', hint: 'Shift + clic pe o piesă o vinde imediat' },
+  arenaStart: { title: 'De unde începi?', lead: 'Cel mai bun rezultat al tău în coliseu este valul {best}. Începi mai sus sau de la început?', why: 'Valul sugerat vine din cel mai bun val al tău, atributele, abilitățile de nivel înalt și cele pasive.', from: 'Începe de la valul {n}', fromOne: 'De la valul 1' },
   sheet: {
     points: '{n} puncte de cheltuit',
     raise: 'Crește: {attr}',
@@ -714,6 +740,7 @@ export default {
     how: 'Atinge o abilitate, apoi un loc, sau trage-o acolo. Trage-o de pe un loc ca s-o scoți.',
     howSlot: 'Acum atinge un loc ca s-o pui.',
     classCount: '{cls}: {n} din {total} învățate',
+    filter: { button: 'Filtru', title: 'Rezultatele filtrului', found: 'Potriviri: {n}', none: 'Nicio abilitate nu se potrivește filtrului.', clear: 'Șterge', type: 'Tip', scales: 'Crește cu' },
     hint: {
       find: 'Găsește profesorul',
       met: 'Învață-o de la {name}, în {place}.',
@@ -3323,6 +3350,7 @@ export default {
     timekeepersHourglass: {
       name: 'Clepsidra Păzitorului Timpului'
     },
+    oraclesHourglass: { name: 'Clepsidra Oracolului' },
     ringOfTheVampyre: {
       name: 'Inelul Vampirului'
     },
@@ -7740,6 +7768,7 @@ export default {
     unlocked: 'Nou pe hartă: {places}',
     equipped: 'Echipat',
     better: 'Mai bun decât ce porți',
+    inspect: 'Inspectează',
     retry: 'Încearcă din nou',
     tip: 'Păstrezi experiența și prada. Cheltuie-ți punctele, treci pe la un maestru și întoarce-te mai puternic.'
   },
@@ -7861,6 +7890,7 @@ export default {
       medium: 'Mediu',
       hard: 'Greu'
     },
+    difficultyCoins: 'Monede {pct}',
     difficultyHints: {
       easy: 'Inamicii lovesc mai slab și cad mai repede.',
       medium: 'Provocarea gândită pentru joc.',

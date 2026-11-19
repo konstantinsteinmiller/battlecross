@@ -690,6 +690,32 @@ export default {
     dodge: 'Undvik',
     hpRegen: 'Hälsa / s'
   },
+  statinfo: {
+    h: { does: 'Vad den gör', fights: 'I strid', source: 'Varifrån den kommer', synergy: 'Synergier' },
+    cap: 'Över 300 i ett attribut räknas varje extra poäng som hälften.',
+    src: { points: 'Attributpoäng', level: 'Nivåer', gear: 'Utrustning', passive: 'Passiva färdigheter', forge: 'Smide', blessing: 'Fraktionens välsignelse', elixir: 'Elixir', weapon: 'Val av vapen' },
+    str: { does: 'Kraften i din arm. Svärd, yxor, hammare och bara nävar slår för 6 + 1,6 × STY, och STY-färdigheter växer på samma sätt.', fights: 'Varje poäng ger {block}% blockchans (en blockad träff gör bara 40%) och {plate}% av din plåtrustning som extra rustning.', synergy: 'Bäst med plåtrustning, sköldar och UTH för en tank. En enda poängpool driver både dina basattacker och dina STY-färdigheter.' },
+    dex: { does: 'Fart och precision. Höjer kritchans, attackhastighet och rörelsehastighet; dolkar skalar med SMI.', fights: 'Per poäng: +{crit}% kritchans, +{as}% attackhastighet, +{ms}% rörelsehastighet. En dolk eller pistol med fri andra hand ger ett uppföljande slag värt 10% + {dual}% per poäng av en träff.', synergy: 'Krit behöver TEK för sin skada. Fler hugg ger fler kritkast och mer livstjuvning, och fart tar dig bakom fienderna, där träffar gör 25% mer.' },
+    int: { does: 'Magi. Stavar och trollstavar skalar med INT, liksom INT-färdigheter.', fights: 'Per poäng: +{mana} max mana, +{manaRegen} mana per sekund och +{res}% motstånd mot elementär- och magiskada (max {capRes}%).', synergy: 'Mana driver varje aktiv färdighet, så para ihop den med TEK för kortare återhämtning. Motstånd täcker det rustning inte klarar; lägg till UTH för fullt försvar.' },
+    end: { does: 'Hur mycket stryk du tål. Den största källan till ditt liv.', fights: 'Per poäng: +{hp} max liv, +{hpRegen} liv per sekund, +{armor} rustning och {stun}% kortare bedövningar och frysningar (max {capStun}%).', synergy: 'Rustning stoppar bara fysiska träffar, så lägg till INT mot magi. Procentuella livbonusar på utrustning multiplicerar det UTH ger.' },
+    skl: { does: 'Hantverk och finess. Höjer kritskada och minskad återhämtning; skjutvapen och kanoner skalar med TEK.', fights: 'Per poäng: +{cd}% kritskada (max {capCritDmg}%) och {cdr}% minskad återhämtning (max {capCdr}%).', synergy: 'Kritskada behöver kritchans från SMI. Kortare återhämtning förbrukar mana snabbare, så para ihop med INT eller manautrustning.' },
+    cha: { does: 'Inflytande bortom svärdsarmen. Hantlangare slår hårdare, butiker säljer billigare och uppdrag betalar mer.', fights: 'Per poäng: +{minion}% skada från hantlangare, {disc}% rabatt i butiker (max {capDisc}%), +{reward}% uppdragsbelöning och fler dialogval.', synergy: 'Sammankallar- och djurbyggen hämtar sin skada från KAR. Guld som sparas i butiker betalar smide och färdigheter.' },
+    damage: { does: 'En basattack före krit och rustning: 6 + 1,6 × attributet ditt vapen använder, skalat av nivå och utrustning.', fights: 'Färdigheter tillämpar sin egen procent på samma kraft. Rustning eller motstånd skär sedan ner den; krit och träffar bakifrån (+25%) höjer den.', synergy: 'Matcha vapen och attribut: STY för svärd, yxor och hammare, SMI för dolkar, INT för stavar och trollstavar, TEK för skjutvapen och kanoner.' },
+    health: { does: 'Hur mycket du tål innan du faller: {hpBase} + {hpLevel} per nivå + {hp} per UTH-poäng, plus utrustning.', fights: 'Rustning och motstånd krymper varje träff; livet avgör hur många träffar du överlever. Vid 0 faller du.', synergy: 'Regeneration och livstjuvning är värda mer med en stor pool, och rustning får varje livspoäng att räcka längre.' },
+    mana: { does: 'Betalar aktiva färdigheter: 30 + {manaLevel} per nivå + {mana} per INT-poäng, plus utrustning.', fights: 'Utan mana fungerar bara basattacker. Den fylls på av sig själv, snabbare med nivå och INT.', synergy: 'Minskad återhämtning gör att du gör av med den snabbare; manarabatter och INT-regeneration hänger med.' },
+    armor: { does: 'Minskar fysisk skada med rustning ÷ (rustning + 60 + 12 × angriparens nivå).', fights: 'Fiender på högre nivå tar sig lättare igenom rustning. Den minskar aldrig magisk eller elementär skada, och rustningsbrytande effekter sänker den.', synergy: 'STY gör plåt mer värd, UTH ger fast rustning och procentuella rustningsbonusar multiplicerar summan.' },
+    resist: { does: 'Minskar icke-fysisk skada (eld, frost, helig, magi) med denna procent.', fights: 'Besvärjelser och elementära utbrott ignorerar rustning; bara motstånd och skademinskning krymper dem. Det hjälper aldrig mot vapenträffar.', synergy: 'Para ihop med rustning för full täckning. Bara INT höjer det: {res}% per poäng (max {capRes}%).' },
+    crit: { does: 'Chansen att en attack eller färdighet blir kritisk och gör din kritskada: 5% + {crit}% per SMI-poäng (max {capCrit}%).', fights: 'Skada över tid kan inte krita. Ett slag efter en rökbomb är alltid kritiskt.', synergy: 'Mest värt med hög kritskada (TEK) och snabba attacker (SMI); viss utrustning ger kritchans bara åt besvärjelser.' },
+    critDamage: { does: 'Hur mycket en krit gör: 150% + {cd}% per TEK-poäng (max {capCritDmg}%).', fights: 'Den multiplicerar hela träffen, innan rustning och motstånd tar sin del.', synergy: 'Värdelös utan kritchans (SMI): de två multipliceras med varandra.' },
+    attackSpeed: { does: 'Hur snabbt du attackerar: 100% + {as}% per SMI-poäng (max {capAs}%), ovanpå vapnets eget tempo.', fights: 'Fler träffar ger mer skada, fler kritkast och fler träffeffekter som livstjuvning. Tunga vapen svingas långsammare.', synergy: 'Dolkar och pistoler vinner mest; kritchans multiplicerar de extra träffarna.' },
+    moveSpeed: { does: 'Hur snabbt du springer: 4,3 × (1 + {ms}% per SMI-poäng), upp till ×{capMs}.', fights: 'Undvik annonserade attacker, håll närstridsfiender på avstånd, nå en fiendes rygg (+25% skada) och fly. Nedsaktningar och bedövningar sänker den.', synergy: 'Utmärkt med avståndsvapen och dolkar; fartutrustning och elixir staplas med SMI.' },
+    cdr: { does: 'Förkortar varje färdighets återhämtning med denna procent: {cdr}% per TEK-poäng (max {capCdr}%).', fights: 'Fler kast per strid och snabbare kombon. Den gör inte färdigheter billigare: mana måste fortfarande betala dem.', synergy: 'Para ihop med INT för manan. Hårt slående färdigheter med lång återhämtning vinner mest.' },
+    block: { does: 'Chans att blockera en fysisk vapenträff: {block}% per STY-poäng plus utrustning (max {capBlock}%).', fights: 'Ett block sänker träffen till 40% skada, och rustning gäller fortfarande efteråt. Färdigheter, skada över tid och magi kan inte blockeras, och bedövad kan du inte blockera.', synergy: 'Sköldar och STY; viss utrustning reflekterar skada vid block. Den staplas med undvikande och rustning.' },
+    dodge: { does: 'Chans att helt undvika en vapenträff. Inget attribut höjer den: bara utrustning och passiva (max {capDodge}%).', fights: 'Ett undvikande gör ingen skada alls, och viss utrustning ger hastighet efteråt. Bedövad eller frusen kan du inte undvika.', synergy: 'Det slås före blocket, så de staplas; rustning täcker det som tar sig igenom.' },
+    hpRegen: { does: 'Liv som återställs varje sekund: {hpRegen} per UTH-poäng, plus utrustning.', fights: 'Ett långsamt rinnande: det spelar roll i långa strider och när du är skadad och ännu inte läkt.', synergy: 'Drycker och livstjuvning läker i skurar; regeneration är det jämna golvet under dem.' },
+  },
+  quickSell: { title: 'Snabbförsäljning', lead: 'Tömma väskan bit för bit? Sälj på stället i stället:', click: 'Klicka', shift: 'Sälj biten direkt, utan extra steg.', toggle: 'Slå på den ovanför väskan, så säljer varje tryck på en bit den.', undo: 'Sålt för mycket? Köp tillbaka från återköpsraden tills du lämnar butiken. Utrustning du bär säljs aldrig.', space: 'Tryck på mellanslag för att stänga', hint: 'Skift + klick på en bit säljer den direkt' },
+  arenaStart: { title: 'Var börjar du?', lead: 'Ditt bästa i kolosseum är våg {best}. Börja längre upp eller från början?', why: 'Den föreslagna vågen kommer från din bästa våg, dina attribut, dina högnivåfärdigheter och dina passiva.', from: 'Börja vid våg {n}', fromOne: 'Från våg 1' },
   sheet: {
     points: '{n} poäng att fördela',
     raise: 'Höj {attr}',
@@ -714,6 +740,7 @@ export default {
     how: 'Tryck på en färdighet och sedan på en plats, eller dra dit den. Dra bort den från en plats för att ta ut den.',
     howSlot: 'Tryck nu på en plats för att sätta i den.',
     classCount: '{cls}: {n} av {total} inlärda',
+    filter: { button: 'Filter', title: 'Filterresultat', found: 'Träffar: {n}', none: 'Ingen färdighet matchar filtret.', clear: 'Rensa', type: 'Typ', scales: 'Skalar med' },
     hint: {
       find: 'Hitta läraren',
       met: 'Lär dig den av {name} i {place}.',
@@ -3323,6 +3350,7 @@ export default {
     timekeepersHourglass: {
       name: 'Tidväktarens timglas'
     },
+    oraclesHourglass: { name: 'Orakelns timglas' },
     ringOfTheVampyre: {
       name: 'Vampyrens ring'
     },
@@ -7696,6 +7724,7 @@ export default {
     unlocked: 'Nytt på kartan: {places}',
     equipped: 'Utrustad',
     better: 'Bättre än det du bär',
+    inspect: 'Granska',
     retry: 'Försök igen',
     tip: 'Du behåller erfarenheten och bytet. Fördela dina poäng, besök en läromästare och kom tillbaka starkare.'
   },
@@ -7817,6 +7846,7 @@ export default {
       medium: 'Medel',
       hard: 'Svår'
     },
+    difficultyCoins: 'Mynt {pct}',
     difficultyHints: {
       easy: 'Fiender slår lösare och faller snabbare.',
       medium: 'Den tänkta utmaningen.',

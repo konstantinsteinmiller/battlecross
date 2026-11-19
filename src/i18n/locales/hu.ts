@@ -690,6 +690,32 @@ export default {
     dodge: 'Kitérés',
     hpRegen: 'Életerő / s'
   },
+  statinfo: {
+    h: { does: 'Mit csinál', fights: 'Harcban', source: 'Honnan jön', synergy: 'Szinergiák' },
+    cap: 'Egy tulajdonságban 300 fölött minden további pont csak felet számít.',
+    src: { points: 'Tulajdonságpontok', level: 'Szintek', gear: 'Felszerelés', passive: 'Passzív képességek', forge: 'Kovácsolás', blessing: 'Frakció áldása', elixir: 'Elixírek', weapon: 'Fegyverválasztás' },
+    str: { does: 'A karod ereje. A kardok, fejszék, kalapácsok és puszta ököl 6 + 1,6 × ERŐ sebzéssel ütnek, és az ERŐ-képességek is így nőnek.', fights: 'Minden pont {block}% blokkolási esélyt ad (a blokkolt találat csak 40%-ot sebez), és a lemezpáncélod {plate}%-át extra páncélként adja.', synergy: 'Lemezpáncéllal, pajzzsal és ÁLL-lal a legjobb tankhoz. Egyetlen pontkészlet hajtja az alaptámadásokat és az ERŐ-képességeket is.' },
+    dex: { does: 'Sebesség és pontosság. Növeli a kritikus esélyt, a támadási és mozgási sebességet; a tőrök ÜGY-gyel skálázódnak.', fights: 'Pontonként: +{crit}% kritikus esély, +{as}% támadási sebesség, +{ms}% mozgási sebesség. Szabad másik kézzel a tőr vagy pisztoly egy követő ütést ad, ami egy találat 10% + pontonként {dual}%-át éri.', synergy: 'A kritikus találatoknak JÁR kell a sebzéshez. Több csapás több kritikus dobást és több életlopást jelent, a sebesség pedig az ellenség mögé visz, ahol a találatok 25%-kal többet sebeznek.' },
+    int: { does: 'Varázslat. A botok és pálcák INT-tel skálázódnak, az INT-képességek is.', fights: 'Pontonként: +{mana} max. mana, másodpercenként +{manaRegen} mana és +{res}% ellenállás az elemi és mágikus sebzés ellen (max. {capRes}%).', synergy: 'A mana minden aktív képességet hajt, ezért párosítsd JÁR-ral a lehűlés csökkentéséhez. Az ellenállás fedezi, amit a páncél nem; ÁLL-lal teljes a védelem.' },
+    end: { does: 'Mennyi verést bírsz. Az életed legnagyobb forrása.', fights: 'Pontonként: +{hp} max. élet, másodpercenként +{hpRegen} élet, +{armor} páncél és {stun}%-kal rövidebb kábulás és fagyás (max. {capStun}%).', synergy: 'A páncél csak a fizikai találatokat fogja meg, ezért INT-et adj a mágia ellen. A felszerelés százalékos életbónuszai megszorozzák, amit az ÁLL ad.' },
+    skl: { does: 'Mesterség és finomság. Növeli a kritikus sebzést és a lehűlés-csökkentést; a lőfegyverek és ágyúk JÁR-ral skálázódnak.', fights: 'Pontonként: +{cd}% kritikus sebzés (max. {capCritDmg}%) és {cdr}% lehűlés-csökkentés (max. {capCdr}%).', synergy: 'A kritikus sebzéshez az ÜGY-ből jövő kritikus esély kell. A rövidebb lehűlés gyorsabban égeti a manát, ezért párosítsd INT-tel vagy manafelszereléssel.' },
+    cha: { does: 'Befolyás a kardkaron túl. A csatlósok erősebben ütnek, a boltok olcsóbban adnak, a küldetések többet fizetnek.', fights: 'Pontonként: +{minion}% csatlóssebzés, {disc}% kedvezmény a boltokban (max. {capDisc}%), +{reward}% küldetésjutalom és több párbeszédlehetőség.', synergy: 'Az idéző- és társállat-buildek a sebzésüket KAR-ból nyerik. A boltokban megspórolt arany kifizeti a kovácsolást és a képességeket.' },
+    damage: { does: 'Egy alaptámadás a kritikusok és a páncél előtt: 6 + 1,6 × a fegyvered tulajdonsága, a szint és a felszerelés szerint skálázva.', fights: 'A képességek a saját százalékukat alkalmazzák ugyanerre az erőre. A páncél vagy az ellenállás aztán lecsípi; a kritikusok és a hátulról jövő találatok (+25%) növelik.', synergy: 'Párosítsd a fegyvert és a tulajdonságot: ERŐ kardokhoz, fejszékhez és kalapácsokhoz, ÜGY tőrökhöz, INT botokhoz és pálcákhoz, JÁR lőfegyverekhez és ágyúkhoz.' },
+    health: { does: 'Mennyit bírsz, mielőtt elesel: {hpBase} + szintenként {hpLevel} + ÁLL-pontonként {hp}, plusz felszerelés.', fights: 'A páncél és az ellenállás kisebbé teszi a találatokat; az élet dönti el, hány találatot élsz túl. 0-nál elesel.', synergy: 'A regeneráció és az életlopás nagy készletnél többet ér, a páncél pedig tovább tartóvá teszi minden életpontot.' },
+    mana: { does: 'Kifizeti az aktív képességeket: 30 + szintenként {manaLevel} + INT-pontonként {mana}, plusz felszerelés.', fights: 'Mana nélkül csak az alaptámadások működnek. Magától töltődik, szinttel és INT-tel gyorsabban.', synergy: 'A lehűlés-csökkentés gyorsabban fogyasztatja; a manakedvezmények és az INT-regeneráció tartják a lépést.' },
+    armor: { does: 'A fizikai sebzést páncél ÷ (páncél + 60 + 12 × a támadó szintje) arányban csökkenti.', fights: 'A magasabb szintű ellenségek könnyebben törnek át a páncélon. Soha nem csökkenti a mágikus vagy elemi sebzést, és a páncélt rontó hatások csökkentik.', synergy: 'Az ERŐ értékesebbé teszi a lemezt, az ÁLL fix páncélt ad, a százalékos páncélbónuszok megszorozzák az összeget.' },
+    resist: { does: 'A nem fizikai sebzést (tűz, fagy, szent, mágia) ennyi százalékkal csökkenti.', fights: 'A varázslatok és az elemi kitörések figyelmen kívül hagyják a páncélt; csak az ellenállás és a sebzéscsökkentés kisebbíti őket. Fegyvertalálatok ellen soha nem segít.', synergy: 'Párosítsd páncéllal a teljes fedezethez. Csak az INT növeli: pontonként {res}% (max. {capRes}%).' },
+    crit: { does: 'Az esély, hogy egy támadás vagy képesség kritikus lesz és a kritikus sebzésedet okozza: 5% + ÜGY-pontonként {crit}% (max. {capCrit}%).', fights: 'Az idővel járó sebzés nem lehet kritikus. A füstbomba utáni csapás mindig kritikus.', synergy: 'Magas kritikus sebzéssel (JÁR) és gyors támadásokkal (ÜGY) ér a legtöbbet; némely felszerelés csak a varázslatoknak ad kritikus esélyt.' },
+    critDamage: { does: 'Mennyit sebez egy kritikus: 150% + JÁR-pontonként {cd}% (max. {capCritDmg}%).', fights: 'Az egész találatot megszorozza, mielőtt a páncél és az ellenállás elvenné a részét.', synergy: 'Kritikus esély (ÜGY) nélkül haszontalan: a kettő összeszorzódik.' },
+    attackSpeed: { does: 'Milyen gyorsan támadsz: 100% + ÜGY-pontonként {as}% (max. {capAs}%), a fegyver saját tempója felett.', fights: 'Több találat több sebzést, több kritikus dobást és több találati hatást jelent, például életlopást. A nehéz fegyverek lassabban lendülnek.', synergy: 'A tőrök és pisztolyok nyernek a legtöbbet; a kritikus esély megszorozza a plusz találatokat.' },
+    moveSpeed: { does: 'Milyen gyorsan futsz: 4,3 × (1 + ÜGY-pontonként {ms}%), legfeljebb ×{capMs}.', fights: 'Kerüld ki a bejelentett támadásokat, tartsd távol a közelharci ellenségeket, kerülj az ellenség háta mögé (+25% sebzés) és szökj. A lassítások és kábítások csökkentik.', synergy: 'Remek távfegyverekkel és tőrökkel; a sebességfelszerelés és az elixírek összeadódnak az ÜGY-gyel.' },
+    cdr: { does: 'Ennyi százalékkal rövidíti minden képesség lehűlését: JÁR-pontonként {cdr}% (max. {capCdr}%).', fights: 'Több bevetés harconként és gyorsabb kombók. Nem teszi olcsóbbá a képességeket: a manának még mindig fizetnie kell.', synergy: 'Párosítsd INT-tel a manához. A hosszú lehűlésű, nagyot ütő képességek nyernek a legtöbbet.' },
+    block: { does: 'Esély egy fizikai fegyvertalálat blokkolására: ERŐ-pontonként {block}% plusz felszerelés (max. {capBlock}%).', fights: 'A blokk 40%-ra csökkenti a találat sebzését, és a páncél utána is érvényes. A képességeket, az idővel járó sebzést és a mágiát nem lehet blokkolni, és kábultan sem blokkolhatsz.', synergy: 'Pajzsok és ERŐ; némely felszerelés blokkoláskor visszaveri a sebzést. Összeadódik a kitéréssel és a páncéllal.' },
+    dodge: { does: 'Esély egy fegyvertalálat teljes elkerülésére. Egy tulajdonság sem növeli: csak a felszerelés és a passzívok (max. {capDodge}%).', fights: 'A kitérés egyáltalán nem sebez, és némely felszerelés utána sietséget ad. Kábultan vagy fagyottan nem térhetsz ki.', synergy: 'A blokk előtt dobják, így a kettő összeadódik; a páncél fedezi, ami átjut.' },
+    hpRegen: { does: 'Másodpercenként visszatérő élet: ÁLL-pontonként {hpRegen}, plusz felszerelés.', fights: 'Lassú csörgedezés: hosszú harcokban és akkor számít, ha megsebesültél és még nem gyógyultál.', synergy: 'A bájitalok és az életlopás lökésekben gyógyít; a regeneráció a stabil alap alattuk.' },
+  },
+  quickSell: { title: 'Gyorsárusítás', lead: 'Egyenként ürítenéd a táskát? Add el helyben:', click: 'Katt', shift: 'Add el a tárgyat azonnal, extra lépések nélkül.', toggle: 'Kapcsold be a táska fölött, és minden érintés egy tárgyon eladja azt.', undo: 'Túl sokat adtál el? Vásárold vissza a visszavásárlási sorból, amíg el nem hagyod a boltot. A viselt felszerelést soha nem adják el.', space: 'Zárd be a szóköz megnyomásával', hint: 'Shift + kattintás egy tárgyra azonnal eladja' },
+  arenaStart: { title: 'Hol kezded?', lead: 'A legjobb eredményed az arénában a(z) {best}. hullám. Feljebb kezded, vagy az elejétől?', why: 'A javasolt hullám a legjobb hullámodból, a tulajdonságaidból, a magas szintű képességeidből és a passzívjaidból jön.', from: 'Kezdés a(z) {n}. hullámnál', fromOne: 'Az 1. hullámtól' },
   sheet: {
     points: 'Elkölthető pontok: {n}',
     raise: 'Növelés: {attr}',
@@ -714,6 +740,7 @@ export default {
     how: 'Koppints egy képességre, majd egy helyre, vagy húzd oda. Húzd le a helyről a kivételhez.',
     howSlot: 'Most koppints egy helyre a behelyezéshez.',
     classCount: '{cls}: {n} / {total} megtanulva',
+    filter: { button: 'Szűrő', title: 'Szűrő eredményei', found: 'Találat: {n}', none: 'Egy képesség sem felel meg a szűrőnek.', clear: 'Törlés', type: 'Típus', scales: 'Ezzel skálázódik' },
     hint: {
       find: 'Tanár keresése',
       met: 'Tanuld meg tőle: {name}, itt: {place}.',
@@ -3323,6 +3350,7 @@ export default {
     timekeepersHourglass: {
       name: 'Az Időőr homokórája'
     },
+    oraclesHourglass: { name: 'A jósnő homokórája' },
     ringOfTheVampyre: {
       name: 'A vámpír gyűrűje'
     },
@@ -7696,6 +7724,7 @@ export default {
     unlocked: 'Új a térképen: {places}',
     equipped: 'Felszerelve',
     better: 'Jobb, mint amit viselsz',
+    inspect: 'Megnézem',
     retry: 'Próbáld újra',
     tip: 'A tapasztalat és a zsákmány megmarad. Költsd el a pontjaidat, keress fel egy tanítót, és térj vissza erősebben.'
   },
@@ -7817,6 +7846,7 @@ export default {
       medium: 'Közepes',
       hard: 'Nehéz'
     },
+    difficultyCoins: 'Érmék {pct}',
     difficultyHints: {
       easy: 'Az ellenségek gyengébben ütnek, és hamarabb kidőlnek.',
       medium: 'Az eredetileg tervezett kihívás.',

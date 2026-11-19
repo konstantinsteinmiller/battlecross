@@ -691,6 +691,32 @@ export default {
     dodge: 'Esquiva',
     hpRegen: 'Salut / s'
   },
+  statinfo: {
+    h: { does: 'Què fa', fights: 'En combat', source: 'D\'on ve', synergy: 'Sinergies' },
+    cap: 'Passat 300 en un atribut, cada punt extra compta la meitat.',
+    src: { points: 'Punts d\'atribut', level: 'Nivells', gear: 'Equipament', passive: 'Habilitats passives', forge: 'Forja', blessing: 'Benedicció de facció', elixir: 'Elixirs', weapon: 'Elecció d\'arma' },
+    str: { does: 'La força del teu braç. Espases, destrals, martells i punys nus colpegen amb 6 + 1,6 × FOR, i les habilitats de FOR creixen igual.', fights: 'Cada punt dona {block}% de probabilitat de bloqueig (un cop bloquejat només fa un 40%) i un {plate}% de la teva armadura de plaques com a armadura extra.', synergy: 'Ideal amb armadura de plaques, escuts i AGU per a un tanc. Un sol fons de punts impulsa els atacs bàsics i les habilitats de FOR.' },
+    dex: { does: 'Velocitat i precisió. Puja la probabilitat de crític, la velocitat d\'atac i de moviment; les dagues escalen amb DES.', fights: 'Per punt: +{crit}% de probabilitat de crític, +{as}% de velocitat d\'atac, +{ms}% de velocitat de moviment. Una daga o pistola amb l\'altra mà lliure afegeix un cop extra que val 10% + {dual}% per punt d\'un cop.', synergy: 'Els crítics necessiten PER per al seu mal. Més cops són més tirades de crític i més robatori de vida, i la velocitat et porta a l\'esquena de l\'enemic, on els cops fan un 25% més.' },
+    int: { does: 'Màgia. Bàculs i varetes escalen amb INT, igual que les habilitats d\'INT.', fights: 'Per punt: +{mana} de mana màx., +{manaRegen} de mana per segon i +{res}% de resistència al mal elemental i màgic (màx. {capRes}%).', synergy: 'El mana alimenta cada habilitat activa, així que combina\'l amb PER per reduir recàrregues. La resistència cobreix el que l\'armadura no; afegeix AGU per a una defensa total.' },
+    end: { does: 'Quant càstig aguantes. És la font més gran de la teva vida.', fights: 'Per punt: +{hp} de vida màx., +{hpRegen} de vida per segon, +{armor} d\'armadura i atordiments i congelacions un {stun}% més curts (màx. {capStun}%).', synergy: 'L\'armadura només atura cops físics, així que afegeix INT contra la màgia. Els bonus de vida percentuals de l\'equipament multipliquen el que dona AGU.' },
+    skl: { does: 'Ofici i finor. Puja el mal crític i la reducció de recàrrega; armes de foc i canons escalen amb PER.', fights: 'Per punt: +{cd}% de mal crític (màx. {capCritDmg}%) i {cdr}% de reducció de recàrrega (màx. {capCdr}%).', synergy: 'El mal crític necessita la probabilitat de crític de DES. Recàrregues més curtes gasten mana més de pressa: combina-ho amb INT o equipament de mana.' },
+    cha: { does: 'Influència més enllà del braç de l\'espasa. Els esbirros peguen més fort, les botigues venen més barat i les missions paguen més.', fights: 'Per punt: +{minion}% de mal dels esbirros, {disc}% de descompte a les botigues (màx. {capDisc}%), +{reward}% de recompensa de missions i més opcions de diàleg.', synergy: 'Les builds d\'invocador i de mascota treuen el mal de CAR. L\'or estalviat a les botigues paga forja i habilitats.' },
+    damage: { does: 'Un atac bàsic abans de crítics i armadura: 6 + 1,6 × l\'atribut de la teva arma, escalat pel nivell i l\'equipament.', fights: 'Les habilitats apliquen el seu propi percentatge a aquest mateix poder. L\'armadura o la resistència el retallen; els crítics i els cops per l\'esquena (+25%) el pugen.', synergy: 'Combina arma i atribut: FOR per a espases, destrals i martells, DES per a dagues, INT per a bàculs i varetes, PER per a armes de foc i canons.' },
+    health: { does: 'Quant aguantes abans de caure: {hpBase} + {hpLevel} per nivell + {hp} per punt d\'AGU, més l\'equipament.', fights: 'L\'armadura i la resistència redueixen cada cop; la vida decideix quants en suportes. A 0 caus.', synergy: 'La regeneració i el robatori de vida valen més amb una reserva gran, i l\'armadura fa que cada punt de vida duri més.' },
+    mana: { does: 'Paga les habilitats actives: 30 + {manaLevel} per nivell + {mana} per punt d\'INT, més l\'equipament.', fights: 'Sense mana només funcionen els atacs bàsics. Es reomple sol, més de pressa amb el nivell i INT.', synergy: 'La reducció de recàrrega te\'l fa gastar més de pressa; els descomptes de mana i la regeneració d\'INT hi van al darrere.' },
+    armor: { does: 'Redueix el mal físic en armadura ÷ (armadura + 60 + 12 × nivell de l\'atacant).', fights: 'Els enemics de més nivell travessen millor l\'armadura. Mai redueix el mal màgic o elemental, i els efectes que trenquen armadura la baixen.', synergy: 'FOR fa que la placa valgui més, AGU suma armadura fixa i els bonus percentuals d\'armadura multipliquen el total.' },
+    resist: { does: 'Redueix el mal no físic (foc, gel, sagrat, màgia) en aquest percentatge.', fights: 'Els encanteris i els esclats elementals ignoren l\'armadura; només la resistència i la reducció de mal els retallen. Mai ajuda contra cops d\'arma.', synergy: 'Combina-la amb armadura per a una cobertura total. Només INT la puja: {res}% per punt (màx. {capRes}%).' },
+    crit: { does: 'La probabilitat que un atac o habilitat sigui crític i faci el teu mal crític: 5% + {crit}% per punt de DES (màx. {capCrit}%).', fights: 'El mal amb el temps no pot ser crític. Un cop després d\'una bomba de fum sempre és crític.', synergy: 'Val més amb molt mal crític (PER) i atacs ràpids (DES); algun equipament dona probabilitat de crític només als encanteris.' },
+    critDamage: { does: 'Quant fa un crític: 150% + {cd}% per punt de PER (màx. {capCritDmg}%).', fights: 'Multiplica el cop sencer, abans que l\'armadura i la resistència prenguin la seva part.', synergy: 'Inútil sense probabilitat de crític (DES): les dues es multipliquen.' },
+    attackSpeed: { does: 'Com de ràpid ataques: 100% + {as}% per punt de DES (màx. {capAs}%), a més del ritme propi de l\'arma.', fights: 'Més cops són més mal, més tirades de crític i més efectes en copejar, com el robatori de vida. Les armes pesades peguen més lent.', synergy: 'Dagues i pistoles hi guanyen més; la probabilitat de crític multiplica els cops extra.' },
+    moveSpeed: { does: 'Com de ràpid corres: 4,3 × (1 + {ms}% per punt de DES), fins a ×{capMs}.', fights: 'Esquiva atacs avisats, manté a ratlla els enemics de cos a cos, arriba a l\'esquena de l\'enemic (+25% de mal) i fuig. Alentiments i atordiments la redueixen.', synergy: 'Genial amb armes a distància i dagues; l\'equipament de velocitat i els elixirs se sumen a DES.' },
+    cdr: { does: 'Escurça la recàrrega de cada habilitat en aquest percentatge: {cdr}% per punt de PER (màx. {capCdr}%).', fights: 'Més llançaments per combat i combos més ràpids. No abarateix les habilitats: el mana les continua pagant.', synergy: 'Combina-la amb INT per al mana. Les habilitats fortes de recàrrega llarga hi guanyen més.' },
+    block: { does: 'Probabilitat de bloquejar un cop físic d\'arma: {block}% per punt de FOR més equipament (màx. {capBlock}%).', fights: 'Un bloqueig deixa aquell cop en un 40% del mal, i l\'armadura encara s\'aplica després. Habilitats, mal amb el temps i màgia no es bloquegen, i atordit tampoc.', synergy: 'Escuts i FOR; algun equipament retorna mal en bloquejar. Se suma a l\'esquiva i l\'armadura.' },
+    dodge: { does: 'Probabilitat d\'evitar del tot un cop d\'arma. Cap atribut la puja: només equipament i passives (màx. {capDodge}%).', fights: 'Una esquiva no fa cap mal, i algun equipament dona rapidesa després. No es pot esquivar atordit o congelat.', synergy: 'Es tira abans del bloqueig, així que se sumen; l\'armadura cobreix el que passa.' },
+    hpRegen: { does: 'Vida recuperada cada segon: {hpRegen} per punt d\'AGU, més l\'equipament.', fights: 'Un fil lent: compta en combats llargs i quan estàs ferit i encara sense curar.', synergy: 'Pocions i robatori de vida curen a ràfegues; la regeneració és el terra constant per sota.' },
+  },
+  quickSell: { title: 'Venda ràpida', lead: 'Buidar la bossa peça a peça? Ven a l\'acte:', click: 'Clic', shift: 'Ven la peça a l\'instant, sense passos extra.', toggle: 'Activa-la sobre la bossa i cada toc en una peça la ven.', undo: 'Has venut massa? Recompra-ho a la fila de recompra fins que surtis de la botiga. L\'equipament posat mai no es ven.', space: 'Prem Espai per tancar', hint: 'Maj + clic en una peça per vendre-la a l\'instant' },
+  arenaStart: { title: 'Per on comences?', lead: 'El teu rècord al coliseu és l\'onada {best}. Comences més amunt o des del principi?', why: 'L\'onada suggerida surt de la teva millor onada, els teus atributs, les habilitats d\'alt nivell i les passives.', from: 'Comença a l\'onada {n}', fromOne: 'Des de l\'onada 1' },
   sheet: {
     points: '{n} punts per gastar',
     raise: 'Puja: {attr}',
@@ -715,6 +741,7 @@ export default {
     how: 'Toca una habilitat i després una ranura, o arrossega-la fins allà. Arrossega-la fora d’una ranura per treure-la.',
     howSlot: 'Ara toca una ranura per posar-la.',
     classCount: '{cls}: {n} de {total} apreses',
+    filter: { button: 'Filtre', title: 'Resultats del filtre', found: 'Coincidències: {n}', none: 'Cap habilitat coincideix amb el filtre.', clear: 'Neteja', type: 'Tipus', scales: 'Escala amb' },
     hint: {
       find: 'Troba el mestre',
       met: 'L’aprens de {name} a {place}.',
@@ -3324,6 +3351,7 @@ export default {
     timekeepersHourglass: {
       name: 'Rellotge de Sorra del Guardià del Temps'
     },
+    oraclesHourglass: { name: 'Rellotge de sorra de l\'Oracle' },
     ringOfTheVampyre: {
       name: 'Anell del Vampir'
     },
@@ -7745,6 +7773,7 @@ export default {
     unlocked: 'Nou al mapa: {places}',
     equipped: 'Equipat',
     better: 'Millor que el que portes',
+    inspect: 'Inspecciona',
     retry: 'Torna-ho a provar',
     tip: 'Conserves l’experiència i el botí. Gasta els punts, visita un mestre i torna més fort.',
     tip__f: 'Conserves l’experiència i el botí. Gasta els punts, visita un mestre i torna més forta.'
@@ -7867,6 +7896,7 @@ export default {
       medium: 'Mitjana',
       hard: 'Difícil'
     },
+    difficultyCoins: 'Monedes {pct}',
     difficultyHints: {
       easy: 'Els enemics piquen més fluix i cauen abans.',
       medium: 'El repte tal com es va dissenyar.',

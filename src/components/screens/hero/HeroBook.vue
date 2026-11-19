@@ -29,6 +29,8 @@
       SkillsPage(v-else-if="page === 'skills'" key="skills")
       JournalPage(v-else-if="page === 'journal'" key="journal")
       EquipmentPage(v-else key="inventory")
+    //- The stat info card (a mouse's rest, a finger's tap on a stat row of the character and equipment pages).
+    StatInfoLayer
 </template>
 
 <script setup lang="ts">
@@ -55,6 +57,7 @@ import CharacterPage from './CharacterPage.vue'
 import SkillsPage from './SkillsPage.vue'
 import EquipmentPage from './EquipmentPage.vue'
 import JournalPage from './JournalPage.vue'
+import StatInfoLayer from '@/components/game/StatInfoLayer.vue'
 import { openErrands } from '@/game/state/profile'
 
 type Page = 'character' | 'skills' | 'inventory' | 'journal'

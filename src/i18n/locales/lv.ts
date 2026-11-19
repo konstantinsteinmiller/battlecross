@@ -690,6 +690,32 @@ export default {
     dodge: 'Izvairīšanās',
     hpRegen: 'Veselība / s'
   },
+  statinfo: {
+    h: { does: 'Ko tā dara', fights: 'Cīņā', source: 'No kurienes tā nāk', synergy: 'Sinerģijas' },
+    cap: 'Virs 300 vienā īpašībā katrs nākamais punkts skaitās uz pusi.',
+    src: { points: 'Īpašību punkti', level: 'Līmeņi', gear: 'Ekipējums', passive: 'Pasīvās prasmes', forge: 'Kalšana', blessing: 'Frakcijas svētība', elixir: 'Eliksīri', weapon: 'Ieroča izvēle' },
+    str: { does: 'Tavas rokas spēks. Zobeni, cirvji, āmuri un kailas dūres sit par 6 + 1,6 × SPĒ, un SPĒ prasmes aug tāpat.', fights: 'Katrs punkts dod {block}% bloķēšanas iespēju (bloķēts sitiens nodara tikai 40%) un {plate}% no tava plākšņu bruņu daudzuma kā papildu bruņas.', synergy: 'Vislabāk ar plākšņu bruņām, vairogiem un IZT tankam. Viens punktu krājums baro gan pamatuzbrukumus, gan SPĒ prasmes.' },
+    dex: { does: 'Ātrums un precizitāte. Palielina kritiskā sitiena iespēju, uzbrukuma un kustības ātrumu; dunči aug ar VEI.', fights: 'Par punktu: +{crit}% kritiskā iespēja, +{as}% uzbrukuma ātrums, +{ms}% kustības ātrums. Duncis vai pistole ar brīvu otru roku pievieno papildu sitienu, kas vērts 10% + {dual}% par punktu sitiena.', synergy: 'Kritiem vajag MEI savai ietekmei. Vairāk sitienu nozīmē vairāk kritu metienu un vairāk dzīvības zādzības, un ātrums aizved tevi ienaidnieku mugurpusē, kur sitieni nodara par 25% vairāk.' },
+    int: { does: 'Maģija. Spieķi un nūjiņas aug ar INT, tāpat INT prasmes.', fights: 'Par punktu: +{mana} maks. manas, +{manaRegen} manas sekundē un +{res}% pretestības elementu un maģijas postījumiem (maks. {capRes}%).', synergy: 'Mana baro katru aktīvo prasmi, tāpēc savieno to ar MEI atdzišanas saīsināšanai. Pretestība sedz to, ko bruņas neapturēs; pievieno IZT pilnai aizsardzībai.' },
+    end: { does: 'Cik daudz sitienu tu panes. Lielākais tavas veselības avots.', fights: 'Par punktu: +{hp} maks. veselības, +{hpRegen} veselības sekundē, +{armor} bruņu un par {stun}% īsāka apdullināšana un sasaldēšana (maks. {capStun}%).', synergy: 'Bruņas aptur tikai fiziskus sitienus, tāpēc pievieno INT pret maģiju. Procentuālie veselības bonusi uz ekipējuma reizina to, ko dod IZT.' },
+    skl: { does: 'Prasme un smalkums. Palielina kritisko postījumu un atdzišanas samazinājumu; šaujamieroči un lielgabali aug ar MEI.', fights: 'Par punktu: +{cd}% kritisko postījumu (maks. {capCritDmg}%) un {cdr}% atdzišanas samazinājuma (maks. {capCdr}%).', synergy: 'Kritiskajiem postījumiem vajag kritiskās iespējas no VEI. Īsāka atdzišana ātrāk tērē manu, tāpēc savieno ar INT vai manas ekipējumu.' },
+    cha: { does: 'Ietekme ārpus zobena rokas. Pakalpiņi sit stiprāk, veikali pārdod lētāk, un uzdevumi maksā vairāk.', fights: 'Par punktu: +{minion}% pakalpiņu postījumu, {disc}% atlaide veikalos (maks. {capDisc}%), +{reward}% uzdevumu atlīdzības un vairāk dialoga izvēļu.', synergy: 'Izsaucēju un mājdzīvnieku būvējumi postījumus ņem no HAR. Veikalos ietaupītais zelts apmaksā kalšanu un prasmes.' },
+    damage: { does: 'Viens pamatuzbrukums pirms kritiem un bruņām: 6 + 1,6 × tava ieroča īpašība, reizināta ar līmeni un ekipējumu.', fights: 'Prasmes pielieto savu procentu tam pašam spēkam. Bruņas vai pretestība to pēc tam apcērp; kriti un sitieni no mugurpuses (+25%) to palielina.', synergy: 'Saskaņo ieroci un īpašību: SPĒ zobeniem, cirvjiem un āmuriem, VEI dunčiem, INT spieķiem un nūjiņām, MEI šaujamieročiem un lielgabaliem.' },
+    health: { does: 'Cik panes, pirms krīti: {hpBase} + {hpLevel} par līmeni + {hp} par IZT punktu, plus ekipējums.', fights: 'Bruņas un pretestība samazina katru sitienu; veselība nosaka, cik sitienus pārdzīvo. Pie 0 tu krīti.', synergy: 'Reģenerācija un dzīvības zādzība ir vērtīgāka ar lielu krājumu, un bruņas liek katram veselības punktam noturēt ilgāk.' },
+    mana: { does: 'Apmaksā aktīvās prasmes: 30 + {manaLevel} par līmeni + {mana} par INT punktu, plus ekipējums.', fights: 'Bez manas darbojas tikai pamatuzbrukumi. Tā atjaunojas pati, ātrāk ar līmeni un INT.', synergy: 'Atdzišanas samazinājums liek tērēt to ātrāk; manas atlaides un INT reģenerācija tiek līdzi.' },
+    armor: { does: 'Samazina fiziskos postījumus par bruņas ÷ (bruņas + 60 + 12 × uzbrucēja līmenis).', fights: 'Augstāka līmeņa ienaidnieki bruņas pārrauj vieglāk. Tās nekad nesamazina maģiskos vai elementu postījumus, un bruņu laušanas efekti tās pazemina.', synergy: 'SPĒ padara plāksnes vērtīgākas, IZT pieskaita fiksētas bruņas, un procentuālie bruņu bonusi reizina kopsummu.' },
+    resist: { does: 'Samazina nefiziskos postījumus (uguns, sals, svētais, maģija) par šo procentu.', fights: 'Burvestības un elementu sprādzieni ignorē bruņas; tos samazina tikai pretestība un postījumu samazinājums. Pret ieroču sitieniem tā nekad nepalīdz.', synergy: 'Savieno ar bruņām pilnam segumam. To palielina tikai INT: {res}% par punktu (maks. {capRes}%).' },
+    crit: { does: 'Iespēja, ka uzbrukums vai prasme būs kritiska un nodarīs tavus kritiskos postījumus: 5% + {crit}% par VEI punktu (maks. {capCrit}%).', fights: 'Postījumi laika gaitā nevar būt kritiski. Sitiens pēc dūmu bumbas vienmēr ir kritisks.', synergy: 'Vērtīgākā ar augstiem kritiskajiem postījumiem (MEI) un ātriem uzbrukumiem (VEI); daļa ekipējuma dod kritisko iespēju tikai burvestībām.' },
+    critDamage: { does: 'Cik nodara krits: 150% + {cd}% par MEI punktu (maks. {capCritDmg}%).', fights: 'Tas reizina visu sitienu, pirms bruņas un pretestība paņem savu daļu.', synergy: 'Bezjēdzīgs bez kritiskās iespējas (VEI): abi tiek reizināti.' },
+    attackSpeed: { does: 'Cik ātri uzbrūc: 100% + {as}% par VEI punktu (maks. {capAs}%), papildus paša ieroča tempam.', fights: 'Vairāk sitienu nozīmē vairāk postījumu, vairāk kritu metienu un vairāk trāpījuma efektu, piemēram, dzīvības zādzības. Smagi ieroči vēzējas lēnāk.', synergy: 'Dunči un pistoles iegūst visvairāk; kritiskā iespēja reizina papildu sitienus.' },
+    moveSpeed: { does: 'Cik ātri skrien: 4,3 × (1 + {ms}% par VEI punktu), līdz ×{capMs}.', fights: 'Izvairies no brīdinātiem uzbrukumiem, tur tuvcīņas ienaidniekus attālumā, sasniedz ienaidnieka muguru (+25% postījumu) un bēdz. Palēninājumi un apdullināšana to samazina.', synergy: 'Lieliski ar tāla darbības ieročiem un dunčiem; ātruma ekipējums un eliksīri summējas ar VEI.' },
+    cdr: { does: 'Saīsina katras prasmes atdzišanu par šo procentu: {cdr}% par MEI punktu (maks. {capCdr}%).', fights: 'Vairāk lietojumu cīņā un ātrākas kombinācijas. Prasmes tas nepadara lētākas: mana tās joprojām apmaksā.', synergy: 'Savieno ar INT manas dēļ. Visvairāk iegūst spēcīgas prasmes ar garu atdzišanu.' },
+    block: { does: 'Iespēja bloķēt fizisku ieroča sitienu: {block}% par SPĒ punktu plus ekipējums (maks. {capBlock}%).', fights: 'Bloks samazina šo sitienu līdz 40% postījumu, un bruņas pēc tam vēl darbojas. Prasmes, postījumus laika gaitā un maģiju bloķēt nevar, un apdullināts arī nevari bloķēt.', synergy: 'Vairogi un SPĒ; daļa ekipējuma bloķējot atgriež postījumus. Summējas ar izvairīšanos un bruņām.' },
+    dodge: { does: 'Iespēja pilnībā izvairīties no ieroča sitiena. Neviena īpašība to nepalielina: tikai ekipējums un pasīvās (maks. {capDodge}%).', fights: 'Izvairīšanās nenodara nekādus postījumus, un daļa ekipējuma pēc tās dod paātrinājumu. Apdullināts vai sasalis izvairīties nevari.', synergy: 'To met pirms bloka, tāpēc tie summējas; bruņas sedz to, kas izkļūst cauri.' },
+    hpRegen: { does: 'Katru sekundi atjaunota veselība: {hpRegen} par IZT punktu, plus ekipējums.', fights: 'Lēna strūkliņa: tā skaitās garās cīņās un tad, kad esi ievainots un vēl neizārstēts.', synergy: 'Dzērieni un dzīvības zādzība dziedē uzliesmojumos; reģenerācija ir vienmērīgs pamats zem tiem.' },
+  },
+  quickSell: { title: 'Ātrā pārdošana', lead: 'Iztukšo somu pa vienam priekšmetam? Pārdod uzreiz:', click: 'Klikšķis', shift: 'Pārdod priekšmetu uzreiz, bez papildu soļiem.', toggle: 'Ieslēdz virs somas, un katrs pieskāriens priekšmetam to pārdod.', undo: 'Pārdevi par daudz? Atpērc no atpirkšanas rindas, kamēr neesi izgājis no veikala. Valkāto ekipējumu nepārdod nekad.', space: 'Nospied atstarpi, lai aizvērtu', hint: 'Shift + klikšķis uz priekšmeta to pārdod uzreiz' },
+  arenaStart: { title: 'No kurienes sāksi?', lead: 'Tavs labākais rezultāts koloseja ir vilnis {best}. Sākt augstāk vai no sākuma?', why: 'Ieteiktais vilnis izriet no tava labākā viļņa, īpašībām, augsta līmeņa prasmēm un pasīvajām prasmēm.', from: 'Sākt no viļņa {n}', fromOne: 'No viļņa 1' },
   sheet: {
     points: 'Punkti, ko tērēt: {n}',
     raise: 'Paaugstināt: {attr}',
@@ -714,6 +740,7 @@ export default {
     how: 'Pieskaries prasmei, tad vietai, vai velc to uz turieni. Velc prom no vietas, lai izņemtu.',
     howSlot: 'Tagad pieskaries vietai, lai to ievietotu.',
     classCount: '{cls}: apgūtas {n} no {total}',
+    filter: { button: 'Filtrs', title: 'Filtra rezultāti', found: 'Atbilstības: {n}', none: 'Neviena prasme neatbilst filtram.', clear: 'Notīrīt', type: 'Veids', scales: 'Aug līdz ar' },
     hint: {
       find: 'Atrast skolotāju',
       met: 'Apgūsti to pie {name}, {place}.',
@@ -3323,6 +3350,7 @@ export default {
     timekeepersHourglass: {
       name: 'Laika glabātāja smilšu pulkstenis'
     },
+    oraclesHourglass: { name: 'Orākula smilšu pulkstenis' },
     ringOfTheVampyre: {
       name: 'Vampīra gredzens'
     },
@@ -7771,6 +7799,7 @@ export default {
     unlocked: 'Jaunums kartē: {places}',
     equipped: 'Aprīkots',
     better: 'Labāks par to, ko nēsā',
+    inspect: 'Apskatīt',
     retry: 'Mēģināt vēlreiz',
     tip: 'Pieredze un laupījums paliek tev. Iztērē punktus, apmeklē skolotāju un atgriezies stiprāks.',
     tip__f: 'Pieredze un laupījums paliek tev. Iztērē punktus, apmeklē skolotāju un atgriezies stiprāka.'
@@ -7893,6 +7922,7 @@ export default {
       medium: 'Vidējs',
       hard: 'Grūts'
     },
+    difficultyCoins: 'Monētas {pct}',
     difficultyHints: {
       easy: 'Ienaidnieki sit vājāk un krīt ātrāk.',
       medium: 'Iecerētais izaicinājums.',

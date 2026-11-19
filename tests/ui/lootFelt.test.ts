@@ -66,20 +66,32 @@ describe('the result screen', () => {
     const row = $$('.loot')[0]!
     // Better than the rusted sword the hero starts with.
     expect(row.querySelector('.loot__up')).toBeTruthy()
-    const btn = row.querySelector<HTMLButtonElement>('.loot__act button')!
+    const btn = row.querySelector<HTMLButtonElement>('.loot__act button:not([data-inspect])')!
     expect(btn.disabled).toBe(false)
     btn.click()
     await nextTick()
     expect(p.profile.inv.equipped.main).toBe('ironBroadsword')
     expect(row.querySelector('.loot__done')?.textContent).toContain('results.equipped')
-    expect(row.querySelector('.loot__act button')).toBeNull()
+    expect(row.querySelector('.loot__act button:not([data-inspect])')).toBeNull()
     expect(row.querySelector('.loot__up')).toBeNull()
+  })
+
+  it('inspects a find: an enlarged card with its changes against the worn piece', async () => {
+    p.profile.level = 6
+    await showResults(['ironBroadsword'])
+    expect($('[data-inspect-card]')).toBeNull()
+    $<HTMLButtonElement>('.loot__act [data-inspect]')!.click()
+    await nextTick()
+    expect($('[data-inspect-card] .item-card')).toBeTruthy()
+    $<HTMLButtonElement>('.loot__act [data-inspect]')!.click()
+    await nextTick()
+    expect($('[data-inspect-card]')).toBeNull()
   })
 
   it('equips a find above the hero\'s level at once (#98)', async () => {
     p.profile.level = 1
     await showResults(['ironBroadsword'])
-    const btn = $<HTMLButtonElement>('.loot__act button')!
+    const btn = $<HTMLButtonElement>('.loot__act button:not([data-inspect])')!
     expect(btn.disabled).toBe(false)
     btn.click()
     await nextTick()

@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ref, computed, onMounted, onUnmounted } from 'vue'
+import { ref, computed, nextTick, onMounted, onUnmounted, watch } from 'vue'
 import GameIcon from '@/components/icons/GameIcon.vue'
 import { sfx } from '@/game/audio/sfx'
 
@@ -35,10 +35,40 @@ const selectedLabel = computed(() => {
 })
 const selectedLang = computed(() => props.options.find(opt => opt.value === props.modelValue)?.lang)
 
+const menuRef = ref<HTMLElement | null>(null)
+/** The list is drawn on the body, over everything (a modal's scrolling content would cut it off): fixed under the
+ *  trigger, or above it when the room below is short, and no taller than the room it has. */
+const menuStyle = ref<Record<string, string>>({})
+const place = (): void => {
+  const t = dropdownRef.value?.querySelector<HTMLElement>('.f-select__trigger')
+  if (!t) return
+  const r = t.getBoundingClientRect()
+  const gap = 10
+  const below = window.innerHeight - r.bottom - gap - 8
+  const above = r.top - gap - 8
+  const want = Math.min(parseFloat(props.maxHeight) || 200, 360)
+  const up = below < Math.min(want, 150) && above > below
+  const room = Math.max(96, up ? above : below)
+  menuStyle.value = {
+    left: `${r.left}px`,
+    width: `${r.width}px`,
+    ...(up ? { bottom: `${window.innerHeight - r.top + gap}px` } : { top: `${r.bottom + gap}px` }),
+    '--room': `${Math.min(room, want)}px`
+  }
+}
 const toggle = () => {
   sfx('uiClick')
   isOpen.value = !isOpen.value
 }
+watch(isOpen, (v) => {
+  window.removeEventListener('resize', place)
+  window.removeEventListener('scroll', place, true)
+  if (!v) return
+  place()
+  void nextTick(place)
+  window.addEventListener('resize', place)
+  window.addEventListener('scroll', place, true)
+})
 
 const selectOption = (value: string | number) => {
   sfx('uiClick')
@@ -48,7 +78,8 @@ const selectOption = (value: string | number) => {
 
 // Close when clicking outside
 const handleClickOutside = (event: MouseEvent) => {
-  if (dropdownRef.value && !dropdownRef.value.contains(event.target as Node)) {
+  const n = event.target as Node
+  if (dropdownRef.value && !dropdownRef.value.contains(n) && !menuRef.value?.contains(n)) {
     isOpen.value = false
   }
 }
@@ -57,7 +88,11 @@ const onKey = (e: KeyboardEvent) => {
 }
 
 onMounted(() => document.addEventListener('click', handleClickOutside))
-onUnmounted(() => document.removeEventListener('click', handleClickOutside))
+onUnmounted(() => {
+  document.removeEventListener('click', handleClickOutside)
+  window.removeEventListener('resize', place)
+  window.removeEventListener('scroll', place, true)
+})
 </script>
 
 <template lang="pug">
@@ -80,9 +115,10 @@ onUnmounted(() => document.removeEventListener('click', handleClickOutside))
           GameIcon.f-select__caret(name="down")
 
     //- The list: a parchment sheet under the trigger.
-    transition(name="pop")
-      div.f-select__menu(v-if="isOpen")
-        div.custom-scrollbar(role="listbox" :style="{ maxHeight: maxHeight }")
+    Teleport(to="body")
+     transition(name="pop")
+      div.f-select__menu(v-if="isOpen" ref="menuRef" :style="menuStyle" @keydown="onKey")
+        div.custom-scrollbar(role="listbox" :style="{ maxHeight: 'var(--room, ' + maxHeight + ')' }")
           button.f-select__row(
             v-for="option in options"
             :key="option.value"
@@ -188,11 +224,8 @@ onUnmounted(() => document.removeEventListener('click', handleClickOutside))
   transform: rotate(180deg)
 
 .f-select__menu
-  position: absolute
-  z-index: var(--bc-z-dropdown)
-  left: 0
-  right: 0
-  margin-top: 0.6rem
+  position: fixed
+  z-index: calc(var(--bc-z-veil) + 5)
   border: var(--bc-ol) solid var(--bc-ink)
   border-radius: var(--bc-r-lg)
   background: var(--bc-paper-hi)

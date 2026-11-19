@@ -693,6 +693,32 @@ export default {
     dodge: 'Izmak',
     hpRegen: 'Zdravlje / s'
   },
+  statinfo: {
+    h: { does: 'Što radi', fights: 'U borbi', source: 'Odakle dolazi', synergy: 'Sinergije' },
+    cap: 'Iznad 300 u jednom atributu svaki sljedeći bod vrijedi upola.',
+    src: { points: 'Bodovi atributa', level: 'Razine', gear: 'Oprema', passive: 'Pasivne vještine', forge: 'Kovaštvo', blessing: 'Blagoslov frakcije', elixir: 'Eliksiri', weapon: 'Izbor oružja' },
+    str: { does: 'Snaga tvoje ruke. Mačevi, sjekire, čekići i gole šake udaraju s 6 + 1,6 × SNA, a vještine SNA rastu na isti način.', fights: 'Svaki bod daje {block}% šanse za blok (blokirani udarac nanosi samo 40%) i {plate}% tvog pločastog oklopa kao dodatni oklop.', synergy: 'Najbolje s pločastim oklopom, štitovima i IZD za tenka. Jedna zaliha bodova pokreće osnovne napade i vještine SNA.' },
+    dex: { does: 'Brzina i preciznost. Povećava šansu za kritični udarac, brzinu napada i kretanja; bodeži rastu uz SPR.', fights: 'Po bodu: +{crit}% šanse za kritični, +{as}% brzine napada, +{ms}% brzine kretanja. Bodež ili pištolj sa slobodnom drugom rukom dodaje dodatni udarac vrijedan 10% + {dual}% po bodu udarca.', synergy: 'Kritični udarci trebaju UMI za štetu. Više udaraca znači više bacanja za kritični i više krađe života, a brzina te vodi iza neprijatelja, gdje udarci nanose 25% više.' },
+    int: { does: 'Magija. Štapovi i čarobni štapići rastu uz INT, kao i vještine INT.', fights: 'Po bodu: +{mana} maks. mane, +{manaRegen} mane u sekundi i +{res}% otpornosti na elementarnu i magijsku štetu (maks. {capRes}%).', synergy: 'Mana pokreće svaku aktivnu vještinu, pa je upari s UMI za skraćenje hlađenja. Otpornost pokriva ono što oklop ne može; dodaj IZD za potpunu obranu.' },
+    end: { does: 'Koliko udaraca podneseš. Najveći izvor tvog zdravlja.', fights: 'Po bodu: +{hp} maks. zdravlja, +{hpRegen} zdravlja u sekundi, +{armor} oklopa i za {stun}% kraća omamljivanja i smrzavanja (maks. {capStun}%).', synergy: 'Oklop zaustavlja samo fizičke udarce, pa dodaj INT protiv magije. Postotni bonusi zdravlja na opremi množe ono što daje IZD.' },
+    skl: { does: 'Umijeće i finoća. Povećava kritičnu štetu i skraćenje hlađenja; vatreno oružje i topovi rastu uz UMI.', fights: 'Po bodu: +{cd}% kritične štete (maks. {capCritDmg}%) i {cdr}% skraćenja hlađenja (maks. {capCdr}%).', synergy: 'Kritična šteta treba šansu za kritični iz SPR. Kraća hlađenja troše manu brže, pa upari s INT ili opremom za manu.' },
+    cha: { does: 'Utjecaj izvan ruke s mačem. Poslušnici udaraju jače, trgovine prodaju jeftinije, a zadaci plaćaju više.', fights: 'Po bodu: +{minion}% štete poslušnika, {disc}% popusta u trgovinama (maks. {capDisc}%), +{reward}% nagrade za zadatke i više opcija razgovora.', synergy: 'Buildovi prizivatelja i ljubimaca štetu vuku iz KAR. Zlato ušteđeno u trgovinama plaća kovanje i vještine.' },
+    damage: { does: 'Jedan osnovni napad prije kritičnih i oklopa: 6 + 1,6 × atribut tvog oružja, skaliran razinom i opremom.', fights: 'Vještine primjenjuju vlastiti postotak na istu snagu. Oklop ili otpornost je zatim reže; kritični i udarci s leđa (+25%) je podižu.', synergy: 'Uskladi oružje i atribut: SNA za mačeve, sjekire i čekiće, SPR za bodeže, INT za štapove i štapiće, UMI za vatreno oružje i topove.' },
+    health: { does: 'Koliko podneseš prije pada: {hpBase} + {hpLevel} po razini + {hp} po bodu IZD, plus oprema.', fights: 'Oklop i otpornost smanjuju svaki udarac; zdravlje odlučuje koliko udaraca preživiš. Na 0 padaš.', synergy: 'Regeneracija i krađa života vrijede više uz veliku zalihu, a oklop svaki bod zdravlja čini trajnijim.' },
+    mana: { does: 'Plaća aktivne vještine: 30 + {manaLevel} po razini + {mana} po bodu INT, plus oprema.', fights: 'Bez mane rade samo osnovni napadi. Puni se sama, brže s razinom i INT.', synergy: 'Skraćenje hlađenja tjera te da je trošiš brže; popusti na manu i regeneracija iz INT drže korak.' },
+    armor: { does: 'Smanjuje fizičku štetu za oklop ÷ (oklop + 60 + 12 × razina napadača).', fights: 'Neprijatelji više razine lakše probijaju oklop. Nikad ne smanjuje magijsku ni elementarnu štetu, a efekti koji razaraju oklop ga snižavaju.', synergy: 'SNA čini ploče vrjednijima, IZD dodaje fiksni oklop, a postotni bonusi oklopa množe ukupno.' },
+    resist: { does: 'Smanjuje nefizičku štetu (vatra, mraz, sveto, magija) za ovaj postotak.', fights: 'Čarolije i elementarne eksplozije zanemaruju oklop; smanjuju ih samo otpornost i smanjenje štete. Nikad ne pomaže protiv udaraca oružjem.', synergy: 'Upari s oklopom za potpunu zaštitu. Povećava je samo INT: {res}% po bodu (maks. {capRes}%).' },
+    crit: { does: 'Šansa da napad ili vještina bude kritična i nanese tvoju kritičnu štetu: 5% + {crit}% po bodu SPR (maks. {capCrit}%).', fights: 'Šteta tijekom vremena ne može biti kritična. Udarac nakon dimne bombe uvijek je kritičan.', synergy: 'Najviše vrijedi uz visoku kritičnu štetu (UMI) i brze napade (SPR); dio opreme daje šansu za kritični samo čarolijama.' },
+    critDamage: { does: 'Koliko nanosi kritični: 150% + {cd}% po bodu UMI (maks. {capCritDmg}%).', fights: 'Množi cijeli udarac, prije nego oklop i otpornost uzmu svoj dio.', synergy: 'Beskorisna bez šanse za kritični (SPR): to dvoje se množi.' },
+    attackSpeed: { does: 'Koliko brzo napadaš: 100% + {as}% po bodu SPR (maks. {capAs}%), povrh vlastitog tempa oružja.', fights: 'Više udaraca znači više štete, više bacanja za kritični i više učinaka pri pogotku, poput krađe života. Teško oružje zamahuje sporije.', synergy: 'Bodeži i pištolji dobivaju najviše; šansa za kritični množi dodatne udarce.' },
+    moveSpeed: { does: 'Koliko brzo trčiš: 4,3 × (1 + {ms}% po bodu SPR), do ×{capMs}.', fights: 'Izbjegavaj najavljene napade, drži neprijatelje iz blizine na udaljenosti, dođi neprijatelju iza leđa (+25% štete) i bježi. Usporavanja i omamljivanja je smanjuju.', synergy: 'Odlično uz oružje za daljinu i bodeže; oprema za brzinu i eliksiri zbrajaju se uz SPR.' },
+    cdr: { does: 'Skraćuje hlađenje svake vještine za ovaj postotak: {cdr}% po bodu UMI (maks. {capCdr}%).', fights: 'Više bacanja po borbi i brže kombinacije. Ne čini vještine jeftinijima: mana ih i dalje mora platiti.', synergy: 'Upari s INT za manu. Najviše dobivaju snažne vještine s dugim hlađenjem.' },
+    block: { does: 'Šansa da blokiraš fizički udarac oružjem: {block}% po bodu SNA plus oprema (maks. {capBlock}%).', fights: 'Blok smanjuje taj udarac na 40% štete, a oklop se i dalje primjenjuje poslije. Vještine, šteta tijekom vremena i magija ne mogu se blokirati, a ni omamljen ne možeš blokirati.', synergy: 'Štitovi i SNA; neka oprema pri bloku vraća štetu. Zbraja se s izbjegavanjem i oklopom.' },
+    dodge: { does: 'Šansa da potpuno izbjegneš udarac oružjem. Nijedan atribut je ne povećava: samo oprema i pasivne vještine (maks. {capDodge}%).', fights: 'Izbjegavanje ne nanosi nikakvu štetu, a neka oprema nakon njega daje brzinu. Omamljen ili smrznut ne možeš izbjeći.', synergy: 'Baca se prije bloka, pa se zbrajaju; oklop pokriva ono što prođe.' },
+    hpRegen: { does: 'Zdravlje obnovljeno svake sekunde: {hpRegen} po bodu IZD, plus oprema.', fights: 'Spor mlaz: važan je u dugim borbama i kad si ozlijeđen, a još nisi izliječen.', synergy: 'Napici i krađa života liječe u naletima; regeneracija je stalno dno ispod njih.' },
+  },
+  quickSell: { title: 'Brza prodaja', lead: 'Pražnjenje torbe komad po komad? Prodaj odmah:', click: 'Klik', shift: 'Prodaj komad odmah, bez dodatnih koraka.', toggle: 'Uključi iznad torbe i svaki dodir na komad prodaje ga.', undo: 'Prodao si previše? Otkupi iz reda otkupa dok ne napustiš trgovinu. Nošena oprema nikad se ne prodaje.', space: 'Pritisni razmaknicu za zatvaranje', hint: 'Shift + klik na komad prodaje ga odmah' },
+  arenaStart: { title: 'Gdje počinješ?', lead: 'Tvoj najbolji rezultat u koloseju je val {best}. Početi dalje ili od početka?', why: 'Predloženi val proizlazi iz tvog najboljeg vala, atributa, vještina visoke razine i pasivnih vještina.', from: 'Počni od vala {n}', fromOne: 'Od vala 1' },
   sheet: {
     points: 'Bodovi za raspodjelu: {n}',
     raise: 'Povećaj: {attr}',
@@ -717,6 +743,7 @@ export default {
     how: 'Dodirni vještinu, zatim mjesto, ili je povuci tamo. Povuci je s mjesta da je ukloniš.',
     howSlot: 'Sad dodirni mjesto na koje je želiš staviti.',
     classCount: '{cls}: naučeno {n} od {total}',
+    filter: { button: 'Filtar', title: 'Rezultati filtra', found: 'Podudaranja: {n}', none: 'Nijedna vještina ne odgovara filtru.', clear: 'Očisti', type: 'Vrsta', scales: 'Raste s' },
     hint: {
       find: 'Pronađi učitelja',
       met: 'Poučit će te {name}, {place}.',
@@ -3326,6 +3353,7 @@ export default {
     timekeepersHourglass: {
       name: 'Pješčani sat Čuvara vremena'
     },
+    oraclesHourglass: { name: 'Pješčani sat proročice' },
     ringOfTheVampyre: {
       name: 'Vampirov prsten'
     },
@@ -7811,6 +7839,7 @@ export default {
     unlocked: 'Novo na karti: {places}',
     equipped: 'Opremljeno',
     better: 'Bolje od onoga što nosiš',
+    inspect: 'Pregledaj',
     retry: 'Pokušaj ponovno',
     tip: 'Iskustvo i plijen ostaju tebi. Potroši bodove, posjeti učitelja i vrati se s više snage.'
   },
@@ -7932,6 +7961,7 @@ export default {
       medium: 'Srednje',
       hard: 'Teško'
     },
+    difficultyCoins: 'Novčići {pct}',
     difficultyHints: {
       easy: 'Neprijatelji udaraju slabije i brže padaju.',
       medium: 'Izazov kakav je zamišljen.',

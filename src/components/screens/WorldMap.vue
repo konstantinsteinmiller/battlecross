@@ -103,7 +103,7 @@
                   | {{ t(`node.${n.id}.name`) }}
                   //- The zone's levels in the badge's corner, coloured against the hero's (#72).
                   span.node__lvl(v-if="n.zone" :class="`is-${n.tier}`" data-lvl)
-                    | {{ t('map.levels', { min: n.zone.min, max: n.zone.max }) }}
+                    | {{ t('map.levels', { min: n.band!.min, max: n.band!.max }) }}
                     GameIcon.node__lvl-skull(v-if="n.tier === 'deadly'" name="skull")
               //- What was met instead of a fight: a chest at his feet, a merchant beside him.
               div.wmap__find(v-if="find" aria-hidden="true" :class="[`wmap__find--${find.kind}`, { 'is-open': find.open }]" :style="{ '--hx': find.x, '--hy': find.y }")
@@ -151,7 +151,7 @@
             GameIcon(name="close")
           div.card__head
             h2.card__name {{ t(`node.${sel.id}.name`) }}
-            span.card__meta(v-if="sel.zone") {{ t('map.levels', { min: sel.zone.min, max: sel.zone.max }) }}
+            span.card__meta(v-if="sel.zone && sel.band") {{ t('map.levels', { min: sel.band.min, max: sel.band.max }) }}
             span.card__meta.card__meta--invaded(v-if="sel.invaded") {{ t('map.invaded') }}
             span.card__meta(v-else-if="sel.kind === 'arena'") {{ t('map.arenaBest', { n: profile.world.arenaBest }) }}
             //- The ladder's week (#10): its modifier and this week's best.
@@ -209,7 +209,7 @@
 import { computed, nextTick, onBeforeUnmount, onMounted, reactive, ref, watch } from 'vue'
 import { useI18n } from 'vue-i18n'
 import { MAP, NODE_BY_ID, dangerOf, levelTier, nodeOpen, nodeReachable, type LevelTier, type NodeId, type ZoneDef } from '@/game/data/zones'
-import { INVASION, invadedBefore, invadedFlag, invasionLetsIn, zoneOf } from '@/game/data/invasion'
+import { INVASION, invadedBefore, invadedFlag, invasionLetsIn, recommendedBand, zoneOf } from '@/game/data/invasion'
 import { overrunFlag } from '@/game/data/breaking'
 import { HYDRA_KEY_FLAG, ORACLE_LENS_FLAG } from '@/game/data/relics'
 import { AFTER_BOSS_DROPS, itemsOfZone, type ZoneId } from '@/game/data/items'
@@ -363,6 +363,8 @@ interface NodeView {
   demoLocked: boolean
   /** The zone's levels against the hero's (the badge's colour). */
   tier: LevelTier | ''
+  /** The levels shown for the zone (the second arc's are five lower, #228). */
+  band?: { min: number; max: number }
   /** A major decision still waits at the end of this zone. */
   decision: boolean
   /** A hidden trainer is found here. */
@@ -413,10 +415,11 @@ const nodes = computed<NodeView[]>(() => MAP.map((n) => {
     open,
     cleared: done,
     here: hereNode.value === n.id,
-    danger: zone ? dangerOf(zone, profile.level) : 0,
+    danger: zone ? dangerOf({ ...zone, ...recommendedBand(zone) }, profile.level) : 0,
     enterable: isReachable(n.id) && isSeen(n.id) && letIn,
     demoLocked: isNodeLockedByDemo(n.id),
-    tier: zone ? levelTier(zone, profile.level) : '',
+    tier: zone ? levelTier({ ...zone, ...recommendedBand(zone) }, profile.level) : '',
+    band: zone ? recommendedBand(zone) : undefined,
     decision: open && !!n.quest && !!QUEST_BY_ID[n.quest] && !profile.quests.done[n.quest],
     trainer: !!hiddenTrainer(n.id),
     isNew: open && !done && !state && !(profile.world.visits[n.id] ?? 0) && (n.kind !== 'arena' || profile.world.arenaBest === 0),

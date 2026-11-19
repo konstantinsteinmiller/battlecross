@@ -690,6 +690,32 @@ export default {
     dodge: 'Išsisukimas',
     hpRegen: 'Gyvybė / s'
   },
+  statinfo: {
+    h: { does: 'Ką daro', fights: 'Kovoje', source: 'Iš kur gaunama', synergy: 'Sinergijos' },
+    cap: 'Virš 300 vienoje savybėje kiekvienas papildomas taškas skaičiuojamas per pusę.',
+    src: { points: 'Savybių taškai', level: 'Lygiai', gear: 'Ekipiruotė', passive: 'Pasyvūs įgūdžiai', forge: 'Kalvystė', blessing: 'Frakcijos palaiminimas', elixir: 'Eliksyrai', weapon: 'Ginklo pasirinkimas' },
+    str: { does: 'Tavo rankos jėga. Kardai, kirviai, plaktukai ir plikos kumštys smogia už 6 + 1,6 × JĖG, o JĖG įgūdžiai auga taip pat.', fights: 'Kiekvienas taškas duoda {block}% blokavimo šansą (užblokuotas smūgis padaro tik 40%) ir {plate}% tavo plokštelių šarvų kaip papildomus šarvus.', synergy: 'Geriausia su plokštelių šarvais, skydais ir IŠT tankui. Vienas taškų telkinys maitina ir bazines atakas, ir JĖG įgūdžius.' },
+    dex: { does: 'Greitis ir tikslumas. Didina kritinio smūgio šansą, atakos ir judėjimo greitį; durklai auga su VIK.', fights: 'Už tašką: +{crit}% kritinio šansas, +{as}% atakos greitis, +{ms}% judėjimo greitis. Durklas ar pistoletas su laisva antra ranka prideda tęstinį smūgį, vertą 10% + {dual}% už tašką smūgio.', synergy: 'Kritams reikia MEI jų žalai. Daugiau smūgių reiškia daugiau kritų metimų ir daugiau gyvybės vagystės, o greitis nuveda tave už priešų nugarų, kur smūgiai padaro 25% daugiau.' },
+    int: { does: 'Magija. Lazdos ir burtų lazdelės auga su INT, kaip ir INT įgūdžiai.', fights: 'Už tašką: +{mana} maks. manos, +{manaRegen} manos per sekundę ir +{res}% atsparumo elementų ir magijos žalai (maks. {capRes}%).', synergy: 'Mana maitina kiekvieną aktyvų įgūdį, tad derink ją su MEI atsigavimo sutrumpinimui. Atsparumas dengia tai, ko šarvai nesustabdo; pridėk IŠT visai gynybai.' },
+    end: { does: 'Kiek bausmės ištveri. Didžiausias tavo sveikatos šaltinis.', fights: 'Už tašką: +{hp} maks. sveikatos, +{hpRegen} sveikatos per sekundę, +{armor} šarvų ir {stun}% trumpesni apsvaiginimai bei užšaldymai (maks. {capStun}%).', synergy: 'Šarvai sustabdo tik fizinius smūgius, tad pridėk INT prieš magiją. Procentiniai sveikatos priedai ekipiruotėje padaugina tai, ką duoda IŠT.' },
+    skl: { does: 'Meistriškumas ir subtilumas. Didina kritinę žalą ir atsigavimo sutrumpinimą; šaunamieji ginklai ir patrankos auga su MEI.', fights: 'Už tašką: +{cd}% kritinės žalos (maks. {capCritDmg}%) ir {cdr}% atsigavimo sutrumpinimo (maks. {capCdr}%).', synergy: 'Kritinei žalai reikia kritinio šanso iš VIK. Trumpesni atsigavimai greičiau eikvoja manos, tad derink su INT ar manos ekipiruote.' },
+    cha: { does: 'Įtaka už kardo rankos ribų. Pakalikai smogia stipriau, parduotuvės parduoda pigiau, o užduotys moka daugiau.', fights: 'Už tašką: +{minion}% pakalikų žalos, {disc}% nuolaida parduotuvėse (maks. {capDisc}%), +{reward}% užduočių atlygio ir daugiau pokalbio pasirinkimų.', synergy: 'Šaukėjų ir augintinių variantai žalą ima iš CHA. Parduotuvėse sutaupytas auksas apmoka kalimą ir įgūdžius.' },
+    damage: { does: 'Viena bazinė ataka prieš kritus ir šarvus: 6 + 1,6 × tavo ginklo savybė, padauginta lygio ir ekipiruotės.', fights: 'Įgūdžiai taiko savo procentą tai pačiai jėgai. Šarvai ar atsparumas ją paskui apkarpo; kritai ir smūgiai iš nugaros (+25%) ją padidina.', synergy: 'Suderink ginklą ir savybę: JĖG kardams, kirviams ir plaktukams, VIK durklams, INT lazdoms ir lazdelėms, MEI šaunamiesiems ginklams ir patrankoms.' },
+    health: { does: 'Kiek ištveri, kol kritai: {hpBase} + {hpLevel} už lygį + {hp} už IŠT tašką, plius ekipiruotė.', fights: 'Šarvai ir atsparumas sumažina kiekvieną smūgį; sveikata nulemia, kiek smūgių išgyveni. Ties 0 kriti.', synergy: 'Regeneracija ir gyvybės vagystė verta daugiau esant dideliam telkiniui, o šarvai priverčia kiekvieną sveikatos tašką ilgiau tarnauti.' },
+    mana: { does: 'Apmoka aktyvius įgūdžius: 30 + {manaLevel} už lygį + {mana} už INT tašką, plius ekipiruotė.', fights: 'Be manos veikia tik bazinės atakos. Ji atsistato pati, greičiau su lygiu ir INT.', synergy: 'Atsigavimo sutrumpinimas priverčia ją eikvoti greičiau; manos nuolaidos ir INT regeneracija neatsilieka.' },
+    armor: { does: 'Sumažina fizinę žalą šarvais ÷ (šarvai + 60 + 12 × užpuoliko lygis).', fights: 'Aukštesnio lygio priešai šarvus pramuša lengviau. Jie niekada nemažina magijos ar elementų žalos, o šarvus ardantys efektai juos sumažina.', synergy: 'JĖG daro plokštes vertingesnes, IŠT prideda pastovius šarvus, o procentiniai šarvų priedai padaugina sumą.' },
+    resist: { does: 'Sumažina nefizinę žalą (ugnį, šalną, šventą, magiją) šiuo procentu.', fights: 'Burtai ir elementų sprogimai ignoruoja šarvus; juos sumažina tik atsparumas ir žalos mažinimas. Prieš ginklų smūgius jis niekada nepadeda.', synergy: 'Derink su šarvais visai apsaugai. Jį didina tik INT: {res}% už tašką (maks. {capRes}%).' },
+    crit: { does: 'Tikimybė, kad ataka ar įgūdis bus kritinis ir padarys tavo kritinę žalą: 5% + {crit}% už VIK tašką (maks. {capCrit}%).', fights: 'Žala laikui bėgant negali būti kritinė. Smūgis po dūmų bombos visada kritinis.', synergy: 'Vertingiausias su didele kritine žala (MEI) ir greitomis atakomis (VIK); dalis ekipiruotės duoda kritinio šansą tik burtams.' },
+    critDamage: { does: 'Kiek padaro kritas: 150% + {cd}% už MEI tašką (maks. {capCritDmg}%).', fights: 'Jis padaugina visą smūgį, kol šarvai ir atsparumas dar neatsiėmė savo dalies.', synergy: 'Nenaudingas be kritinio šanso (VIK): abu dauginasi.' },
+    attackSpeed: { does: 'Kaip greitai atakuoji: 100% + {as}% už VIK tašką (maks. {capAs}%), be paties ginklo tempo.', fights: 'Daugiau smūgių reiškia daugiau žalos, daugiau kritų metimų ir daugiau smūgio efektų, pavyzdžiui, gyvybės vagystės. Sunkūs ginklai suvingiuoja lėčiau.', synergy: 'Durklai ir pistoletai laimi daugiausia; kritinio šansas padaugina papildomus smūgius.' },
+    moveSpeed: { does: 'Kaip greitai bėgi: 4,3 × (1 + {ms}% už VIK tašką), iki ×{capMs}.', fights: 'Išvenk paskelbtų atakų, laikyk artimosios kovos priešus atstumu, pasiek priešo nugarą (+25% žalos) ir pabėk. Sulėtinimai ir apsvaiginimai jį sumažina.', synergy: 'Puikiai tinka su tolimais ginklais ir durklais; greičio ekipiruotė ir eliksyrai sumuojasi su VIK.' },
+    cdr: { does: 'Sutrumpina kiekvieno įgūdžio atsigavimą šiuo procentu: {cdr}% už MEI tašką (maks. {capCdr}%).', fights: 'Daugiau panaudojimų per kovą ir greitesni kombinacijos. Įgūdžiai nepabrangsta: mana vis tiek turi už juos mokėti.', synergy: 'Derink su INT manai. Daugiausia laimi stiprūs įgūdžiai su ilgu atsigavimu.' },
+    block: { does: 'Tikimybė užblokuoti fizinį ginklo smūgį: {block}% už JĖG tašką plius ekipiruotė (maks. {capBlock}%).', fights: 'Blokas sumažina tą smūgį iki 40% žalos, o šarvai dar veikia po to. Įgūdžių, žalos laikui bėgant ir magijos užblokuoti negalima, o apsvaigęs blokuoti taip pat negali.', synergy: 'Skydai ir JĖG; dalis ekipiruotės blokuojant grąžina žalą. Sumuojasi su išvengimu ir šarvais.' },
+    dodge: { does: 'Tikimybė visiškai išvengti ginklo smūgio. Jokia savybė jos nedidina: tik ekipiruotė ir pasyvūs (maks. {capDodge}%).', fights: 'Išvengimas nepadaro jokios žalos, o dalis ekipiruotės po jo suteikia pagreitį. Apsvaigęs ar sušalęs išvengti negali.', synergy: 'Jis metamas prieš bloką, tad jie sumuojasi; šarvai dengia tai, kas prasiskverbia.' },
+    hpRegen: { does: 'Kiekvieną sekundę atkuriama sveikata: {hpRegen} už IŠT tašką, plius ekipiruotė.', fights: 'Lėta srovelė: svarbi ilgose kovose ir kai esi sužeistas ir dar neišgydytas.', synergy: 'Eliksyrai ir gyvybės vagystė gydo srautais; regeneracija yra tolygus pagrindas po jais.' },
+  },
+  quickSell: { title: 'Greitas pardavimas', lead: 'Valai kuprinę po vieną daiktą? Parduok vietoje:', click: 'Spustelėk', shift: 'Parduok daiktą iškart, be papildomų žingsnių.', toggle: 'Įjunk virš kuprinės, ir kiekvienas daikto palietimas jį parduos.', undo: 'Pardavei per daug? Nupirk atgal iš išpirkimo eilės, kol išeisi iš parduotuvės. Dėvima ekipiruotė niekada neparduodama.', space: 'Paspausk tarpą, kad uždarytum', hint: 'Shift + spustelėjimas ant daikto parduoda jį iškart' },
+  arenaStart: { title: 'Nuo ko pradėsi?', lead: 'Tavo geriausias rezultatas koliziejuje yra banga {best}. Pradėti aukščiau ar nuo pradžių?', why: 'Siūloma banga gaunama iš geriausios bangos, savybių, aukšto lygio įgūdžių ir pasyvių.', from: 'Pradėti nuo bangos {n}', fromOne: 'Nuo bangos 1' },
   sheet: {
     points: 'Taškų paskirstyti: {n}',
     raise: 'Didinti: {attr}',
@@ -714,6 +740,7 @@ export default {
     how: 'Palieski gebėjimą, tada vietą, arba nutempk jį ten. Nutempk nuo vietos, kad išimtum.',
     howSlot: 'Dabar palieski vietą, kad jį įdėtum.',
     classCount: '{cls}: išmokta {n} iš {total}',
+    filter: { button: 'Filtras', title: 'Filtro rezultatai', found: 'Atitikmenų: {n}', none: 'Nė vienas įgūdis neatitinka filtro.', clear: 'Išvalyti', type: 'Tipas', scales: 'Auga nuo' },
     hint: {
       find: 'Rasti mokytoją',
       met: 'Išmok jį pas {name}, vietovėje {place}.',
@@ -3323,6 +3350,7 @@ export default {
     timekeepersHourglass: {
       name: 'Laiko sergėtojo smėlio laikrodis'
     },
+    oraclesHourglass: { name: 'Orakulo smėlio laikrodis' },
     ringOfTheVampyre: {
       name: 'Vampyro žiedas'
     },
@@ -7758,6 +7786,7 @@ export default {
     unlocked: 'Nauja žemėlapyje: {places}',
     equipped: 'Naudojama',
     better: 'Geriau už tai, ką dėvi',
+    inspect: 'Apžiūrėti',
     retry: 'Bandyti dar kartą',
     tip: 'Patirtis ir grobis lieka tau. Paskirstyk taškus, aplankyk mokytoją ir grįžk su daugiau jėgų.'
   },
@@ -7879,6 +7908,7 @@ export default {
       medium: 'Vidutinis',
       hard: 'Sunkus'
     },
+    difficultyCoins: 'Monetos {pct}',
     difficultyHints: {
       easy: 'Priešai smogia silpniau ir greičiau krenta.',
       medium: 'Numatytas iššūkis.',

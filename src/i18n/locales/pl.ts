@@ -691,6 +691,32 @@ export default {
     dodge: 'Unik',
     hpRegen: 'Zdrowie / s'
   },
+  statinfo: {
+    h: { does: 'Co robi', fights: 'W walce', source: 'Skąd pochodzi', synergy: 'Synergie' },
+    cap: 'Powyżej 300 w jednej cesze każdy kolejny punkt liczy się za połowę.',
+    src: { points: 'Punkty cech', level: 'Poziomy', gear: 'Ekwipunek', passive: 'Umiejętności pasywne', forge: 'Kowalstwo', blessing: 'Błogosławieństwo frakcji', elixir: 'Eliksiry', weapon: 'Wybór broni' },
+    str: { does: 'Siła twojego ramienia. Miecze, topory, młoty i gołe pięści biją za 6 + 1,6 × SIŁ, a umiejętności SIŁ rosną tak samo.', fights: 'Każdy punkt daje {block}% szansy na blok (zablokowany cios zadaje tylko 40%) i {plate}% twojego pancerza płytowego jako dodatkowy pancerz.', synergy: 'Najlepsza z zbroją płytową, tarczami i WYT dla tanka. Jedna pula punktów napędza zarówno ataki podstawowe, jak i umiejętności SIŁ.' },
+    dex: { does: 'Szybkość i precyzja. Zwiększa szansę na trafienie krytyczne, szybkość ataku i ruchu; sztylety skalują się ze ZRĘ.', fights: 'Za punkt: +{crit}% szansy na krytyka, +{as}% szybkości ataku, +{ms}% szybkości ruchu. Sztylet lub pistolet przy wolnej drugiej ręce dodaje cios dodatkowy wart 10% + {dual}% za punkt zwykłego trafienia.', synergy: 'Krytyki potrzebują BIE dla obrażeń. Więcej ciosów to więcej rzutów na krytyka i więcej kradzieży życia, a szybkość prowadzi za plecy wrogów, gdzie trafienia zadają o 25% więcej.' },
+    int: { does: 'Magia. Laski i różdżki skalują się z INT, tak samo jak umiejętności INT.', fights: 'Za punkt: +{mana} maks. many, +{manaRegen} many na sekundę i +{res}% odporności na obrażenia żywiołów i magii (maks. {capRes}%).', synergy: 'Mana zasila każdą umiejętność aktywną, więc połącz ją z BIE dla skrócenia odnowienia. Odporność pokrywa to, czego pancerz nie zatrzyma; dodaj WYT dla pełnej obrony.' },
+    end: { does: 'Ile lania wytrzymasz. To największe źródło twojego zdrowia.', fights: 'Za punkt: +{hp} maks. zdrowia, +{hpRegen} zdrowia na sekundę, +{armor} pancerza i o {stun}% krótsze ogłuszenia i zamrożenia (maks. {capStun}%).', synergy: 'Pancerz zatrzymuje tylko ciosy fizyczne, więc dodaj INT przeciw magii. Procentowe premie do zdrowia na ekwipunku mnożą to, co daje WYT.' },
+    skl: { does: 'Kunszt i finezja. Zwiększa obrażenia krytyczne i redukcję odnowienia; broń palna i działa skalują się z BIE.', fights: 'Za punkt: +{cd}% obrażeń krytycznych (maks. {capCritDmg}%) i {cdr}% redukcji odnowienia (maks. {capCdr}%).', synergy: 'Obrażenia krytyczne potrzebują szansy na krytyka ze ZRĘ. Krótsze odnowienia zużywają manę szybciej, więc połącz z INT lub ekwipunkiem many.' },
+    cha: { does: 'Wpływ poza ramieniem z mieczem. Poplecznicy biją mocniej, sklepy sprzedają taniej, a zadania płacą więcej.', fights: 'Za punkt: +{minion}% obrażeń popleczników, {disc}% zniżki w sklepach (maks. {capDisc}%), +{reward}% nagród za zadania i więcej opcji dialogowych.', synergy: 'Buildy przywoływaczy i towarzyszy biorą obrażenia z CHA. Złoto zaoszczędzone w sklepach płaci za kucie i umiejętności.' },
+    damage: { does: 'Jeden podstawowy atak przed krytykami i pancerzem: 6 + 1,6 × cecha twojej broni, skalowane poziomem i ekwipunkiem.', fights: 'Umiejętności nakładają własny procent na tę samą siłę. Pancerz lub odporność ją potem tnie; krytyki i ciosy w plecy (+25%) ją podnoszą.', synergy: 'Dobierz broń i cechę: SIŁ do mieczy, toporów i młotów, ZRĘ do sztyletów, INT do lasek i różdżek, BIE do broni palnej i dział.' },
+    health: { does: 'Ile wytrzymasz, zanim upadniesz: {hpBase} + {hpLevel} za poziom + {hp} za punkt WYT, plus ekwipunek.', fights: 'Pancerz i odporność zmniejszają każde trafienie; zdrowie decyduje, ile trafień przeżyjesz. Przy 0 upadasz.', synergy: 'Regeneracja i kradzież życia są warte więcej przy dużej puli, a pancerz sprawia, że każdy punkt zdrowia starcza na dłużej.' },
+    mana: { does: 'Płaci za umiejętności aktywne: 30 + {manaLevel} za poziom + {mana} za punkt INT, plus ekwipunek.', fights: 'Bez many działają tylko ataki podstawowe. Odnawia się sama, szybciej z poziomem i INT.', synergy: 'Redukcja odnowienia sprawia, że zużywasz ją szybciej; zniżki many i regeneracja z INT dotrzymują kroku.' },
+    armor: { does: 'Zmniejsza obrażenia fizyczne o pancerz ÷ (pancerz + 60 + 12 × poziom atakującego).', fights: 'Wrogowie wyższego poziomu łatwiej przebijają pancerz. Nigdy nie zmniejsza obrażeń magicznych ani żywiołów, a efekty niszczące pancerz go obniżają.', synergy: 'SIŁ czyni płyty cenniejszymi, WYT daje stały pancerz, a procentowe premie do pancerza mnożą sumę.' },
+    resist: { does: 'Zmniejsza obrażenia niefizyczne (ogień, mróz, światło, magia) o ten procent.', fights: 'Czary i wybuchy żywiołów ignorują pancerz; tną je tylko odporność i redukcja obrażeń. Nigdy nie pomaga przeciw ciosom broni.', synergy: 'Połącz z pancerzem dla pełnej ochrony. Podnosi ją tylko INT: {res}% za punkt (maks. {capRes}%).' },
+    crit: { does: 'Szansa, że atak lub umiejętność będzie krytyczna i zada twoje obrażenia krytyczne: 5% + {crit}% za punkt ZRĘ (maks. {capCrit}%).', fights: 'Obrażenia w czasie nie mogą być krytyczne. Cios po bombie dymnej zawsze jest krytyczny.', synergy: 'Najwięcej warte przy wysokich obrażeniach krytycznych (BIE) i szybkich atakach (ZRĘ); część ekwipunku daje szansę na krytyka tylko czarom.' },
+    critDamage: { does: 'Ile zadaje krytyk: 150% + {cd}% za punkt BIE (maks. {capCritDmg}%).', fights: 'Mnoży cały cios, zanim pancerz i odporność zabiorą swoją część.', synergy: 'Bezużyteczne bez szansy na krytyka (ZRĘ): oba mnożą się przez siebie.' },
+    attackSpeed: { does: 'Jak szybko atakujesz: 100% + {as}% za punkt ZRĘ (maks. {capAs}%), ponad własne tempo broni.', fights: 'Więcej ciosów to więcej obrażeń, więcej rzutów na krytyka i więcej efektów przy trafieniu, jak kradzież życia. Ciężka broń zamachuje się wolniej.', synergy: 'Sztylety i pistolety zyskują najwięcej; szansa na krytyka mnoży dodatkowe ciosy.' },
+    moveSpeed: { does: 'Jak szybko biegasz: 4,3 × (1 + {ms}% za punkt ZRĘ), do ×{capMs}.', fights: 'Unikaj zapowiedzianych ataków, utrzymuj wrogów walczących wręcz na dystans, zajdź wrogowi za plecy (+25% obrażeń) i uciekaj. Spowolnienia i ogłuszenia ją obniżają.', synergy: 'Świetna z bronią dystansową i sztyletami; ekwipunek szybkości i eliksiry sumują się ze ZRĘ.' },
+    cdr: { does: 'Skraca odnowienie każdej umiejętności o ten procent: {cdr}% za punkt BIE (maks. {capCdr}%).', fights: 'Więcej rzutów na walkę i szybsze kombinacje. Nie czyni umiejętności tańszymi: mana nadal musi za nie płacić.', synergy: 'Połącz z INT dla many. Najwięcej zyskują mocne umiejętności z długim odnowieniem.' },
+    block: { does: 'Szansa na zablokowanie fizycznego ciosu bronią: {block}% za punkt SIŁ plus ekwipunek (maks. {capBlock}%).', fights: 'Blok zmniejsza ten cios do 40% obrażeń, a pancerz działa jeszcze potem. Umiejętności, obrażeń w czasie i magii nie da się zablokować, a ogłuszony też nie zablokujesz.', synergy: 'Tarcze i SIŁ; część ekwipunku odbija obrażenia przy bloku. Sumuje się z unikiem i pancerzem.' },
+    dodge: { does: 'Szansa całkowitego uniknięcia ciosu bronią. Żadna cecha jej nie podnosi: tylko ekwipunek i pasywki (maks. {capDodge}%).', fights: 'Unik nie zadaje żadnych obrażeń, a część ekwipunku daje po nim przyspieszenie. Ogłuszony ani zamrożony nie unikniesz.', synergy: 'Rzucany jest przed blokiem, więc oba się sumują; pancerz pokrywa to, co przejdzie.' },
+    hpRegen: { does: 'Zdrowie odnawiane co sekundę: {hpRegen} za punkt WYT, plus ekwipunek.', fights: 'Powolny strumyczek: liczy się w długich walkach i gdy jesteś ranny i jeszcze niewyleczony.', synergy: 'Mikstury i kradzież życia leczą skokowo; regeneracja to stała podłoga pod nimi.' },
+  },
+  quickSell: { title: 'Szybka sprzedaż', lead: 'Opróżniasz plecak po jednej rzeczy? Sprzedawaj od razu:', click: 'Klik', shift: 'Sprzedaj przedmiot natychmiast, bez dodatkowych kroków.', toggle: 'Włącz przełącznik nad plecakiem, a każde dotknięcie przedmiotu go sprzeda.', undo: 'Sprzedane za dużo? Odkup z rzędu odkupu, zanim opuścisz sklep. Założony ekwipunek nigdy nie jest sprzedawany.', space: 'Naciśnij Spację, aby zamknąć', hint: 'Shift + klik na przedmiot sprzedaje go od razu' },
+  arenaStart: { title: 'Od czego zaczynasz?', lead: 'Twój rekord na arenie to fala {best}. Zacząć wyżej czy od początku?', why: 'Proponowana fala wynika z twojej najlepszej fali, cech, umiejętności wysokiego poziomu i pasywnych.', from: 'Zacznij od fali {n}', fromOne: 'Od fali 1' },
   sheet: {
     points: 'Punkty do wydania: {n}',
     raise: 'Zwiększ: {attr}',
@@ -715,6 +741,7 @@ export default {
     how: 'Dotknij umiejętności, potem miejsca, albo przeciągnij ją tam. Przeciągnij z miejsca, aby ją zdjąć.',
     howSlot: 'Teraz dotknij miejsca, aby ją umieścić.',
     classCount: '{cls}: poznano {n} z {total}',
+    filter: { button: 'Filtr', title: 'Wyniki filtra', found: 'Dopasowania: {n}', none: 'Żadna umiejętność nie pasuje do filtra.', clear: 'Wyczyść', type: 'Rodzaj', scales: 'Skaluje się z' },
     hint: {
       find: 'Znajdź nauczyciela',
       met: 'Nauczy cię {name}, {place}.',
@@ -3324,6 +3351,7 @@ export default {
     timekeepersHourglass: {
       name: 'Klepsydra Strażnika Czasu'
     },
+    oraclesHourglass: { name: 'Klepsydra Wyroczni' },
     ringOfTheVampyre: {
       name: 'Pierścień wampira'
     },
@@ -7797,6 +7825,7 @@ export default {
     unlocked: 'Nowe na mapie: {places}',
     equipped: 'Założone',
     better: 'Lepsze niż to, co nosisz',
+    inspect: 'Obejrzyj',
     retry: 'Spróbuj ponownie',
     tip: 'Doświadczenie i łupy zostają z tobą. Wydaj punkty, odwiedź trenera i wróć z większą siłą.'
   },
@@ -7918,6 +7947,7 @@ export default {
       medium: 'Średni',
       hard: 'Trudny'
     },
+    difficultyCoins: 'Monety {pct}',
     difficultyHints: {
       easy: 'Wrogowie biją słabiej i szybciej padają.',
       medium: 'Wyzwanie zgodne z zamysłem twórców.',

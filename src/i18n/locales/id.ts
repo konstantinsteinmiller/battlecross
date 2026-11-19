@@ -690,6 +690,32 @@ export default {
     dodge: 'Hindar',
     hpRegen: 'Nyawa / dtk'
   },
+  statinfo: {
+    h: { does: 'Apa fungsinya', fights: 'Dalam pertarungan', source: 'Dari mana asalnya', synergy: 'Sinergi' },
+    cap: 'Lewat 300 pada satu atribut, setiap poin tambahan dihitung setengah.',
+    src: { points: 'Poin atribut', level: 'Level', gear: 'Perlengkapan', passive: 'Keahlian pasif', forge: 'Menempa', blessing: 'Berkah faksi', elixir: 'Eliksir', weapon: 'Pilihan senjata' },
+    str: { does: 'Kekuatan lenganmu. Pedang, kapak, palu, dan tinju kosong memukul dengan 6 + 1,6 × STR, dan keahlian STR tumbuh dengan cara yang sama.', fights: 'Setiap poin memberi {block}% peluang menangkis (serangan yang ditangkis hanya memberi 40%) dan {plate}% dari zirah pelatmu sebagai zirah tambahan.', synergy: 'Terbaik dengan zirah pelat, perisai, dan END untuk tank. Satu kumpulan poin menggerakkan serangan dasar sekaligus keahlian STR.' },
+    dex: { does: 'Kecepatan dan ketepatan. Menaikkan peluang kritikal, kecepatan serang, dan kecepatan gerak; belati berskala dengan DEX.', fights: 'Per poin: +{crit}% peluang kritikal, +{as}% kecepatan serang, +{ms}% kecepatan gerak. Belati atau pistol dengan tangan lain yang kosong menambah serangan lanjutan senilai 10% + {dual}% per poin dari sebuah serangan.', synergy: 'Kritikal butuh SKL untuk kerusakannya. Lebih banyak serangan berarti lebih banyak lemparan kritikal dan pencurian nyawa, dan kecepatan membawamu ke belakang musuh, tempat serangan memberi 25% lebih banyak.' },
+    int: { does: 'Sihir. Tongkat dan tongkat sihir berskala dengan INT, begitu juga keahlian INT.', fights: 'Per poin: +{mana} mana maks, +{manaRegen} mana per detik, dan +{res}% resistansi terhadap kerusakan elemen dan sihir (maks {capRes}%).', synergy: 'Mana menggerakkan setiap keahlian aktif, jadi padukan dengan SKL untuk memangkas cooldown. Resistansi menutup yang tak bisa dihentikan zirah; tambahkan END untuk pertahanan penuh.' },
+    end: { does: 'Seberapa banyak hukuman yang kamu tahan. Sumber terbesar nyawamu.', fights: 'Per poin: +{hp} nyawa maks, +{hpRegen} nyawa per detik, +{armor} zirah, dan stun serta pembekuan {stun}% lebih singkat (maks {capStun}%).', synergy: 'Zirah hanya menghentikan serangan fisik, jadi tambahkan INT melawan sihir. Bonus nyawa persen pada perlengkapan melipatgandakan apa yang diberikan END.' },
+    skl: { does: 'Keterampilan dan kehalusan. Menaikkan kerusakan kritikal dan pengurangan cooldown; senjata api dan meriam berskala dengan SKL.', fights: 'Per poin: +{cd}% kerusakan kritikal (maks {capCritDmg}%) dan {cdr}% pengurangan cooldown (maks {capCdr}%).', synergy: 'Kerusakan kritikal butuh peluang kritikal dari DEX. Cooldown lebih singkat menghabiskan mana lebih cepat, jadi padukan dengan INT atau perlengkapan mana.' },
+    cha: { does: 'Pengaruh di luar lengan pedang. Antek memukul lebih keras, toko menjual lebih murah, dan misi membayar lebih banyak.', fights: 'Per poin: +{minion}% kerusakan antek, diskon {disc}% di toko (maks {capDisc}%), +{reward}% hadiah misi, dan lebih banyak pilihan dialog.', synergy: 'Build pemanggil dan hewan peliharaan mengambil kerusakannya dari CHA. Emas yang dihemat di toko membayar penempaan dan keahlian.' },
+    damage: { does: 'Satu serangan dasar sebelum kritikal dan zirah: 6 + 1,6 × atribut yang dipakai senjatamu, diskalakan oleh level dan perlengkapan.', fights: 'Keahlian menerapkan persentasenya sendiri pada kekuatan yang sama. Zirah atau resistansi lalu memangkasnya; kritikal dan serangan dari belakang (+25%) menaikkannya.', synergy: 'Cocokkan senjata dan atribut: STR untuk pedang, kapak, dan palu, DEX untuk belati, INT untuk tongkat dan tongkat sihir, SKL untuk senjata api dan meriam.' },
+    health: { does: 'Seberapa banyak yang kamu tahan sebelum jatuh: {hpBase} + {hpLevel} per level + {hp} per poin END, ditambah perlengkapan.', fights: 'Zirah dan resistansi mengecilkan setiap serangan; nyawa menentukan berapa banyak serangan yang kamu tahan. Di 0 kamu jatuh.', synergy: 'Regenerasi dan pencurian nyawa lebih berharga pada kumpulan besar, dan zirah membuat setiap poin nyawa bertahan lebih lama.' },
+    mana: { does: 'Membayar keahlian aktif: 30 + {manaLevel} per level + {mana} per poin INT, ditambah perlengkapan.', fights: 'Tanpa mana hanya serangan dasar yang berfungsi. Ia terisi sendiri, lebih cepat dengan level dan INT.', synergy: 'Pengurangan cooldown membuatmu menghabiskannya lebih cepat; diskon mana dan regenerasi INT mengimbangi.' },
+    armor: { does: 'Mengurangi kerusakan fisik sebesar zirah ÷ (zirah + 60 + 12 × level penyerang).', fights: 'Musuh berlevel lebih tinggi menembus zirah lebih mudah. Tidak pernah mengurangi kerusakan sihir atau elemen, dan efek perusak zirah menurunkannya.', synergy: 'STR membuat pelat lebih berharga, END menambah zirah tetap, dan bonus zirah persen melipatgandakan totalnya.' },
+    resist: { does: 'Mengurangi kerusakan non-fisik (api, es, suci, sihir) sebesar persentase ini.', fights: 'Mantra dan ledakan elemen mengabaikan zirah; hanya resistansi dan pengurangan kerusakan yang memperkecilnya. Tidak pernah membantu melawan serangan senjata.', synergy: 'Padukan dengan zirah untuk perlindungan penuh. Hanya INT yang menaikkannya: {res}% per poin (maks {capRes}%).' },
+    crit: { does: 'Peluang sebuah serangan atau keahlian menjadi kritikal dan memberi kerusakan kritikalmu: 5% + {crit}% per poin DEX (maks {capCrit}%).', fights: 'Kerusakan seiring waktu tidak bisa kritikal. Serangan setelah bom asap selalu kritikal.', synergy: 'Paling berharga dengan kerusakan kritikal tinggi (SKL) dan serangan cepat (DEX); sebagian perlengkapan memberi peluang kritikal hanya untuk mantra.' },
+    critDamage: { does: 'Seberapa besar kritikal memukul: 150% + {cd}% per poin SKL (maks {capCritDmg}%).', fights: 'Ia melipatgandakan seluruh serangan, sebelum zirah dan resistansi mengambil bagiannya.', synergy: 'Tak berguna tanpa peluang kritikal (DEX): keduanya saling dikalikan.' },
+    attackSpeed: { does: 'Seberapa cepat kamu menyerang: 100% + {as}% per poin DEX (maks {capAs}%), di atas tempo senjata itu sendiri.', fights: 'Lebih banyak serangan berarti lebih banyak kerusakan, lebih banyak lemparan kritikal, dan lebih banyak efek saat mengenai seperti pencurian nyawa. Senjata berat mengayun lebih lambat.', synergy: 'Belati dan pistol paling diuntungkan; peluang kritikal melipatgandakan serangan tambahan.' },
+    moveSpeed: { does: 'Seberapa cepat kamu berlari: 4,3 × (1 + {ms}% per poin DEX), hingga ×{capMs}.', fights: 'Hindari serangan yang diberi tanda, jauhkan musuh jarak dekat, capai punggung musuh (+25% kerusakan), lalu kabur. Pelambatan dan stun menurunkannya.', synergy: 'Hebat dengan senjata jarak jauh dan belati; perlengkapan kecepatan dan eliksir menumpuk dengan DEX.' },
+    cdr: { does: 'Memperpendek cooldown setiap keahlian sebesar persentase ini: {cdr}% per poin SKL (maks {capCdr}%).', fights: 'Lebih banyak rapalan per pertarungan dan kombo lebih cepat. Tidak membuat keahlian lebih murah: mana tetap harus membayarnya.', synergy: 'Padukan dengan INT untuk mana. Keahlian berdampak besar dengan cooldown panjang paling diuntungkan.' },
+    block: { does: 'Peluang menangkis serangan senjata fisik: {block}% per poin STR ditambah perlengkapan (maks {capBlock}%).', fights: 'Tangkisan mengurangi serangan itu menjadi 40% kerusakan, dan zirah tetap berlaku sesudahnya. Keahlian, kerusakan seiring waktu, dan sihir tidak bisa ditangkis, dan saat terkena stun kamu juga tak bisa menangkis.', synergy: 'Perisai dan STR; sebagian perlengkapan memantulkan kerusakan saat menangkis. Menumpuk dengan menghindar dan zirah.' },
+    dodge: { does: 'Peluang menghindari serangan senjata sepenuhnya. Tak ada atribut yang menaikkannya: hanya perlengkapan dan pasif (maks {capDodge}%).', fights: 'Menghindar tidak memberi kerusakan sama sekali, dan sebagian perlengkapan memberi percepatan sesudahnya. Kamu tak bisa menghindar saat terkena stun atau beku.', synergy: 'Ia dilempar sebelum tangkisan, jadi keduanya menumpuk; zirah menutup yang lolos.' },
+    hpRegen: { does: 'Nyawa yang pulih setiap detik: {hpRegen} per poin END, ditambah perlengkapan.', fights: 'Aliran lambat: berarti dalam pertarungan panjang dan saat kamu terluka dan belum sembuh.', synergy: 'Ramuan dan pencurian nyawa menyembuhkan dalam semburan; regenerasi adalah dasar stabil di bawahnya.' },
+  },
+  quickSell: { title: 'Jual cepat', lead: 'Mengosongkan tas satu per satu? Jual di tempat saja:', click: 'Klik', shift: 'Jual barang seketika, tanpa langkah tambahan.', toggle: 'Nyalakan di atas tasmu, lalu setiap ketukan pada barang akan menjualnya.', undo: 'Terlalu banyak terjual? Beli kembali dari baris beli-kembali sampai kamu keluar dari toko. Perlengkapan yang dipakai tidak pernah dijual.', space: 'Tekan Spasi untuk menutup', hint: 'Shift + klik pada barang untuk langsung menjualnya' },
+  arenaStart: { title: 'Mulai dari mana?', lead: 'Rekormu di koloseum adalah gelombang {best}. Mulai lebih jauh atau dari awal?', why: 'Gelombang yang disarankan berasal dari gelombang terbaikmu, atributmu, keahlian level tinggi, dan pasifmu.', from: 'Mulai dari gelombang {n}', fromOne: 'Dari gelombang 1' },
   sheet: {
     points: '{n} poin untuk dipakai',
     raise: 'Naikkan {attr}',
@@ -714,6 +740,7 @@ export default {
     how: 'Ketuk skill lalu slot, atau seret ke sana. Seret keluar dari slot untuk melepasnya.',
     howSlot: 'Sekarang ketuk sebuah slot untuk memasangnya.',
     classCount: '{cls}: {n} dari {total} dipelajari',
+    filter: { button: 'Filter', title: 'Hasil filter', found: 'Cocok: {n}', none: 'Tidak ada keahlian yang cocok dengan filter.', clear: 'Hapus', type: 'Jenis', scales: 'Berskala dengan' },
     hint: {
       find: 'Cari guru',
       met: 'Pelajari dari {name} di {place}.',
@@ -3323,6 +3350,7 @@ export default {
     timekeepersHourglass: {
       name: 'Jam Pasir Penjaga Waktu'
     },
+    oraclesHourglass: { name: 'Jam Pasir Sang Peramal' },
     ringOfTheVampyre: {
       name: 'Cincin Vampir'
     },
@@ -7696,6 +7724,7 @@ export default {
     unlocked: 'Baru di peta: {places}',
     equipped: 'Terpakai',
     better: 'Lebih bagus dari yang kamu pakai',
+    inspect: 'Periksa',
     retry: 'Coba lagi',
     tip: 'Pengalaman dan jarahan tetap jadi milikmu. Pakai poinmu, kunjungi pelatih, dan kembalilah lebih kuat.'
   },
@@ -7817,6 +7846,7 @@ export default {
       medium: 'Sedang',
       hard: 'Sulit'
     },
+    difficultyCoins: 'Koin {pct}',
     difficultyHints: {
       easy: 'Serangan musuh lebih lemah dan mereka lebih cepat tumbang.',
       medium: 'Tantangan sesuai rancangan.',

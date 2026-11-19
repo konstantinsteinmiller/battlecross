@@ -691,6 +691,32 @@ export default {
     dodge: 'Ausweichen',
     hpRegen: 'Leben / s'
   },
+  statinfo: {
+    h: { does: 'Was es bewirkt', fights: 'Im Kampf', source: 'Woher es kommt', synergy: 'Synergien' },
+    cap: 'Ab 300 in einem Attribut zählt jeder weitere Punkt nur halb.',
+    src: { points: 'Attributspunkte', level: 'Stufen', gear: 'Ausrüstung', passive: 'Passive Fähigkeiten', forge: 'Schmiedekunst', blessing: 'Segen einer Fraktion', elixir: 'Elixiere', weapon: 'Waffenwahl' },
+    str: { does: 'Die Kraft deines Arms. Schwerter, Äxte, Hämmer und bloße Fäuste treffen mit 6 + 1,6 × STÄ, und STÄ-Fähigkeiten wachsen genauso.', fights: 'Jeder Punkt gibt {block}% Blockchance (ein geblockter Treffer macht nur 40%) und {plate}% deiner Plattenrüstung als zusätzliche Rüstung.', synergy: 'Am besten mit Plattenrüstung, Schilden und AUS für einen Tank. Ein Punktepool treibt Grundangriffe und STÄ-Fähigkeiten gleichermaßen an.' },
+    dex: { does: 'Tempo und Präzision. Erhöht Krit-Chance, Angriffs- und Lauftempo; Dolche skalieren mit GES.', fights: 'Pro Punkt: +{crit}% Krit-Chance, +{as}% Angriffstempo, +{ms}% Lauftempo. Ein Dolch oder eine Pistole mit freier Nebenhand fügt einen Folgeschlag hinzu, der 10% + {dual}% pro Punkt eines Treffers wert ist.', synergy: 'Krits brauchen TEC für ihren Schaden. Mehr Hiebe bedeuten mehr Krit-Würfe und mehr Lebensraub, und Tempo bringt dich hinter Gegner, wo Treffer 25% mehr Schaden machen.' },
+    int: { does: 'Magie. Stäbe und Zauberstäbe skalieren mit INT, ebenso INT-Fähigkeiten.', fights: 'Pro Punkt: +{mana} max. Mana, +{manaRegen} Mana pro Sekunde und +{res}% Resistenz gegen Elementar- und Magieschaden (max. {capRes}%).', synergy: 'Mana speist jede aktive Fähigkeit, also kombiniere es mit TEC für Abklingzeit-Verkürzung. Resistenz deckt ab, was Rüstung nicht kann; ergänze AUS für volle Verteidigung.' },
+    end: { does: 'Wie viel Strafe du einsteckst. Die größte Quelle deiner Gesundheit.', fights: 'Pro Punkt: +{hp} max. Leben, +{hpRegen} Leben pro Sekunde, +{armor} Rüstung und {stun}% kürzere Betäubungen und Vereisungen (max. {capStun}%).', synergy: 'Rüstung hält nur körperliche Treffer auf, also ergänze INT gegen Magie. Prozentuale Lebensboni auf Ausrüstung vervielfachen, was AUS gibt.' },
+    skl: { does: 'Handwerk und Finesse. Erhöht Krit-Schaden und Abklingzeit-Verkürzung; Schusswaffen und Kanonen skalieren mit TEC.', fights: 'Pro Punkt: +{cd}% Krit-Schaden (max. {capCritDmg}%) und {cdr}% Abklingzeit-Verkürzung (max. {capCdr}%).', synergy: 'Krit-Schaden braucht Krit-Chance von GES. Kürzere Abklingzeiten verbrauchen Mana schneller, also kombiniere mit INT oder Mana-Ausrüstung.' },
+    cha: { does: 'Einfluss jenseits des Schwertarms. Diener schlagen härter zu, Läden verkaufen günstiger und Aufträge zahlen mehr.', fights: 'Pro Punkt: +{minion}% Dienerschaden, {disc}% Rabatt in Läden (max. {capDisc}%), +{reward}% Auftragsbelohnung und mehr Gesprächsoptionen.', synergy: 'Beschwörer- und Begleiter-Builds holen ihren Schaden aus CHA. In Läden gespartes Gold bezahlt Schmieden und Fähigkeiten.' },
+    damage: { does: 'Ein Grundangriff vor Krits und Rüstung: 6 + 1,6 × das Attribut deiner Waffe, skaliert mit Stufe und Ausrüstung.', fights: 'Fähigkeiten wenden ihr eigenes Prozent auf dieselbe Kraft an. Rüstung oder Resistenz kürzt sie dann; Krits und Treffer von hinten (+25%) erhöhen sie.', synergy: 'Passe Waffe und Attribut an: STÄ für Schwerter, Äxte und Hämmer, GES für Dolche, INT für Stäbe und Zauberstäbe, TEC für Schusswaffen und Kanonen.' },
+    health: { does: 'Wie viel du einsteckst, bevor du fällst: {hpBase} + {hpLevel} pro Stufe + {hp} pro AUS-Punkt, plus Ausrüstung.', fights: 'Rüstung und Resistenz schrumpfen jeden Treffer; die Gesundheit entscheidet, wie viele Treffer du überlebst. Bei 0 fällst du.', synergy: 'Regeneration und Lebensraub sind bei einem großen Vorrat mehr wert, und Rüstung lässt jeden Lebenspunkt länger halten.' },
+    mana: { does: 'Bezahlt aktive Fähigkeiten: 30 + {manaLevel} pro Stufe + {mana} pro INT-Punkt, plus Ausrüstung.', fights: 'Ohne Mana funktionieren nur Grundangriffe. Es füllt sich von selbst, schneller mit Stufe und INT.', synergy: 'Abklingzeit-Verkürzung lässt dich es schneller verbrauchen; Manarabatte und INT-Regeneration halten dagegen.' },
+    armor: { does: 'Senkt körperlichen Schaden um Rüstung ÷ (Rüstung + 60 + 12 × Stufe des Angreifers).', fights: 'Gegner höherer Stufe durchdringen Rüstung leichter. Sie senkt nie Magie- oder Elementarschaden, und Rüstungszerfall-Effekte verringern sie.', synergy: 'STÄ macht Platte wertvoller, AUS gibt feste Rüstung, und prozentuale Rüstungsboni vervielfachen die Summe.' },
+    resist: { does: 'Senkt nichtkörperlichen Schaden (Feuer, Frost, Heilig, Magie) um diesen Prozentsatz.', fights: 'Zauber und Elementarstöße ignorieren Rüstung; nur Resistenz und Schadensminderung kürzen sie. Gegen Waffentreffer hilft sie nie.', synergy: 'Kombiniere sie mit Rüstung für vollen Schutz. Nur INT erhöht sie: {res}% pro Punkt (max. {capRes}%).' },
+    crit: { does: 'Die Chance, dass ein Angriff oder eine Fähigkeit kritisch trifft und deinen Krit-Schaden macht: 5% + {crit}% pro GES-Punkt (max. {capCrit}%).', fights: 'Schaden über Zeit kann nicht kritisch treffen. Ein Schlag aus der Rauchbombe ist immer kritisch.', synergy: 'Am meisten wert mit hohem Krit-Schaden (TEC) und schnellen Angriffen (GES); manche Ausrüstung gibt Krit-Chance nur für Zauber.' },
+    critDamage: { does: 'Wie viel ein Krit austeilt: 150% + {cd}% pro TEC-Punkt (max. {capCritDmg}%).', fights: 'Er vervielfacht den ganzen Treffer, bevor Rüstung und Resistenz ihren Anteil nehmen.', synergy: 'Nutzlos ohne Krit-Chance (GES): beide werden miteinander multipliziert.' },
+    attackSpeed: { does: 'Wie schnell du angreifst: 100% + {as}% pro GES-Punkt (max. {capAs}%), zusätzlich zum Eigentempo deiner Waffe.', fights: 'Mehr Treffer bedeuten mehr Schaden, mehr Krit-Würfe und mehr Trefferwirkungen wie Lebensraub. Schwere Waffen schwingen langsamer.', synergy: 'Dolche und Pistolen profitieren am meisten; Krit-Chance vervielfacht die zusätzlichen Treffer.' },
+    moveSpeed: { does: 'Wie schnell du rennst: 4,3 × (1 + {ms}% pro GES-Punkt), bis zu ×{capMs}.', fights: 'Weiche angekündigten Angriffen aus, halte Nahkämpfer auf Distanz, erreiche den Rücken eines Gegners (+25% Schaden) und flieh. Verlangsamung und Betäubung senken es.', synergy: 'Großartig mit Fernwaffen und Dolchen; Tempo-Ausrüstung und Elixiere addieren sich zu GES.' },
+    cdr: { does: 'Verkürzt die Abklingzeit jeder Fähigkeit um diesen Prozentsatz: {cdr}% pro TEC-Punkt (max. {capCdr}%).', fights: 'Mehr Zauber pro Kampf und schnellere Kombos. Fähigkeiten werden nicht billiger: Mana muss sie trotzdem bezahlen.', synergy: 'Kombiniere mit INT für das Mana. Hart treffende Fähigkeiten mit langer Abklingzeit profitieren am meisten.' },
+    block: { does: 'Chance, einen körperlichen Waffentreffer zu blocken: {block}% pro STÄ-Punkt plus Ausrüstung (max. {capBlock}%).', fights: 'Ein Block senkt diesen Treffer auf 40% Schaden, danach greift noch die Rüstung. Fähigkeiten, Schaden über Zeit und Magie lassen sich nicht blocken, und betäubt kannst du auch nicht blocken.', synergy: 'Schilde und STÄ; manche Ausrüstung wirft beim Blocken Schaden zurück. Es addiert sich mit Ausweichen und Rüstung.' },
+    dodge: { does: 'Chance, einen Waffentreffer ganz zu vermeiden. Kein Attribut erhöht sie: nur Ausrüstung und Passive (max. {capDodge}%).', fights: 'Ein Ausweichen macht gar keinen Schaden, und manche Ausrüstung gibt danach Eile. Betäubt oder vereist kannst du nicht ausweichen.', synergy: 'Es wird vor dem Block gewürfelt, also addieren sich beide; Rüstung deckt ab, was durchkommt.' },
+    hpRegen: { does: 'Pro Sekunde wiederhergestelltes Leben: {hpRegen} pro AUS-Punkt, plus Ausrüstung.', fights: 'Ein langsames Rinnsal: Es zählt in langen Kämpfen und wenn du verletzt und noch nicht geheilt bist.', synergy: 'Tränke und Lebensraub heilen in Schüben; Regeneration ist der stetige Boden darunter.' },
+  },
+  quickSell: { title: 'Schnellverkauf', lead: 'Den Beutel Stück für Stück leeren? Verkaufe lieber sofort:', click: 'Klick', shift: 'Das Stück sofort verkaufen, ohne Umwege.', toggle: 'Schalte ihn über deiner Tasche ein, und jeder Tipp auf ein Stück verkauft es.', undo: 'Zu viel verkauft? Kaufe es in der Rückkauf-Reihe zurück, bis du den Laden verlässt. Getragene Ausrüstung wird nie verkauft.', space: 'Leertaste zum Schließen', hint: 'Umschalt + Klick auf ein Stück verkauft es sofort' },
+  arenaStart: { title: 'Wo fängst du an?', lead: 'Dein Bestwert im Kolosseum ist Welle {best}. Weiter oben anfangen oder von vorn?', why: 'Die vorgeschlagene Welle folgt aus deiner besten Welle, deinen Attributen, deinen hochstufigen Fähigkeiten und deinen Passiven.', from: 'Ab Welle {n} starten', fromOne: 'Ab Welle 1' },
   sheet: {
     points: '{n} Punkte zu vergeben',
     raise: '{attr} erhöhen',
@@ -715,6 +741,7 @@ export default {
     how: 'Tippe auf eine Fähigkeit, dann auf einen Platz, oder ziehe sie dorthin. Zieh sie von einem Platz weg, um sie zu entfernen.',
     howSlot: 'Tippe jetzt auf einen Platz, um sie einzusetzen.',
     classCount: '{cls}: {n} von {total} gelernt',
+    filter: { button: 'Filter', title: 'Filterergebnisse', found: 'Treffer: {n}', none: 'Keine Fähigkeit passt zum Filter.', clear: 'Zurücksetzen', type: 'Art', scales: 'Skaliert mit' },
     hint: {
       find: 'Lehrer finden',
       met: 'Lerne sie bei {name} in {place}.',
@@ -3324,6 +3351,7 @@ export default {
     timekeepersHourglass: {
       name: 'Stundenglas des Zeithüters'
     },
+    oraclesHourglass: { name: 'Stundenglas des Orakels' },
     ringOfTheVampyre: {
       name: 'Ring des Vampirs'
     },
@@ -7717,6 +7745,7 @@ export default {
     unlocked: 'Neu auf der Karte: {places}',
     equipped: 'Angelegt',
     better: 'Besser als dein Gewand',
+    inspect: 'Ansehen',
     retry: 'Noch mal',
     tip: 'Erfahrung und Beute behältst du. Verteile deine Punkte, besuche einen Lehrmeister und komm stärker zurück.'
   },
@@ -7838,6 +7867,7 @@ export default {
       medium: 'Mittel',
       hard: 'Schwer'
     },
+    difficultyCoins: 'Münzen {pct}',
     difficultyHints: {
       easy: 'Gegner treffen schwächer und gehen schneller zu Boden.',
       medium: 'Die vorgesehene Herausforderung.',

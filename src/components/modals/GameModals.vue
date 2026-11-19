@@ -23,6 +23,7 @@
   CampPick(v-else-if="flow.modal === 'campPick'")
   ArenaUnlockModal(v-else-if="flow.modal === 'arenaUnlock'")
   KingHoardModal(v-else-if="flow.modal === 'kingHoard'")
+  ArenaStartModal(v-else-if="flow.modal === 'arenaStart'")
   CheatModal(v-else-if="flow.modal === 'cheat'")
 </template>
 
@@ -62,6 +63,7 @@ import CampPick from './CampPick.vue'
 import ArenaUnlockModal from './ArenaUnlockModal.vue'
 import KingHoardModal from './KingHoardModal.vue'
 import CheatModal from './CheatModal.vue'
+import ArenaStartModal from './ArenaStartModal.vue'
 
 const emit = defineEmits<{ (e: 'options'): void }>()
 </script>

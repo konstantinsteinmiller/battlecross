@@ -690,6 +690,32 @@ export default {
     dodge: 'Yayınma',
     hpRegen: 'Can / san'
   },
+  statinfo: {
+    h: { does: 'Nə edir', fights: 'Döyüşdə', source: 'Haradan gəlir', synergy: 'Sinerjilər' },
+    cap: 'Bir xüsusiyyətdə 300-dən sonra hər əlavə xal yarım sayılır.',
+    src: { points: 'Xüsusiyyət xalları', level: 'Səviyyələr', gear: 'Əşyalar', passive: 'Passiv bacarıqlar', forge: 'Dəmirçilik', blessing: 'Fraksiya xeyir-duası', elixir: 'Eliksirlər', weapon: 'Silah seçimi' },
+    str: { does: 'Qolunun gücü. Qılınclar, baltalar, çəkiclər və çılpaq yumruqlar 6 + 1,6 × GÜC ilə vurur, GÜC bacarıqları da eyni cür böyüyür.', fights: 'Hər xal {block}% blok şansı verir (bloklanmış zərbə yalnız 40% zərər vurur) və plitə zirehinin {plate}%-ni əlavə zireh kimi artırır.', synergy: 'Tank üçün plitə zireh, qalxan və DÖZ ilə ən yaxşısı. Bir xal fondu həm əsas hücumları, həm də GÜC bacarıqlarını gücləndirir.' },
+    dex: { does: 'Sürət və dəqiqlik. Kritik şansını, hücum və hərəkət sürətini artırır; xəncərlər ÇEV ilə böyüyür.', fights: 'Xal başına: +{crit}% kritik şansı, +{as}% hücum sürəti, +{ms}% hərəkət sürəti. Boş ikinci əllə xəncər və ya tapança zərbənin 10% + xal başına {dual}% dəyərində əlavə zərbə verir.', synergy: 'Kritiklərin zərəri üçün MƏH lazımdır. Çox zərbə çox kritik atışı və çox can oğurluğu deməkdir, sürət səni düşmənin arxasına çıxarır, orada zərbələr 25% çox zərər verir.' },
+    int: { does: 'Sehr. Əsalar və çubuqlar ZƏK ilə böyüyür, ZƏK bacarıqları da.', fights: 'Xal başına: +{mana} maks. mana, saniyədə +{manaRegen} mana və element ilə sehr zərərinə +{res}% müqavimət (maks. {capRes}%).', synergy: 'Mana hər aktiv bacarığı qidalandırır, ona görə sərinləmənin qısaldılması üçün MƏH ilə cütləşdir. Müqavimət zirehin tuta bilmədiyini örtür; tam müdafiə üçün DÖZ əlavə et.' },
+    end: { does: 'Nə qədər zərbə dayana bilirsən. Canının ən böyük mənbəyi.', fights: 'Xal başına: +{hp} maks. can, saniyədə +{hpRegen} can, +{armor} zireh və {stun}% qısa sərsəmləmə və donma (maks. {capStun}%).', synergy: 'Zireh yalnız fiziki zərbələri saxlayır, sehrə qarşı ZƏK əlavə et. Əşyalardakı faizli can bonusları DÖZ-ün verdiyini çoxaldır.' },
+    skl: { does: 'Peşəkarlıq və incəlik. Kritik zərəri və sərinləmə azalmasını artırır; odlu silahlar və topların gücü MƏH ilə artır.', fights: 'Xal başına: +{cd}% kritik zərər (maks. {capCritDmg}%) və {cdr}% sərinləmə azalması (maks. {capCdr}%).', synergy: 'Kritik zərərə ÇEV-dən kritik şansı lazımdır. Qısa sərinləmə manaya daha tez xərcləyir, ZƏK və ya mana əşyaları ilə cütləşdir.' },
+    cha: { does: 'Qılınc qolundan kənar təsir. Yardımçılar daha sərt vurur, mağazalar ucuz satır, tapşırıqlar çox ödəyir.', fights: 'Xal başına: +{minion}% yardımçı zərəri, mağazalarda {disc}% endirim (maks. {capDisc}%), +{reward}% tapşırıq mükafatı və daha çox dialoq seçimi.', synergy: 'Çağırıcı və ev heyvanı qurmaları zərərini XAR-dan alır. Mağazalarda qənaət olunan qızıl dəmirçiliyi və bacarıqları ödəyir.' },
+    damage: { does: 'Kritik və zirehdən əvvəl bir əsas hücum: 6 + 1,6 × silahının istifadə etdiyi xüsusiyyət, səviyyə və əşyalarla miqyaslanır.', fights: 'Bacarıqlar eyni gücə öz faizlərini tətbiq edir. Sonra zireh və ya müqavimət onu kəsir; kritiklər və arxadan zərbələr (+25%) artırır.', synergy: 'Silahı və xüsusiyyəti uyğunlaşdır: qılınc, balta və çəkic üçün GÜC, xəncər üçün ÇEV, əsa və çubuq üçün ZƏK, odlu silah və top üçün MƏH.' },
+    health: { does: 'Yıxılmazdan əvvəl nə qədər dayanırsan: {hpBase} + səviyyə başına {hpLevel} + DÖZ xalı başına {hp}, üstəgəl əşyalar.', fights: 'Zireh və müqavimət hər zərbəni kiçildir; can neçə zərbə sağ qaldığını müəyyən edir. 0-da yıxılırsan.', synergy: 'Böyük fondda regenerasiya və can oğurluğu daha dəyərlidir, zireh hər can xalının daha uzun dayanmasını təmin edir.' },
+    mana: { does: 'Aktiv bacarıqları ödəyir: 30 + səviyyə başına {manaLevel} + ZƏK xalı başına {mana}, üstəgəl əşyalar.', fights: 'Mana olmadan yalnız əsas hücumlar işləyir. Özü dolur, səviyyə və ZƏK ilə daha sürətli.', synergy: 'Sərinləmə azalması onu daha tez xərclədir; mana endirimləri və ZƏK regenerasiyası ayaqlaşır.' },
+    armor: { does: 'Fiziki zərəri zireh ÷ (zireh + 60 + 12 × hücum edənin səviyyəsi) qədər azaldır.', fights: 'Yüksək səviyyəli düşmənlər zirehdən daha asan keçir. Sehr və ya element zərərini heç vaxt azaltmır, zirehi qıran effektlər onu aşağı salır.', synergy: 'GÜC plitəni daha dəyərli edir, DÖZ sabit zireh əlavə edir, faizli zireh bonusları cəmi çoxaldır.' },
+    resist: { does: 'Qeyri-fiziki zərəri (od, şaxta, müqəddəs, sehr) bu faiz qədər azaldır.', fights: 'Sehrlər və element partlayışları zirehi saymır; onları yalnız müqavimət və zərər azalması kiçildir. Silah zərbələrinə qarşı heç vaxt kömək etmir.', synergy: 'Tam örtük üçün zirehlə cütləşdir. Yalnız ZƏK artırır: xal başına {res}% (maks. {capRes}%).' },
+    crit: { does: 'Hücumun və ya bacarığın kritik olub kritik zərərini vurma şansı: 5% + ÇEV xalı başına {crit}% (maks. {capCrit}%).', fights: 'Zamanla zərər kritik ola bilməz. Tüstü bombasından sonrakı zərbə həmişə kritikdir.', synergy: 'Yüksək kritik zərər (MƏH) və sürətli hücumlarla (ÇEV) ən dəyərlidir; bəzi əşyalar kritik şansı yalnız sehrlərə verir.' },
+    critDamage: { does: 'Bir kritikin vurduğu: 150% + MƏH xalı başına {cd}% (maks. {capCritDmg}%).', fights: 'Zireh və müqavimət öz paylarını almadan əvvəl bütün zərbəni çoxaldır.', synergy: 'Kritik şansı (ÇEV) olmadan faydasızdır: ikisi bir-birinə vurulur.' },
+    attackSpeed: { does: 'Nə qədər sürətlə hücum edirsən: 100% + ÇEV xalı başına {as}% (maks. {capAs}%), silahın öz tempinin üstünə.', fights: 'Çox zərbə çox zərər, çox kritik atışı və can oğurluğu kimi çox təsir deməkdir. Ağır silahlar daha yavaş yellənir.', synergy: 'Xəncərlər və tapançalar ən çox qazanır; kritik şansı əlavə zərbələri çoxaldır.' },
+    moveSpeed: { does: 'Nə qədər sürətlə qaçırsan: 4,3 × (1 + ÇEV xalı başına {ms}%), ×{capMs}-yə qədər.', fights: 'Xəbərdar edilmiş hücumlardan yayın, yaxın döyüş düşmənlərini uzaq tut, düşmənin arxasına keç (+25% zərər) və qaç. Yavaşlatmalar və sərsəmləmələr onu azaldır.', synergy: 'Uzaq silahlar və xəncərlərlə əladır; sürət əşyaları və eliksirlər ÇEV ilə toplanır.' },
+    cdr: { does: 'Hər bacarığın sərinləməsini bu faiz qədər qısaldır: MƏH xalı başına {cdr}% (maks. {capCdr}%).', fights: 'Döyüşdə daha çox istifadə və daha sürətli kombolar. Bacarıqları ucuzlaşdırmır: mana yenə ödəməlidir.', synergy: 'Mana üçün ZƏK ilə cütləşdir. Uzun sərinləməli sərt bacarıqlar ən çox qazanır.' },
+    block: { does: 'Fiziki silah zərbəsini bloklama şansı: GÜC xalı başına {block}% üstəgəl əşyalar (maks. {capBlock}%).', fights: 'Blok həmin zərbəni 40% zərərə endirir, ondan sonra zireh yenə tətbiq olunur. Bacarıqlar, zamanla zərər və sehr bloklanmır, sərsəm olanda da blok edə bilmərsən.', synergy: 'Qalxanlar və GÜC; bəzi əşyalar blokda zərəri geri qaytarır. Yayınma və zirehlə toplanır.' },
+    dodge: { does: 'Silah zərbəsindən tam yayınma şansı. Heç bir xüsusiyyət artırmır: yalnız əşyalar və passivlər (maks. {capDodge}%).', fights: 'Yayınma heç zərər vurmur, bəzi əşyalar ondan sonra sürət verir. Sərsəm və ya donmuş halda yayına bilməzsən.', synergy: 'Blokdan əvvəl atılır, ona görə ikisi toplanır; zireh keçəni örtür.' },
+    hpRegen: { does: 'Hər saniyə bərpa olunan can: DÖZ xalı başına {hpRegen}, üstəgəl əşyalar.', fights: 'Yavaş bir damcı: uzun döyüşlərdə və yaralı, hələ sağalmamış olanda əhəmiyyət kəsb edir.', synergy: 'İksirlər və can oğurluğu partlayışlarla sağaldır; regenerasiya onların altındakı sabit dibdir.' },
+  },
+  quickSell: { title: 'Sürətli satış', lead: 'Çantanı hissə-hissə boşaldırsan? Dərhal sat:', click: 'Klik', shift: 'Əşyanı əlavə addım olmadan dərhal sat.', toggle: 'Çantanın üstündəki açarı yandır, əşyaya hər toxunuş onu satır.', undo: 'Çox satdın? Mağazadan çıxana qədər geri alma cərgəsindən geri al. Geyilmiş əşyalar heç vaxt satılmır.', space: 'Bağlamaq üçün Boşluğa bas', hint: 'Əşyaya Shift + klik onu dərhal satır' },
+  arenaStart: { title: 'Haradan başlayırsan?', lead: 'Kolizeydə ən yaxşı nəticən {best}-ci dalğadır. Daha irəlidən, yoxsa əvvəldən başlayırsan?', why: 'Təklif olunan dalğa ən yaxşı dalğandan, xüsusiyyətlərindən, yüksək səviyyəli bacarıqlarından və passivlərindən gəlir.', from: '{n}-ci dalğadan başla', fromOne: '1-ci dalğadan' },
   sheet: {
     points: 'Xərclənəcək {n} xal',
     raise: '{attr} artır',
@@ -714,6 +740,7 @@ export default {
     how: 'Bacarığa, sonra yuvaya toxun və ya onu ora sürüşdür. Çıxarmaq üçün yuvadan kənara sürüşdür.',
     howSlot: 'İndi yerləşdirmək üçün yuvaya toxun.',
     classCount: '{cls}: {total} bacarıqdan {n} öyrənilib',
+    filter: { button: 'Filtr', title: 'Filtr nəticələri', found: 'Uyğun gələn: {n}', none: 'Bu filtrə uyğun bacarıq yoxdur.', clear: 'Təmizlə', type: 'Növ', scales: 'Bununla artır' },
     hint: {
       find: 'Müəllimi tap',
       met: 'Bunu {place} yerindəki {name} öyrədir.',
@@ -3323,6 +3350,7 @@ export default {
     timekeepersHourglass: {
       name: 'Zaman Keşikçisinin Qum Saatı'
     },
+    oraclesHourglass: { name: 'Kahinin qum saatı' },
     ringOfTheVampyre: {
       name: 'Vampir Üzüyü'
     },
@@ -7696,6 +7724,7 @@ export default {
     unlocked: 'Xəritədə yeni: {places}',
     equipped: 'Təchiz olunub',
     better: 'Geydiyindən daha yaxşıdır',
+    inspect: 'Yoxla',
     retry: 'Yenə cəhd et',
     tip: 'Təcrübə və qənimət səndə qalır. Xallarını xərclə, təlimçiyə baş çək və daha güclü qayıt.'
   },
@@ -7817,6 +7846,7 @@ export default {
       medium: 'Orta',
       hard: 'Çətin'
     },
+    difficultyCoins: 'Sikkələr {pct}',
     difficultyHints: {
       easy: 'Düşmənlər daha zəif vurur və daha tez yıxılır.',
       medium: 'Nəzərdə tutulan çətinlik.',

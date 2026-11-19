@@ -3,7 +3,9 @@
     div.stat(
       v-for="r in shown"
       :key="r.key"
-      :class="{ 'is-up': r.delta > 0, 'is-down': r.delta < 0 }"
+      :class="{ 'is-up': r.delta > 0, 'is-down': r.delta < 0, 'has-info': info }"
+      :tabindex="info ? 0 : undefined"
+      v-on="info ? statInfoOn(r.key) : {}"
     )
       dt.stat__name {{ t(`stat.${r.key}`) }}
       dd.stat__val
@@ -22,13 +24,16 @@
 import { computed } from 'vue'
 import { useI18n } from 'vue-i18n'
 import type { StatRow } from './heroSheet'
+import { statInfoOn } from './statInfoState'
 
 const props = withDefaults(defineProps<{
   rows: StatRow[]
   /** `grid`: label over value in cells. `rows`: label left, value right. `chips`: a wrapping row of tags. */
   layout?: 'grid' | 'rows' | 'chips'
   onlyChanged?: boolean
-}>(), { layout: 'grid', onlyChanged: false })
+  /** Each row opens its info card (hover for a mouse, a tap for a finger). */
+  info?: boolean
+}>(), { layout: 'grid', onlyChanged: false, info: false })
 const { t } = useI18n()
 const shown = computed(() => (props.onlyChanged ? props.rows.filter(r => r.delta !== 0) : props.rows))
 const changed = computed(() => props.rows.some(r => r.delta !== 0))
@@ -46,6 +51,16 @@ const changed = computed(() => props.rows.some(r => r.delta !== 0))
   background: var(--bc-cell)
   line-height: 1.15
   transition: background-color 160ms ease-out
+.has-info
+  cursor: help
+  touch-action: manipulation
+  -webkit-tap-highlight-color: transparent
+  &:focus-visible
+    outline: 2px solid var(--bc-gold-hi)
+    outline-offset: 1px
+  @media (hover: hover)
+    &:hover
+      background: color-mix(in srgb, var(--bc-gold) 22%, var(--bc-cell))
 .stat__name
   min-width: 0
   color: var(--bc-on-soft)

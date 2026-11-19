@@ -691,6 +691,32 @@ export default {
     dodge: 'Esquive',
     hpRegen: 'Santé / s'
   },
+  statinfo: {
+    h: { does: 'Ce que ça fait', fights: 'En combat', source: 'D\'où ça vient', synergy: 'Synergies' },
+    cap: 'Au-delà de 300 dans un attribut, chaque point de plus compte pour moitié.',
+    src: { points: 'Points d\'attribut', level: 'Niveaux', gear: 'Équipement', passive: 'Compétences passives', forge: 'Forge', blessing: 'Bénédiction de faction', elixir: 'Élixirs', weapon: 'Choix de l\'arme' },
+    str: { does: 'La puissance de ton bras. Épées, haches, marteaux et poings nus frappent pour 6 + 1,6 × FOR, et les compétences FOR progressent de même.', fights: 'Chaque point donne {block}% de chances de blocage (un coup bloqué ne fait que 40%) et {plate}% de ton armure de plates en armure supplémentaire.', synergy: 'Idéal avec armure de plates, boucliers et END pour un tank. Une seule réserve de points alimente tes attaques de base comme tes compétences FOR.' },
+    dex: { does: 'Vitesse et précision. Augmente les chances de critique, la vitesse d\'attaque et de déplacement ; les dagues évoluent avec DEX.', fights: 'Par point : +{crit}% de chances de critique, +{as}% de vitesse d\'attaque, +{ms}% de vitesse de déplacement. Une dague ou un pistolet avec la main libre ajoute un coup de suivi valant 10% + {dual}% par point d\'un coup.', synergy: 'Les critiques ont besoin de TEC pour leurs dégâts. Plus de coups, c\'est plus de jets de critique et de vol de vie, et la vitesse te place derrière l\'ennemi, où les coups font 25% de plus.' },
+    int: { does: 'La magie. Les bâtons et baguettes évoluent avec INT, tout comme les compétences INT.', fights: 'Par point : +{mana} de mana max., +{manaRegen} de mana par seconde et +{res}% de résistance aux dégâts élémentaires et magiques (max. {capRes}%).', synergy: 'Le mana alimente chaque compétence active : associe-le à TEC pour réduire les délais. La résistance couvre ce que l\'armure ne peut pas ; ajoute END pour une défense complète.' },
+    end: { does: 'Ce que tu encaisses. C\'est la plus grande source de ta vie.', fights: 'Par point : +{hp} de vie max., +{hpRegen} de vie par seconde, +{armor} d\'armure et des étourdissements et gels {stun}% plus courts (max. {capStun}%).', synergy: 'L\'armure n\'arrête que les coups physiques : ajoute INT contre la magie. Les bonus de vie en pourcentage de l\'équipement multiplient ce que donne END.' },
+    skl: { does: 'Le savoir-faire et la finesse. Augmente les dégâts critiques et la réduction des délais ; les armes à feu et canons évoluent avec TEC.', fights: 'Par point : +{cd}% de dégâts critiques (max. {capCritDmg}%) et {cdr}% de réduction des délais (max. {capCdr}%).', synergy: 'Les dégâts critiques ont besoin des chances de critique de DEX. Des délais plus courts brûlent le mana plus vite : associe INT ou un équipement de mana.' },
+    cha: { does: 'L\'influence au-delà du bras armé. Les serviteurs frappent plus fort, les boutiques vendent moins cher et les quêtes paient mieux.', fights: 'Par point : +{minion}% de dégâts des serviteurs, {disc}% de remise en boutique (max. {capDisc}%), +{reward}% de récompense de quête, et plus de choix de dialogue.', synergy: 'Les builds d\'invocateur et de familier tirent leurs dégâts de CHA. L\'or économisé en boutique paie la forge et les compétences.' },
+    damage: { does: 'Une attaque de base avant critiques et armure : 6 + 1,6 × l\'attribut de ton arme, modulé par ton niveau et ton équipement.', fights: 'Les compétences appliquent leur propre pourcentage à cette même puissance. L\'armure ou la résistance la réduit ensuite ; critiques et coups dans le dos (+25%) l\'augmentent.', synergy: 'Accorde arme et attribut : FOR pour épées, haches et marteaux, DEX pour dagues, INT pour bâtons et baguettes, TEC pour armes à feu et canons.' },
+    health: { does: 'Ce que tu encaisses avant de tomber : {hpBase} + {hpLevel} par niveau + {hp} par point d\'END, plus l\'équipement.', fights: 'L\'armure et la résistance réduisent chaque coup ; la vie décide du nombre de coups que tu survis. À 0, tu tombes.', synergy: 'La régénération et le vol de vie valent plus sur une grande réserve, et l\'armure fait durer chaque point de vie plus longtemps.' },
+    mana: { does: 'Paie les compétences actives : 30 + {manaLevel} par niveau + {mana} par point d\'INT, plus l\'équipement.', fights: 'Sans mana, seules les attaques de base fonctionnent. Il se remplit tout seul, plus vite avec le niveau et INT.', synergy: 'La réduction des délais te le fait dépenser plus vite ; les remises de mana et la régénération d\'INT suivent le rythme.' },
+    armor: { does: 'Réduit les dégâts physiques de armure ÷ (armure + 60 + 12 × niveau de l\'attaquant).', fights: 'Les ennemis de niveau supérieur percent l\'armure plus facilement. Elle ne réduit jamais les dégâts magiques ou élémentaires, et les effets de brisure d\'armure la diminuent.', synergy: 'FOR rend les plates plus précieuses, END ajoute de l\'armure fixe, et les bonus d\'armure en pourcentage multiplient le total.' },
+    resist: { does: 'Réduit les dégâts non physiques (feu, givre, sacré, magie) de ce pourcentage.', fights: 'Les sorts et explosions élémentaires ignorent l\'armure ; seules la résistance et la réduction de dégâts les atténuent. Elle n\'aide jamais contre les coups d\'arme.', synergy: 'Associe-la à l\'armure pour une couverture complète. Seule INT l\'augmente : {res}% par point (max. {capRes}%).' },
+    crit: { does: 'La chance qu\'une attaque ou compétence soit critique et inflige tes dégâts critiques : 5% + {crit}% par point de DEX (max. {capCrit}%).', fights: 'Les dégâts sur la durée ne peuvent pas être critiques. Un coup porté depuis une bombe fumigène est toujours critique.', synergy: 'Vaut le plus avec de gros dégâts critiques (TEC) et des attaques rapides (DEX) ; certains équipements ajoutent des chances de critique aux sorts seulement.' },
+    critDamage: { does: 'Ce qu\'un critique inflige : 150% + {cd}% par point de TEC (max. {capCritDmg}%).', fights: 'Il multiplie le coup entier, avant que l\'armure et la résistance prennent leur part.', synergy: 'Inutile sans chances de critique (DEX) : les deux se multiplient.' },
+    attackSpeed: { does: 'La vitesse de tes attaques : 100% + {as}% par point de DEX (max. {capAs}%), en plus du rythme propre à ton arme.', fights: 'Plus de coups, c\'est plus de dégâts, plus de jets de critique et plus d\'effets au toucher comme le vol de vie. Les armes lourdes frappent plus lentement.', synergy: 'Dagues et pistolets en profitent le plus ; les chances de critique multiplient les coups supplémentaires.' },
+    moveSpeed: { does: 'Ta vitesse de course : 4,3 × (1 + {ms}% par point de DEX), jusqu\'à ×{capMs}.', fights: 'Esquive les attaques annoncées, harcèle les ennemis de mêlée, atteins le dos d\'un ennemi (+25% de dégâts) et fuis. Ralentissements et étourdissements la réduisent.', synergy: 'Excellent avec les armes à distance et les dagues ; l\'équipement de vitesse et les élixirs s\'ajoutent à DEX.' },
+    cdr: { does: 'Raccourcit le délai de chaque compétence de ce pourcentage : {cdr}% par point de TEC (max. {capCdr}%).', fights: 'Plus de lancers par combat et des enchaînements plus rapides. Les compétences ne coûtent pas moins : le mana doit toujours les payer.', synergy: 'Associe-la à INT pour le mana. Les compétences puissantes à long délai en profitent le plus.' },
+    block: { does: 'Chance de bloquer un coup d\'arme physique : {block}% par point de FOR plus l\'équipement (max. {capBlock}%).', fights: 'Un blocage réduit ce coup à 40% de dégâts, et l\'armure s\'applique encore après. Compétences, dégâts sur la durée et magie ne se bloquent pas, et on ne bloque pas non plus étourdi.', synergy: 'Boucliers et FOR ; certains équipements renvoient des dégâts quand tu bloques. Cela se cumule avec l\'esquive et l\'armure.' },
+    dodge: { does: 'Chance d\'éviter totalement un coup d\'arme. Aucun attribut ne l\'augmente : seulement l\'équipement et les passifs (max. {capDodge}%).', fights: 'Une esquive n\'inflige aucun dégât, et certains équipements donnent de la hâte après. Impossible d\'esquiver étourdi ou gelé.', synergy: 'Elle est tirée avant le blocage : les deux se cumulent ; l\'armure couvre ce qui passe.' },
+    hpRegen: { does: 'Vie rendue chaque seconde : {hpRegen} par point d\'END, plus l\'équipement.', fights: 'Un mince filet : il compte dans les longs combats et quand tu es blessé et pas encore soigné.', synergy: 'Potions et vol de vie soignent par à-coups ; la régénération est le socle régulier en dessous.' },
+  },
+  quickSell: { title: 'Vente rapide', lead: 'Vider le sac pièce par pièce ? Vends plutôt sur-le-champ :', click: 'Clic', shift: 'Vendre la pièce tout de suite, sans étape de plus.', toggle: 'Active-la au-dessus de ton sac, et chaque toucher sur une pièce la vend.', undo: 'Trop vendu ? Rachète-le dans la rangée de rachat jusqu\'à ce que tu quittes la boutique. L\'équipement porté n\'est jamais vendu.', space: 'Appuie sur Espace pour fermer', hint: 'Maj + clic sur une pièce pour la vendre aussitôt' },
+  arenaStart: { title: 'Où commences-tu ?', lead: 'Ton record au colisée est la vague {best}. Commencer plus haut, ou depuis le début ?', why: 'La vague suggérée vient de ta meilleure vague, de tes attributs, de tes compétences de haut niveau et de tes passifs.', from: 'Commencer à la vague {n}', fromOne: 'Dès la vague 1' },
   sheet: {
     points: '{n} points à dépenser',
     raise: 'Augmenter : {attr}',
@@ -715,6 +741,7 @@ export default {
     how: 'Touche une compétence, puis un emplacement, ou glisse-la dessus. Fais-la glisser hors d’un emplacement pour la retirer.',
     howSlot: 'Touche maintenant un emplacement pour la placer.',
     classCount: '{cls} : {n} sur {total} apprises',
+    filter: { button: 'Filtre', title: 'Résultats du filtre', found: 'Correspondances : {n}', none: 'Aucune compétence ne correspond au filtre.', clear: 'Effacer', type: 'Type', scales: 'Évolue avec' },
     hint: {
       find: 'Trouver le maître',
       met: 'Apprends-la auprès de {name} à {place}.',
@@ -3324,6 +3351,7 @@ export default {
     timekeepersHourglass: {
       name: 'Sablier du Gardien du temps'
     },
+    oraclesHourglass: { name: 'Sablier de l\'Oracle' },
     ringOfTheVampyre: {
       name: 'Anneau du Vampyre'
     },
@@ -7747,6 +7775,7 @@ export default {
     unlocked: 'Nouveau sur la carte : {places}',
     equipped: 'Équipé',
     better: 'Mieux que ta tenue',
+    inspect: 'Examiner',
     retry: 'Réessayer',
     tip: 'Tu gardes l’expérience et le butin. Dépense tes points, va voir un maître, et reviens plus fort.',
     tip__f: 'Tu gardes l’expérience et le butin. Dépense tes points, va voir un maître, et reviens plus forte.'
@@ -7869,6 +7898,7 @@ export default {
       medium: 'Moyen',
       hard: 'Difficile'
     },
+    difficultyCoins: 'Pièces {pct}',
     difficultyHints: {
       easy: 'Les ennemis frappent moins fort et tombent plus vite.',
       medium: 'Le défi tel qu’il a été conçu.',

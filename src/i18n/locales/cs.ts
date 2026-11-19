@@ -693,6 +693,32 @@ export default {
     dodge: 'Úhyb',
     hpRegen: 'Zdraví / s'
   },
+  statinfo: {
+    h: { does: 'Co dělá', fights: 'V boji', source: 'Odkud pochází', synergy: 'Synergie' },
+    cap: 'Nad 300 v jedné vlastnosti se každý další bod počítá za polovinu.',
+    src: { points: 'Body vlastností', level: 'Úrovně', gear: 'Vybavení', passive: 'Pasivní dovednosti', forge: 'Kovářství', blessing: 'Požehnání frakce', elixir: 'Elixíry', weapon: 'Volba zbraně' },
+    str: { does: 'Síla tvé paže. Meče, sekery, kladiva a holé pěsti zasahují za 6 + 1,6 × SÍL a dovednosti SÍL rostou stejně.', fights: 'Každý bod dává {block}% šanci na blok (zablokovaný zásah udělá jen 40 %) a {plate}% tvé plátové zbroje jako další brnění.', synergy: 'Nejlepší s plátovou zbrojí, štíty a VÝD pro tanka. Jedna zásoba bodů pohání základní útoky i dovednosti SÍL.' },
+    dex: { does: 'Rychlost a přesnost. Zvyšuje šanci na kritický zásah, rychlost útoku a pohybu; dýky škálují s OBR.', fights: 'Za bod: +{crit}% šance na kritický zásah, +{as}% rychlosti útoku, +{ms}% rychlosti pohybu. Dýka nebo pistole s volnou druhou rukou přidá navazující úder v hodnotě 10 % + {dual}% za bod zásahu.', synergy: 'Kritické zásahy potřebují ZRU pro své poškození. Víc úderů znamená víc hodů na kritický zásah a víc kradení života a rychlost tě dostane za nepřátele, kde zásahy dělají o 25 % víc.' },
+    int: { does: 'Magie. Hole a hůlky škálují s INT, stejně jako dovednosti INT.', fights: 'Za bod: +{mana} max. many, +{manaRegen} many za sekundu a +{res}% odolnosti proti živelnému a magickému poškození (max. {capRes} %).', synergy: 'Mana pohání každou aktivní dovednost, tak ji spoj se ZRU pro zkrácení obnovy. Odolnost kryje to, co brnění nezastaví; přidej VÝD pro plnou obranu.' },
+    end: { does: 'Kolik trestu snesu. Největší zdroj tvého zdraví.', fights: 'Za bod: +{hp} max. zdraví, +{hpRegen} zdraví za sekundu, +{armor} brnění a o {stun}% kratší omráčení a zmrazení (max. {capStun} %).', synergy: 'Brnění zastaví jen fyzické zásahy, tak přidej INT proti magii. Procentní bonusy ke zdraví na vybavení násobí to, co dává VÝD.' },
+    skl: { does: 'Řemeslo a jemnost. Zvyšuje kritické poškození a zkrácení obnovy; střelné zbraně a děla škálují se ZRU.', fights: 'Za bod: +{cd}% kritického poškození (max. {capCritDmg} %) a {cdr}% zkrácení obnovy (max. {capCdr} %).', synergy: 'Kritické poškození potřebuje šanci na kritický zásah z OBR. Kratší obnova spotřebuje manu rychleji, tak spoj s INT nebo vybavením na manu.' },
+    cha: { does: 'Vliv za hranicí meče. Pomocníci tlučou tvrději, obchody prodávají levněji a úkoly platí víc.', fights: 'Za bod: +{minion}% poškození pomocníků, {disc}% sleva v obchodech (max. {capDisc} %), +{reward}% odměny za úkoly a víc možností v dialozích.', synergy: 'Sestavy přivolávačů a mazlíčků berou poškození z CHA. Zlato ušetřené v obchodech platí kování a dovednosti.' },
+    damage: { does: 'Jeden základní útok před kritickými zásahy a brněním: 6 + 1,6 × vlastnost tvé zbraně, škálováno úrovní a vybavením.', fights: 'Dovednosti použijí vlastní procenta na stejnou sílu. Brnění nebo odolnost ji pak ořežou; kritické zásahy a zásahy zezadu (+25 %) ji zvýší.', synergy: 'Sladi zbraň a vlastnost: SÍL pro meče, sekery a kladiva, OBR pro dýky, INT pro hole a hůlky, ZRU pro střelné zbraně a děla.' },
+    health: { does: 'Kolik snesu, než padnu: {hpBase} + {hpLevel} za úroveň + {hp} za bod VÝD, plus vybavení.', fights: 'Brnění a odolnost zmenšují každý zásah; zdraví rozhoduje, kolik zásahů přežiješ. Na 0 padneš.', synergy: 'Regenerace a kradení života mají větší cenu u velké zásoby a brnění zařídí, že každý bod zdraví vydrží déle.' },
+    mana: { does: 'Platí aktivní dovednosti: 30 + {manaLevel} za úroveň + {mana} za bod INT, plus vybavení.', fights: 'Bez many fungují jen základní útoky. Doplňuje se sama, rychleji s úrovní a INT.', synergy: 'Zkrácení obnovy tě nutí spotřebovat ji rychleji; slevy many a regenerace z INT drží krok.' },
+    armor: { does: 'Snižuje fyzické poškození o brnění ÷ (brnění + 60 + 12 × úroveň útočníka).', fights: 'Nepřátelé vyšší úrovně pronikají brněním snáz. Nikdy nesnižuje magické ani živelné poškození a efekty ničící brnění ho snižují.', synergy: 'SÍL zvyšuje cenu plátu, VÝD přidává pevné brnění a procentní bonusy brnění násobí součet.' },
+    resist: { does: 'Snižuje nefyzické poškození (oheň, mráz, svatost, magie) o toto procento.', fights: 'Kouzla a živelné výbuchy ignorují brnění; zmenšit je může jen odolnost a snížení poškození. Proti zásahům zbraní nikdy nepomůže.', synergy: 'Spoj s brněním pro plné krytí. Zvyšuje ji jen INT: {res}% za bod (max. {capRes} %).' },
+    crit: { does: 'Šance, že útok nebo dovednost bude kritická a udělá tvé kritické poškození: 5 % + {crit}% za bod OBR (max. {capCrit} %).', fights: 'Poškození v čase nemůže být kritické. Úder po dýmovnici je vždy kritický.', synergy: 'Nejvíc stojí s vysokým kritickým poškozením (ZRU) a rychlými útoky (OBR); některé vybavení dává šanci na kritický zásah jen kouzlům.' },
+    critDamage: { does: 'Kolik udělá kritický zásah: 150 % + {cd}% za bod ZRU (max. {capCritDmg} %).', fights: 'Násobí celý zásah, než si brnění a odolnost vezmou svůj díl.', synergy: 'Bez šance na kritický zásah (OBR) je k ničemu: obojí se násobí.' },
+    attackSpeed: { does: 'Jak rychle útočíš: 100 % + {as}% za bod OBR (max. {capAs} %), navíc k vlastnímu tempu zbraně.', fights: 'Víc zásahů znamená víc poškození, víc hodů na kritický zásah a víc účinků při zásahu, třeba kradení života. Těžké zbraně se rozmáchnou pomaleji.', synergy: 'Dýky a pistole získají nejvíc; šance na kritický zásah násobí zásahy navíc.' },
+    moveSpeed: { does: 'Jak rychle běžíš: 4,3 × (1 + {ms}% za bod OBR), až ×{capMs}.', fights: 'Vyhýbej se ohlášeným útokům, drž si nepřátele na blízko od těla, dostaň se nepříteli za záda (+25 % poškození) a uteč. Zpomalení a omráčení ji snižují.', synergy: 'Skvělá s dálkovými zbraněmi a dýkami; vybavení na rychlost a elixíry se sčítají s OBR.' },
+    cdr: { does: 'Zkracuje obnovu každé dovednosti o toto procento: {cdr}% za bod ZRU (max. {capCdr} %).', fights: 'Víc seslání za boj a rychlejší kombinace. Dovednosti nezlevní: manu za ně pořád platíš.', synergy: 'Spoj s INT kvůli maně. Nejvíc získají silné dovednosti s dlouhou obnovou.' },
+    block: { does: 'Šance zablokovat fyzický zásah zbraní: {block}% za bod SÍL plus vybavení (max. {capBlock} %).', fights: 'Blok sníží ten zásah na 40 % poškození a brnění se uplatní ještě potom. Dovednosti, poškození v čase a magii zablokovat nelze, a omráčený také neblokuješ.', synergy: 'Štíty a SÍL; některé vybavení při bloku odráží poškození. Sčítá se s uhnutím a brněním.' },
+    dodge: { does: 'Šance zcela se vyhnout zásahu zbraní. Žádná vlastnost ji nezvyšuje: jen vybavení a pasivní dovednosti (max. {capDodge} %).', fights: 'Uhnutí nezpůsobí žádné poškození a některé vybavení po něm dává zrychlení. Omráčený ani zmrazený se uhnout nedá.', synergy: 'Hází se před blokem, takže se sčítají; brnění kryje to, co projde.' },
+    hpRegen: { does: 'Zdraví obnovené každou sekundu: {hpRegen} za bod VÝD, plus vybavení.', fights: 'Pomalý pramínek: má váhu v dlouhých bojích a když jsi zraněný a ještě nevyléčený.', synergy: 'Lektvary a kradení života léčí nárazově; regenerace je stálé dno pod nimi.' },
+  },
+  quickSell: { title: 'Rychlý prodej', lead: 'Vyklízíš tašku kus po kuse? Prodávej rovnou:', click: 'Klik', shift: 'Prodej kus hned, bez dalších kroků.', toggle: 'Zapni to nad taškou a každé klepnutí na kus ho prodá.', undo: 'Prodal jsi moc? Odkup to z řady zpětného odkupu, dokud neopustíš obchod. Nasazená výbava se nikdy neprodá.', space: 'Zavři stiskem mezerníku', hint: 'Shift + klik na kus ho okamžitě prodá' },
+  arenaStart: { title: 'Kde začneš?', lead: 'Tvůj rekord v koloseu je vlna {best}. Začít výš, nebo od začátku?', why: 'Navržená vlna vychází z tvé nejlepší vlny, vlastností, dovedností vysoké úrovně a pasivních dovedností.', from: 'Začít vlnou {n}', fromOne: 'Od vlny 1' },
   sheet: {
     points: 'Bodů k rozdělení: {n}',
     raise: 'Zvýšit: {attr}',
@@ -717,6 +743,7 @@ export default {
     how: 'Klepni na dovednost a pak na pozici, nebo ji tam přetáhni. Přetažením z pozice ji odebereš.',
     howSlot: 'Teď klepni na pozici, kam ji vložit.',
     classCount: '{cls}: naučeno {n} z {total}',
+    filter: { button: 'Filtr', title: 'Výsledky filtru', found: 'Shody: {n}', none: 'Filtru neodpovídá žádná dovednost.', clear: 'Zrušit', type: 'Typ', scales: 'Roste s' },
     hint: {
       find: 'Najít učitele',
       met: 'Naučí tě {name}, {place}.',
@@ -3326,6 +3353,7 @@ export default {
     timekeepersHourglass: {
       name: 'Přesýpací hodiny Strážce času'
     },
+    oraclesHourglass: { name: 'Přesýpací hodiny věštkyně' },
     ringOfTheVampyre: {
       name: 'Upírův prsten'
     },
@@ -7797,6 +7825,7 @@ export default {
     unlocked: 'Nově na mapě: {places}',
     equipped: 'Nasazeno',
     better: 'Lepší než to, co nosíš',
+    inspect: 'Prohlédnout',
     retry: 'Zkusit znovu',
     tip: 'Zkušenosti i kořist ti zůstávají. Rozděl body, zajdi za učitelem a vrať se s větší silou.'
   },
@@ -7918,6 +7947,7 @@ export default {
       medium: 'Střední',
       hard: 'Těžká'
     },
+    difficultyCoins: 'Mince {pct}',
     difficultyHints: {
       easy: 'Nepřátelé bijí slaběji a padají rychleji.',
       medium: 'Výzva, jak byla zamýšlena.',

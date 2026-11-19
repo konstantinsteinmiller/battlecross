@@ -691,6 +691,32 @@ export default {
     dodge: 'Schivata',
     hpRegen: 'Salute / s'
   },
+  statinfo: {
+    h: { does: 'Cosa fa', fights: 'In combattimento', source: 'Da dove viene', synergy: 'Sinergie' },
+    cap: 'Oltre 300 in un attributo, ogni punto in più vale metà.',
+    src: { points: 'Punti attributo', level: 'Livelli', gear: 'Equipaggiamento', passive: 'Abilità passive', forge: 'Forgiatura', blessing: 'Benedizione di fazione', elixir: 'Elisir', weapon: 'Scelta dell\'arma' },
+    str: { does: 'La potenza del tuo braccio. Spade, asce, martelli e pugni nudi colpiscono per 6 + 1,6 × FOR, e le abilità FOR crescono allo stesso modo.', fights: 'Ogni punto dà {block}% di probabilità di parata (un colpo parato fa solo il 40%) e {plate}% della tua armatura di piastre come armatura extra.', synergy: 'Ottima con armatura di piastre, scudi e VIG per un tank. Un solo bacino di punti alimenta sia gli attacchi base sia le abilità FOR.' },
+    dex: { does: 'Velocità e precisione. Aumenta probabilità di critico, velocità d\'attacco e di movimento; i pugnali crescono con DES.', fights: 'Per punto: +{crit}% probabilità di critico, +{as}% velocità d\'attacco, +{ms}% velocità di movimento. Un pugnale o una pistola con la mano libera aggiunge un colpo di rimando che vale 10% + {dual}% per punto di un colpo.', synergy: 'I critici hanno bisogno di TEC per il danno. Più colpi significano più tiri di critico e più furto vitale, e la velocità ti porta alle spalle dei nemici, dove i colpi fanno il 25% in più.' },
+    int: { does: 'Magia. Bastoni e bacchette crescono con INT, come le abilità INT.', fights: 'Per punto: +{mana} mana max, +{manaRegen} mana al secondo e +{res}% di resistenza ai danni elementali e magici (max {capRes}%).', synergy: 'Il mana alimenta ogni abilità attiva, quindi abbinalo a TEC per ridurre le ricariche. La resistenza copre ciò che l\'armatura non ferma; aggiungi VIG per una difesa completa.' },
+    end: { does: 'Quanta punizione sopporti. È la maggiore fonte della tua salute.', fights: 'Per punto: +{hp} salute max, +{hpRegen} salute al secondo, +{armor} armatura e stordimenti e congelamenti più brevi del {stun}% (max {capStun}%).', synergy: 'L\'armatura ferma solo i colpi fisici, quindi aggiungi INT contro la magia. I bonus percentuali di salute dell\'equipaggiamento moltiplicano ciò che dà VIG.' },
+    skl: { does: 'Maestria e finezza. Aumenta il danno critico e la riduzione di ricarica; armi da fuoco e cannoni crescono con TEC.', fights: 'Per punto: +{cd}% danno critico (max {capCritDmg}%) e {cdr}% riduzione di ricarica (max {capCdr}%).', synergy: 'Il danno critico richiede la probabilità di critico di DES. Ricariche più brevi consumano il mana più in fretta: abbinalo a INT o equipaggiamento da mana.' },
+    cha: { does: 'Influenza oltre il braccio armato. I servitori colpiscono più forte, i negozi vendono a meno e le missioni pagano di più.', fights: 'Per punto: +{minion}% danno dei servitori, {disc}% di sconto nei negozi (max {capDisc}%), +{reward}% ricompensa delle missioni e più scelte di dialogo.', synergy: 'Le build da evocatore e da compagno animale prendono il danno da CAR. L\'oro risparmiato nei negozi paga forgiatura e abilità.' },
+    damage: { does: 'Un attacco base prima di critici e armatura: 6 + 1,6 × l\'attributo della tua arma, scalato da livello ed equipaggiamento.', fights: 'Le abilità applicano la propria percentuale alla stessa potenza. Armatura o resistenza poi la riducono; critici e colpi alle spalle (+25%) la aumentano.', synergy: 'Abbina arma e attributo: FOR per spade, asce e martelli, DES per pugnali, INT per bastoni e bacchette, TEC per armi da fuoco e cannoni.' },
+    health: { does: 'Quanto sopporti prima di cadere: {hpBase} + {hpLevel} per livello + {hp} per punto di VIG, più l\'equipaggiamento.', fights: 'Armatura e resistenza riducono ogni colpo; la salute decide quanti ne sopravvivi. A 0 cadi.', synergy: 'Rigenerazione e furto vitale valgono di più con una riserva ampia, e l\'armatura fa durare ogni punto di salute più a lungo.' },
+    mana: { does: 'Paga le abilità attive: 30 + {manaLevel} per livello + {mana} per punto di INT, più l\'equipaggiamento.', fights: 'Senza mana funzionano solo gli attacchi base. Si ricarica da solo, più in fretta con livello e INT.', synergy: 'La riduzione di ricarica te lo fa consumare più in fretta; sconti di mana e rigenerazione INT tengono il passo.' },
+    armor: { does: 'Riduce il danno fisico di armatura ÷ (armatura + 60 + 12 × livello dell\'attaccante).', fights: 'I nemici di livello più alto passano l\'armatura più facilmente. Non riduce mai il danno magico o elementale, e gli effetti che spezzano l\'armatura la abbassano.', synergy: 'FOR fa valere di più le piastre, VIG aggiunge armatura fissa e i bonus percentuali di armatura moltiplicano il totale.' },
+    resist: { does: 'Riduce il danno non fisico (fuoco, gelo, sacro, magia) di questa percentuale.', fights: 'Incantesimi ed esplosioni elementali ignorano l\'armatura; solo resistenza e riduzione del danno li riducono. Non aiuta mai contro i colpi d\'arma.', synergy: 'Abbinala all\'armatura per una copertura completa. Solo INT la aumenta: {res}% per punto (max {capRes}%).' },
+    crit: { does: 'La probabilità che un attacco o un\'abilità sia critico e faccia il tuo danno critico: 5% + {crit}% per punto di DES (max {capCrit}%).', fights: 'Il danno nel tempo non può essere critico. Un colpo dalla bomba fumogena è sempre critico.', synergy: 'Vale di più con molto danno critico (TEC) e attacchi veloci (DES); alcuni equipaggiamenti danno probabilità di critico solo agli incantesimi.' },
+    critDamage: { does: 'Quanto fa un critico: 150% + {cd}% per punto di TEC (max {capCritDmg}%).', fights: 'Moltiplica tutto il colpo, prima che armatura e resistenza prendano la loro parte.', synergy: 'Inutile senza probabilità di critico (DES): le due si moltiplicano.' },
+    attackSpeed: { does: 'Quanto veloce attacchi: 100% + {as}% per punto di DES (max {capAs}%), oltre al ritmo proprio dell\'arma.', fights: 'Più colpi significano più danno, più tiri di critico e più effetti al colpo come il furto vitale. Le armi pesanti colpiscono più lentamente.', synergy: 'Pugnali e pistole ci guadagnano di più; la probabilità di critico moltiplica i colpi extra.' },
+    moveSpeed: { does: 'Quanto veloce corri: 4,3 × (1 + {ms}% per punto di DES), fino a ×{capMs}.', fights: 'Schiva gli attacchi segnalati, tieni a distanza i nemici in mischia, raggiungi le spalle del nemico (+25% di danno) e scappa. Rallentamenti e stordimenti la riducono.', synergy: 'Ottima con armi a distanza e pugnali; equipaggiamento di velocità ed elisir si sommano a DES.' },
+    cdr: { does: 'Accorcia la ricarica di ogni abilità di questa percentuale: {cdr}% per punto di TEC (max {capCdr}%).', fights: 'Più lanci per scontro e combo più rapide. Non rende le abilità più economiche: il mana le paga comunque.', synergy: 'Abbinala a INT per il mana. Le abilità potenti con ricarica lunga ne guadagnano di più.' },
+    block: { does: 'Probabilità di parare un colpo d\'arma fisico: {block}% per punto di FOR più equipaggiamento (max {capBlock}%).', fights: 'Una parata riduce quel colpo al 40% del danno, e l\'armatura si applica ancora dopo. Abilità, danni nel tempo e magia non si parano, e non si para da storditi.', synergy: 'Scudi e FOR; alcuni equipaggiamenti rimandano il danno quando pari. Si somma a schivata e armatura.' },
+    dodge: { does: 'Probabilità di evitare del tutto un colpo d\'arma. Nessun attributo la aumenta: solo equipaggiamento e passive (max {capDodge}%).', fights: 'Una schivata non infligge alcun danno, e alcuni equipaggiamenti danno velocità dopo. Non si schiva da storditi o congelati.', synergy: 'Si tira prima della parata, quindi le due si sommano; l\'armatura copre ciò che passa.' },
+    hpRegen: { does: 'Salute recuperata ogni secondo: {hpRegen} per punto di VIG, più l\'equipaggiamento.', fights: 'Un filo lento: conta nei combattimenti lunghi e quando sei ferito e non ancora curato.', synergy: 'Pozioni e furto vitale curano a raffiche; la rigenerazione è il pavimento costante sotto di essi.' },
+  },
+  quickSell: { title: 'Vendita rapida', lead: 'Svuotare la borsa un pezzo alla volta? Vendi subito:', click: 'Clic', shift: 'Vendi il pezzo all\'istante, senza passaggi extra.', toggle: 'Attivala sopra la borsa e ogni tocco su un pezzo lo vende.', undo: 'Hai venduto troppo? Ricompralo dalla fila del riacquisto finché non lasci il negozio. L\'equipaggiamento indossato non si vende mai.', space: 'Premi Spazio per chiudere', hint: 'Maiusc + clic su un pezzo per venderlo subito' },
+  arenaStart: { title: 'Da dove inizi?', lead: 'Il tuo record nel colosseo è l\'ondata {best}. Iniziare più avanti o dall\'inizio?', why: 'L\'ondata consigliata dipende dalla tua ondata migliore, dai tuoi attributi, dalle abilità di alto livello e dalle passive.', from: 'Inizia dall\'ondata {n}', fromOne: 'Dall\'ondata 1' },
   sheet: {
     points: '{n} punti da spendere',
     raise: 'Aumenta {attr}',
@@ -715,6 +741,7 @@ export default {
     how: 'Tocca un’abilità, poi uno slot, oppure trascinala lì. Trascinala fuori da uno slot per toglierla.',
     howSlot: 'Ora tocca uno slot per inserirla.',
     classCount: '{cls}: {n} di {total} apprese',
+    filter: { button: 'Filtro', title: 'Risultati del filtro', found: 'Corrispondenze: {n}', none: 'Nessuna abilità corrisponde al filtro.', clear: 'Azzera', type: 'Tipo', scales: 'Scala con' },
     hint: {
       find: 'Trova l’insegnante',
       met: 'Imparala da {name} a {place}.',
@@ -3324,6 +3351,7 @@ export default {
     timekeepersHourglass: {
       name: 'Clessidra del Custode del tempo'
     },
+    oraclesHourglass: { name: 'Clessidra dell\'Oracolo' },
     ringOfTheVampyre: {
       name: 'Anello del Vampiro'
     },
@@ -7778,6 +7806,7 @@ export default {
     unlocked: 'Nuovo sulla mappa: {places}',
     equipped: 'Equipaggiato',
     better: 'Meglio di ciò che indossi',
+    inspect: 'Ispeziona',
     retry: 'Riprova',
     tip: 'Esperienza e bottino restano tuoi. Spendi i tuoi punti, visita un maestro e torna con più forza.'
   },
@@ -7899,6 +7928,7 @@ export default {
       medium: 'Media',
       hard: 'Difficile'
     },
+    difficultyCoins: 'Monete {pct}',
     difficultyHints: {
       easy: 'I nemici colpiscono più piano e cadono prima.',
       medium: 'La sfida come è stata pensata.',

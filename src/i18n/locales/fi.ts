@@ -690,6 +690,32 @@ export default {
     dodge: 'Väistö',
     hpRegen: 'Terveys / s'
   },
+  statinfo: {
+    h: { does: 'Mitä se tekee', fights: 'Taistelussa', source: 'Mistä se tulee', synergy: 'Synergiat' },
+    cap: 'Yli 300:n yhdessä ominaisuudessa jokainen lisäpiste lasketaan puoleksi.',
+    src: { points: 'Ominaisuuspisteet', level: 'Tasot', gear: 'Varusteet', passive: 'Passiiviset taidot', forge: 'Takominen', blessing: 'Ryhmittymän siunaus', elixir: 'Eliksiirit', weapon: 'Aseen valinta' },
+    str: { does: 'Käsivartesi voima. Miekat, kirveet, vasarat ja paljaat nyrkit iskevät 6 + 1,6 × VOI, ja VOI-taidot kasvavat samoin.', fights: 'Jokainen piste antaa {block}% torjuntamahdollisuuden (torjuttu isku tekee vain 40%) ja {plate}% levypanssaristasi lisäpanssarina.', synergy: 'Paras levypanssarin, kilpien ja KES:n kanssa tankille. Yksi pistevaranto ruokkii sekä perushyökkäykset että VOI-taidot.' },
+    dex: { does: 'Nopeus ja tarkkuus. Nostaa kriittisen iskun mahdollisuutta, hyökkäys- ja liikkumisnopeutta; tikarit skaalautuvat KET:llä.', fights: 'Pistettä kohti: +{crit}% kriittinen mahdollisuus, +{as}% hyökkäysnopeus, +{ms}% liikkumisnopeus. Tikari tai pistooli vapaalla toisella kädellä lisää jatko-iskun, jonka arvo on 10% + {dual}% pistettä kohti iskusta.', synergy: 'Kriittiset tarvitsevat TAI:ta vahinkoonsa. Enemmän iskuja tarkoittaa enemmän kriittisiä heittoja ja enemmän elämänvarkautta, ja nopeus vie sinut vihollisten taakse, missä iskut tekevät 25% enemmän.' },
+    int: { does: 'Taikuus. Sauvat ja taikasauvat skaalautuvat ÄLY:llä, samoin ÄLY-taidot.', fights: 'Pistettä kohti: +{mana} enimmäismanaa, +{manaRegen} manaa sekunnissa ja +{res}% vastustus elementti- ja taikavahinkoa vastaan (enint. {capRes}%).', synergy: 'Mana ruokkii jokaista aktiivista taitoa, joten yhdistä se TAI:hin jäähtymisen lyhentämiseksi. Vastustus kattaa sen, mitä panssari ei pysäytä; lisää KES täyteen puolustukseen.' },
+    end: { does: 'Kuinka paljon kuritusta kestät. Terveytesi suurin lähde.', fights: 'Pistettä kohti: +{hp} enimmäisterveyttä, +{hpRegen} terveyttä sekunnissa, +{armor} panssaria ja {stun}% lyhyemmät tyrmäykset ja jäätymiset (enint. {capStun}%).', synergy: 'Panssari pysäyttää vain fyysiset iskut, joten lisää ÄLY:ä taikuutta vastaan. Varusteiden prosenttiset terveysbonukset kertovat sen, mitä KES antaa.' },
+    skl: { does: 'Taito ja hienovaraisuus. Nostaa kriittistä vahinkoa ja jäähtymisen lyhennystä; ampuma-aseet ja tykit skaalautuvat TAI:lla.', fights: 'Pistettä kohti: +{cd}% kriittistä vahinkoa (enint. {capCritDmg}%) ja {cdr}% jäähtymisen lyhennystä (enint. {capCdr}%).', synergy: 'Kriittinen vahinko tarvitsee KET:n kriittisen mahdollisuuden. Lyhyemmät jäähtymiset polttavat manaa nopeammin, joten yhdistä ÄLY:yn tai manavarusteisiin.' },
+    cha: { does: 'Vaikutusvalta miekkakäden ulkopuolella. Kätyrit iskevät kovempaa, kaupat myyvät halvemmalla ja tehtävät maksavat enemmän.', fights: 'Pistettä kohti: +{minion}% kätyrien vahinkoa, {disc}% alennus kaupoissa (enint. {capDisc}%), +{reward}% tehtäväpalkkio ja enemmän vuoropuhelun valintoja.', synergy: 'Kutsuja- ja lemmikkikokoonpanot saavat vahinkonsa KAR:sta. Kaupoissa säästetty kulta maksaa takomisen ja taidot.' },
+    damage: { does: 'Yksi perushyökkäys ennen kriittisiä ja panssaria: 6 + 1,6 × aseesi käyttämä ominaisuus, skaalattuna tasolla ja varusteilla.', fights: 'Taidot soveltavat omaa prosenttiaan samaan voimaan. Panssari tai vastustus leikkaa sen sitten; kriittiset ja iskut takaa (+25%) nostavat sitä.', synergy: 'Sovita ase ja ominaisuus: VOI miekoille, kirveille ja vasaroille, KET tikareille, ÄLY sauvoille ja taikasauvoille, TAI ampuma-aseille ja tykeille.' },
+    health: { does: 'Kuinka paljon kestät ennen kaatumista: {hpBase} + {hpLevel} tasoa kohti + {hp} KES-pistettä kohti, plus varusteet.', fights: 'Panssari ja vastustus pienentävät jokaista iskua; terveys ratkaisee, montako iskua selviät. 0:ssa kaadut.', synergy: 'Uusiutuminen ja elämänvarkaus ovat arvokkaampia suurella varannolla, ja panssari saa jokaisen terveyspisteen kestämään pidempään.' },
+    mana: { does: 'Maksaa aktiiviset taidot: 30 + {manaLevel} tasoa kohti + {mana} ÄLY-pistettä kohti, plus varusteet.', fights: 'Ilman manaa toimivat vain perushyökkäykset. Se täyttyy itsestään, nopeammin tason ja ÄLY:n myötä.', synergy: 'Jäähtymisen lyhennys saa kuluttamaan sitä nopeammin; manaalennukset ja ÄLY-uusiutuminen pysyvät mukana.' },
+    armor: { does: 'Vähentää fyysistä vahinkoa panssari ÷ (panssari + 60 + 12 × hyökkääjän taso).', fights: 'Korkeamman tason viholliset läpäisevät panssarin helpommin. Se ei koskaan vähennä taika- tai elementtivahinkoa, ja panssaria rikkovat vaikutukset laskevat sitä.', synergy: 'VOI tekee levystä arvokkaampaa, KES lisää kiinteää panssaria, ja prosenttiset panssaribonukset kertovat summan.' },
+    resist: { does: 'Vähentää ei-fyysistä vahinkoa (tuli, pakkanen, pyhä, taika) tällä prosentilla.', fights: 'Loitsut ja elementtiryöpyt ohittavat panssarin; vain vastustus ja vahingonvähennys pienentävät niitä. Aseiskuja vastaan se ei koskaan auta.', synergy: 'Yhdistä panssariin täyttä suojaa varten. Vain ÄLY nostaa sitä: {res}% pistettä kohti (enint. {capRes}%).' },
+    crit: { does: 'Todennäköisyys, että hyökkäys tai taito on kriittinen ja tekee kriittisen vahinkosi: 5% + {crit}% KET-pistettä kohti (enint. {capCrit}%).', fights: 'Ajan myötä tapahtuva vahinko ei voi olla kriittinen. Savupommin jälkeinen isku on aina kriittinen.', synergy: 'Arvokkain suuren kriittisen vahingon (TAI) ja nopeiden hyökkäysten (KET) kanssa; osa varusteista antaa kriittistä mahdollisuutta vain loitsuille.' },
+    critDamage: { does: 'Kuinka paljon kriittinen tekee: 150% + {cd}% TAI-pistettä kohti (enint. {capCritDmg}%).', fights: 'Se kertoo koko iskun ennen kuin panssari ja vastustus ottavat osansa.', synergy: 'Hyödytön ilman kriittistä mahdollisuutta (KET): nämä kaksi kertovat toisensa.' },
+    attackSpeed: { does: 'Kuinka nopeasti hyökkäät: 100% + {as}% KET-pistettä kohti (enint. {capAs}%), aseen oman tahdin päälle.', fights: 'Enemmän iskuja tarkoittaa enemmän vahinkoa, enemmän kriittisiä heittoja ja enemmän osumavaikutuksia, kuten elämänvarkautta. Raskaat aseet heilahtavat hitaammin.', synergy: 'Tikarit ja pistoolit hyötyvät eniten; kriittinen mahdollisuus kertoo ylimääräiset iskut.' },
+    moveSpeed: { does: 'Kuinka nopeasti juokset: 4,3 × (1 + {ms}% KET-pistettä kohti), enintään ×{capMs}.', fights: 'Väistä ennakoidut hyökkäykset, pidä lähitaistelijat loitolla, pääse vihollisen selän taakse (+25% vahinkoa) ja pakene. Hidastukset ja tyrmäykset laskevat sitä.', synergy: 'Loistava kaukoaseiden ja tikarien kanssa; nopeusvarusteet ja eliksiirit kasautuvat KET:n kanssa.' },
+    cdr: { does: 'Lyhentää jokaisen taidon jäähtymistä tällä prosentilla: {cdr}% TAI-pistettä kohti (enint. {capCdr}%).', fights: 'Enemmän loitsuja taistelua kohti ja nopeammat komboilut. Se ei tee taidoista halvempia: manan on yhä maksettava ne.', synergy: 'Yhdistä ÄLY:yn manan vuoksi. Pitkän jäähtymisen kovat taidot hyötyvät eniten.' },
+    block: { does: 'Mahdollisuus torjua fyysinen aseisku: {block}% VOI-pistettä kohti plus varusteet (enint. {capBlock}%).', fights: 'Torjunta pudottaa iskun 40%:iin vahingosta, ja panssari pätee vielä sen jälkeen. Taitoja, ajan myötä tapahtuvaa vahinkoa ja taikuutta ei voi torjua, eikä tyrmättynä voi torjua.', synergy: 'Kilvet ja VOI; osa varusteista heijastaa vahinkoa torjuttaessa. Kasautuu väistön ja panssarin kanssa.' },
+    dodge: { does: 'Mahdollisuus väistää aseisku kokonaan. Mikään ominaisuus ei nosta sitä: vain varusteet ja passiivit (enint. {capDodge}%).', fights: 'Väistö ei tee lainkaan vahinkoa, ja osa varusteista antaa sen jälkeen kiirettä. Tyrmättynä tai jäätyneenä et voi väistää.', synergy: 'Se heitetään ennen torjuntaa, joten ne kasautuvat; panssari kattaa sen, mikä pääsee läpi.' },
+    hpRegen: { does: 'Joka sekunti palautuva terveys: {hpRegen} KES-pistettä kohti, plus varusteet.', fights: 'Hidas norona: sillä on merkitystä pitkissä taisteluissa ja kun olet loukkaantunut etkä vielä parantunut.', synergy: 'Juomat ja elämänvarkaus parantavat purskeittain; uusiutuminen on tasainen pohja niiden alla.' },
+  },
+  quickSell: { title: 'Pikamyynti', lead: 'Tyhjennätkö repun kappale kerrallaan? Myy heti:', click: 'Napsauta', shift: 'Myy kappale heti, ilman ylimääräisiä vaiheita.', toggle: 'Kytke se päälle repun yläpuolelta, niin jokainen kappaleen napautus myy sen.', undo: 'Myitkö liikaa? Osta takaisin takaisinostorivistä, kunnes poistut kaupasta. Käytettyä varustetta ei koskaan myydä.', space: 'Sulje painamalla välilyöntiä', hint: 'Vaihto + napsautus kappaleeseen myy sen heti' },
+  arenaStart: { title: 'Mistä aloitat?', lead: 'Paras tuloksesi areenalla on aalto {best}. Aloitatko ylempää vai alusta?', why: 'Ehdotettu aalto tulee parhaasta aallostasi, ominaisuuksistasi, korkean tason taidoistasi ja passiiveistasi.', from: 'Aloita aallosta {n}', fromOne: 'Aallosta 1' },
   sheet: {
     points: '{n} pistettä käytettävissä',
     raise: 'Nosta: {attr}',
@@ -714,6 +740,7 @@ export default {
     how: 'Napauta taitoa ja sitten paikkaa tai vedä se sinne. Vedä se pois paikasta poistaaksesi sen.',
     howSlot: 'Napauta nyt paikkaa asettaaksesi sen.',
     classCount: '{cls}: {n} / {total} opittu',
+    filter: { button: 'Suodatin', title: 'Suodattimen tulokset', found: 'Osumia: {n}', none: 'Mikään taito ei vastaa suodatinta.', clear: 'Tyhjennä', type: 'Tyyppi', scales: 'Skaalautuu' },
     hint: {
       find: 'Etsi opettaja',
       met: 'Opi se: {name}, {place}.',
@@ -3323,6 +3350,7 @@ export default {
     timekeepersHourglass: {
       name: 'Ajanvartijan tiimalasi'
     },
+    oraclesHourglass: { name: 'Oraakkelin tuntilasi' },
     ringOfTheVampyre: {
       name: 'Vampyyrin sormus'
     },
@@ -7696,6 +7724,7 @@ export default {
     unlocked: 'Uutta kartalla: {places}',
     equipped: 'Varusteena',
     better: 'Parempi kuin se, mitä käytät',
+    inspect: 'Tarkastele',
     retry: 'Yritä uudelleen',
     tip: 'Saat pitää kokemuksen ja saaliin. Käytä pisteesi, käy kouluttajalla ja palaa vahvempana.'
   },
@@ -7817,6 +7846,7 @@ export default {
       medium: 'Normaali',
       hard: 'Vaikea'
     },
+    difficultyCoins: 'Kolikot {pct}',
     difficultyHints: {
       easy: 'Viholliset lyövät hellemmin ja kaatuvat nopeammin.',
       medium: 'Suunniteltu haaste.',
