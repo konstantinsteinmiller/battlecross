@@ -7747,6 +7747,7 @@ export default {
     goblinWarchief: 'Гоблински вожд',
     thornfather: 'Бащата на тръните',
     broodMother: 'Майката на люпилото',
+    broodling: 'Паяче',
     banditBaron: 'Разбойнически барон',
     cinderGolem: 'Жаров голем',
     frostHowler: 'Мразовит виещ',

@@ -8020,6 +8020,7 @@ export default {
     goblinWarchief: 'زعيم حرب العفاريت',
     thornfather: 'أبو الأشواك',
     broodMother: 'أم الحضنة',
+    broodling: 'عنكبوت صغير',
     banditBaron: 'بارون قطاع الطرق',
     cinderGolem: 'غولم الجمر',
     frostHowler: 'عوّاء الصقيع',

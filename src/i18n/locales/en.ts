@@ -4137,6 +4137,7 @@ export default {
     'goblinWarchief': 'Goblin Warchief',
     'thornfather': 'Thornfather',
     'broodMother': 'Brood Mother',
+    'broodling': 'Spiderling',
     'banditBaron': 'Bandit Baron',
     'cinderGolem': 'Cinder Golem',
     'frostHowler': 'Frost Howler',

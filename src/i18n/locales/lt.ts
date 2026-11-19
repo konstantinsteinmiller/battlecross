@@ -7735,6 +7735,7 @@ export default {
     goblinWarchief: 'Goblinų karo vadas',
     thornfather: 'Erškėčių tėvas',
     broodMother: 'Perų motina',
+    broodling: 'Voratinklis',
     banditBaron: 'Plėšikų baronas',
     cinderGolem: 'Žarijų golemas',
     frostHowler: 'Šalčio staugėjas',

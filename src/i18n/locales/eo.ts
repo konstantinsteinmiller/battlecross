@@ -7673,6 +7673,7 @@ export default {
     goblinWarchief: 'Goblena Militestro',
     thornfather: 'Dornpatro',
     broodMother: 'Idarpatrino',
+    broodling: 'Araneido',
     banditBaron: 'Banditbarono',
     cinderGolem: 'Ardaĵgolemo',
     frostHowler: 'Frosthurlanto',

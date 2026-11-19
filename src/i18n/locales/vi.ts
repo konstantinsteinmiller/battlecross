@@ -7673,6 +7673,7 @@ export default {
     goblinWarchief: 'Tù Trưởng Yêu Tinh',
     thornfather: 'Cha Gai Góc',
     broodMother: 'Mẹ Ổ Nhện',
+    broodling: 'Nhện con',
     banditBaron: 'Nam Tước Thảo Khấu',
     cinderGolem: 'Người Đá Than Hồng',
     frostHowler: 'Sói Hú Băng Giá',

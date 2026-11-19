@@ -16,6 +16,7 @@ import { LEVIATHAN_SCRIPTS } from './leviathan'
 import { HYDRA_SCRIPTS } from './hydra'
 import { ELDER_DRAGON_SCRIPTS } from './elderDragon'
 import { GROVE_SCRIPTS } from './grove'
+import { BROOD_SCRIPTS } from './brood'
 
 /**
  * ─── Scripted bosses (#74) ───────────────────────────────────────────────────
@@ -64,6 +65,8 @@ import { GROVE_SCRIPTS } from './grove'
  *                no heads, and the body is open
  *   grove        the Elder Treant (Whispering Woods, #171): two Grove Shamans mend
  *                it by green beams until they are killed; two more at half
+ *   brood        the Brood Mother (the spider ways, #241): a bounce, a retreat that lays webs,
+ *                a brood crawling out of the ground that jumps with no warning
  *   elderDragon  the Elder Dragon (Rift, the final fight): breath, tail, gust;
  *                at 70 % in the air behind rune stones; a void ring at 40 %;
  *                at 15 % the rift holds it 30 s, or it heals to 30 %
@@ -109,7 +112,8 @@ export const BOSS_SCRIPTS: Record<string, BossScript> = {
   ...LEVIATHAN_SCRIPTS,
   ...HYDRA_SCRIPTS,
   ...ELDER_DRAGON_SCRIPTS,
-  ...GROVE_SCRIPTS
+  ...GROVE_SCRIPTS,
+  ...BROOD_SCRIPTS
 }
 
 /** Its arena, once: what stands in it is up before the hero comes in sight. */

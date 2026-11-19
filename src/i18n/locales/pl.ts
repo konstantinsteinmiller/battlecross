@@ -7774,6 +7774,7 @@ export default {
     goblinWarchief: 'Goblin wódz wojenny',
     thornfather: 'Ojciec Cierni',
     broodMother: 'Matka Lęgu',
+    broodling: 'Pajączek',
     banditBaron: 'Baron Bandytów',
     cinderGolem: 'Żarowy Golem',
     frostHowler: 'Mroźny Wyjec',

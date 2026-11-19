@@ -7730,6 +7730,7 @@ export default {
     goblinWarchief: 'Caudilho Goblin',
     thornfather: 'Pai dos Espinhos',
     broodMother: 'Mãe da Ninhada',
+    broodling: 'Aranhinha',
     banditBaron: 'Barão Bandido',
     cinderGolem: 'Golem de Brasa',
     frostHowler: 'Uivador da Geada',

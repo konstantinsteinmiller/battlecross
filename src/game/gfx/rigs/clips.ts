@@ -721,5 +721,7 @@ export const SKILL_CAST: Readonly<Record<string, CastName>> = {
 /** Enemy abilities (`AbilityKind`), each to its cast. A cone is a cleave unless it is breathed. */
 export const ABILITY_CAST: Readonly<Record<string, CastName>> = {
   slam: 'slam', smash: 'call', cone: 'cleave', charge: 'charge', line: 'line', shot: 'beam', volley: 'beam',
-  lob: 'throw', barrage: 'channel', rain: 'call', spears: 'throw', leap: 'leap', blink: 'strike', summon: 'summon', heal: 'raise', enrage: 'shout'
+  lob: 'throw', barrage: 'channel', rain: 'call', spears: 'throw', leap: 'leap', blink: 'strike', summon: 'summon', heal: 'raise', enrage: 'shout',
+  // The treants' roots out of the ground and thrown from the arms (#242), the spiderlings' jump (#241).
+  root: 'call', rootLine: 'throw', lunge: 'leap'
 }

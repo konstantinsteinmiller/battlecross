@@ -42,6 +42,12 @@ export type AbilityKind =
   | 'summon'
   | 'heal'
   | 'enrage'
+  /** Roots out of the ground under the target's spot: a light blow and the target held for the status's seconds, one root on him at a time (#242). */
+  | 'root'
+  /** Several roots thrown forward from the caster's arms in a fan, each its own lane and its own blow (#242). */
+  | 'rootLine'
+  /** A spider's jump onto the target, with no warning on the ground (#241). */
+  | 'lunge'
 
 export interface AbilityDef {
   kind: AbilityKind
@@ -86,6 +92,8 @@ export interface AbilityDef {
   bark?: string
   /** Leaves burning (fire) or freezing (frost) ground where it lands (the hellhounds' leap, afterplay §6). */
   patch?: 'fire' | 'frost'
+  /** Only a champion, an elite or a boss uses it (the stronger version of a plain unit's attack). */
+  champ?: boolean
   /** The caster stands dazed this many seconds after the blow, taking more damage (the cyclops brute's slam). */
   daze?: number
 }
@@ -153,6 +161,16 @@ export interface EnemyDef {
 }
 
 const D = (e: EnemyDef): EnemyDef => e
+
+/** The treants' root (#242): roots break out of the ground at the spot the hero stood on and hold him three seconds; a light blow. */
+export const ROOT_HOLD: AbilityDef = {
+  kind: 'root', cd: 8, first: 2.5, range: 9, min: 2.2, windup: 0.9, recover: 0.5, dmg: 0.35, r: 1.5, type: 'poison',
+  status: { id: 'slow', dur: 3, v: 1 }, fx: 'roots', color: '#6b8f3a'
+}
+/** The stronger version, for a champion, an elite or a boss treant: five roots thrown forward from its arms in a fan, each its own blow. */
+export const ROOT_LINE: AbilityDef = {
+  kind: 'rootLine', cd: 11, first: 5, range: 11, min: 1.5, windup: 1.3, recover: 0.7, dmg: 0.8, r: 11, w: 24, count: 5, hits: 5, type: 'physical', color: '#8a6a3a'
+}
 
 /** The whistle's gnomes (#136): five seconds to live, a tenth of their health gone every half second. */
 export const GNOME_FLEETING: Fleeting = { life: 5, every: 0.5, pct: 0.1 }
@@ -311,7 +329,11 @@ const BASE_ENEMIES: readonly EnemyDef[] = [
     id: 'treant', rank: 'normal', rig: 'treant', look: 'treant', scale: 1.15, r: 0.66, h: 1.9,
     hp: 1.7, dmg: 1.2, armor: 2.6, speed: 2.3, style: 'melee', type: 'physical', range: 2.3, interval: 1.8, windup: 0.55, heavy: true,
     aggro: 8, reward: 1.25, color: '#5f9b4a',
-    abilities: [{ kind: 'smash', cd: 9, first: 4, range: 8, min: 2.5, windup: 1, recover: 0.5, dmg: 1.2, r: 2.4, type: 'poison', status: { id: 'slow', dur: 2.5, v: 0.5 }, fx: 'roots' }]
+    abilities: [
+      { kind: 'smash', cd: 9, first: 4, range: 8, min: 2.5, windup: 1, recover: 0.5, dmg: 1.2, r: 2.4, type: 'poison', status: { id: 'slow', dur: 2.5, v: 0.5 }, fx: 'roots' },
+      ROOT_HOLD,
+      { ...ROOT_LINE, champ: true }
+    ]
   }),
   D({
     id: 'spider', rank: 'normal', rig: 'spider', look: 'spider', scale: 0.95, r: 0.52, h: 0.8,
@@ -345,7 +367,9 @@ const BASE_ENEMIES: readonly EnemyDef[] = [
     aggro: 10, reward: 1.2, color: '#4f8f3a', script: 'grove',
     abilities: [
       { kind: 'slam', cd: 8, first: 3, range: 3.6, windup: 1, recover: 0.6, dmg: 1.8, r: 4.2, status: { id: 'knockdown', dur: 0.8, v: 1 } },
-      { kind: 'barrage', cd: 11, first: 6, range: 12, windup: 0.9, recover: 0.5, dmg: 1.1, r: 2.1, count: 4, type: 'poison', fx: 'roots', status: { id: 'slow', dur: 2.5, v: 0.5 } }
+      { kind: 'barrage', cd: 11, first: 6, range: 12, windup: 0.9, recover: 0.5, dmg: 1.1, r: 2.1, count: 4, type: 'poison', fx: 'roots', status: { id: 'slow', dur: 2.5, v: 0.5 } },
+      ROOT_HOLD,
+      ROOT_LINE
     ]
   }),
   D({
@@ -632,7 +656,11 @@ const BASE_ENEMIES: readonly EnemyDef[] = [
     id: 'corruptedTreant', rank: 'normal', rig: 'treant', look: 'blight', scale: 1.15, r: 0.66, h: 1.9,
     hp: 1.7, dmg: 1.2, armor: 2.6, resist: 0.2, speed: 2.4, style: 'melee', type: 'physical', range: 2.3, interval: 1.8, windup: 0.55, heavy: true,
     aggro: 8.5, reward: 1.3, color: '#8a4a9a',
-    abilities: [{ kind: 'smash', cd: 9, first: 4, range: 8, min: 2.5, windup: 1, recover: 0.5, dmg: 1.2, r: 2.4, type: 'poison', fx: 'roots', status: { id: 'poison', dur: 4, v: 0.22, type: 'poison' } }]
+    abilities: [
+      { kind: 'smash', cd: 9, first: 4, range: 8, min: 2.5, windup: 1, recover: 0.5, dmg: 1.2, r: 2.4, type: 'poison', fx: 'roots', status: { id: 'poison', dur: 4, v: 0.22, type: 'poison' } },
+      ROOT_HOLD,
+      { ...ROOT_LINE, champ: true }
+    ]
   }),
   D({
     // Hit and run: it keeps its distance with the bow and rides through the hero.
@@ -781,13 +809,22 @@ const BASE_ENEMIES: readonly EnemyDef[] = [
     aggro: 10, reward: 0.45, color: '#4f8f3a', phase2: 0.5,
     abilities: [
       { kind: 'slam', cd: 8, first: 3, range: 3.6, windup: 1, recover: 0.6, dmg: 1.7, r: 4, status: { id: 'knockdown', dur: 0.7, v: 1 } },
-      { kind: 'barrage', cd: 10, first: 5, range: 12, windup: 0.9, recover: 0.5, dmg: 1.1, r: 2, count: 4, type: 'poison', fx: 'roots', status: { id: 'slow', dur: 2.5, v: 0.5 }, phase: 2 }
+      { kind: 'barrage', cd: 10, first: 5, range: 12, windup: 0.9, recover: 0.5, dmg: 1.1, r: 2, count: 4, type: 'poison', fx: 'roots', status: { id: 'slow', dur: 2.5, v: 0.5 }, phase: 2 },
+      ROOT_HOLD,
+      ROOT_LINE
     ]
+  }),
+  D({
+    // What crawls out of the ground for the Brood Mother (`sim/bosses/brood.ts`, #241): small, quick, and its jump has no warning.
+    id: 'broodling', rank: 'weak', rig: 'spider', look: 'spider', scale: 0.62, r: 0.38, h: 0.55,
+    hp: 0.4, dmg: 0.5, armor: 0.3, speed: 4.8, style: 'melee', type: 'physical', range: 1.4, interval: 1.4, windup: 0.3,
+    aggro: 30, reward: 0.15, color: '#b07ae8',
+    abilities: [{ kind: 'lunge', cd: 3.2, first: 0.8, range: 6, min: 1.4, windup: 0.22, recover: 0.5, dmg: 0.5, pct: 0.03, type: 'physical' }]
   }),
   D({
     id: 'broodMother', rank: 'boss', branch: true, rig: 'spider', look: 'mother', scale: 2, r: 1.1, h: 1.6,
     hp: 4.4, dmg: 1.15, armor: 1.6, speed: 3.5, style: 'melee', type: 'physical', range: 2.4, interval: 1.3, windup: 0.38,
-    aggro: 11, reward: 0.45, color: '#a65fe6', phase2: 0.5,
+    aggro: 11, reward: 0.45, color: '#a65fe6', phase2: 0.5, script: 'brood',
     abilities: [
       { kind: 'lob', cd: 6, first: 2.5, range: 10, min: 2, windup: 0.7, recover: 0.4, dmg: 1.1, r: 2.4, type: 'poison', fx: 'venom', status: { id: 'poison', dur: 4, v: 0.25, type: 'poison' } },
       { kind: 'summon', cd: 14, first: 6, range: 20, windup: 0.8, recover: 0.5, spawn: 'spider', count: 2 },

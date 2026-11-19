@@ -7755,6 +7755,7 @@ export default {
     goblinWarchief: 'Capoguerra goblin',
     thornfather: 'Padre delle Spine',
     broodMother: 'Madre della Covata',
+    broodling: 'Ragnetto',
     banditBaron: 'Barone dei banditi',
     cinderGolem: 'Golem di brace',
     frostHowler: 'Ululatore del gelo',

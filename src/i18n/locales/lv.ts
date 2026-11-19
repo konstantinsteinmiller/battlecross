@@ -7748,6 +7748,7 @@ export default {
     goblinWarchief: 'Goblinu karavadonis',
     thornfather: 'Ērkšķu tēvs',
     broodMother: 'Perējuma māte',
+    broodling: 'Zirneklēns',
     banditBaron: 'Laupītāju barons',
     cinderGolem: 'Ogļu golems',
     frostHowler: 'Sala gaudotājs',

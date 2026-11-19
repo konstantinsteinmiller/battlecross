@@ -7717,6 +7717,7 @@ export default {
     goblinWarchief: 'Căpetenie de război goblin',
     thornfather: 'Tatăl Spinilor',
     broodMother: 'Mama Puietului',
+    broodling: 'Păianjenaș',
     banditBaron: 'Baronul Tâlharilor',
     cinderGolem: 'Golem de Jar',
     frostHowler: 'Urlătorul Gerului',

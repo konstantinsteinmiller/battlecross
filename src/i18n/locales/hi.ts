@@ -7765,6 +7765,7 @@ export default {
     goblinWarchief: 'गोब्लिन युद्ध-सरदार',
     thornfather: 'काँटों का पिता',
     broodMother: 'संतानों की माता',
+    broodling: 'नन्हा मकड़ा',
     banditBaron: 'डाकू सामंत',
     cinderGolem: 'अंगार गोलेम',
     frostHowler: 'पाला हुंकार',

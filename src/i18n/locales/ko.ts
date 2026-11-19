@@ -7673,6 +7673,7 @@ export default {
     goblinWarchief: '고블린 전쟁 족장',
     thornfather: '가시의 아버지',
     broodMother: '무리의 어미',
+    broodling: '새끼 거미',
     banditBaron: '산적 남작',
     cinderGolem: '잉걸불 골렘',
     frostHowler: '서리 울부짖개',

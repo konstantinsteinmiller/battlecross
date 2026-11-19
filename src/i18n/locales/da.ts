@@ -7673,6 +7673,7 @@ export default {
     goblinWarchief: 'Goblinkrigshøvding',
     thornfather: 'Tornefaderen',
     broodMother: 'Yngelmoderen',
+    broodling: 'Edderkoppeunge',
     banditBaron: 'Røverbaronen',
     cinderGolem: 'Glødgolem',
     frostHowler: 'Frosthyler',

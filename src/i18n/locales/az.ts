@@ -7673,6 +7673,7 @@ export default {
     goblinWarchief: 'Qoblin Sərkərdəsi',
     thornfather: 'Tikan Atası',
     broodMother: 'Yuva Anası',
+    broodling: 'Hörümçək balası',
     banditBaron: 'Quldur Baronu',
     cinderGolem: 'Köz Qolemi',
     frostHowler: 'Şaxta Ulayanı',

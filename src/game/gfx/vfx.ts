@@ -943,6 +943,89 @@ export class Vfx {
     const h = e.unit ? heightOf(e.unit) : 1.2
     if (id.startsWith('cameo:')) { this.cameo(id.slice(6), e, c, h); return }
     switch (id) {
+      case 'rootTell': {
+        // The treant gathers itself: the ground at its feet trembles, dust lifts along the way the roots will go.
+        this.ring(e.x, e.z, 2.2, 0.6, c, e.dur ?? 1.2)
+        for (let k = 0; k < this.n(8); k++) {
+          const off = (e.a ?? 0) + (Math.random() - 0.5) * 0.9
+          this.sprites.emit({ x: e.x + Math.sin(off) * 0.8, y: 0.2, z: e.z + Math.cos(off) * 0.8, vx: Math.sin(off) * 0.9, vy: 0.5, vz: Math.cos(off) * 0.9, color: '#6b5a3a', size: 0.5, sizeEnd: 1.3, life: 0.9, drag: 1.2, shape: SHAPE.puff, add: 0, hold: 0.2 })
+        }
+        break
+      }
+      case 'rootLane': {
+        // One root stretches out of an arm along its lane: knot after knot of bark runs to the tip, a leaf-green point at the end and dust behind it.
+        const a = e.a ?? 0
+        const R = e.r ?? 10
+        const sx = Math.sin(a)
+        const cz = Math.cos(a)
+        const segs = 11
+        for (let k = 0; k < segs; k++) {
+          const d = 1 + (k / (segs - 1)) * (R - 1)
+          this.later(k * 0.022, () => {
+            this.sprites.emit({ x: e.x + sx * d, y: 0.45, z: e.z + cz * d, color: k % 3 === 0 ? '#4f8f3a' : '#6e4e28', size: R / segs * 1.5, sizeEnd: R / segs * 1.2, aspect: 0.22, life: e.dur ?? 0.5, dx: sx, dy: 0.18, dz: cz, add: 0, hold: 0.7, shape: SHAPE.streak })
+            if (k % 2 === 0) this.sprites.emit({ x: e.x + sx * d, y: 0.2, z: e.z + cz * d, vy: 0.8, color: '#8a7a54', size: 0.5, sizeEnd: 1.1, life: 0.5, drag: 2, shape: SHAPE.puff, add: 0, hold: 0.15 })
+          })
+        }
+        this.later(segs * 0.022, () => this.sprites.emit({ x: e.x + sx * R, y: 0.45, z: e.z + cz * R, color: '#9be06a', size: 0.9, sizeEnd: 0.2, life: 0.45, shape: SHAPE.dot, hold: 0.3 }))
+        break
+      }
+      case 'rootGrip': {
+        // Roots break out of the ground and close round the spot; they hold for the seconds named, then sink back into the earth.
+        const dur = Math.max(0.5, e.dur ?? 3)
+        const R = e.r ?? 1.5
+        this.ring(e.x, e.z, R * 0.4, R * 1.3, c, 0.35)
+        for (let k = 0; k < this.n(9); k++) {
+          const a = (k / 9) * Math.PI * 2 + Math.random() * 0.4
+          const x = e.x + Math.cos(a) * R * 0.7
+          const z = e.z + Math.sin(a) * R * 0.7
+          const lx = -Math.cos(a) * 0.4
+          const lz = -Math.sin(a) * 0.4
+          const root = (size: number, size2: number, life: number, color: string, aspect: number): void => {
+            this.sprites.emit({ x, y: 0.2 + size2 * 0.4, z, color, size, sizeEnd: size2, aspect, life, dx: lx, dy: 1, dz: lz, add: 0, hold: 0.9, shape: SHAPE.streak })
+          }
+          root(0.3, 1.9, 0.22, '#5a3f22', 0.16)
+          this.later(0.22, () => root(1.9, 1.9, Math.max(0.1, dur - 0.55), '#5a3f22', 0.16))
+          this.later(0.22, () => root(0.5, 0.5, Math.max(0.1, dur - 0.55), '#4f8f3a', 0.3))
+          this.later(Math.max(0.3, dur - 0.33), () => root(1.9, 0.2, 0.33, '#5a3f22', 0.16))
+        }
+        for (let k = 0; k < this.n(8); k++) {
+          const a = Math.random() * Math.PI * 2
+          this.sprites.emit({ x: e.x, y: 0.2, z: e.z, vx: Math.cos(a) * 2, vy: 2 + Math.random() * 2, vz: Math.sin(a) * 2, color: '#5a4a2c', size: 0.3, sizeEnd: 0.08, aspect: 0.5, life: 0.5, gravity: 11, shape: SHAPE.streak, align: true, add: 0 })
+        }
+        break
+      }
+      case 'webLay': {
+        // Strands fly from the spider to the spot and settle as a web: spokes and rings that stay as long as the web does.
+        const x2 = e.x2 ?? e.x
+        const z2 = e.z2 ?? e.z
+        const R = e.r ?? 2.3
+        const dur = e.dur ?? 5
+        const dx = x2 - e.x
+        const dz = z2 - e.z
+        const len = Math.hypot(dx, dz) || 1
+        for (let k = 0; k < this.n(5); k++) {
+          this.sprites.emit({ x: e.x, y: 0.9, z: e.z, vx: (dx / len) * len * 3.2 + (Math.random() - 0.5), vy: 0.3, vz: (dz / len) * len * 3.2 + (Math.random() - 0.5), color: '#f4f4ff', size: 0.8, sizeEnd: 0.4, aspect: 0.12, life: 0.3, align: true, stretch: 0.02, drag: 0.2, shape: SHAPE.streak })
+        }
+        this.later(0.3, () => {
+          for (let k = 0; k < 8; k++) {
+            const a = (k / 8) * Math.PI * 2
+            this.sprites.emit({ x: x2 + Math.cos(a) * R * 0.5, y: 0.08, z: z2 + Math.sin(a) * R * 0.5, color: '#e8e8f4', size: R, sizeEnd: R, aspect: 0.025, life: dur, dx: Math.cos(a), dy: 0, dz: Math.sin(a), add: 0.4, hold: 0.9, shape: SHAPE.streak })
+          }
+          for (const f of [0.35, 0.7, 1]) this.sprites.emit({ x: x2, y: 0.09, z: z2, color: '#e8e8f4', size: R * 2 * f, sizeEnd: R * 2 * f, life: dur, add: 0.4, hold: 0.9, shape: SHAPE.ring })
+        })
+        break
+      }
+      case 'crawlOut': {
+        // Something climbs out of the ground: cracks, a ring of soil, clods thrown up, dust.
+        this.ring(e.x, e.z, 0.3, 1.6, '#6b5a3a', 0.5)
+        for (let k = 0; k < this.n(10); k++) {
+          const a = Math.random() * Math.PI * 2
+          const v = 1.5 + Math.random() * 2
+          this.sprites.emit({ x: e.x, y: 0.15, z: e.z, vx: Math.cos(a) * v, vy: 3 + Math.random() * 3, vz: Math.sin(a) * v, color: Math.random() < 0.5 ? '#4a3a22' : '#6b5a3a', size: 0.28, sizeEnd: 0.1, aspect: 0.6, life: 0.6, gravity: 12, drag: 0.4, shape: SHAPE.streak, align: true, add: 0 })
+        }
+        for (let k = 0; k < this.n(4); k++) this.sprites.emit({ x: e.x + (Math.random() - 0.5) * 0.6, y: 0.2, z: e.z + (Math.random() - 0.5) * 0.6, vy: 0.9, color: '#7a6a48', size: 0.6, sizeEnd: 1.5, life: 0.8, drag: 1.5, shape: SHAPE.puff, add: 0, hold: 0.15 })
+        break
+      }
       case 'slam':
       case 'quake':
         this.slam(e.x, e.z, e.r ?? 3, c)

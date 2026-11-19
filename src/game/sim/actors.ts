@@ -483,6 +483,11 @@ export const stepFields = (sim: Sim, dt: number): void => {
       }
     }
     f.next -= dt
+    // A web on the ground (#241): v is the slow it holds the other team at, refreshed while they stand in it.
+    if (f.kind === 'web' && f.v > 0) {
+      const caught = sim.inCircle(other, f.x, f.z, f.r, hits)
+      for (let i = 0; i < caught.length; i++) applyStatus(sim, caught[i]!, 'slow', 0.35, f.v, src, { quiet: true })
+    }
     if (f.next <= 0) {
       f.next += f.every
       if (f.dmg > 0) {
@@ -492,7 +497,7 @@ export const stepFields = (sim: Sim, dt: number): void => {
           dealDamage(sim, src, u, f.dmg, { type: f.type, spell: true, skill: f.skill, canCrit: f.kind !== 'burnGround' })
           if (!u.alive) continue
           if (f.kind === 'burnGround' && f.v > 0) applyStatus(sim, u, 'burn', 2.5, f.v, src, { type: 'fire', quiet: true })
-          if (f.kind === 'web') applyStatus(sim, u, 'slow', 1, 0.5, src, { quiet: true })
+          if (f.kind === 'web' && f.v <= 0) applyStatus(sim, u, 'slow', 1, 0.5, src, { quiet: true })
         }
       }
       if (f.kind === 'heal') {

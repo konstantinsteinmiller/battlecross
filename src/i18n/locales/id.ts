@@ -7673,6 +7673,7 @@ export default {
     goblinWarchief: 'Panglima Perang Goblin',
     thornfather: 'Bapa Duri',
     broodMother: 'Induk Sarang',
+    broodling: 'Anak Laba-laba',
     banditBaron: 'Baron Bandit',
     cinderGolem: 'Golem Bara',
     frostHowler: 'Pelolong Beku',

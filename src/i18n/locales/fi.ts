@@ -7673,6 +7673,7 @@ export default {
     goblinWarchief: 'Hiisisotapäällikkö',
     thornfather: 'Orjantappuraisä',
     broodMother: 'Sikiöemo',
+    broodling: 'Hämähäkinpoikanen',
     banditBaron: 'Rosvoparoni',
     cinderGolem: 'Hiillosgolemi',
     frostHowler: 'Pakkasulvoja',

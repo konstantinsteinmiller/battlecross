@@ -7774,6 +7774,7 @@ export default {
     goblinWarchief: 'Skřetí válečný náčelník',
     thornfather: 'Otec trnů',
     broodMother: 'Matka plodu',
+    broodling: 'Pavoučík',
     banditBaron: 'Banditský baron',
     cinderGolem: 'Žhavý golem',
     frostHowler: 'Mrazivý vyjec',

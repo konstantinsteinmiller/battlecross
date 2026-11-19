@@ -7673,6 +7673,7 @@ export default {
     goblinWarchief: 'จอมทัพก็อบลิน',
     thornfather: 'บิดาแห่งหนาม',
     broodMother: 'มารดาแห่งฝูง',
+    broodling: 'ลูกแมงมุม',
     banditBaron: 'บารอนโจร',
     cinderGolem: 'โกเลมถ่านเพลิง',
     frostHowler: 'หมาป่าหอนน้ำแข็ง',

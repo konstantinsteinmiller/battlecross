@@ -7673,6 +7673,7 @@ export default {
     goblinWarchief: 'Гоблин соғыс көсемі',
     thornfather: 'Тікен әкесі',
     broodMother: 'Ұя анасы',
+    broodling: 'Өрмекші баласы',
     banditBaron: 'Қарақшы барон',
     cinderGolem: 'Шоқ голем',
     frostHowler: 'Аяз ұлығышы',

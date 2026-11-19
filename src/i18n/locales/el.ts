@@ -7730,6 +7730,7 @@ export default {
     goblinWarchief: 'Πολέμαρχος των Γκόμπλιν',
     thornfather: 'Πατέρας των Αγκαθιών',
     broodMother: 'Μητέρα της Γέννας',
+    broodling: 'Αράχνη-νιάτο',
     banditBaron: 'Βαρόνος των Ληστών',
     cinderGolem: 'Γκόλεμ της Θράκας',
     frostHowler: 'Ουρλιαχτής του Παγετού',

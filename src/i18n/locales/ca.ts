@@ -7722,6 +7722,7 @@ export default {
     goblinWarchief: 'Cabdill Goblin',
     thornfather: 'Pare dels Espins',
     broodMother: 'Mare de la Niuada',
+    broodling: 'Aranyó',
     banditBaron: 'Baró Bandoler',
     cinderGolem: 'Gòlem de Brasa',
     frostHowler: 'Udolador del Gebre',

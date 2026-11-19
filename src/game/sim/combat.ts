@@ -171,13 +171,18 @@ export const isControlled = (u: Unit): boolean => {
 }
 
 export const moveSpeedOf = (u: Unit): number => {
-  const slow = Math.min(0.8, statusV(u, 'slow'))
+  // A slow of 1 is a root (#242): held on the spot, free to act. Any other slow stops at four fifths.
+  const raw = statusV(u, 'slow')
+  const slow = raw >= 1 ? 1 : Math.min(0.8, raw)
   // Haste, focus and the swiftness elixir add up, but never past two and a half times the base.
   return u.s.moveSpeed * Math.min(2.5, 1 + statusV(u, 'haste') + statusV(u, 'focus') * 2 + statusV(u, 'elixirSwift')) * (1 - slow)
 }
 
 export const attackSpeedOf = (u: Unit): number =>
   u.s.attackSpeed * (1 + statusV(u, 'attackSpeed') + statusV(u, 'enrage') * 0.6 + statusV(u, 'elixirSwift'))
+
+/** Held by roots (#242): a slow of 1. */
+export const isRooted = (u: Unit): boolean => statusV(u, 'slow') >= 1
 
 /** Effective cooldown reduction: the stat plus Entropy's Accelerate stacks. */
 export const cdrOf = (u: Unit): number => {

@@ -7673,6 +7673,7 @@ export default {
     goblinWarchief: 'Goblin hadvezér',
     thornfather: 'Tövisatya',
     broodMother: 'Fészekanya',
+    broodling: 'Pókocska',
     banditBaron: 'Rablóbáró',
     cinderGolem: 'Parázsgólem',
     frostHowler: 'Fagyüvöltő',

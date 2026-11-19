@@ -7694,6 +7694,7 @@ export default {
     goblinWarchief: 'Goblin-Kriegshäuptling',
     thornfather: 'Dornenvater',
     broodMother: 'Brutmutter',
+    broodling: 'Spinnling',
     banditBaron: 'Banditenbaron',
     cinderGolem: 'Glutgolem',
     frostHowler: 'Frostheuler',

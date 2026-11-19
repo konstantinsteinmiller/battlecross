@@ -7788,6 +7788,7 @@ export default {
     goblinWarchief: 'Goblinski ratni poglavica',
     thornfather: 'Otac trnja',
     broodMother: 'Majka legla',
+    broodling: 'Pauk mališan',
     banditBaron: 'Razbojnički barun',
     cinderGolem: 'Žarni golem',
     frostHowler: 'Mrazni urlikač',

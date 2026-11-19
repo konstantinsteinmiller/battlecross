@@ -7673,6 +7673,7 @@ export default {
     goblinWarchief: 'Goblin sarkardasi',
     thornfather: 'Tikanlar otasi',
     broodMother: 'Uya onasi',
+    broodling: 'O\'rgimchak bolasi',
     banditBaron: 'Qaroqchi baron',
     cinderGolem: 'Choʻgʻ golemi',
     frostHowler: 'Ayoz uvlovchisi',

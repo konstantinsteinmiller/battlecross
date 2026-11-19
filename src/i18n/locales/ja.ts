@@ -7673,6 +7673,7 @@ export default {
     goblinWarchief: 'ゴブリンの戦長',
     thornfather: 'いばらの父',
     broodMother: '群れの母',
+    broodling: '子蜘蛛',
     banditBaron: '山賊男爵',
     cinderGolem: '燠火のゴーレム',
     frostHowler: '霜の咆哮獣',

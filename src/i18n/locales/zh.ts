@@ -7673,6 +7673,7 @@ export default {
     goblinWarchief: '哥布林督军',
     thornfather: '荆棘之父',
     broodMother: '巢母',
+    broodling: '小蜘蛛',
     banditBaron: '盗匪男爵',
     cinderGolem: '余烬魔像',
     frostHowler: '霜嚎兽',

@@ -7673,6 +7673,7 @@ export default {
     goblinWarchief: 'Goblin Savaş Reisi',
     thornfather: 'Diken Ata',
     broodMother: 'Kuluçka Ana',
+    broodling: 'Örümcek yavrusu',
     banditBaron: 'Haydut Baron',
     cinderGolem: 'Kor Golemi',
     frostHowler: 'Ayaz Uluyanı',

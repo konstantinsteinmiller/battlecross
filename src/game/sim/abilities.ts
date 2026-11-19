@@ -2,7 +2,7 @@ import { chargeCapOf } from './chargeCap'
 import { ENEMY_BY_ID, type AbilityDef } from '../data/enemies'
 import { hasLineOfSight, isSolidAt, nearestOpen } from './grid'
 import { addField, face, fire, stop } from './actors'
-import { applyStatus, dealDamage, heal, knockback } from './combat'
+import { applyStatus, dealDamage, heal, isRooted, knockback } from './combat'
 import { spawnEnemy } from './spawn'
 import { barkKey } from '../data/dialogs/bosses'
 import { angleTo, newAction, type Sim } from './world'
@@ -17,6 +17,12 @@ import type { Action, Team, Unit } from './types'
  */
 
 const hits: Unit[] = []
+/** Half-width of one root's lane, and the angle of root `i` of a fan around the caster's facing (#242). */
+const ROOT_HALF = 0.5
+const rootAngle = (a: AbilityDef, facing: number, i: number): number => {
+  const n = a.count ?? 5
+  return facing + (n === 1 ? 0 : (i / (n - 1) - 0.5) * 2 * ((a.w ?? 24) * Math.PI) / 180)
+}
 const out2: [number, number] = [0, 0]
 const rad = (deg: number): number => (deg * Math.PI) / 180
 
@@ -27,11 +33,15 @@ export const abilityReady = (sim: Sim, u: Unit, a: AbilityDef, idx: number, tgt:
   if (u.cds[idx]! > 0) return false
   if (a.phase && u.phase < a.phase) return false
   if (a.below !== undefined && u.hp > u.s.maxHp * a.below) return false
+  if (a.champ && !u.champion && u.rank !== 'elite' && u.rank !== 'boss') return false
   if (a.kind === 'enrage' || a.kind === 'summon') return tgt !== null
   if (a.kind === 'heal') return true
   if (!tgt) return false
   const d = Math.hypot(tgt.x - u.x, tgt.z - u.z)
   if (d > a.range + tgt.r || (a.min !== undefined && d < a.min)) return false
+  // One root on him at a time (#242).
+  if (a.kind === 'root' && isRooted(tgt)) return false
+  if (a.kind === 'rootLine') return hasLineOfSight(sim.grid, u.x, u.z, tgt.x, tgt.z)
   if (a.kind === 'shot' || a.kind === 'volley' || a.kind === 'line' || a.kind === 'charge' || a.kind === 'spears') {
     return hasLineOfSight(sim.grid, u.x, u.z, tgt.x, tgt.z)
   }
@@ -58,7 +68,13 @@ export const startAbility = (sim: Sim, u: Unit, a: AbilityDef, idx: number, tgt:
       break
     case 'smash':
     case 'leap':
+    case 'root':
       sim.emit({ t: 'tele', tele: { shape: 'circle', x: tx, z: tz, r, w: 0, a: 0, dur: a.windup, team, src: u.id, wind: a.windup } })
+      break
+    case 'rootLine':
+      // Every root's own lane: a root that is not under the warning does not land.
+      for (let i = 0; i < (a.count ?? 5); i++) sim.emit({ t: 'tele', tele: { shape: 'line', x: u.x, z: u.z, r, w: ROOT_HALF, a: rootAngle(a, act.a, i), dur: a.windup, team, src: u.id, wind: a.windup } })
+      sim.emit({ t: 'fx', id: 'rootTell', x: u.x, z: u.z, a: act.a, r, dur: a.windup, color: a.color })
       break
     case 'lob':
       // The warning stays until the lob lands, a beat after the throw.
@@ -148,6 +164,47 @@ export const resolveAbility = (sim: Sim, u: Unit, act: Action): void => {
     case 'smash': {
       sim.emit({ t: 'fx', id: a.fx ? 'burst:' + a.fx : 'slam', x: act.x, z: act.z, r, color })
       for (const t of sim.inCircle(foe, act.x, act.z, r, hits)) strike(sim, u, a, t)
+      break
+    }
+    case 'root': {
+      // Roots break out of the ground at the spot; whoever stands in them is held (one root on a hero at a time).
+      const hold = a.status?.dur ?? 3
+      let held = false
+      for (const t of sim.inCircle(foe, act.x, act.z, r, hits)) {
+        strike(sim, u, isRooted(t) ? { ...a, status: undefined } : a, t)
+        if (t.alive && isRooted(t)) held = true
+      }
+      sim.emit({ t: 'fx', id: 'rootGrip', x: act.x, z: act.z, r, dur: held ? hold : 0.7, color })
+      break
+    }
+    case 'rootLine': {
+      // Five roots from the arms, one after another from the middle out; each lands on whoever is in its own lane.
+      const n = a.count ?? 5
+      const sx = u.x
+      const sz = u.z
+      const order = Array.from({ length: n }, (_, i) => i).sort((p, q) => Math.abs(p - (n - 1) / 2) - Math.abs(q - (n - 1) / 2))
+      order.forEach((i, k) => {
+        const ang = rootAngle(a, act.a, i)
+        sim.after(k * 0.09, () => {
+          if (!u.alive) return
+          sim.emit({ t: 'fx', id: 'rootLane', x: sx, z: sz, a: ang, r, dur: 0.5, color })
+          for (const t of sim.inLine(foe, sx, sz, ang, r, ROOT_HALF, hits)) strike(sim, u, a, t)
+        })
+      })
+      break
+    }
+    case 'lunge': {
+      // A spider's jump: no warning on the ground, the crouch is the only sign.
+      const t = sim.live(act.targetId)
+      if (!t || !t.alive || Math.hypot(t.x - u.x, t.z - u.z) > a.range + 2) break
+      const ang = angleTo(u.x, u.z, t.x, t.z)
+      const bx = t.x - Math.sin(ang) * (t.r + u.r)
+      const bz = t.z - Math.cos(ang) * (t.r + u.r)
+      sim.emit({ t: 'fx', id: 'dash', x: u.x, z: u.z, x2: bx, z2: bz, color })
+      if (!isSolidAt(sim.grid, bx, bz)) { u.x = bx; u.z = bz }
+      u.px = u.x
+      u.pz = u.z
+      strike(sim, u, a, t)
       break
     }
     case 'cone': {

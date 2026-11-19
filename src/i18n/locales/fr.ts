@@ -7724,6 +7724,7 @@ export default {
     goblinWarchief: 'Chef de guerre gobelin',
     thornfather: 'Père-des-Épines',
     broodMother: 'Mère de la Couvée',
+    broodling: 'Araignon',
     banditBaron: 'Baron des bandits',
     cinderGolem: 'Golem de braise',
     frostHowler: 'Hurleur du givre',
