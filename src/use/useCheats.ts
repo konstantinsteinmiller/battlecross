@@ -1,6 +1,6 @@
 import { onMounted, onUnmounted, ref } from 'vue'
 import { toggleDebug } from '@/use/useMatch'
-import { safeGetBool } from '@/utils/safeStorage'
+import { safeGetBool, safeRemoveItem, safeSetItem } from '@/utils/safeStorage'
 
 /**
  * Dev cheats.
@@ -12,6 +12,17 @@ import { safeGetBool } from '@/utils/safeStorage'
  * would hoist the whole 3D engine into the entry chunk.
  */
 const isCheat = ref<boolean>(safeGetBool('cheat'))
+
+/** The cheat word or the tap code was entered: `localStorage.cheat = 'true'` (the ctrl+shift+alt shortcuts wake after a reload). */
+export const enableCheats = (): void => {
+  safeSetItem('cheat', 'true')
+  isCheat.value = true
+}
+/** Cheat mode off again (the cheat menu's own button). */
+export const disableCheats = (): void => {
+  safeRemoveItem('cheat')
+  isCheat.value = false
+}
 
 type CheatFn = () => void
 const cheats = new Map<string, { fn: CheatFn; label: string }>()
