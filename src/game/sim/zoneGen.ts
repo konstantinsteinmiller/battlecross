@@ -688,7 +688,7 @@ export const generateZone = (def: ZoneDef, seed: number, o: ZoneGenOpts = {}): Z
     features.chests.push({ id: features.chests.length, x: x.x, z: x.z, tier: 'gold', role: 'treasure', sx: x.x, sz: x.z + CELL, door: -1, guard: -1 })
   }
   // A cage (#100), last of all and on its own stream.
-  const cage = o.cage && !o.tutorial && !o.bare ? placeCage(spots, [...herbs, ...pieces, ...ores, ...gangKeep, ...(x ? [x] : [])]) : null
+  const cage = o.cage && !o.tutorial && !o.bare ? placeCage(spots, [...herbs, ...pieces, ...ores, ...gangKeep, ...(x ? [x] : [])], def.id === 'temple' && finalePack ? { x: finalePack.x, z: finalePack.z } : undefined) : null
   if (cage) features.chests.push({ id: features.chests.length, ...cage.chest })
   // A way two cells across from the start to every place one goes to, cut
   // through the rock where the layout left only a gap (`widen.ts`).

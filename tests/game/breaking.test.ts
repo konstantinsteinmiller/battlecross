@@ -40,17 +40,17 @@ describe('the chain B0–B5', () => {
     expect(onZoneWon('plains', true, S('brk0', 'brk1', purgedFlag('plains'), ...RESCUES.plains!), 40)).toEqual([])
   })
 
-  it('B3 needs the fort reached and both Sunford roads purged; B4 the Woods and level 34; B5 the Outskirts and level 38, and calls the siege', () => {
+  it('B3 needs the fort reached and both Sunford roads purged; B4 the Woods; B5 the Outskirts, and calls the siege (levels are advice, not a lock: #235)', () => {
     const b2 = ['brk0', 'brk1', 'brk2']
     expect(advance(S('brk0', 'brk1', purgedFlag('plains'), purgedFlag('hollows')), 50)).toEqual([])
     expect(advance(S(...b2, purgedFlag('plains')), 50)).toEqual([])
     expect(advance(S(...b2, purgedFlag('plains'), purgedFlag('hollows')), 31)).toEqual(['brk3'])
     const b3 = [...b2, 'brk3', purgedFlag('plains'), purgedFlag('hollows'), purgedFlag('woods')]
-    expect(advance(S(...b3), B4_LEVEL - 1)).toEqual([])
+    expect(advance(S(...b3), B4_LEVEL - 10)).toEqual(['brk4'])
     expect(advance(S(...b3), B4_LEVEL)).toEqual(['brk4'])
     // The whole road at once, at a high level: every step that holds.
     expect(advance(S(...b2, ...['plains', 'hollows', 'woods', 'outskirts'].map(z => purgedFlag(z as 'plains'))), B5_LEVEL)).toEqual(['brk3', 'brk4', 'brk5', SIEGE_DUE])
-    expect(advance(S(...b3, 'brk4', purgedFlag('outskirts')), B5_LEVEL - 1)).toEqual([])
+    expect(advance(S(...b3, 'brk4', purgedFlag('outskirts')), B5_LEVEL - 20)).toEqual(['brk5', SIEGE_DUE])
   })
 
   it('points the way: the fort, then the Sunford road, the Woods, the Outskirts', () => {

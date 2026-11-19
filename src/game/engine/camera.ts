@@ -32,6 +32,15 @@ const TAN_HALF = Math.tan((CAM_FOV * Math.PI) / 360)
 const SIN_P = Math.sin(CAM_PITCH)
 const COS_P = Math.cos(CAM_PITCH)
 
+/**
+ * How far the view may lead the hero toward where he is going (m), and the fastest he can be taken as going (m/s). The sim
+ * hands over his velocity as the distance moved in one tick, so a teleport (Shadowstep, a boss's grab, a charge or a
+ * knockback of several metres in a tick) arrives as hundreds of metres a second: unclamped, the lead threw the view tens of
+ * metres off and then crawled back (#229).
+ */
+const LEAD_MAX = 2.4
+const LEAD_SPEED = 8.5
+
 const _dir = new Vector3()
 const _proj = new Vector3()
 /** How far above and below the view's height a tap's ray looks for ground (m), and its step. */
@@ -86,8 +95,13 @@ export class FollowCam {
    *  bumpy path does not bob the view. */
   follow(x: number, z: number, vx: number, vz: number, dt: number, y = 0): void {
     const k = 1 - Math.exp(-dt * 3)
-    this.leadX += (vx * 0.28 - this.leadX) * k
-    this.leadZ += (vz * 0.28 - this.leadZ) * k
+    // A velocity beyond what a hero runs at is a jump, not a direction to lead into: it is clamped, and so is the lead.
+    const sp = Math.hypot(vx, vz)
+    const c = sp > LEAD_SPEED ? LEAD_SPEED / sp : 1
+    this.leadX += (vx * c * 0.28 - this.leadX) * k
+    this.leadZ += (vz * c * 0.28 - this.leadZ) * k
+    const ll = Math.hypot(this.leadX, this.leadZ)
+    if (ll > LEAD_MAX) { this.leadX *= LEAD_MAX / ll; this.leadZ *= LEAD_MAX / ll }
     const tx = x + this.leadX
     const tz = z + this.leadZ
     if (this.snapNext) {
@@ -95,7 +109,9 @@ export class FollowCam {
       this.target.set(tx, y, tz)
       return
     }
-    const f = 1 - Math.exp(-dt * 7)
+    // The view catches up faster the further the hero is from it (a teleport must not leave him off screen for long).
+    const gap = Math.hypot(tx - this.target.x, tz - this.target.z)
+    const f = 1 - Math.exp(-dt * (7 + Math.max(0, gap - 3.5) * 2.5))
     this.target.x += (tx - this.target.x) * f
     this.target.z += (tz - this.target.z) * f
     this.target.y += (y - this.target.y) * (1 - Math.exp(-dt * 3.5))

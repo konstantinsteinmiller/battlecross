@@ -157,6 +157,8 @@ export interface ZoneSetup {
   celebrate?: { freed: number }
   /** The colosseum's weekly modifier (roadmap #10). */
   arenaMod?: ArenaMod
+  /** The colosseum begins at this wave (#230; none: wave 1). */
+  arenaStart?: number
   /** The zone's invaded version (the afterplay, `data/invasion.ts`): its roster,
    *  ruins, pylons and scars, the corruption's tint, and kills worth more. */
   invaded?: boolean
@@ -539,6 +541,10 @@ export class ZoneMode implements GameMode {
     const m = new ZoneMode(setup, plan, input, cb)
     const sim = m.sim
     if (setup.arenaMod) sim.arenaMod = setup.arenaMod
+    // Enemy blows take their minimum share of the hero's health (#233).
+    sim.damageFloors = true
+    // From the second visit the ladder may begin part of the way up: the waves before it count as fought.
+    if (setup.arenaStart && setup.arenaStart > 1) { sim.wave.n = setup.arenaStart - 1; sim.wave.cleared = setup.arenaStart - 1 }
     // The opening fight's own tuning (`OPENING`): harder blows, the level-up on the result screen.
     if (setup.kind === 'zone' && setup.tutorial) {
       sim.enemyDmgMul = OPENING.dmg

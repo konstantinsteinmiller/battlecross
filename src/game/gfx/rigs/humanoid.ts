@@ -92,6 +92,9 @@ export interface Look {
   /** Boots: 'none' is simple shoes. Unset: whatever the body outfit implies. */
   boots?: GearKind
   bootTrim?: string
+  /** The leather of the gloves and boots, where an item has a colour of its own (the hero's gear). */
+  gloveCol?: string
+  bootCol?: string
 }
 
 /** 0 = a weak device, 1 = everybody, 2 = the hero. */
@@ -592,8 +595,8 @@ export const buildHumanoid = (l: Look, detail?: Detail): Rig => {
   const boots: GearKind | 'bare' = l.boots ?? (unshod ? 'bare' : plate ? 'plate' : robe ? 'cloth' : 'leather')
   const bootTrim = l.bootTrim ?? l.trim
   const legCol = unshod ? skin : l.bottom
-  const shinCol = boots === 'plate' ? tone(bootTrim, 0.92) : boots === 'cloth' ? tone(l.bottom, 0.72) : boots === 'leather' ? tone(LEATHER, 1.12) : legCol
-  const bootCol = boots === 'bare' ? skin : boots === 'plate' ? bootTrim : boots === 'cloth' ? tone(l.bottom, 0.6) : boots === 'leather' ? LEATHER : '#3a2c2a'
+  const shinCol = boots === 'plate' ? tone(bootTrim, 0.92) : boots === 'cloth' ? tone(l.bottom, 0.72) : boots === 'leather' ? tone(l.bootCol ?? LEATHER, 1.12) : legCol
+  const bootCol = boots === 'bare' ? skin : boots === 'plate' ? bootTrim : boots === 'cloth' ? tone(l.bottom, 0.6) : boots === 'leather' ? (l.bootCol ?? LEATHER) : '#3a2c2a'
   const thin = skeletal ? 0.6 : 1
   b.mirror((_s, t) => {
     b.painted('leg' + t, gradY(limb(0.094 * kl * thin, 0.074 * kl * thin, THIGH, R, CS), tone(legCol, 0.9), legCol), {})
@@ -713,7 +716,7 @@ export const buildHumanoid = (l: Look, detail?: Detail): Rig => {
   /** Hand gear: its own layer when the look names one, else what the outfit implies. */
   const gloves: GearKind = l.gloves ?? (plate ? 'plate' : l.outfit === 'leather' || l.outfit === 'apron' ? 'leather' : 'none')
   const gloveTrim = l.gloveTrim ?? l.trim
-  const handCol = gloves === 'plate' ? tone(gloveTrim, 0.95) : gloves === 'leather' ? LEATHER : gloves === 'cloth' ? tone(l.top, 0.78) : skeletal ? '#e8e2cf' : skin
+  const handCol = gloves === 'plate' ? tone(gloveTrim, 0.95) : gloves === 'leather' ? (l.gloveCol ?? LEATHER) : gloves === 'cloth' ? (l.gloveCol ?? tone(l.top, 0.78)) : skeletal ? '#e8e2cf' : skin
   b.mirror((s, t) => {
     b.painted('arm' + t, gradY(limb(0.08 * kl * thin, 0.064 * kl * thin, UPPER, R, CS), tone(upperCol, 0.88), upperCol), {})
     if (robe) {

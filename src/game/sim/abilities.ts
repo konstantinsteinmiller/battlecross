@@ -124,7 +124,7 @@ const strike = (sim: Sim, u: Unit, a: AbilityDef, t: Unit, mul = 1): void => {
   if (sim.chargedCap > 0 && t.rank === 'hero' && (a.charged || a.kind === 'charge')) base = Math.min(base, t.s.maxHp * sim.chargedCap)
   // Charged blows never take more than a share of the hero's current health (30-50 % by the foe's level, at least a fifth of his full bar).
   const cap = t.rank === 'hero' && (a.charged || a.kind === 'charge') ? chargeCapOf(u.level) : {}
-  const dealt = dealDamage(sim, u, t, base, { type: a.type ?? 'physical', heavy: true, canCrit: false, ...cap })
+  const dealt = dealDamage(sim, u, t, base, { type: a.type ?? 'physical', heavy: true, canCrit: false, ...(a.hits && a.hits > 1 ? { hits: a.hits } : {}), ...cap })
   if (dealt > 0 && a.status && t.alive) {
     const v = a.status.id === 'burn' || a.status.id === 'poison' || a.status.id === 'bleed' ? u.s.baseDmg * a.status.v : a.status.v
     applyStatus(sim, t, a.status.id, a.status.dur, v, u, { type: a.status.type })

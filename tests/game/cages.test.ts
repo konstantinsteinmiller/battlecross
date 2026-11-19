@@ -38,7 +38,7 @@ describe('where the cages stand', () => {
         const path: number[] = []
         expect(findPath(g, plan.start.x, plan.start.z, cage!.sx, cage!.sz, path), `${tag} cage`).toBeGreaterThan(0)
         expect(findPath(g, plan.start.x, plan.start.z, plan.cageKey!.x, plan.cageKey!.z, path), `${tag} key`).toBeGreaterThan(0)
-        expect(Math.hypot(cage!.x - plan.cageKey!.x, cage!.z - plan.cageKey!.z), tag).toBeGreaterThanOrEqual(14)
+        expect(Math.hypot(cage!.x - plan.cageKey!.x, cage!.z - plan.cageKey!.z), tag).toBeGreaterThanOrEqual(c.zone === "temple" ? 8 : 14)
       }
     }
   })
@@ -216,5 +216,28 @@ describe('the freed', () => {
     p.freeCaptives('plains')
     p.freeCaptives('hollows')
     for (const f of ['rescuedAegis', 'rescuedPyro', 'rescuedShadow', 'rescuedGeo']) expect(p.hasFlag(f), f).toBe(true)
+  })
+})
+
+describe('the Sunken Temple\'s cage (#231)', () => {
+  it('stands on the way to the boss and its key short of it, so both are had before the fight', () => {
+    for (const seed of [...SEEDS, 5, 9, 13, 21]) {
+      const plan = generateZone(ZONES.temple, seed, { cage: true })
+      const cage = plan.chests.find(x => x.role === 'cage')!
+      const boss = plan.packs.find(p => p.finale)!
+      const tag = `temple#${seed}`
+      const d = Math.hypot(cage.x - boss.x, cage.z - boss.z)
+      const dk = Math.hypot(plan.cageKey!.x - boss.x, plan.cageKey!.z - boss.z)
+      // Close enough to be seen on the way (22 m at the most), unless the level had no room that near (then any cage's place).
+      expect(d, tag).toBeGreaterThanOrEqual(12)
+      if (d <= 22) expect(dk, tag).toBeGreaterThanOrEqual(d)
+    }
+    const near = [1, 2, 3, 5, 7, 9, 11, 13, 21, 42].filter((seed) => {
+      const plan = generateZone(ZONES.temple, seed, { cage: true })
+      const cage = plan.chests.find(x => x.role === 'cage')!
+      const boss = plan.packs.find(p => p.finale)!
+      return Math.hypot(cage.x - boss.x, cage.z - boss.z) <= 22
+    })
+    expect(near.length, 'most temples put the cage near the boss').toBeGreaterThanOrEqual(6)
   })
 })

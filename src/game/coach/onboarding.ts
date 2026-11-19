@@ -68,7 +68,7 @@ export const liveGoalCtx = (): GoalCtx => {
           boss: bossOf(z.plan.packs.find(p => p.finale)?.kinds),
           // The plate shows a boss: the finale's own, or a branch's.
           bossAwake: !!hud.bossKey && hud.bossKey === 'enemy.' + bossOf(z.plan.packs.find(p => p.finale)?.kinds),
-          sideBoss: hud.bossKey && hud.bossKey !== 'enemy.' + bossOf(z.plan.packs.find(p => p.finale)?.kinds) ? hud.bossKey.slice(6) : '',
+          sideBoss: hud.bossKey && hud.bossKey !== 'enemy.' + bossOf(z.plan.packs.find(p => p.finale)?.kinds) ? hud.bossKey.replace(/^(?:enemy|invasion\.reborn)\./, '') : '',
           encounter: !!flow.encounter,
           escort: !!flow.encounter?.escort,
           ended: z.sim.ended || '',

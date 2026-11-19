@@ -1,6 +1,7 @@
 import { ITEM_BY_ID, TIER_COLOR, type EquipSlot } from '../../data/items'
 import type { GearKind, HeadGear, Held, Look, OffHand } from './humanoid'
 import { heroOutfitOf, type HeroGender } from '../../art/heroPortrait'
+import { ITEM_PALETTE } from '../../data/itemPalette'
 
 /**
  * Who looks like what. Every two-legged thing in the game is one `Look` on the
@@ -254,6 +255,12 @@ const HERO_GOLD = '#d9b04e'
 const RIG_TIER: Record<number, string> = { 5: '#d9743c', 6: '#d9a531' }
 const tierHex = (tier: number): string => RIG_TIER[tier] ?? TIER_COLOR[tier]!
 
+/** A colour scaled darker or lighter (kept local: this file also serves the UI, which should not pull in the 3D kit). */
+const tone = (hex: string, k: number): string => '#' + [1, 3, 5].map(i => Math.max(0, Math.min(255, Math.round(parseInt(hex.slice(i, i + 2), 16) * k))).toString(16).padStart(2, '0')).join('')
+
+/** An item's colours on the model: its painted icon's main colour and accent (`tools/item-palette.mjs`); none for a piece without one. */
+const paletteOf = (id: string | null | undefined): readonly [string, string] | undefined => (id ? ITEM_PALETTE[id] : undefined)
+
 export const heroLook = (equipped: Record<EquipSlot, string | null>, gender: HeroGender = 'm'): Look => {
   const who = HERO_HEAD[gender === 'f' ? 'f' : 'm']
   const main = equipped.main ? ITEM_BY_ID[equipped.main] : undefined
@@ -272,6 +279,10 @@ export const heroLook = (equipped: Record<EquipSlot, string | null>, gender: Her
   const outfit: Look['outfit'] = heroOutfitOf(body?.kind)
   const tops: Record<string, string> = { plate: '#c9d3e4', robe: '#4a5fd6', leather: '#8a5f3a', tunic: '#3f7fd6' }
   const mainTier = main?.tier ?? 1
+  const bodyPal = paletteOf(equipped.body)
+  const headPal = paletteOf(worn.head)
+  const handPal = paletteOf(worn.hands)
+  const feetPal = paletteOf(worn.feet)
   return L({
     skin: '#f2c8a0',
     hair: who.hair,
@@ -282,20 +293,23 @@ export const heroLook = (equipped: Record<EquipSlot, string | null>, gender: Her
     head: headGear ? (headGear === 'hat' && outfit === 'robe' ? 'wizard' : headGear) : who.style,
     style: who.style,
     ...(who.fem ? { fem: true } : {}),
-    headCol: head ? (headKind === 'helm' || headKind === 'greathelm' ? (head.tier >= 5 ? HERO_GOLD : head.tier >= 3 ? '#bfe6ff' : '#c9d3e4') : HEAD_COL[headKind]) : undefined,
-    headTrim: head ? tierHex(head.tier) : undefined,
+    headCol: head ? (headPal ? headPal[0] : headKind === 'helm' || headKind === 'greathelm' ? (head.tier >= 5 ? HERO_GOLD : head.tier >= 3 ? '#bfe6ff' : '#c9d3e4') : HEAD_COL[headKind]) : undefined,
+    headTrim: head ? (headPal ? headPal[1] : tierHex(head.tier)) : undefined,
     gloves: hands ? wornKind(hands.kind, hands.tier, 'gauntlets') : undefined,
-    gloveTrim: hands ? tierHex(hands.tier) : undefined,
+    gloveTrim: hands ? (handPal ? handPal[1] : tierHex(hands.tier)) : undefined,
+    gloveCol: handPal?.[0],
     boots: feet ? wornKind(feet.kind, feet.tier, 'greaves') : undefined,
-    bootTrim: feet ? tierHex(feet.tier) : undefined,
-    top: tops[outfit]!,
-    bottom: outfit === 'plate' ? '#5a6a88' : '#3a4a6a',
-    trim,
+    bootTrim: feet ? (feetPal ? feetPal[1] : tierHex(feet.tier)) : undefined,
+    bootCol: feetPal?.[0],
+    // The coat is the colour of its icon (blue apprentice's robe, a green ranger's leathers); the legs a shade darker.
+    top: bodyPal ? bodyPal[0] : tops[outfit]!,
+    bottom: bodyPal ? tone(bodyPal[0], 0.62) : outfit === 'plate' ? '#5a6a88' : '#3a4a6a',
+    trim: bodyPal ? bodyPal[1] : trim,
     outfit,
     held: main ? HELD_OF[main.kind] ?? 'sword' : 'none',
     off: off ? OFF_OF[off.kind] ?? 'none' : 'none',
     pauldrons: outfit === 'plate',
-    cape: tier >= 3 ? trim : '#c9483a',
+    cape: tier >= 3 ? (bodyPal ? bodyPal[1] : trim) : '#c9483a',
     metal: mainTier >= 5 ? HERO_GOLD : mainTier >= 3 ? '#bfe6ff' : '#d8dde8',
     glow: main ? TIER_COLOR[mainTier]! : '#7ff4ff'
   })
@@ -306,5 +320,5 @@ export const lookKey = (l: Look): string =>
   [
     l.skin, l.hair, l.head, l.top, l.bottom, l.trim, l.outfit, l.held, l.off, l.metal, l.glow, l.ears, l.eyeGlow, l.cape,
     l.wings, l.tail, l.beard, l.pauldrons ? 1 : 0, l.bulk ?? 1, l.eye, l.cowl ? 1 : 0, l.hero ? 1 : 0, l.style, l.headCol,
-    l.headTrim, l.gloves, l.gloveTrim, l.boots, l.bootTrim, l.fem ? 1 : 0, l.ribbon, l.fierce ? 1 : 0
+    l.headTrim, l.gloves, l.gloveTrim, l.gloveCol, l.boots, l.bootTrim, l.bootCol, l.fem ? 1 : 0, l.ribbon, l.fierce ? 1 : 0
   ].join('|')

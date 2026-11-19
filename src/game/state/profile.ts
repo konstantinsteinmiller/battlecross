@@ -29,7 +29,8 @@ import { infernalId } from '../data/items'
 import { cageOf } from '../data/cages'
 import { defaultSiege, normalizeSiege, type SiegeSave } from '../data/siege'
 import { ARM_DISCOUNT, defaultFair, normalizeFair, type FairSave } from '../fair'
-import { FORT, MAP_BEAT_FLAG, RESCUES, STORY_QUESTS, advance, breakingDerived, mapBeat, onZoneWon, type MapBeat } from '../data/breaking'
+import { FORT, MAP_BEAT_FLAG, RESCUES, STORY_QUESTS, advance, breakingDerived, mapBeat, onZoneWon, purgedFlag, type MapBeat } from '../data/breaking'
+import { invadedFlag } from '../data/invasion'
 import { RECIPE_BY_ID, gradeMakes, type Grade } from '../data/smithing'
 import { ELIXIR_BY_ID, ELIXIR_CAP, ELIXIR_IDS, brewFee, isElixir, type ElixirId } from '../data/elixirs'
 import { BATTLE_MIN_ITEMS, BATTLE_ROW, CUPS_ANTE, CUPS_BONUS_ROW, CUPS_ROW, MEMORY_ROW, battleFee, cupsPayout, battleXp, gamblerTable, prizeOf } from '../gamble'
@@ -498,6 +499,7 @@ export const loadProfile = (): void => {
   profile.level = Math.min(profile.level, levelCap(world.afterplay))
   // The fifth passive slot (the siege's Veteran's Instinct, afterplay §8.6).
   syncPassiveSlots()
+  reconcileStory()
 
   profile.stats = obj(stored(STATS_KEY), d.stats)
   profile.tips = obj(stored(TUTORIAL_KEY), {})
@@ -2000,6 +2002,22 @@ export const clearNode = (id: NodeId): boolean => {
 
 const addFlags = (fs: readonly string[]): void => {
   for (const f of fs) if (!profile.world.flags.includes(f)) profile.world.flags.push(f)
+}
+
+/**
+ * A save made before the story stopped asking for levels (#235) may stand with an invaded zone won and a step of the chain
+ * missing (the Hydra dead, the Rift still sealed): every zone won in the afterplay counts as purged, and every step that now
+ * holds is written. Safe to run any time; it only adds what the flags already prove.
+ */
+export const reconcileStory = (): void => {
+  const w = profile.world
+  if (!w.afterplay || !w.flags.includes('brk1')) return
+  const before = w.flags.length
+  for (const z of Object.keys(ZONES) as Array<keyof typeof ZONES>) {
+    if (w.flags.includes(invadedFlag(z))) addFlags([purgedFlag(z), ...(RESCUES[z] ?? [])])
+  }
+  addFlags(advance(new Set(w.flags), profile.level))
+  if (w.flags.length !== before) saveProfile()
 }
 
 /** The story beat the world map tells next (B0, B1), if any. */

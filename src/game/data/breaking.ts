@@ -189,17 +189,22 @@ export const onZoneWon = (zone: ZoneId, afterplay: boolean, flags: ReadonlySet<s
 }
 
 /** The story steps that hold in this world and are not yet written (B3–B5). */
-export const advance = (flags: ReadonlySet<string>, level: number): string[] => {
+/**
+ * The levels B4-B10 name are what the story is told for, not a lock (#235): a hero under them (the second arc's levels are
+ * generous, and the map now shows them five lower) won the Hydra three times and never got its key, because each step also
+ * asked for its level at the moment of the win. A step now holds when the one before it does and its zones are purged.
+ */
+export const advance = (flags: ReadonlySet<string>, _level?: number): string[] => {
   const add: string[] = []
   const has = (f: string): boolean => flags.has(f) || add.includes(f)
   if (has('brk2') && !has('brk3') && has(purgedFlag('plains')) && has(purgedFlag('hollows'))) add.push('brk3')
-  if (has('brk3') && !has('brk4') && has(purgedFlag('woods')) && level >= B4_LEVEL) add.push('brk4')
-  if (has('brk4') && !has('brk5') && has(purgedFlag('outskirts')) && level >= B5_LEVEL) add.push('brk5', SIEGE_DUE)
-  // B6–B10: each after the one before, its zones purged, at its level.
+  if (has('brk3') && !has('brk4') && has(purgedFlag('woods'))) add.push('brk4')
+  if (has('brk4') && !has('brk5') && has(purgedFlag('outskirts'))) add.push('brk5', SIEGE_DUE)
+  // B6–B10: each after the one before, its zones purged.
   for (let i = 0; i < LATE_BEATS.length; i++) {
     const b = LATE_BEATS[i]!
     const before = i === 0 ? 'brk5' : LATE_BEATS[i - 1]!.flag
-    if (!has(before) || has(b.flag) || level < b.level || !b.zones.every(z => has(purgedFlag(z)))) continue
+    if (!has(before) || has(b.flag) || !b.zones.every(z => has(purgedFlag(z)))) continue
     add.push(b.flag)
     const reward = STORY_REWARDS[b.flag]
     if (reward && !has(reward)) add.push(reward)
@@ -214,7 +219,7 @@ export const nextGoal = (flags: ReadonlySet<string>, level: number): ZoneId | ty
   if (s < 2) return null
   if (s === 2) return FORT
   if (s === 3) return !flags.has(purgedFlag('plains')) ? 'plains' : 'hollows'
-  if (s === 4) return level >= B4_LEVEL || !flags.has(purgedFlag('woods')) ? 'woods' : null
+  if (s === 4) return 'woods'
   if (s === 5) return 'outskirts'
   // B6–B10: the first zone of the next step not purged yet.
   const late = LATE_BEATS[s - 6]

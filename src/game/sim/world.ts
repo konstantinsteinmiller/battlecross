@@ -329,6 +329,8 @@ export class Sim {
   wave: WaveState = { n: 0, cleared: 0, rest: 0, alive: 0 }
   /** Enemy damage multiplier on top of the difficulty (the opening fight, `OPENING.dmg`). */
   enemyDmgMul = 1
+  /** Enemy blows take a minimum share of the hero's health (#233, `dealDamage`). Switched on by the game (`ZoneMode`); the sim and its test harnesses measure the base tuning without it unless asked. */
+  damageFloors = false
   /** Enemy health multiplier (the opening fight once the hero knows the road teacher's skill, `OPENING.skillHp`). */
   enemyHpMul = 1
   /** Every enemy blow is scaled by this as it lands (the opening boss's mercy, #155, `coach/tutorialAid.ts`). */

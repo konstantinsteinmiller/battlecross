@@ -1,3 +1,4 @@
+import { coinMulFor } from '../data/difficulty'
 import { ARENA_WAVES, ZONES } from '../data/zones'
 import { milestoneAt } from '../data/arena'
 import { CELL } from './grid'
@@ -193,7 +194,7 @@ const win = (sim: Sim, plan: ZonePlan | null): void => {
     h.items.push(id)
     sim.emit({ t: 'loot', x: chest.x, z: chest.z, gold: 0, item: id })
   }
-  const bonus = Math.round((20 + sim.level * 14) * (sim.mode === 'arena' ? 2.5 : 1))
+  const bonus = Math.round((20 + sim.level * 14) * (sim.mode === 'arena' ? 2.5 : 1) * coinMulFor(sim.difficulty))
   h.gold += bonus
   sim.emit({ t: 'loot', x: chest.x, z: chest.z, gold: bonus, item: '' })
   sim.emit({ t: 'victory' })

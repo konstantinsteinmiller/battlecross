@@ -133,6 +133,8 @@ export interface RunOpts extends RefBuildOpts {
   /** Enemy level; default is the zone's level for this hero. */
   enemyLevel?: number
   difficulty?: number
+  /** Enemy blows take their minimum share of the hero's health (`Sim.damageFloors`); off in the balance runs. */
+  floors?: boolean
   maxSeconds?: number
   potions?: number
   /** Play the plain chain, without what a visit holds beside its packs. */
@@ -152,6 +154,8 @@ export const setupRun = (o: RunOpts): { sim: Sim; plan: ZonePlan } => {
     seed, w: plan.w, h: plan.h, level: o.enemyLevel ?? visitLevel(def, o.level), difficulty: o.difficulty ?? 1,
     mode: 'zone', zone: o.zone
   })
+  // The base tuning is what the balance runs measure; the damage floors (#233) are tested on their own.
+  sim.damageFloors = !!o.floors
   applyPlan(sim, plan)
   const ref = referenceBuild(o)
   createHero(sim, { build: ref.build, skills: ref.skills, x: plan.start.x, z: plan.start.z, xpInto: 0, potions: o.potions ?? 3 })

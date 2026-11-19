@@ -1,3 +1,4 @@
+import { coinMulFor } from '../data/difficulty'
 import { maybeMimic } from './mimic'
 import { ITEM_BY_ID, sellValue, type ZoneId } from '../data/items'
 import { freeCaptives } from './cages'
@@ -227,6 +228,7 @@ export const openChest = (sim: Sim, c: ChestState): void => {
     }
   }
   if (gold > 0) {
+    gold = Math.round(gold * coinMulFor(sim.difficulty))
     h.gold += gold
     sim.emit({ t: 'loot', x: at.x, z: at.z, gold, item: '' })
   }

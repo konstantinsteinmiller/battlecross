@@ -135,6 +135,15 @@ export const REBORN: ReadonlySet<string> = new Set(ZONE_IDS.filter(z => INVASION
  * sections and pack sizes), with the invasion's band, roster and finale, every
  * kind resolved to what fights today.
  */
+/**
+ * The levels the map recommends for a zone (its badge, its card, the colour of the badge against the hero's level, #228).
+ * The second arc's bands were set too high: a hero ten levels under them cleared every zone first try, so what is shown
+ * is five levels lower. Only what is shown: the enemies keep their real levels (`min`, `max`).
+ */
+export const ARC2_RECOMMEND_CUT = 5
+export const recommendedBand = (zone: ZoneDef): { min: number; max: number } =>
+  zone.invaded ? { min: Math.max(1, zone.min - ARC2_RECOMMEND_CUT), max: Math.max(1, zone.max - ARC2_RECOMMEND_CUT) } : { min: zone.min, max: zone.max }
+
 export const invadedZone = (id: ZoneId): ZoneDef => {
   const base = ZONES[id]
   const inv = INVASION[id]

@@ -1,3 +1,4 @@
+import { coinMulFor } from '../data/difficulty'
 import { AFTER_XP_MUL } from '../data/progression'
 import { PYLON } from '../data/invasion'
 import { finaleGold } from '../data/loot'
@@ -111,7 +112,7 @@ export const stepInvasion = (sim: Sim): void => {
   const h = sim.hero
   const last = sim.get(sim.pylons[sim.pylons.length - 1]!)
   const at = last ? { x: last.x, z: last.z } : { x: h.unit.x, z: h.unit.z }
-  const gold = Math.round(finaleGold(sim.level) * PYLON.gold)
+  const gold = Math.round(finaleGold(sim.level) * PYLON.gold * coinMulFor(sim.difficulty))
   h.gold += gold
   sim.emit({ t: 'loot', x: at.x, z: at.z, gold, item: '' })
   // A tier-5 piece not owned yet (§11's pylon chest).

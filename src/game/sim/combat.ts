@@ -1,3 +1,4 @@
+import { coinMulFor } from '../data/difficulty'
 import { HEAT_MAX, SKILL_BY_ID } from '../data/skills'
 import { SALLY_FOE_MUL } from '../data/assault'
 /** What lands of a blow on the shield brute's raised shield (#EXT-3). */
@@ -52,6 +53,8 @@ export interface HitOpts {
   drain?: boolean
   /** Reflected / redirected damage: never reflects or redirects again. */
   echo?: boolean
+  /** An ability that lands this many separate blows: each one's floor is its share (#233). */
+  hits?: number
   /** The most of the hero's health NOW that this one blow may take (0.4: never more than 40 %) ... */
   capHp?: number
   /** ... but never less than this share of his full health (0.2): a hero at 10 % can still be finished. */
@@ -382,6 +385,20 @@ export const dealDamage = (sim: Sim, src: Unit | null, tgt: Unit, base: number, 
     // The wards of the demon affixes (afterplay §2.4).
     if (toHero) amount *= relicDefence(tgt.s.mods, src, o.type)
   }
+  // The floors (#233): whatever the hero's armour, resistances and health, an enemy's blow takes at least a share of his full
+  // health, so a strong build still has something to step out of. Basic blows: 0.5 % (a boss 3 %); heavy abilities: 2 %
+  // (an elite or champion 5 %, a boss 10 %); a charged blow 25 %; a boss's damage-over-time tick 0.5 %. Softened places
+  // (the tutorial's mercy) and Easy keep their own tuning.
+  if (toHero && src && src.team === 1 && !o.echo && sim.damageFloors && sim.enemyDmgMul >= 1 && !(sim.chargedCap > 0)) {
+    const big = src.rank === 'boss'
+    const mid = !big && (src.rank === 'elite' || !!src.champion)
+    const share = o.capHp !== undefined ? 0.25
+      : o.dot ? (big ? 0.005 : 0)
+        : o.attack ? (big ? 0.03 : 0.005)
+          : o.heavy ? (big ? 0.1 : mid ? 0.05 : 0.02)
+            : 0
+    if (share > 0) amount = Math.max(amount, (tgt.s.maxHp * share * Math.min(1, sim.difficulty)) / Math.max(1, o.hits ?? 1))
+  }
   if (amount < 0.5 && !o.dot) amount = 0.5
   // The hard-fight ramp (#157) measures a boss's, champion's or elite's own blows.
   if (toHero && src && !o.dot && !o.echo) noteBossHit(sim, src, amount, !!o.attack)
@@ -594,7 +611,8 @@ export const kill = (sim: Sim, u: Unit, by: Unit | null): void => {
     const xp = Math.round(killXp(u.level, mul, h.level) * (h.rested > 0 ? RESTED_XP : 1) * sim.xpMul)
     // The Ashen Syndicate's blessing (+5 standing, #15): more gold from every kill.
     const blessing = h.build.blessings?.includes('syndicate') ? 1 + BLESSING.syndicate.goldPct : 1
-    const gold = Math.round(killGold(u.level, mul) * rewardBonus(cha) * blessing * (0.8 + sim.rng() * 0.4))
+    // The difficulty setting pays on top: Easy a tenth less, Hard 30% more (`data/difficulty.ts`).
+    const gold = Math.round(killGold(u.level, mul) * rewardBonus(cha) * blessing * coinMulFor(sim.difficulty) * (0.8 + sim.rng() * 0.4))
     h.kills++
     h.killKinds[u.kind] = (h.killKinds[u.kind] ?? 0) + 1
     grantXp(sim, xp)

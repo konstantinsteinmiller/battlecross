@@ -112,12 +112,13 @@ const BEAST: Record<BeastVariant, { fur: string; back: string; belly: string; ey
   // serpent tail are parts of their own), a chestnut horse body for the Centaur Warchief to sit in.
   chimera: { fur: '#c88a3a', back: '#8a5420', belly: '#ecd2a0', eye: '#ffd24a', accent: '#ff7a1a', nose: '#2a1810' },
   centaur: { fur: '#8a5a34', back: '#4e3020', belly: '#c89a6a', eye: '#ffb04a', accent: '#e0a04a', nose: '#24160e' },
-  // The Sphinx (afterplay §5.4), placeholder: a sand-gold lioness with a lapis-blue headdress mane (no wings yet).
+  // The Sphinx (afterplay §5.4): the lion's colours; its own body is `buildSphinx`.
   sphinx: { fur: '#e0b868', back: '#a8823a', belly: '#f6e6c0', eye: '#7fe8d0', accent: '#2a5ab8', nose: '#3a2a1a' }
 }
 
 export const buildBeast = (variant: BeastVariant): Rig => {
   if (variant === 'spiritBear') return buildBear()
+  if (variant === 'sphinx') return buildSphinx()
   const P = BEAST[variant]
   const b = new RigBuilder()
   b.bone('root', null, [0, 0, 0])
@@ -194,12 +195,6 @@ export const buildBeast = (variant: BeastVariant): Rig => {
     b.part('tail', rcone(0.07, 0.045, 0.5, 0.02, 7), '#4a9a3a', { p: [0, 0.2, -0.12], r: [-0.5, 0, 0] })
     b.part('tail', ell(0.08, 0.06, 0.12, 8, 5), '#6ad84a', { p: [0, 0.45, 0.02], r: [0.4, 0, 0] })
     b.part('tail', sph(0.02, 5, 4), '#d8ff7a', { p: [0, 0.5, 0.1], glow: true, outline: false })
-  } else if (variant === 'sphinx') {
-    // The headdress: lapis and gold bands falling to each side of the head.
-    for (let k = 0; k < 6; k++) {
-      const a = -1.4 + (2.8 * k) / 5
-      b.part('head', spike(0.07, 0.22, 5), k % 2 ? P.accent : '#e8c060', { p: [Math.sin(a) * 0.19, 0.08 + Math.cos(a) * 0.14, -0.1], r: [-1.2, 0, -a] })
-    }
   } else if (variant === 'centaur') {
     // A dark mane down the neck and a horse's long tail.
     for (let k = 0; k < 4; k++) b.part('body', spike(0.06, 0.2, 5), P.back, { p: [0, 0.27, 0.34 - k * 0.07], r: [-0.9, 0, 0] })
@@ -209,6 +204,105 @@ export const buildBeast = (variant: BeastVariant): Rig => {
     for (let k = 0; k < 5; k++) b.part('body', spike(0.06, 0.32 - Math.abs(k - 2) * 0.05, 5), k % 2 ? P.accent : P.eye, { p: [(k % 2 ? 0.06 : -0.06), 0.3, 0.2 - k * 0.12], r: [-0.5, 0, (k % 2 ? -0.3 : 0.3)], glow: true })
   }
   return b.build({ height: 0.95 * big })
+}
+
+// ─── The Sphinx (#229) ───────────────────────────────────────────────────────
+
+/**
+ * The Egyptian sphinx, not a lion in a headdress: a tawny lion's body (a deep chest, lean haunches, paws with claws, a
+ * tufted tail) that rises into a human neck, a broad gold-and-lapis collar, and a human head: a straight nose, painted
+ * eyes, a plaited ceremonial beard, the striped royal headdress (gold bands over lapis, a flared cloth behind, two
+ * lappets down the chest) with the cobra on the brow, and on the back a pair of great feathered wings, cream with
+ * gold tips. Bone names are the beast's (`head`, `tail`, the four legs) and the wyvern's (`wingL`, `wingR`), so its gait,
+ * bite, roar and wing beat are the beast's own (`anim.ts`).
+ */
+const buildSphinx = (): Rig => {
+  const P = BEAST.sphinx
+  const SKIN = '#d9a06a'
+  const SKIN_LO = '#f0c490'
+  const SKIN_HI = '#b8804a'
+  const LAPIS = '#2a5ab8'
+  const GOLD = '#e8c060'
+  const CREAM = '#f6f0e0'
+  const b = new RigBuilder()
+  b.bone('root', null, [0, 0, 0])
+  b.bone('body', 'root', [0, 0.46, 0])
+  b.bone('head', 'body', [0, 0.34, 0.3])
+  b.bone('tail', 'body', [0, 0.1, -0.4])
+  // ── The lion's body, the chest rising into a neck ──
+  b.painted('body', coat(ell(0.25, 0.27, 0.3, 10, 7), P.belly, P.fur, P.back), { p: [0, 0.03, 0.12] })
+  b.painted('body', coat(ell(0.2, 0.21, 0.27, 10, 7), P.belly, P.fur, P.back), { p: [0, 0.02, -0.2] })
+  b.painted('body', coat(ell(0.15, 0.2, 0.15, 8, 6), P.belly, P.fur, P.back), { p: [0, 0.22, 0.27], r: [-0.25, 0, 0] })
+  b.painted('body', shade(limb(0.085, 0.075, 0.18, 8, 2), SKIN, 0.8, 1.1), { p: [0, 0.34, 0.32], r: [-0.15, 0, 0] })
+  // ── Legs: the front straight, the hind with a hock; paws with claws ──
+  for (const [n, x, z] of [['legFL', -0.16, 0.24], ['legFR', 0.16, 0.24], ['legBL', -0.16, -0.26], ['legBR', 0.16, -0.26]] as const) {
+    b.bone(n, 'body', [x, -0.1, z])
+    if (n[3] === 'B') {
+      b.painted(n, coat(ell(0.1, 0.15, 0.13, 8, 5), P.belly, P.fur, P.back), { p: [0, -0.03, 0.01] })
+      b.painted(n, shade(limb(0.06, 0.045, 0.17, 7, 2), P.fur, 0.75, 1), { p: [0, -0.13, -0.05], r: [-0.4, 0, 0] })
+      b.painted(n, shade(limb(0.045, 0.04, 0.1, 6, 2), P.back, 0.8, 1), { p: [0, -0.27, -0.1], r: [0.55, 0, 0] })
+    } else {
+      b.painted(n, shade(limb(0.075, 0.058, 0.2, 7, 2), P.fur, 0.78, 1.05), { p: [0, 0.02, 0], r: [0.1, 0, 0] })
+      b.painted(n, shade(limb(0.055, 0.045, 0.16, 7, 2), P.fur, 0.75, 1), { p: [0, -0.17, 0.02] })
+    }
+    b.painted(n, shade(ell(0.075, 0.048, 0.1, 8, 5), P.back, 0.6, 0.9), { p: [0, -0.33, 0.05] })
+    for (let t = -1; t <= 1; t += 2) b.part(n, spike(0.016, 0.06, 4), BONE_WHITE, { p: [t * 0.035, -0.35, 0.14], r: [1.6, 0, 0], outline: false })
+  }
+  // ── The collar: broad rings of gold and lapis laid over the shoulders ──
+  for (let k = 0; k < 3; k++) b.part('body', torus(0.17 + k * 0.045, 0.022, 4, 12, Math.PI * 2), k % 2 ? LAPIS : GOLD, { p: [0, 0.3 - k * 0.025, 0.3 + k * 0.012], r: [Math.PI / 2 - 0.35, 0, 0] })
+  // ── The tail: a lion's, with a tuft ──
+  b.painted('tail', coat(ell(0.085, 0.085, 0.15, 8, 6), P.belly, P.fur, P.back), { p: [0, 0.03, -0.08], r: [0.6, 0, 0] })
+  b.painted('tail', coat(ell(0.1, 0.1, 0.15, 8, 6), P.belly, P.fur, P.back), { p: [0, 0.11, -0.2], r: [0.9, 0, 0] })
+  b.part('tail', ell(0.07, 0.07, 0.1, 8, 5), P.back, { p: [0, 0.19, -0.3], r: [1.1, 0, 0] })
+  // ── The head: a man's face ──
+  b.painted('head', coat(sph(0.19, 10, 7), SKIN_LO, SKIN, SKIN_HI), { p: [0, 0.14, 0.02] })
+  b.part('head', ell(0.034, 0.048, 0.05, 6, 4), SKIN, { p: [0, 0.1, 0.205], r: [0.25, 0, 0] })
+  b.part('head', lens(0.07, 0.016, 0.03, 8, 3), '#8a4a3a', { p: [0, 0.035, 0.19], outline: false })
+  b.mirror((s) => {
+    // Painted eyes: a white almond, a lit iris, the long dark line of kohl drawn out to the temple.
+    b.part('head', ell(0.04, 0.02, 0.014, 6, 4), '#fff8e8', { p: [s * 0.075, 0.15, 0.178], r: [0, s * 0.35, s * -0.12], outline: false })
+    b.part('head', sph(0.016, 5, 4), P.eye, { p: [s * 0.075, 0.15, 0.188], glow: true, outline: false })
+    b.part('head', ell(0.058, 0.01, 0.01, 4, 3), '#1b1626', { p: [s * 0.1, 0.156, 0.172], r: [0, s * 0.45, s * -0.18], outline: false })
+    b.part('head', ell(0.036, 0.008, 0.01, 4, 3), '#1b1626', { p: [s * 0.075, 0.195, 0.18], r: [0, s * 0.35, s * -0.1], outline: false })
+    b.part('head', ell(0.03, 0.045, 0.02, 5, 4), SKIN_HI, { p: [s * 0.19, 0.12, 0.0] })
+  })
+  // The plaited ceremonial beard, hanging forward from the chin.
+  b.part('head', rbox(0.045, 0.17, 0.04, 0.4, 3, 2), GOLD, { p: [0, -0.04, 0.18], r: [0.35, 0, 0] })
+  b.part('head', rbox(0.05, 0.04, 0.045, 0.4, 3, 2), LAPIS, { p: [0, -0.14, 0.2], r: [0.35, 0, 0] })
+  // ── The royal headdress: lapis, crossed by gold bands from ear to ear ──
+  b.painted('head', coat(sph(0.225, 10, 7), '#4a7ad8', LAPIS, '#1c3f8a'), { p: [0, 0.19, -0.07] })
+  for (const t of [-0.13, -0.04, 0.05, 0.12]) {
+    const rho = Math.sqrt(0.225 * 0.225 - t * t) + 0.004
+    b.part('head', torus(rho, 0.012, 3, 10, Math.PI), GOLD, { p: [0, 0.19, -0.07 + t], outline: false })
+  }
+  // The flared cloth behind, in bands, and the two lappets down the chest.
+  for (let k = 0; k < 4; k++) b.part('head', rbox(0.3 + k * 0.09, 0.09, 0.05, 0.4, 3, 2), k % 2 ? GOLD : LAPIS, { p: [0, 0.13 - k * 0.09, -0.24 - k * 0.03], r: [-0.18, 0, 0] })
+  b.mirror((s) => {
+    for (let k = 0; k < 3; k++) b.part('head', rbox(0.085, 0.11, 0.035, 0.4, 3, 2), k % 2 ? GOLD : LAPIS, { p: [s * 0.2, 0.05 - k * 0.11, 0.1 + k * 0.015], r: [0.12, 0, 0] })
+  })
+  // The gold brow band and the cobra of kingship on it.
+  b.part('head', torus(0.205, 0.016, 3, 10, Math.PI * 0.95), GOLD, { p: [0, 0.2, 0.0], r: [Math.PI / 2 - 0.55, 0, Math.PI * 0.025], outline: false })
+  b.part('head', rcone(0.03, 0.014, 0.09, 0.01, 6), GOLD, { p: [0, 0.3, 0.17], r: [-0.25, 0, 0] })
+  b.part('head', sph(0.018, 6, 5), '#c0282a', { p: [0, 0.35, 0.185], glow: true, outline: false })
+  // ── The wings: feathers fanned from the shoulder, cream with gold tips ──
+  for (const s of [-1, 1] as const) {
+    const t = s < 0 ? 'L' : 'R'
+    b.bone('wing' + t, 'body', [s * 0.2, 0.27, 0.02], [0, s * 0.18, s * 0.5])
+    const feather = (alpha: number, len: number, wide: number, y: number, col: string, tip: boolean): void => {
+      const dx = s * Math.cos(alpha)
+      const dz = -Math.sin(alpha)
+      const yaw = Math.atan2(dx, dz)
+      const c = 0.07 + len / 2
+      b.part('wing' + t, ell(wide, 0.012, len / 2, 5, 3), col, { p: [dx * c, y, dz * c], r: [0, yaw, 0] })
+      if (tip) b.part('wing' + t, ell(wide * 0.7, 0.014, 0.05, 4, 3), GOLD, { p: [dx * (0.07 + len + 0.03), y, dz * (0.07 + len + 0.03)], r: [0, yaw, 0], outline: false })
+    }
+    // Primaries: long, the leading ones longest; secondaries under them; coverts over the arm.
+    for (let k = 0; k < 6; k++) feather(-0.2 + k * 0.19, 0.62 - Math.abs(k - 1) * 0.03, 0.055, (k % 2) * 0.03, k % 2 ? CREAM : '#ffffff', true)
+    for (let k = 0; k < 4; k++) feather(0.0 + k * 0.27, 0.4, 0.07, -0.07 + (k % 2) * 0.03, k % 2 ? '#ffffff' : CREAM, false)
+    for (let k = 0; k < 3; k++) feather(0.05 + k * 0.33, 0.22, 0.08, 0.075 + (k % 2) * 0.03, k % 2 ? CREAM : '#fffaf0', false)
+    b.part('wing' + t, ell(0.05, 0.04, 0.09, 5, 3), GOLD, { p: [0, 0, 0], outline: false })
+  }
+  return b.build({ height: 1.25 })
 }
 
 // ─── The Beastcaller's bear (#86) ──────────────────────────────────────────
