@@ -2,12 +2,12 @@
 
 ## Short description (141 / 150 chars)
 
-Fight goblins, demons and dragons in a cute action RPG. Mix skills from 8
+Fight goblins, demons and dragons in a cute action RPG. Mix skills from 16
 classes into your own hero and make choices that reshape the realm.
 
 ## Description (482 / 500 chars)
 
-In a world full or trouble, a hero can learn from any teacher. Combine a knight's shield with a pyromancer's fire, summon royal guards, stop time, or call a beam from the sky.
+In a world full of trouble, a hero can learn from any of the 16 class teachers. Combine a knight's shield with a pyromancer's fire, summon royal guards, stop time, or call a beam from the sky.
 Fight hordes or goblins, trent and demons, find weapons and equipment to become a 1-man army, and decide the fate of towns, kings and a dragon.
 Your choices change who trades, who teaches, who hunts you, and how the fate of the world of Battlecross ends.
 
@@ -25,6 +25,13 @@ Your choices change who trades, who teaches, who hunts you, and how the fate of 
    may fill them from any of the 16 classes.
 5. **Choose.** At the end of some zones you make a decision that cannot be
    undone. It changes the towns, the shops, the trainers and the ending.
+
+How to play:
+use WASD/Arrows to move around, 1...8 for skill activation, Q for health and R for mana potions and SPACE for dodge roll.
+
+Mobile: left thumbstick to move, click icons to activate skills, health and dodge skill
+
+Level up by fighting and doing quests, beat the bosses and other challenges in the colloseum to gather the perfect equipment and build your op character build àla Diablo 2 from 16 class trees of different specializations.
 
 ## Controls
 
