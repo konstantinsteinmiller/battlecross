@@ -41,6 +41,8 @@ export interface ZoneDef {
   /** An elite that leads the pack half-way along the road: an old boss's
    *  fight, kept as a mini-boss (#74, D85). */
   midBoss?: string
+  /** A boss that holds its own arena on the main road just before the finale (the Brood Mother, #241): not a side way, and a web trail leads to it from the entry. */
+  miniBoss?: string
   /** The invaded version of the zone (the afterplay, `data/invasion.ts`):
    *  its ruins, scars and pylons are laid, its champion is this. */
   invaded?: boolean
@@ -59,10 +61,11 @@ export const ZONES: Readonly<Record<ZoneId, ZoneDef>> = {
     finale: { leader: 'tusker', with: ['goblin', 'goblinSlinger'] }
   },
   woods: {
-    id: 'woods', theme: 'forest', min: 6, max: 8, sections: 4, pack: [3, 4],
+    id: 'woods', theme: 'forest', min: 6, max: 8, sections: 5, pack: [3, 4],
     kinds: [{ kind: 'spider', w: 4 }, { kind: 'treant', w: 2 }, { kind: 'wolf', w: 2 }, { kind: 'bandit', w: 2 }],
     finale: { leader: 'elderTreant', with: ['spider', 'spider', 'treant'] },
-    midBoss: 'goblinTyrant'
+    midBoss: 'goblinTyrant',
+    miniBoss: 'broodMother'
   },
   outskirts: {
     id: 'outskirts', theme: 'farm', min: 8, max: 10, sections: 4, pack: [3, 4],
@@ -300,7 +303,7 @@ export const ZONE_SHAPE: Readonly<Record<ZoneId, ZoneShape>> = {
 export const ZONE_BRANCHES: Readonly<Record<ZoneId, ZoneBranches>> = {
   plains: { bypasses: [1, 2], bosses: [1, 1], bossKinds: ['goblinWarchief'], style: 'wide', half: 2 },
   hollows: { bypasses: [1, 2], bosses: [1, 2], bossKinds: ['goblinWarchief', 'broodMother'], style: 'tunnel', half: 1.15 },
-  woods: { bypasses: [1, 2], bosses: [1, 2], bossKinds: ['thornfather', 'broodMother'], style: 'trail', half: 1.5 },
+  woods: { bypasses: [1, 2], bosses: [1, 2], bossKinds: ['thornfather', 'banditBaron'], style: 'trail', half: 1.5 },
   outskirts: { bypasses: [1, 2], bosses: [1, 2], bossKinds: ['banditBaron'], style: 'wide', half: 1.8 },
   crags: { bypasses: [1, 2], bosses: [1, 2], bossKinds: ['cinderGolem'], style: 'trail', half: 1.4 },
   mines: { bypasses: [2, 2], bosses: [1, 2], bossKinds: ['cinderGolem', 'broodMother'], style: 'tunnel', half: 1.1 },

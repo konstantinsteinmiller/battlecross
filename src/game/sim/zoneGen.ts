@@ -79,6 +79,8 @@ export interface NpcPlan {
 
 export interface ZonePlan {
   seed: number
+  /** Webs on the road to the mini-boss's arena: small patches that slow the hero (`WEB_TRAIL_SLOW`, #241). */
+  webs?: Array<{ x: number; z: number; r: number }>
   w: number
   h: number
   /** 1 = solid terrain. */
@@ -311,6 +313,8 @@ export const generateZone = (def: ZoneDef, seed: number, o: ZoneGenOpts = {}): Z
   const rng = mulberry32(seed)
   const boss = ENEMY_BY_ID[def.finale.leader]?.rank === 'boss'
   const n = o.alt && o.tutorial ? ALT_SECTIONS : def.sections
+  /** The main road holds a mini-boss's arena just before the finale (#241). */
+  const hasMini = !!def.miniBoss && !o.tutorial && !o.bare && n >= 3
   // The stretched tutorial's goblins after the ambush lie closer (10 cells, not 11): the fights come one after the other. (Only that
   // gap: the gate before the boss needs the road's usual neck between its clearings.)
   const step = 11
@@ -319,7 +323,9 @@ export const generateZone = (def: ZoneDef, seed: number, o: ZoneGenOpts = {}): Z
   // The place's own layout (#103, #120); the first visit and a bare chain are always the chain.
   const shape: ZoneShape = o.tutorial || o.bare ? 'chain' : ZONE_SHAPE[def.id] ?? 'chain'
   // The first visit has room above its finale for the rescued teachers' camp (#156).
-  const h = layoutHeight(shape, n, boss) - altCut + (o.tutorial && !o.bare ? CAMP_ROOM : 0)
+  // The mini-boss's wider glade (#241) takes a few rows more.
+  const miniRows = hasMini ? 3 : 0
+  const h = layoutHeight(shape, n, boss) - altCut + miniRows + (o.tutorial && !o.bare ? CAMP_ROOM : 0)
   // A zone with branches has rock either side of its chain for them to run
   // through; the tutorial's single road and the bare chain do not.
   const M = o.tutorial || o.bare || o.branches === false ? 0 : BRANCH_MARGIN
@@ -386,8 +392,10 @@ export const generateZone = (def: ZoneDef, seed: number, o: ZoneGenOpts = {}): Z
         cs.push({ i: ci + M, j: cj, r: Math.max(hw, hh) })
         rooms.push({ hw, hh })
       } else {
-        const r = last ? (boss ? 7.4 : 6.4) : 4.6 + rng() * 1.4
-        cj -= stepAt(k) + (last && boss ? 2 : 0) + Math.round(rng() * 1.5)
+        // The mini-boss's arena (#241) is a wider glade than the road's others.
+        const wide = hasMini && k === n - 1
+        const r = last ? (boss ? 7.4 : 6.4) : wide ? (rng(), 7) : 4.6 + rng() * 1.4
+        cj -= stepAt(k) + (last && boss ? 2 : 0) + (wide ? 2 : 0) + Math.round(rng() * 1.5)
         ci = Math.max(Math.ceil(r) + 3, Math.min(W - Math.ceil(r) - 4, ci + Math.round((rng() - 0.5) * 16)))
         cs.push({ i: ci + M, j: cj, r })
       }
@@ -438,7 +446,7 @@ export const generateZone = (def: ZoneDef, seed: number, o: ZoneGenOpts = {}): Z
   // The first visit's chain keeps the edge it had before the camp's rows were
   // added above it (#156): the boss's floor is the floor the opening fight was
   // tuned on; only the camp's own way opens it up (`carveCamp`).
-  if (h !== layoutHeight(shape, n, boss) - altCut) solid.fill(1, 0, (CAMP_ROOM + 2) * Wd)
+  if (h !== layoutHeight(shape, n, boss) - altCut + miniRows) solid.fill(1, 0, (CAMP_ROOM + 2) * Wd)
 
   // A side pocket for a secret chest, off one of the middle clearings.
   let secret: { x: number; z: number } | null = null
@@ -509,6 +517,11 @@ export const generateZone = (def: ZoneDef, seed: number, o: ZoneGenOpts = {}): Z
       packs.push({ x: c.x, z: c.z, r: c.r, kinds: [...ALT_PACKS[k]!], finale: false, boss: '' })
       continue
     }
+    if (hasMini && k === n - 1) {
+      // The Brood Mother's arena: she is alone in it; her brood comes out of the ground.
+      packs.push({ x: c.x, z: c.z - c.r * 0.15, r: c.r, kinds: [def.miniBoss!], finale: false, boss: '' })
+      continue
+    }
     if (o.tutorial && k === 1) {
       // Two plain goblins: something to learn the controls on.
       kinds.push(def.kinds[0]!.kind, def.kinds[0]!.kind)
@@ -576,6 +589,33 @@ export const generateZone = (def: ZoneDef, seed: number, o: ZoneGenOpts = {}): Z
       }
     }
     lake = { x: (li + 0.5) * CELL, z: (lj + 0.5) * CELL, r: Math.max(rx, ry) * CELL }
+  }
+
+  // A trail of webs along the road from the entry to the mini-boss's arena: slow, small, a little off the line, so that whoever
+  // follows them finds out what spun them (#241).
+  const webs: Array<{ x: number; z: number; r: number }> = []
+  if (hasMini) {
+    const a0 = cs[0]!
+    const a1 = cs[n - 1]!
+    // Not on the spot the hero starts on, nor in the arena itself (the clearings nearly touch: most of the road lies inside them).
+    const out = (i: number, j: number): boolean => Math.hypot(i - a0.i, j - a0.j) < a0.r * 0.8 || Math.hypot(i - a1.i, j - a1.j) < a1.r + 1
+    let flip = 1
+    for (let j = Math.floor(a0.j) - 4; j > a1.j + 8; j -= 4) {
+      // The road's cell nearest the middle of this band, off the clearings.
+      let best = -1
+      let bd = 1e9
+      for (let jj = j; jj > j - 3; jj--) for (let i = 3; i < Wd - 3; i++) {
+        if (!road[jj * Wd + i] || solid[jj * Wd + i] || out(i, jj)) continue
+        const d = Math.abs(i - (a0.i + (a1.i - a0.i) * ((a0.j - jj) / Math.max(1, a0.j - a1.j))))
+        if (d < bd) { bd = d; best = jj * Wd + i }
+      }
+      if (best < 0) continue
+      const bi = best % Wd
+      const bj = (best - bi) / Wd
+      const oi = bi + flip
+      flip = -flip
+      webs.push({ x: ((solid[bj * Wd + oi] ? bi : oi) + 0.5) * CELL, z: (bj + 0.5) * CELL, r: 1.3 })
+    }
   }
 
   const fin = clearings[n]!
@@ -772,6 +812,7 @@ export const generateZone = (def: ZoneDef, seed: number, o: ZoneGenOpts = {}): Z
     ...(camp ? { camp } : {}),
     ...(rebels ? { rebels } : {}),
     ...(gate ? { gate } : {}),
+    ...(webs.length ? { webs } : {}),
     pieces,
     // The first visit opens on a calm beat: a dummy to learn to fight on.
     ...(o.tutorial ? { dummy: placeDummy(solid, h, cs, features.chests, packs[0]!) } : {})

@@ -1033,6 +1033,7 @@ export class LevelProps {
       this.root.add(mesh)
     }
     this.buildScars(plan)
+    this.buildWebs(plan)
     const mists = (plan.dressing ?? []).filter(d => d.kind === 'mist')
     if (!mists.length) return
     const mat = new ShaderMaterial({
@@ -1098,6 +1099,67 @@ export class LevelProps {
     for (const g of parts) g.dispose()
     this.owned.push(geo)
     const mat = new MeshBasicMaterial({ vertexColors: true, transparent: true, opacity: 0.85, depthWrite: false, polygonOffset: true, polygonOffsetFactor: -2, polygonOffsetUnits: -2 })
+    this.mats.push(mat)
+    const mesh = markStill(new Mesh(geo, mat))
+    mesh.renderOrder = 2
+    this.root.add(mesh)
+  }
+
+  /**
+   * The webs along the road to the Brood Mother's arena (#241): a pale net on the ground, spokes and two rings, laid on the slope.
+   * A true decal like the scars (transparent, no depth write, offset toward the camera).
+   */
+  private buildWebs(plan: ZonePlan): void {
+    const webs = plan.webs ?? []
+    if (!webs.length) return
+    const parts: BufferGeometry[] = []
+    const spokes = 8
+    const rings = [0.45, 0.8]
+    const quad = (pos: number[], idx: number[], x0: number, z0: number, x1: number, z1: number, w: number, lift: number): void => {
+      const dx = x1 - x0
+      const dz = z1 - z0
+      const l = Math.hypot(dx, dz) || 1
+      const nx = (-dz / l) * w
+      const nz = (dx / l) * w
+      const k = pos.length / 3
+      for (const [x, z] of [[x0 - nx, z0 - nz], [x0 + nx, z0 + nz], [x1 + nx, z1 + nz], [x1 - nx, z1 - nz]] as const) pos.push(x, groundAt(x, z) + lift, z)
+      idx.push(k, k + 1, k + 2, k, k + 2, k + 3)
+    }
+    for (const d of webs) {
+      const pos: number[] = []
+      const idx: number[] = []
+      const rot = (d.x * 12.9898 + d.z * 78.233) % (Math.PI * 2)
+      for (let s = 0; s < spokes; s++) {
+        const a = rot + (s / spokes) * Math.PI * 2
+        quad(pos, idx, d.x, d.z, d.x + Math.cos(a) * d.r, d.z + Math.sin(a) * d.r, 0.035, 0.05)
+      }
+      for (const f of rings) {
+        const R = d.r * f
+        for (let s = 0; s < spokes; s++) {
+          const a0 = rot + (s / spokes) * Math.PI * 2
+          const a1 = rot + ((s + 1) / spokes) * Math.PI * 2
+          quad(pos, idx, d.x + Math.cos(a0) * R, d.z + Math.sin(a0) * R, d.x + Math.cos(a1) * R, d.z + Math.sin(a1) * R, 0.03, 0.05)
+        }
+      }
+      // A faint veil between the strands.
+      const c = pos.length / 3
+      pos.push(d.x, groundAt(d.x, d.z) + 0.04, d.z)
+      for (let s = 0; s <= 16; s++) {
+        const a = rot + (s / 16) * Math.PI * 2
+        const x = d.x + Math.cos(a) * d.r * 0.9
+        const z = d.z + Math.sin(a) * d.r * 0.9
+        pos.push(x, groundAt(x, z) + 0.04, z)
+        if (s > 0) idx.push(c, c + s + 1, c + s)
+      }
+      const g = new BufferGeometry()
+      g.setAttribute('position', new Float32BufferAttribute(pos, 3))
+      g.setIndex(idx)
+      parts.push(paint(g, '#eef0f8'))
+    }
+    const geo = merge(parts)
+    for (const g of parts) g.dispose()
+    this.owned.push(geo)
+    const mat = new MeshBasicMaterial({ vertexColors: true, transparent: true, opacity: 0.55, depthWrite: false, polygonOffset: true, polygonOffsetFactor: -2, polygonOffsetUnits: -2 })
     this.mats.push(mat)
     const mesh = markStill(new Mesh(geo, mat))
     mesh.renderOrder = 2

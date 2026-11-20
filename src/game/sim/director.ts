@@ -3,6 +3,7 @@ import { ARENA_WAVES, ZONES } from '../data/zones'
 import { milestoneAt } from '../data/arena'
 import { CELL } from './grid'
 import { armGate } from './gate'
+import { WEB_TRAIL_SLOW } from './bosses/brood'
 import { itemsOfZone, type ZoneId } from '../data/items'
 import { ENEMY_BY_ID } from '../data/enemies'
 import { FINALE_BEAT, LEAVE_BEAT, openChest, populateFeatures, stepPlates } from './interact'
@@ -108,6 +109,13 @@ export const populateZone = (sim: Sim, plan: ZonePlan, zone: ZoneId, owned: Iter
   populateRebels(sim, plan.rebels)
   // The first visit's palisade gate and its key (`gate.ts`).
   sim.gate = armGate(plan.gate, plan.gate ? plan.packs[plan.gate.pack] : undefined, sim.grid)
+  // The trail of webs to the Brood Mother's arena (#241): ground that holds whoever walks on it, as the war web does, but lightly.
+  for (const w of plan.webs ?? []) {
+    sim.fields.push({
+      active: true, fx: 'web', team: 1, srcId: 0, x: w.x, z: w.z, r: w.r, t: 0, dur: 1e9, every: 1, next: 1, dmg: 0, type: 'physical',
+      kind: 'web', v: WEB_TRAIL_SLOW, skill: '', color: '#e8e8f4'
+    })
+  }
   // An invaded zone (the afterplay): its pylons and rift scars.
   populateInvasion(sim, plan)
   // The Hollows' sections each have a trick (#EXT-2).

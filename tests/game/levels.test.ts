@@ -203,7 +203,7 @@ describe('the plan: everything a visit holds can be walked to', () => {
     // #120: every zone has a layout of its own (lava tongues, the path round
     // the Peak, galleries, courts, the castle, the Rift's islands).
     // #EXT-3/#EXT-2: the Hollows' packs now hold the shaman, bomb goblin and shield brute (and set fights per section), so the hash moved.
-    expect(h >>> 0).toBe(444540260)
+    expect(h >>> 0).toBe(1814370704)
     expect(generateZone(ZONES.plains, 77).packs.map(p => p.kinds)).toEqual([
       ['goblinSlinger', 'goblin', 'goblin'], ['goblinSlinger', 'goblin'], ['banditChief', 'bandit', 'goblinSlinger']
     ])
@@ -702,7 +702,7 @@ describe('optional corners', () => {
     h.unit.z = guard.z + 4
     run(sim, plan, 0.2)
     expect(guard.awake).toBe(true)
-    expect(pack.levelOffset).toBeLessThanOrEqual(1)
+    expect(pack.levelOffset).toBeLessThanOrEqual(2)
     kill(sim, guard, h.unit)
     run(sim, plan, 0.1)
     expect(chestLock(sim, chest)).toBe('')

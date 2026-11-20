@@ -117,7 +117,7 @@ describe('the invaded zones (generation)', () => {
   for (const z of ZONE_IDS) {
     it(`${z}: walkable to every pack and pylon, the campaign's clearings, its roster, ruins, scars and a pylon a section`, () => {
       const d = invadedZone(z)
-      const allowed = new Set([...d.kinds.map(e => e.kind), d.finale.leader, ...d.finale.with, ...(d.midBoss ? [d.midBoss] : [])])
+      const allowed = new Set([...d.kinds.map(e => e.kind), d.finale.leader, ...d.finale.with, ...(d.midBoss ? [d.midBoss] : []), ...(d.miniBoss ? [d.miniBoss] : [])])
       for (const seed of SEEDS) {
         const plan = generateZone(d, seed)
         const camp = generateZone(ZONES[z], seed)

@@ -826,9 +826,8 @@ const BASE_ENEMIES: readonly EnemyDef[] = [
     hp: 4.4, dmg: 1.15, armor: 1.6, speed: 3.5, style: 'melee', type: 'physical', range: 2.4, interval: 1.3, windup: 0.38,
     aggro: 11, reward: 0.45, color: '#a65fe6', phase2: 0.5, script: 'brood',
     abilities: [
-      { kind: 'lob', cd: 6, first: 2.5, range: 10, min: 2, windup: 0.7, recover: 0.4, dmg: 1.1, r: 2.4, type: 'poison', fx: 'venom', status: { id: 'poison', dur: 4, v: 0.25, type: 'poison' } },
-      { kind: 'summon', cd: 14, first: 6, range: 20, windup: 0.8, recover: 0.5, spawn: 'spider', count: 2 },
-      { kind: 'summon', cd: 12, first: 1, range: 20, windup: 0.8, recover: 0.5, spawn: 'spider', count: 3, phase: 2 }
+      // Her brood is the script's (`sim/bosses/brood.ts`): spiderlings out of the ground, not the spider kind's plain summons.
+      { kind: 'lob', cd: 6, first: 2.5, range: 10, min: 2, windup: 0.7, recover: 0.4, dmg: 1.1, r: 2.4, type: 'poison', fx: 'venom', status: { id: 'poison', dur: 4, v: 0.25, type: 'poison' } }
     ]
   }),
   D({

@@ -2,7 +2,7 @@ import {
   CELL, blockOnLine, blocksSightAt, cellOf, centerOf, clearCorridor, detourBlocks, findPath, hasLineOfSight, isSolidAt, isSolidCell, moveCircle,
   nearestOpen, resolveCircle, setTempSolid, smoothPath
 } from './grid'
-import { applyStatus, attackSpeedOf, dealDamage, heal, isControlled, moveSpeedOf } from './combat'
+import { applyStatus, attackSpeedOf, dealDamage, heal, isControlled, moveSpeedOf, isRooted } from './combat'
 import { angleTo, hasStatus, newAction, outOfReach, statusV, type Sim } from './world'
 import type { DamageType, Field, Projectile, StatusId, Team, Unit } from './types'
 
@@ -486,7 +486,8 @@ export const stepFields = (sim: Sim, dt: number): void => {
     // A web on the ground (#241): v is the slow it holds the other team at, refreshed while they stand in it.
     if (f.kind === 'web' && f.v > 0) {
       const caught = sim.inCircle(other, f.x, f.z, f.r, hits)
-      for (let i = 0; i < caught.length; i++) applyStatus(sim, caught[i]!, 'slow', 0.35, f.v, src, { quiet: true })
+      // (A body held by roots is left alone: a web's refresh must not keep a root going for good.)
+      for (let i = 0; i < caught.length; i++) if (!isRooted(caught[i]!)) applyStatus(sim, caught[i]!, 'slow', 0.35, f.v, src, { quiet: true })
     }
     if (f.next <= 0) {
       f.next += f.every
